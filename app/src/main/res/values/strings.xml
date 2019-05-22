@@ -1,0 +1,190 @@
+<resources>
+    <string name="app_name">Multy Pro Neo</string>
+
+    <string name="welcome_my_home_network_title">My Home Network</string>
+    <string name="welcome_guest_wifi_access_title">Guest WiFi Access</string>
+    <string name="welcome_auto_configuration_title">Auto-configuration</string>
+    <string name="welcome_my_home_network_description">Secure access to gateway settings and all connected mobile devices, computers, and NAS.</string>
+    <string name="welcome_guest_wifi_access_description">Give your house guests basic Internet access to common web, email or online games.</string>
+    <string name="welcome_auto_configuration_description">Allow the device to automatically update the wireless settings on the Zyxel APs or wireless repeaters in its network.</string>
+
+    <string name="button_text_start"><u>START</u></string>
+    <string name="button_text_home">Home</string>
+    <string name="button_text_devices">Devices</string>
+    <string name="button_text_parental">Parental</string>
+    <string name="button_text_wifi">WiFi</string>
+    <string name="button_text_diagnostic">Diagnostic</string>
+    <string name="button_text_account">Account</string>
+
+    <string name="menu_text_diagnostic">Diagnostic</string>
+    <string name="menu_text_add_mesh">Add Mesh</string>
+    <string name="menu_text_help">Help</string>
+    <string name="menu_text_about">About</string>
+    <string name="menu_text_logout">Logout</string>
+    <string name="menu_text_app_version">App Version</string>
+
+    <string name="find_device_title">Oops!</string>
+    <string name="find_device_status_description">Please wait.\nThis may take a few seconds.</string>
+    <string name="find_device_working_description">Looking for your devices...</string>
+    <string name="find_device_no_result_description">Cannot find your device.\nPlease click the Retry button to start again.</string>
+
+    <string name="gateway_list_title">Device Found</string>
+    <string name="gateway_list_choose">Choose a device to login</string>
+
+    <string name="login_title">Login</string>
+    <string name="login_description">Enter Username and Password</string>
+    <string name="login_username_hint">Enter Username</string>
+    <string name="login_password_hint">Enter Password</string>
+    <string name="login_error">Username or Password error</string>
+    <string name="login_no_support_character">Special characters are not supported</string>
+
+    <string name="home_title">Home</string>
+    <string name="home_internet_status">Internet Status:</string>
+    <string name="home_connected_devices">Connected\nDevices</string>
+    <string name="home_guest_wifi">Guest\nWiFi</string>
+    <string name="home_guest_wifi_status_on">ON</string>
+    <string name="home_guest_wifi_status_off">OFF</string>
+    <string name="home_online">Online</string>
+    <string name="home_offline">Offline</string>
+
+    <string name="internet_status_dialog_good">Good</string>
+    <string name="internet_status_dialog_weak">Weak</string>
+    <string name="internet_status_dialog_too_close">Too Close</string>
+    <string name="internet_status_dialog_na">N/A (Disconnect)</string>
+    <string name="internet_status_dialog_good_description">All set, enjoy it.</string>
+    <string name="internet_status_dialog_weak_description">Move the extender closer to the gateway.</string>
+    <string name="internet_status_dialog_too_close_description">The extender is too close to the gateway, please find another location farer from the gateway.</string>
+    <string name="internet_status_dialog_na_description">Make sure the extender is located and the power is on.</string>
+    <string name="internet_status_dialog_close">Close</string>
+
+    <string name="device_detail_detail">Detail</string>
+    <string name="device_detail_model_name">Model Name</string>
+    <string name="device_detail_status">Status</string>
+    <string name="device_detail_connect_type">Connect Type</string>
+    <string name="device_detail_wan_ip">WAN IP</string>
+    <string name="device_detail_dns_ip">DNS IP</string>
+    <string name="device_detail_lan_ip">LAN IP</string>
+    <string name="device_detail_ip_address">IP Address</string>
+    <string name="device_detail_mac_address">MAC Address</string>
+    <string name="device_detail_fw_version">Firmware Version</string>
+    <string name="device_detail_reboot">Reboot</string>
+    <string name="device_detail_remove_device"><u>Remove this device</u></string>
+    <string name="device_detail_connecting">Connecting</string>
+    <string name="device_detail_disconnect">Disconnect</string>
+    <string name="device_detail_blocked">Blocked</string>
+    <string name="device_detail_wire">Wire</string>
+    <string name="device_detail_title">Device Detail</string>
+    <string name="device_detail_device_name">Device Name</string>
+    <string name="device_detail_internet_access">Internet Access</string>
+    <string name="device_detail_block_device">Block Device</string>
+    <string name="device_detail_profile">Profile</string>
+    <string name="device_detail_last_seen">Last Seen</string>
+    <string name="device_detail_connect_to">Connect To</string>
+    <string name="device_detail_wifi_band">WiFi Bnad</string>
+    <string name="device_detail_wifi_channel">WiFi Channel</string>
+    <string name="device_detail_max_speed">Max Speed</string>
+    <string name="device_detail_rssi">RSSI (Client to AP)</string>
+    <string name="device_detail_manufacturer">Manufacturer</string>
+    <string name="device_detail_internet_blocking">Internet Blocking</string>
+    <string name="device_detail_parental_control">Parental Control</string>
+
+    <string name="device_search_cancel">Cancel</string>
+
+    <string name="devices_title">Devices</string>
+    <string name="devices_activated">activated /</string>
+    <string name="devices_total">total</string>
+    <string name="devices_home_devices">Home Devices</string>
+    <string name="devices_guest_devices">Guest Devices</string>
+    <string name="devices_link_quality">Link Quality</string>
+
+    <string name="wifi_settings_title">WiFi Settings</string>
+    <string name="wifi_settings_wifi_name">WiFi Name</string>
+    <string name="wifi_settings_wifi_password">WiFi Password</string>
+    <string name="wifi_settings_guest_wifi">Guest WiFi</string>
+    <string name="wifi_settings_guest_wifi_name">Guest WiFi Name</string>
+    <string name="wifi_settings_guest_wifi_password">Guest WiFi Password</string>
+    <string name="wifi_settings_edit_save">Save</string>
+    <string name="wifi_settings_edit_cancel">Cancel</string>
+    <string name="wifi_settings_edit_wifi">WiFi</string>
+
+    <string name="parental_control_schedule_time_done">Done</string>
+    <string name="parental_control_format_24hr">24hr</string>
+    <string name="parental_control_format_12hr">12hr</string>
+    <string name="parental_control_result_time_start">Start</string>
+    <string name="parental_control_result_time_end">End</string>
+
+    <string name="account_title">Account</string>
+    <string name="account_app_version">App Version</string>
+    <string name="account_privacy_policy">Privacy Policy</string>
+    <string name="account_logout">Logout</string>
+
+    <string name="diagnostic_title">Diagnostic</string>
+    <string name="diagnostic_tab_wifi_channel">WiFi Channel Chart</string>
+    <string name="diagnostic_tab_wifi_signal">WiFi Signal Meter</string>
+    <string name="diagnostic_channel_chart">Channel Chart</string>
+    <string name="diagnostic_signal_strength">Signal Strength [dBm]</string>
+    <string name="diagnostic_wifi_channels">WiFi Channels</string>
+    <string name="diagnostic_wifi_channels_24g">2.4GHz</string>
+    <string name="diagnostic_wifi_channels_5g">5GHz</string>
+    <string name="diagnostic_request_location_permission">Diagnostic function needs access to your location. Please turn on Location Services in your device\'s settings</string>
+    <string name="diagnostic_wifi_signal_wifi_name">WiFi Name</string>
+    <string name="diagnostic_wifi_signal_wifi_signal_strength">WiFi Signal Strength</string>
+    <string name="diagnostic_wifi_signal_wifi_band">WiFi Band</string>
+    <string name="diagnostic_wifi_signal_connect_to">Connected to</string>
+    <string name="diagnostic_wifi_signal_start">Start</string>
+    <string name="diagnostic_wifi_signal_stop">Stop</string>
+    <string name="diagnostic_wifi_signal_poor">Poor</string>
+    <string name="diagnostic_wifi_signal_excellent">Excellent</string>
+
+    <string name="mesh_title">What scenario you need?</string>
+    <string name="mesh_tip"><u>See Tips</u></string>
+    <string name="mesh_with_wireless">With Wirelessly</string>
+    <string name="mesh_with_wire">With Wired Cable</string>
+    <string name="mesh_tip_title">Tips</string>
+    <string name="mesh_tip_msg_topic">The ideal position for extender.</string>
+    <string name="mesh_tip_msg_position">Place in the open, elevated. On the self or top of a table.</string>
+    <string name="mesh_tip_msg_suggest">Minimize any physical obstructions so they can \"see\" each other.</string>
+    <string name="mesh_info_1">1</string>
+    <string name="mesh_info_2">2</string>
+    <string name="mesh_info_3">3</string>
+    <string name="mesh_info_optional">Optional</string>
+    <string name="mesh_info_hint">Tap button go to Home page and check if it was set up successfully.</string>
+    <string name="mesh_info_more_info"><u>More info</u></string>
+    <string name="mesh_info_go_home">Go To \"Home\"</string>
+    <string name="mesh_more_info_title">You may need to know</string>
+    <string name="mesh_more_info_description">LED indicates the wireless quality of Zyxel products, it may be vary from different extenders.</string>
+    <string name="mesh_more_info_example">Example: WAP6804</string>
+    <string name="mesh_more_info_hint">WPS may be enabled by different behaviors from different extenders.</string>
+
+    <string name="message_dialog_yes">YES</string>
+    <string name="message_dialog_no">NO</string>
+    <string name="message_dialog_ok">OK</string>
+    <string name="message_dialog_cancel">CANCEL</string>
+    <string name="message_dialog_restart">RESTART</string>
+    <string name="message_dialog_start">START</string>
+    <string name="message_dialog_warning">Warning</string>
+    <string name="message_dialog_delete_lower_case">Delete</string>
+    <string name="message_dialog_delete">DELETE</string>
+    <string name="message_dialog_applying">Applying...</string>
+    <string name="message_dialog_add">ADD</string>
+    <string name="message_dialog_not_connect">Cannot Connect</string>
+    <string name="message_dialog_not_connect_try_again">Please check your WiFi connection and try again later.</string>
+    <string name="message_dialog_reboot_reminder_title">Would you like to restart your device?</string>
+    <string name="message_dialog_reboot_reminder">It will take a few seconds to reconnect to your Device.</string>
+    <string name="message_dialog_block_title">Block \"...\" from the Internet?</string>
+    <string name="message_dialog_block_msg">The devices assigned to \"Steve\" profile will be blocked from the Internet until 9am, tomorrow.</string>
+    <string name="message_dialog_block_always">Always block</string>
+    <string name="message_dialog_check_lougot">Are you sure to logout this app?</string>
+
+    <string name="slide_dialog_profile_title">Select a profile</string>
+
+    <string name="qrcode_dialog_wifi_msg">Connect to WiFi by scanning the QR code.</string>
+    <string name="qrcode_dialog_guest_wifi_msg">Guests can connect to Guest WiFi by scanning the QR code.</string>
+    <string name="qrcode_dialog_done">Done</string>
+
+    <string name="loading_transition_please_wait">Please wait.</string>
+    <string name="loading_transition_update_wifi_settings">Updating WiFi Settings...</string>
+    <string name="loading_transition_take_few_minutes">Please wait.\nThis may take 3-4 minutes.</string>
+    <string name="loading_transition_reboot">Rebooting...</string>
+
+</resources>
