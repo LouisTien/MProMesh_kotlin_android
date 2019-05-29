@@ -116,51 +116,6 @@
 
             </LinearLayout>
 
-            <!--<com.andexert.library.RippleView
-                android:id="@+id/welcome_right_item_ripple"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="center_horizontal"
-                android:visibility="invisible">
-
-                <ImageView
-                    android:id="@+id/welcome_arrow_image"
-                    android:layout_width="@dimen/layout_size_120dp_in_1080"
-                    android:layout_height="@dimen/layout_size_40dp_in_1080"
-                    android:gravity="center"
-                    android:src="@drawable/next_icon"
-                    android:visibility="invisible"/>
-
-                <TextView
-                    android:id="@+id/welcome_right_start_text"
-                    android:layout_width="@dimen/layout_size_120dp_in_1080"
-                    android:layout_height="@dimen/layout_size_44dp_in_1080"
-                    android:gravity="center"
-                    android:textColor="@color/tab_selected"
-                    android:text="@string/button_text_start"
-                    android:visibility="invisible"/>
-
-            </com.andexert.library.RippleView>
-
-            <com.andexert.library.RippleView
-                android:id="@+id/welcome_left_item_ripple"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_gravity="center_horizontal"
-                android:visibility="invisible">
-
-                <TextView
-                    android:id="@+id/welcome_left_start_text"
-                    android:layout_width="@dimen/layout_size_120dp_in_1080"
-                    android:layout_height="@dimen/layout_size_44dp_in_1080"
-                    android:gravity="center"
-                    android:textColor="@color/tab_selected"
-                    android:text="@string/button_text_start" />
-
-            </com.andexert.library.RippleView>-->
-
         </RelativeLayout>
 
     </FrameLayout>

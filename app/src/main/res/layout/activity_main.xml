@@ -1,18 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="zyxel.com.multyproneo.MainActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_toolbar"
+            android:background="@drawable/content_bg"/>
 
-</android.support.constraint.ConstraintLayout>
+        <!-- 下選單 -->
+        <LinearLayout
+            android:id="@+id/bottom_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_size_main_bottom_toolbar_in_1080"
+            android:orientation="horizontal"
+            android:background="@drawable/tab_bg"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
+
+            <RelativeLayout
+                android:id="@+id/home_relative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/home_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/toolbar_home_btn"/>
+
+                <TextView
+                    android:id="@+id/home_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/home_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:textColor="@drawable/toolbar_btn_text"
+                    android:text="@string/button_text_home"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/devices_relative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/devices_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/toolbar_devices_btn"/>
+
+                <TextView
+                    android:id="@+id/devices_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/devices_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:textColor="@drawable/toolbar_btn_text"
+                    android:text="@string/button_text_devices"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/parental_relative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/parental_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/toolbar_parental_btn"/>
+
+                <TextView
+                    android:id="@+id/parental_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/parental_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:textColor="@drawable/toolbar_btn_text"
+                    android:text="@string/button_text_parental"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/wifi_relative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/wifi_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/toolbar_wifi_btn"/>
+
+                <TextView
+                    android:id="@+id/wifi_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/wifi_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:textColor="@drawable/toolbar_btn_text"
+                    android:text="@string/button_text_wifi"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/diagnostic_relative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/diagnostic_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/toolbar_diagnostic_btn"/>
+
+                <TextView
+                    android:id="@+id/diagnostic_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/diagnostic_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:textColor="@drawable/toolbar_btn_text"
+                    android:text="@string/button_text_diagnostic"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/account_relative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/account_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/toolbar_account_btn"/>
+
+                <TextView
+                    android:id="@+id/account_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/account_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:textColor="@drawable/toolbar_btn_text"
+                    android:text="@string/button_text_account"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+</RelativeLayout>

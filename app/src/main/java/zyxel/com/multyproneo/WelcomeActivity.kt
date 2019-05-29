@@ -96,11 +96,6 @@ class WelcomeActivity : AppCompatActivity()
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
     }
 
-    override fun onDestroy()
-    {
-        super.onDestroy()
-    }
-
     private fun startMainActivity()
     {
         if (firstTimeUse)
