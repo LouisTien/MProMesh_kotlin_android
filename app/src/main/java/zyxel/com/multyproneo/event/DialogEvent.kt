@@ -8,6 +8,6 @@ import zyxel.com.multyproneo.util.AppConfig
 class DialogEvent
 {
 
-    data class OnPositiveBtn(var action: AppConfig.Companion.DialogAction = AppConfig.Companion.DialogAction.ACT_NONE, var block: Boolean = false)
-    data class OnSlideListSelect(var data: String)
+    class OnPositiveBtn(var action: AppConfig.Companion.DialogAction = AppConfig.Companion.DialogAction.ACT_NONE, var block: Boolean = false)
+    class OnSlideListSelect(var data: String)
 }

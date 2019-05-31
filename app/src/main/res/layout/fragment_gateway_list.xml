@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/gateway_retry_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_retry"/>
+
+    <RelativeLayout
+        android:id="@+id/gateway_msg_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+        android:layout_below="@+id/gateway_retry_image">
+
+        <TextView
+            android:id="@+id/gateway_found_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/layout_size_25dp_in_1080"
+            android:textColor="@color/color_2d2b40"
+            android:text="@string/gateway_list_title"/>
+
+        <TextView
+            android:id="@+id/gateway_choose_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:text="@string/gateway_list_choose"
+            android:layout_below="@+id/gateway_found_title_text"/>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/gateway_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_30dp_in_1080"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/gateway_msg_area_relative" />
+
+    <ImageView
+        android:id="@+id/gateway_bottom_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo_customize"/>
+
+</RelativeLayout>

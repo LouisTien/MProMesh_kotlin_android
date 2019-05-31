@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gateway_model_frame"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/card_bg1">
+
+    <ImageView
+        android:id="@+id/gateway_model_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/device_wap4927"/>
+
+    <TextView
+        android:id="@+id/gateway_model_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_size_48dp_in_1080"
+        android:layout_gravity="center|bottom"
+        android:textSize="@dimen/text_size_18sp_in_1080"
+        android:text="WAP4927"/>
+
+    <ImageView
+        android:id="@+id/gateway_model_enter_image"
+        android:layout_width="@dimen/layout_size_30dp_in_1080"
+        android:layout_height="@dimen/layout_size_25dp_in_1080"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"/>
+
+</FrameLayout>

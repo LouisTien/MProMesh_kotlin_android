@@ -18,7 +18,9 @@ import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.model.GatewayProfile
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.GlobalData
 
 /**
  * Created by LouisTien on 2019/5/28.
@@ -27,7 +29,7 @@ class FindingDeviceFragment : Fragment()
 {
 
     private lateinit var startWiFiSettingDisposable: Disposable
-    private var retryTimes: Int = 0
+    private var retryTimes = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -38,10 +40,6 @@ class FindingDeviceFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
 
-        startWiFiSettingDisposable = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
-            startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
-        }
-
         loading_retry_image.setOnClickListener {
             retryTimes = 6
             startFindDevice()
@@ -51,7 +49,12 @@ class FindingDeviceFragment : Fragment()
     override fun onResume()
     {
         super.onResume()
+
         GlobalBus.publish(MainEvent.HideBottomToolbar())
+
+        startWiFiSettingDisposable = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
+            startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+        }
 
         val wifiManager = activity?.applicationContext?.getSystemService(Context.WIFI_SERVICE) as WifiManager
         if(!wifiManager.isWifiEnabled)
@@ -75,12 +78,12 @@ class FindingDeviceFragment : Fragment()
     override fun onPause()
     {
         super.onPause()
+        if(!startWiFiSettingDisposable.isDisposed) startWiFiSettingDisposable.dispose()
     }
 
     override fun onDestroyView()
     {
         super.onDestroyView()
-        if(!startWiFiSettingDisposable.isDisposed) startWiFiSettingDisposable.dispose()
     }
 
     private fun setFindDeviceUI()
@@ -107,12 +110,52 @@ class FindingDeviceFragment : Fragment()
 
     private fun runSearchTask()
     {
+        loading_animation_view.setAnimation("searching.json")
+        loading_animation_view.playAnimation()
+
         doAsync {
+            var res = false
+            var newGatewayProfileArrayList = arrayListOf<GatewayProfile>(
+                    GatewayProfile(
+                            modelName = "EMG6726-B10A",
+                            systemName = "EMG6726-B10A",
+                            IP = "192.168.1.1",
+                            firmwareVersion = "V5.13(ABNP.1)b2",
+                            serial = "S180Y21006075",
+                            userDefineName = "EMG6726-B10A",
+                            initFlag = -1,
+                            multyFlag = 1,
+                            internetProtocol = "HTTP",
+                            customer = "ZYXEL"
+                    ),
+                    GatewayProfile(
+                            modelName = "WAP6804",
+                            systemName = "zyxelsetup",
+                            IP = "192.168.1.151",
+                            firmwareVersion = "1.00(ABKH.6)C0",
+                            serial = "S170Y32040619",
+                            userDefineName = "WAP6804",
+                            multyFlag = 1,
+                            type = -1
+                    )
+            )
+
             retryTimes++
+            res = true
+            Thread.sleep(3000)
 
             uiThread {
-                loading_animation_view.setAnimation("searching.json")
-                loading_animation_view.playAnimation()
+                if(res)
+                {
+                    GlobalData.gatewayProfileArrayList = newGatewayProfileArrayList.clone() as ArrayList<GatewayProfile>
+                    GlobalBus.publish(MainEvent.SwitchToFrag(GatewayListFragment()))
+                }
+                else
+                {
+                    loading_animation_view.setAnimation("nofound.json")
+                    loading_animation_view.playAnimation()
+                    setNotFindDeviceUI()
+                }
             }
         }
     }

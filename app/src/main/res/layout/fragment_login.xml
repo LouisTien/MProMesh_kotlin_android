@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/login_back_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_back"/>
+
+    <RelativeLayout
+        android:id="@+id/login_msg_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+        android:layout_below="@+id/login_back_image">
+
+        <TextView
+            android:id="@+id/login_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/layout_size_25dp_in_1080"
+            android:textColor="@color/color_2d2b40"
+            android:text="@string/login_title"/>
+
+        <TextView
+            android:id="@+id/login_description_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:text="@string/login_description"
+            android:layout_below="@+id/login_title_text"/>
+
+        <EditText
+            android:id="@+id/login_username_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="30"
+            android:singleLine="true"
+            android:hint="@string/login_username_hint"
+            android:background="@color/color_ffffff"
+            android:textSize="@dimen/text_size_22sp_in_1080"
+            android:layout_marginTop="@dimen/layout_size_40dp_in_1080"
+            android:layout_below="@+id/login_description_text"/>
+
+        <TextView
+            android:id="@+id/login_username_error_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/layout_size_14dp_in_1080"
+            android:textColor="@color/color_ff2837"
+            android:text="@string/login_error"
+            android:layout_below="@+id/login_username_edit"
+            android:visibility="invisible"/>
+
+        <EditText
+            android:id="@+id/login_password_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:maxLength="30"
+            android:singleLine="true"
+            android:hint="@string/login_password_hint"
+            android:background="@color/color_ffffff"
+            android:textSize="@dimen/text_size_22sp_in_1080"
+            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+            android:layout_below="@+id/login_username_error_text"/>
+
+        <ImageView
+            android:id="@+id/login_password_show_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/login_password_edit"
+            android:layout_alignRight="@+id/login_password_edit"
+            android:layout_alignTop="@+id/login_password_edit"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/icon_hide"/>
+
+        <TextView
+            android:id="@+id/login_password_error_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/layout_size_14dp_in_1080"
+            android:textColor="@color/color_ff2837"
+            android:text="@string/login_error"
+            android:layout_below="@+id/login_password_edit"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/login_enter_button"
+        android:layout_width="@dimen/layout_size_70dp_in_1080"
+        android:layout_height="@dimen/layout_size_40dp_in_1080"
+        android:background="@drawable/button_style_yellow_bg"
+        android:text="@string/login_title"
+        android:textAllCaps="false"
+        android:textSize="@dimen/layout_size_20dp_in_1080"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
+        android:enabled="false"
+        android:layout_below="@+id/login_msg_area_relative"/>
+
+    <ImageView
+        android:id="@+id/login_bottom_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo_customize"/>
+
+</RelativeLayout>

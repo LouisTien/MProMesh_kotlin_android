@@ -14,7 +14,7 @@ import zyxel.com.multyproneo.R
 class WelcomeAdapter : PagerAdapter
 {
     val context: Context
-    val welcomeImagesRes: IntArray = intArrayOf(R.drawable.tutorial_1, R.drawable.tutorial_2, R.drawable.tutorial_3)
+    val welcomeImagesRes = intArrayOf(R.drawable.tutorial_1, R.drawable.tutorial_2, R.drawable.tutorial_3)
     lateinit var inflator: LayoutInflater
 
     constructor(context: Context) : super()

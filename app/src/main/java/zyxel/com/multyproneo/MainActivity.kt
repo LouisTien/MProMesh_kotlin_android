@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity()
     private lateinit var startGetDeviceInfoTaskDisposable: Disposable
     private lateinit var stopGetDeviceInfoTaskDisposable: Disposable
     private lateinit var loadingDlg: Dialog
-    private var currentFrag: String = ""
+    private var currentFrag = ""
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
