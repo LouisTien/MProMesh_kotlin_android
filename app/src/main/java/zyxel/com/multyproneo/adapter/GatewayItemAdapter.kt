@@ -13,7 +13,7 @@ import zyxel.com.multyproneo.model.GatewayProfile
 /**
  * Created by LouisTien on 2019/5/30.
  */
-class GatewayItemAdapter(val gatewayList: ArrayList<GatewayProfile>) : RecyclerView.Adapter<GatewayItemAdapter.ViewHolder>()
+class GatewayItemAdapter(val gatewayList: MutableList<GatewayProfile>) : RecyclerView.Adapter<GatewayItemAdapter.ViewHolder>()
 {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder

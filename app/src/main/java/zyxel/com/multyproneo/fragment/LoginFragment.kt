@@ -4,16 +4,19 @@ import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.fragment_login.*
+import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayProfile
+import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.GlobalData
 
 /**
@@ -41,6 +44,7 @@ class LoginFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        setOnClickListener()
     }
 
     override fun onResume()
@@ -63,6 +67,9 @@ class LoginFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+
+        if(keyboardListenersAttached)
+            view?.viewTreeObserver?.addOnGlobalLayoutListener(null)
     }
 
     protected fun attachKeyboardListeners()
@@ -76,7 +83,7 @@ class LoginFragment : Fragment()
                 val rect = Rect()
                 view?.getWindowVisibleDisplayFrame(rect)
                 val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)
-                if(heightDiff > 500)
+                if (heightDiff > 500)
                 {
                     login_title_text.visibility = View.GONE
                     login_description_text.visibility = View.GONE
@@ -92,13 +99,84 @@ class LoginFragment : Fragment()
         keyboardListenersAttached = true
     }
 
+    private fun setOnClickListener()
+    {
+        login_back_image.setOnClickListener {
+            inputMethodManager.hideSoftInputFromWindow(login_username_edit.applicationWindowToken, 0)
+            inputMethodManager.hideSoftInputFromWindow(login_password_edit.applicationWindowToken, 0)
+            GlobalBus.publish(MainEvent.SwitchToFrag(FindingDeviceFragment()))
+        }
+
+        login_password_show_image.setOnClickListener {
+            login_password_edit.transformationMethod = if (showPassword) PasswordTransformationMethod() else null
+            login_password_show_image.setImageDrawable(getResources().getDrawable(if (showPassword) R.drawable.icon_hide else R.drawable.icon_show))
+            showPassword = !showPassword
+        }
+
+        login_enter_button.setOnClickListener {
+
+        }
+    }
+
+    private fun checkInputEditUI()
+    {
+        when (userNameIllegalInput)
+        {
+            true ->
+            {
+                login_username_error_text.text = getString(R.string.login_no_support_character)
+                login_username_error_text.visibility = View.VISIBLE
+            }
+
+            false -> login_username_error_text.visibility = View.INVISIBLE
+        }
+
+        when (passwordIllegalInput)
+        {
+            true ->
+            {
+                login_password_error_text.text = getString(R.string.login_no_support_character)
+                login_password_error_text.visibility = View.VISIBLE
+            }
+
+            false -> login_password_error_text.visibility = View.INVISIBLE
+        }
+
+        when
+        {
+            login_username_edit.text.length >= userNameRequiredLength
+            && login_password_edit.text.length >= passwordRequiredLength
+            && !userNameIllegalInput
+            && !passwordIllegalInput
+            -> login_enter_button.isEnabled = true
+
+            else -> login_enter_button.isEnabled = false
+        }
+    }
+
     private fun initLoginUsernameEdit()
     {
-
+        login_username_edit.textChangedListener {
+            onTextChanged {
+                str: CharSequence?, start: Int, before: Int, count: Int ->
+                try
+                {
+                    userNameIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
+                    checkInputEditUI()
+                }
+                catch (ex: NumberFormatException) {}
+            }
+        }
     }
 
     private fun initLoginPasswordEdit()
     {
-
+        login_password_edit.textChangedListener {
+            onTextChanged {
+                str: CharSequence?, start: Int, before: Int, count: Int ->
+                passwordIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
+                checkInputEditUI()
+            }
+        }
     }
 }

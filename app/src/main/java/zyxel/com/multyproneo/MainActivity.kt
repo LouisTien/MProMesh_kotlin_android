@@ -25,8 +25,8 @@ class MainActivity : AppCompatActivity()
     private lateinit var showBottomToolbarDisposable: Disposable
     private lateinit var hideBottomToolbarDisposable: Disposable
     private lateinit var setHomeIconFocusDisposable: Disposable
-    private lateinit var startGetDeviceInfoTaskDisposable: Disposable
-    private lateinit var stopGetDeviceInfoTaskDisposable: Disposable
+    //private lateinit var startGetDeviceInfoTaskDisposable: Disposable
+    //private lateinit var stopGetDeviceInfoTaskDisposable: Disposable
     private lateinit var loadingDlg: Dialog
     private var currentFrag = ""
 
@@ -112,8 +112,8 @@ class MainActivity : AppCompatActivity()
         if(!showBottomToolbarDisposable.isDisposed) showBottomToolbarDisposable.dispose()
         if(!hideBottomToolbarDisposable.isDisposed) hideBottomToolbarDisposable.dispose()
         if(!setHomeIconFocusDisposable.isDisposed) setHomeIconFocusDisposable.dispose()
-        if(!startGetDeviceInfoTaskDisposable.isDisposed) startGetDeviceInfoTaskDisposable.dispose()
-        if(!stopGetDeviceInfoTaskDisposable.isDisposed) stopGetDeviceInfoTaskDisposable.dispose()
+        //if(!startGetDeviceInfoTaskDisposable.isDisposed) startGetDeviceInfoTaskDisposable.dispose()
+        //if(!stopGetDeviceInfoTaskDisposable.isDisposed) stopGetDeviceInfoTaskDisposable.dispose()
     }
 
     private fun switchToFragContainer(fragment: Fragment)

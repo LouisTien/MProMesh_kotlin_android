@@ -11,11 +11,11 @@ class GlobalData
     companion object
     {
         var currentGatewayIndex = 0
-        var gatewayProfileArrayList = arrayListOf<GatewayProfile>()
+        var gatewayProfileMutableList = mutableListOf<GatewayProfile>()
 
         fun getCurrentGatewayInfo(): GatewayProfile
         {
-            return gatewayProfileArrayList.get(currentGatewayIndex)
+            return gatewayProfileMutableList.get(currentGatewayIndex)
         }
     }
 }

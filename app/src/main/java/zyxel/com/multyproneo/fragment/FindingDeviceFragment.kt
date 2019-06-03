@@ -115,7 +115,7 @@ class FindingDeviceFragment : Fragment()
 
         doAsync {
             var res = false
-            var newGatewayProfileArrayList = arrayListOf<GatewayProfile>(
+            var newGatewayProfileMutableList = mutableListOf<GatewayProfile>(
                     GatewayProfile(
                             modelName = "EMG6726-B10A",
                             systemName = "EMG6726-B10A",
@@ -147,7 +147,7 @@ class FindingDeviceFragment : Fragment()
             uiThread {
                 if(res)
                 {
-                    GlobalData.gatewayProfileArrayList = newGatewayProfileArrayList.clone() as ArrayList<GatewayProfile>
+                    GlobalData.gatewayProfileMutableList = newGatewayProfileMutableList.toMutableList()//copy list to global data
                     GlobalBus.publish(MainEvent.SwitchToFrag(GatewayListFragment()))
                 }
                 else
