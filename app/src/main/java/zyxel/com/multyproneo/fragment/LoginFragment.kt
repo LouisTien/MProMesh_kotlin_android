@@ -44,7 +44,9 @@ class LoginFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        setOnClickListener()
+        setClickListener()
+        initLoginUsernameEdit()
+        initLoginPasswordEdit()
     }
 
     override fun onResume()
@@ -55,8 +57,6 @@ class LoginFragment : Fragment()
         gatewayInfo = GlobalData.getCurrentGatewayInfo()
         login_title_text.text = getString(R.string.login_title) + " " + gatewayInfo.modelName
         attachKeyboardListeners()
-        initLoginUsernameEdit()
-        initLoginPasswordEdit()
     }
 
     override fun onPause()
@@ -68,54 +68,70 @@ class LoginFragment : Fragment()
     {
         super.onDestroyView()
 
-        if(keyboardListenersAttached)
-            view?.viewTreeObserver?.addOnGlobalLayoutListener(null)
+        if (keyboardListenersAttached)
+            view?.viewTreeObserver?.removeGlobalOnLayoutListener(keyboardLayoutListener)
+    }
+
+    private val keyboardLayoutListener = object: ViewTreeObserver.OnGlobalLayoutListener
+    {
+        override fun onGlobalLayout()
+        {
+            val rect = Rect()
+            view?.getWindowVisibleDisplayFrame(rect)
+            val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)
+            if (heightDiff > 500)
+            {
+                login_title_text.visibility = View.GONE
+                login_description_text.visibility = View.GONE
+            }
+            else
+            {
+                login_title_text.visibility = View.VISIBLE
+                login_description_text.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private val clickListener = View.OnClickListener { view ->
+        when (view)
+        {
+            login_back_image ->
+            {
+                inputMethodManager.hideSoftInputFromWindow(login_username_edit.applicationWindowToken, 0)
+                inputMethodManager.hideSoftInputFromWindow(login_password_edit.applicationWindowToken, 0)
+                GlobalBus.publish(MainEvent.SwitchToFrag(FindingDeviceFragment()))
+            }
+
+            login_password_show_image ->
+            {
+                login_password_edit.transformationMethod = if (showPassword) PasswordTransformationMethod() else null
+                login_password_show_image.setImageDrawable(getResources().getDrawable(if (showPassword) R.drawable.icon_hide else R.drawable.icon_show))
+                showPassword = !showPassword
+            }
+
+            login_enter_button ->
+            {
+                inputMethodManager.hideSoftInputFromWindow(login_username_edit.applicationWindowToken, 0)
+                inputMethodManager.hideSoftInputFromWindow(login_password_edit.applicationWindowToken, 0)
+                GlobalBus.publish(MainEvent.SwitchToFrag(HomeFragment()))
+            }
+        }
     }
 
     protected fun attachKeyboardListeners()
     {
-        if(keyboardListenersAttached) return
+        if (keyboardListenersAttached) return
 
-        view?.viewTreeObserver?.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener
-        {
-            override fun onGlobalLayout()
-            {
-                val rect = Rect()
-                view?.getWindowVisibleDisplayFrame(rect)
-                val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)
-                if (heightDiff > 500)
-                {
-                    login_title_text.visibility = View.GONE
-                    login_description_text.visibility = View.GONE
-                }
-                else
-                {
-                    login_title_text.visibility = View.VISIBLE
-                    login_description_text.visibility = View.VISIBLE
-                }
-            }
-        })
+        view?.viewTreeObserver?.addOnGlobalLayoutListener(keyboardLayoutListener)
 
         keyboardListenersAttached = true
     }
 
-    private fun setOnClickListener()
+    private fun setClickListener()
     {
-        login_back_image.setOnClickListener {
-            inputMethodManager.hideSoftInputFromWindow(login_username_edit.applicationWindowToken, 0)
-            inputMethodManager.hideSoftInputFromWindow(login_password_edit.applicationWindowToken, 0)
-            GlobalBus.publish(MainEvent.SwitchToFrag(FindingDeviceFragment()))
-        }
-
-        login_password_show_image.setOnClickListener {
-            login_password_edit.transformationMethod = if (showPassword) PasswordTransformationMethod() else null
-            login_password_show_image.setImageDrawable(getResources().getDrawable(if (showPassword) R.drawable.icon_hide else R.drawable.icon_show))
-            showPassword = !showPassword
-        }
-
-        login_enter_button.setOnClickListener {
-
-        }
+        login_back_image.setOnClickListener(clickListener)
+        login_password_show_image.setOnClickListener(clickListener)
+        login_enter_button.setOnClickListener(clickListener)
     }
 
     private fun checkInputEditUI()

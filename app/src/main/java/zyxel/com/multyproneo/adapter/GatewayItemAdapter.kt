@@ -13,7 +13,7 @@ import zyxel.com.multyproneo.model.GatewayProfile
 /**
  * Created by LouisTien on 2019/5/30.
  */
-class GatewayItemAdapter(val gatewayList: MutableList<GatewayProfile>) : RecyclerView.Adapter<GatewayItemAdapter.ViewHolder>()
+class GatewayItemAdapter(private val gatewayList: MutableList<GatewayProfile>) : RecyclerView.Adapter<GatewayItemAdapter.ViewHolder>()
 {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
@@ -35,7 +35,7 @@ class GatewayItemAdapter(val gatewayList: MutableList<GatewayProfile>) : Recycle
         {
             itemView.gateway_model_name_text.text = gatewayInfo.userDefineName
 
-            with(gatewayInfo.modelName)
+            with (gatewayInfo.modelName)
             {
                 when
                 {

@@ -51,7 +51,7 @@ class GatewayListFragment : Fragment()
 
         gatewayProfileMutableList = GlobalData.gatewayProfileMutableList
 
-        with(gateway_list_view)
+        with (gateway_list_view)
         {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)

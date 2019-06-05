@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/diagnostic_title_area_frame"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_size_105dp_in_1080"
+        android:background="@drawable/actionbar_diagnostic_bg">
+
+        <RelativeLayout
+            android:id="@+id/diagnostic_title_relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_20dp_in_1080">
+
+            <ImageView
+                android:id="@+id/diagnostic_back_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                android:src="@drawable/icon_back"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/diagnostic_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/text_size_20sp_in_1080"
+                android:textColor="@color/color_575757"
+                android:text="@string/diagnostic_title"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/diagnostic_tab_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/diagnostic_tab_wifi_channel_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_575757"
+                android:textStyle="bold"
+                android:text="@string/diagnostic_tab_wifi_channel"/>
+
+            <TextView
+                android:id="@+id/diagnostic_tab_wifi_signal_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_575757"
+                android:textStyle="bold"
+                android:text="@string/diagnostic_tab_wifi_signal"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/diagnostic_content_area_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/diagnostic_title_area_frame">
+
+    </FrameLayout>
+
+</RelativeLayout>

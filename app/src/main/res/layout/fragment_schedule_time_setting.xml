@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/schedule_time_set_title_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/actionbar_detail_bg">
+
+        <TextView
+            android:id="@+id/schedule_time_set_cancel_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:textColor="@color/color_575757"
+            android:text="@string/wifi_settings_edit_cancel"/>
+
+        <TextView
+            android:id="@+id/schedule_time_set_done_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:textColor="@color/color_575757"
+            android:textStyle="bold"
+            android:text="@string/parental_control_schedule_time_done"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/schedule_time_set_content_area_linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/schedule_time_set_title_area_relative"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/schedule_time_set_picker_area_frame"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8">
+
+            <picker.ugurtekbas.com.Picker.Picker
+                android:id="@+id/schedule_time_set_picker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:id="@+id/schedule_time_set_picker_format_area_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/layout_size_40dp_in_1080"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/schedule_time_set_24_hr_linear"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/schedule_time_set_24_hr_button"
+                        android:layout_width="@dimen/layout_size_40dp_in_1080"
+                        android:layout_height="@dimen/layout_size_30dp_in_1080"
+                        android:layout_gravity="right"
+                        android:background="@drawable/button_style_white_small_bg"
+                        android:text="@string/parental_control_format_24hr"
+                        android:textColor="@color/color_575757"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/layout_size_16dp_in_1080"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/layout_size_30dp_in_1080"
+                    android:layout_weight="0.15"
+                    android:textSize="@dimen/layout_size_20dp_in_1080"
+                    android:textColor="@color/color_575757"
+                    android:text="  /  "/>
+
+                <LinearLayout
+                    android:id="@+id/schedule_time_set_12_hr_linear"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/schedule_time_set_12_hr_button"
+                        android:layout_width="@dimen/layout_size_40dp_in_1080"
+                        android:layout_height="@dimen/layout_size_30dp_in_1080"
+                        android:layout_gravity="right"
+                        android:background="@null"
+                        android:text="@string/parental_control_format_12hr"
+                        android:textColor="@color/color_575757"
+                        android:textAllCaps="false"
+                        android:textSize="@dimen/layout_size_16dp_in_1080"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/schedule_time_set_result_area_linear"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="0.2"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:id="@+id/schedule_time_set_start_linear"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/schedule_time_set_start_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/color_575757"
+                    android:textSize="@dimen/layout_size_16dp_in_1080"
+                    android:text="@string/parental_control_result_time_start"/>
+
+                <LinearLayout
+                    android:id="@+id/schedule_time_set_start_value_linear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/schedule_time_set_start_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_36sp_in_1080"
+                        android:text="00:00"/>
+
+                    <TextView
+                        android:id="@+id/schedule_time_set_start_format_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|bottom"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/layout_size_16dp_in_1080"
+                        android:text="AM"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/schedule_time_set_end_linear"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/schedule_time_set_end_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/color_575757"
+                    android:textSize="@dimen/layout_size_16dp_in_1080"
+                    android:text="@string/parental_control_result_time_end"/>
+
+                <LinearLayout
+                    android:id="@+id/schedule_time_set_end_value_linear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/schedule_time_set_end_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_36sp_in_1080"
+                        android:text="00:00"/>
+
+                    <TextView
+                        android:id="@+id/schedule_time_set_end_format_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|bottom"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/layout_size_16dp_in_1080"
+                        android:text="AM"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -145,7 +145,7 @@ class FindingDeviceFragment : Fragment()
             Thread.sleep(3000)
 
             uiThread {
-                if(res)
+                if (res)
                 {
                     GlobalData.gatewayProfileMutableList = newGatewayProfileMutableList.toMutableList()//copy list to global data
                     GlobalBus.publish(MainEvent.SwitchToFrag(GatewayListFragment()))

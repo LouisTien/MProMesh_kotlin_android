@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/mesh_info_back_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_back"/>
+
+    <ScrollView
+        android:id="@+id/mesh_info_content_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080">
+
+        <LinearLayout
+            android:id="@+id/mesh_info_content_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/mesh_info_conten_1_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_22sp_in_1080"
+                android:textColor="@color/color_000000"
+                android:text="@string/mesh_info_1"/>
+
+            <ImageView
+                android:id="@+id/mesh_info_conten_wps_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/addmesh_wifi1"/>
+
+            <LinearLayout
+                android:id="@+id/mesh_info_content_optional_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/mesh_info_conten_2_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_22sp_in_1080"
+                    android:textColor="@color/color_000000"
+                    android:text="@string/mesh_info_2"/>
+
+                <TextView
+                    android:id="@+id/mesh_info_conten_optional_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/layout_size_5dp_in_1080"
+                    android:textSize="@dimen/text_size_16sp_in_1080"
+                    android:textColor="@color/color_575757"
+                    android:text="@string/mesh_info_optional"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/mesh_info_conten_optional_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/addmesh_wifi2"/>
+
+            <LinearLayout
+                android:id="@+id/mesh_info_content_hint_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/mesh_info_conten_3_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_22sp_in_1080"
+                    android:textColor="@color/color_000000"
+                    android:text="@string/mesh_info_3"/>
+
+                <TextView
+                    android:id="@+id/mesh_info_conten_hint_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/layout_size_5dp_in_1080"
+                    android:textSize="@dimen/text_size_16sp_in_1080"
+                    android:textColor="@color/color_575757"
+                    android:text="@string/mesh_info_hint"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/mesh_info_conten_more_info_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                android:textSize="@dimen/text_size_16sp_in_1080"
+                android:textColor="@color/color_575757"
+                android:text="@string/mesh_info_more_info"/>
+
+            <Button
+                android:id="@+id/mesh_info_conten_go_home_button"
+                android:layout_width="@dimen/layout_size_140dp_in_1080"
+                android:layout_height="@dimen/layout_size_40dp_in_1080"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+                android:layout_gravity="center|bottom"
+                android:background="@drawable/button_style_yellow_bg"
+                android:text="@string/mesh_info_go_home"
+                android:textAllCaps="false"
+                android:textSize="@dimen/layout_size_20dp_in_1080"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

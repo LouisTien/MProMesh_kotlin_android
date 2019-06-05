@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/interner_msg_good"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_16dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_16dp_in_1080"
+        android:text="@string/internet_status_dialog_good"
+        android:textColor="@color/color_3c9f00"
+        android:textSize="@dimen/text_size_16sp_in_1080"/>
+
+    <TextView
+        android:id="@+id/interner_msg_good_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_size_16dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_16dp_in_1080"
+        android:text="@string/internet_status_dialog_good_description"
+        android:textColor="@color/color_000000"
+        android:textSize="@dimen/text_size_16sp_in_1080" />
+
+    <TextView
+        android:id="@+id/interner_msg_weak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_16dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_16dp_in_1080"
+        android:text="@string/internet_status_dialog_weak"
+        android:textColor="@color/color_d9003c"
+        android:textSize="@dimen/text_size_16sp_in_1080"/>
+
+    <TextView
+        android:id="@+id/interner_msg_color_weak_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_size_16dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_16dp_in_1080"
+        android:text="@string/internet_status_dialog_weak_description"
+        android:textColor="@color/color_000000"
+        android:textSize="@dimen/text_size_16sp_in_1080" />
+
+    <TextView
+        android:id="@+id/interner_msg_too_close"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_16dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_16dp_in_1080"
+        android:text="@string/internet_status_dialog_too_close"
+        android:textColor="@color/color_ff6800"
+        android:textSize="@dimen/text_size_16sp_in_1080"/>
+
+    <TextView
+        android:id="@+id/interner_msg_color_too_close_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_size_16dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_16dp_in_1080"
+        android:text="@string/internet_status_dialog_too_close_description"
+        android:textColor="@color/color_000000"
+        android:textSize="@dimen/text_size_16sp_in_1080" />
+
+    <TextView
+        android:id="@+id/interner_msg_na"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_16dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_16dp_in_1080"
+        android:text="@string/internet_status_dialog_na"
+        android:textColor="@color/color_575757"
+        android:textSize="@dimen/text_size_16sp_in_1080"/>
+
+    <TextView
+        android:id="@+id/interner_msg_color_na_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_size_16dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_16dp_in_1080"
+        android:text="@string/internet_status_dialog_na_description"
+        android:textColor="@color/color_000000"
+        android:textSize="@dimen/text_size_16sp_in_1080" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_size_16dp_in_1080">
+
+        <TextView
+            android:id="@+id/msg_alert_positive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/layout_size_15dp_in_1080"
+            android:layout_marginRight="@dimen/layout_size_16dp_in_1080"
+            android:layout_alignParentRight="true"
+            android:text="@string/internet_status_dialog_close"
+            android:textStyle="bold"
+            android:textColor="@color/color_575757"/>
+
+        <!--<TextView
+            android:id="@+id/msg_alert_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/layout_size_15dp_in_1080"
+            android:layout_marginLeft="@dimen/layout_size_16dp_in_1080"
+            android:layout_alignParentLeft="true"
+            android:text="Cancel"
+            android:textStyle="bold"
+            android:textColor="@color/color_575757"/>-->
+
+    </RelativeLayout>
+
+</LinearLayout>

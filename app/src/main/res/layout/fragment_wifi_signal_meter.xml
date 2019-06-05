@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/wifi_signal_whole_area_linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/wifi_signal_info_area_relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_40dp_in_1080"
+            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginBottom="@dimen/layout_size_20dp_in_1080">
+
+            <LinearLayout
+                android:id="@+id/wifi_signal_info_first_value_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/wifi_signal_info_name_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/text_size_20sp_in_1080"
+                    android:textColor="@color/color_000000"
+                    tools:text="Zyxel_CSO"/>
+
+                <LinearLayout
+                    android:id="@+id/wifi_signal_info_strength_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/wifi_signal_info_strength_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_20sp_in_1080"
+                        android:textColor="@color/color_000000"
+                        android:textStyle="bold"
+                        tools:text="-70"/>
+
+                    <TextView
+                        android:id="@+id/wifi_signal_info_strength_unit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_000000"
+                        android:textStyle="bold"
+                        android:text=" dBm"
+                        android:visibility="invisible"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wifi_signal_info_first_title_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/wifi_signal_info_first_value_linear">
+
+                <TextView
+                    android:id="@+id/wifi_signal_info_name_title_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/color_888888"
+                    android:text="@string/diagnostic_wifi_signal_wifi_name"/>
+
+                <TextView
+                    android:id="@+id/wifi_signal_info_strength_title_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/color_888888"
+                    android:text="@string/diagnostic_wifi_signal_wifi_signal_strength"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wifi_signal_info_second_value_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_40dp_in_1080"
+                android:orientation="horizontal"
+                android:layout_below="@+id/wifi_signal_info_first_title_linear">
+
+                <TextView
+                    android:id="@+id/wifi_signal_info_band_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/text_size_18sp_in_1080"
+                    android:textColor="@color/color_000000"
+                    tools:text="2.4GHz"/>
+
+                <TextView
+                    android:id="@+id/wifi_signal_info_connect_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="@dimen/text_size_18sp_in_1080"
+                    android:textColor="@color/color_000000"
+                    tools:text="Device information"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/wifi_signal_info_second_title_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/wifi_signal_info_second_value_linear">
+
+                <TextView
+                    android:id="@+id/wifi_signal_info_band_title_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/color_888888"
+                    android:text="@string/diagnostic_wifi_signal_wifi_band"/>
+
+                <TextView
+                    android:id="@+id/wifi_signal_info_connect_title_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/color_888888"
+                    android:text="@string/diagnostic_wifi_signal_connect_to"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/wifi_signal_content_area_relative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+            android:layout_gravity="center_horizontal">
+
+            <View
+                android:id="@+id/wifi_signal_meter_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/wifimeter_bg"/>
+
+            <View
+                android:id="@+id/wifi_signal_pointer_view"
+                android:layout_width="@dimen/layout_size_16dp_in_1080"
+                android:layout_height="@dimen/layout_size_50dp_in_1080"
+                android:layout_marginTop="@dimen/layout_size_102dp_in_1080"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/wifimeter_pointer"/>
+
+            <RelativeLayout
+                android:id="@+id/wifi_signal_bottom_info_relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
+                android:layout_marginRight="@dimen/layout_size_30dp_in_1080"
+                android:layout_alignParentBottom="true">
+
+                <TextView
+                    android:id="@+id/wifi_signal_poor_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                    android:textColor="@color/color_888888"
+                    android:text="@string/diagnostic_wifi_signal_poor"/>
+
+                <Button
+                    android:id="@+id/wifi_signal_start_button"
+                    android:layout_width="@dimen/layout_size_70dp_in_1080"
+                    android:layout_height="@dimen/layout_size_40dp_in_1080"
+                    android:layout_centerHorizontal="true"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/text_size_18sp_in_1080"
+                    android:text="@string/diagnostic_wifi_signal_start"
+                    android:background="@drawable/button_style_yellow_bg"/>
+
+                <TextView
+                    android:id="@+id/wifi_signal_excellent_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/color_888888"
+                    android:text="@string/diagnostic_wifi_signal_excellent"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/wifi_signal_empty_area_linear"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_size_40dp_in_1080"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

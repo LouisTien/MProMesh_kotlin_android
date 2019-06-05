@@ -30,7 +30,7 @@ class MessageDialog(context: Context, private var title: String, private var des
     {
         super.show()
 
-        if(title.length == 0)
+        if (title.length == 0)
             msg_alert_title.visibility = View.GONE
         else
             msg_alert_title.text = title
@@ -38,7 +38,7 @@ class MessageDialog(context: Context, private var title: String, private var des
         msg_alert_description.text = description
         msg_alert_positive.text = btnTexts[0]
 
-        if(btnTexts.size >= 2)
+        if (btnTexts.size >= 2)
         {
             msg_alert_cancel.visibility = View.VISIBLE
             msg_alert_cancel.text = btnTexts[1]
@@ -46,27 +46,38 @@ class MessageDialog(context: Context, private var title: String, private var des
         else
             msg_alert_cancel.visibility = View.GONE
 
-        if(action == AppConfig.Companion.DialogAction.ACT_BLOCK_DEVICE)
+        if (action == AppConfig.Companion.DialogAction.ACT_BLOCK_DEVICE)
             block_check_linear.visibility = View.VISIBLE
         else
             block_check_linear.visibility = View.GONE
     }
 
-    fun setClickListener()
+    private val clickListener = View.OnClickListener { view ->
+        when (view)
+        {
+            msg_alert_positive ->
+            {
+                GlobalBus.publish(DialogEvent.OnPositiveBtn(action, alwaysBlock))
+                dismiss()
+            }
+
+            msg_alert_cancel -> dismiss()
+
+            block_check_image ->
+            {
+                alwaysBlock = !alwaysBlock
+                if(alwaysBlock)
+                    block_check_image.setImageResource(R.drawable.checkbox_check)
+                else
+                    block_check_image.setImageResource(R.drawable.checkbox_uncheck)
+            }
+        }
+    }
+
+    private fun setClickListener()
     {
-        msg_alert_positive.setOnClickListener {
-            GlobalBus.publish(DialogEvent.OnPositiveBtn(action, alwaysBlock))
-            dismiss()
-        }
-
-        msg_alert_cancel.setOnClickListener { dismiss() }
-
-        block_check_image.setOnClickListener {
-            alwaysBlock = !alwaysBlock
-            if(alwaysBlock)
-                block_check_image.setImageResource(R.drawable.checkbox_check)
-            else
-                block_check_image.setImageResource(R.drawable.checkbox_uncheck)
-        }
+        msg_alert_positive.setOnClickListener(clickListener)
+        msg_alert_cancel.setOnClickListener(clickListener)
+        block_check_image.setOnClickListener(clickListener)
     }
 }

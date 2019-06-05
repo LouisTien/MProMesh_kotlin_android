@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/zyxel_end_device_detail_title_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_size_60dp_in_1080"
+        android:background="@drawable/actionbar_detail_bg"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/zyxel_end_device_detail_back_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:src="@drawable/icon_back"/>
+
+        <TextView
+            android:id="@+id/zyxel_end_device_detail_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:textColor="@color/color_575757"
+            tools:text="Gateway Detail"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/zyxel_end_device_detail_model_name_area_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_below="@+id/zyxel_end_device_detail_title_area_relative">
+
+        <RelativeLayout
+            android:id="@+id/zyxel_end_device_detail_model_name_edit_relative"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_model_name_edit_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_888888"
+                android:text="@string/device_detail_model_name"/>
+
+            <EditText
+                android:id="@+id/zyxel_end_device_detail_model_name_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/zyxel_end_device_detail_confirm_image"
+                android:layout_below="@+id/zyxel_end_device_detail_model_name_edit_title_text"
+                android:maxLength="30"
+                android:singleLine="true"
+                android:background="@android:color/transparent"
+                android:textSize="@dimen/text_size_22sp_in_1080"
+                android:textColor="@color/color_000000"
+                tools:text="VMG4927"/>
+
+            <ImageView
+                android:id="@+id/zyxel_end_device_detail_confirm_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/zyxel_end_device_detail_model_name_edit_title_text"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/icon_done"/>
+
+            <ImageView
+                android:id="@+id/zyxel_end_device_detail_edit_line_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_size_1dp_in_1080"
+                android:background="@color/color_ffc800"
+                android:layout_below="@+id/zyxel_end_device_detail_model_name_edit"/>
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_model_name_edit_error_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/zyxel_end_device_detail_edit_line_image"
+                android:textColor="@color/color_ff2837"
+                android:visibility="invisible"
+                tools:text="@string/login_no_support_character"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/zyxel_end_device_detail_model_name_relative"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_model_name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_22sp_in_1080"
+                android:textColor="@color/color_000000"
+                android:textStyle="bold"
+                tools:text="VMG4927"/>
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_model_name_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/zyxel_end_device_detail_model_name_text"
+                android:textColor="@color/color_888888"
+                android:text="@string/device_detail_model_name"/>
+
+            <ImageView
+                android:id="@+id/zyxel_end_device_detail_edit_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/zyxel_end_device_detail_model_name_text"
+                android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"
+                android:src="@drawable/icon_edit"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/zyxel_end_device_detail_content_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:layout_below="@+id/zyxel_end_device_detail_model_name_area_linear">
+
+        <LinearLayout
+            android:id="@+id/zyxel_end_device_detail_internet_info_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_status_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_3c9f00"
+                android:textStyle="bold"
+                tools:text="Connecting"/>
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_connect_type_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_000000"
+                android:textStyle="bold"
+                tools:text="Wired"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zyxel_end_device_detail_internet_info_title_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/zyxel_end_device_detail_internet_info_linear">
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_status_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/color_888888"
+                android:text="@string/device_detail_status"/>
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_connect_type_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/color_888888"
+                android:text="@string/device_detail_connect_type"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/zyxel_end_device_detail_content_line_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bar1"
+            android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
+            android:layout_below="@+id/zyxel_end_device_detail_internet_info_title_linear"/>
+
+        <LinearLayout
+            android:id="@+id/zyxel_end_device_detail_ip_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/zyxel_end_device_detail_content_line_image">
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_ip_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_888888"
+                android:text="@string/device_detail_ip_address"/>
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_ip_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_575757"
+                tools:text="168.95.1.1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zyxel_end_device_detail_wan_ip_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+            android:layout_below="@+id/zyxel_end_device_detail_ip_linear">
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_wan_ip_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_888888"
+                android:text="@string/device_detail_wan_ip"/>
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_wan_ip_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_575757"
+                tools:text="192.168.212.22"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zyxel_end_device_detail_dns_ip_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+            android:layout_below="@+id/zyxel_end_device_detail_wan_ip_linear">
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_dns_ip_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_888888"
+                android:text="@string/device_detail_dns_ip"/>
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_dns_ip_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_575757"
+                tools:text="168.95.1.1 (default)"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zyxel_end_device_detail_lan_ip_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+            android:layout_below="@+id/zyxel_end_device_detail_dns_ip_linear">
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_lan_ip_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_888888"
+                android:text="@string/device_detail_lan_ip"/>
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_lan_ip_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_575757"
+                tools:text="192.168.2.11"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zyxel_end_device_detail_mac_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+            android:layout_below="@+id/zyxel_end_device_detail_lan_ip_linear">
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_mac_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_888888"
+                android:text="@string/device_detail_mac_address"/>
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_mac_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_575757"
+                tools:text="fc:f5:28:ff:39:d8"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/zyxel_end_device_detail_fw_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+            android:layout_below="@+id/zyxel_end_device_detail_mac_linear">
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_fw_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_888888"
+                android:text="@string/device_detail_fw_version"/>
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_fw_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:textColor="@color/color_575757"
+                tools:text="V1.00(ABKJ.1)B1"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/zyxel_end_device_detail_reboot_button"
+            android:layout_width="@dimen/layout_size_70dp_in_1080"
+            android:layout_height="@dimen/layout_size_40dp_in_1080"
+            android:background="@drawable/button_style_gray_bg"
+            android:text="@string/device_detail_reboot"
+            android:textAllCaps="false"
+            android:textSize="@dimen/layout_size_18dp_in_1080"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/zyxel_end_device_detail_remove_device_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textSize="@dimen/layout_size_18dp_in_1080"
+            android:text="@string/device_detail_remove_device"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
