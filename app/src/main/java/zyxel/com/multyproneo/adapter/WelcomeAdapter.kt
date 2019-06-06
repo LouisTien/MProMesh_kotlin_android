@@ -13,14 +13,8 @@ import zyxel.com.multyproneo.R
  */
 class WelcomeAdapter(private var context: Context) : PagerAdapter()
 {
-    //val context: Context
     val welcomeImagesRes = intArrayOf(R.drawable.tutorial_1, R.drawable.tutorial_2, R.drawable.tutorial_3)
     lateinit var inflator: LayoutInflater
-
-    /*constructor(context: Context) : super()
-    {
-        this.context = context
-    }*/
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any
     {
