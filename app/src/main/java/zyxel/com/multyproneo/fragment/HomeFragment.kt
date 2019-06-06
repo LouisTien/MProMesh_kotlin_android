@@ -84,17 +84,7 @@ class HomeFragment : Fragment()
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
             }
-                /*GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{
-                    arguments = Bundle().apply{
-                        putString("Title", "")
-                        putString("Description", resources.getString(R.string.loading_transition_please_wait))
-                        putString("Sec_Description", resources.getString(R.string.loading_transition_update_wifi_settings))
-                        putInt("LoadingSecond", AppConfig.guestWiFiSettingTime)
-                        putSerializable("Anim", AppConfig.Companion.LoadingAnimation.ANIM_REBOOT)
-                        putSerializable("DesPage", AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH)
-                        putBoolean("showRetry", false)
-                    }
-                }))*/
+            
             //home_connect_device_enter_image ->
             //home_guest_wifi_enter_image ->
             //home_add_mesh_image ->
