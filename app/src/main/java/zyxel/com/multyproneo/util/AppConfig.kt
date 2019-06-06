@@ -5,7 +5,6 @@ package zyxel.com.multyproneo.util
  */
 class AppConfig
 {
-
     companion object
     {
         const val PERMISSION_LOCATION_REQUESTCODE = 1

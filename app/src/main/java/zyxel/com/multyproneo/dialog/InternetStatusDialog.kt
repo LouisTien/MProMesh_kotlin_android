@@ -11,12 +11,11 @@ import zyxel.com.multyproneo.R
  */
 class InternetStatusDialog(context: Context) : Dialog(context)
 {
-
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_internet_status_help)
         setCancelable(true)
-        msg_alert_positive.setOnClickListener { dismiss() }
+        msg_alert_positive.setOnClickListener{ dismiss() }
     }
 }

@@ -24,7 +24,6 @@ import zyxel.com.multyproneo.util.GlobalData
  */
 class LoginFragment : Fragment()
 {
-
     private lateinit var gatewayInfo: GatewayProfile
     private lateinit var inputMethodManager: InputMethodManager
     private var gatewayIndex = 0
@@ -68,7 +67,7 @@ class LoginFragment : Fragment()
     {
         super.onDestroyView()
 
-        if (keyboardListenersAttached)
+        if(keyboardListenersAttached)
             view?.viewTreeObserver?.removeGlobalOnLayoutListener(keyboardLayoutListener)
     }
 
@@ -79,7 +78,7 @@ class LoginFragment : Fragment()
             val rect = Rect()
             view?.getWindowVisibleDisplayFrame(rect)
             val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)
-            if (heightDiff > 500)
+            if(heightDiff > 500)
             {
                 login_title_text.visibility = View.GONE
                 login_description_text.visibility = View.GONE
@@ -92,8 +91,8 @@ class LoginFragment : Fragment()
         }
     }
 
-    private val clickListener = View.OnClickListener { view ->
-        when (view)
+    private val clickListener = View.OnClickListener{ view ->
+        when(view)
         {
             login_back_image ->
             {
@@ -104,8 +103,8 @@ class LoginFragment : Fragment()
 
             login_password_show_image ->
             {
-                login_password_edit.transformationMethod = if (showPassword) PasswordTransformationMethod() else null
-                login_password_show_image.setImageDrawable(getResources().getDrawable(if (showPassword) R.drawable.icon_hide else R.drawable.icon_show))
+                login_password_edit.transformationMethod = if(showPassword) PasswordTransformationMethod() else null
+                login_password_show_image.setImageDrawable(getResources().getDrawable(if(showPassword) R.drawable.icon_hide else R.drawable.icon_show))
                 showPassword = !showPassword
             }
 
@@ -120,10 +119,8 @@ class LoginFragment : Fragment()
 
     protected fun attachKeyboardListeners()
     {
-        if (keyboardListenersAttached) return
-
+        if(keyboardListenersAttached) return
         view?.viewTreeObserver?.addOnGlobalLayoutListener(keyboardLayoutListener)
-
         keyboardListenersAttached = true
     }
 
@@ -136,7 +133,7 @@ class LoginFragment : Fragment()
 
     private fun checkInputEditUI()
     {
-        when (userNameIllegalInput)
+        when(userNameIllegalInput)
         {
             true ->
             {
@@ -147,7 +144,7 @@ class LoginFragment : Fragment()
             false -> login_username_error_text.visibility = View.INVISIBLE
         }
 
-        when (passwordIllegalInput)
+        when(passwordIllegalInput)
         {
             true ->
             {
@@ -172,23 +169,23 @@ class LoginFragment : Fragment()
 
     private fun initLoginUsernameEdit()
     {
-        login_username_edit.textChangedListener {
-            onTextChanged {
+        login_username_edit.textChangedListener{
+            onTextChanged{
                 str: CharSequence?, start: Int, before: Int, count: Int ->
                 try
                 {
                     userNameIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
                     checkInputEditUI()
                 }
-                catch (ex: NumberFormatException) {}
+                catch (ex: NumberFormatException){}
             }
         }
     }
 
     private fun initLoginPasswordEdit()
     {
-        login_password_edit.textChangedListener {
-            onTextChanged {
+        login_password_edit.textChangedListener{
+            onTextChanged{
                 str: CharSequence?, start: Int, before: Int, count: Int ->
                 passwordIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
                 checkInputEditUI()

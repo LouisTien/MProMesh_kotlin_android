@@ -15,7 +15,6 @@ import zyxel.com.multyproneo.model.GatewayProfile
  */
 class GatewayItemAdapter(private val gatewayList: MutableList<GatewayProfile>) : RecyclerView.Adapter<GatewayItemAdapter.ViewHolder>()
 {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
     {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.adapter_gateway_list_item, parent, false)
@@ -35,7 +34,7 @@ class GatewayItemAdapter(private val gatewayList: MutableList<GatewayProfile>) :
         {
             itemView.gateway_model_name_text.text = gatewayInfo.userDefineName
 
-            with (gatewayInfo.modelName)
+            with(gatewayInfo.modelName)
             {
                 when
                 {
@@ -46,7 +45,7 @@ class GatewayItemAdapter(private val gatewayList: MutableList<GatewayProfile>) :
                 }
             }
 
-            itemView.gateway_model_enter_image.setOnClickListener {
+            itemView.gateway_model_enter_image.setOnClickListener{
                 GlobalBus.publish(GatewayListEvent.OnDeviceSelected(position))
             }
         }

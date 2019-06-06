@@ -9,7 +9,6 @@ import io.reactivex.subjects.PublishSubject
 // Use object so we have a singleton instance
 object GlobalBus
 {
-
     private val publisher = PublishSubject.create<Any>()
 
     fun publish(event: Any)

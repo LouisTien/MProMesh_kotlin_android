@@ -9,7 +9,6 @@ import zyxel.com.multyproneo.model.WanInfoProfile
  */
 class GlobalData
 {
-
     companion object
     {
         var currentGatewayIndex = 0

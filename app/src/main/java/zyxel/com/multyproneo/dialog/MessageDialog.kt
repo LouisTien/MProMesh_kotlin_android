@@ -13,9 +13,8 @@ import zyxel.com.multyproneo.util.AppConfig
 /**
  * Created by LouisTien on 2019/5/28.
  */
-class MessageDialog(context: Context, private var title: String, private var description: String, private var btnTexts: Array<String>, private var action: AppConfig.Companion.DialogAction): Dialog(context)
+class MessageDialog(context: Context, private var title: String, private var description: String, private var btnTexts: Array<String>, private var action: AppConfig.Companion.DialogAction) : Dialog(context)
 {
-
     private var alwaysBlock = false
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -30,7 +29,7 @@ class MessageDialog(context: Context, private var title: String, private var des
     {
         super.show()
 
-        if (title.length == 0)
+        if(title.length == 0)
             msg_alert_title.visibility = View.GONE
         else
             msg_alert_title.text = title
@@ -38,7 +37,7 @@ class MessageDialog(context: Context, private var title: String, private var des
         msg_alert_description.text = description
         msg_alert_positive.text = btnTexts[0]
 
-        if (btnTexts.size >= 2)
+        if(btnTexts.size >= 2)
         {
             msg_alert_cancel.visibility = View.VISIBLE
             msg_alert_cancel.text = btnTexts[1]
@@ -46,14 +45,14 @@ class MessageDialog(context: Context, private var title: String, private var des
         else
             msg_alert_cancel.visibility = View.GONE
 
-        if (action == AppConfig.Companion.DialogAction.ACT_BLOCK_DEVICE)
+        if(action == AppConfig.Companion.DialogAction.ACT_BLOCK_DEVICE)
             block_check_linear.visibility = View.VISIBLE
         else
             block_check_linear.visibility = View.GONE
     }
 
-    private val clickListener = View.OnClickListener { view ->
-        when (view)
+    private val clickListener = View.OnClickListener{ view ->
+        when(view)
         {
             msg_alert_positive ->
             {

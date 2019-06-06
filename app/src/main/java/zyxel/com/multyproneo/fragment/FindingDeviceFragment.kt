@@ -27,7 +27,6 @@ import zyxel.com.multyproneo.util.GlobalData
  */
 class FindingDeviceFragment : Fragment()
 {
-
     private lateinit var startWiFiSettingDisposable: Disposable
     private var retryTimes = 0
 
@@ -40,7 +39,7 @@ class FindingDeviceFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
 
-        loading_retry_image.setOnClickListener {
+        loading_retry_image.setOnClickListener{
             retryTimes = 6
             startFindDevice()
         }
@@ -145,7 +144,7 @@ class FindingDeviceFragment : Fragment()
             Thread.sleep(3000)
 
             uiThread {
-                if (res)
+                if(res)
                 {
                     GlobalData.gatewayProfileMutableList = newGatewayProfileMutableList.toMutableList()//copy list to global data
                     GlobalBus.publish(MainEvent.SwitchToFrag(GatewayListFragment()))

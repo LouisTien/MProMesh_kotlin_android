@@ -19,6 +19,7 @@ import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.fragment.FindingDeviceFragment
 import zyxel.com.multyproneo.model.EndDeviceProfile
 import zyxel.com.multyproneo.model.WanInfoProfile
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 import java.util.*
@@ -26,7 +27,6 @@ import kotlin.concurrent.schedule
 
 class MainActivity : AppCompatActivity()
 {
-
     private val TAG = javaClass.simpleName
     private lateinit var switchFrgDisposable: Disposable
     private lateinit var showLoadingDisposable: Disposable
@@ -87,54 +87,54 @@ class MainActivity : AppCompatActivity()
 
     private fun listenEvent()
     {
-        switchFrgDisposable = GlobalBus.listen(MainEvent.SwitchToFrag::class.java).subscribe {
+        switchFrgDisposable = GlobalBus.listen(MainEvent.SwitchToFrag::class.java).subscribe{
             switchToFragContainer(it.frag)
         }
 
-        showLoadingDisposable = GlobalBus.listen(MainEvent.ShowLoading::class.java).subscribe {
+        showLoadingDisposable = GlobalBus.listen(MainEvent.ShowLoading::class.java).subscribe{
             showLoading()
         }
 
-        hideLoadingDisposable = GlobalBus.listen(MainEvent.HideLoading::class.java).subscribe {
+        hideLoadingDisposable = GlobalBus.listen(MainEvent.HideLoading::class.java).subscribe{
             hideLoading()
         }
 
-        showBottomToolbarDisposable = GlobalBus.listen(MainEvent.ShowBottomToolbar::class.java).subscribe {
+        showBottomToolbarDisposable = GlobalBus.listen(MainEvent.ShowBottomToolbar::class.java).subscribe{
             bottom_toolbar.visibility = View.VISIBLE
         }
 
-        hideBottomToolbarDisposable = GlobalBus.listen(MainEvent.HideBottomToolbar::class.java).subscribe {
+        hideBottomToolbarDisposable = GlobalBus.listen(MainEvent.HideBottomToolbar::class.java).subscribe{
             bottom_toolbar.visibility = View.GONE
         }
 
-        setHomeIconFocusDisposable = GlobalBus.listen(MainEvent.SetHomeIconFocus::class.java).subscribe {
+        setHomeIconFocusDisposable = GlobalBus.listen(MainEvent.SetHomeIconFocus::class.java).subscribe{
             disSelectToolBarIcons()
             home_image.isSelected = true
             home_text.isSelected = true
         }
 
-        startGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StartGetDeviceInfoTask::class.java).subscribe {
+        startGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StartGetDeviceInfoTask::class.java).subscribe{
             deviceTimer = Timer()
-            deviceTimer.schedule(0, 60000) {
+            deviceTimer.schedule(0, (AppConfig.endDeviceListUpdateTime * 1000).toLong()){
                 getDeviceInfoTask()
             }
         }
 
-        stopGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StopGetDeviceInfoTask::class.java).subscribe {
+        stopGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StopGetDeviceInfoTask::class.java).subscribe{
             deviceTimer.cancel()
         }
     }
 
     private fun disposeEvent()
     {
-        if (!switchFrgDisposable.isDisposed) switchFrgDisposable.dispose()
-        if (!showLoadingDisposable.isDisposed) showLoadingDisposable.dispose()
-        if (!hideLoadingDisposable.isDisposed) hideLoadingDisposable.dispose()
-        if (!showBottomToolbarDisposable.isDisposed) showBottomToolbarDisposable.dispose()
-        if (!hideBottomToolbarDisposable.isDisposed) hideBottomToolbarDisposable.dispose()
-        if (!setHomeIconFocusDisposable.isDisposed) setHomeIconFocusDisposable.dispose()
-        if (!startGetDeviceInfoTaskDisposable.isDisposed) startGetDeviceInfoTaskDisposable.dispose()
-        if (!stopGetDeviceInfoTaskDisposable.isDisposed) stopGetDeviceInfoTaskDisposable.dispose()
+        if(!switchFrgDisposable.isDisposed) switchFrgDisposable.dispose()
+        if(!showLoadingDisposable.isDisposed) showLoadingDisposable.dispose()
+        if(!hideLoadingDisposable.isDisposed) hideLoadingDisposable.dispose()
+        if(!showBottomToolbarDisposable.isDisposed) showBottomToolbarDisposable.dispose()
+        if(!hideBottomToolbarDisposable.isDisposed) hideBottomToolbarDisposable.dispose()
+        if(!setHomeIconFocusDisposable.isDisposed) setHomeIconFocusDisposable.dispose()
+        if(!startGetDeviceInfoTaskDisposable.isDisposed) startGetDeviceInfoTaskDisposable.dispose()
+        if(!stopGetDeviceInfoTaskDisposable.isDisposed) stopGetDeviceInfoTaskDisposable.dispose()
     }
 
     private fun switchToFragContainer(fragment: Fragment)
@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity()
     private fun getDeviceInfoTask()
     {
         LogUtil.d(TAG,"getDeviceInfoTask()")
-        doAsync {
+        doAsync{
             val newClientList = mutableListOf<EndDeviceProfile>(
                     EndDeviceProfile(
                             UserDefineName = "Access Point",
@@ -266,13 +266,13 @@ class MainActivity : AppCompatActivity()
                     DeviceMode = if (GlobalData.getCurrentGatewayInfo().modelName.contains("WAP")) "Access Point" else "Gateway"
             ))
 
-            for (item in newClientList)
+            for(item in newClientList)
             {
-                if (item.CapabilityType.equals("L2Device"))
+                if(item.CapabilityType.equals("L2Device"))
                     newZYXELEndDeviceList.add(item)
                 else
                 {
-                    if (item.GuestGroup == 1)
+                    if(item.GuestGroup == 1)
                         newGuestEndDeviceList.add(item)
                     else
                         newHomeEndDeviceList.add(item)
@@ -286,7 +286,7 @@ class MainActivity : AppCompatActivity()
                     WanDNS = "172.21.5.1"
             )
 
-            uiThread {
+            uiThread{
                 GlobalData.endDeviceList = newClientList.toMutableList()
                 GlobalData.homeEndDeviceList = newHomeEndDeviceList.toMutableList()
                 GlobalData.ZYXELEndDeviceList = newZYXELEndDeviceList.toMutableList()

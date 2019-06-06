@@ -5,6 +5,5 @@ package zyxel.com.multyproneo.event
  */
 class GatewayListEvent
 {
-
     class OnDeviceSelected(var index: Int)
 }

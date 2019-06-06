@@ -9,7 +9,6 @@ import java.util.regex.Pattern
  */
 class SpecialCharacterHandler
 {
-
     companion object
     {
         public var filterCharacter = ""
@@ -18,9 +17,9 @@ class SpecialCharacterHandler
 
         public fun containsEmoji(source: String): Boolean
         {
-            for (c in source)
+            for(c in source)
             {
-                when (c.toInt()) { Character.SURROGATE.toInt() or Character.OTHER_SYMBOL.toInt(), in 256 .. Int.MAX_VALUE -> return true }
+                when(c.toInt()) { Character.SURROGATE.toInt() or Character.OTHER_SYMBOL.toInt(), in 256 .. Int.MAX_VALUE -> return true }
             }
             return false
         }
@@ -28,7 +27,7 @@ class SpecialCharacterHandler
         public fun checkEmptyTextValue(srcStr: String): String
         {
             var desStr = "N/A"
-            if (!srcStr.equals("") && !srcStr.equals(" ")) { desStr = srcStr }
+            if(!srcStr.equals("") && !srcStr.equals(" ")) { desStr = srcStr }
             return desStr
         }
     }

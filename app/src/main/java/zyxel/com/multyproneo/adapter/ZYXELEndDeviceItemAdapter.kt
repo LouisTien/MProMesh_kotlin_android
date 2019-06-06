@@ -31,7 +31,7 @@ class ZYXELEndDeviceItemAdapter(
     {
         val view: View?
         val holder: ViewHolder
-        if (convertView == null)
+        if(convertView == null)
         {
             view = LayoutInflater.from(parent?.context).inflate(R.layout.adapter_zyxel_end_device_list_item, parent, false)
             holder = ViewHolder(view, parent!!)
@@ -53,15 +53,15 @@ class ZYXELEndDeviceItemAdapter(
         fun bind(position: Int)
         {
             var status = ""
-            if (endDeviceList[position].DeviceMode.equals("GATEWAY", ignoreCase = true))
+            if(endDeviceList[position].DeviceMode.equals("GATEWAY", ignoreCase = true))
                 view.connect_status_text.text = status
             else
             {
-                if (endDeviceList[position].Active.equals("Disconnect", ignoreCase = true))
+                if(endDeviceList[position].Active.equals("Disconnect", ignoreCase = true))
                     status = "N/A"
                 else
                 {
-                    if (endDeviceList[position].ConnectionType.equals("WiFi", ignoreCase = true))
+                    if(endDeviceList[position].ConnectionType.equals("WiFi", ignoreCase = true))
                         status = endDeviceList[position].RssiValue
                     else
                         status = "Good"
@@ -80,7 +80,7 @@ class ZYXELEndDeviceItemAdapter(
                 )
             }
 
-            var mode = endDeviceList[position].DeviceMode + if (status.equals("N/A", ignoreCase = true)) " disconnected" else ""
+            var mode = endDeviceList[position].DeviceMode + if(status.equals("N/A", ignoreCase = true)) " disconnected" else ""
             view.device_mode_text.text = mode
 
             view.user_define_name_text.text = endDeviceList[position].UserDefineName

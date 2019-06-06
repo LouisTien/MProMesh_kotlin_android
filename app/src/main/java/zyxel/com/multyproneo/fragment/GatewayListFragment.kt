@@ -21,7 +21,6 @@ import zyxel.com.multyproneo.util.GlobalData
  */
 class GatewayListFragment : Fragment()
 {
-
     private lateinit var deviceSelectedDisposable: Disposable
     private lateinit var gatewayProfileMutableList: MutableList<GatewayProfile>
 
@@ -34,7 +33,7 @@ class GatewayListFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
 
-        gateway_retry_image.setOnClickListener {
+        gateway_retry_image.setOnClickListener{
             GlobalBus.publish(MainEvent.SwitchToFrag(FindingDeviceFragment()))
         }
     }
@@ -45,20 +44,20 @@ class GatewayListFragment : Fragment()
 
         GlobalBus.publish(MainEvent.HideBottomToolbar())
 
-        deviceSelectedDisposable = GlobalBus.listen(GatewayListEvent.OnDeviceSelected::class.java).subscribe {
+        deviceSelectedDisposable = GlobalBus.listen(GatewayListEvent.OnDeviceSelected::class.java).subscribe{
             OnDeviceSelected(it.index)
         }
 
         gatewayProfileMutableList = GlobalData.gatewayProfileMutableList
 
-        with (gateway_list_view)
+        with(gateway_list_view)
         {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = GatewayItemAdapter(gatewayProfileMutableList)
         }
 
-        if (gatewayProfileMutableList.size == 1)
+        if(gatewayProfileMutableList.size == 1)
         {
             GlobalBus.publish(MainEvent.ShowLoading())
             OnDeviceSelected(0)
@@ -68,7 +67,7 @@ class GatewayListFragment : Fragment()
     override fun onPause()
     {
         super.onPause()
-        if (!deviceSelectedDisposable.isDisposed) deviceSelectedDisposable.dispose()
+        if(!deviceSelectedDisposable.isDisposed) deviceSelectedDisposable.dispose()
     }
 
     override fun onDestroyView()
@@ -79,7 +78,6 @@ class GatewayListFragment : Fragment()
     private fun OnDeviceSelected(index: Int)
     {
         GlobalData.currentGatewayIndex = index
-
         GlobalBus.publish(MainEvent.HideLoading())
         GlobalBus.publish(MainEvent.SwitchToFrag(LoginFragment()))
     }

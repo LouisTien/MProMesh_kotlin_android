@@ -11,23 +11,23 @@ import zyxel.com.multyproneo.R
 /**
  * Created by LouisTien on 2019/5/21.
  */
-class WelcomeAdapter : PagerAdapter
+class WelcomeAdapter(private var context: Context) : PagerAdapter()
 {
-    val context: Context
+    //val context: Context
     val welcomeImagesRes = intArrayOf(R.drawable.tutorial_1, R.drawable.tutorial_2, R.drawable.tutorial_3)
     lateinit var inflator: LayoutInflater
 
-    constructor(context: Context) : super()
+    /*constructor(context: Context) : super()
     {
         this.context = context
-    }
+    }*/
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any
     {
         inflator = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val itemView: View = inflator.inflate(R.layout.adapter_welcome_pager_item, container,false)
         itemView.welcome_pager_image.setBackgroundResource(welcomeImagesRes[position])
-        when (position)
+        when(position)
         {
             0 ->
             {

@@ -13,6 +13,7 @@ import zyxel.com.multyproneo.dialog.InternetStatusDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
@@ -21,7 +22,6 @@ import zyxel.com.multyproneo.util.LogUtil
  */
 class HomeFragment : Fragment()
 {
-
     private val TAG = javaClass.simpleName
     private lateinit var getInfoCompleteDisposable: Disposable
     private lateinit var internetStatusHelper: InternetStatusDialog
@@ -35,7 +35,7 @@ class HomeFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-        getInfoCompleteDisposable = GlobalBus.listen(HomeEvent.GetDeviceInfoComplete::class.java).subscribe {
+        getInfoCompleteDisposable = GlobalBus.listen(HomeEvent.GetDeviceInfoComplete::class.java).subscribe{
             updateUI()
         }
         setClickListener()
@@ -46,7 +46,7 @@ class HomeFragment : Fragment()
         super.onResume()
         GlobalBus.publish(MainEvent.SetHomeIconFocus())
         GlobalBus.publish(MainEvent.ShowBottomToolbar())
-        if (GlobalData.ZYXELEndDeviceList.size > 0) updateUI()
+        if(GlobalData.ZYXELEndDeviceList.size > 0) updateUI()
         GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
     }
 
@@ -59,11 +59,11 @@ class HomeFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
-        if (!getInfoCompleteDisposable.isDisposed) getInfoCompleteDisposable.dispose()
+        if(!getInfoCompleteDisposable.isDisposed) getInfoCompleteDisposable.dispose()
     }
 
-    private val clickListener = View.OnClickListener { view ->
-        when (view)
+    private val clickListener = View.OnClickListener{ view ->
+        when(view)
         {
             home_internet_status_help_image ->
             {
@@ -71,7 +71,30 @@ class HomeFragment : Fragment()
                 internetStatusHelper.show()
             }
 
-            //home_guest_wifi_switch ->
+            home_guest_wifi_switch ->
+            {
+                val bundle = Bundle().apply{
+                    putString("Title", "")
+                    putString("Description", resources.getString(R.string.loading_transition_please_wait))
+                    putString("Sec_Description", resources.getString(R.string.loading_transition_update_wifi_settings))
+                    putInt("LoadingSecond", AppConfig.guestWiFiSettingTime)
+                    putSerializable("Anim", AppConfig.Companion.LoadingAnimation.ANIM_REBOOT)
+                    putSerializable("DesPage", AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH)
+                    putBoolean("showRetry", false)
+                }
+                GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
+            }
+                /*GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{
+                    arguments = Bundle().apply{
+                        putString("Title", "")
+                        putString("Description", resources.getString(R.string.loading_transition_please_wait))
+                        putString("Sec_Description", resources.getString(R.string.loading_transition_update_wifi_settings))
+                        putInt("LoadingSecond", AppConfig.guestWiFiSettingTime)
+                        putSerializable("Anim", AppConfig.Companion.LoadingAnimation.ANIM_REBOOT)
+                        putSerializable("DesPage", AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH)
+                        putBoolean("showRetry", false)
+                    }
+                }))*/
             //home_connect_device_enter_image ->
             //home_guest_wifi_enter_image ->
             //home_add_mesh_image ->
@@ -98,9 +121,9 @@ class HomeFragment : Fragment()
                 GlobalData.gatewayLanIP)
         home_device_list.adapter = adapter
 
-        home_internet_status_content_text.text = getString(if (GlobalData.gatewayWanInfo.WanStatus.equals("Enable")) R.string.home_online else R.string.home_offline)
+        home_internet_status_content_text.text = getString(if(GlobalData.gatewayWanInfo.WanStatus.equals("Enable")) R.string.home_online else R.string.home_offline)
 
-        when (GlobalData.guestWiFiStatus)
+        when(GlobalData.guestWiFiStatus)
         {
             true ->
             {

@@ -16,10 +16,8 @@ import zyxel.com.multyproneo.util.SharedPreferencesUtil
  */
 class WelcomeActivity : AppCompatActivity()
 {
-
     private val WELCOME_DISPLAY_TIME_IN_MILLISECONDS: Long = 1500
     private val welcomeAdapter = WelcomeAdapter(this)
-    private val handler = Handler()
     private var firstTimeUse by SharedPreferencesUtil(this, "key_first_time_use", true)
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -41,7 +39,7 @@ class WelcomeActivity : AppCompatActivity()
 
             override fun onPageSelected(position: Int)
             {
-                when (position)
+                when(position)
                 {
                     0 ->
                     {
@@ -72,16 +70,16 @@ class WelcomeActivity : AppCompatActivity()
         })
 
         welcome_arrow_image.setOnClickListener{
-            when (welcome_view_pager.currentItem)
+            when(welcome_view_pager.currentItem)
             {
                 0 -> welcome_view_pager.currentItem = 1
                 1 -> welcome_view_pager.currentItem = 2
                 else ->{}
             }}
-        welcome_right_start_text.setOnClickListener{launch()}
-        welcome_left_start_text.setOnClickListener{launch()}
+        welcome_right_start_text.setOnClickListener{ launch() }
+        welcome_left_start_text.setOnClickListener{ launch() }
 
-        handler.postDelayed({ startMainActivity()}, WELCOME_DISPLAY_TIME_IN_MILLISECONDS)
+        Handler().postDelayed({ startMainActivity() }, WELCOME_DISPLAY_TIME_IN_MILLISECONDS)
 
     }
 
@@ -98,7 +96,7 @@ class WelcomeActivity : AppCompatActivity()
 
     private fun startMainActivity()
     {
-        if (firstTimeUse)
+        if(firstTimeUse)
         {
             launcher_linear.visibility = View.INVISIBLE
             welcome_view_pager_linear.visibility = View.VISIBLE

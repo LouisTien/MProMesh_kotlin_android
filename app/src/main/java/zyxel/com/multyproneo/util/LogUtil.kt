@@ -8,7 +8,6 @@ import zyxel.com.multyproneo.BuildConfig
  */
 class LogUtil
 {
-
     companion object
     {
         fun d(tag: String, msg: String)

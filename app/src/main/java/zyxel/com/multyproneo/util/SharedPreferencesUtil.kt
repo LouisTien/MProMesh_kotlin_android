@@ -10,8 +10,7 @@ import kotlin.reflect.KProperty
  */
 class SharedPreferencesUtil<T>(val context: Context, val name: String, val default: T) : ReadWriteProperty<Any?, T>
 {
-
-    val prefs: SharedPreferences by lazy { context.getSharedPreferences("name_device_setting", Context.MODE_PRIVATE) }
+    val prefs: SharedPreferences by lazy{ context.getSharedPreferences("name_device_setting", Context.MODE_PRIVATE) }
 
     override fun getValue(thisRef: Any?, property: KProperty<*>): T = findPreference(name, default)
 
@@ -19,7 +18,7 @@ class SharedPreferencesUtil<T>(val context: Context, val name: String, val defau
 
     private fun <T> findPreference(name: String, default: T) : T = with(prefs)
     {
-        val res: Any = when (default)
+        val res: Any = when(default)
         {
             is Long -> getLong(name, default)
             is String -> getString(name, default)
@@ -33,7 +32,7 @@ class SharedPreferencesUtil<T>(val context: Context, val name: String, val defau
 
     private fun <T> putPreference(name: String, value: T) = with(prefs.edit())
     {
-        when (value)
+        when(value)
         {
             is Long -> putLong(name, value)
             is String -> putString(name, value)
