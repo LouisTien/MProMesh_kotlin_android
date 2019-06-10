@@ -27,7 +27,7 @@ class SpecialCharacterHandler
         public fun checkEmptyTextValue(srcStr: String): String
         {
             var desStr = "N/A"
-            if(!srcStr.equals("") && !srcStr.equals(" ")) { desStr = srcStr }
+            if(srcStr != "" && srcStr != " ") { desStr = srcStr }
             return desStr
         }
     }

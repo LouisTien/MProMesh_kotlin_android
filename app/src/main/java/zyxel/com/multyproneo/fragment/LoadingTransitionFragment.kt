@@ -45,7 +45,7 @@ class LoadingTransitionFragment : Fragment()
             this?.getBoolean("ShowRetry")?.let{ showRetry = it }
         }
 
-        initView()
+        initUI()
     }
 
     override fun onResume()
@@ -56,9 +56,9 @@ class LoadingTransitionFragment : Fragment()
         Handler().postDelayed({ finishAction() }, (loadingSecond * 1000).toLong())
     }
 
-    private fun initView()
+    private fun initUI()
     {
-        if(!title.equals(""))
+        if(title != "")
         {
             loading_msg_title_text.text = title
             loading_msg_title_text.visibility = View.VISIBLE
@@ -66,7 +66,7 @@ class LoadingTransitionFragment : Fragment()
         else
             loading_msg_title_text.visibility = View.INVISIBLE
 
-        if(!description.equals(""))
+        if(description != "")
         {
             loading_msg_status_text.text = description
             loading_msg_status_text.visibility = View.VISIBLE
@@ -74,7 +74,7 @@ class LoadingTransitionFragment : Fragment()
         else
             loading_msg_status_text.visibility = View.INVISIBLE
 
-        if(!sec_description.equals(""))
+        if(sec_description != "")
         {
             loading_msg_working_text.text = sec_description
             loading_msg_working_text.visibility = View.VISIBLE

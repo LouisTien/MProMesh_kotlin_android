@@ -1,5 +1,7 @@
 package zyxel.com.multyproneo.model
 
+import java.io.Serializable
+
 /**
  * Created by LouisTien on 2019/6/4.
  */
@@ -41,4 +43,5 @@ data class EndDeviceProfile
         var RssiValue: String = "N/A",
         var dhcpLeaseTime: String = "N/A",
         var ParentalControlBlocking: String = "N/A"
-){}
+) : Serializable
+{}

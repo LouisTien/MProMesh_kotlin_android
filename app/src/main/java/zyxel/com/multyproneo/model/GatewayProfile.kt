@@ -1,5 +1,7 @@
 package zyxel.com.multyproneo.model
 
+import java.io.Serializable
+
 /**
  * Created by LouisTien on 2019/5/30.
  */
@@ -25,4 +27,5 @@ data class GatewayProfile
         var customer: String = "N/A",
         var theme: Int = 0,
         var agentVersion: String = "N/A"
-){}
+) : Serializable
+{}

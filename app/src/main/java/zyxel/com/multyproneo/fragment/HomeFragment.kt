@@ -75,8 +75,8 @@ class HomeFragment : Fragment()
             {
                 val bundle = Bundle().apply{
                     putString("Title", "")
-                    putString("Description", resources.getString(R.string.loading_transition_please_wait))
-                    putString("Sec_Description", resources.getString(R.string.loading_transition_update_wifi_settings))
+                    putString("Description", getString(R.string.loading_transition_please_wait))
+                    putString("Sec_Description", getString(R.string.loading_transition_update_wifi_settings))
                     putInt("LoadingSecond", AppConfig.guestWiFiSettingTime)
                     putSerializable("Anim", AppConfig.Companion.LoadingAnimation.ANIM_REBOOT)
                     putSerializable("DesPage", AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH)
@@ -84,7 +84,7 @@ class HomeFragment : Fragment()
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
             }
-            
+
             //home_connect_device_enter_image ->
             //home_guest_wifi_enter_image ->
             //home_add_mesh_image ->
@@ -111,7 +111,7 @@ class HomeFragment : Fragment()
                 GlobalData.gatewayLanIP)
         home_device_list.adapter = adapter
 
-        home_internet_status_content_text.text = getString(if(GlobalData.gatewayWanInfo.WanStatus.equals("Enable")) R.string.home_online else R.string.home_offline)
+        home_internet_status_content_text.text = getString(if(GlobalData.gatewayWanInfo.WanStatus == "Enable") R.string.home_online else R.string.home_offline)
 
         when(GlobalData.guestWiFiStatus)
         {

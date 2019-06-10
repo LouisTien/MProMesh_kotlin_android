@@ -268,7 +268,7 @@ class MainActivity : AppCompatActivity()
 
             for(item in newClientList)
             {
-                if(item.CapabilityType.equals("L2Device"))
+                if(item.CapabilityType == "L2Device")
                     newZYXELEndDeviceList.add(item)
                 else
                 {
