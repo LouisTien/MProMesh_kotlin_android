@@ -62,7 +62,13 @@ class DevicesFragment : Fragment()
         {
             menu_navigation_image -> {}
 
-            devices_search_image -> {}
+            devices_search_image ->
+            {
+                val bundle = Bundle().apply{
+                    putString("Search", "")
+                }
+                GlobalBus.publish(MainEvent.SwitchToFrag(SearchDevicesFragment().apply{ arguments = bundle }))
+            }
 
             devices_home_devices_sort_image ->
             {

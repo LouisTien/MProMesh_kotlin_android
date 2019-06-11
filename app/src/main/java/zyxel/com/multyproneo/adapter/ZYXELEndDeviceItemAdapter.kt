@@ -47,26 +47,26 @@ class ZYXELEndDeviceItemAdapter(
             holder = view.tag as ViewHolder
         }
 
-        holder.bind(position, deviceInfo, deviceWanInfo, deviceLanIP, endDeviceList[position])
+        holder.bind(position, deviceInfo, deviceWanInfo, deviceLanIP)
 
         return view
     }
 
     inner class ViewHolder(private var view: View, private var parent: ViewGroup)
     {
-        fun bind(position: Int, deviceInfo: GatewayProfile, deviceWanInfo: WanInfoProfile, deviceLanIP: String, endDeviceProfile: EndDeviceProfile)
+        fun bind(position: Int, deviceInfo: GatewayProfile, deviceWanInfo: WanInfoProfile, deviceLanIP: String)
         {
             var status = ""
-            if(endDeviceProfile.DeviceMode.equals("GATEWAY", ignoreCase = true))
+            if(endDeviceList[position].DeviceMode.equals("GATEWAY", ignoreCase = true))
                 view.connect_status_text.text = status
             else
             {
-                if(endDeviceProfile.Active.equals("Disconnect", ignoreCase = true))
+                if(endDeviceList[position].Active.equals("Disconnect", ignoreCase = true))
                     status = "N/A"
                 else
                 {
-                    if(endDeviceProfile.ConnectionType.equals("WiFi", ignoreCase = true))
-                        status = endDeviceProfile.RssiValue
+                    if(endDeviceList[position].ConnectionType.equals("WiFi", ignoreCase = true))
+                        status = endDeviceList[position].RssiValue
                     else
                         status = "Good"
                 }
@@ -87,18 +87,18 @@ class ZYXELEndDeviceItemAdapter(
                 )
             }
 
-            var mode = endDeviceProfile.DeviceMode + if(status.equals("N/A", ignoreCase = true)) " disconnected" else ""
+            var mode = endDeviceList[position].DeviceMode + if(status.equals("N/A", ignoreCase = true)) " disconnected" else ""
             view.device_mode_text.text = mode
 
-            view.user_define_name_text.text = endDeviceProfile.UserDefineName
+            view.user_define_name_text.text = endDeviceList[position].UserDefineName
 
-            view.enter_detail_image.setOnClickListener {
+            view.enter_detail_image.setOnClickListener{
                 val bundle = Bundle().apply{
                     putBoolean("GatewayMode", position == 0)
                     putSerializable("GatewayProfile", deviceInfo)
                     putSerializable("GatewayWanInfo", deviceWanInfo)
                     putString("GatewayLanIP", deviceLanIP)
-                    putSerializable("EndDeviceProfile", endDeviceProfile)
+                    putSerializable("EndDeviceProfile", endDeviceList[position])
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(ZYXELEndDeviceDetailFragment().apply{ arguments = bundle }))
             }

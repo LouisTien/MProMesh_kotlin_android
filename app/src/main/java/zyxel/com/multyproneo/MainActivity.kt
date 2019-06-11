@@ -64,6 +64,8 @@ class MainActivity : AppCompatActivity()
     }
 
     private val clickListener = View.OnClickListener { view ->
+        disSelectToolBarIcons()
+
         when(view)
         {
             home_relative ->
