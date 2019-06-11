@@ -16,7 +16,9 @@ import zyxel.com.multyproneo.event.DevicesEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.fragment.DevicesFragment
 import zyxel.com.multyproneo.fragment.FindingDeviceFragment
+import zyxel.com.multyproneo.fragment.HomeFragment
 import zyxel.com.multyproneo.model.EndDeviceProfile
 import zyxel.com.multyproneo.model.WanInfoProfile
 import zyxel.com.multyproneo.util.AppConfig
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         loadingDlg = createLoadingDlg(this)
+        setClickListener()
         listenEvent()
         switchToFragContainer(FindingDeviceFragment())
     }
@@ -58,6 +61,43 @@ class MainActivity : AppCompatActivity()
     {
         super.onDestroy()
         disposeEvent()
+    }
+
+    private val clickListener = View.OnClickListener { view ->
+        when(view)
+        {
+            home_relative ->
+            {
+                home_image.isSelected = true
+                home_text.isSelected = true
+                if(currentFrag != "HomeFragment") switchToFragContainer(HomeFragment())
+            }
+
+            devices_relative ->
+            {
+                devices_image.isSelected = true
+                devices_text.isSelected = true
+                if(currentFrag != "DevicesFragment") switchToFragContainer(DevicesFragment())
+            }
+
+            parental_relative -> {}
+
+            wifi_relative -> {}
+
+            diagnostic_relative -> {}
+
+            account_relative -> {}
+        }
+    }
+
+    private fun setClickListener()
+    {
+        home_relative.setOnClickListener(clickListener)
+        devices_relative.setOnClickListener(clickListener)
+        parental_relative.setOnClickListener(clickListener)
+        wifi_relative.setOnClickListener(clickListener)
+        diagnostic_relative.setOnClickListener(clickListener)
+        account_relative.setOnClickListener(clickListener)
     }
 
     private fun disSelectToolBarIcons()

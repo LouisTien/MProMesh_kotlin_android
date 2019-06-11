@@ -35,9 +35,11 @@ class HomeFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
         getInfoCompleteDisposable = GlobalBus.listen(HomeEvent.GetDeviceInfoComplete::class.java).subscribe{
             updateUI()
         }
+
         setClickListener()
     }
 
@@ -85,9 +87,9 @@ class HomeFragment : Fragment()
                 GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
             }
 
-            //home_connect_device_enter_image ->
-            //home_guest_wifi_enter_image ->
-            //home_add_mesh_image ->
+            home_connect_device_enter_image -> {}
+            home_guest_wifi_enter_image -> {}
+            home_add_mesh_image -> {}
         }
     }
 

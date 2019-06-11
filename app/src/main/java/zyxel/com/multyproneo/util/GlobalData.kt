@@ -20,8 +20,54 @@ class GlobalData
         var gatewayWanInfo = WanInfoProfile()
         var gatewayLanIP = ""
         var guestWiFiStatus = false
+        var homeDevAscendingOrder = true
+        var guestDevAscendingOrder = true
 
-        fun getCurrentGatewayInfo(): GatewayProfile = gatewayProfileMutableList.get(currentGatewayIndex)
+        fun getCurrentGatewayInfo(): GatewayProfile = gatewayProfileMutableList[currentGatewayIndex]
         fun getConnectDeviceCount(): Int = endDeviceList.size - (ZYXELEndDeviceList.size - 1)
+        fun getTotalDeviceCount(): Int = homeEndDeviceList.size + guestEndDeviceList.size
+
+        fun getActivatedDeviceCount(): Int
+        {
+            var count = 0
+            for(item in homeEndDeviceList)
+            {
+                if(item.Active.equals("Connect", ignoreCase = false)) count++
+            }
+
+            for(item in guestEndDeviceList)
+            {
+                if(item.Active.equals("Connect", ignoreCase = false)) count++
+            }
+            return count
+        }
+
+        fun sortHomeDeviceList() = if(homeDevAscendingOrder) sortHomeDevAscendingOrder() else sortHomeDevDescendingOrder()
+
+        fun sortHomeDevAscendingOrder()
+        {
+            homeDevAscendingOrder = true
+            homeEndDeviceList.sortBy { it.Name }
+        }
+
+        fun sortHomeDevDescendingOrder()
+        {
+            homeDevAscendingOrder = false
+            homeEndDeviceList.sortByDescending { it.Name }
+        }
+
+        fun sortGuestDeviceList() = if(guestDevAscendingOrder) sortGuestDevAscendingOrder() else sortGuestDevDescendingOrder()
+
+        fun sortGuestDevAscendingOrder()
+        {
+            guestDevAscendingOrder = true
+            guestEndDeviceList.sortBy { it.Name }
+        }
+
+        fun sortGuestDevDescendingOrder()
+        {
+            guestDevAscendingOrder = false
+            guestEndDeviceList.sortByDescending { it.Name }
+        }
     }
 }

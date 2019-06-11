@@ -27,7 +27,7 @@ class ZYXELEndDeviceItemAdapter(
 
     override fun getCount(): Int = endDeviceList.size
 
-    override fun getItem(position: Int): Any = endDeviceList.get(position)
+    override fun getItem(position: Int): Any = endDeviceList[position]
 
     override fun getItemId(position: Int): Long = position.toLong()
 
@@ -74,12 +74,15 @@ class ZYXELEndDeviceItemAdapter(
                 view.connect_status_text.text = status
 
                 view.connect_status_text.textColor = parent.context.resources.getColor(
-                        when
+                        with(status)
                         {
-                            status.equals("Good", ignoreCase = true) -> R.color.color_3c9f00
-                            status.equals("TooClose", ignoreCase = true) -> R.color.color_ff6800
-                            status.equals("Weak", ignoreCase = true) -> R.color.color_d9003c
-                            else -> R.color.color_575757
+                            when
+                            {
+                                equals("Good", ignoreCase = true) -> R.color.color_3c9f00
+                                equals("TooClose", ignoreCase = true) -> R.color.color_ff6800
+                                equals("Weak", ignoreCase = true) -> R.color.color_d9003c
+                                else -> R.color.color_575757
+                            }
                         }
                 )
             }
