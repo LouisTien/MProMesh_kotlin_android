@@ -58,14 +58,13 @@ class FindingDeviceFragment : Fragment()
         val wifiManager = activity?.applicationContext?.getSystemService(Context.WIFI_SERVICE) as WifiManager
         if(!wifiManager.isWifiEnabled)
         {
-            val msgDialog = MessageDialog(
+            MessageDialog(
                     activity!!,
                     getString(R.string.message_dialog_not_connect),
                     getString(R.string.message_dialog_not_connect_try_again),
                     arrayOf(getString(R.string.message_dialog_ok)),
                     AppConfig.Companion.DialogAction.ACT_NONE
-            )
-            msgDialog.show()
+            ).show()
         }
         else
         {

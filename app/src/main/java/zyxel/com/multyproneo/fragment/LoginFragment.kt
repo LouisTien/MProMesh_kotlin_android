@@ -171,7 +171,7 @@ class LoginFragment : Fragment()
     {
         login_username_edit.textChangedListener{
             onTextChanged{
-                str: CharSequence?, start: Int, before: Int, count: Int ->
+                str: CharSequence?, _: Int, _: Int, _: Int ->
                 try
                 {
                     userNameIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
@@ -186,7 +186,7 @@ class LoginFragment : Fragment()
     {
         login_password_edit.textChangedListener{
             onTextChanged{
-                str: CharSequence?, start: Int, before: Int, count: Int ->
+                str: CharSequence?, _: Int, _: Int, _: Int ->
                 passwordIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
                 checkInputEditUI()
             }

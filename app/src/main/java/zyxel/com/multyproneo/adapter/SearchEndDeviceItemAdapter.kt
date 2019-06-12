@@ -1,12 +1,16 @@
 package zyxel.com.multyproneo.adapter
 
 import android.app.Activity
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import kotlinx.android.synthetic.main.adapter_search_end_device_list_item.view.*
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.event.GlobalBus
+import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.fragment.EndDeviceDetailFragment
 import zyxel.com.multyproneo.model.EndDeviceProfile
 import zyxel.com.multyproneo.tool.CommonTool
 
@@ -52,6 +56,12 @@ class SearchEndDeviceItemAdapter(private var activity: Activity) : BaseAdapter()
             view.search_user_define_name_text.text = endDeviceList[position].UserDefineName
             view.search_enter_detail_image.setOnClickListener{
                 CommonTool.hideKeyboard(activity)
+                val bundle = Bundle().apply{
+                    putSerializable("EndDeviceProfile", endDeviceList[position])
+                    putString("Search", searchStr)
+                    putBoolean("FromSearch", true)
+                }
+                GlobalBus.publish(MainEvent.SwitchToFrag(EndDeviceDetailFragment().apply{ arguments = bundle }))
             }
         }
     }

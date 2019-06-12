@@ -36,20 +36,19 @@ class ZYXELEndDeviceDetailFragment : Fragment()
     private lateinit var deviceInfo: GatewayProfile
     private lateinit var deviceWanInfo: WanInfoProfile
     private lateinit var endDeviceInfo: EndDeviceProfile
-    private lateinit var msgDialog: MessageDialog
     private var isGatewayMode = false
     private var isEditMode = false
     private var isConnect = false
-    private var deviceLanIP = ""
-    private var modelName = ""
-    private var status = ""
-    private var connectType = ""
-    private var wanIP = ""
-    private var dnsIP = ""
-    private var lanIP = ""
-    private var mac = ""
-    private var fwVer = ""
-    private var ip = ""
+    private var deviceLanIP = "N/A"
+    private var modelName = "N/A"
+    private var status = "N/A"
+    private var connectType = "N/A"
+    private var wanIP = "N/A"
+    private var dnsIP = "N/A"
+    private var lanIP = "N/A"
+    private var mac = "N/A"
+    private var fwVer = "N/A"
+    private var ip = "N/A"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -66,7 +65,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
             this?.getSerializable("GatewayProfile")?.let{ deviceInfo = it as GatewayProfile }
             this?.getSerializable("GatewayWanInfo")?.let { deviceWanInfo = it as WanInfoProfile }
             this?.getString("GatewayLanIP")?.let{ deviceLanIP = it }
-            this?.getSerializable("EndDeviceProfile")?.let { endDeviceInfo = it as EndDeviceProfile }
+            this?.getSerializable("EndDeviceProfile")?.let{ endDeviceInfo = it as EndDeviceProfile }
         }
 
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -139,26 +138,24 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 
             zyxel_end_device_detail_reboot_button ->
             {
-                msgDialog = MessageDialog(
+                MessageDialog(
                         activity!!,
                         getString(R.string.message_dialog_reboot_reminder_title),
                         getString(R.string.message_dialog_reboot_reminder),
                         arrayOf(getString(R.string.message_dialog_restart), getString(R.string.message_dialog_cancel)),
                         AppConfig.Companion.DialogAction.ACT_REBOOT
-                )
-                msgDialog.show()
+                ).show()
             }
 
             zyxel_end_device_detail_remove_device_text ->
             {
-                msgDialog = MessageDialog(
+                MessageDialog(
                         activity!!,
                         "",
                         getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.UserDefineName + " ?",
                         arrayOf(getString(R.string.message_dialog_delete), getString(R.string.message_dialog_cancel)),
                         AppConfig.Companion.DialogAction.ACT_DELETE_ZYXEL_DEVICE
-                )
-                msgDialog.show()
+                ).show()
             }
         }
     }
@@ -316,7 +313,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
     {
         zyxel_end_device_detail_model_name_edit.textChangedListener{
             onTextChanged{
-                str: CharSequence?, start: Int, before: Int, count: Int ->
+                _: CharSequence?, _: Int, _: Int, _: Int ->
                 checkInputEditUI(SpecialCharacterHandler.containsEmoji(zyxel_end_device_detail_model_name_edit.text.toString()))
             }
         }

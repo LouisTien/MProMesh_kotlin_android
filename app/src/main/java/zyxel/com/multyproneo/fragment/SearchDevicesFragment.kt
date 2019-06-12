@@ -106,7 +106,7 @@ class SearchDevicesFragment : Fragment()
     {
         devices_search_input_edit.textChangedListener{
             onTextChanged{
-                str: CharSequence?, start: Int, before: Int, count: Int ->
+                _: CharSequence?, _: Int, _: Int, _: Int ->
                 var search = devices_search_input_edit.text.toString()
 
                 searchResultDeviceList.clear()

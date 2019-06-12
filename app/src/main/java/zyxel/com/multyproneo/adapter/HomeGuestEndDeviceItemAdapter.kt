@@ -1,5 +1,6 @@
 package zyxel.com.multyproneo.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,9 @@ import android.widget.BaseAdapter
 import kotlinx.android.synthetic.main.adapter_home_guest_end_device_list_item.view.*
 import org.jetbrains.anko.textColor
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.event.GlobalBus
+import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.fragment.EndDeviceDetailFragment
 import zyxel.com.multyproneo.model.EndDeviceProfile
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 
@@ -37,16 +41,16 @@ class HomeGuestEndDeviceItemAdapter(private var endDeviceList: MutableList<EndDe
             holder = view.tag as ViewHolder
         }
 
-        holder.bind(endDeviceList[position])
+        holder.bind(position)
 
         return view
     }
 
     inner class ViewHolder(private var view: View, private var parent: ViewGroup)
     {
-        fun bind(endDeviceProfile: EndDeviceProfile)
+        fun bind(position: Int)
         {
-            var status = if(endDeviceProfile.Blocking.equals("Blocking", ignoreCase = false)) "Blocked" else endDeviceProfile.RssiValue
+            var status = if(endDeviceList[position].Blocking.equals("Blocking", ignoreCase = false)) "Blocked" else endDeviceList[position].RssiValue
 
             view.link_quality_text.textColor = parent.context.resources.getColor(
                     with(status)
@@ -61,7 +65,7 @@ class HomeGuestEndDeviceItemAdapter(private var endDeviceList: MutableList<EndDe
                     }
             )
 
-            if(endDeviceProfile.Active.equals("Disconnect", ignoreCase = false))
+            if(endDeviceList[position].Active.equals("Disconnect", ignoreCase = false))
             {
                 status = ""
                 view.user_define_name_text.textColor = parent.context.resources.getColor(R.color.color_b4b4b4)
@@ -71,14 +75,21 @@ class HomeGuestEndDeviceItemAdapter(private var endDeviceList: MutableList<EndDe
 
             view.link_quality_text.text = status
 
-            var modelName = SpecialCharacterHandler.checkEmptyTextValue(endDeviceProfile.UserDefineName)
+            var modelName = SpecialCharacterHandler.checkEmptyTextValue(endDeviceList[position].UserDefineName)
             if(modelName.equals("N/A", ignoreCase = false))
-                modelName = endDeviceProfile.Name
+                modelName = endDeviceList[position].Name
 
             view.user_define_name_text.text = modelName
             view.profile_name_text.setText("")
 
-            view.enter_detail_image.setOnClickListener {  }
+            view.enter_detail_image.setOnClickListener{
+                val bundle = Bundle().apply{
+                    putSerializable("EndDeviceProfile", endDeviceList[position])
+                    putString("Search", "")
+                    putBoolean("FromSearch", false)
+                }
+                GlobalBus.publish(MainEvent.SwitchToFrag(EndDeviceDetailFragment().apply{ arguments = bundle }))
+            }
         }
     }
 }
