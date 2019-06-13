@@ -35,10 +35,7 @@ class SearchDevicesFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
 
-        with(arguments)
-        {
-            this?.getString("Search")?.let{ searchStr = it }
-        }
+        with(arguments){ this?.getString("Search")?.let{ searchStr = it } }
 
         itemAdapter = SearchEndDeviceItemAdapter(activity!!)
 

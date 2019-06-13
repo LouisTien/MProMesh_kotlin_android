@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.zxing.BarcodeFormat
-import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
 import kotlinx.android.synthetic.main.fragment_wifi_settings.*
 import org.jetbrains.anko.doAsync
@@ -88,6 +87,13 @@ class WiFiSettingsFragment : Fragment()
 
             wifi_settings_wifi_edit_image ->
             {
+                val bundle = Bundle().apply{
+                    putBoolean("GuestWiFiMode", false)
+                    putString("Name", WiFiName)
+                    putString("Password", WiFiPwd)
+                    putBoolean("WifiStatus", false)
+                }
+                GlobalBus.publish(MainEvent.SwitchToFrag(WiFiSettingsEditFragment().apply{ arguments = bundle }))
             }
 
             wifi_settings_guest_wifi_password_show_image ->
@@ -101,7 +107,13 @@ class WiFiSettingsFragment : Fragment()
 
             wifi_settings_guest_wifi_edit_image ->
             {
-
+                val bundle = Bundle().apply{
+                    putBoolean("GuestWiFiMode", true)
+                    putString("Name", guestWiFiName)
+                    putString("Password", guestWiFiPwd)
+                    putBoolean("WifiStatus", guestWiFiStatus)
+                }
+                GlobalBus.publish(MainEvent.SwitchToFrag(WiFiSettingsEditFragment().apply{ arguments = bundle }))
             }
 
             wifi_settings_guest_wifi_switch_image ->
@@ -160,7 +172,7 @@ class WiFiSettingsFragment : Fragment()
         guestWiFiQRCodeBitmap = Bitmap.createBitmap(QRCODE_PIXEL, QRCODE_PIXEL, Bitmap.Config.ARGB_8888)
         for(i in 0 until QRCODE_PIXEL)
             for(j in 0 until QRCODE_PIXEL)
-                guestWiFiQRCodeBitmap.setPixel(i, j, if(bitMatrix.get(i, j)) Color.BLACK else Color.WHITE)
+                guestWiFiQRCodeBitmap.setPixel(i, j, if(bitMatrixGuest.get(i, j)) Color.BLACK else Color.WHITE)
 
     }
 
