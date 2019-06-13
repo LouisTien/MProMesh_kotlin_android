@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_devices.*
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.HomeGuestEndDeviceItemAdapter
 import zyxel.com.multyproneo.event.DevicesEvent
@@ -60,8 +61,6 @@ class DevicesFragment : Fragment()
     private val clickListener = View.OnClickListener { view ->
         when(view)
         {
-            menu_navigation_image -> {}
-
             devices_search_image ->
             {
                 val bundle = Bundle().apply{
@@ -86,7 +85,6 @@ class DevicesFragment : Fragment()
 
     private fun setClickListener()
     {
-        menu_navigation_image.setOnClickListener(clickListener)
         devices_search_image.setOnClickListener(clickListener)
         devices_home_devices_sort_image.setOnClickListener(clickListener)
         devices_guest_devices_sort_image.setOnClickListener(clickListener)

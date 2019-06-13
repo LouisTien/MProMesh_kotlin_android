@@ -16,10 +16,7 @@ import zyxel.com.multyproneo.event.DevicesEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.fragment.DevicesFragment
-import zyxel.com.multyproneo.fragment.FindingDeviceFragment
-import zyxel.com.multyproneo.fragment.HomeFragment
-import zyxel.com.multyproneo.fragment.WiFiSettingsFragment
+import zyxel.com.multyproneo.fragment.*
 import zyxel.com.multyproneo.model.EndDeviceProfile
 import zyxel.com.multyproneo.model.WanInfoProfile
 import zyxel.com.multyproneo.util.AppConfig
@@ -94,7 +91,12 @@ class MainActivity : AppCompatActivity()
 
             diagnostic_relative -> {}
 
-            account_relative -> {}
+            account_relative ->
+            {
+                account_image.isSelected = true
+                account_text.isSelected = true
+                if(currentFrag != "AccountFragment") switchToFragContainer(AccountFragment())
+            }
         }
     }
 
