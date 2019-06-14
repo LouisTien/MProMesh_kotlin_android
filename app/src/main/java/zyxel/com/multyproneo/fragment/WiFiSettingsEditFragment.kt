@@ -140,7 +140,7 @@ class WiFiSettingsEditFragment : Fragment()
         }
     }
 
-    protected fun attachKeyboardListeners()
+    private fun attachKeyboardListeners()
     {
         if(keyboardListenersAttached) return
         view?.viewTreeObserver?.addOnGlobalLayoutListener(keyboardLayoutListener)
