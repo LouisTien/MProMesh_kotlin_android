@@ -1,5 +1,6 @@
 package zyxel.com.multyproneo.adapter
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +14,13 @@ import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.fragment.EndDeviceDetailFragment
 import zyxel.com.multyproneo.model.EndDeviceProfile
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
+import zyxel.com.multyproneo.util.FeatureConfig
+import zyxel.com.multyproneo.util.OUIUtil
 
 /**
  * Created by LouisTien on 2019/6/10.
  */
-class HomeGuestEndDeviceItemAdapter(private var endDeviceList: MutableList<EndDeviceProfile>) : BaseAdapter()
+class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var endDeviceList: MutableList<EndDeviceProfile>) : BaseAdapter()
 {
     override fun getCount(): Int = endDeviceList.size
 
@@ -79,8 +82,14 @@ class HomeGuestEndDeviceItemAdapter(private var endDeviceList: MutableList<EndDe
             if(modelName.equals("N/A", ignoreCase = false))
                 modelName = endDeviceList[position].Name
 
+            if(FeatureConfig.hostNameReplease)
+            {
+                if(modelName.equals("unknown", ignoreCase = false))
+                    modelName = OUIUtil.getOUI(activity, endDeviceList[position].MAC)
+            }
+
             view.user_define_name_text.text = modelName
-            view.profile_name_text.setText("")
+            view.profile_name_text.text = ""
 
             view.enter_detail_image.setOnClickListener{
                 val bundle = Bundle().apply{

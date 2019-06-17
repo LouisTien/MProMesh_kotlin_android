@@ -22,7 +22,9 @@ import zyxel.com.multyproneo.model.EndDeviceProfile
 import zyxel.com.multyproneo.tool.CommonTool
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
+import zyxel.com.multyproneo.util.OUIUtil
 
 /**
  * Created by LouisTien on 2019/6/11.
@@ -206,11 +208,18 @@ class EndDeviceDetailFragment : Fragment()
         )
         ip = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.IPAddress)
         mac = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.MAC)
-        manufacturer = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.Manufacturer)
+        var oui = OUIUtil.getOUI(activity!!, endDeviceInfo.MAC)
+        manufacturer = SpecialCharacterHandler.checkEmptyTextValue(if(oui == "") endDeviceInfo.Manufacturer else oui)
         dhcpTime = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.dhcpLeaseTime)
 
         if(modelName.equals("N/A", ignoreCase = false))
             modelName = endDeviceInfo.Name
+
+        if(FeatureConfig.hostNameReplease)
+        {
+            if(modelName.equals("unknown", ignoreCase = false))
+                modelName = OUIUtil.getOUI(activity!!, endDeviceInfo.MAC)
+        }
 
         if(connectType.equals("WiFi", ignoreCase = false))
         {

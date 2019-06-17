@@ -97,13 +97,13 @@ class DevicesFragment : Fragment()
 
         devices_home_devices_sort_image.setImageResource(if(GlobalData.homeDevAscendingOrder) R.drawable.device_sorting_1 else R.drawable.device_sorting_2)
         GlobalData.sortHomeDeviceList()
-        devices_home_devices_list.adapter = HomeGuestEndDeviceItemAdapter(GlobalData.homeEndDeviceList)
+        devices_home_devices_list.adapter = HomeGuestEndDeviceItemAdapter(activity!!, GlobalData.homeEndDeviceList)
 
         if(GlobalData.guestEndDeviceList.size > 0)
         {
             devices_guest_devices_sort_image.setImageResource(if(GlobalData.guestDevAscendingOrder) R.drawable.device_sorting_1 else R.drawable.device_sorting_2)
             GlobalData.sortGuestDeviceList()
-            devices_guest_devices_list.adapter = HomeGuestEndDeviceItemAdapter(GlobalData.guestEndDeviceList)
+            devices_guest_devices_list.adapter = HomeGuestEndDeviceItemAdapter(activity!!, GlobalData.guestEndDeviceList)
         }
         else
             devices_guest_devices_area_linear.visibility = View.GONE
