@@ -10,7 +10,7 @@ import kotlin.reflect.KProperty
  */
 class SharedPreferencesUtil<T>(val context: Context, val name: String, val default: T) : ReadWriteProperty<Any?, T>
 {
-    val prefs: SharedPreferences by lazy{ context.getSharedPreferences("name_device_setting", Context.MODE_PRIVATE) }
+    private val prefs: SharedPreferences by lazy{ context.getSharedPreferences("name_device_setting", Context.MODE_PRIVATE) }
 
     override fun getValue(thisRef: Any?, property: KProperty<*>): T = findPreference(name, default)
 

@@ -35,22 +35,22 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
     private lateinit var _5GWiFiSignalWaveProfileArrayList: ArrayList<ArrayList<WiFiSignalWaveProfile>>
     private lateinit var signalWaveProfileArrayList: ArrayList<WiFiSignalWaveProfile>
 
-    private lateinit var pathArrayList: ArrayList<Path>
-    private lateinit var paintArrayList: ArrayList<Paint>
-    private lateinit var ssidArrayList: ArrayList<String>
+    private var pathArrayList = arrayListOf<Path>()
+    private var paintArrayList = arrayListOf<Paint>()
+    private var ssidArrayList = arrayListOf<String>()
 
-    private lateinit var mapListP0: List<Map<Int, Float>>
-    private lateinit var mapListP1: List<Map<Int, Float>>
-    private lateinit var mapListP2: List<Map<Int, Float>>
-    private lateinit var mapListChannel: List<Map<Int, Int>>
+    private var mapListP0 = arrayListOf<Map<Int, Float>>()
+    private var mapListP1 = arrayListOf<Map<Int, Float>>()
+    private var mapListP2 = arrayListOf<Map<Int, Float>>()
+    private var mapListChannel = arrayListOf<Map<Int, Int>>()
 
-    private lateinit var listArrayListP0: ArrayList<List<Map<Int, Float>>>
-    private lateinit var listArrayListP1: ArrayList<List<Map<Int, Float>>>
-    private lateinit var listArrayListP2: ArrayList<List<Map<Int, Float>>>
-    private lateinit var listArrayListChannel: ArrayList<List<Map<Int, Int>>>
+    private var listArrayListP0 = arrayListOf<List<Map<Int, Float>>>()
+    private var listArrayListP1 = arrayListOf<List<Map<Int, Float>>>()
+    private var listArrayListP2 = arrayListOf<List<Map<Int, Float>>>()
+    private var listArrayListChannel = arrayListOf<List<Map<Int, Int>>>()
 
-    private lateinit var canvasWiFiSiganlWaveProfileAL: ArrayList<WiFiSignalWaveProfile>
-    private lateinit var ssidCenterArrayList: ArrayList<Float>
+    private var canvasWiFiSiganlWaveProfileAL = arrayListOf<WiFiSignalWaveProfile>()
+    private var ssidCenterArrayList = arrayListOf<Float>()
     private var connectedSSID = ""
 
     init
@@ -283,7 +283,7 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
     {
         super.onDraw(canvas)
 
-        pathArrayList = ArrayList<Path>()
+        /*pathArrayList = ArrayList<Path>()
         paintArrayList = ArrayList<Paint>()
         ssidArrayList = ArrayList<String>()
 
@@ -298,7 +298,7 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
         listArrayListChannel = ArrayList<List<Map<Int, Int>>>()
 
         canvasWiFiSiganlWaveProfileAL = ArrayList<WiFiSignalWaveProfile>()
-        ssidCenterArrayList = ArrayList<Float>()
+        ssidCenterArrayList = ArrayList<Float>()*/
 
         canvas.drawPaint(paint)
         paint.isAntiAlias = true
@@ -327,10 +327,56 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
                         {
                             var tmpMap = HashMap<Int, Float>()
                             tmpMap[i + wifiSignalWaveProfile.channelMargin - scrollPosition] = wifiSignalWaveProfile.new_y
-                            //mapListP0.add(tmpMap)
+                            mapListP0.add(tmpMap)
+                            listArrayListP0.add(mapListP0)
+                            var pathPaint = Paint()
+                            pathPaint.color = wifiSignalWaveProfile.color
+                            paintArrayList.add(pathPaint)
+                            ssidArrayList.add(wifiSignalWaveProfile.ssid)
+                            canvasWiFiSiganlWaveProfileAL.add(wifiSignalWaveProfile)
+                        }
+
+                        (period/2).toInt() ->
+                        {
+                            var tmpMap = HashMap<Int, Float>()
+                            tmpMap[i + wifiSignalWaveProfile.channelMargin - scrollPosition] = wifiSignalWaveProfile.new_y
+                            mapListP1.add(tmpMap)
+                            listArrayListP1.add(mapListP1)
+                        }
+
+                        period.toInt() ->
+                        {
+                            var tmpMap = HashMap<Int, Float>()
+                            tmpMap[i + wifiSignalWaveProfile.channelMargin - scrollPosition] = wifiSignalWaveProfile.new_y
+                            mapListP2.add(tmpMap)
+                            listArrayListP2.add(mapListP2)
+                        }
+
+                        (period/2 - 15).toInt() ->
+                        {
+                            var tmpMap = HashMap<Int, Int>()
+                            tmpMap[(i + (mWidth/6) * (drawWaveIndex - 1)) - scrollPosition] = canvas.height - channelTextMargin
+                            mapListChannel.add(tmpMap)
+                            listArrayListChannel.add(mapListChannel)
                         }
                     }
+                    wifiSignalWaveProfile.old_x = wifiSignalWaveProfile.new_x
+                    wifiSignalWaveProfile.old_y = wifiSignalWaveProfile.new_y
                 }
+            }
+        }
+
+        for(i in 0 .. listArrayListP0.size)
+        {
+            var mParh = Path()
+            var iteratorP0 = listArrayListP0[i][i].entries.iterator()
+            var iteratorP1 = listArrayListP1[i][i].entries.iterator()
+            var iteratorP2 = listArrayListP2[i][i].entries.iterator()
+            while(iteratorP0.hasNext())
+            {
+                var entryP0 = iteratorP0.next()
+                var p0x = entryP0.key
+                var p0y = entryP0.value;
             }
         }
     }

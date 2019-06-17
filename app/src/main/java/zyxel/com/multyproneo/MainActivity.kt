@@ -22,6 +22,7 @@ import zyxel.com.multyproneo.model.WanInfoProfile
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
+import zyxel.com.multyproneo.util.OUIUtil
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         loadingDlg = createLoadingDlg(this)
+        OUIUtil.executeGetMacOUITask(this)
         setClickListener()
         listenEvent()
         switchToFragContainer(FindingDeviceFragment())
