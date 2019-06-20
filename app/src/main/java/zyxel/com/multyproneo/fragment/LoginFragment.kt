@@ -17,13 +17,16 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayProfile
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
+import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
+import zyxel.com.multyproneo.util.LogUtil
 
 /**
  * Created by LouisTien on 2019/5/31.
  */
 class LoginFragment : Fragment()
 {
+    private val TAG = javaClass.simpleName
     private lateinit var gatewayInfo: GatewayProfile
     private lateinit var inputMethodManager: InputMethodManager
     private var gatewayIndex = 0
@@ -55,6 +58,8 @@ class LoginFragment : Fragment()
         gatewayIndex = GlobalData.currentGatewayIndex
         gatewayInfo = GlobalData.getCurrentGatewayInfo()
         login_title_text.text = getString(R.string.login_title) + " " + gatewayInfo.modelName
+        login_username_edit.setText(DatabaseUtil.getDBHandler(activity!!)?.getDeviceUserNameFromDB(gatewayInfo.serial))
+        login_password_edit.setText(DatabaseUtil.getDBHandler(activity!!)?.getDevicePasswordFromDB(gatewayInfo.serial))
         attachKeyboardListeners()
     }
 
@@ -112,6 +117,13 @@ class LoginFragment : Fragment()
             {
                 inputMethodManager.hideSoftInputFromWindow(login_username_edit.applicationWindowToken, 0)
                 inputMethodManager.hideSoftInputFromWindow(login_password_edit.applicationWindowToken, 0)
+                var password = login_password_edit.text.toString()
+                var userName = login_username_edit.text.toString()
+                LogUtil.d(TAG,"loginPasswordEdit:$password")
+                LogUtil.d(TAG,"loginUsernameEdit:$userName")
+                gatewayInfo.password = password
+                gatewayInfo.userName = userName
+                DatabaseUtil.getDBHandler(activity!!)?.updateInformationToDB(gatewayInfo)
                 GlobalBus.publish(MainEvent.SwitchToFrag(HomeFragment()))
             }
         }
@@ -177,7 +189,7 @@ class LoginFragment : Fragment()
                     userNameIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
                     checkInputEditUI()
                 }
-                catch (ex: NumberFormatException){}
+                catch(ex: NumberFormatException){}
             }
         }
     }

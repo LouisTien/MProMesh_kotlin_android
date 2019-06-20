@@ -25,6 +25,7 @@ import zyxel.com.multyproneo.model.GatewayProfile
 import zyxel.com.multyproneo.model.WanInfoProfile
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.DatabaseUtil
 
 /**
  * Created by LouisTien on 2019/6/6.
@@ -330,7 +331,10 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                 isEditMode = false
 
                 if(isGatewayMode)
+                {
                     deviceInfo.userDefineName = editDeviceName
+                    DatabaseUtil.getDBHandler(activity!!)?.updateInformationToDB(deviceInfo)
+                }
 
                 if(isVisible)
                 {

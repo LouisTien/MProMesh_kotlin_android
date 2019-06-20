@@ -14,13 +14,16 @@ import zyxel.com.multyproneo.event.GatewayListEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayProfile
+import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
+import zyxel.com.multyproneo.util.LogUtil
 
 /**
  * Created by LouisTien on 2019/5/30.
  */
 class GatewayListFragment : Fragment()
 {
+    private val TAG = javaClass.simpleName
     private lateinit var deviceSelectedDisposable: Disposable
     private lateinit var gatewayProfileMutableList: MutableList<GatewayProfile>
 
@@ -79,6 +82,10 @@ class GatewayListFragment : Fragment()
     {
         GlobalData.currentGatewayIndex = index
         GlobalBus.publish(MainEvent.HideLoading())
+        var userName = DatabaseUtil.getDBHandler(activity!!)?.getDeviceUserNameFromDB(gatewayProfileMutableList[index].serial)
+        var password = DatabaseUtil.getDBHandler(activity!!)?.getDevicePasswordFromDB(gatewayProfileMutableList[index].serial)
+        LogUtil.d(TAG, "OnDeviceSelected userName from DB:$userName")
+        LogUtil.d(TAG, "OnDeviceSelected password from DB:$password")
         GlobalBus.publish(MainEvent.SwitchToFrag(LoginFragment()))
     }
 }

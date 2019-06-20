@@ -32,12 +32,12 @@ class GlobalData
             var count = 0
             for(item in homeEndDeviceList)
             {
-                if(item.Active.equals("Connect", ignoreCase = false)) count++
+                if(item.Active.equals("Connect", ignoreCase = true)) count++
             }
 
             for(item in guestEndDeviceList)
             {
-                if(item.Active.equals("Connect", ignoreCase = false)) count++
+                if(item.Active.equals("Connect", ignoreCase = true)) count++
             }
             return count
         }

@@ -53,22 +53,22 @@ class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var 
     {
         fun bind(position: Int)
         {
-            var status = if(endDeviceList[position].Blocking.equals("Blocking", ignoreCase = false)) "Blocked" else endDeviceList[position].RssiValue
+            var status = if(endDeviceList[position].Blocking.equals("Blocking", ignoreCase = true)) "Blocked" else endDeviceList[position].RssiValue
 
             view.link_quality_text.textColor = parent.context.resources.getColor(
                     with(status)
                     {
                         when
                         {
-                            equals("Good", ignoreCase = false) -> R.color.color_3c9f00
-                            equals("TooClose", ignoreCase = false) -> R.color.color_ff6800
-                            equals("Weak", ignoreCase = false) or equals("Blocked", ignoreCase = false) -> R.color.color_d9003c
+                            equals("Good", ignoreCase = true) -> R.color.color_3c9f00
+                            equals("TooClose", ignoreCase = true) -> R.color.color_ff6800
+                            equals("Weak", ignoreCase = true) or equals("Blocked", ignoreCase = true) -> R.color.color_d9003c
                             else -> R.color.color_575757
                         }
                     }
             )
 
-            if(endDeviceList[position].Active.equals("Disconnect", ignoreCase = false))
+            if(endDeviceList[position].Active.equals("Disconnect", ignoreCase = true))
             {
                 status = ""
                 view.user_define_name_text.textColor = parent.context.resources.getColor(R.color.color_b4b4b4)
@@ -79,12 +79,12 @@ class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var 
             view.link_quality_text.text = status
 
             var modelName = SpecialCharacterHandler.checkEmptyTextValue(endDeviceList[position].UserDefineName)
-            if(modelName.equals("N/A", ignoreCase = false))
+            if(modelName.equals("N/A", ignoreCase = true))
                 modelName = endDeviceList[position].Name
 
             if(FeatureConfig.hostNameReplease)
             {
-                if(modelName.equals("unknown", ignoreCase = false))
+                if(modelName.equals("unknown", ignoreCase = true))
                     modelName = OUIUtil.getOUI(activity, endDeviceList[position].MAC)
             }
 

@@ -20,14 +20,18 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayProfile
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
+import zyxel.com.multyproneo.util.LogUtil
 
 /**
  * Created by LouisTien on 2019/5/28.
  */
 class FindingDeviceFragment : Fragment()
 {
+    private val TAG = javaClass.simpleName
     private lateinit var startWiFiSettingDisposable: Disposable
+    private var userDefineName = ""
     private var retryTimes = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -137,6 +141,17 @@ class FindingDeviceFragment : Fragment()
                             type = -1
                     )
             )
+
+            for(i in 0 until newGatewayProfileMutableList.size)
+            {
+                userDefineName = DatabaseUtil.getDBHandler(activity!!)?.getDeviceUserDefineNameFromDB(newGatewayProfileMutableList[i].serial)!!
+                LogUtil.d(TAG, "userDefineName from DB:$userDefineName")
+
+                if(userDefineName == "")
+                    newGatewayProfileMutableList[i].userDefineName = newGatewayProfileMutableList[i].modelName
+                else
+                    newGatewayProfileMutableList[i].userDefineName = userDefineName
+            }
 
             retryTimes++
             res = true

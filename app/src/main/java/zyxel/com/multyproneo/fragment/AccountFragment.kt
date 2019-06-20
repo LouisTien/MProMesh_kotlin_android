@@ -16,6 +16,8 @@ import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.DatabaseUtil
+import zyxel.com.multyproneo.util.GlobalData
 
 /**
  * Created by LouisTien on 2019/6/13.
@@ -38,7 +40,11 @@ class AccountFragment : Fragment()
         msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
             when(it.action)
             {
-                AppConfig.Companion.DialogAction.ACT_LOGOUT -> GlobalBus.publish(MainEvent.SwitchToFrag(FindingDeviceFragment()))
+                AppConfig.Companion.DialogAction.ACT_LOGOUT ->
+                {
+                    DatabaseUtil.getDBHandler(activity!!)?.deleteInformationToDB(GlobalData.getCurrentGatewayInfo())
+                    GlobalBus.publish(MainEvent.SwitchToFrag(FindingDeviceFragment()))
+                }
             }
         }
 

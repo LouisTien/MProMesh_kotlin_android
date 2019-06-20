@@ -201,7 +201,7 @@ class EndDeviceDetailFragment : Fragment()
         modelName = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.UserDefineName)
         connectType = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.ConnectionType)
         connectTo = SpecialCharacterHandler.checkEmptyTextValue(
-                if(endDeviceInfo.Neighbor.equals("gateway", ignoreCase = false))
+                if(endDeviceInfo.Neighbor.equals("gateway", ignoreCase = true))
                     GlobalData.getCurrentGatewayInfo().modelName
                 else
                     endDeviceInfo.Neighbor
@@ -212,16 +212,16 @@ class EndDeviceDetailFragment : Fragment()
         manufacturer = SpecialCharacterHandler.checkEmptyTextValue(if(oui == "") endDeviceInfo.Manufacturer else oui)
         dhcpTime = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.dhcpLeaseTime)
 
-        if(modelName.equals("N/A", ignoreCase = false))
+        if(modelName.equals("N/A", ignoreCase = true))
             modelName = endDeviceInfo.Name
 
         if(FeatureConfig.hostNameReplease)
         {
-            if(modelName.equals("unknown", ignoreCase = false))
+            if(modelName.equals("unknown", ignoreCase = true))
                 modelName = OUIUtil.getOUI(activity!!, endDeviceInfo.MAC)
         }
 
-        if(connectType.equals("WiFi", ignoreCase = false))
+        if(connectType.equals("WiFi", ignoreCase = true))
         {
             when(endDeviceInfo.Band)
             {
@@ -246,7 +246,7 @@ class EndDeviceDetailFragment : Fragment()
         end_device_detail_rssi_text.text = rssi
         end_device_detail_manufacturer_text.text = manufacturer
 
-        isBlocked = endDeviceInfo.Blocking.equals("Blocking", ignoreCase = false)
+        isBlocked = endDeviceInfo.Blocking.equals("Blocking", ignoreCase = true)
 
         when(isConnect)
         {
