@@ -115,10 +115,10 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
         _5GWiFiSignalWaveProfileArrayList = dataSet
         scrollPosition = scrollX
 
-        for(z in 0 until _5GWiFiSignalWaveProfileArrayList.size)
+        for(z in _5GWiFiSignalWaveProfileArrayList.indices)
         {
             signalWaveProfileArrayList = _5GWiFiSignalWaveProfileArrayList[z]
-            for(x in 0 until signalWaveProfileArrayList.size)
+            for(x in signalWaveProfileArrayList.indices)
             {
                 signalWaveProfileArrayList[x].radius = (signalWaveProfileArrayList[x].amplitude * 10) as Int
                 signalWaveProfileArrayList[x].amplitude = height * signalWaveProfileArrayList[x].amplitude + (x * 40)
@@ -304,12 +304,12 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
         paint.strokeWidth = 3F
 
         val screenHeight = canvas.height
-        for(z in 0 until _5GWiFiSignalWaveProfileArrayList.size)
+        for(z in _5GWiFiSignalWaveProfileArrayList.indices)
         {
             signalWaveProfileArrayList = _5GWiFiSignalWaveProfileArrayList[z]
             drawWaveIndex++
 
-            for(j in 0 until signalWaveProfileArrayList.size)
+            for(j in signalWaveProfileArrayList.indices)
             {
                 val wifiSignalWaveProfile = signalWaveProfileArrayList[j]
 
@@ -363,7 +363,7 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
             }
         }
 
-        for(i in 0 .. listArrayListP0.size)
+        for(i in listArrayListP0.indices)
         {
             val mPath = Path()
             val iteratorP0 = listArrayListP0[i][i].entries.iterator()
