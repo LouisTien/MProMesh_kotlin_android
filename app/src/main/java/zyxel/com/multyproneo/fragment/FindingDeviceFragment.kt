@@ -142,7 +142,7 @@ class FindingDeviceFragment : Fragment()
                     )
             )
 
-            for(i in 0 until newGatewayProfileMutableList.size)
+            for(i in newGatewayProfileMutableList.indices)
             {
                 userDefineName = DatabaseUtil.getDBHandler(activity!!)?.getDeviceUserDefineNameFromDB(newGatewayProfileMutableList[i].serial)!!
                 LogUtil.d(TAG, "userDefineName from DB:$userDefineName")

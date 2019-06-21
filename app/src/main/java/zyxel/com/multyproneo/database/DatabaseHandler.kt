@@ -80,7 +80,7 @@ class DatabaseHandler(private var activity: Activity)
             gatewayProfileArrayListDB.add(gatewayProfile)
         }
 
-        for(i in 0 until gatewayProfileArrayListDB.size)
+        for(i in gatewayProfileArrayListDB.indices)
         {
             LogUtil.d(TAG, "gateway profile on db id = " + gatewayProfileArrayListDB[i].idInDB)
             LogUtil.d(TAG, "gateway profile on db model = " + gatewayProfileArrayListDB[i].modelName)
@@ -160,7 +160,7 @@ class DatabaseHandler(private var activity: Activity)
 
         if(gatewayProfileArrayListDB.size != 0)
         {
-            for(i in 0 until gatewayProfileArrayListDB.size)
+            for(i in gatewayProfileArrayListDB.indices)
             {
                 if(gatewayProfileArrayListDB[i].serial.equals(serial, ignoreCase = true))
                 {
@@ -252,7 +252,7 @@ class DatabaseHandler(private var activity: Activity)
         {
             LogUtil.d(TAG,"db data size is not zero, find if exist")
             var id = ""
-            for(i in 0 until gatewayProfileArrayListDB.size)
+            for(i in gatewayProfileArrayListDB.indices)
             {
                 if(gatewayProfileArrayListDB[i].serial.equals(gatewayInfo.serial, ignoreCase = true))
                 {
@@ -285,7 +285,7 @@ class DatabaseHandler(private var activity: Activity)
     {
         getGatewayFromDB()
 
-        for(i in 0 until gatewayProfileArrayListDB.size)
+        for(i in gatewayProfileArrayListDB.indices)
         {
             if(gatewayProfileArrayListDB[i].serial.equals(gatewayInfo.serial, ignoreCase = true))
             {

@@ -2,10 +2,7 @@ package zyxel.com.multyproneo.wifichart
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.util.DisplayMetrics
 import android.view.View
 import java.util.ArrayList
@@ -306,7 +303,7 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
         paint.style = Paint.Style.FILL
         paint.strokeWidth = 3F
 
-        var screenHeight = canvas.height
+        val screenHeight = canvas.height
         for(z in 0 until _5GWiFiSignalWaveProfileArrayList.size)
         {
             signalWaveProfileArrayList = _5GWiFiSignalWaveProfileArrayList[z]
@@ -314,7 +311,7 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
 
             for(j in 0 until signalWaveProfileArrayList.size)
             {
-                var wifiSignalWaveProfile = signalWaveProfileArrayList[j]
+                val wifiSignalWaveProfile = signalWaveProfileArrayList[j]
 
                 for(i in 0 .. period.toInt())
                 {
@@ -325,11 +322,11 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
                     {
                         0 ->
                         {
-                            var tmpMap = HashMap<Int, Float>()
+                            val tmpMap = HashMap<Int, Float>()
                             tmpMap[i + wifiSignalWaveProfile.channelMargin - scrollPosition] = wifiSignalWaveProfile.new_y
                             mapListP0.add(tmpMap)
                             listArrayListP0.add(mapListP0)
-                            var pathPaint = Paint()
+                            val pathPaint = Paint()
                             pathPaint.color = wifiSignalWaveProfile.color
                             paintArrayList.add(pathPaint)
                             ssidArrayList.add(wifiSignalWaveProfile.ssid)
@@ -338,7 +335,7 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
 
                         (period/2).toInt() ->
                         {
-                            var tmpMap = HashMap<Int, Float>()
+                            val tmpMap = HashMap<Int, Float>()
                             tmpMap[i + wifiSignalWaveProfile.channelMargin - scrollPosition] = wifiSignalWaveProfile.new_y
                             mapListP1.add(tmpMap)
                             listArrayListP1.add(mapListP1)
@@ -346,7 +343,7 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
 
                         period.toInt() ->
                         {
-                            var tmpMap = HashMap<Int, Float>()
+                            val tmpMap = HashMap<Int, Float>()
                             tmpMap[i + wifiSignalWaveProfile.channelMargin - scrollPosition] = wifiSignalWaveProfile.new_y
                             mapListP2.add(tmpMap)
                             listArrayListP2.add(mapListP2)
@@ -354,7 +351,7 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
 
                         (period/2 - 15).toInt() ->
                         {
-                            var tmpMap = HashMap<Int, Int>()
+                            val tmpMap = HashMap<Int, Int>()
                             tmpMap[(i + (mWidth/6) * (drawWaveIndex - 1)) - scrollPosition] = canvas.height - channelTextMargin
                             mapListChannel.add(tmpMap)
                             listArrayListChannel.add(mapListChannel)
@@ -368,16 +365,140 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
 
         for(i in 0 .. listArrayListP0.size)
         {
-            var mParh = Path()
-            var iteratorP0 = listArrayListP0[i][i].entries.iterator()
-            var iteratorP1 = listArrayListP1[i][i].entries.iterator()
-            var iteratorP2 = listArrayListP2[i][i].entries.iterator()
+            val mPath = Path()
+            val iteratorP0 = listArrayListP0[i][i].entries.iterator()
+            val iteratorP1 = listArrayListP1[i][i].entries.iterator()
+            val iteratorP2 = listArrayListP2[i][i].entries.iterator()
             while(iteratorP0.hasNext())
             {
-                var entryP0 = iteratorP0.next()
-                var p0x = entryP0.key
-                var p0y = entryP0.value;
+                val entryP0 = iteratorP0.next()
+                val entryP1 = iteratorP1.next()
+                val entryP2 = iteratorP2.next()
+                val p0x = entryP0.key
+                val p0y = entryP0.value;
+                val p1x = entryP1.key
+                val p1y = entryP1.value;
+                val p2x = entryP2.key
+                val p2y = entryP2.value;
+                mPath.moveTo(p0x.toFloat(), p0y)
+                mPath.quadTo(p1x.toFloat(), p1y, p2x.toFloat(), p2y)
+                pathArrayList.add(mPath)
             }
         }
+
+        paint.style = Paint.Style.STROKE
+
+        for(i in pathArrayList.indices)
+        {
+            paint.color = paintArrayList[i].color
+            paint.strokeWidth = 5f
+            canvas.drawPath(pathArrayList[i], paint)
+            paint.strokeWidth = 2f
+            val pathMeasure = PathMeasure(pathArrayList[i], false)
+            ssidCenterArrayList.add((canvas.height - pathMeasure.length / 2) - ssidTextMargin)
+        }
+
+        paint.style = Paint.Style.FILL
+
+        for(i in pathArrayList.indices)
+        {
+            paint.color = canvasWiFiSiganlWaveProfileAL[i].fillColor
+            canvas.drawPath(pathArrayList[i], paint)
+        }
+
+        for(i in pathArrayList.indices)
+        {
+            val iteratorP1 = listArrayListP1[i][i].entries.iterator()
+            val iteratorP2 = listArrayListP2[i][i].entries.iterator()
+            while(iteratorP1.hasNext())
+            {
+                val entryP1 = iteratorP1.next()
+
+                val p1X = entryP1.key
+                val p1Y = entryP1.value
+
+                paint.style = Paint.Style.STROKE
+                paint.strokeWidth = 2f
+                paint.color = paintArrayList[i].color
+                paint.textSize = ssidTextSize.toFloat()
+
+                val centerY = ssidCenterArrayList[i]
+                val centerX = p1X
+                val measuredSSID = paint.measureText(ssidArrayList[i])
+                if(connectedSSID != "" && connectedSSID.equals(ssidArrayList[i], ignoreCase = true))
+                {
+                    val entryP2 = iteratorP2.next()
+                    val p2x = entryP2.key
+                    val startX = p2x - (measuredSSID / 2)
+                    val endX = p2x + (measuredSSID / 2)
+                    canvas.drawText(ssidArrayList[i], startX, 240f, paint)
+                    paint.strokeWidth = 5f
+                    canvas.drawRect((startX - 2), 200f, (endX + 2), 260f, paint)
+                    canvas.drawLine(centerX.toFloat(), centerY, startX - 2, 230f, paint)
+                    drawArrows(canvas, 50f, centerX.toFloat(), centerY, startX - 2, 230f)
+                }
+                else
+                {
+                    canvas.drawRect(centerX - (measuredSSID / 2), centerY - 50, centerX + (measuredSSID / 2), centerY + 10, paint)
+                    canvas.drawText(ssidArrayList[i], centerX - (measuredSSID / 2), centerY - 10, paint)
+                }
+            }
+        }
+
+        for(i in listArrayListChannel.indices)
+        {
+            val iteratorChannel = listArrayListChannel[i][i].entries.iterator()
+            while (iteratorChannel.hasNext())
+            {
+                val entryChannel = iteratorChannel.next()
+                val channelX = entryChannel.key
+                val channelY = entryChannel.value
+                paint.style = Paint.Style.FILL
+                paint.color = Color.parseColor("#6b6b6b")
+                paint.textSize = textSize.toFloat()
+                canvas.drawText(canvasWiFiSiganlWaveProfileAL[i].channel.toString(), channelX.toFloat(), channelY.toFloat(), paint)
+            }
+        }
+
+        mCanvas = canvas
+        wiFiChannelChartHandler.notifyWiFiChannelChartDraw()
+    }
+
+    private fun drawArrows(canvas: Canvas, arrowSize: Float, x1: Float, y1: Float, x2: Float, y2: Float)
+    {
+        val awrad = Math.atan(3.5 / 8)
+        val arrXY_1 = rotateVec(x1 - x2, y1 - y2, awrad, arrowSize.toDouble())
+        val arrXY_2 = rotateVec(x1 - x2, y1 - y2, -awrad, arrowSize.toDouble())
+
+        val X3 = java.lang.Double.valueOf(x1 - arrXY_1[0])
+        val x3 = X3!!.toInt()
+        val Y3 = java.lang.Double.valueOf(y1 - arrXY_1[1])
+        val y3 = Y3!!.toInt()
+
+        val X4 = java.lang.Double.valueOf(x1 - arrXY_2[0])
+        val x4 = X4!!.toInt()
+        val Y4 = java.lang.Double.valueOf(y1 - arrXY_2[1])
+        val y4 = Y4!!.toInt()
+
+        val arrowsPath = Path()
+        arrowsPath.moveTo(x1, y1)
+        arrowsPath.lineTo(x3.toFloat(), y3.toFloat())
+        arrowsPath.lineTo(x4.toFloat(), y4.toFloat())
+        arrowsPath.close()
+        paint.style = Paint.Style.FILL
+        canvas.drawPath(arrowsPath, paint)
+    }
+
+    private fun rotateVec(px: Float, py: Float, ang: Double, arrowSize: Double): DoubleArray
+    {
+        val mathstr = DoubleArray(2)
+        var vx = px * Math.cos(ang) - py * Math.sin(ang)
+        var vy = px * Math.sin(ang) + py * Math.cos(ang)
+        val d = Math.sqrt(vx * vx + vy * vy)
+        vx = vx / d * arrowSize
+        vy = vy / d * arrowSize
+        mathstr[0] = vx
+        mathstr[1] = vy
+        return mathstr
     }
 }

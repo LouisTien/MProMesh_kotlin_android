@@ -11,13 +11,13 @@ class WiFiChannelChartHandler
 
     fun removeListener()
     {
-        for(i in 0 until wiFiChannelChartListenerArrayList.size)
+        for(i in wiFiChannelChartListenerArrayList.indices)
             wiFiChannelChartListenerArrayList.removeAt(i)
     }
 
     fun notifyWiFiChannelChartDraw()
     {
-        for(i in 0 until wiFiChannelChartListenerArrayList.size)
+        for(i in wiFiChannelChartListenerArrayList.indices)
             wiFiChannelChartListenerArrayList[i].onDrawCompleted()
     }
 }
