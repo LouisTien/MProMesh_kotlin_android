@@ -11,7 +11,7 @@ import android.widget.TextView
  */
 class VerticalTextView(context: Context, attrs: AttributeSet) : TextView(context, attrs)
 {
-    internal val topDown: Boolean
+    private val topDown: Boolean
 
     init
     {
