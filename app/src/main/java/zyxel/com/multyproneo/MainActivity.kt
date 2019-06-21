@@ -1,21 +1,25 @@
 package zyxel.com.multyproneo
 
+import android.Manifest
 import android.app.Dialog
 import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
+import android.view.MotionEvent
 import android.view.View
+import android.view.WindowManager
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
-import zyxel.com.multyproneo.event.DevicesEvent
-import zyxel.com.multyproneo.event.GlobalBus
-import zyxel.com.multyproneo.event.HomeEvent
-import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.dialog.MessageDialog
+import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.fragment.*
 import zyxel.com.multyproneo.model.EndDeviceProfile
 import zyxel.com.multyproneo.model.WanInfoProfile
@@ -37,8 +41,10 @@ class MainActivity : AppCompatActivity()
     private lateinit var setHomeIconFocusDisposable: Disposable
     private lateinit var startGetDeviceInfoTaskDisposable: Disposable
     private lateinit var stopGetDeviceInfoTaskDisposable: Disposable
+    private lateinit var msgDialogResponseDisposable: Disposable
     private lateinit var loadingDlg: Dialog
-    private lateinit var deviceTimer: Timer
+    private var deviceTimer: Timer = Timer()
+    private var screenTimer: Timer = Timer()
     private var currentFrag = ""
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -55,12 +61,37 @@ class MainActivity : AppCompatActivity()
     override fun onResume()
     {
         super.onResume()
+        regularKeepScreen()
     }
 
     override fun onDestroy()
     {
         super.onDestroy()
         disposeEvent()
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean
+    {
+        if (event.action == MotionEvent.ACTION_DOWN)
+            regularKeepScreen()
+        return super.dispatchTouchEvent(event)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
+    {
+        when(requestCode)
+        {
+            AppConfig.PERMISSION_LOCATION_REQUESTCODE ->
+            {
+                if((grantResults.isNotEmpty()) && (grantResults[0] == PackageManager.PERMISSION_GRANTED))
+                {
+                    LogUtil.d(TAG, "Location permission granted!")
+                    gotoDiagnosticFragment()
+                }
+                else
+                    LogUtil.d(TAG, "Location permission denied!")
+            }
+        }
     }
 
     private val clickListener = View.OnClickListener { view ->
@@ -91,7 +122,21 @@ class MainActivity : AppCompatActivity()
                 if(currentFrag != "WiFiSettingsFragment") switchToFragContainer(WiFiSettingsFragment())
             }
 
-            diagnostic_relative -> {}
+            diagnostic_relative ->
+            {
+                if(hasLocationPermission())
+                    gotoDiagnosticFragment()
+                else
+                {
+                    MessageDialog(
+                            this,
+                            "",
+                            getString(R.string.diagnostic_request_location_permission),
+                            arrayOf(getString(R.string.message_dialog_ok)),
+                            AppConfig.Companion.DialogAction.ACT_LOCATION_PERMISSION
+                    ).show()
+                }
+            }
 
             account_relative ->
             {
@@ -129,13 +174,30 @@ class MainActivity : AppCompatActivity()
         account_text.isSelected = false
     }
 
+    private fun regularKeepScreen()
+    {
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        screenTimer.cancel()
+        screenTimer = Timer()
+        screenTimer.schedule((AppConfig.keepScreenTime * 1000).toLong()){
+            runOnUiThread{
+                window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                screenTimer.cancel()
+            }
+        }
+    }
+
     private fun createLoadingDlg(context: Context): Dialog
     {
         val builder = AlertDialog.Builder(context, R.style.loadingStyle)
         builder.setCancelable(false)
-        builder.setView(getLayoutInflater().inflate(R.layout.dialog_loading, null))
+        builder.setView(layoutInflater.inflate(R.layout.dialog_loading, null))
         return builder.create()
     }
+
+    private fun hasLocationPermission() =
+            ContextCompat.checkSelfPermission(this.applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+
 
     private fun listenEvent()
     {
@@ -175,6 +237,17 @@ class MainActivity : AppCompatActivity()
         stopGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StopGetDeviceInfoTask::class.java).subscribe{
             deviceTimer.cancel()
         }
+
+        msgDialogResponseDisposable = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
+            when(it.action)
+            {
+                AppConfig.Companion.DialogAction.ACT_LOCATION_PERMISSION ->
+                {
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                        requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), AppConfig.PERMISSION_LOCATION_REQUESTCODE)
+                }
+            }
+        }
     }
 
     private fun disposeEvent()
@@ -187,6 +260,7 @@ class MainActivity : AppCompatActivity()
         if(!setHomeIconFocusDisposable.isDisposed) setHomeIconFocusDisposable.dispose()
         if(!startGetDeviceInfoTaskDisposable.isDisposed) startGetDeviceInfoTaskDisposable.dispose()
         if(!stopGetDeviceInfoTaskDisposable.isDisposed) stopGetDeviceInfoTaskDisposable.dispose()
+        if(!msgDialogResponseDisposable.isDisposed) msgDialogResponseDisposable.dispose()
     }
 
     private fun switchToFragContainer(fragment: Fragment)
@@ -197,6 +271,16 @@ class MainActivity : AppCompatActivity()
         transaction.commitAllowingStateLoss()
         currentFrag = fragment.javaClass.simpleName
         LogUtil.d(TAG, "currentFrag:$currentFrag")
+    }
+
+    private fun gotoDiagnosticFragment()
+    {
+        if(currentFrag != "DiagnosticFragment")
+        {
+            diagnostic_image.isSelected = true
+            diagnostic_text.isSelected = true
+            switchToFragContainer(DiagnosticFragment())
+        }
     }
 
     private fun showLoading()
