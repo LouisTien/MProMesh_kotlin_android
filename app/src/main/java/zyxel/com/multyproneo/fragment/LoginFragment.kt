@@ -103,7 +103,7 @@ class LoginFragment : Fragment()
             {
                 inputMethodManager.hideSoftInputFromWindow(login_username_edit.applicationWindowToken, 0)
                 inputMethodManager.hideSoftInputFromWindow(login_password_edit.applicationWindowToken, 0)
-                GlobalBus.publish(MainEvent.SwitchToFrag(FindingDeviceFragment()))
+                GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
             }
 
             login_password_show_image ->
@@ -117,14 +117,14 @@ class LoginFragment : Fragment()
             {
                 inputMethodManager.hideSoftInputFromWindow(login_username_edit.applicationWindowToken, 0)
                 inputMethodManager.hideSoftInputFromWindow(login_password_edit.applicationWindowToken, 0)
-                var password = login_password_edit.text.toString()
-                var userName = login_username_edit.text.toString()
+                val password = login_password_edit.text.toString()
+                val userName = login_username_edit.text.toString()
                 LogUtil.d(TAG,"loginPasswordEdit:$password")
                 LogUtil.d(TAG,"loginUsernameEdit:$userName")
                 gatewayInfo.password = password
                 gatewayInfo.userName = userName
                 DatabaseUtil.getDBHandler(activity!!)?.updateInformationToDB(gatewayInfo)
-                GlobalBus.publish(MainEvent.SwitchToFrag(HomeFragment()))
+                GlobalBus.publish(MainEvent.EnterHomePage())
             }
         }
     }

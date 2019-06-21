@@ -15,7 +15,7 @@ class CommonTool
     {
         fun hideKeyboard(activity: Activity)
         {
-            var imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
             var view = activity.currentFocus
             view = View(activity)
             imm.hideSoftInputFromWindow(view.windowToken, 0)

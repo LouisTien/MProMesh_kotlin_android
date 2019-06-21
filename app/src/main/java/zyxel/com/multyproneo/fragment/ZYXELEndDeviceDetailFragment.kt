@@ -88,7 +88,6 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                     GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
                 }
 
-                AppConfig.Companion.DialogAction.ACT_REBOOT -> {}
                 AppConfig.Companion.DialogAction.ACT_DELETE_DEVICE -> {}
             }
         }
@@ -126,7 +125,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                     setEditModeUI()
                 }
                 else
-                    GlobalBus.publish(MainEvent.SwitchToFrag(HomeFragment()))
+                    GlobalBus.publish(MainEvent.EnterHomePage())
             }
 
             zyxel_end_device_detail_confirm_image -> setDeviceNameTask()
@@ -172,8 +171,8 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 
     private fun initUI()
     {
-        var isGatewayConnect = deviceWanInfo.WanStatus == "Enable"
-        var isEndDeviceConnect = endDeviceInfo.Active == "Connect"
+        val isGatewayConnect = deviceWanInfo.WanStatus == "Enable"
+        val isEndDeviceConnect = endDeviceInfo.Active == "Connect"
         isConnect = if(isGatewayMode) isGatewayConnect else isEndDeviceConnect
 
         setConnectTypeTextListVisibility(isConnect)

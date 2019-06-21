@@ -117,7 +117,7 @@ class FindingDeviceFragment : Fragment()
 
         doAsync {
             var res = false
-            var newGatewayProfileMutableList = mutableListOf<GatewayProfile>(
+            val newGatewayProfileMutableList = mutableListOf<GatewayProfile>(
                     GatewayProfile(
                             modelName = "EMG6726-B10A",
                             systemName = "EMG6726-B10A",

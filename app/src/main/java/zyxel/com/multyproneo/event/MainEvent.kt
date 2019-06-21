@@ -13,4 +13,10 @@ class MainEvent
     class SetHomeIconFocus()
     class StartGetDeviceInfoTask()
     class StopGetDeviceInfoTask()
+    class EnterHomePage()
+    class EnterDevicesPage()
+    class EnterWiFiSettingsPage()
+    class EnterDiagnosticPage()
+    class EnterAccountPage()
+    class EnterSearchGatewayPage()
 }

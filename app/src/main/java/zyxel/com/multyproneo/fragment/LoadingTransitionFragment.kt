@@ -97,8 +97,8 @@ class LoadingTransitionFragment : Fragment()
     {
         when(desPage)
         {
-            AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH -> GlobalBus.publish(MainEvent.SwitchToFrag(FindingDeviceFragment()))
-            AppConfig.Companion.LoadingGoToPage.FRAG_HOME -> GlobalBus.publish(MainEvent.SwitchToFrag(HomeFragment()))
+            AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH -> GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
+            AppConfig.Companion.LoadingGoToPage.FRAG_HOME -> GlobalBus.publish(MainEvent.EnterHomePage())
         }
     }
 }

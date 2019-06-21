@@ -154,7 +154,7 @@ class WiFiSettingsFragment : Fragment()
         else
             WiFiInfo = "WIFI:T:WPA2;S:$WiFiName;P:$WiFiPwd;;"
 
-        var bitMatrix = QRCodeWriter().encode(WiFiInfo, BarcodeFormat.QR_CODE, QRCODE_PIXEL, QRCODE_PIXEL)
+        val bitMatrix = QRCodeWriter().encode(WiFiInfo, BarcodeFormat.QR_CODE, QRCODE_PIXEL, QRCODE_PIXEL)
         WiFiQRCodeBitmap = Bitmap.createBitmap(QRCODE_PIXEL, QRCODE_PIXEL, Bitmap.Config.ARGB_8888)
         for(i in 0 until QRCODE_PIXEL)
             for(j in 0 until QRCODE_PIXEL)
@@ -168,7 +168,7 @@ class WiFiSettingsFragment : Fragment()
         else
             guestWiFiInfo = "WIFI:T:WPA2;S:$guestWiFiName;P:$guestWiFiPwd;;"
 
-        var bitMatrixGuest = QRCodeWriter().encode(guestWiFiInfo, BarcodeFormat.QR_CODE, QRCODE_PIXEL, QRCODE_PIXEL)
+        val bitMatrixGuest = QRCodeWriter().encode(guestWiFiInfo, BarcodeFormat.QR_CODE, QRCODE_PIXEL, QRCODE_PIXEL)
         guestWiFiQRCodeBitmap = Bitmap.createBitmap(QRCODE_PIXEL, QRCODE_PIXEL, Bitmap.Config.ARGB_8888)
         for(i in 0 until QRCODE_PIXEL)
             for(j in 0 until QRCODE_PIXEL)

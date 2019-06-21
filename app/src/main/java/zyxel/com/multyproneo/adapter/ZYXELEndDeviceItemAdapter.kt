@@ -87,7 +87,7 @@ class ZYXELEndDeviceItemAdapter(
                 )
             }
 
-            var mode = endDeviceList[position].DeviceMode + if(status.equals("N/A", ignoreCase = true)) " disconnected" else ""
+            val mode = endDeviceList[position].DeviceMode + if(status.equals("N/A", ignoreCase = true)) " disconnected" else ""
             view.device_mode_text.text = mode
 
             view.user_define_name_text.text = endDeviceList[position].UserDefineName

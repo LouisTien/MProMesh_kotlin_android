@@ -37,7 +37,7 @@ class GatewayListFragment : Fragment()
         super.onViewCreated(view, savedInstanceState)
 
         gateway_retry_image.setOnClickListener{
-            GlobalBus.publish(MainEvent.SwitchToFrag(FindingDeviceFragment()))
+            GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
         }
     }
 
@@ -82,8 +82,8 @@ class GatewayListFragment : Fragment()
     {
         GlobalData.currentGatewayIndex = index
         GlobalBus.publish(MainEvent.HideLoading())
-        var userName = DatabaseUtil.getDBHandler(activity!!)?.getDeviceUserNameFromDB(gatewayProfileMutableList[index].serial)
-        var password = DatabaseUtil.getDBHandler(activity!!)?.getDevicePasswordFromDB(gatewayProfileMutableList[index].serial)
+        val userName = DatabaseUtil.getDBHandler(activity!!)?.getDeviceUserNameFromDB(gatewayProfileMutableList[index].serial)
+        val password = DatabaseUtil.getDBHandler(activity!!)?.getDevicePasswordFromDB(gatewayProfileMutableList[index].serial)
         LogUtil.d(TAG, "OnDeviceSelected userName from DB:$userName")
         LogUtil.d(TAG, "OnDeviceSelected password from DB:$password")
         GlobalBus.publish(MainEvent.SwitchToFrag(LoginFragment()))

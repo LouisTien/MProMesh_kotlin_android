@@ -20,13 +20,13 @@ class OUIUtil
         fun getOUI(activity: Activity, Mac: String): String
         {
             var oui = ""
-            var mac = Mac
+            val mac = Mac
 
             try
             {
-                var br = BufferedReader(FileReader(activity.filesDir.absolutePath + OUI_FILENAME))
-                var macArr = mac.split(":").toTypedArray()
-                var newMac = macArr[0] + macArr[1] + macArr[2]
+                val br = BufferedReader(FileReader(activity.filesDir.absolutePath + OUI_FILENAME))
+                val macArr = mac.split(":").toTypedArray()
+                val newMac = macArr[0] + macArr[1] + macArr[2]
                 /*BufferedReader(FileReader(activity.filesDir.absolutePath + OUI_FILENAME)).use{ r ->
                     r.lineSequence().forEach{
                         var lineArr = it.split("\t")
@@ -41,7 +41,7 @@ class OUIUtil
                 while(true)
                 {
                     val line = br.readLine() ?: break
-                    var lineArr = line.split("\t")
+                    val lineArr = line.split("\t")
                     if(lineArr[0].toLowerCase().equals(newMac.toLowerCase()))
                     {
                         for(i in 1 until lineArr.size)
@@ -62,7 +62,7 @@ class OUIUtil
         fun executeGetMacOUITask(activity: Activity)
         {
             var connect = false
-            var sb = StringBuffer()
+            val sb = StringBuffer()
 
             doAsync{
                 var conn: HttpURLConnection? = null
@@ -78,7 +78,7 @@ class OUIUtil
 
                     if(conn.responseCode == HttpURLConnection.HTTP_OK)
                     {
-                        var br = BufferedReader(InputStreamReader(conn.inputStream))
+                        val br = BufferedReader(InputStreamReader(conn.inputStream))
                         while(true)
                         {
                             val line = br.readLine() ?: break
@@ -104,7 +104,7 @@ class OUIUtil
                         try
                         {
                             checkDirExist(activity.filesDir.absolutePath!!)
-                            var bw = BufferedWriter(FileWriter(activity.filesDir.absolutePath + OUI_FILENAME, false))
+                            val bw = BufferedWriter(FileWriter(activity.filesDir.absolutePath + OUI_FILENAME, false))
                             bw.write(sb.toString())
                             bw.close()
                         }
@@ -114,15 +114,15 @@ class OUIUtil
                         }
                     }
 
-                    var ouiTxt = File(activity.filesDir.absolutePath + OUI_FILENAME)
+                    val ouiTxt = File(activity.filesDir.absolutePath + OUI_FILENAME)
                     if(!ouiTxt.exists())
                     {
                         try
                         {
-                            var rawID = activity.resources.getIdentifier("oui", "raw", activity.packageName)
-                            var inputStream = activity.resources.openRawResource(rawID)
-                            var outputStream = BufferedOutputStream(FileOutputStream(ouiTxt))
-                            var bytesArray = ByteArray(inputStream!!.available())
+                            val rawID = activity.resources.getIdentifier("oui", "raw", activity.packageName)
+                            val inputStream = activity.resources.openRawResource(rawID)
+                            val outputStream = BufferedOutputStream(FileOutputStream(ouiTxt))
+                            val bytesArray = ByteArray(inputStream!!.available())
                             var bytesRead = -1
                             while(true)
                             {
@@ -144,7 +144,7 @@ class OUIUtil
 
         private fun checkDirExist(path: String)
         {
-            var file = File(path)
+            val file = File(path)
             if(!file.exists())
                 file.mkdir()
         }

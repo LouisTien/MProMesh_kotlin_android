@@ -123,7 +123,7 @@ class EndDeviceDetailFragment : Fragment()
                                 GlobalBus.publish(MainEvent.SwitchToFrag(SearchDevicesFragment().apply{ arguments = bundle }))
                             }
 
-                            false -> GlobalBus.publish(MainEvent.SwitchToFrag(DevicesFragment()))
+                            false -> GlobalBus.publish(MainEvent.EnterDevicesPage())
                         }
                     }
                 }
@@ -196,7 +196,7 @@ class EndDeviceDetailFragment : Fragment()
         rssi = "N/A"
         manufacturer = "N/A"
 
-        var isConnect = endDeviceInfo.Active == "Connect"
+        val isConnect = endDeviceInfo.Active == "Connect"
 
         modelName = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.UserDefineName)
         connectType = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.ConnectionType)
@@ -208,7 +208,7 @@ class EndDeviceDetailFragment : Fragment()
         )
         ip = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.IPAddress)
         mac = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.MAC)
-        var oui = OUIUtil.getOUI(activity!!, endDeviceInfo.MAC)
+        val oui = OUIUtil.getOUI(activity!!, endDeviceInfo.MAC)
         manufacturer = SpecialCharacterHandler.checkEmptyTextValue(if(oui == "") endDeviceInfo.Manufacturer else oui)
         dhcpTime = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.dhcpLeaseTime)
 

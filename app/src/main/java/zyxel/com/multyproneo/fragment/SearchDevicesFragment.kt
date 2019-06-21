@@ -67,7 +67,7 @@ class SearchDevicesFragment : Fragment()
             devices_search_cancel_text ->
             {
                 CommonTool.hideKeyboard(activity!!)
-                GlobalBus.publish(MainEvent.SwitchToFrag(DevicesFragment()))
+                GlobalBus.publish(MainEvent.EnterDevicesPage())
             }
         }
     }
@@ -104,7 +104,7 @@ class SearchDevicesFragment : Fragment()
         devices_search_input_edit.textChangedListener{
             onTextChanged{
                 _: CharSequence?, _: Int, _: Int, _: Int ->
-                var search = devices_search_input_edit.text.toString()
+                val search = devices_search_input_edit.text.toString()
 
                 searchResultDeviceList.clear()
                 for(item in homeEndDeviceList)

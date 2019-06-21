@@ -11,11 +11,11 @@ class SpecialCharacterHandler
 {
     companion object
     {
-        public var filterCharacter = ""
+        var filterCharacter = ""
 
-        public fun containsSpecialCharacter(source: String): Matcher? = Pattern.compile(filterCharacter).matcher(source)
+        fun containsSpecialCharacter(source: String): Matcher? = Pattern.compile(filterCharacter).matcher(source)
 
-        public fun containsEmoji(source: String): Boolean
+        fun containsEmoji(source: String): Boolean
         {
             for(c in source)
             {
@@ -24,7 +24,7 @@ class SpecialCharacterHandler
             return false
         }
 
-        public fun checkEmptyTextValue(srcStr: String): String
+        fun checkEmptyTextValue(srcStr: String): String
         {
             var desStr = "N/A"
             if(srcStr != "" && srcStr != " ") { desStr = srcStr }

@@ -87,8 +87,8 @@ class HomeFragment : Fragment()
                 GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
             }
 
-            home_connect_device_enter_image -> {}
-            home_guest_wifi_enter_image -> {}
+            home_connect_device_enter_image -> {GlobalBus.publish(MainEvent.EnterDevicesPage())}
+            home_guest_wifi_enter_image -> {GlobalBus.publish(MainEvent.EnterWiFiSettingsPage())}
             home_add_mesh_image -> {}
         }
     }

@@ -18,14 +18,14 @@ class CryptTool
 
         fun EncryptAES(iv: ByteArray, key: ByteArray, text: ByteArray): String?
         {
-            var encryptedData: String
+            val encryptedData: String
             try
             {
-                var mAlgorithmParameterSpec = IvParameterSpec(iv) as AlgorithmParameterSpec
-                var mSecretKeySpec = SecretKeySpec(key, "AES")
-                var mCipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+                val mAlgorithmParameterSpec = IvParameterSpec(iv) as AlgorithmParameterSpec
+                val mSecretKeySpec = SecretKeySpec(key, "AES")
+                val mCipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
                 mCipher.init(Cipher.ENCRYPT_MODE, mSecretKeySpec, mAlgorithmParameterSpec)
-                var encryptTextByte = mCipher.doFinal(text)
+                val encryptTextByte = mCipher.doFinal(text)
                 encryptedData = Base64.encodeToString(encryptTextByte, Base64.DEFAULT)
             }
             catch(ex: Exception)
@@ -37,14 +37,14 @@ class CryptTool
 
         fun DecryptAES(iv: ByteArray, key: ByteArray, text: ByteArray): String?
         {
-            var decryptedData: String
+            val decryptedData: String
             try
             {
-                var mAlgorithmParameterSpec = IvParameterSpec(iv) as AlgorithmParameterSpec
-                var mSecretKeySpec = SecretKeySpec(key, "AES")
-                var mCipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+                val mAlgorithmParameterSpec = IvParameterSpec(iv) as AlgorithmParameterSpec
+                val mSecretKeySpec = SecretKeySpec(key, "AES")
+                val mCipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
                 mCipher.init(Cipher.DECRYPT_MODE, mSecretKeySpec, mAlgorithmParameterSpec)
-                var decryptionTextByte = mCipher.doFinal(text)
+                val decryptionTextByte = mCipher.doFinal(text)
                 decryptedData = String(decryptionTextByte, charset("UTF-8"))
             }
             catch(ex: Exception)

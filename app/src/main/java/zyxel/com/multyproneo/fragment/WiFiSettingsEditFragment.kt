@@ -105,7 +105,7 @@ class WiFiSettingsEditFragment : Fragment()
             {
                 inputMethodManager.hideSoftInputFromWindow(wifi_edit_wifi_name_edit.applicationWindowToken, 0)
                 inputMethodManager.hideSoftInputFromWindow(wifi_edit_wifi_password_edit.applicationWindowToken, 0)
-                GlobalBus.publish(MainEvent.SwitchToFrag(WiFiSettingsFragment()))
+                GlobalBus.publish(MainEvent.EnterWiFiSettingsPage())
             }
 
             wifi_edit_save_text ->

@@ -17,7 +17,7 @@ class GatewayItemAdapter(private val gatewayList: MutableList<GatewayProfile>) :
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
     {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.adapter_gateway_list_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.adapter_gateway_list_item, parent, false)
         return ViewHolder(view)
     }
 

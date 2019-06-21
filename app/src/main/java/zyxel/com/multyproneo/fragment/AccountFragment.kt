@@ -43,7 +43,7 @@ class AccountFragment : Fragment()
                 AppConfig.Companion.DialogAction.ACT_LOGOUT ->
                 {
                     DatabaseUtil.getDBHandler(activity!!)?.deleteInformationToDB(GlobalData.getCurrentGatewayInfo())
-                    GlobalBus.publish(MainEvent.SwitchToFrag(FindingDeviceFragment()))
+                    GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
                 }
             }
         }

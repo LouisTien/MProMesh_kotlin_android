@@ -41,6 +41,12 @@ class MainActivity : AppCompatActivity()
     private lateinit var setHomeIconFocusDisposable: Disposable
     private lateinit var startGetDeviceInfoTaskDisposable: Disposable
     private lateinit var stopGetDeviceInfoTaskDisposable: Disposable
+    private lateinit var enterHomePageDisposable: Disposable
+    private lateinit var enterDevicesPageDisposable: Disposable
+    private lateinit var enterWiFiSettingsPageDisposable: Disposable
+    private lateinit var enterDiagnosticPageDisposable: Disposable
+    private lateinit var enterAccountPageDisposable: Disposable
+    private lateinit var enterSearchGatewayPageDisposable: Disposable
     private lateinit var msgDialogResponseDisposable: Disposable
     private lateinit var loadingDlg: Dialog
     private var deviceTimer: Timer = Timer()
@@ -95,32 +101,13 @@ class MainActivity : AppCompatActivity()
     }
 
     private val clickListener = View.OnClickListener { view ->
-        disSelectToolBarIcons()
-
         when(view)
         {
-            home_relative ->
-            {
-                home_image.isSelected = true
-                home_text.isSelected = true
-                if(currentFrag != "HomeFragment") switchToFragContainer(HomeFragment())
-            }
+            home_relative -> gotoHomeFragment()
 
-            devices_relative ->
-            {
-                devices_image.isSelected = true
-                devices_text.isSelected = true
-                if(currentFrag != "DevicesFragment") switchToFragContainer(DevicesFragment())
-            }
+            devices_relative -> gotoDevicesFragment()
 
-            parental_relative -> {}
-
-            wifi_relative ->
-            {
-                wifi_image.isSelected = true
-                wifi_text.isSelected = true
-                if(currentFrag != "WiFiSettingsFragment") switchToFragContainer(WiFiSettingsFragment())
-            }
+            wifi_relative -> gotoWiFiFragment()
 
             diagnostic_relative ->
             {
@@ -138,12 +125,7 @@ class MainActivity : AppCompatActivity()
                 }
             }
 
-            account_relative ->
-            {
-                account_image.isSelected = true
-                account_text.isSelected = true
-                if(currentFrag != "AccountFragment") switchToFragContainer(AccountFragment())
-            }
+            account_relative -> gotoAccountFragment()
         }
     }
 
@@ -201,25 +183,15 @@ class MainActivity : AppCompatActivity()
 
     private fun listenEvent()
     {
-        switchFrgDisposable = GlobalBus.listen(MainEvent.SwitchToFrag::class.java).subscribe{
-            switchToFragContainer(it.frag)
-        }
+        switchFrgDisposable = GlobalBus.listen(MainEvent.SwitchToFrag::class.java).subscribe{ switchToFragContainer(it.frag) }
 
-        showLoadingDisposable = GlobalBus.listen(MainEvent.ShowLoading::class.java).subscribe{
-            showLoading()
-        }
+        showLoadingDisposable = GlobalBus.listen(MainEvent.ShowLoading::class.java).subscribe{ showLoading() }
 
-        hideLoadingDisposable = GlobalBus.listen(MainEvent.HideLoading::class.java).subscribe{
-            hideLoading()
-        }
+        hideLoadingDisposable = GlobalBus.listen(MainEvent.HideLoading::class.java).subscribe{ hideLoading() }
 
-        showBottomToolbarDisposable = GlobalBus.listen(MainEvent.ShowBottomToolbar::class.java).subscribe{
-            bottom_toolbar.visibility = View.VISIBLE
-        }
+        showBottomToolbarDisposable = GlobalBus.listen(MainEvent.ShowBottomToolbar::class.java).subscribe{ bottom_toolbar.visibility = View.VISIBLE }
 
-        hideBottomToolbarDisposable = GlobalBus.listen(MainEvent.HideBottomToolbar::class.java).subscribe{
-            bottom_toolbar.visibility = View.GONE
-        }
+        hideBottomToolbarDisposable = GlobalBus.listen(MainEvent.HideBottomToolbar::class.java).subscribe{ bottom_toolbar.visibility = View.GONE }
 
         setHomeIconFocusDisposable = GlobalBus.listen(MainEvent.SetHomeIconFocus::class.java).subscribe{
             disSelectToolBarIcons()
@@ -234,9 +206,19 @@ class MainActivity : AppCompatActivity()
             }
         }
 
-        stopGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StopGetDeviceInfoTask::class.java).subscribe{
-            deviceTimer.cancel()
-        }
+        stopGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StopGetDeviceInfoTask::class.java).subscribe{ deviceTimer.cancel() }
+
+        enterHomePageDisposable = GlobalBus.listen(MainEvent.EnterHomePage::class.java).subscribe{ gotoHomeFragment() }
+
+        enterDevicesPageDisposable = GlobalBus.listen(MainEvent.EnterDevicesPage::class.java).subscribe{ gotoDevicesFragment() }
+
+        enterWiFiSettingsPageDisposable = GlobalBus.listen(MainEvent.EnterWiFiSettingsPage::class.java).subscribe{ gotoWiFiFragment() }
+
+        enterDiagnosticPageDisposable = GlobalBus.listen(MainEvent.EnterDiagnosticPage::class.java).subscribe{ gotoDiagnosticFragment() }
+
+        enterAccountPageDisposable = GlobalBus.listen(MainEvent.EnterAccountPage::class.java).subscribe{ gotoAccountFragment() }
+
+        enterSearchGatewayPageDisposable = GlobalBus.listen(MainEvent.EnterSearchGatewayPage::class.java).subscribe{ gotoSearchGatewayFragment() }
 
         msgDialogResponseDisposable = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
             when(it.action)
@@ -260,6 +242,12 @@ class MainActivity : AppCompatActivity()
         if(!setHomeIconFocusDisposable.isDisposed) setHomeIconFocusDisposable.dispose()
         if(!startGetDeviceInfoTaskDisposable.isDisposed) startGetDeviceInfoTaskDisposable.dispose()
         if(!stopGetDeviceInfoTaskDisposable.isDisposed) stopGetDeviceInfoTaskDisposable.dispose()
+        if(!enterHomePageDisposable.isDisposed) enterHomePageDisposable.dispose()
+        if(!enterDevicesPageDisposable.isDisposed) enterDevicesPageDisposable.dispose()
+        if(!enterWiFiSettingsPageDisposable.isDisposed) enterWiFiSettingsPageDisposable.dispose()
+        if(!enterDiagnosticPageDisposable.isDisposed) enterDiagnosticPageDisposable.dispose()
+        if(!enterAccountPageDisposable.isDisposed) enterAccountPageDisposable.dispose()
+        if(!enterSearchGatewayPageDisposable.isDisposed) enterSearchGatewayPageDisposable.dispose()
         if(!msgDialogResponseDisposable.isDisposed) msgDialogResponseDisposable.dispose()
     }
 
@@ -273,24 +261,76 @@ class MainActivity : AppCompatActivity()
         LogUtil.d(TAG, "currentFrag:$currentFrag")
     }
 
+    private fun gotoHomeFragment()
+    {
+        disSelectToolBarIcons()
+
+        home_image.isSelected = true
+        home_text.isSelected = true
+
+        if(currentFrag != "HomeFragment")
+            switchToFragContainer(HomeFragment())
+    }
+
+    private fun gotoDevicesFragment()
+    {
+        disSelectToolBarIcons()
+
+        devices_image.isSelected = true
+        devices_text.isSelected = true
+
+        if(currentFrag != "DevicesFragment")
+            switchToFragContainer(DevicesFragment())
+    }
+
+    private fun gotoWiFiFragment()
+    {
+        disSelectToolBarIcons()
+
+        wifi_image.isSelected = true
+        wifi_text.isSelected = true
+
+        if(currentFrag != "WiFiSettingsFragment")
+            switchToFragContainer(WiFiSettingsFragment())
+    }
+
     private fun gotoDiagnosticFragment()
     {
+        disSelectToolBarIcons()
+
+        diagnostic_image.isSelected = true
+        diagnostic_text.isSelected = true
+
         if(currentFrag != "DiagnosticFragment")
-        {
-            diagnostic_image.isSelected = true
-            diagnostic_text.isSelected = true
             switchToFragContainer(DiagnosticFragment())
-        }
+    }
+
+    private fun gotoAccountFragment()
+    {
+        disSelectToolBarIcons()
+
+        account_image.isSelected = true
+        account_text.isSelected = true
+
+        if(currentFrag != "AccountFragment")
+            switchToFragContainer(AccountFragment())
+    }
+
+    private fun gotoSearchGatewayFragment()
+    {
+        switchToFragContainer(FindingDeviceFragment())
     }
 
     private fun showLoading()
     {
-        runOnUiThread{ Runnable{ if(!loadingDlg.isShowing) loadingDlg.show() }.run() }
+        //runOnUiThread{ Runnable{ if(!loadingDlg.isShowing) loadingDlg.show() }.run() }
+        runOnUiThread{ if(!loadingDlg.isShowing) loadingDlg.show() }
     }
 
     private fun hideLoading()
     {
-        runOnUiThread{ Runnable{ if(loadingDlg.isShowing) loadingDlg.dismiss() }.run() }
+        //runOnUiThread{ Runnable{ if(loadingDlg.isShowing) loadingDlg.dismiss() }.run() }
+        runOnUiThread{ if(loadingDlg.isShowing) loadingDlg.dismiss() }
     }
 
     private fun getDeviceInfoTask()

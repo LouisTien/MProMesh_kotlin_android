@@ -29,7 +29,7 @@ class MessageDialog(context: Context, private var title: String, private var des
     {
         super.show()
 
-        if(title.length == 0)
+        if(title.isEmpty())
             msg_alert_title.visibility = View.GONE
         else
             msg_alert_title.text = title
