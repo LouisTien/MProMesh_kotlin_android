@@ -8,10 +8,7 @@ import android.view.View
 import java.util.ArrayList
 import java.util.HashMap
 
-/**
- * Created by LouisTien on 2019/6/13.
- */
-class Band5GWholeChannelChart(context: Context, private var activity: Activity) : View(context)
+class Band24GChannelChart(context: Context, private var activity: Activity) : View(context)
 {
     private var wiFiChannelChartHandler = WiFiChannelChartHandler()
     private var paint = Paint()
@@ -29,7 +26,7 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
     private var channelTextSection = 110
     private var channelTextMargin = 20
 
-    private lateinit var _5GWiFiSignalWaveProfileArrayList: ArrayList<ArrayList<WiFiSignalWaveProfile>>
+    private lateinit var _24GWiFiSignalWaveProfileArrayList: ArrayList<ArrayList<WiFiSignalWaveProfile>>
     private lateinit var signalWaveProfileArrayList: ArrayList<WiFiSignalWaveProfile>
 
     private var pathArrayList = arrayListOf<Path>()
@@ -39,7 +36,6 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
     private var mapListP0 = arrayListOf<Map<Int, Float>>()
     private var mapListP1 = arrayListOf<Map<Int, Float>>()
     private var mapListP2 = arrayListOf<Map<Int, Float>>()
-    private var mapListChannel = arrayListOf<Map<Int, Int>>()
 
     private var listArrayListP0 = arrayListOf<List<Map<Int, Float>>>()
     private var listArrayListP1 = arrayListOf<List<Map<Int, Float>>>()
@@ -48,7 +44,6 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
 
     private var canvasWiFiSiganlWaveProfileAL = arrayListOf<WiFiSignalWaveProfile>()
     private var ssidCenterArrayList = arrayListOf<Float>()
-    private var connectedSSID = ""
 
     init
     {
@@ -61,7 +56,7 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
             {
                 scale = 1
                 textSize = 20
-                period = 360.0
+                period = 180.0
                 channelTextSection = 30
                 ssidTextSize = 18
                 channelTextMargin = 5
@@ -72,7 +67,7 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
             {
                 scale = 2
                 textSize = 30
-                period = 240.0
+                period = 270.0
                 channelTextSection = 50
                 ssidTextSize = 20
                 channelTextMargin = 10
@@ -105,22 +100,22 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
 
     fun setStartEndPoint(width: Int, height: Int)
     {
-        mHeight = height
-        mWidth = width
         displayMetrics = resources.displayMetrics
+        mHeight = height - Math.round(150 * (displayMetrics.densityDpi / 160f))
+        mWidth = width
     }
 
     fun setDataSet(dataSet: ArrayList<ArrayList<WiFiSignalWaveProfile>>, scrollX: Int)
     {
-        _5GWiFiSignalWaveProfileArrayList = dataSet
+        _24GWiFiSignalWaveProfileArrayList = dataSet
         scrollPosition = scrollX
 
-        for(z in _5GWiFiSignalWaveProfileArrayList.indices)
+        for(z in _24GWiFiSignalWaveProfileArrayList.indices)
         {
-            signalWaveProfileArrayList = _5GWiFiSignalWaveProfileArrayList[z]
+            signalWaveProfileArrayList = _24GWiFiSignalWaveProfileArrayList[z]
             for(x in signalWaveProfileArrayList.indices)
             {
-                signalWaveProfileArrayList[x].radius = (signalWaveProfileArrayList[x].amplitude * 10) as Int
+                signalWaveProfileArrayList[x].radius = (signalWaveProfileArrayList[x].amplitude * 10).toInt()
                 signalWaveProfileArrayList[x].amplitude = height * signalWaveProfileArrayList[x].amplitude + (x * 40)
                 signalWaveProfileArrayList[x].old_x = 0.0f
                 signalWaveProfileArrayList[x].old_y = (height - (signalWaveProfileArrayList[x].amplitude * (Math.sin(signalWaveProfileArrayList[x].old_x / period * Math.PI)))).toFloat()
@@ -260,13 +255,6 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
                         signalWaveProfileArrayList[x].fillColor = Color.argb(51, 186, 86, 86)
                     }
                 }
-
-                if(signalWaveProfileArrayList[x].isConnected)
-                {
-                    connectedSSID = signalWaveProfileArrayList[x].ssid
-                    signalWaveProfileArrayList[x].color = Color.argb(127, 0, 121, 255)
-                    signalWaveProfileArrayList[x].fillColor = Color.argb(127, 0, 121, 255)
-                }
             }
         }
     }
@@ -287,9 +275,9 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
         paint.strokeWidth = 3f
 
         val screenHeight = canvas.height
-        for(z in _5GWiFiSignalWaveProfileArrayList.indices)
+        for(z in _24GWiFiSignalWaveProfileArrayList.indices)
         {
-            signalWaveProfileArrayList = _5GWiFiSignalWaveProfileArrayList[z]
+            signalWaveProfileArrayList = _24GWiFiSignalWaveProfileArrayList[z]
             drawWaveIndex++
 
             for(j in signalWaveProfileArrayList.indices)
@@ -298,7 +286,7 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
 
                 for(i in 0 .. period.toInt())
                 {
-                    paint.color = wifiSignalWaveProfile.color
+                    //paint.color = wifiSignalWaveProfile.color
                     wifiSignalWaveProfile.new_x = i.toFloat()
                     wifiSignalWaveProfile.new_y = (screenHeight - (wifiSignalWaveProfile.amplitude * (Math.sin(wifiSignalWaveProfile.new_x / period * Math.PI))) - channelTextSection).toFloat()
                     when(i)
@@ -334,10 +322,106 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
 
                         (period/2 - 15).toInt() ->
                         {
-                            val tmpMap = HashMap<Int, Int>()
-                            tmpMap[(i + (mWidth/6) * (drawWaveIndex - 1)) - scrollPosition] = canvas.height - channelTextMargin
-                            mapListChannel.add(tmpMap)
-                            listArrayListChannel.add(mapListChannel)
+                            when(z)
+                            {
+                                0 ->
+                                {
+                                    paint.color = Color.parseColor("#6b6b6b")
+                                    paint.textSize = textSize.toFloat()
+                                    canvas.drawText("1", (i + 0 - scrollPosition).toFloat(), (canvas.height - channelTextMargin).toFloat(), paint)
+                                }
+
+                                1 ->
+                                {
+                                    paint.color = Color.parseColor("#6b6b6b")
+                                    paint.textSize = textSize.toFloat()
+                                    canvas.drawText("2", (i + width / 18 * 1 - scrollPosition).toFloat(), (canvas.height - channelTextMargin).toFloat(), paint)
+                                }
+
+                                2 ->
+                                {
+                                    paint.color = Color.parseColor("#6b6b6b")
+                                    paint.textSize = textSize.toFloat()
+                                    canvas.drawText("3", (i + width / 18 * 2 - scrollPosition).toFloat(), (canvas.height - channelTextMargin).toFloat(), paint)
+                                }
+
+                                3 ->
+                                {
+                                    paint.color = Color.parseColor("#6b6b6b")
+                                    paint.textSize = textSize.toFloat()
+                                    canvas.drawText("4", (i + width / 18 * 3 - scrollPosition).toFloat(), (canvas.height - channelTextMargin).toFloat(), paint)
+                                }
+
+                                4 ->
+                                {
+                                    paint.color = Color.parseColor("#6b6b6b")
+                                    paint.textSize = textSize.toFloat()
+                                    canvas.drawText("5", (i + width / 18 * 4 - scrollPosition).toFloat(), (canvas.height - channelTextMargin).toFloat(), paint)
+                                }
+
+                                5 ->
+                                {
+                                    paint.color = Color.parseColor("#6b6b6b")
+                                    paint.textSize = textSize.toFloat()
+                                    canvas.drawText("6", (i + width / 18 * 5 - scrollPosition).toFloat(), (canvas.height - channelTextMargin).toFloat(), paint)
+                                }
+
+                                6 ->
+                                {
+                                    paint.color = Color.parseColor("#6b6b6b")
+                                    paint.textSize = textSize.toFloat()
+                                    canvas.drawText("7", (i + width / 18 * 6 - scrollPosition).toFloat(), (canvas.height - channelTextMargin).toFloat(), paint)
+                                }
+
+                                7 ->
+                                {
+                                    paint.color = Color.parseColor("#6b6b6b")
+                                    paint.textSize = textSize.toFloat()
+                                    canvas.drawText("8", (i + width / 18 * 7 - scrollPosition).toFloat(), (canvas.height - channelTextMargin).toFloat(), paint)
+                                }
+
+                                8 ->
+                                {
+                                    paint.color = Color.parseColor("#6b6b6b")
+                                    paint.textSize = textSize.toFloat()
+                                    canvas.drawText("9", (i + width / 18 * 8 - scrollPosition).toFloat(), (canvas.height - channelTextMargin).toFloat(), paint)
+                                }
+
+                                9 ->
+                                {
+                                    paint.color = Color.parseColor("#6b6b6b")
+                                    paint.textSize = textSize.toFloat()
+                                    canvas.drawText("10", (i + width / 18 * 9 - scrollPosition).toFloat(), (canvas.height - channelTextMargin).toFloat(), paint)
+                                }
+
+                                10 ->
+                                {
+                                    paint.color = Color.parseColor("#6b6b6b")
+                                    paint.textSize = textSize.toFloat()
+                                    canvas.drawText("11", (i + width / 18 * 10 - scrollPosition).toFloat(), (canvas.height - channelTextMargin).toFloat(), paint)
+                                }
+
+                                11 ->
+                                {
+                                    paint.color = Color.parseColor("#6b6b6b")
+                                    paint.textSize = textSize.toFloat()
+                                    canvas.drawText("12", (i + width / 18 * 11 - scrollPosition).toFloat(), (canvas.height - channelTextMargin).toFloat(), paint)
+                                }
+
+                                12 ->
+                                {
+                                    paint.color = Color.parseColor("#6b6b6b")
+                                    paint.textSize = textSize.toFloat()
+                                    canvas.drawText("13", (i + width / 18 * 12 - scrollPosition).toFloat(), (canvas.height - channelTextMargin).toFloat(), paint)
+                                }
+
+                                13 ->
+                                {
+                                    paint.color = Color.parseColor("#6b6b6b")
+                                    paint.textSize = textSize.toFloat()
+                                    canvas.drawText("14", (i + width / 18 * 14 - scrollPosition).toFloat(), (canvas.height - channelTextMargin).toFloat(), paint)
+                                }
+                            }
                         }
                     }
                     wifiSignalWaveProfile.old_x = wifiSignalWaveProfile.new_x
@@ -374,7 +458,7 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
         for(i in pathArrayList.indices)
         {
             paint.color = paintArrayList[i].color
-            paint.strokeWidth = 5f
+            paint.strokeWidth = 2f
             canvas.drawPath(pathArrayList[i], paint)
             paint.strokeWidth = 2f
             val pathMeasure = PathMeasure(pathArrayList[i], false)
@@ -392,7 +476,6 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
         for(i in pathArrayList.indices)
         {
             val iteratorP1 = listArrayListP1[i][i].entries.iterator()
-            val iteratorP2 = listArrayListP2[i][i].entries.iterator()
             while(iteratorP1.hasNext())
             {
                 val entryP1 = iteratorP1.next()
@@ -408,36 +491,21 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
                 val centerY = ssidCenterArrayList[i]
                 val centerX = p1X
                 val measuredSSID = paint.measureText(ssidArrayList[i])
-                if(connectedSSID != "" && connectedSSID.equals(ssidArrayList[i], ignoreCase = true))
-                {
-                    val entryP2 = iteratorP2.next()
-                    val p2x = entryP2.key
-                    val startX = p2x - (measuredSSID / 2)
-                    val endX = p2x + (measuredSSID / 2)
-                    canvas.drawText(ssidArrayList[i], startX, 240f, paint)
-                    paint.strokeWidth = 5f
-                    canvas.drawRect((startX - 2), 200f, (endX + 2), 260f, paint)
-                    canvas.drawLine(centerX.toFloat(), centerY, startX - 2, 230f, paint)
-                    drawArrows(canvas, 50f, centerX.toFloat(), centerY, startX - 2, 230f)
-                }
-                else
-                {
-                    canvas.drawRect(centerX - (measuredSSID / 2), centerY - 50, centerX + (measuredSSID / 2), centerY + 10, paint)
-                    canvas.drawText(ssidArrayList[i], centerX - (measuredSSID / 2), centerY - 10, paint)
-                }
+                canvas.drawRect(centerX - (measuredSSID / 2), centerY - 50, centerX + (measuredSSID / 2), centerY + 10, paint)
+                canvas.drawText(ssidArrayList[i], centerX - (measuredSSID / 2), centerY - 10, paint)
             }
         }
 
         for(i in listArrayListChannel.indices)
         {
             val iteratorChannel = listArrayListChannel[i][i].entries.iterator()
-            while (iteratorChannel.hasNext())
+            while(iteratorChannel.hasNext())
             {
                 val entryChannel = iteratorChannel.next()
                 val channelX = entryChannel.key
                 val channelY = entryChannel.value
                 paint.style = Paint.Style.FILL
-                paint.color = Color.parseColor("#6b6b6b")
+                paint.color = Color.WHITE
                 paint.textSize = textSize.toFloat()
                 canvas.drawText(canvasWiFiSiganlWaveProfileAL[i].channel.toString(), channelX.toFloat(), channelY.toFloat(), paint)
             }
@@ -445,43 +513,5 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
 
         mCanvas = canvas
         wiFiChannelChartHandler.notifyWiFiChannelChartDraw()
-    }
-
-    private fun drawArrows(canvas: Canvas, arrowSize: Float, x1: Float, y1: Float, x2: Float, y2: Float)
-    {
-        val awrad = Math.atan(3.5 / 8)
-        val arrXY_1 = rotateVec(x1 - x2, y1 - y2, awrad, arrowSize.toDouble())
-        val arrXY_2 = rotateVec(x1 - x2, y1 - y2, -awrad, arrowSize.toDouble())
-
-        val X3 = java.lang.Double.valueOf(x1 - arrXY_1[0])
-        val x3 = X3!!.toInt()
-        val Y3 = java.lang.Double.valueOf(y1 - arrXY_1[1])
-        val y3 = Y3!!.toInt()
-
-        val X4 = java.lang.Double.valueOf(x1 - arrXY_2[0])
-        val x4 = X4!!.toInt()
-        val Y4 = java.lang.Double.valueOf(y1 - arrXY_2[1])
-        val y4 = Y4!!.toInt()
-
-        val arrowsPath = Path()
-        arrowsPath.moveTo(x1, y1)
-        arrowsPath.lineTo(x3.toFloat(), y3.toFloat())
-        arrowsPath.lineTo(x4.toFloat(), y4.toFloat())
-        arrowsPath.close()
-        paint.style = Paint.Style.FILL
-        canvas.drawPath(arrowsPath, paint)
-    }
-
-    private fun rotateVec(px: Float, py: Float, ang: Double, arrowSize: Double): DoubleArray
-    {
-        val mathstr = DoubleArray(2)
-        var vx = px * Math.cos(ang) - py * Math.sin(ang)
-        var vy = px * Math.sin(ang) + py * Math.cos(ang)
-        val d = Math.sqrt(vx * vx + vy * vy)
-        vx = vx / d * arrowSize
-        vy = vy / d * arrowSize
-        mathstr[0] = vx
-        mathstr[1] = vy
-        return mathstr
     }
 }

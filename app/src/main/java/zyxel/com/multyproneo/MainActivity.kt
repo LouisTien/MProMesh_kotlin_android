@@ -27,10 +27,11 @@ import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 import zyxel.com.multyproneo.util.OUIUtil
+import zyxel.com.multyproneo.wifichart.WiFiChannelChartListener
 import java.util.*
 import kotlin.concurrent.schedule
 
-class MainActivity : AppCompatActivity()
+class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 {
     private val TAG = javaClass.simpleName
     private lateinit var switchFrgDisposable: Disposable
@@ -100,7 +101,12 @@ class MainActivity : AppCompatActivity()
         }
     }
 
-    private val clickListener = View.OnClickListener { view ->
+    override fun onDrawCompleted()
+    {
+
+    }
+
+    private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
             home_relative -> gotoHomeFragment()

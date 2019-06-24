@@ -6,8 +6,11 @@ import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_diagnostic.*
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.event.DiagnosticEvent
+import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.util.LogUtil
 
 /**
@@ -16,6 +19,7 @@ import zyxel.com.multyproneo.util.LogUtil
 class DiagnosticFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
+    private lateinit var enterWiFiChannelChartPageDisposable: Disposable
     private var currentFrag = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -27,6 +31,11 @@ class DiagnosticFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
         setClickListener()
+        enterWiFiChannelChartPageDisposable = GlobalBus.listen(DiagnosticEvent.EnterWiFiChannelChartPage::class.java).subscribe{
+            enterWiFiChannelChartPage(it.channel)
+        }
+        clearTabTextsBackground()
+        enterWiFiChannelChartPage(0)
     }
 
     override fun onResume()
@@ -45,19 +54,11 @@ class DiagnosticFragment : Fragment()
     }
 
     private val clickListener = View.OnClickListener { view ->
-        diagnostic_tab_wifi_channel_text.background = null
-        diagnostic_tab_wifi_signal_text.background = null
+        clearTabTextsBackground()
 
         when(view)
         {
-            diagnostic_tab_wifi_channel_text ->
-            {
-                diagnostic_tab_wifi_channel_text.setBackgroundResource(R.drawable.button_style_white_bg)
-                if(currentFrag != "WiFiChannelChartFragment")
-                {
-
-                }
-            }
+            diagnostic_tab_wifi_channel_text -> enterWiFiChannelChartPage(0)
 
             diagnostic_tab_wifi_signal_text ->
             {
@@ -77,6 +78,23 @@ class DiagnosticFragment : Fragment()
         diagnostic_tab_wifi_channel_text.setOnClickListener(clickListener)
         diagnostic_tab_wifi_signal_text.setOnClickListener(clickListener)
         diagnostic_back_image.setOnClickListener(clickListener)
+    }
+
+    private fun clearTabTextsBackground()
+    {
+        diagnostic_tab_wifi_channel_text.background = null
+        diagnostic_tab_wifi_signal_text.background = null
+    }
+
+    private fun enterWiFiChannelChartPage(channel: Int)
+    {
+        diagnostic_tab_wifi_channel_text.setBackgroundResource(R.drawable.button_style_white_bg)
+        if(currentFrag != "WiFiChannelChartFragment")
+        {
+            val channelFrag = WiFiChannelChartFragment()
+            channelFrag.setShowChannel(channel)
+            switchToFragContainer(channelFrag)
+        }
     }
 
     private fun switchToFragContainer(fragment: Fragment)
