@@ -32,22 +32,22 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
     private lateinit var _5GWiFiSignalWaveProfileArrayList: ArrayList<ArrayList<WiFiSignalWaveProfile>>
     private lateinit var signalWaveProfileArrayList: ArrayList<WiFiSignalWaveProfile>
 
-    private var pathArrayList = arrayListOf<Path>()
-    private var paintArrayList = arrayListOf<Paint>()
-    private var ssidArrayList = arrayListOf<String>()
+    private lateinit var pathArrayList: ArrayList<Path>
+    private lateinit var paintArrayList: ArrayList<Paint>
+    private lateinit var ssidArrayList: ArrayList<String>
 
-    private var mapListP0 = arrayListOf<Map<Int, Float>>()
-    private var mapListP1 = arrayListOf<Map<Int, Float>>()
-    private var mapListP2 = arrayListOf<Map<Int, Float>>()
-    private var mapListChannel = arrayListOf<Map<Int, Int>>()
+    private lateinit var mapListP0: MutableList<Map<Int, Float>>
+    private lateinit var mapListP1: MutableList<Map<Int, Float>>
+    private lateinit var mapListP2: MutableList<Map<Int, Float>>
+    private lateinit var mapListChannel: MutableList<Map<Int, Int>>
 
-    private var listArrayListP0 = arrayListOf<List<Map<Int, Float>>>()
-    private var listArrayListP1 = arrayListOf<List<Map<Int, Float>>>()
-    private var listArrayListP2 = arrayListOf<List<Map<Int, Float>>>()
-    private var listArrayListChannel = arrayListOf<List<Map<Int, Int>>>()
+    private lateinit var listArrayListP0: ArrayList<List<Map<Int, Float>>>
+    private lateinit var listArrayListP1: ArrayList<List<Map<Int, Float>>>
+    private lateinit var listArrayListP2: ArrayList<List<Map<Int, Float>>>
+    private lateinit var listArrayListChannel: ArrayList<List<Map<Int, Int>>>
 
-    private var canvasWiFiSiganlWaveProfileAL = arrayListOf<WiFiSignalWaveProfile>()
-    private var ssidCenterArrayList = arrayListOf<Float>()
+    private lateinit var canvasWiFiSiganlWaveProfileAL: ArrayList<WiFiSignalWaveProfile>
+    private lateinit var ssidCenterArrayList: ArrayList<Float>
     private var connectedSSID = ""
 
     init
@@ -120,10 +120,10 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
             signalWaveProfileArrayList = _5GWiFiSignalWaveProfileArrayList[z]
             for(x in signalWaveProfileArrayList.indices)
             {
-                signalWaveProfileArrayList[x].radius = (signalWaveProfileArrayList[x].amplitude * 10) as Int
-                signalWaveProfileArrayList[x].amplitude = height * signalWaveProfileArrayList[x].amplitude + (x * 40)
+                signalWaveProfileArrayList[x].radius = (signalWaveProfileArrayList[x].amplitude * 10).toInt()
+                signalWaveProfileArrayList[x].amplitude = mHeight * signalWaveProfileArrayList[x].amplitude + (x * 40)
                 signalWaveProfileArrayList[x].old_x = 0.0f
-                signalWaveProfileArrayList[x].old_y = (height - (signalWaveProfileArrayList[x].amplitude * (Math.sin(signalWaveProfileArrayList[x].old_x / period * Math.PI)))).toFloat()
+                signalWaveProfileArrayList[x].old_y = (mHeight - (signalWaveProfileArrayList[x].amplitude * (Math.sin(signalWaveProfileArrayList[x].old_x / period * Math.PI)))).toFloat()
                 when(x)
                 {
                     0 ->
@@ -279,6 +279,23 @@ class Band5GWholeChannelChart(context: Context, private var activity: Activity) 
     override fun onDraw(canvas: Canvas)
     {
         super.onDraw(canvas)
+
+        pathArrayList = ArrayList()
+        paintArrayList = ArrayList()
+        ssidArrayList = ArrayList()
+
+        mapListP0 = ArrayList()
+        mapListP1 = ArrayList()
+        mapListP2 = ArrayList()
+        mapListChannel = ArrayList()
+
+        listArrayListP0 = ArrayList()
+        listArrayListP1 = ArrayList()
+        listArrayListP2 = ArrayList()
+        listArrayListChannel = ArrayList()
+
+        canvasWiFiSiganlWaveProfileAL = ArrayList()
+        ssidCenterArrayList = ArrayList()
 
         canvas.drawPaint(paint)
         paint.isAntiAlias = true

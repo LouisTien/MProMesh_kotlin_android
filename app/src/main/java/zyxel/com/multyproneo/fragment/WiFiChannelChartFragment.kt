@@ -19,7 +19,6 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.DiagnosticEvent
-import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.tool.DensityPixelConverter
@@ -171,6 +170,8 @@ class WiFiChannelChartFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+        initialScan = false
+        getActivity()!!.applicationContext.unregisterReceiver(wifiReceiver)
     }
 
     private val clickListener = View.OnClickListener { view ->
@@ -239,9 +240,10 @@ class WiFiChannelChartFragment : Fragment()
             _24GWiFiSignalWaveProfileArrayList = ArrayList()
             _5GWiFiSignalWaveProfileArrayList = ArrayList()
 
-            var wiFiSignalWaveProfile = WiFiSignalWaveProfile()
+            var wiFiSignalWaveProfile: WiFiSignalWaveProfile
             for(i in scanResultList.indices)
             {
+                wiFiSignalWaveProfile = WiFiSignalWaveProfile()
                 with(wiFiSignalWaveProfile)
                 {
                     ssid = scanResultList[i].SSID
@@ -252,7 +254,7 @@ class WiFiChannelChartFragment : Fragment()
                     bssid = scanResultList[i].BSSID
                 }
 
-                if(scanResultList.get(i).frequency > 5000)
+                if(scanResultList[i].frequency > 5000)
                 {
                     _5GBand = true
                     wiFiSignalWaveProfile.band = 1
@@ -262,7 +264,7 @@ class WiFiChannelChartFragment : Fragment()
                 {
                     _24GBand = true
                     wiFiSignalWaveProfile.channelMargin = ssidAnalyzerWhole.getWiFiChannelMarginFromFrequency(scanResultList[i].frequency)
-                    wiFiSignalWaveProfile.band = 1
+                    wiFiSignalWaveProfile.band = 0
                 }
 
                 wiFiSignalWaveProfileArrayList.add(wiFiSignalWaveProfile)
@@ -299,7 +301,7 @@ class WiFiChannelChartFragment : Fragment()
                 {
                     wifi_channel_chart_image.setImageResource(R.drawable.advanced_tools_bg)
                     wifi_channel_chart_horizontal_scroll.isEnabled = true
-                    _24GChannelsSignalWaveProfileArrayList = ssidAnalyzerWhole.getAllChannelWiFiSiganlWaveProfileByBand(0, _24GWiFiSignalWaveProfileArrayList)
+                    _24GChannelsSignalWaveProfileArrayList = ssidAnalyzerWhole.getAllChannelWiFiSignalWaveProfileByBand(0, _24GWiFiSignalWaveProfileArrayList)
                     saved24GChannelsSignalWaveProfileArrayList = _24GChannelsSignalWaveProfileArrayList
 
                     band24GChannelChart = Band24GChannelChart(getActivity()!!.applicationContext, activity)
@@ -320,7 +322,7 @@ class WiFiChannelChartFragment : Fragment()
 
                     wifi_channel_chart_horizontal_scroll.isEnabled = true
                     wifi_channel_chart_horizontal_scroll.visibility = View.VISIBLE
-                    ssidAnalyzerWhole.getAllChannelWiFiSiganlWaveProfileByBand(1, _5GWiFiSignalWaveProfileArrayList)
+                    ssidAnalyzerWhole.getAllChannelWiFiSignalWaveProfileByBand(1, _5GWiFiSignalWaveProfileArrayList)
 
                     val tmp1 = ssidAnalyzerWhole.get5GChannelsSignalWaveProfileArrayListByBand(1)
                     val tmp2 = ssidAnalyzerWhole.get5GChannelsSignalWaveProfileArrayListByBand(2)
@@ -343,7 +345,7 @@ class WiFiChannelChartFragment : Fragment()
                     saved5GChannelsSignalWaveProfileArrayList = _5GChannelsSignalWaveProfileArrayList
                     band5GWholeChannelChart = Band5GWholeChannelChart(getActivity()!!.applicationContext, activity)
                     band5GWholeChannelChart.setStartEndPoint(width, height)
-                    if (initialScan)
+                    if(initialScan)
                         band5GWholeChannelChart.setDataSet(_5GChannelsSignalWaveProfileArrayList, m5GConnectedSSIDMargin)
                     else
                         band5GWholeChannelChart.setDataSet(_5GChannelsSignalWaveProfileArrayList, scrollPosition)
@@ -351,7 +353,7 @@ class WiFiChannelChartFragment : Fragment()
                     wifi_channel_chart_linear.removeAllViews()
                     wifi_channel_chart_linear.addView(band5GWholeChannelChart)
                     wifi_channel_chart_horizontal_scroll.bringToFront()
-                    if (initialScan)
+                    if(initialScan)
                         wifi_channel_chart_horizontal_scroll.scrollTo(m5GConnectedSSIDMargin, 0)
                     else
                         wifi_channel_chart_horizontal_scroll.scrollTo(scrollPosition, 0)

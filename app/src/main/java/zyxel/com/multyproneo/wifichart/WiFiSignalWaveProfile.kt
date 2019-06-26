@@ -5,12 +5,12 @@ package zyxel.com.multyproneo.wifichart
  */
 class WiFiSignalWaveProfile
 {
-    var old_x: Float = 0.toFloat()
-    var old_y: Float = 0.toFloat()
-    var new_x: Float = 0.toFloat()
-    var new_y: Float = 0.toFloat()
+    var old_x = 0f
+    var old_y = 0f
+    var new_x = 0f
+    var new_y = 0f
     var color: Int = 0
-    var amplitude: Double = 0.toDouble()
+    var amplitude = 0.0
     var channelMargin: Int = 0
     var radius: Int = 0
     var frequency: Int = 0

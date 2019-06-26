@@ -370,7 +370,7 @@ class SSIDAnalyzerWhole(private val height: Int, private val width: Int, private
         return margin
     }
 
-    fun getAllChannelWiFiSiganlWaveProfileByBand(band: Int, scanResults: ArrayList<WiFiSignalWaveProfile>): ArrayList<ArrayList<WiFiSignalWaveProfile>>
+    fun getAllChannelWiFiSignalWaveProfileByBand(band: Int, scanResults: ArrayList<WiFiSignalWaveProfile>): ArrayList<ArrayList<WiFiSignalWaveProfile>>
     {
         var results = ArrayList<ArrayList<WiFiSignalWaveProfile>>()
         _24GChannelsSignalWaveProfileArrayList = ArrayList()

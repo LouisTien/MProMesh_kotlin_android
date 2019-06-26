@@ -35,6 +35,7 @@ class DiagnosticFragment : Fragment()
             enterWiFiChannelChartPage(it.channel)
         }
         clearTabTextsBackground()
+        diagnostic_tab_wifi_channel_text.setBackgroundResource(R.drawable.button_style_white_bg)
         enterWiFiChannelChartPage(0)
     }
 
@@ -58,7 +59,12 @@ class DiagnosticFragment : Fragment()
 
         when(view)
         {
-            diagnostic_tab_wifi_channel_text -> enterWiFiChannelChartPage(0)
+            diagnostic_tab_wifi_channel_text ->
+            {
+                diagnostic_tab_wifi_channel_text.setBackgroundResource(R.drawable.button_style_white_bg)
+                if(currentFrag != "WiFiChannelChartFragment")
+                    enterWiFiChannelChartPage(0)
+            }
 
             diagnostic_tab_wifi_signal_text ->
             {
@@ -88,13 +94,9 @@ class DiagnosticFragment : Fragment()
 
     private fun enterWiFiChannelChartPage(channel: Int)
     {
-        diagnostic_tab_wifi_channel_text.setBackgroundResource(R.drawable.button_style_white_bg)
-        if(currentFrag != "WiFiChannelChartFragment")
-        {
-            val channelFrag = WiFiChannelChartFragment()
-            channelFrag.setShowChannel(channel)
-            switchToFragContainer(channelFrag)
-        }
+        val channelFrag = WiFiChannelChartFragment()
+        channelFrag.setShowChannel(channel)
+        switchToFragContainer(channelFrag)
     }
 
     private fun switchToFragContainer(fragment: Fragment)
