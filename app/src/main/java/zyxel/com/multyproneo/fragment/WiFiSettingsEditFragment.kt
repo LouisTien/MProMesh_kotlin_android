@@ -98,7 +98,7 @@ class WiFiSettingsEditFragment : Fragment()
         }
     }
 
-    private val clickListener = View.OnClickListener { view ->
+    private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
             wifi_edit_cancel_text ->

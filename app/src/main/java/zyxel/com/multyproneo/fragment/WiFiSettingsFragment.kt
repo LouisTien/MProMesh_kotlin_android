@@ -73,7 +73,7 @@ class WiFiSettingsFragment : Fragment()
         super.onDestroyView()
     }
 
-    private val clickListener = View.OnClickListener { view ->
+    private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
             wifi_settings_wifi_password_show_image ->

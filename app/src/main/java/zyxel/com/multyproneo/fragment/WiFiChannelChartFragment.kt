@@ -174,7 +174,7 @@ class WiFiChannelChartFragment : Fragment()
         getActivity()!!.applicationContext.unregisterReceiver(wifiReceiver)
     }
 
-    private val clickListener = View.OnClickListener { view ->
+    private val clickListener = View.OnClickListener{ view ->
         clearTabTextsBackground()
 
         when(view)

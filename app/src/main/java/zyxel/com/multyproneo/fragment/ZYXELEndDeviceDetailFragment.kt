@@ -113,7 +113,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
     }
 
-    private val clickListener = View.OnClickListener { view ->
+    private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
             zyxel_end_device_detail_back_image ->

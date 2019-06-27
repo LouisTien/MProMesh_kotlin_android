@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var enterSearchGatewayPageDisposable: Disposable
     private lateinit var msgDialogResponseDisposable: Disposable
     private lateinit var loadingDlg: Dialog
-    private var deviceTimer: Timer = Timer()
-    private var screenTimer: Timer = Timer()
+    private var deviceTimer = Timer()
+    private var screenTimer = Timer()
     private var currentFrag = ""
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -207,9 +207,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         startGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StartGetDeviceInfoTask::class.java).subscribe{
             deviceTimer = Timer()
-            deviceTimer.schedule(0, (AppConfig.endDeviceListUpdateTime * 1000).toLong()){
-                getDeviceInfoTask()
-            }
+            deviceTimer.schedule(0, (AppConfig.endDeviceListUpdateTime * 1000).toLong()){ getDeviceInfoTask() }
         }
 
         stopGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StopGetDeviceInfoTask::class.java).subscribe{ deviceTimer.cancel() }

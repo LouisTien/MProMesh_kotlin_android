@@ -58,7 +58,7 @@ class DevicesFragment : Fragment()
         if(!getInfoCompleteDisposable.isDisposed) getInfoCompleteDisposable.dispose()
     }
 
-    private val clickListener = View.OnClickListener { view ->
+    private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
             devices_search_image ->

@@ -54,7 +54,7 @@ class DiagnosticFragment : Fragment()
         super.onDestroyView()
     }
 
-    private val clickListener = View.OnClickListener { view ->
+    private val clickListener = View.OnClickListener{ view ->
         clearTabTextsBackground()
 
         when(view)
@@ -70,9 +70,7 @@ class DiagnosticFragment : Fragment()
             {
                 diagnostic_tab_wifi_signal_text.setBackgroundResource(R.drawable.button_style_white_bg)
                 if(currentFrag != "WiFiSignalMeterFragment")
-                {
-
-                }
+                    switchToFragContainer(WiFiSignalMeterFragment())
             }
 
             diagnostic_back_image -> {}

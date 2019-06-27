@@ -67,7 +67,7 @@ class AccountFragment : Fragment()
         if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
     }
 
-    private val clickListener = View.OnClickListener { view ->
+    private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
             account_privacy_policy_relative -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zyxel.com/privacy_policy.shtml")))

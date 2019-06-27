@@ -59,7 +59,7 @@ class SearchDevicesFragment : Fragment()
         super.onDestroyView()
     }
 
-    private val clickListener = View.OnClickListener { view ->
+    private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
             devices_search_clear_image -> devices_search_input_edit.setText("")
