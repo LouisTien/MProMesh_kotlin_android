@@ -2,7 +2,6 @@ package zyxel.com.multyproneo.fragment
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +24,7 @@ class LoadingTransitionFragment : Fragment()
     private var showCountDownTimer = false
     private var anim = AppConfig.Companion.LoadingAnimation.ANIM_REBOOT
     private var desPage = AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH
+    private lateinit var countDownTimer: CountDownTimer
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -46,6 +46,20 @@ class LoadingTransitionFragment : Fragment()
             this?.getBoolean("ShowCountDownTimer")?.let{ showCountDownTimer = it }
         }
 
+        countDownTimer = object : CountDownTimer((loadingSecond * 1000).toLong(), 1000)
+        {
+            override fun onTick(millisUntilFinished: Long)
+            {
+                val min = (millisUntilFinished / 1000) / 60
+                val sec = (millisUntilFinished / 1000) % 60
+                val minStr = if(min < 10) "0" + min.toString() else min.toString()
+                val secStr = if(sec < 10) "0" + sec.toString() else sec.toString()
+                loading_countdown_time_text.text = "$minStr:$secStr"
+            }
+
+            override fun onFinish() = finishAction()
+        }
+
         initUI()
     }
 
@@ -55,19 +69,13 @@ class LoadingTransitionFragment : Fragment()
         GlobalBus.publish(MainEvent.HideBottomToolbar())
         loading_animation_view.playAnimation()
         //Handler().postDelayed({ finishAction() }, (loadingSecond * 1000).toLong())
-        object : CountDownTimer((loadingSecond * 1000).toLong(), 1000)
-        {
-            override fun onTick(millisUntilFinished: Long)
-            {
-                val min = millisUntilFinished / 60000
-                val sec = millisUntilFinished % 60000
-                val minStr = if(min < 10) "0" + min.toString() else min.toString()
-                val secStr = if(sec < 10) "0" + sec.toString() else sec.toString()
-                loading_countdown_time_text.text = "$minStr:$secStr"
-            }
+        countDownTimer.start()
+    }
 
-            override fun onFinish() = finishAction()
-        }.start()
+    override fun onPause()
+    {
+        super.onPause()
+        countDownTimer.cancel()
     }
 
     private fun initUI()
