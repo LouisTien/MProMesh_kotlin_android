@@ -82,14 +82,14 @@ class HomeFragment : Fragment()
                     putInt("LoadingSecond", AppConfig.guestWiFiSettingTime)
                     putSerializable("Anim", AppConfig.Companion.LoadingAnimation.ANIM_REBOOT)
                     putSerializable("DesPage", AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH)
-                    putBoolean("showRetry", false)
+                    putBoolean("ShowCountDownTimer", false)
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
             }
 
             home_connect_device_enter_image -> {GlobalBus.publish(MainEvent.EnterDevicesPage())}
             home_guest_wifi_enter_image -> {GlobalBus.publish(MainEvent.EnterWiFiSettingsPage())}
-            home_add_mesh_image -> {}
+            home_add_mesh_image -> {GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFragment()))}
         }
     }
 

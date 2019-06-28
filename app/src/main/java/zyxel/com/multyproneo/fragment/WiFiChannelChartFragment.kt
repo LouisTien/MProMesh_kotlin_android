@@ -81,6 +81,7 @@ class WiFiChannelChartFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+        with(arguments){ this?.getInt("Channel")?.let{ mWiFiStrengthIndex = it } }
         setClickListener()
         ssidAnalyzerWhole = SSIDAnalyzerWhole(height, width, activity)
         wifiManager = getActivity()!!.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
@@ -224,11 +225,6 @@ class WiFiChannelChartFragment : Fragment()
         getWiiInfoTimer.schedule(1000, 10000){
             doAsync{ uiThread{ wifiManager.startScan() } }
         }
-    }
-
-    fun setShowChannel(index: Int)
-    {
-        mWiFiStrengthIndex = index
     }
 
     private inner class WifiReceiver : BroadcastReceiver()

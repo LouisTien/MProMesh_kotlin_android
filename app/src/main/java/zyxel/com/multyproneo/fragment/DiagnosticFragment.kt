@@ -92,9 +92,7 @@ class DiagnosticFragment : Fragment()
 
     private fun enterWiFiChannelChartPage(channel: Int)
     {
-        val channelFrag = WiFiChannelChartFragment()
-        channelFrag.setShowChannel(channel)
-        switchToFragContainer(channelFrag)
+        switchToFragContainer(WiFiChannelChartFragment().apply{ arguments = Bundle().apply{ putInt("Channel", channel) } })
     }
 
     private fun switchToFragContainer(fragment: Fragment)

@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_60dp_in_1080"
         android:layout_below="@+id/mesh_back_image"
         android:textSize="@dimen/text_size_22sp_in_1080"
         android:textColor="@color/color_000000"
@@ -35,7 +35,19 @@
             android:id="@+id/mesh_content_linear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/layout_size_60dp_in_1080"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/mesh_wireless_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size_20sp_in_1080"
+                android:textColor="@color/color_575757"
+                android:textStyle="bold"
+                android:text="@string/mesh_with_wireless"/>
 
             <FrameLayout
                 android:id="@+id/mesh_wireless_area_frame"
@@ -44,23 +56,12 @@
                 android:layout_gravity="center"
                 android:background="@drawable/card_bg2">
 
-                <TextView
-                    android:id="@+id/mesh_wireless_title_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-                    android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
-                    android:textSize="@dimen/text_size_20sp_in_1080"
-                    android:textColor="@color/color_575757"
-                    android:textStyle="bold"
-                    android:text="@string/mesh_with_wireless"/>
-
                 <ImageView
                     android:id="@+id/mesh_wireless_content_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@drawable/addmesh_wifi"/>
+                    android:src="@drawable/addmesh_wireless_1"/>
 
                 <ImageView
                     android:id="@+id/mesh_wireless_enter_image"
@@ -72,6 +73,17 @@
 
             </FrameLayout>
 
+            <TextView
+                android:id="@+id/mesh_wire_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size_20sp_in_1080"
+                android:textColor="@color/color_575757"
+                android:textStyle="bold"
+                android:text="@string/mesh_with_wire"/>
+
             <FrameLayout
                 android:id="@+id/mesh_wire_area_frame"
                 android:layout_width="wrap_content"
@@ -79,23 +91,12 @@
                 android:layout_gravity="center"
                 android:background="@drawable/card_bg2">
 
-                <TextView
-                    android:id="@+id/mesh_wire_title_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-                    android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
-                    android:textSize="@dimen/text_size_20sp_in_1080"
-                    android:textColor="@color/color_575757"
-                    android:textStyle="bold"
-                    android:text="@string/mesh_with_wire"/>
-
                 <ImageView
                     android:id="@+id/mesh_wire_content_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@drawable/addmesh_wired"/>
+                    android:src="@drawable/addmesh_wired_1"/>
 
                 <ImageView
                     android:id="@+id/mesh_wire_enter_image"
@@ -117,7 +118,8 @@
                 android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
                 android:textSize="@dimen/text_size_16sp_in_1080"
                 android:textColor="@color/color_575757"
-                android:text="@string/mesh_tip"/>
+                android:text="@string/mesh_tip"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

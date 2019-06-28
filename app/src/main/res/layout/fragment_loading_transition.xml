@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:src="@drawable/icon_retry"/>
+        android:src="@drawable/icon_retry"
+        android:visibility="invisible"/>
 
     <RelativeLayout
         android:id="@+id/loading_msg_area_relative"
@@ -63,5 +64,18 @@
         android:layout_gravity="center"
         app:lottie_imageAssetsFolder="images"
         app:lottie_loop="true"/>
+
+    <TextView
+        android:id="@+id/loading_countdown_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_below="@+id/loading_animation_view"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/text_size_20sp_in_1080"
+        android:textColor="@color/color_575757"
+        android:textStyle="bold"
+        android:text="00:00"
+        android:visibility="gone"/>
 
 </RelativeLayout>

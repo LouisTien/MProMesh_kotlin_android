@@ -155,6 +155,13 @@
     <string name="mesh_more_info_description">LED indicates the wireless quality of Zyxel products, it may be vary from different extenders.</string>
     <string name="mesh_more_info_example">Example: WAP6804</string>
     <string name="mesh_more_info_hint">WPS may be enabled by different behaviors from different extenders.</string>
+    <string name="mesh_see_tip">See Tips</string>
+    <string name="mesh_extender_title">Place WiFi Extender</string>
+    <string name="mesh_extender_description">Locate mode switch on the back panel of the WiFi Extender. Switch to \"RP\" to connect extender wirelessly.</string>
+    <string name="mesh_next">Next</string>
+    <string name="mesh_wps_title">Press WPS button</string>
+    <string name="mesh_wps_description">Tap <b>\"Star Pairing\"</b> button and then pressing <b>WPS</b> physical button of your WiFi Extender.</string>
+    <string name="mesh_pair">Start Pairing</string>
 
     <string name="message_dialog_yes">YES</string>
     <string name="message_dialog_no">NO</string>
@@ -186,5 +193,6 @@
     <string name="loading_transition_update_wifi_settings">Updating WiFi Settings...</string>
     <string name="loading_transition_take_few_minutes">Please wait.\nThis may take 3-4 minutes.</string>
     <string name="loading_transition_reboot">Rebooting...</string>
+    <string name="loading_transition_extender">Waiting for your WiFi Extender to be ready...</string>
 
 </resources>

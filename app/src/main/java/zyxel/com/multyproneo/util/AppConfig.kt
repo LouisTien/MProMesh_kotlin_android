@@ -12,6 +12,7 @@ class AppConfig
         const val guestWiFiSettingTime = 20
         const val rebootTime = 20
         const val keepScreenTime = 300
+        const val addExtenderTime = 180
 
         enum class LoadingAnimation
         {

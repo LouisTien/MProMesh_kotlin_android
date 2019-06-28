@@ -19,8 +19,8 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
         android:layout_below="@+id/mesh_tip_cancel_image">
 
         <LinearLayout

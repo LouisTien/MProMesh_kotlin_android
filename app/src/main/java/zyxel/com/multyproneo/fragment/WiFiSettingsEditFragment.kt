@@ -120,7 +120,7 @@ class WiFiSettingsEditFragment : Fragment()
                     putInt("LoadingSecond", AppConfig.guestWiFiSettingTime)
                     putSerializable("Anim", AppConfig.Companion.LoadingAnimation.ANIM_REBOOT)
                     putSerializable("DesPage", AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH)
-                    putBoolean("showRetry", false)
+                    putBoolean("ShowCountDownTimer", false)
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
             }

@@ -83,7 +83,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                         putInt("LoadingSecond", AppConfig.rebootTime)
                         putSerializable("Anim", AppConfig.Companion.LoadingAnimation.ANIM_REBOOT)
                         putSerializable("DesPage", if(isGatewayMode) AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH else AppConfig.Companion.LoadingGoToPage.FRAG_HOME)
-                        putBoolean("showRetry", false)
+                        putBoolean("ShowCountDownTimer", false)
                     }
                     GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
                 }

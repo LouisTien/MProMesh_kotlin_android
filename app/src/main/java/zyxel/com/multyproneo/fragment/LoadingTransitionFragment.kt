@@ -1,6 +1,7 @@
 package zyxel.com.multyproneo.fragment
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -19,9 +20,9 @@ class LoadingTransitionFragment : Fragment()
 {
     private var title = ""
     private var description = ""
-    private var sec_description = ""
+    private var secDescription = ""
     private var loadingSecond = 0
-    private var showRetry = false
+    private var showCountDownTimer = false
     private var anim = AppConfig.Companion.LoadingAnimation.ANIM_REBOOT
     private var desPage = AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH
 
@@ -38,11 +39,11 @@ class LoadingTransitionFragment : Fragment()
         {
             this?.getString("Title")?.let{ title = it }
             this?.getString("Description")?.let{ description = it }
-            this?.getString("Sec_Description")?.let{ sec_description = it }
+            this?.getString("Sec_Description")?.let{ secDescription = it }
             this?.getInt("LoadingSecond")?.let{ loadingSecond = it }
             this?.getSerializable("Anim")?.let{ anim = it as AppConfig.Companion.LoadingAnimation }
             this?.getSerializable("DesPage")?.let{ desPage = it as AppConfig.Companion.LoadingGoToPage }
-            this?.getBoolean("ShowRetry")?.let{ showRetry = it }
+            this?.getBoolean("ShowCountDownTimer")?.let{ showCountDownTimer = it }
         }
 
         initUI()
@@ -53,7 +54,20 @@ class LoadingTransitionFragment : Fragment()
         super.onResume()
         GlobalBus.publish(MainEvent.HideBottomToolbar())
         loading_animation_view.playAnimation()
-        Handler().postDelayed({ finishAction() }, (loadingSecond * 1000).toLong())
+        //Handler().postDelayed({ finishAction() }, (loadingSecond * 1000).toLong())
+        object : CountDownTimer((loadingSecond * 1000).toLong(), 1000)
+        {
+            override fun onTick(millisUntilFinished: Long)
+            {
+                val min = millisUntilFinished / 60000
+                val sec = millisUntilFinished % 60000
+                val minStr = if(min < 10) "0" + min.toString() else min.toString()
+                val secStr = if(sec < 10) "0" + sec.toString() else sec.toString()
+                loading_countdown_time_text.text = "$minStr:$secStr"
+            }
+
+            override fun onFinish() = finishAction()
+        }.start()
     }
 
     private fun initUI()
@@ -74,22 +88,21 @@ class LoadingTransitionFragment : Fragment()
         else
             loading_msg_status_text.visibility = View.INVISIBLE
 
-        if(sec_description != "")
+        if(secDescription != "")
         {
-            loading_msg_working_text.text = sec_description
+            loading_msg_working_text.text = secDescription
             loading_msg_working_text.visibility = View.VISIBLE
         }
         else
             loading_msg_working_text.visibility = View.INVISIBLE
 
-        loading_retry_image.visibility = if(showRetry) View.VISIBLE else View.INVISIBLE
+        loading_countdown_time_text.visibility = if(showCountDownTimer) View.VISIBLE else View.GONE
 
         when(anim)
         {
             AppConfig.Companion.LoadingAnimation.ANIM_REBOOT -> loading_animation_view.setAnimation("rebooting.json")
             AppConfig.Companion.LoadingAnimation.ANIM_SEARCH -> loading_animation_view.setAnimation("searching.json")
             AppConfig.Companion.LoadingAnimation.ANIM_NOFOUND -> loading_animation_view.setAnimation("nofound.json")
-            else -> loading_animation_view.setAnimation("rebooting.json")
         }
     }
 
