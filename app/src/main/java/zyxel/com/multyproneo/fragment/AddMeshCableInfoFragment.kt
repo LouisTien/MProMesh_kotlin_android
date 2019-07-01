@@ -5,19 +5,19 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_add_mesh.*
+import kotlinx.android.synthetic.main.fragment_add_mesh_cable_info.*
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 
 /**
- * Created by LouisTien on 2019/6/27.
+ * Created by LouisTien on 2019/7/1.
  */
-class AddMeshFragment : Fragment()
+class AddMeshCableInfoFragment : Fragment()
 {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        return inflater.inflate(R.layout.fragment_add_mesh, container, false)
+        return inflater.inflate(R.layout.fragment_add_mesh_cable_info, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
@@ -45,18 +45,18 @@ class AddMeshFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            mesh_back_image -> GlobalBus.publish(MainEvent.EnterHomePage())
+            mesh_cable_info_back_image -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFragment()))
 
-            mesh_wireless_enter_image -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshExtenderFragment()))
+            mesh_cable_info_tip_text -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshTipsFragment().apply{ arguments = Bundle().apply{ putString("FromFrag", "AddMeshCableInfo") } }))
 
-            mesh_wire_enter_image -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshCableInfoFragment()))
+            mesh_cable_info_done_button -> GlobalBus.publish(MainEvent.EnterHomePage())
         }
     }
 
     private fun setClickListener()
     {
-        mesh_back_image.setOnClickListener(clickListener)
-        mesh_wireless_enter_image.setOnClickListener(clickListener)
-        mesh_wire_enter_image.setOnClickListener(clickListener)
+        mesh_cable_info_back_image.setOnClickListener(clickListener)
+        mesh_cable_info_tip_text.setOnClickListener(clickListener)
+        mesh_cable_info_done_button.setOnClickListener(clickListener)
     }
 }

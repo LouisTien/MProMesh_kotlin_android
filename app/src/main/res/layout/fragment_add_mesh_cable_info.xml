@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/mesh_cable_info_back_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_back"/>
+
+    <TextView
+        android:id="@+id/mesh_cable_info_tip_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:textSize="@dimen/text_size_20sp_in_1080"
+        android:textColor="@color/color_575757"
+        android:textStyle="bold"
+        android:text="@string/mesh_see_tip"/>
+
+    <LinearLayout
+        android:id="@+id/mesh_cable_info_content_linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/mesh_cable_info_back_image"
+        android:layout_below="@+id/mesh_cable_info_back_image"
+        android:layout_marginTop="@dimen/layout_size_60dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_30dp_in_1080"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mesh_cable_info_conten_1_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_22sp_in_1080"
+            android:textColor="@color/color_000000"
+            android:textStyle="bold"
+            android:text="@string/mesh_info_1"/>
+
+        <ImageView
+            android:id="@+id/mesh_cable_info_conten_connect_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/addmesh_wired1"/>
+
+        <LinearLayout
+            android:id="@+id/mesh_cable_info_content_hint_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_60dp_in_1080"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/mesh_cable_info_conten_2_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_22sp_in_1080"
+                android:textColor="@color/color_000000"
+                android:textStyle="bold"
+                android:text="@string/mesh_info_2"/>
+
+            <TextView
+                android:id="@+id/mesh_cable_info_conten_hint_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/layout_size_5dp_in_1080"
+                android:textSize="@dimen/text_size_16sp_in_1080"
+                android:textColor="@color/color_575757"
+                android:text="@string/mesh_info_hint"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/mesh_cable_info_done_button"
+        android:layout_width="@dimen/layout_size_70dp_in_1080"
+        android:layout_height="@dimen/layout_size_36dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_style_yellow_bg"
+        android:text="@string/mesh_done"
+        android:textAllCaps="false"
+        android:textSize="@dimen/layout_size_20dp_in_1080"/>
+
+</RelativeLayout>

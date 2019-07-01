@@ -5,72 +5,70 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/mesh_extender_back_image"
+        android:id="@+id/mesh_success_back_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
         android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-        android:src="@drawable/icon_back"/>
+        android:src="@drawable/icon_back"
+        android:visibility="invisible"/>
 
-    <TextView
-        android:id="@+id/mesh_extender_tip_text"
+    <ImageView
+        android:id="@+id/mesh_success_close_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
         android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-        android:textSize="@dimen/text_size_20sp_in_1080"
-        android:textColor="@color/color_575757"
-        android:textStyle="bold"
-        android:text="@string/mesh_see_tip"/>
+        android:src="@drawable/icon_close"/>
 
     <RelativeLayout
-        android:id="@+id/mesh_extender_content_relative"
+        android:id="@+id/mesh_success_content_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
         android:layout_marginRight="@dimen/layout_size_30dp_in_1080"
-        android:layout_below="@+id/mesh_extender_back_image"
-        android:layout_toRightOf="@+id/mesh_extender_back_image">
+        android:layout_below="@+id/mesh_success_back_image"
+        android:layout_toRightOf="@+id/mesh_success_back_image">
 
         <TextView
-            android:id="@+id/mesh_extender_title_text"
+            android:id="@+id/mesh_success_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_000000"
-            android:text="@string/mesh_extender_title"/>
+            android:text="@string/mesh_success_title"/>
 
         <TextView
-            android:id="@+id/mesh_extender_description_text"
+            android:id="@+id/mesh_success_description_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/mesh_extender_title_text"
+            android:layout_below="@+id/mesh_success_title_text"
             android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
-            android:text="@string/mesh_extender_description"
+            android:text="@string/mesh_success_description"
             android:textColor="@color/color_575757"
             android:textSize="@dimen/text_size_18sp_in_1080"/>
 
     </RelativeLayout>
 
     <ImageView
-        android:id="@+id/mesh_extender_content_image"
+        android:id="@+id/mesh_success_content_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/layout_size_60dp_in_1080"
-        android:layout_below="@+id/mesh_extender_content_relative"
-        android:src="@drawable/addmesh_wifi1"/>
+        android:layout_below="@+id/mesh_success_content_relative"
+        android:src="@drawable/addmesh_wifi3"/>
 
     <Button
-        android:id="@+id/mesh_extender_next_button"
+        android:id="@+id/mesh_success_done_button"
         android:layout_width="@dimen/layout_size_70dp_in_1080"
         android:layout_height="@dimen/layout_size_36dp_in_1080"
         android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/button_style_yellow_bg"
-        android:text="@string/mesh_next"
+        android:text="@string/mesh_done"
         android:textAllCaps="false"
         android:textSize="@dimen/layout_size_20dp_in_1080"/>
 

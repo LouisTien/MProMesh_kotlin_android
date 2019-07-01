@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/mesh_fail_back_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_back"
+        android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/mesh_fail_close_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_close"/>
+
+    <RelativeLayout
+        android:id="@+id/mesh_fail_content_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_30dp_in_1080"
+        android:layout_below="@+id/mesh_fail_back_image"
+        android:layout_toRightOf="@+id/mesh_fail_back_image">
+
+        <TextView
+            android:id="@+id/mesh_fail_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_22sp_in_1080"
+            android:textColor="@color/color_000000"
+            android:text="@string/mesh_fail_title"/>
+
+        <TextView
+            android:id="@+id/mesh_fail_description_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mesh_fail_title_text"
+            android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
+            android:text="@string/mesh_fail_description"
+            android:textColor="@color/color_575757"
+            android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/mesh_fail_content_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/layout_size_60dp_in_1080"
+        android:layout_below="@+id/mesh_fail_content_relative"
+        android:src="@drawable/addmesh_wifi4"/>
+
+    <RelativeLayout
+        android:id="@+id/mesh_fail_content_relative2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_30dp_in_1080"
+        android:layout_below="@+id/mesh_fail_content_image"
+        android:layout_toRightOf="@+id/mesh_fail_back_image">
+
+        <TextView
+            android:id="@+id/mesh_fail_description2_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
+            android:text="@string/mesh_fail_description2"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+        <TextView
+            android:id="@+id/mesh_fail_help_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
+            android:layout_below="@+id/mesh_fail_description2_text"
+            android:text="@string/mesh_help"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/mesh_fail_try_again_button"
+        android:layout_width="@dimen/layout_size_110dp_in_1080"
+        android:layout_height="@dimen/layout_size_36dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_style_yellow_bg"
+        android:text="@string/mesh_try_again"
+        android:textAllCaps="false"
+        android:textSize="@dimen/layout_size_20dp_in_1080"/>
+
+</RelativeLayout>

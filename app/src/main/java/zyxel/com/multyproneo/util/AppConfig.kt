@@ -24,7 +24,9 @@ class AppConfig
         enum class LoadingGoToPage
         {
             FRAG_SEARCH,
-            FRAG_HOME
+            FRAG_HOME,
+            FRAG_MESH_SUCCESS,
+            FRAG_MESH_FAIL
         }
 
         enum class DialogAction

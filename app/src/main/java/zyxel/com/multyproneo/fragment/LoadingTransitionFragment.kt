@@ -61,20 +61,25 @@ class LoadingTransitionFragment : Fragment()
         }
 
         initUI()
+        loading_animation_view.playAnimation()
+        //Handler().postDelayed({ finishAction() }, (loadingSecond * 1000).toLong())
+        countDownTimer.start()
     }
 
     override fun onResume()
     {
         super.onResume()
         GlobalBus.publish(MainEvent.HideBottomToolbar())
-        loading_animation_view.playAnimation()
-        //Handler().postDelayed({ finishAction() }, (loadingSecond * 1000).toLong())
-        countDownTimer.start()
     }
 
     override fun onPause()
     {
         super.onPause()
+    }
+
+    override fun onDestroyView()
+    {
+        super.onDestroyView()
         countDownTimer.cancel()
     }
 
@@ -120,6 +125,8 @@ class LoadingTransitionFragment : Fragment()
         {
             AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH -> GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
             AppConfig.Companion.LoadingGoToPage.FRAG_HOME -> GlobalBus.publish(MainEvent.EnterHomePage())
+            AppConfig.Companion.LoadingGoToPage.FRAG_MESH_SUCCESS -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshSuccessFragment()))
+            AppConfig.Companion.LoadingGoToPage.FRAG_MESH_FAIL -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFailFragment()))
         }
     }
 }

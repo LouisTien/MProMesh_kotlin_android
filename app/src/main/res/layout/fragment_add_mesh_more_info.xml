@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/mesh_help_cancel_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/icon_close"/>
+
+    <ScrollView
+        android:id="@+id/mesh_help_content_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_below="@+id/mesh_help_cancel_image">
+
+        <LinearLayout
+            android:id="@+id/mesh_help_content_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/mesh_help_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_20sp_in_1080"
+                android:textColor="@color/color_000000"
+                android:text="@string/mesh_more_info_title"/>
+
+            <TextView
+                android:id="@+id/mesh_help_description_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:textSize="@dimen/text_size_16sp_in_1080"
+                android:textColor="@color/color_575757"
+                android:text="@string/mesh_more_info_description"/>
+
+            <ImageView
+                android:id="@+id/mesh_help_description_line_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_size_1dp_in_1080"
+                android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                android:background="@color/color_b4b4b4"/>
+
+            <TextView
+                android:id="@+id/mesh_help_example_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+                android:layout_gravity="right"
+                android:textSize="@dimen/text_size_16sp_in_1080"
+                android:textColor="@color/color_575757"
+                android:text="@string/mesh_more_info_example"/>
+
+            <ImageView
+                android:id="@+id/mesh_help_green_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/led1"/>
+
+            <ImageView
+                android:id="@+id/mesh_help_amber_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:src="@drawable/led2"/>
+
+            <ImageView
+                android:id="@+id/mesh_help_red_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:src="@drawable/led3"/>
+
+            <ImageView
+                android:id="@+id/mesh_help_blink_red_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:src="@drawable/led4"/>
+
+            <ImageView
+                android:id="@+id/mesh_help_hint_line_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_size_1dp_in_1080"
+                android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                android:background="@color/color_b4b4b4"/>
+
+            <TextView
+                android:id="@+id/mesh_help_hint_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+                android:textSize="@dimen/text_size_16sp_in_1080"
+                android:textColor="@color/color_575757"
+                android:text="@string/mesh_more_info_hint"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

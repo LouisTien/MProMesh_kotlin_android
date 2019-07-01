@@ -162,6 +162,14 @@
     <string name="mesh_wps_title">Press WPS button</string>
     <string name="mesh_wps_description">Tap <b>\"Star Pairing\"</b> button and then pressing <b>WPS</b> physical button of your WiFi Extender.</string>
     <string name="mesh_pair">Start Pairing</string>
+    <string name="mesh_success_title">Success!</string>
+    <string name="mesh_success_description">The WiFi Extender is added to your home WiFi network. And it has the same WiFi name and password.</string>
+    <string name="mesh_done">Done</string>
+    <string name="mesh_fail_title">No connection</string>
+    <string name="mesh_fail_description">Unplug the WiFi Extender move it closer to the gateway.</string>
+    <string name="mesh_fail_description2">Plug WiFi Extender in new location, tap \"Try Again\" button to continue.</string>
+    <string name="mesh_help"><u>Need help?</u></string>
+    <string name="mesh_try_again">Try Again</string>
 
     <string name="message_dialog_yes">YES</string>
     <string name="message_dialog_no">NO</string>
