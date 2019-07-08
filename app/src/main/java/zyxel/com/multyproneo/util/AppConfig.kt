@@ -8,6 +8,17 @@ class AppConfig
     companion object
     {
         const val PERMISSION_LOCATION_REQUESTCODE = 1
+
+        const val SCAN_LISTENPORT = 6000
+        const val SCAN_REMOTEPORT = 263
+        const val SCAN_APPVERSION = 1
+        const val DEVICE_DISCOVER_REQ_MAGICNUM = "Device.X_ZyXEL_Ext.AppInfo.MagicNum"
+        const val DEVICE_DISCOVER_REQ_MAGICNUM_VALUE = "Z3704"
+        const val DEVICE_DISCOVER_REQ_APPVERSION = "Device.X_ZyXEL_Ext.AppInfo.AppVersion"
+        const val DEVICE_DISCOVER_REQ_APPVERSION_VALUE = "xxxxx"
+        const val DEVICE_DISCOVER_REQ = 1
+        const val DEVICE_DISCOVER_RESP = 2
+
         const val endDeviceListUpdateTime = 60
         const val guestWiFiSettingTime = 20
         const val rebootTime = 20

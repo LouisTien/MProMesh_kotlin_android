@@ -19,6 +19,7 @@ import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayProfile
+import zyxel.com.multyproneo.socketconnect.SocketControllerUtil
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
@@ -115,7 +116,9 @@ class FindingDeviceFragment : Fragment()
         loading_animation_view.setAnimation("searching.json")
         loading_animation_view.playAnimation()
 
-        doAsync {
+        doAsync{
+            SocketControllerUtil.getSocketController()!!.deviceScan()
+
             var res = false
             val newGatewayProfileMutableList = mutableListOf<GatewayProfile>(
                     GatewayProfile(
@@ -157,7 +160,7 @@ class FindingDeviceFragment : Fragment()
             res = true
             Thread.sleep(3000)
 
-            uiThread {
+            uiThread{
                 if(res)
                 {
                     GlobalData.gatewayProfileMutableList = newGatewayProfileMutableList.toMutableList()//copy list to global data
