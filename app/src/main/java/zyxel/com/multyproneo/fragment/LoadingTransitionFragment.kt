@@ -22,8 +22,8 @@ class LoadingTransitionFragment : Fragment()
     private var secDescription = ""
     private var loadingSecond = 0
     private var showCountDownTimer = false
-    private var anim = AppConfig.Companion.LoadingAnimation.ANIM_REBOOT
-    private var desPage = AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH
+    private var anim = AppConfig.LoadingAnimation.ANIM_REBOOT
+    private var desPage = AppConfig.LoadingGoToPage.FRAG_SEARCH
     private lateinit var countDownTimer: CountDownTimer
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -41,8 +41,8 @@ class LoadingTransitionFragment : Fragment()
             this?.getString("Description")?.let{ description = it }
             this?.getString("Sec_Description")?.let{ secDescription = it }
             this?.getInt("LoadingSecond")?.let{ loadingSecond = it }
-            this?.getSerializable("Anim")?.let{ anim = it as AppConfig.Companion.LoadingAnimation }
-            this?.getSerializable("DesPage")?.let{ desPage = it as AppConfig.Companion.LoadingGoToPage }
+            this?.getSerializable("Anim")?.let{ anim = it as AppConfig.LoadingAnimation }
+            this?.getSerializable("DesPage")?.let{ desPage = it as AppConfig.LoadingGoToPage }
             this?.getBoolean("ShowCountDownTimer")?.let{ showCountDownTimer = it }
         }
 
@@ -113,9 +113,9 @@ class LoadingTransitionFragment : Fragment()
 
         when(anim)
         {
-            AppConfig.Companion.LoadingAnimation.ANIM_REBOOT -> loading_animation_view.setAnimation("rebooting.json")
-            AppConfig.Companion.LoadingAnimation.ANIM_SEARCH -> loading_animation_view.setAnimation("searching.json")
-            AppConfig.Companion.LoadingAnimation.ANIM_NOFOUND -> loading_animation_view.setAnimation("nofound.json")
+            AppConfig.LoadingAnimation.ANIM_REBOOT -> loading_animation_view.setAnimation("rebooting.json")
+            AppConfig.LoadingAnimation.ANIM_SEARCH -> loading_animation_view.setAnimation("searching.json")
+            AppConfig.LoadingAnimation.ANIM_NOFOUND -> loading_animation_view.setAnimation("nofound.json")
         }
     }
 
@@ -123,10 +123,10 @@ class LoadingTransitionFragment : Fragment()
     {
         when(desPage)
         {
-            AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH -> GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
-            AppConfig.Companion.LoadingGoToPage.FRAG_HOME -> GlobalBus.publish(MainEvent.EnterHomePage())
-            AppConfig.Companion.LoadingGoToPage.FRAG_MESH_SUCCESS -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshSuccessFragment()))
-            AppConfig.Companion.LoadingGoToPage.FRAG_MESH_FAIL -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFailFragment()))
+            AppConfig.LoadingGoToPage.FRAG_SEARCH -> GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
+            AppConfig.LoadingGoToPage.FRAG_HOME -> GlobalBus.publish(MainEvent.EnterHomePage())
+            AppConfig.LoadingGoToPage.FRAG_MESH_SUCCESS -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshSuccessFragment()))
+            AppConfig.LoadingGoToPage.FRAG_MESH_FAIL -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFailFragment()))
         }
     }
 }

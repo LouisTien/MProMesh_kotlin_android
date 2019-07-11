@@ -68,7 +68,7 @@ class FindingDeviceFragment : Fragment()
                     getString(R.string.message_dialog_not_connect),
                     getString(R.string.message_dialog_not_connect_try_again),
                     arrayOf(getString(R.string.message_dialog_ok)),
-                    AppConfig.Companion.DialogAction.ACT_NONE
+                    AppConfig.DialogAction.ACT_NONE
             ).show()
         }
         else
@@ -117,7 +117,7 @@ class FindingDeviceFragment : Fragment()
         loading_animation_view.playAnimation()
 
         doAsync{
-            SocketControllerUtil.getSocketController()!!.deviceScan()
+            SocketControllerUtil.instance.deviceScan()
 
             var res = false
             val newGatewayProfileMutableList = mutableListOf<GatewayProfile>(
@@ -147,7 +147,7 @@ class FindingDeviceFragment : Fragment()
 
             for(i in newGatewayProfileMutableList.indices)
             {
-                userDefineName = DatabaseUtil.getDBHandler(activity!!)?.getDeviceUserDefineNameFromDB(newGatewayProfileMutableList[i].serial)!!
+                userDefineName = DatabaseUtil.getInstance(activity!!)?.getDeviceUserDefineNameFromDB(newGatewayProfileMutableList[i].serial)!!
                 LogUtil.d(TAG, "userDefineName from DB:$userDefineName")
 
                 if(userDefineName == "")

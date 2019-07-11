@@ -11,7 +11,7 @@ import zyxel.com.multyproneo.util.LogUtil
 class SocketController
 {
     private val TAG = javaClass.simpleName
-    private val packetreceiver = PacketReceiverUtil.getPacketReceiver()!!
+    private val packetreceiver = PacketReceiverUtil.instance
     private val sessioncontrol = SessionControl(Transport())
     private val messagehandler = MessageHandler()
 

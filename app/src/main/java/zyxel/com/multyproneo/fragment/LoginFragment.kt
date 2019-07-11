@@ -58,8 +58,8 @@ class LoginFragment : Fragment()
         gatewayIndex = GlobalData.currentGatewayIndex
         gatewayInfo = GlobalData.getCurrentGatewayInfo()
         login_title_text.text = getString(R.string.login_title) + " " + gatewayInfo.modelName
-        login_username_edit.setText(DatabaseUtil.getDBHandler(activity!!)?.getDeviceUserNameFromDB(gatewayInfo.serial))
-        login_password_edit.setText(DatabaseUtil.getDBHandler(activity!!)?.getDevicePasswordFromDB(gatewayInfo.serial))
+        login_username_edit.setText(DatabaseUtil.getInstance(activity!!)?.getDeviceUserNameFromDB(gatewayInfo.serial))
+        login_password_edit.setText(DatabaseUtil.getInstance(activity!!)?.getDevicePasswordFromDB(gatewayInfo.serial))
         attachKeyboardListeners()
     }
 
@@ -123,7 +123,7 @@ class LoginFragment : Fragment()
                 LogUtil.d(TAG,"loginUsernameEdit:$userName")
                 gatewayInfo.password = password
                 gatewayInfo.userName = userName
-                DatabaseUtil.getDBHandler(activity!!)?.updateInformationToDB(gatewayInfo)
+                DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)
                 GlobalBus.publish(MainEvent.EnterHomePage())
             }
         }

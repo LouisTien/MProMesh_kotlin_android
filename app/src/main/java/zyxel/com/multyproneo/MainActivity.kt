@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             "",
                             getString(R.string.diagnostic_request_location_permission),
                             arrayOf(getString(R.string.message_dialog_ok)),
-                            AppConfig.Companion.DialogAction.ACT_LOCATION_PERMISSION
+                            AppConfig.DialogAction.ACT_LOCATION_PERMISSION
                     ).show()
                 }
             }
@@ -227,7 +227,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         msgDialogResponseDisposable = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
             when(it.action)
             {
-                AppConfig.Companion.DialogAction.ACT_LOCATION_PERMISSION ->
+                AppConfig.DialogAction.ACT_LOCATION_PERMISSION ->
                 {
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                         requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), AppConfig.PERMISSION_LOCATION_REQUESTCODE)

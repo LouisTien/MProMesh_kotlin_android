@@ -40,9 +40,9 @@ class AccountFragment : Fragment()
         msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
             when(it.action)
             {
-                AppConfig.Companion.DialogAction.ACT_LOGOUT ->
+                AppConfig.DialogAction.ACT_LOGOUT ->
                 {
-                    DatabaseUtil.getDBHandler(activity!!)?.deleteInformationToDB(GlobalData.getCurrentGatewayInfo())
+                    DatabaseUtil.getInstance(activity!!)?.deleteInformationToDB(GlobalData.getCurrentGatewayInfo())
                     GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
                 }
             }
@@ -79,7 +79,7 @@ class AccountFragment : Fragment()
                         getString(R.string.account_logout),
                         getString(R.string.message_dialog_check_lougot),
                         arrayOf(getString(R.string.message_dialog_yes), getString(R.string.message_dialog_no)),
-                        AppConfig.Companion.DialogAction.ACT_LOGOUT
+                        AppConfig.DialogAction.ACT_LOGOUT
                 ).show()
             }
         }

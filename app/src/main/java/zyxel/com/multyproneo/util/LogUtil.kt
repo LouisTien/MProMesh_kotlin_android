@@ -6,18 +6,15 @@ import zyxel.com.multyproneo.BuildConfig
 /**
  * Created by LouisTien on 2019/5/28.
  */
-class LogUtil
+object LogUtil
 {
-    companion object
+    fun d(tag: String, msg: String)
     {
-        fun d(tag: String, msg: String)
-        {
-            if(BuildConfig.DEBUG) Log.d(tag, msg)
-        }
+        if(BuildConfig.DEBUG) Log.d(tag, msg)
+    }
 
-        fun e(tag: String, msg: String)
-        {
-            if(BuildConfig.DEBUG) Log.e(tag, msg)
-        }
+    fun e(tag: String, msg: String)
+    {
+        if(BuildConfig.DEBUG) Log.e(tag, msg)
     }
 }

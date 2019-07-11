@@ -82,8 +82,8 @@ class GatewayListFragment : Fragment()
     {
         GlobalData.currentGatewayIndex = index
         GlobalBus.publish(MainEvent.HideLoading())
-        val userName = DatabaseUtil.getDBHandler(activity!!)?.getDeviceUserNameFromDB(gatewayProfileMutableList[index].serial)
-        val password = DatabaseUtil.getDBHandler(activity!!)?.getDevicePasswordFromDB(gatewayProfileMutableList[index].serial)
+        val userName = DatabaseUtil.getInstance(activity!!)?.getDeviceUserNameFromDB(gatewayProfileMutableList[index].serial)
+        val password = DatabaseUtil.getInstance(activity!!)?.getDevicePasswordFromDB(gatewayProfileMutableList[index].serial)
         LogUtil.d(TAG, "OnDeviceSelected userName from DB:$userName")
         LogUtil.d(TAG, "OnDeviceSelected password from DB:$password")
         GlobalBus.publish(MainEvent.SwitchToFrag(LoginFragment()))

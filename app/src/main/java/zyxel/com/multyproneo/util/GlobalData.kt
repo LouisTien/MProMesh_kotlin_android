@@ -7,67 +7,64 @@ import zyxel.com.multyproneo.model.WanInfoProfile
 /**
  * Created by LouisTien on 2019/5/30.
  */
-class GlobalData
+object GlobalData
 {
-    companion object
+    var currentGatewayIndex = 0
+    var gatewayProfileMutableList = mutableListOf<GatewayProfile>()
+    var endDeviceList = mutableListOf<EndDeviceProfile>()
+    var ZYXELEndDeviceList = mutableListOf<EndDeviceProfile>()
+    var guestEndDeviceList = mutableListOf<EndDeviceProfile>()
+    var homeEndDeviceList = mutableListOf<EndDeviceProfile>()
+    var gatewayWanInfo = WanInfoProfile()
+    var gatewayLanIP = ""
+    var guestWiFiStatus = false
+    var homeDevAscendingOrder = true
+    var guestDevAscendingOrder = true
+
+    fun getCurrentGatewayInfo(): GatewayProfile = gatewayProfileMutableList[currentGatewayIndex]
+    fun getConnectDeviceCount(): Int = endDeviceList.size - (ZYXELEndDeviceList.size - 1)
+    fun getTotalDeviceCount(): Int = homeEndDeviceList.size + guestEndDeviceList.size
+
+    fun getActivatedDeviceCount(): Int
     {
-        var currentGatewayIndex = 0
-        var gatewayProfileMutableList = mutableListOf<GatewayProfile>()
-        var endDeviceList = mutableListOf<EndDeviceProfile>()
-        var ZYXELEndDeviceList = mutableListOf<EndDeviceProfile>()
-        var guestEndDeviceList = mutableListOf<EndDeviceProfile>()
-        var homeEndDeviceList = mutableListOf<EndDeviceProfile>()
-        var gatewayWanInfo = WanInfoProfile()
-        var gatewayLanIP = ""
-        var guestWiFiStatus = false
-        var homeDevAscendingOrder = true
-        var guestDevAscendingOrder = true
-
-        fun getCurrentGatewayInfo(): GatewayProfile = gatewayProfileMutableList[currentGatewayIndex]
-        fun getConnectDeviceCount(): Int = endDeviceList.size - (ZYXELEndDeviceList.size - 1)
-        fun getTotalDeviceCount(): Int = homeEndDeviceList.size + guestEndDeviceList.size
-
-        fun getActivatedDeviceCount(): Int
+        var count = 0
+        for(item in homeEndDeviceList)
         {
-            var count = 0
-            for(item in homeEndDeviceList)
-            {
-                if(item.Active.equals("Connect", ignoreCase = true)) count++
-            }
-
-            for(item in guestEndDeviceList)
-            {
-                if(item.Active.equals("Connect", ignoreCase = true)) count++
-            }
-            return count
+            if(item.Active.equals("Connect", ignoreCase = true)) count++
         }
 
-        fun sortHomeDeviceList() = if(homeDevAscendingOrder) sortHomeDevAscendingOrder() else sortHomeDevDescendingOrder()
-
-        private fun sortHomeDevAscendingOrder()
+        for(item in guestEndDeviceList)
         {
-            homeDevAscendingOrder = true
-            homeEndDeviceList.sortBy { it.Name }
+            if(item.Active.equals("Connect", ignoreCase = true)) count++
         }
+        return count
+    }
 
-        private fun sortHomeDevDescendingOrder()
-        {
-            homeDevAscendingOrder = false
-            homeEndDeviceList.sortByDescending { it.Name }
-        }
+    fun sortHomeDeviceList() = if(homeDevAscendingOrder) sortHomeDevAscendingOrder() else sortHomeDevDescendingOrder()
 
-        fun sortGuestDeviceList() = if(guestDevAscendingOrder) sortGuestDevAscendingOrder() else sortGuestDevDescendingOrder()
+    private fun sortHomeDevAscendingOrder()
+    {
+        homeDevAscendingOrder = true
+        homeEndDeviceList.sortBy { it.Name }
+    }
 
-        private fun sortGuestDevAscendingOrder()
-        {
-            guestDevAscendingOrder = true
-            guestEndDeviceList.sortBy { it.Name }
-        }
+    private fun sortHomeDevDescendingOrder()
+    {
+        homeDevAscendingOrder = false
+        homeEndDeviceList.sortByDescending { it.Name }
+    }
 
-        private fun sortGuestDevDescendingOrder()
-        {
-            guestDevAscendingOrder = false
-            guestEndDeviceList.sortByDescending { it.Name }
-        }
+    fun sortGuestDeviceList() = if(guestDevAscendingOrder) sortGuestDevAscendingOrder() else sortGuestDevDescendingOrder()
+
+    private fun sortGuestDevAscendingOrder()
+    {
+        guestDevAscendingOrder = true
+        guestEndDeviceList.sortBy { it.Name }
+    }
+
+    private fun sortGuestDevDescendingOrder()
+    {
+        guestDevAscendingOrder = false
+        guestEndDeviceList.sortByDescending { it.Name }
     }
 }

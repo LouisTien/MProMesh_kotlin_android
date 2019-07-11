@@ -19,7 +19,7 @@ class Transport
         override fun run()
         {
             dp = DatagramPacket(data, data.size, broadip, broadcastPort)
-            PacketReceiverUtil.getPacketReceiver()!!.sendUDPPacket(dp!!)
+            PacketReceiverUtil.instance.sendUDPPacket(dp!!)
         }
     }
 }

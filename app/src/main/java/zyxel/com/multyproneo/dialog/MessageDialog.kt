@@ -13,7 +13,7 @@ import zyxel.com.multyproneo.util.AppConfig
 /**
  * Created by LouisTien on 2019/5/28.
  */
-class MessageDialog(context: Context, private var title: String, private var description: String, private var btnTexts: Array<String>, private var action: AppConfig.Companion.DialogAction) : Dialog(context)
+class MessageDialog(context: Context, private var title: String, private var description: String, private var btnTexts: Array<String>, private var action: AppConfig.DialogAction) : Dialog(context)
 {
     private var alwaysBlock = false
 
@@ -45,7 +45,7 @@ class MessageDialog(context: Context, private var title: String, private var des
         else
             msg_alert_cancel.visibility = View.GONE
 
-        if(action == AppConfig.Companion.DialogAction.ACT_BLOCK_DEVICE)
+        if(action == AppConfig.DialogAction.ACT_BLOCK_DEVICE)
             block_check_linear.visibility = View.VISIBLE
         else
             block_check_linear.visibility = View.GONE

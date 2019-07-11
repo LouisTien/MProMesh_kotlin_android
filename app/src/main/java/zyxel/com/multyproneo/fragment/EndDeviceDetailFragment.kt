@@ -21,10 +21,7 @@ import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.EndDeviceProfile
 import zyxel.com.multyproneo.tool.CommonTool
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
-import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.FeatureConfig
-import zyxel.com.multyproneo.util.GlobalData
-import zyxel.com.multyproneo.util.OUIUtil
+import zyxel.com.multyproneo.util.*
 
 /**
  * Created by LouisTien on 2019/6/11.
@@ -71,8 +68,8 @@ class EndDeviceDetailFragment : Fragment()
         msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe {
             when(it.action)
             {
-                AppConfig.Companion.DialogAction.ACT_BLOCK_DEVICE -> {}
-                AppConfig.Companion.DialogAction.ACT_DELETE_ZYXEL_DEVICE -> {}
+                AppConfig.DialogAction.ACT_BLOCK_DEVICE -> {}
+                AppConfig.DialogAction.ACT_DELETE_ZYXEL_DEVICE -> {}
             }
         }
 
@@ -144,7 +141,7 @@ class EndDeviceDetailFragment : Fragment()
                         getString(R.string.message_dialog_block_title),
                         getString(R.string.message_dialog_block_msg),
                         arrayOf(getString(R.string.message_dialog_ok), getString(R.string.message_dialog_cancel)),
-                        AppConfig.Companion.DialogAction.ACT_BLOCK_DEVICE
+                        AppConfig.DialogAction.ACT_BLOCK_DEVICE
                 ).show()
             }
 
@@ -157,7 +154,7 @@ class EndDeviceDetailFragment : Fragment()
                         "",
                         getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.UserDefineName + " ?",
                         arrayOf(getString(R.string.message_dialog_delete), getString(R.string.message_dialog_cancel)),
-                        AppConfig.Companion.DialogAction.ACT_DELETE_DEVICE
+                        AppConfig.DialogAction.ACT_DELETE_DEVICE
                 ).show()
             }
 

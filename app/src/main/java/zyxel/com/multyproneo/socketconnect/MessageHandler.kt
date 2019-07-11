@@ -12,6 +12,6 @@ class MessageHandler : IMessageListener
         val agent_port = session_object.src_port
         //val nodeTree = DeviceNode.creatDeviceNodeByJsonString(session_object.data)
         //SocketController.getController().receivedDiscoveryResp(nodeTree, agent_ip, agent_port)
-        SocketControllerUtil.getSocketController()!!.receivedDiscoveryResp(session_object.data!!)
+        SocketControllerUtil.instance.receivedDiscoveryResp(session_object.data!!)
     }
 }

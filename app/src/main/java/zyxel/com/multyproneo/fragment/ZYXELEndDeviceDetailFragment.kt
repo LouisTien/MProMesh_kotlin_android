@@ -74,21 +74,21 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
             when(it.action)
             {
-                AppConfig.Companion.DialogAction.ACT_REBOOT ->
+                AppConfig.DialogAction.ACT_REBOOT ->
                 {
                     val bundle = Bundle().apply{
                         putString("Title", "")
                         putString("Description", resources.getString(R.string.loading_transition_take_few_minutes))
                         putString("Sec_Description", resources.getString(R.string.loading_transition_reboot))
                         putInt("LoadingSecond", AppConfig.rebootTime)
-                        putSerializable("Anim", AppConfig.Companion.LoadingAnimation.ANIM_REBOOT)
-                        putSerializable("DesPage", if(isGatewayMode) AppConfig.Companion.LoadingGoToPage.FRAG_SEARCH else AppConfig.Companion.LoadingGoToPage.FRAG_HOME)
+                        putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
+                        putSerializable("DesPage", if(isGatewayMode) AppConfig.LoadingGoToPage.FRAG_SEARCH else AppConfig.LoadingGoToPage.FRAG_HOME)
                         putBoolean("ShowCountDownTimer", false)
                     }
                     GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
                 }
 
-                AppConfig.Companion.DialogAction.ACT_DELETE_DEVICE -> {}
+                AppConfig.DialogAction.ACT_DELETE_DEVICE -> {}
             }
         }
 
@@ -143,7 +143,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                         getString(R.string.message_dialog_reboot_reminder_title),
                         getString(R.string.message_dialog_reboot_reminder),
                         arrayOf(getString(R.string.message_dialog_restart), getString(R.string.message_dialog_cancel)),
-                        AppConfig.Companion.DialogAction.ACT_REBOOT
+                        AppConfig.DialogAction.ACT_REBOOT
                 ).show()
             }
 
@@ -154,7 +154,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                         "",
                         getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.UserDefineName + " ?",
                         arrayOf(getString(R.string.message_dialog_delete), getString(R.string.message_dialog_cancel)),
-                        AppConfig.Companion.DialogAction.ACT_DELETE_ZYXEL_DEVICE
+                        AppConfig.DialogAction.ACT_DELETE_ZYXEL_DEVICE
                 ).show()
             }
         }
@@ -332,7 +332,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                 if(isGatewayMode)
                 {
                     deviceInfo.userDefineName = editDeviceName
-                    DatabaseUtil.getDBHandler(activity!!)?.updateInformationToDB(deviceInfo)
+                    DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(deviceInfo)
                 }
 
                 if(isVisible)
