@@ -5,8 +5,10 @@ package zyxel.com.multyproneo.util
  */
 object AppConfig
 {
+    //Diagnostic permission request
     const val PERMISSION_LOCATION_REQUESTCODE = 1
 
+    //UDP broadcast for searching devices
     const val SCAN_LISTENPORT = 6000
     const val SCAN_REMOTEPORT = 263
     const val SCAN_APPVERSION = 1
@@ -17,11 +19,16 @@ object AppConfig
     const val DEVICE_DISCOVER_REQ = 1
     const val DEVICE_DISCOVER_RESP = 2
 
+    //WiFi setting loading time
     const val endDeviceListUpdateTime = 60
     const val guestWiFiSettingTime = 20
     const val rebootTime = 20
     const val keepScreenTime = 300
     const val addExtenderTime = 180
+
+    //Restful
+    var DeviceIP = "https://192.168.1.1:"
+    var DevicePort = "8443"
 
     enum class LoadingAnimation
     {

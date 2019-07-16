@@ -1,5 +1,6 @@
 package zyxel.com.multyproneo.socketconnect
 
+import zyxel.com.multyproneo.util.PacketReceiverUtil
 import java.net.DatagramPacket
 import java.net.InetAddress
 

@@ -1,5 +1,7 @@
 package zyxel.com.multyproneo.socketconnect
 
+import zyxel.com.multyproneo.util.SocketControllerUtil
+
 /**
  * Created by LouisTien on 2019/7/8.
  */
