@@ -12,6 +12,7 @@ import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
+import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.LoginOutApi
@@ -22,6 +23,7 @@ import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
+import java.util.HashMap
 
 /**
  * Created by LouisTien on 2019/5/31.
@@ -127,13 +129,19 @@ class LoginFragment : Fragment()
                 gatewayInfo.userName = userName
                 DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)
                 GlobalBus.publish(MainEvent.EnterHomePage())
-                LoginOutApi.Login(this.context!!, "admin", "1234")
+
+                val params = JSONObject()
+                params.put("username", "admin")
+                params.put("password", "1234")
+                LogUtil.d(TAG,"login param:${params.toString()}")
+                LoginOutApi.Login()
                         .setRequestPageName(TAG)
+                        .setParams(params)
                         .setResponseListener(object: Commander.ResponseListener()
                         {
                             override fun onSuccess(responseStr: String)
                             {
-                                LogUtil.d(TAG,"LoginOutApi:$responseStr")
+                                LogUtil.d(TAG,"LoginApi:$responseStr")
                             }
                         }).execute()
             }

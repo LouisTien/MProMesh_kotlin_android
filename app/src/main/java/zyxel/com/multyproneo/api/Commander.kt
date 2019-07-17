@@ -1,12 +1,14 @@
 package zyxel.com.multyproneo.api
 
-import android.content.Context
 import okhttp3.*
 import org.json.JSONObject
-import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.util.LogUtil
 import java.io.IOException
+import java.security.SecureRandom
 import java.util.concurrent.TimeUnit
+import javax.net.ssl.SSLContext
+import javax.net.ssl.SSLSocketFactory
+import javax.net.ssl.TrustManager
 
 /**
  * Created by LouisTien on 2019/7/16.
@@ -19,9 +21,11 @@ abstract class Commander
             .readTimeout(300, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .connectionPool(ConnectionPool( 7,60*5, TimeUnit.SECONDS))
+            .sslSocketFactory(createSSLSocketFactory())
+            .hostnameVerifier(TrustAllHostnameVerifier)
             .build()
-    private var mCtx: Context
-    private var headers: Headers.Builder
+    //private var mCtx: Context
+    private var headers = Headers.Builder()
     private lateinit var responseListener: ResponseListener
     private lateinit var request: Request
     private lateinit var params: JSONObject
@@ -30,12 +34,12 @@ abstract class Commander
 
     abstract fun composeRequest(): Request
 
-    constructor(context: Context)
+    /*constructor(context: Context)
     {
         mCtx = context
         headers = Headers.Builder()
         headers.add("Content-Type", "application/json")
-    }
+    }*/
 
     abstract class ResponseListener
     {
@@ -45,6 +49,22 @@ abstract class Commander
             LogUtil.e("Commander","[onFail]msg:$msg")
             LogUtil.e("Commander","[onFail]ctxName:$ctxName")
         }
+    }
+
+    private fun createSSLSocketFactory(): SSLSocketFactory?
+    {
+        var ssfFactory: SSLSocketFactory? = null
+        try
+        {
+            val sc = SSLContext.getInstance("TLS")
+            sc.init(null, arrayOf<TrustManager>(TrustAllCerts), SecureRandom())
+            ssfFactory = sc.socketFactory
+        }
+        catch(e: Exception)
+        {
+
+        }
+        return ssfFactory
     }
 
     fun getHeaders(): Headers.Builder
@@ -107,16 +127,17 @@ abstract class Commander
         {
             override fun onFailure(call: Call, e: IOException)
             {
-                responseListener.onFail(mCtx.getString(R.string.message_dialog_not_connect_try_again), getRequestPageName())
+                responseListener.onFail("${e.message}", getRequestPageName())
             }
 
             override fun onResponse(call: Call, response: Response)
             {
+                LogUtil.d(TAG, "onResponse = ${response.code()}")
                 if(response.isSuccessful)
                     responseListener.onSuccess(response.body()!!.string())
                 else
                 {
-                    LogUtil.e(TAG,"onResponse error = ${response.code()} : ${response.body()!!.string()}")
+                    LogUtil.e(TAG,"onResponse error = response.code:${response.code()}, response.body():${response.body()!!.string()}")
                     responseListener.onFail(response.body()!!.string(), getRequestPageName())
                 }
             }
