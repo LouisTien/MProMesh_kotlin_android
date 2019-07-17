@@ -22,7 +22,7 @@ abstract class Commander
             .writeTimeout(60, TimeUnit.SECONDS)
             .connectionPool(ConnectionPool( 7,60*5, TimeUnit.SECONDS))
             .sslSocketFactory(createSSLSocketFactory())
-            .hostnameVerifier(TrustAllHostnameVerifier)
+            .hostnameVerifier(TrustHostnameVerifier)
             .build()
     //private var mCtx: Context
     private var headers = Headers.Builder()
@@ -57,7 +57,7 @@ abstract class Commander
         try
         {
             val sc = SSLContext.getInstance("TLS")
-            sc.init(null, arrayOf<TrustManager>(TrustAllCerts), SecureRandom())
+            sc.init(null, arrayOf<TrustManager>(TrustCerts), SecureRandom())
             ssfFactory = sc.socketFactory
         }
         catch(e: Exception)

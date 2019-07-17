@@ -7,7 +7,7 @@ import javax.net.ssl.X509TrustManager
 /**
  * Created by LouisTien on 2019/7/16.
  */
-object TrustAllCerts : X509TrustManager
+object TrustCerts : X509TrustManager
 {
     @Throws(CertificateException::class)
     override fun checkClientTrusted(chain: Array<X509Certificate>?, authType: String){}
