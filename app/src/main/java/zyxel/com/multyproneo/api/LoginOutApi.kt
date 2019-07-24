@@ -4,6 +4,7 @@ import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.GlobalData
 
 /**
  * Created by LouisTien on 2019/7/16.
@@ -16,7 +17,7 @@ object LoginOutApi
     {
         override fun composeRequest(): Request
         {
-            val api = "${AppConfig.RESTfulProtocol}://${AppConfig.DeviceIP}:${AppConfig.DevicePort}${AppConfig.RESTfulVersion}UserLogin"
+            val api = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}UserLogin"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             val request = Request.Builder()
                     //.headers(getHeaders().build())

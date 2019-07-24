@@ -10,8 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
+import org.jetbrains.anko.support.v4.runOnUiThread
+import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.Commander
@@ -19,6 +22,7 @@ import zyxel.com.multyproneo.api.LoginOutApi
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayProfile
+import zyxel.com.multyproneo.model.LoginInfo
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
@@ -33,6 +37,7 @@ class LoginFragment : Fragment()
     private val TAG = javaClass.simpleName
     private lateinit var gatewayInfo: GatewayProfile
     private lateinit var inputMethodManager: InputMethodManager
+    private lateinit var loginInfo: LoginInfo
     private var gatewayIndex = 0
     private val userNameRequiredLength = 1
     private val passwordRequiredLength = 1
@@ -125,14 +130,10 @@ class LoginFragment : Fragment()
                 val userName = login_username_edit.text.toString()
                 LogUtil.d(TAG,"loginPasswordEdit:$password")
                 LogUtil.d(TAG,"loginUsernameEdit:$userName")
-                gatewayInfo.password = password
-                gatewayInfo.userName = userName
-                DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)
-                GlobalBus.publish(MainEvent.EnterHomePage())
 
                 val params = JSONObject()
-                params.put("username", "admin")
-                params.put("password", "1234")
+                params.put("username", userName)
+                params.put("password", password)
                 LogUtil.d(TAG,"login param:${params.toString()}")
                 LoginOutApi.Login()
                         .setRequestPageName(TAG)
@@ -141,7 +142,41 @@ class LoginFragment : Fragment()
                         {
                             override fun onSuccess(responseStr: String)
                             {
-                                LogUtil.d(TAG,"LoginApi:$responseStr")
+                                try
+                                {
+                                    LogUtil.d(TAG,"LoginApi:$responseStr")
+                                    loginInfo = Gson().fromJson(responseStr, LoginInfo::class.java)
+                                    LogUtil.d(TAG,"loginInfo:${loginInfo.toString()}")
+                                    GlobalData.sessionkey = loginInfo.sessionkey
+                                    gatewayInfo.password = password
+                                    gatewayInfo.userName = userName
+                                    DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)
+                                    GlobalBus.publish(MainEvent.EnterHomePage())
+                                }
+                                catch(e: JSONException)
+                                {
+                                    e.printStackTrace()
+                                }
+                            }
+
+                            override fun onFail(code: Int, msg: String, ctxName: String)
+                            {
+                                LogUtil.d(TAG, "[onFail] code = $code")
+                                LogUtil.d(TAG, "[onFail] msg = $msg")
+                                LogUtil.d(TAG, "[onFail] ctxName = $ctxName")
+
+                                if(ctxName == TAG && code == 401)
+                                {
+                                    runOnUiThread{
+                                        login_password_error_text.text = getString(R.string.login_error)
+                                        login_password_error_text.visibility = View.VISIBLE
+                                    }
+                                }
+                                else
+                                {
+                                    GlobalBus.publish(MainEvent.ShowToast(msg, ctxName))
+                                    GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
+                                }
                             }
                         }).execute()
             }

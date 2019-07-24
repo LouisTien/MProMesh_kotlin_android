@@ -1,6 +1,6 @@
 package zyxel.com.multyproneo.api
 
-import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.GlobalData
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSession
 
@@ -9,5 +9,8 @@ import javax.net.ssl.SSLSession
  */
 object TrustHostnameVerifier : HostnameVerifier
 {
-    override fun verify(hostname: String?, session: SSLSession?): Boolean = hostname == AppConfig.DeviceIP
+    override fun verify(hostname: String?, session: SSLSession?): Boolean
+    {
+        return hostname == GlobalData.deviceIP
+    }
 }

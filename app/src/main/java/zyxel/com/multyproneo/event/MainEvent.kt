@@ -19,4 +19,5 @@ class MainEvent
     class EnterDiagnosticPage()
     class EnterAccountPage()
     class EnterSearchGatewayPage()
+    class ShowToast(var msg: String, var requestCtxName: String)
 }

@@ -27,8 +27,6 @@ object AppConfig
     const val addExtenderTime = 180
 
     //Restful
-    var DeviceIP = "192.168.1.1"
-    var DevicePort = "8443"
     const val RESTfulProtocol = "https"
     const val RESTfulVersion = "/api/v1/"
 

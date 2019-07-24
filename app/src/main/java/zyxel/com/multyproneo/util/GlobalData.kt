@@ -9,6 +9,9 @@ import zyxel.com.multyproneo.model.WanInfoProfile
  */
 object GlobalData
 {
+    var deviceIP = "192.168.1.1"
+    var devicePort = "8443"
+    var sessionkey= ""
     var currentGatewayIndex = 0
     var gatewayProfileMutableList = mutableListOf<GatewayProfile>()
     var endDeviceList = mutableListOf<EndDeviceProfile>()

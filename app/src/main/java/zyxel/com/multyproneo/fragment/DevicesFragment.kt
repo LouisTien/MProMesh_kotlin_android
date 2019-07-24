@@ -31,9 +31,7 @@ class DevicesFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
 
-        getInfoCompleteDisposable = GlobalBus.listen(DevicesEvent.GetDeviceInfoComplete::class.java).subscribe{
-            updateUI()
-        }
+        getInfoCompleteDisposable = GlobalBus.listen(DevicesEvent.GetDeviceInfoComplete::class.java).subscribe{ updateUI() }
 
         setClickListener()
     }
@@ -92,6 +90,8 @@ class DevicesFragment : Fragment()
 
     private fun updateUI()
     {
+        if(!isVisible) return
+
         devices_activated_value_text.text = GlobalData.getActivatedDeviceCount().toString()
         devices_total_value_text.text = GlobalData.getTotalDeviceCount().toString()
 

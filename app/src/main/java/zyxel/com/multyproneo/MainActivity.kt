@@ -14,9 +14,11 @@ import android.support.v7.app.AlertDialog
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
@@ -49,6 +51,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var enterAccountPageDisposable: Disposable
     private lateinit var enterSearchGatewayPageDisposable: Disposable
     private lateinit var msgDialogResponseDisposable: Disposable
+    private lateinit var showToastDisposable: Disposable
     private lateinit var loadingDlg: Dialog
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
@@ -234,6 +237,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                 }
             }
         }
+
+        showToastDisposable = GlobalBus.listen(MainEvent.ShowToast::class.java).subscribe{ showToast(it.msg, it.requestCtxName) }
     }
 
     private fun disposeEvent()
@@ -253,6 +258,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!enterAccountPageDisposable.isDisposed) enterAccountPageDisposable.dispose()
         if(!enterSearchGatewayPageDisposable.isDisposed) enterSearchGatewayPageDisposable.dispose()
         if(!msgDialogResponseDisposable.isDisposed) msgDialogResponseDisposable.dispose()
+        if(!showToastDisposable.isDisposed) showToastDisposable.dispose()
     }
 
     private fun switchToFragContainer(fragment: Fragment)
@@ -335,6 +341,11 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     {
         //runOnUiThread{ Runnable{ if(loadingDlg.isShowing) loadingDlg.dismiss() }.run() }
         runOnUiThread{ if(loadingDlg.isShowing) loadingDlg.dismiss() }
+    }
+
+    private fun showToast(msg: String, requestCtxName: String)
+    {
+        runOnUiThread{ toast(msg) }
     }
 
     private fun getDeviceInfoTask()

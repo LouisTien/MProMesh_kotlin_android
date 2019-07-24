@@ -101,6 +101,8 @@ class HomeFragment : Fragment()
 
     private fun updateUI()
     {
+        if(!isVisible) return
+
         LogUtil.d(TAG, "updateUI()")
         home_connect_device_count_text.text = GlobalData.getConnectDeviceCount().toString()
         adapter = ZYXELEndDeviceItemAdapter(

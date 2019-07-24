@@ -1,7 +1,11 @@
 package zyxel.com.multyproneo.api
 
+import com.google.gson.Gson
 import okhttp3.*
 import org.json.JSONObject
+import zyxel.com.multyproneo.event.GlobalBus
+import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.model.HttpErrorInfo
 import zyxel.com.multyproneo.util.LogUtil
 import java.io.IOException
 import java.security.SecureRandom
@@ -30,6 +34,7 @@ abstract class Commander
     private lateinit var request: Request
     private lateinit var params: JSONObject
     private lateinit var paramStr: String
+    private lateinit var errorInfo: HttpErrorInfo
     private var requestPageName = ""
 
     abstract fun composeRequest(): Request
@@ -44,10 +49,24 @@ abstract class Commander
     abstract class ResponseListener
     {
         abstract fun onSuccess(responseStr: String)
-        fun onFail(msg: String, ctxName: String)
+
+        open fun onFail(code: Int, msg: String, ctxName: String)
         {
+            LogUtil.e("Commander","[onFail]code:$code")
             LogUtil.e("Commander","[onFail]msg:$msg")
             LogUtil.e("Commander","[onFail]ctxName:$ctxName")
+
+            GlobalBus.publish(MainEvent.ShowToast(msg, ctxName))
+            GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
+        }
+
+        open fun onConnectFail(msg: String, ctxName: String)
+        {
+            LogUtil.e("Commander","[onConnectFail]msg:$msg")
+            LogUtil.e("Commander","[onConnectFail]ctxName:$ctxName")
+
+            GlobalBus.publish(MainEvent.ShowToast(msg, ctxName))
+            GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
         }
     }
 
@@ -120,6 +139,7 @@ abstract class Commander
 
     fun execute(): Commander
     {
+        GlobalBus.publish(MainEvent.ShowLoading())
         request = composeRequest()
         LogUtil.d(TAG, request.toString())
         val call = client.newCall(request)
@@ -127,18 +147,25 @@ abstract class Commander
         {
             override fun onFailure(call: Call, e: IOException)
             {
-                responseListener.onFail("${e.message}", getRequestPageName())
+                LogUtil.e(TAG,"[onFailure]")
+                GlobalBus.publish(MainEvent.HideLoading())
+                responseListener.onConnectFail("${e.message}", getRequestPageName())
             }
 
             override fun onResponse(call: Call, response: Response)
             {
-                LogUtil.d(TAG, "onResponse = ${response.code()}")
+                LogUtil.d(TAG,"[onResponse]")
+                GlobalBus.publish(MainEvent.HideLoading())
+                var responseCode = response.code()
+                var responseStr = response.body()!!.string()
+                LogUtil.d(TAG, "onResponse code = $responseCode")
+                LogUtil.d(TAG, "onResponse body = $responseStr")
                 if(response.isSuccessful)
-                    responseListener.onSuccess(response.body()!!.string())
+                    responseListener.onSuccess(responseStr)
                 else
                 {
-                    LogUtil.e(TAG,"onResponse error = response.code:${response.code()}, response.body():${response.body()!!.string()}")
-                    responseListener.onFail(response.body()!!.string(), getRequestPageName())
+                    errorInfo = Gson().fromJson(responseStr, HttpErrorInfo::class.java)
+                    responseListener.onFail(responseCode, errorInfo.oper_status, getRequestPageName())
                 }
             }
         })
