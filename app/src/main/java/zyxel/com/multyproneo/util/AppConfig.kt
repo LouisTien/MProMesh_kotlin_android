@@ -19,16 +19,17 @@ object AppConfig
     const val DEVICE_DISCOVER_REQ = 1
     const val DEVICE_DISCOVER_RESP = 2
 
-    //WiFi setting loading time
+    //WiFi setting
     const val endDeviceListUpdateTime = 60
     const val guestWiFiSettingTime = 20
     const val rebootTime = 20
     const val keepScreenTime = 300
     const val addExtenderTime = 180
+    const val mesh = true
 
     //Restful
     const val RESTfulProtocol = "https"
-    const val RESTfulVersion = "/api/v1/"
+    const val RESTfulVersion = "/api/v1"
 
     enum class LoadingAnimation
     {

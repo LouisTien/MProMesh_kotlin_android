@@ -9,19 +9,20 @@ import zyxel.com.multyproneo.util.GlobalData
 /**
  * Created by LouisTien on 2019/7/16.
  */
-object LoginOutApi
+object AccountApi
 {
-    val JSON = MediaType.parse("application/json; charset=utf-8")
+    private val LoginURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/UserLogin"
+
+    private val JSON = MediaType.parse("application/json; charset=utf-8")
 
     class Login : Commander()
     {
         override fun composeRequest(): Request
         {
-            val api = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}UserLogin"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             val request = Request.Builder()
                     //.headers(getHeaders().build())
-                    .url(api)
+                    .url(LoginURL)
                     .post(requestParam)
                     .build()
             return request

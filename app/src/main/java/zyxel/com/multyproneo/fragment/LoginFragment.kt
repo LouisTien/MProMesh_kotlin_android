@@ -18,7 +18,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.Commander
-import zyxel.com.multyproneo.api.LoginOutApi
+import zyxel.com.multyproneo.api.AccountApi
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayProfile
@@ -27,7 +27,6 @@ import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
-import java.util.HashMap
 
 /**
  * Created by LouisTien on 2019/5/31.
@@ -135,7 +134,7 @@ class LoginFragment : Fragment()
                 params.put("username", userName)
                 params.put("password", password)
                 LogUtil.d(TAG,"login param:${params.toString()}")
-                LoginOutApi.Login()
+                AccountApi.Login()
                         .setRequestPageName(TAG)
                         .setParams(params)
                         .setResponseListener(object: Commander.ResponseListener()
@@ -144,7 +143,6 @@ class LoginFragment : Fragment()
                             {
                                 try
                                 {
-                                    LogUtil.d(TAG,"LoginApi:$responseStr")
                                     loginInfo = Gson().fromJson(responseStr, LoginInfo::class.java)
                                     LogUtil.d(TAG,"loginInfo:${loginInfo.toString()}")
                                     GlobalData.sessionkey = loginInfo.sessionkey

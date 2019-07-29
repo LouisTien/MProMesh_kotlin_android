@@ -8,31 +8,45 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import kotlinx.android.synthetic.main.fragment_wifi_settings.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.uiThread
+import org.json.JSONException
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.Commander
+import zyxel.com.multyproneo.api.WiFiSettingApi
 import zyxel.com.multyproneo.dialog.QRCodeDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.model.WiFiSettingInfo
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.LogUtil
 
 /**
  * Created by LouisTien on 2019/6/12.
  */
 class WiFiSettingsFragment : Fragment()
 {
+    private val TAG = javaClass.simpleName
+
+    private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
     private lateinit var WiFiQRCodeBitmap: Bitmap
     private lateinit var guestWiFiQRCodeBitmap: Bitmap
     private var WiFiName = ""
     private var WiFiPwd = ""
     private var WiFiSecurity = ""
+    private var WiFiName5g = ""
+    private var WiFiPwd5g = ""
+    private var WiFiSecurity5g = ""
     private var guestWiFiName = ""
     private var guestWiFiPwd = ""
     private var guestWiFiSecurity = ""
     private var showWiFiPed = false
+    private var showWiFiPed5g = false
     private var showGuestWiFiPed = false
     private var guestWiFiStatus = false
 
@@ -60,7 +74,7 @@ class WiFiSettingsFragment : Fragment()
     {
         super.onResume()
         GlobalBus.publish(MainEvent.ShowBottomToolbar())
-        getGatewayInfoTask()
+        getWiFiSettingInfoTask()
     }
 
     override fun onPause()
@@ -76,11 +90,18 @@ class WiFiSettingsFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            wifi_settings_wifi_password_show_image ->
+            wifi_settings_wifi_24g_password_show_image ->
             {
-                wifi_settings_wifi_password_text.transformationMethod = if (showWiFiPed) PasswordTransformationMethod() else null
-                wifi_settings_wifi_password_show_image.setImageDrawable(resources.getDrawable(if (showWiFiPed) R.drawable.icon_hide else R.drawable.icon_show))
+                wifi_settings_wifi_24g_password_text.transformationMethod = if(showWiFiPed) PasswordTransformationMethod() else null
+                wifi_settings_wifi_24g_password_show_image.setImageDrawable(resources.getDrawable(if(showWiFiPed) R.drawable.icon_hide else R.drawable.icon_show))
                 showWiFiPed = !showWiFiPed
+            }
+
+            wifi_settings_wifi_5g_password_show_image ->
+            {
+                wifi_settings_wifi_5g_password_text.transformationMethod = if(showWiFiPed5g) PasswordTransformationMethod() else null
+                wifi_settings_wifi_5g_password_show_image.setImageDrawable(resources.getDrawable(if(showWiFiPed5g) R.drawable.icon_hide else R.drawable.icon_show))
+                showWiFiPed5g = !showWiFiPed5g
             }
 
             wifi_settings_wifi_share_image -> QRCodeDialog(activity!!, getString(R.string.qrcode_dialog_wifi_msg), WiFiQRCodeBitmap).show()
@@ -135,7 +156,8 @@ class WiFiSettingsFragment : Fragment()
 
     private fun setClickListener()
     {
-        wifi_settings_wifi_password_show_image.setOnClickListener(clickListener)
+        wifi_settings_wifi_24g_password_show_image.setOnClickListener(clickListener)
+        wifi_settings_wifi_5g_password_show_image.setOnClickListener(clickListener)
         wifi_settings_wifi_share_image.setOnClickListener(clickListener)
         wifi_settings_wifi_edit_image.setOnClickListener(clickListener)
         wifi_settings_guest_wifi_password_show_image.setOnClickListener(clickListener)
@@ -176,7 +198,41 @@ class WiFiSettingsFragment : Fragment()
 
     }
 
-    private fun getGatewayInfoTask()
+    private fun updateUI()
+    {
+        if(isVisible)
+        {
+            runOnUiThread{
+                if(AppConfig.mesh)
+                {
+                    wifi_settings_wifi_5g_area_relative.visibility = View.GONE
+                    wifi_settings_wifi_24g_name_title_text.text = getString(R.string.wifi_settings_wifi_name)
+                    wifi_settings_wifi_24g_password_title_text.text = getString(R.string.wifi_settings_wifi_password)
+                    wifi_settings_wifi_24g_name_text.text = WiFiName
+                    wifi_settings_wifi_24g_password_text.text = WiFiPwd
+                }
+                else
+                {
+                    wifi_settings_wifi_24g_name_text.text = WiFiName
+                    wifi_settings_wifi_24g_password_text.text = WiFiPwd
+                    wifi_settings_wifi_5g_name_text.text = WiFiName5g
+                    wifi_settings_wifi_5g_password_text.text = WiFiPwd5g
+
+                    if(WiFiSettingInfoSet.Object.X_ZYXEL_OneSSID.Enable)
+                    {
+                        wifi_settings_wifi_5g_area_relative.animate().alpha(0.4f)
+                        wifi_settings_wifi_5g_password_show_image.isEnabled = false
+                    }
+                }
+                wifi_settings_guest_wifi_name_text.text = guestWiFiName
+                wifi_settings_guest_wifi_password_text.text = guestWiFiPwd
+                wifi_settings_guest_wifi_switch_image.setImageResource(if(guestWiFiStatus) R.drawable.switch_on else R.drawable.switch_off)
+                generateQRCode()
+            }
+        }
+    }
+
+    /*private fun getWiFiSettingInfoTask()
     {
         doAsync{
             WiFiName = "Zyxel06075"
@@ -199,5 +255,38 @@ class WiFiSettingsFragment : Fragment()
                 }
             }
         }
+    }*/
+
+    private fun getWiFiSettingInfoTask()
+    {
+        WiFiSettingApi.GetWiFiSettingInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            WiFiSettingInfoSet = Gson().fromJson(responseStr, WiFiSettingInfo::class.java)
+                            LogUtil.d(TAG,"wiFiSettingInfo:${WiFiSettingInfoSet.toString()}")
+
+                            WiFiName = WiFiSettingInfoSet.Object.SSID[0].SSID
+                            WiFiPwd = WiFiSettingInfoSet.Object.AccessPoint[0].Security.KeyPassphrase
+                            WiFiSecurity = WiFiSettingInfoSet.Object.AccessPoint[0].Security.ModeEnabled
+                            WiFiName5g = WiFiSettingInfoSet.Object.SSID[4].SSID
+                            WiFiPwd5g = WiFiSettingInfoSet.Object.AccessPoint[4].Security.KeyPassphrase
+                            WiFiSecurity5g = WiFiSettingInfoSet.Object.AccessPoint[4].Security.ModeEnabled
+                            guestWiFiName = WiFiSettingInfoSet.Object.SSID[1].SSID
+                            guestWiFiPwd = WiFiSettingInfoSet.Object.AccessPoint[1].Security.KeyPassphrase
+                            guestWiFiSecurity = WiFiSettingInfoSet.Object.AccessPoint[1].Security.ModeEnabled
+                            guestWiFiStatus = WiFiSettingInfoSet.Object.SSID[1].Enable
+                            updateUI()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+                    }
+                }).execute()
     }
 }

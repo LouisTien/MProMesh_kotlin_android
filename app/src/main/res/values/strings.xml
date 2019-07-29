@@ -100,6 +100,10 @@
     <string name="wifi_settings_title">WiFi Settings</string>
     <string name="wifi_settings_wifi_name">WiFi Name</string>
     <string name="wifi_settings_wifi_password">WiFi Password</string>
+    <string name="wifi_settings_wifi_name_24g">2.4G WiFi Name</string>
+    <string name="wifi_settings_wifi_password_24g">2.4G WiFi Password</string>
+    <string name="wifi_settings_wifi_name_5g">5G WiFi Name</string>
+    <string name="wifi_settings_wifi_password_5g">5G WiFi Password</string>
     <string name="wifi_settings_guest_wifi">Guest WiFi</string>
     <string name="wifi_settings_guest_wifi_name">Guest WiFi Name</string>
     <string name="wifi_settings_guest_wifi_password">Guest WiFi Password</string>
