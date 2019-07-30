@@ -5,6 +5,62 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/QRCode_dialog_title_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/QRCode_dialog_title_24g_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/QRCode_dialog_title_24g_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_20sp_in_1080"
+                android:textColor="@color/color_000000"
+                android:text="@string/wifi_settings_qrcode_24g_tab"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:id="@+id/QRCode_dialog_title_24g_bottom_line_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_size_2dp_in_1080"
+                android:background="@color/color_ffc800"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/QRCode_dialog_title_5g_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_20sp_in_1080"
+                android:textColor="@color/color_000000"
+                android:text="@string/wifi_settings_qrcode_5g_tab"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:id="@+id/QRCode_dialog_title_5g_bottom_line_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_size_2dp_in_1080"
+                android:background="@color/color_888888"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/QRCode_dialog_QRCode_image"
         android:layout_width="248dp"

@@ -36,6 +36,7 @@ abstract class Commander
     private lateinit var paramStr: String
     private lateinit var errorInfo: HttpErrorInfo
     private var requestPageName = ""
+    private var showLoading = false
 
     abstract fun composeRequest(): Request
 
@@ -137,9 +138,22 @@ abstract class Commander
         return this
     }
 
+    fun showLoading(loading: Boolean): Commander
+    {
+        showLoading = loading
+        return this
+    }
+
+    fun isShowLoading(): Boolean
+    {
+        return showLoading
+    }
+
     fun execute(): Commander
     {
-        GlobalBus.publish(MainEvent.ShowLoading())
+        if(showLoading)
+            GlobalBus.publish(MainEvent.ShowLoading())
+
         request = composeRequest()
         LogUtil.d(TAG, request.toString())
         val call = client.newCall(request)
@@ -155,15 +169,23 @@ abstract class Commander
             override fun onResponse(call: Call, response: Response)
             {
                 LogUtil.d(TAG,"[onResponse]")
-                GlobalBus.publish(MainEvent.HideLoading())
                 var responseCode = response.code()
                 var responseStr = response.body()!!.string()
                 LogUtil.d(TAG, "onResponse code = $responseCode")
                 LogUtil.d(TAG, "onResponse body = $responseStr")
                 if(response.isSuccessful)
+                {
+                    //val data = JSONObject(responseStr)
+                    //val result = data.get("oper_status").toString()
+
+                    if(showLoading)
+                        GlobalBus.publish(MainEvent.HideLoading())
+
                     responseListener.onSuccess(responseStr)
+                }
                 else
                 {
+                    GlobalBus.publish(MainEvent.HideLoading())
                     errorInfo = Gson().fromJson(responseStr, HttpErrorInfo::class.java)
                     responseListener.onFail(responseCode, errorInfo.oper_status, getRequestPageName())
                 }

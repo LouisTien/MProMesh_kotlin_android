@@ -110,6 +110,8 @@
     <string name="wifi_settings_edit_save">Save</string>
     <string name="wifi_settings_edit_cancel">Cancel</string>
     <string name="wifi_settings_edit_wifi">WiFi</string>
+    <string name="wifi_settings_qrcode_24g_tab">2.4G</string>
+    <string name="wifi_settings_qrcode_5g_tab">5G</string>
 
     <string name="parental_control_schedule_time_done">Done</string>
     <string name="parental_control_format_24hr">24hr</string>

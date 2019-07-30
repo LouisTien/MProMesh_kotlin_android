@@ -16,6 +16,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.uiThread
 import org.json.JSONException
+import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.WiFiSettingApi
@@ -35,6 +36,7 @@ class WiFiSettingsFragment : Fragment()
 
     private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
     private lateinit var WiFiQRCodeBitmap: Bitmap
+    private lateinit var WiFiQRCodeBitmap5g: Bitmap
     private lateinit var guestWiFiQRCodeBitmap: Bitmap
     private var WiFiName = ""
     private var WiFiPwd = ""
@@ -104,7 +106,13 @@ class WiFiSettingsFragment : Fragment()
                 showWiFiPed5g = !showWiFiPed5g
             }
 
-            wifi_settings_wifi_share_image -> QRCodeDialog(activity!!, getString(R.string.qrcode_dialog_wifi_msg), WiFiQRCodeBitmap).show()
+            wifi_settings_wifi_share_image ->
+            {
+                if(AppConfig.mesh)
+                    QRCodeDialog(activity!!, getString(R.string.qrcode_dialog_wifi_msg), WiFiQRCodeBitmap).show()
+                else
+                    QRCodeDialog(activity!!, getString(R.string.qrcode_dialog_wifi_msg), WiFiQRCodeBitmap, WiFiQRCodeBitmap5g).show()
+            }
 
             wifi_settings_wifi_edit_image ->
             {
@@ -119,8 +127,8 @@ class WiFiSettingsFragment : Fragment()
 
             wifi_settings_guest_wifi_password_show_image ->
             {
-                wifi_settings_guest_wifi_password_text.transformationMethod = if (showGuestWiFiPed) PasswordTransformationMethod() else null
-                wifi_settings_guest_wifi_password_show_image.setImageDrawable(resources.getDrawable(if (showGuestWiFiPed) R.drawable.icon_hide else R.drawable.icon_show))
+                wifi_settings_guest_wifi_password_text.transformationMethod = if(showGuestWiFiPed) PasswordTransformationMethod() else null
+                wifi_settings_guest_wifi_password_show_image.setImageDrawable(resources.getDrawable(if(showGuestWiFiPed) R.drawable.icon_hide else R.drawable.icon_show))
                 showGuestWiFiPed = !showGuestWiFiPed
             }
 
@@ -140,7 +148,10 @@ class WiFiSettingsFragment : Fragment()
             wifi_settings_guest_wifi_switch_image ->
             {
                 guestWiFiStatus = !guestWiFiStatus
-                val bundle = Bundle().apply{
+
+                setGuestWiFi24GEnableTask()
+
+                /*val bundle = Bundle().apply{
                     putString("Title", "")
                     putString("Description", getString(R.string.loading_transition_please_wait))
                     putString("Sec_Description", getString(R.string.loading_transition_update_wifi_settings))
@@ -149,7 +160,7 @@ class WiFiSettingsFragment : Fragment()
                     putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_SEARCH)
                     putBoolean("ShowCountDownTimer", false)
                 }
-                GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
+                GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))*/
             }
         }
     }
@@ -181,6 +192,20 @@ class WiFiSettingsFragment : Fragment()
         for(i in 0 until QRCODE_PIXEL)
             for(j in 0 until QRCODE_PIXEL)
                 WiFiQRCodeBitmap.setPixel(i, j, if(bitMatrix.get(i, j)) Color.BLACK else Color.WHITE)
+
+        var WiFiInfo5g = ""
+        if(WiFiSecurity5g == SECURITY_NONE || WiFiSecurity == "")
+            WiFiInfo5g = "WIFI:T:nopass;S:$WiFiName5g;;"
+        else if(WiFiSecurity5g == SECURITY_WEP128 || WiFiSecurity5g == SECURITY_WEP64)
+            WiFiInfo5g = "WIFI:T:WEP;S:$WiFiName5g;P:$WiFiPwd5g;;"
+        else
+            WiFiInfo5g = "WIFI:T:WPA2;S:$WiFiName5g;P:$WiFiPwd5g;;"
+
+        val bitMatrix5g = QRCodeWriter().encode(WiFiInfo5g, BarcodeFormat.QR_CODE, QRCODE_PIXEL, QRCODE_PIXEL)
+        WiFiQRCodeBitmap5g = Bitmap.createBitmap(QRCODE_PIXEL, QRCODE_PIXEL, Bitmap.Config.ARGB_8888)
+        for(i in 0 until QRCODE_PIXEL)
+            for(j in 0 until QRCODE_PIXEL)
+                WiFiQRCodeBitmap5g.setPixel(i, j, if(bitMatrix5g.get(i, j)) Color.BLACK else Color.WHITE)
 
         var guestWiFiInfo = ""
         if(guestWiFiSecurity == SECURITY_NONE || guestWiFiSecurity == "")
@@ -260,6 +285,7 @@ class WiFiSettingsFragment : Fragment()
     private fun getWiFiSettingInfoTask()
     {
         WiFiSettingApi.GetWiFiSettingInfo()
+                .showLoading(true)
                 .setRequestPageName(TAG)
                 .setResponseListener(object: Commander.ResponseListener()
                 {
@@ -287,6 +313,46 @@ class WiFiSettingsFragment : Fragment()
                             e.printStackTrace()
                         }
                     }
+                }).execute()
+    }
+
+    private fun setGuestWiFi24GEnableTask()
+    {
+        val params = JSONObject()
+        params.put("Enable", guestWiFiStatus)
+        LogUtil.d(TAG,"setGuestWiFi24GEnableTask param:${params.toString()}")
+
+        WiFiSettingApi.SetGuestWiFi24GInfo()
+                .showLoading(true)
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        setGuestWiFi5GEnableTask()
+                    }
+
+                }).execute()
+    }
+
+    private fun setGuestWiFi5GEnableTask()
+    {
+        val params = JSONObject()
+        params.put("Enable", guestWiFiStatus)
+        LogUtil.d(TAG,"setGuestWiFi5GEnableTask param:${params.toString()}")
+
+        WiFiSettingApi.SetGuestWiFi5GInfo()
+                .showLoading(true)
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+
+                    }
+
                 }).execute()
     }
 }
