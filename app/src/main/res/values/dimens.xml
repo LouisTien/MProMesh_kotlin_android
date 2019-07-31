@@ -20,6 +20,8 @@
     <dimen name="layout_size_18dp_in_1080">18dp</dimen>
     <dimen name="layout_size_19dp_in_1080">19dp</dimen>
     <dimen name="layout_size_20dp_in_1080">20dp</dimen>
+    <dimen name="layout_size_21dp_in_1080">21dp</dimen>
+    <dimen name="layout_size_22dp_in_1080">22dp</dimen>
     <dimen name="layout_size_23dp_in_1080">23dp</dimen>
     <dimen name="layout_size_24dp_in_1080">24dp</dimen>
     <dimen name="layout_size_25dp_in_1080">25dp</dimen>

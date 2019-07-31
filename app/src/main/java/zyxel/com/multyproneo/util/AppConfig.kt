@@ -21,7 +21,7 @@ object AppConfig
 
     //WiFi setting
     const val endDeviceListUpdateTime = 60
-    const val guestWiFiSettingTime = 20
+    const val guestWiFiSettingTime = 30
     const val rebootTime = 20
     const val keepScreenTime = 300
     const val addExtenderTime = 180

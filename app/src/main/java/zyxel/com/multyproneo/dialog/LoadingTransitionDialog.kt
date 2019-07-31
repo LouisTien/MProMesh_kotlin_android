@@ -1,51 +1,57 @@
-package zyxel.com.multyproneo.fragment
+package zyxel.com.multyproneo.dialog
 
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.support.v4.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_loading_transition.*
+import android.view.WindowManager
+import kotlinx.android.synthetic.main.dialog_loading_transition.*
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.fragment.AddMeshFailFragment
+import zyxel.com.multyproneo.fragment.AddMeshSuccessFragment
 import zyxel.com.multyproneo.util.AppConfig
 
 /**
- * Created by LouisTien on 2019/6/5.
+ * Created by LouisTien on 2019/7/30.
  */
-class LoadingTransitionFragment : Fragment()
+class LoadingTransitionDialog
+(
+        context: Context,
+        private val title: String = "",
+        private val description: String = "",
+        private val secDescription: String = "",
+        private val loadingSecond: Int = 0,
+        private val anim: AppConfig.LoadingAnimation = AppConfig.LoadingAnimation.ANIM_REBOOT,
+        private val desPage: AppConfig.LoadingGoToPage = AppConfig.LoadingGoToPage.FRAG_SEARCH,
+        private val showCountDownTimer: Boolean = false
+) : Dialog(context, R.style.full_screen_dialog)
 {
-    private var title = ""
-    private var description = ""
-    private var secDescription = ""
-    private var loadingSecond = 0
-    private var showCountDownTimer = false
-    private var anim = AppConfig.LoadingAnimation.ANIM_REBOOT
-    private var desPage = AppConfig.LoadingGoToPage.FRAG_SEARCH
     private lateinit var countDownTimer: CountDownTimer
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
+    override fun onCreate(savedInstanceState: Bundle?)
     {
-        return inflater.inflate(R.layout.fragment_loading_transition, container, false)
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.dialog_loading_transition)
+        setCancelable(true)
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        initUI()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
+    override fun show()
     {
-        super.onViewCreated(view, savedInstanceState)
+        super.show()
+    }
 
-        with(arguments)
-        {
-            this?.getString("Title")?.let{ title = it }
-            this?.getString("Description")?.let{ description = it }
-            this?.getString("Sec_Description")?.let{ secDescription = it }
-            this?.getInt("LoadingSecond")?.let{ loadingSecond = it }
-            this?.getSerializable("Anim")?.let{ anim = it as AppConfig.LoadingAnimation }
-            this?.getSerializable("DesPage")?.let{ desPage = it as AppConfig.LoadingGoToPage }
-            this?.getBoolean("ShowCountDownTimer")?.let{ showCountDownTimer = it }
-        }
+    override fun dismiss()
+    {
+        super.dismiss()
+    }
 
+    private fun initUI()
+    {
         countDownTimer = object : CountDownTimer((loadingSecond * 1000).toLong(), 1000)
         {
             override fun onTick(millisUntilFinished: Long)
@@ -60,31 +66,6 @@ class LoadingTransitionFragment : Fragment()
             override fun onFinish() = finishAction()
         }
 
-        initUI()
-        loading_animation_view.playAnimation()
-        //Handler().postDelayed({ finishAction() }, (loadingSecond * 1000).toLong())
-        countDownTimer.start()
-    }
-
-    override fun onResume()
-    {
-        super.onResume()
-        GlobalBus.publish(MainEvent.HideBottomToolbar())
-    }
-
-    override fun onPause()
-    {
-        super.onPause()
-    }
-
-    override fun onDestroyView()
-    {
-        super.onDestroyView()
-        countDownTimer.cancel()
-    }
-
-    private fun initUI()
-    {
         if(title != "")
         {
             loading_msg_title_text.text = title
@@ -111,17 +92,21 @@ class LoadingTransitionFragment : Fragment()
 
         loading_countdown_time_text.visibility = if(showCountDownTimer) View.VISIBLE else View.GONE
 
-        //loading_animation_view.enableMergePathsForKitKatAndAbove(true)
         when(anim)
         {
             AppConfig.LoadingAnimation.ANIM_REBOOT -> loading_animation_view.setAnimation("rebooting.json")
             AppConfig.LoadingAnimation.ANIM_SEARCH -> loading_animation_view.setAnimation("searching.json")
             AppConfig.LoadingAnimation.ANIM_NOFOUND -> loading_animation_view.setAnimation("nofound.json")
         }
+
+        loading_animation_view.playAnimation()
+
+        countDownTimer.start()
     }
 
     private fun finishAction()
     {
+        dismiss()
         when(desPage)
         {
             AppConfig.LoadingGoToPage.FRAG_SEARCH -> GlobalBus.publish(MainEvent.EnterSearchGatewayPage())

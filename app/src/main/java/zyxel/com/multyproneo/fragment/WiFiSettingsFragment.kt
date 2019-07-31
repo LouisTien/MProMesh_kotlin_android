@@ -5,14 +5,17 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.method.PasswordTransformationMethod
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.google.gson.Gson
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import kotlinx.android.synthetic.main.fragment_wifi_settings.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.support.v4.dip
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.uiThread
 import org.json.JSONException
@@ -20,10 +23,12 @@ import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.WiFiSettingApi
+import zyxel.com.multyproneo.dialog.LoadingTransitionDialog
 import zyxel.com.multyproneo.dialog.QRCodeDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.WiFiSettingInfo
+import zyxel.com.multyproneo.tool.DensityTool
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.LogUtil
 
@@ -151,7 +156,7 @@ class WiFiSettingsFragment : Fragment()
 
                 setGuestWiFi24GEnableTask()
 
-                /*val bundle = Bundle().apply{
+                val bundle = Bundle().apply{
                     putString("Title", "")
                     putString("Description", getString(R.string.loading_transition_please_wait))
                     putString("Sec_Description", getString(R.string.loading_transition_update_wifi_settings))
@@ -160,7 +165,17 @@ class WiFiSettingsFragment : Fragment()
                     putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_SEARCH)
                     putBoolean("ShowCountDownTimer", false)
                 }
-                GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))*/
+                GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
+
+                /*LoadingTransitionDialog(
+                        context!!,
+                        "",
+                        getString(R.string.loading_transition_please_wait),
+                        getString(R.string.loading_transition_update_wifi_settings),
+                        AppConfig.guestWiFiSettingTime,
+                        AppConfig.LoadingAnimation.ANIM_REBOOT,
+                        AppConfig.LoadingGoToPage.FRAG_SEARCH,
+                        false).show()*/
             }
         }
     }
@@ -230,6 +245,19 @@ class WiFiSettingsFragment : Fragment()
             runOnUiThread{
                 if(AppConfig.mesh)
                 {
+                    val lp_share = FrameLayout.LayoutParams(wifi_settings_wifi_share_image.layoutParams).apply{
+                        gravity = Gravity.BOTTOM or Gravity.LEFT
+                        setMargins(dip(20), 0, 0, dip(20))
+                    }
+                    wifi_settings_wifi_share_image.layoutParams = lp_share
+
+                    val lp_edit = FrameLayout.LayoutParams(wifi_settings_wifi_edit_image.layoutParams).apply{
+                        gravity = Gravity.BOTTOM or Gravity.RIGHT
+                        setMargins(0, 0, dip(20), dip(20))
+                    }
+                    wifi_settings_wifi_edit_image.layoutParams = lp_edit
+
+                    wifi_settings_wifi_area_frame.setBackgroundResource(R.drawable.card_wifibg)
                     wifi_settings_wifi_5g_area_relative.visibility = View.GONE
                     wifi_settings_wifi_24g_name_title_text.text = getString(R.string.wifi_settings_wifi_name)
                     wifi_settings_wifi_24g_password_title_text.text = getString(R.string.wifi_settings_wifi_password)
@@ -238,6 +266,19 @@ class WiFiSettingsFragment : Fragment()
                 }
                 else
                 {
+                    val lp_share = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT).apply{
+                        gravity = Gravity.BOTTOM or Gravity.LEFT
+                        setMargins(dip(17), 0, 0, dip(20))
+                    }
+                    wifi_settings_wifi_share_image.layoutParams = lp_share
+
+                    val lp_edit = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT).apply{
+                        gravity = Gravity.BOTTOM or Gravity.RIGHT
+                        setMargins(0, 0, dip(17), dip(20))
+                    }
+                    wifi_settings_wifi_edit_image.layoutParams = lp_edit
+
+                    wifi_settings_wifi_area_frame.setBackgroundResource(R.drawable.card_wifibg_2)
                     wifi_settings_wifi_24g_name_text.text = WiFiName
                     wifi_settings_wifi_24g_password_text.text = WiFiPwd
                     wifi_settings_wifi_5g_name_text.text = WiFiName5g
@@ -323,7 +364,7 @@ class WiFiSettingsFragment : Fragment()
         LogUtil.d(TAG,"setGuestWiFi24GEnableTask param:${params.toString()}")
 
         WiFiSettingApi.SetGuestWiFi24GInfo()
-                .showLoading(true)
+                .showLoading(false)
                 .setRequestPageName(TAG)
                 .setParams(params)
                 .setResponseListener(object: Commander.ResponseListener()
@@ -343,7 +384,7 @@ class WiFiSettingsFragment : Fragment()
         LogUtil.d(TAG,"setGuestWiFi5GEnableTask param:${params.toString()}")
 
         WiFiSettingApi.SetGuestWiFi5GInfo()
-                .showLoading(true)
+                .showLoading(false)
                 .setRequestPageName(TAG)
                 .setParams(params)
                 .setResponseListener(object: Commander.ResponseListener()

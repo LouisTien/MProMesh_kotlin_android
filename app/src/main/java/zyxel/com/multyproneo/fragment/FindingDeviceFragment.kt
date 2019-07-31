@@ -2,6 +2,7 @@ package zyxel.com.multyproneo.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.provider.Settings
@@ -60,8 +61,7 @@ class FindingDeviceFragment : Fragment()
             startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
         }
 
-        val wifiManager = activity?.applicationContext?.getSystemService(Context.WIFI_SERVICE) as WifiManager
-        if(!wifiManager.isWifiEnabled)
+        if(!isNetworkAvailable())
         {
             MessageDialog(
                     activity!!,
@@ -87,6 +87,13 @@ class FindingDeviceFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+    }
+
+    private fun isNetworkAvailable(): Boolean
+    {
+        val connectivityManager = activity!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val wifiNetInfo = connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+        return wifiNetInfo.isAvailable && wifiNetInfo.isConnected
     }
 
     private fun setFindDeviceUI()
