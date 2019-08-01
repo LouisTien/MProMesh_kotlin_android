@@ -28,7 +28,6 @@ import zyxel.com.multyproneo.dialog.QRCodeDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.WiFiSettingInfo
-import zyxel.com.multyproneo.tool.DensityTool
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.LogUtil
 
@@ -38,7 +37,6 @@ import zyxel.com.multyproneo.util.LogUtil
 class WiFiSettingsFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
-
     private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
     private lateinit var WiFiQRCodeBitmap: Bitmap
     private lateinit var WiFiQRCodeBitmap5g: Bitmap
@@ -56,6 +54,7 @@ class WiFiSettingsFragment : Fragment()
     private var showWiFiPed5g = false
     private var showGuestWiFiPed = false
     private var guestWiFiStatus = false
+    private val mesh = true
 
     private val SECURITY_NONE = "none"
     private val SECURITY_WPA = "WPA"
@@ -113,7 +112,7 @@ class WiFiSettingsFragment : Fragment()
 
             wifi_settings_wifi_share_image ->
             {
-                if(AppConfig.mesh)
+                if(mesh)
                     QRCodeDialog(activity!!, getString(R.string.qrcode_dialog_wifi_msg), WiFiQRCodeBitmap).show()
                 else
                     QRCodeDialog(activity!!, getString(R.string.qrcode_dialog_wifi_msg), WiFiQRCodeBitmap, WiFiQRCodeBitmap5g).show()
@@ -123,9 +122,14 @@ class WiFiSettingsFragment : Fragment()
             {
                 val bundle = Bundle().apply{
                     putBoolean("GuestWiFiMode", false)
+                    putBoolean("ShowOneSSID", mesh)
+                    putBoolean("Available5g", !WiFiSettingInfoSet.Object.X_ZYXEL_OneSSID.Enable)
                     putString("Name", WiFiName)
                     putString("Password", WiFiPwd)
-                    putBoolean("WifiStatus", false)
+                    putString("Security", WiFiSecurity)
+                    putString("Name5g", WiFiName5g)
+                    putString("Password5g", WiFiPwd5g)
+                    putString("Security5g", WiFiSecurity5g)
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(WiFiSettingsEditFragment().apply{ arguments = bundle }))
             }
@@ -145,7 +149,7 @@ class WiFiSettingsFragment : Fragment()
                     putBoolean("GuestWiFiMode", true)
                     putString("Name", guestWiFiName)
                     putString("Password", guestWiFiPwd)
-                    putBoolean("WifiStatus", guestWiFiStatus)
+                    putString("Security", guestWiFiSecurity)
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(WiFiSettingsEditFragment().apply{ arguments = bundle }))
             }
@@ -160,7 +164,7 @@ class WiFiSettingsFragment : Fragment()
                     putString("Title", "")
                     putString("Description", getString(R.string.loading_transition_please_wait))
                     putString("Sec_Description", getString(R.string.loading_transition_update_wifi_settings))
-                    putInt("LoadingSecond", AppConfig.guestWiFiSettingTime)
+                    putInt("LoadingSecond", AppConfig.WiFiSettingTime)
                     putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
                     putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_SEARCH)
                     putBoolean("ShowCountDownTimer", false)
@@ -172,7 +176,7 @@ class WiFiSettingsFragment : Fragment()
                         "",
                         getString(R.string.loading_transition_please_wait),
                         getString(R.string.loading_transition_update_wifi_settings),
-                        AppConfig.guestWiFiSettingTime,
+                        AppConfig.WiFiSettingTime,
                         AppConfig.LoadingAnimation.ANIM_REBOOT,
                         AppConfig.LoadingGoToPage.FRAG_SEARCH,
                         false).show()*/
@@ -243,7 +247,7 @@ class WiFiSettingsFragment : Fragment()
         if(isVisible)
         {
             runOnUiThread{
-                if(AppConfig.mesh)
+                if(mesh)
                 {
                     val lp_share = FrameLayout.LayoutParams(wifi_settings_wifi_share_image.layoutParams).apply{
                         gravity = Gravity.BOTTOM or Gravity.LEFT

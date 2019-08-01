@@ -12,6 +12,7 @@ import zyxel.com.multyproneo.util.GlobalData
 object AccountApi
 {
     private val LoginURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/UserLogin"
+    private val LogoutURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/UserLogout?sessionkey=${GlobalData.sessionkey}"
 
     private val JSON = MediaType.parse("application/json; charset=utf-8")
 
@@ -23,6 +24,19 @@ object AccountApi
             val request = Request.Builder()
                     //.headers(getHeaders().build())
                     .url(LoginURL)
+                    .post(requestParam)
+                    .build()
+            return request
+        }
+    }
+
+    class Logout : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val requestParam = RequestBody.create(JSON, getParams().toString())
+            val request = Request.Builder()
+                    .url(LogoutURL)
                     .post(requestParam)
                     .build()
             return request

@@ -147,6 +147,7 @@ class LoginFragment : Fragment()
                                     loginInfo = Gson().fromJson(responseStr, LoginInfo::class.java)
                                     LogUtil.d(TAG,"loginInfo:${loginInfo.toString()}")
                                     GlobalData.sessionkey = loginInfo.sessionkey
+                                    LogUtil.d(TAG,"GlobalData.sessionkey:${GlobalData.sessionkey}")
                                     gatewayInfo.password = password
                                     gatewayInfo.userName = userName
                                     DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)

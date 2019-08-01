@@ -9,8 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_account.*
+import org.json.JSONObject
 import zyxel.com.multyproneo.BuildConfig
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.AccountApi
+import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
@@ -18,12 +21,14 @@ import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
+import zyxel.com.multyproneo.util.LogUtil
 
 /**
  * Created by LouisTien on 2019/6/13.
  */
 class AccountFragment : Fragment()
 {
+    private val TAG = javaClass.simpleName
     private lateinit var msgDialogResponse: Disposable
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -40,11 +45,7 @@ class AccountFragment : Fragment()
         msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
             when(it.action)
             {
-                AppConfig.DialogAction.ACT_LOGOUT ->
-                {
-                    DatabaseUtil.getInstance(activity!!)?.deleteInformationToDB(GlobalData.getCurrentGatewayInfo())
-                    GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
-                }
+                AppConfig.DialogAction.ACT_LOGOUT -> setLogoutTask()
             }
         }
 
@@ -89,5 +90,23 @@ class AccountFragment : Fragment()
     {
         account_privacy_policy_relative.setOnClickListener(clickListener)
         account_logout_button.setOnClickListener(clickListener)
+    }
+
+    private fun setLogoutTask()
+    {
+        LogUtil.d(TAG,"GlobalData.sessionkey:${GlobalData.sessionkey}")
+        val params = JSONObject()
+        AccountApi.Logout()
+                .showLoading(true)
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        DatabaseUtil.getInstance(activity!!)?.deleteInformationToDB(GlobalData.getCurrentGatewayInfo())
+                        GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
+                    }
+                }).execute()
     }
 }

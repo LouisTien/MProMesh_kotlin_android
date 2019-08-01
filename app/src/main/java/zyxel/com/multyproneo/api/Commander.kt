@@ -172,16 +172,35 @@ abstract class Commander
                 var responseCode = response.code()
                 var responseStr = response.body()!!.string()
                 LogUtil.d(TAG, "onResponse code = $responseCode")
-                LogUtil.d(TAG, "onResponse body = $responseStr")
+                if(responseStr.length > 4000)
+                {
+                    for(i in responseStr.indices step 4000)
+                    {
+                        if(i + 4000 < responseStr.length)
+                            LogUtil.d(TAG, "onResponse body (count) = ${responseStr.substring(i, i+4000)}")
+                        else
+                            LogUtil.d(TAG, "onResponse body (end) = ${responseStr.substring(i, responseStr.length)}")
+                    }
+                }
+                else
+                    LogUtil.d(TAG, "onResponse body = $responseStr")
+
                 if(response.isSuccessful)
                 {
-                    //val data = JSONObject(responseStr)
-                    //val result = data.get("oper_status").toString()
+                    val data = JSONObject(responseStr)
+                    val result = data.get("oper_status").toString()
+                    if(result.equals("Success", ignoreCase = false))
+                    {
+                        if(showLoading)
+                            GlobalBus.publish(MainEvent.HideLoading())
 
-                    if(showLoading)
+                        responseListener.onSuccess(responseStr)
+                    }
+                    else
+                    {
                         GlobalBus.publish(MainEvent.HideLoading())
-
-                    responseListener.onSuccess(responseStr)
+                        responseListener.onFail(responseCode, result, getRequestPageName())
+                    }
                 }
                 else
                 {

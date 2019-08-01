@@ -65,7 +65,8 @@ data class Security
     val KeyPassphrase: String,
     val ModeEnabled: String,
     val ModesSupported: String,
-    val PreSharedKey: String
+    val PreSharedKey: String,
+    val X_ZYXEL_AutoGenPSK: Boolean
 )
 
 data class SSID
