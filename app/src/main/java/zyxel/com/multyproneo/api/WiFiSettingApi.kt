@@ -11,24 +11,15 @@ import zyxel.com.multyproneo.util.GlobalData
  */
 object WiFiSettingApi
 {
-    private val GetWiFiSettingInfoURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.?first_level_only=false"
-    private val SetWiFi24GInfoURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.SSID.1.?sessionkey=${GlobalData.sessionkey}"
-    private val SetWiFi24GPwdURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.AccessPoint.1.Security.?sessionkey=${GlobalData.sessionkey}"
-    private val SetWiFi5GInfoURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.SSID.5.?sessionkey=${GlobalData.sessionkey}"
-    private val SetWiFi5GPwdURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.AccessPoint.5.Security.?sessionkey=${GlobalData.sessionkey}"
-    private val SetGuestWiFi24GInfoURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.SSID.2.?sessionkey=${GlobalData.sessionkey}"
-    private val SetGuestWiFi24GPwdURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.AccessPoint.2.Security.?sessionkey=${GlobalData.sessionkey}"
-    private val SetGuestWiFi5GInfoURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.SSID.6.?sessionkey=${GlobalData.sessionkey}"
-    private val SetGuestWiFi5GPwdURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.AccessPoint.6.Security.?sessionkey=${GlobalData.sessionkey}"
-
     private val JSON = MediaType.parse("application/json; charset=utf-8")
 
     class GetWiFiSettingInfo : Commander()
     {
         override fun composeRequest(): Request
         {
+            val getWiFiSettingInfoURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.?first_level_only=false"
             val request = Request.Builder()
-                    .url(GetWiFiSettingInfoURL)
+                    .url(getWiFiSettingInfoURL)
                     .build()
             return request
         }
@@ -38,8 +29,9 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
+            val setWiFi24GInfoURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.SSID.1.?sessionkey=${GlobalData.sessionkey}"
             val request = Request.Builder()
-                    .url(SetWiFi24GInfoURL)
+                    .url(setWiFi24GInfoURL)
                     .put(RequestBody.create(JSON, getParams().toString()))
                     .build()
             return request
@@ -50,8 +42,9 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
+            val setWiFi24GPwdURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.AccessPoint.1.Security.?sessionkey=${GlobalData.sessionkey}"
             val request = Request.Builder()
-                    .url(SetWiFi24GPwdURL)
+                    .url(setWiFi24GPwdURL)
                     .put(RequestBody.create(JSON, getParams().toString()))
                     .build()
             return request
@@ -62,8 +55,9 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
+            val setWiFi5GInfoURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.SSID.5.?sessionkey=${GlobalData.sessionkey}"
             val request = Request.Builder()
-                    .url(SetWiFi5GInfoURL)
+                    .url(setWiFi5GInfoURL)
                     .put(RequestBody.create(JSON, getParams().toString()))
                     .build()
             return request
@@ -74,8 +68,9 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
+            val setWiFi5GPwdURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.AccessPoint.5.Security.?sessionkey=${GlobalData.sessionkey}"
             val request = Request.Builder()
-                    .url(SetWiFi5GPwdURL)
+                    .url(setWiFi5GPwdURL)
                     .put(RequestBody.create(JSON, getParams().toString()))
                     .build()
             return request
@@ -86,8 +81,9 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
+            val setGuestWiFi24GInfoURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.SSID.2.?sessionkey=${GlobalData.sessionkey}"
             val request = Request.Builder()
-                    .url(SetGuestWiFi24GInfoURL)
+                    .url(setGuestWiFi24GInfoURL)
                     .put(RequestBody.create(JSON, getParams().toString()))
                     .build()
             return request
@@ -98,8 +94,9 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
+            val setGuestWiFi24GPwdURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.AccessPoint.2.Security.?sessionkey=${GlobalData.sessionkey}"
             val request = Request.Builder()
-                    .url(SetGuestWiFi24GPwdURL)
+                    .url(setGuestWiFi24GPwdURL)
                     .put(RequestBody.create(JSON, getParams().toString()))
                     .build()
             return request
@@ -110,8 +107,9 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
+            val setGuestWiFi5GInfoURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.SSID.6.?sessionkey=${GlobalData.sessionkey}"
             val request = Request.Builder()
-                    .url(SetGuestWiFi5GInfoURL)
+                    .url(setGuestWiFi5GInfoURL)
                     .put(RequestBody.create(JSON, getParams().toString()))
                     .build()
             return request
@@ -122,8 +120,9 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
+            val setGuestWiFi5GPwdURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.WiFi.AccessPoint.6.Security.?sessionkey=${GlobalData.sessionkey}"
             val request = Request.Builder()
-                    .url(SetGuestWiFi5GPwdURL)
+                    .url(setGuestWiFi5GPwdURL)
                     .put(RequestBody.create(JSON, getParams().toString()))
                     .build()
             return request

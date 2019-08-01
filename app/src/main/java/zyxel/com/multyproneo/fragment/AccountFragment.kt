@@ -94,7 +94,6 @@ class AccountFragment : Fragment()
 
     private fun setLogoutTask()
     {
-        LogUtil.d(TAG,"GlobalData.sessionkey:${GlobalData.sessionkey}")
         val params = JSONObject()
         AccountApi.Logout()
                 .showLoading(true)
