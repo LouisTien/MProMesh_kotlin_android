@@ -130,12 +130,13 @@ class LoginFragment : Fragment()
                 LogUtil.d(TAG,"loginPasswordEdit:$password")
                 LogUtil.d(TAG,"loginUsernameEdit:$userName")
 
+                GlobalBus.publish(MainEvent.ShowLoading())
+
                 val params = JSONObject()
                 params.put("username", userName)
                 params.put("password", password)
                 LogUtil.d(TAG,"login param:${params.toString()}")
                 AccountApi.Login()
-                        .showLoading(true)
                         .setRequestPageName(TAG)
                         .setParams(params)
                         .setResponseListener(object: Commander.ResponseListener()
@@ -144,16 +145,18 @@ class LoginFragment : Fragment()
                             {
                                 try
                                 {
-                                    loginInfo = Gson().fromJson(responseStr, LoginInfo::class.java)
+                                    loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
                                     LogUtil.d(TAG,"loginInfo:${loginInfo.toString()}")
                                     GlobalData.sessionkey = loginInfo.sessionkey
                                     gatewayInfo.password = password
                                     gatewayInfo.userName = userName
                                     DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)
+                                    GlobalBus.publish(MainEvent.HideLoading())
                                     GlobalBus.publish(MainEvent.EnterHomePage())
                                 }
                                 catch(e: JSONException)
                                 {
+                                    GlobalBus.publish(MainEvent.HideLoading())
                                     e.printStackTrace()
                                 }
                             }

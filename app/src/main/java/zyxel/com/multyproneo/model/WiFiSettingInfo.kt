@@ -5,12 +5,12 @@ package zyxel.com.multyproneo.model
  */
 data class WiFiSettingInfo
 (
-    val Object: Object,
+    val Object: WiFiSettingObject,
     val oper_status: String,
     val requested_path: String
 )
 
-data class Object
+data class WiFiSettingObject
 (
     val AccessPoint: List<AccessPoint>,
     val AccessPointNumberOfEntries: Int,

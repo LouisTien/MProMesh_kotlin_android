@@ -36,7 +36,6 @@ abstract class Commander
     private lateinit var paramStr: String
     private lateinit var errorInfo: HttpErrorInfo
     private var requestPageName = ""
-    private var showLoading = false
 
     abstract fun composeRequest(): Request
 
@@ -138,22 +137,8 @@ abstract class Commander
         return this
     }
 
-    fun showLoading(loading: Boolean): Commander
-    {
-        showLoading = loading
-        return this
-    }
-
-    fun isShowLoading(): Boolean
-    {
-        return showLoading
-    }
-
     fun execute(): Commander
     {
-        if(showLoading)
-            GlobalBus.publish(MainEvent.ShowLoading())
-
         request = composeRequest()
         LogUtil.d(TAG, request.toString())
         val call = client.newCall(request)
@@ -177,7 +162,7 @@ abstract class Commander
                     for(i in responseStr.indices step 4000)
                     {
                         if(i + 4000 < responseStr.length)
-                            LogUtil.d(TAG, "onResponse body (count) = ${responseStr.substring(i, i+4000)}")
+                            LogUtil.d(TAG, "onResponse body (count) = ${responseStr.substring(i, i + 4000)}")
                         else
                             LogUtil.d(TAG, "onResponse body (end) = ${responseStr.substring(i, responseStr.length)}")
                     }
@@ -190,12 +175,7 @@ abstract class Commander
                     val data = JSONObject(responseStr)
                     val result = data.get("oper_status").toString()
                     if(result.equals("Success", ignoreCase = false))
-                    {
-                        if(showLoading)
-                            GlobalBus.publish(MainEvent.HideLoading())
-
                         responseListener.onSuccess(responseStr)
-                    }
                     else
                     {
                         GlobalBus.publish(MainEvent.HideLoading())
@@ -205,7 +185,7 @@ abstract class Commander
                 else
                 {
                     GlobalBus.publish(MainEvent.HideLoading())
-                    errorInfo = Gson().fromJson(responseStr, HttpErrorInfo::class.java)
+                    errorInfo = Gson().fromJson(responseStr, HttpErrorInfo::class.javaObjectType)
                     responseListener.onFail(responseCode, errorInfo.oper_status, getRequestPageName())
                 }
             }

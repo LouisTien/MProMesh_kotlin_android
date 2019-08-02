@@ -27,6 +27,7 @@ import zyxel.com.multyproneo.dialog.LoadingTransitionDialog
 import zyxel.com.multyproneo.dialog.QRCodeDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.model.MeshInfo
 import zyxel.com.multyproneo.model.WiFiSettingInfo
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.LogUtil
@@ -37,6 +38,7 @@ import zyxel.com.multyproneo.util.LogUtil
 class WiFiSettingsFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
+    private lateinit var meshInfo: MeshInfo
     private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
     private lateinit var WiFiQRCodeBitmap: Bitmap
     private lateinit var WiFiQRCodeBitmap5g: Bitmap
@@ -54,7 +56,6 @@ class WiFiSettingsFragment : Fragment()
     private var showWiFiPed5g = false
     private var showGuestWiFiPed = false
     private var guestWiFiStatus = false
-    private val mesh = true
 
     private val SECURITY_NONE = "none"
     private val SECURITY_WPA = "WPA"
@@ -80,7 +81,7 @@ class WiFiSettingsFragment : Fragment()
     {
         super.onResume()
         GlobalBus.publish(MainEvent.ShowBottomToolbar())
-        getWiFiSettingInfoTask()
+        getMeshInfoTask()
     }
 
     override fun onPause()
@@ -112,7 +113,7 @@ class WiFiSettingsFragment : Fragment()
 
             wifi_settings_wifi_share_image ->
             {
-                if(mesh)
+                if(meshInfo.Object.Enable)
                     QRCodeDialog(activity!!, getString(R.string.qrcode_dialog_wifi_msg), WiFiQRCodeBitmap).show()
                 else
                     QRCodeDialog(activity!!, getString(R.string.qrcode_dialog_wifi_msg), WiFiQRCodeBitmap, WiFiQRCodeBitmap5g).show()
@@ -122,7 +123,7 @@ class WiFiSettingsFragment : Fragment()
             {
                 val bundle = Bundle().apply{
                     putBoolean("GuestWiFiMode", false)
-                    putBoolean("ShowOneSSID", mesh)
+                    putBoolean("ShowOneSSID", meshInfo.Object.Enable)
                     putBoolean("Available5g", !WiFiSettingInfoSet.Object.X_ZYXEL_OneSSID.Enable)
                     putString("Name", WiFiName)
                     putString("Password", WiFiPwd)
@@ -247,7 +248,7 @@ class WiFiSettingsFragment : Fragment()
         if(isVisible)
         {
             runOnUiThread{
-                if(mesh)
+                if(meshInfo.Object.Enable)
                 {
                     val lp_share = FrameLayout.LayoutParams(wifi_settings_wifi_share_image.layoutParams).apply{
                         gravity = Gravity.BOTTOM or Gravity.LEFT
@@ -327,10 +328,11 @@ class WiFiSettingsFragment : Fragment()
         }
     }*/
 
-    private fun getWiFiSettingInfoTask()
+    private fun getMeshInfoTask()
     {
-        WiFiSettingApi.GetWiFiSettingInfo()
-                .showLoading(true)
+        GlobalBus.publish(MainEvent.ShowLoading())
+
+        WiFiSettingApi.GetMeshInfo()
                 .setRequestPageName(TAG)
                 .setResponseListener(object: Commander.ResponseListener()
                 {
@@ -338,7 +340,29 @@ class WiFiSettingsFragment : Fragment()
                     {
                         try
                         {
-                            WiFiSettingInfoSet = Gson().fromJson(responseStr, WiFiSettingInfo::class.java)
+                            meshInfo = Gson().fromJson(responseStr, MeshInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"meshInfo:${meshInfo.toString()}")
+                            getWiFiSettingInfoTask()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun getWiFiSettingInfoTask()
+    {
+        WiFiSettingApi.GetWiFiSettingInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            WiFiSettingInfoSet = Gson().fromJson(responseStr, WiFiSettingInfo::class.javaObjectType)
                             LogUtil.d(TAG,"wiFiSettingInfo:${WiFiSettingInfoSet.toString()}")
 
                             WiFiName = WiFiSettingInfoSet.Object.SSID[0].SSID
@@ -351,10 +375,13 @@ class WiFiSettingsFragment : Fragment()
                             guestWiFiPwd = WiFiSettingInfoSet.Object.AccessPoint[1].Security.KeyPassphrase
                             guestWiFiSecurity = WiFiSettingInfoSet.Object.AccessPoint[1].Security.ModeEnabled
                             guestWiFiStatus = WiFiSettingInfoSet.Object.SSID[1].Enable
+
+                            GlobalBus.publish(MainEvent.HideLoading())
                             updateUI()
                         }
                         catch(e: JSONException)
                         {
+                            GlobalBus.publish(MainEvent.HideLoading())
                             e.printStackTrace()
                         }
                     }
@@ -368,7 +395,6 @@ class WiFiSettingsFragment : Fragment()
         LogUtil.d(TAG,"setGuestWiFi24GEnableTask param:${params.toString()}")
 
         WiFiSettingApi.SetGuestWiFi24GInfo()
-                .showLoading(false)
                 .setRequestPageName(TAG)
                 .setParams(params)
                 .setResponseListener(object: Commander.ResponseListener()
@@ -388,7 +414,6 @@ class WiFiSettingsFragment : Fragment()
         LogUtil.d(TAG,"setGuestWiFi5GEnableTask param:${params.toString()}")
 
         WiFiSettingApi.SetGuestWiFi5GInfo()
-                .showLoading(false)
                 .setRequestPageName(TAG)
                 .setParams(params)
                 .setResponseListener(object: Commander.ResponseListener()

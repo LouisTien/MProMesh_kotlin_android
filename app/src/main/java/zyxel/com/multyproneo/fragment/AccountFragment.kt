@@ -94,9 +94,10 @@ class AccountFragment : Fragment()
 
     private fun setLogoutTask()
     {
+        GlobalBus.publish(MainEvent.ShowLoading())
+
         val params = JSONObject()
         AccountApi.Logout()
-                .showLoading(true)
                 .setRequestPageName(TAG)
                 .setParams(params)
                 .setResponseListener(object: Commander.ResponseListener()
@@ -104,6 +105,7 @@ class AccountFragment : Fragment()
                     override fun onSuccess(responseStr: String)
                     {
                         DatabaseUtil.getInstance(activity!!)?.deleteInformationToDB(GlobalData.getCurrentGatewayInfo())
+                        GlobalBus.publish(MainEvent.HideLoading())
                         GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
                     }
                 }).execute()

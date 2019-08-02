@@ -25,6 +25,18 @@ object WiFiSettingApi
         }
     }
 
+    class GetMeshInfo : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val getMeshInfoURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/TR181/Value/Device.X_ZYXEL_EXT.EasyMesh."
+            val request = Request.Builder()
+                    .url(getMeshInfoURL)
+                    .build()
+            return request
+        }
+    }
+
     class SetWiFi24GInfo : Commander()
     {
         override fun composeRequest(): Request
