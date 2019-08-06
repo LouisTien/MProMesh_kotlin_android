@@ -1,5 +1,8 @@
 package zyxel.com.multyproneo.socketconnect
 
+import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.LogUtil
+
 /**
  * Created by LouisTien on 2019/7/8.
  */
@@ -37,11 +40,21 @@ class Packet
         val data = ByteArray(payload!!.size + 4)
         data[0] = version.toByte()
         data[1] = type.toByte()
-        data[2] = (length shr 8).toByte()
-        data[3] = length.toByte()
+
+        if(AppConfig.RESTfulBroadcastSet)
+        {
+            data[2] = length.toByte()
+            data[3] = 0.toByte()
+        }
+        else
+        {
+            data[2] = (length shr 8).toByte()
+            data[3] = length.toByte()
+        }
+
         for(i in payload!!.indices)
             data[i + 4] = payload!![i]
-        /* converter payload length from big endian to lillte endian */
+        /* converter payload length from big endian to little endian */
         val tmp1 = data[2]
         val tmp2 = data[3]
         data[2] = tmp2

@@ -1,5 +1,6 @@
 package zyxel.com.multyproneo.socketconnect
 
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.LogUtil
 import java.net.DatagramPacket
 import java.net.DatagramSocket
@@ -65,15 +66,13 @@ class PacketReceiver : Runnable
             val type: Int
             val length: Int
             val payload: ByteArray
-
             serversocket!!.receive(datagrampacket)
-
             val data = datagrampacket.data
             version = data[0].toInt() and 0xFF
             LogUtil.d(TAG, "version=$version")
             type = data[1].toInt() and 0xFF
             LogUtil.d(TAG, "type=$type")
-            length = (data[2].toInt() and 0xFF) + (data[3].toInt() and 0xFF shl 8)
+            length = if(AppConfig.RESTfulBroadcastSet) (data[3].toInt() and 0xFF) + (data[2].toInt() and 0xFF shl 8) else (data[2].toInt() and 0xFF) + (data[3].toInt() and 0xFF shl 8)
             LogUtil.d(TAG, "length=$length")
             payload = ByteArray(length)
             for(i in 0 until length)

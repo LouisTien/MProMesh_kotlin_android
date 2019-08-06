@@ -27,6 +27,7 @@ object AppConfig
     const val addExtenderTime = 180
 
     //Restful
+    const val RESTfulBroadcastSet = true
     const val RESTfulProtocol = "https"
     const val RESTfulVersion = "/api/v1"
 

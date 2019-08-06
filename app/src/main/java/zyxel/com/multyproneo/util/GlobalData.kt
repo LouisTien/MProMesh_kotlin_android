@@ -1,6 +1,7 @@
 package zyxel.com.multyproneo.util
 
 import zyxel.com.multyproneo.model.EndDeviceProfile
+import zyxel.com.multyproneo.model.FindingDeviceInfo
 import zyxel.com.multyproneo.model.GatewayProfile
 import zyxel.com.multyproneo.model.WanInfoProfile
 
@@ -14,6 +15,7 @@ object GlobalData
     var sessionkey= ""
     var currentGatewayIndex = 0
     var gatewayProfileMutableList = mutableListOf<GatewayProfile>()
+    var gatewayList = mutableListOf<FindingDeviceInfo>()
     var endDeviceList = mutableListOf<EndDeviceProfile>()
     var ZYXELEndDeviceList = mutableListOf<EndDeviceProfile>()
     var guestEndDeviceList = mutableListOf<EndDeviceProfile>()
