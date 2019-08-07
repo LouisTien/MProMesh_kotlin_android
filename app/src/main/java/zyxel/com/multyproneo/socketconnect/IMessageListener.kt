@@ -6,4 +6,5 @@ package zyxel.com.multyproneo.socketconnect
 interface IMessageListener
 {
     fun messageReceived(session_object: SessionObject)
+    fun messageReceivedDone()
 }

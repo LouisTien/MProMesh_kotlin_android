@@ -30,6 +30,11 @@ class SessionControl(private val transportObject: Transport) : IPacketListener
         so.version = packetdata.version
         so.src_ip = packetdata.receivedIP
         so.src_port = packetdata.receivedPort
-        messagelistener!!.messageReceived(so)
+        messagelistener?.messageReceived(so)
+    }
+
+    override fun packetReceivedDone()
+    {
+        messagelistener?.messageReceivedDone()
     }
 }

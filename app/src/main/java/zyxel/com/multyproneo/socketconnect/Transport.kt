@@ -1,13 +1,12 @@
 package zyxel.com.multyproneo.socketconnect
 
-import zyxel.com.multyproneo.util.PacketReceiverUtil
 import java.net.DatagramPacket
 import java.net.InetAddress
 
 /**
  * Created by LouisTien on 2019/7/8.
  */
-class Transport
+class Transport(private val packetreceiver: PacketReceiver)
 {
     private var broadip = InetAddress.getByAddress(byteArrayOf(255.toByte(), 255.toByte(), 255.toByte(), 255.toByte()))
 
@@ -15,12 +14,10 @@ class Transport
 
     private inner class BroadcastUDP(private var data: ByteArray, private var broadcastPort: Int, private var listen_port: Int) : Runnable
     {
-        private var dp: DatagramPacket? = null
-
         override fun run()
         {
-            dp = DatagramPacket(data, data.size, broadip, broadcastPort)
-            PacketReceiverUtil.instance.sendUDPPacket(dp!!)
+            var dp = DatagramPacket(data, data.size, broadip, broadcastPort)
+            packetreceiver.sendUDPPacket(dp)
         }
     }
 }

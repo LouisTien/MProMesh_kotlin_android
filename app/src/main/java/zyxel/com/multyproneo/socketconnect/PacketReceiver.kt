@@ -4,6 +4,7 @@ import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.LogUtil
 import java.net.DatagramPacket
 import java.net.DatagramSocket
+import java.net.SocketTimeoutException
 
 /**
  * Created by LouisTien on 2019/7/5.
@@ -19,7 +20,7 @@ class PacketReceiver : Runnable
     fun setLocalListenPort(port: Int)
     {
         localport = port
-        restart()
+        //restart()
     }
 
     fun restart()
@@ -33,6 +34,7 @@ class PacketReceiver : Runnable
         if(serversocket == null || !running)
         {
             serversocket = DatagramSocket(localport)
+            serversocket?.soTimeout = 3000
             running = true
             Thread(this).start()
         }
@@ -41,7 +43,7 @@ class PacketReceiver : Runnable
     fun stop()
     {
         if(running)
-            serversocket!!.close()
+            serversocket?.close()
 
         running = false
     }
@@ -53,7 +55,7 @@ class PacketReceiver : Runnable
 
     fun sendUDPPacket(dp: DatagramPacket)
     {
-        serversocket!!.send(dp)
+        serversocket?.send(dp)
     }
 
     override fun run()
@@ -66,7 +68,18 @@ class PacketReceiver : Runnable
             val type: Int
             val length: Int
             val payload: ByteArray
-            serversocket!!.receive(datagrampacket)
+            try
+            {
+                serversocket?.receive(datagrampacket)
+            }
+            catch(e: SocketTimeoutException)
+            {
+                LogUtil.d(TAG,"-----SocketTimeoutException-------")
+                stop()
+                packetReceiver?.packetReceivedDone()
+                e.printStackTrace()
+                break
+            }
             val data = datagrampacket.data
             version = data[0].toInt() and 0xFF
             LogUtil.d(TAG, "version=$version")
@@ -80,7 +93,7 @@ class PacketReceiver : Runnable
             val packet = Packet(version, type, payload)
             packet.receivedIP = datagrampacket.address.toString()
             packet.receivedPort = datagrampacket.port
-            packetReceiver!!.packetReceived(packet)
+            packetReceiver?.packetReceived(packet)
         }
     }
 }

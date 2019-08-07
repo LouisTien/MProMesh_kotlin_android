@@ -1,35 +1,32 @@
 package zyxel.com.multyproneo.socketconnect
 
-import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
-import zyxel.com.multyproneo.model.FindingDeviceInfo
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
-import zyxel.com.multyproneo.util.LogUtil
-import zyxel.com.multyproneo.util.PacketReceiverUtil
 
 /**
  * Created by LouisTien on 2019/7/8.
  */
-class SocketController
+class SocketController(private val responseListener: IResponseListener)
 {
     private val TAG = javaClass.simpleName
-    private val packetreceiver = PacketReceiverUtil.instance
-    private val sessioncontrol = SessionControl(Transport())
-    private val messagehandler = MessageHandler()
-    private lateinit var findingDeviceInfo: FindingDeviceInfo
+    private val packetreceiver = PacketReceiver()
+    private val sessioncontrol = SessionControl(Transport(packetreceiver))
+    private val messagehandler = MessageHandler(responseListener)
 
     init
     {
         sessioncontrol.setMessageListener(messagehandler)
         packetreceiver.setLocalListenPort(AppConfig.SCAN_LISTENPORT)
         packetreceiver.setListener(sessioncontrol)
-        packetreceiver.start()
+        //packetreceiver.start()
     }
 
     fun deviceScan()
     {
+        packetreceiver.start()
+
         GlobalData.gatewayList.clear()
 
         val so = SessionObject()
@@ -71,45 +68,5 @@ class SocketController
         so.data = dr.toString()
         so.dest_port = AppConfig.SCAN_REMOTEPORT
         sessioncontrol.deviceDiscoveryRequest(so)
-    }
-
-    fun receivedDiscoveryResp(ip: String, data: String)
-    {
-        LogUtil.d(TAG, "ip:$ip, broadcast response:$data")
-
-        /*if(data.contains("ApiName") && data.contains("SupportedApiVersion"))
-        {
-            val data = JSONObject(data)
-            val ApiName = data.get("ApiName").toString()
-            LogUtil.d(TAG, "ApiName:$ApiName")
-            val ModelName = data.get("ModelName").toString()
-            LogUtil.d(TAG, "ModelName:$ModelName")
-            val SoftwareVersion = data.get("SoftwareVersion").toString()
-            LogUtil.d(TAG, "SoftwareVersion:$SoftwareVersion")
-            val DeviceMode = data.get("DeviceMode").toString()
-            LogUtil.d(TAG, "DeviceMode:$DeviceMode")
-            val SupportedApiVersion = data.getJSONArray("SupportedApiVersion")
-            val subdata = JSONObject(SupportedApiVersion[0].toString())
-            LogUtil.d(TAG, "subdata:$subdata")
-            val ApiVersion = subdata.get("ApiVersion").toString()
-            LogUtil.d(TAG, "ApiVersion:$ApiVersion")
-            val LoginURL = subdata.get("LoginURL").toString()
-            LogUtil.d(TAG, "LoginURL:$LoginURL")
-        }*/
-
-        if(data.contains("ApiName") && data.contains("SupportedApiVersion"))
-        {
-            try
-            {
-                findingDeviceInfo = Gson().fromJson(data, FindingDeviceInfo::class.javaObjectType)
-                findingDeviceInfo.IP = ip
-                LogUtil.d(TAG, "findingDeviceInfo:${findingDeviceInfo.toString()}")
-                GlobalData.gatewayList.add(findingDeviceInfo)
-            }
-            catch(e: JSONException)
-            {
-                e.printStackTrace()
-            }
-        }
     }
 }

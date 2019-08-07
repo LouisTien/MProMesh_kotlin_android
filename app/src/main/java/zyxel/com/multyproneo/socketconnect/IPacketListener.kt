@@ -6,4 +6,5 @@ package zyxel.com.multyproneo.socketconnect
 interface IPacketListener
 {
     fun packetReceived(packetdata: Packet)
+    fun packetReceivedDone()
 }

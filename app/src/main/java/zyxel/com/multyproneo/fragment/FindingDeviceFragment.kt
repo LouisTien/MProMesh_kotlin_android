@@ -3,24 +3,28 @@ package zyxel.com.multyproneo.fragment
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
-import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.provider.Settings
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_loading_transition.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.uiThread
+import org.json.JSONException
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.model.FindingDeviceInfo
 import zyxel.com.multyproneo.model.GatewayProfile
-import zyxel.com.multyproneo.util.SocketControllerUtil
+import zyxel.com.multyproneo.socketconnect.IResponseListener
+import zyxel.com.multyproneo.socketconnect.SocketController
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
@@ -29,10 +33,13 @@ import zyxel.com.multyproneo.util.LogUtil
 /**
  * Created by LouisTien on 2019/5/28.
  */
-class FindingDeviceFragment : Fragment()
+class FindingDeviceFragment : Fragment(), IResponseListener
 {
     private val TAG = javaClass.simpleName
     private lateinit var startWiFiSettingDisposable: Disposable
+    private lateinit var findingDeviceInfo: FindingDeviceInfo
+    private var gatewayList = mutableListOf<FindingDeviceInfo>()
+    private val responseListener = this
     private var userDefineName = ""
     private var retryTimes = 0
 
@@ -89,6 +96,71 @@ class FindingDeviceFragment : Fragment()
         super.onDestroyView()
     }
 
+    override fun responseReceived(ip: String, data: String)
+    {
+        LogUtil.d(TAG,"responseReceived: ip = $ip, data = $data")
+        /*if(data.contains("ApiName") && data.contains("SupportedApiVersion"))
+        {
+            val data = JSONObject(data)
+            val ApiName = data.get("ApiName").toString()
+            LogUtil.d(TAG, "ApiName:$ApiName")
+            val ModelName = data.get("ModelName").toString()
+            LogUtil.d(TAG, "ModelName:$ModelName")
+            val SoftwareVersion = data.get("SoftwareVersion").toString()
+            LogUtil.d(TAG, "SoftwareVersion:$SoftwareVersion")
+            val DeviceMode = data.get("DeviceMode").toString()
+            LogUtil.d(TAG, "DeviceMode:$DeviceMode")
+            val SupportedApiVersion = data.getJSONArray("SupportedApiVersion")
+            val subdata = JSONObject(SupportedApiVersion[0].toString())
+            LogUtil.d(TAG, "subdata:$subdata")
+            val ApiVersion = subdata.get("ApiVersion").toString()
+            LogUtil.d(TAG, "ApiVersion:$ApiVersion")
+            val LoginURL = subdata.get("LoginURL").toString()
+            LogUtil.d(TAG, "LoginURL:$LoginURL")
+        }*/
+
+        if(data.contains("ApiName") && data.contains("SupportedApiVersion"))
+        {
+            try
+            {
+                findingDeviceInfo = Gson().fromJson(data, FindingDeviceInfo::class.javaObjectType)
+                findingDeviceInfo.IP = ip
+                LogUtil.d(TAG, "findingDeviceInfo:${findingDeviceInfo.toString()}")
+                gatewayList.add(findingDeviceInfo)
+            }
+            catch(e: JSONException)
+            {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    override fun responseReceivedDone()
+    {
+        LogUtil.d(TAG,"responseReceivedDone")
+        if(gatewayList.size > 0)
+        {
+            GlobalData.gatewayList = gatewayList.toMutableList()//copy list to global data
+            GlobalBus.publish(MainEvent.SwitchToFrag(GatewayListFragment()))
+        }
+        else
+        {
+            if(retryTimes < 5)
+                runSearchTask()
+            else
+            {
+                if(isVisible)
+                {
+                    runOnUiThread{
+                        loading_animation_view.setAnimation("nofound.json")
+                        loading_animation_view.playAnimation()
+                        setNotFindDeviceUI()
+                    }
+                }
+            }
+        }
+    }
+
     private fun isNetworkAvailable(): Boolean
     {
         val connectivityManager = activity!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
@@ -120,11 +192,22 @@ class FindingDeviceFragment : Fragment()
 
     private fun runSearchTask()
     {
+        runOnUiThread{
+            loading_animation_view.setAnimation("searching.json")
+            loading_animation_view.playAnimation()
+        }
+
+        retryTimes++
+        gatewayList.clear()
+        SocketController(responseListener).deviceScan()
+    }
+
+    private fun runSearchTaskTest()
+    {
         loading_animation_view.setAnimation("searching.json")
         loading_animation_view.playAnimation()
 
         doAsync{
-            SocketControllerUtil.instance.deviceScan()
 
             var res = false
             val newGatewayProfileMutableList = mutableListOf<GatewayProfile>(
@@ -164,7 +247,7 @@ class FindingDeviceFragment : Fragment()
             }
 
             retryTimes++
-            res = true
+            res = false
             Thread.sleep(3000)
 
             uiThread{
