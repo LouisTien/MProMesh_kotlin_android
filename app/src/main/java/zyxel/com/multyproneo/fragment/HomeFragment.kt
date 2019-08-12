@@ -13,6 +13,7 @@ import zyxel.com.multyproneo.dialog.InternetStatusDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.model.GatewayProfile
 import zyxel.com.multyproneo.socketconnect.PacketReceiver
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
@@ -107,7 +108,8 @@ class HomeFragment : Fragment()
         home_connect_device_count_text.text = GlobalData.getConnectDeviceCount().toString()
         adapter = ZYXELEndDeviceItemAdapter(
                 GlobalData.ZYXELEndDeviceList,
-                GlobalData.getCurrentGatewayInfo(),
+                GatewayProfile(),
+                //GlobalData.getCurrentGatewayInfo(),
                 GlobalData.gatewayWanInfo,
                 GlobalData.gatewayLanIP)
         home_device_list.adapter = adapter

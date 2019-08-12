@@ -199,7 +199,7 @@ class EndDeviceDetailFragment : Fragment()
         connectType = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.ConnectionType)
         connectTo = SpecialCharacterHandler.checkEmptyTextValue(
                 if(endDeviceInfo.Neighbor.equals("gateway", ignoreCase = true))
-                    GlobalData.getCurrentGatewayInfo().modelName
+                    GlobalData.getCurrentGatewayInfo().ModelName
                 else
                     endDeviceInfo.Neighbor
         )

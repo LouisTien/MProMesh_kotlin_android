@@ -328,7 +328,7 @@ class WiFiSignalMeterFragment : Fragment()
                     }
 
                     wifi_signal_info_name_text.text = ssid.substring(1, ssid.length - 1)
-                    wifi_signal_info_connect_text.text = if(connectedModel == "") GlobalData.getCurrentGatewayInfo().userDefineName else connectedModel
+                    //wifi_signal_info_connect_text.text = if(connectedModel == "") GlobalData.getCurrentGatewayInfo().userDefineName else connectedModel
                 }
                 else
                     GlobalBus.publish(MainEvent.EnterSearchGatewayPage())

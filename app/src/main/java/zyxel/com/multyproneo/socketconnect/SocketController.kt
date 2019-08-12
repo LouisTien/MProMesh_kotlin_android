@@ -3,7 +3,6 @@ package zyxel.com.multyproneo.socketconnect
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.GlobalData
 
 /**
  * Created by LouisTien on 2019/7/8.
@@ -26,8 +25,6 @@ class SocketController(private val responseListener: IResponseListener)
     fun deviceScan()
     {
         packetreceiver.start()
-
-        GlobalData.gatewayList.clear()
 
         val so = SessionObject()
         val dr = JSONObject()

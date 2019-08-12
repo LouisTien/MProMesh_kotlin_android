@@ -14,17 +14,18 @@ import android.support.v7.app.AlertDialog
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
+import com.google.gson.Gson
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import org.json.JSONException
+import zyxel.com.multyproneo.api.Commander
+import zyxel.com.multyproneo.api.DevicesApi
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.fragment.*
-import zyxel.com.multyproneo.model.EndDeviceProfile
-import zyxel.com.multyproneo.model.WanInfoProfile
+import zyxel.com.multyproneo.model.DevicesInfo
+import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var msgDialogResponseDisposable: Disposable
     private lateinit var showToastDisposable: Disposable
     private lateinit var loadingDlg: Dialog
+    private lateinit var devicesInfo: DevicesInfo
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
     private var currentFrag = ""
@@ -351,6 +353,63 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private fun getDeviceInfoTask()
     {
         LogUtil.d(TAG,"getDeviceInfoTask()")
+        DevicesApi.GetDevicesInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            devicesInfo = Gson().fromJson(responseStr, DevicesInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"devicesInfo:${devicesInfo.toString()}")
+
+                            val newHomeEndDeviceList = mutableListOf<DevicesInfoObject>()
+                            val newZYXELEndDeviceList = mutableListOf<DevicesInfoObject>()
+                            val newGuestEndDeviceList = mutableListOf<DevicesInfoObject>()
+
+                            newZYXELEndDeviceList.add(
+                                    DevicesInfoObject
+                                    (
+                                            Active = true,
+                                            HostName = GlobalData.getCurrentGatewayInfo().ModelName,
+                                            IPAddress = GlobalData.getCurrentGatewayInfo().IP,
+                                            X_ZYXEL_CapabilityType = "L2Device",
+                                            X_ZYXEL_ConnectionType = "WiFi",
+                                            X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
+                                            X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion
+                                    )
+                            )
+
+                            for(item in devicesInfo.Object)
+                            {
+                                if(item.X_ZYXEL_CapabilityType == "L2Device")
+                                    newZYXELEndDeviceList.add(item)
+                                else
+                                {
+                                    if(item.X_ZYXEL_Conn_Guest == 1)
+                                        newGuestEndDeviceList.add(item)
+                                    else
+                                        newHomeEndDeviceList.add(item)
+                                }
+                            }
+
+                            /*GlobalData.endDeviceList = devicesInfo.Object.toMutableList()
+                            GlobalData.homeEndDeviceList = newHomeEndDeviceList.toMutableList()
+                            GlobalData.ZYXELEndDeviceList = newZYXELEndDeviceList.toMutableList()
+                            GlobalData.guestEndDeviceList = newGuestEndDeviceList.toMutableList()*/
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+                    }
+                }).execute()
+    }
+
+    /*private fun getDeviceInfoTask()
+    {
+        LogUtil.d(TAG,"getDeviceInfoTask()")
         doAsync{
             val newClientList = mutableListOf<EndDeviceProfile>(
                     EndDeviceProfile(
@@ -489,5 +548,5 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                 GlobalBus.publish(DevicesEvent.GetDeviceInfoComplete())
             }
         }
-    }
+    }*/
 }

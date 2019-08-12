@@ -13,7 +13,7 @@ import zyxel.com.multyproneo.adapter.GatewayItemAdapter
 import zyxel.com.multyproneo.event.GatewayListEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.model.GatewayProfile
+import zyxel.com.multyproneo.model.GatewayInfo
 import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
@@ -25,7 +25,7 @@ class GatewayListFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private lateinit var deviceSelectedDisposable: Disposable
-    private lateinit var gatewayProfileMutableList: MutableList<GatewayProfile>
+    private lateinit var gatewayInfoMutableList: MutableList<GatewayInfo>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -51,16 +51,16 @@ class GatewayListFragment : Fragment()
             OnDeviceSelected(it.index)
         }
 
-        gatewayProfileMutableList = GlobalData.gatewayProfileMutableList
+        gatewayInfoMutableList = GlobalData.gatewayList
 
         with(gateway_list_view)
         {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-            adapter = GatewayItemAdapter(gatewayProfileMutableList)
+            adapter = GatewayItemAdapter(gatewayInfoMutableList)
         }
 
-        if(gatewayProfileMutableList.size == 1)
+        if(gatewayInfoMutableList.size == 1)
         {
             GlobalBus.publish(MainEvent.ShowLoading())
             OnDeviceSelected(0)
@@ -82,10 +82,10 @@ class GatewayListFragment : Fragment()
     {
         GlobalData.currentGatewayIndex = index
         GlobalBus.publish(MainEvent.HideLoading())
-        val userName = DatabaseUtil.getInstance(activity!!)?.getDeviceUserNameFromDB(gatewayProfileMutableList[index].serial)
-        val password = DatabaseUtil.getInstance(activity!!)?.getDevicePasswordFromDB(gatewayProfileMutableList[index].serial)
-        LogUtil.d(TAG, "OnDeviceSelected userName from DB:$userName")
-        LogUtil.d(TAG, "OnDeviceSelected password from DB:$password")
+        //val userName = DatabaseUtil.getInstance(activity!!)?.getDeviceUserNameFromDB(gatewayInfoMutableList[index].serial)
+        //val password = DatabaseUtil.getInstance(activity!!)?.getDevicePasswordFromDB(gatewayInfoMutableList[index].serial)
+        //LogUtil.d(TAG, "OnDeviceSelected userName from DB:$userName")
+        //LogUtil.d(TAG, "OnDeviceSelected password from DB:$password")
         GlobalBus.publish(MainEvent.SwitchToFrag(LoginFragment()))
     }
 }

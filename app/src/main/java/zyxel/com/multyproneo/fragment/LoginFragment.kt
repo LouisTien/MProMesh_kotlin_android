@@ -21,7 +21,7 @@ import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.AccountApi
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.model.GatewayProfile
+import zyxel.com.multyproneo.model.GatewayInfo
 import zyxel.com.multyproneo.model.LoginInfo
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.DatabaseUtil
@@ -34,7 +34,7 @@ import zyxel.com.multyproneo.util.LogUtil
 class LoginFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
-    private lateinit var gatewayInfo: GatewayProfile
+    private lateinit var gatewayInfo: GatewayInfo
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var loginInfo: LoginInfo
     private var gatewayIndex = 0
@@ -65,9 +65,9 @@ class LoginFragment : Fragment()
         GlobalBus.publish(MainEvent.HideBottomToolbar())
         gatewayIndex = GlobalData.currentGatewayIndex
         gatewayInfo = GlobalData.getCurrentGatewayInfo()
-        login_title_text.text = getString(R.string.login_title) + " " + gatewayInfo.modelName
-        login_username_edit.setText(DatabaseUtil.getInstance(activity!!)?.getDeviceUserNameFromDB(gatewayInfo.serial))
-        login_password_edit.setText(DatabaseUtil.getInstance(activity!!)?.getDevicePasswordFromDB(gatewayInfo.serial))
+        login_title_text.text = getString(R.string.login_title) + " " + gatewayInfo.ModelName
+        //login_username_edit.setText(DatabaseUtil.getInstance(activity!!)?.getDeviceUserNameFromDB(gatewayInfo.serial))
+        //login_password_edit.setText(DatabaseUtil.getInstance(activity!!)?.getDevicePasswordFromDB(gatewayInfo.serial))
         attachKeyboardListeners()
     }
 
@@ -147,10 +147,10 @@ class LoginFragment : Fragment()
                                 {
                                     loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
                                     LogUtil.d(TAG,"loginInfo:${loginInfo.toString()}")
-                                    GlobalData.sessionkey = loginInfo.sessionkey
-                                    gatewayInfo.password = password
+                                    GlobalData.sessionKey = loginInfo.sessionkey
+                                    /*gatewayInfo.password = password
                                     gatewayInfo.userName = userName
-                                    DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)
+                                    DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)*/
                                     GlobalBus.publish(MainEvent.HideLoading())
                                     GlobalBus.publish(MainEvent.EnterHomePage())
                                 }

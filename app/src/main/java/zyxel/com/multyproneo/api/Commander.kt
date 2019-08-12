@@ -6,6 +6,7 @@ import org.json.JSONObject
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.HttpErrorInfo
+import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 import java.io.IOException
 import java.security.SecureRandom
@@ -175,7 +176,17 @@ abstract class Commander
                     val data = JSONObject(responseStr)
                     val result = data.get("oper_status").toString()
                     if(result.equals("Success", ignoreCase = false))
+                    {
                         responseListener.onSuccess(responseStr)
+
+                        if(call.request().url().toString().contains("UserLogin"))
+                        {
+                            val cookies = response.headers().values("Set-Cookie")
+                            val cookie = cookies.get(0).substring(0, cookies.get(0).indexOf(";"))
+                            GlobalData.cookie = cookie
+                            LogUtil.d(TAG,"cookie:$cookie")
+                        }
+                    }
                     else
                     {
                         GlobalBus.publish(MainEvent.HideLoading())

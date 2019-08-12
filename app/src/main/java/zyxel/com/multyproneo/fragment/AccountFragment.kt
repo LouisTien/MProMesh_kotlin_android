@@ -104,7 +104,7 @@ class AccountFragment : Fragment()
                 {
                     override fun onSuccess(responseStr: String)
                     {
-                        DatabaseUtil.getInstance(activity!!)?.deleteInformationToDB(GlobalData.getCurrentGatewayInfo())
+                        //DatabaseUtil.getInstance(activity!!)?.deleteInformationToDB(GlobalData.getCurrentGatewayInfo())
                         GlobalBus.publish(MainEvent.HideLoading())
                         GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
                     }

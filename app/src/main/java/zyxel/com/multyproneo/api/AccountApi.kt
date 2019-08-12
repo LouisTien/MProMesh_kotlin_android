@@ -3,7 +3,6 @@ package zyxel.com.multyproneo.api
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
-import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 
 /**
@@ -17,7 +16,7 @@ object AccountApi
     {
         override fun composeRequest(): Request
         {
-            val loginURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/UserLogin"
+            val loginURL = "${GlobalData.getAPIPath()}/UserLogin"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             val request = Request.Builder()
                     //.headers(getHeaders().build())
@@ -32,9 +31,10 @@ object AccountApi
     {
         override fun composeRequest(): Request
         {
-            val logoutURL = "${AppConfig.RESTfulProtocol}://${GlobalData.deviceIP}:${GlobalData.devicePort}${AppConfig.RESTfulVersion}/UserLogout?sessionkey=${GlobalData.sessionkey}"
+            val logoutURL = "${GlobalData.getAPIPath()}/UserLogout?sessionkey=${GlobalData.sessionKey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             val request = Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
                     .url(logoutURL)
                     .post(requestParam)
                     .build()

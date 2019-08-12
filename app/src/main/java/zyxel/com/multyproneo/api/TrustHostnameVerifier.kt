@@ -11,6 +11,6 @@ object TrustHostnameVerifier : HostnameVerifier
 {
     override fun verify(hostname: String?, session: SSLSession?): Boolean
     {
-        return hostname == GlobalData.deviceIP
+        return hostname == GlobalData.getDeviceIP()
     }
 }

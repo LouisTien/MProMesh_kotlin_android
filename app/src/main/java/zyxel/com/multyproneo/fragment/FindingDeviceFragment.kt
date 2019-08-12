@@ -21,14 +21,14 @@ import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.model.FindingDeviceInfo
-import zyxel.com.multyproneo.model.GatewayProfile
+import zyxel.com.multyproneo.model.GatewayInfo
+import zyxel.com.multyproneo.model.SupportedApiVersion
 import zyxel.com.multyproneo.socketconnect.IResponseListener
 import zyxel.com.multyproneo.socketconnect.SocketController
 import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
+import java.util.ArrayList
 
 /**
  * Created by LouisTien on 2019/5/28.
@@ -37,8 +37,8 @@ class FindingDeviceFragment : Fragment(), IResponseListener
 {
     private val TAG = javaClass.simpleName
     private lateinit var startWiFiSettingDisposable: Disposable
-    private lateinit var findingDeviceInfo: FindingDeviceInfo
-    private var gatewayList = mutableListOf<FindingDeviceInfo>()
+    private lateinit var findingDeviceInfo: GatewayInfo
+    private var gatewayList = mutableListOf<GatewayInfo>()
     private val responseListener = this
     private var userDefineName = ""
     private var retryTimes = 0
@@ -123,7 +123,7 @@ class FindingDeviceFragment : Fragment(), IResponseListener
         {
             try
             {
-                findingDeviceInfo = Gson().fromJson(data, FindingDeviceInfo::class.javaObjectType)
+                findingDeviceInfo = Gson().fromJson(data, GatewayInfo::class.javaObjectType)
                 findingDeviceInfo.IP = ip
                 LogUtil.d(TAG, "findingDeviceInfo:${findingDeviceInfo.toString()}")
                 gatewayList.add(findingDeviceInfo)
@@ -133,6 +133,25 @@ class FindingDeviceFragment : Fragment(), IResponseListener
                 e.printStackTrace()
             }
         }
+
+        /*findingDeviceInfo = GatewayInfo(
+                "192.168.1.1",
+                "",
+                "ZYXEL RESTful API",
+                "Router",
+                "EX5510-B0",
+                "V5.15(ABQX.0)b1_0411",
+                listOf<SupportedApiVersion>
+                (
+                        SupportedApiVersion
+                        ("1.0",
+                        8443,
+                        "/api/v1/UserLogin",
+                        "HTTPS")
+                )
+        )
+        LogUtil.d(TAG, "findingDeviceInfo:${findingDeviceInfo.toString()}")
+        gatewayList.add(findingDeviceInfo)*/
     }
 
     override fun responseReceivedDone()
@@ -198,11 +217,11 @@ class FindingDeviceFragment : Fragment(), IResponseListener
         }
 
         retryTimes++
-        gatewayList.clear()
+        GlobalData.gatewayList.clear()
         SocketController(responseListener).deviceScan()
     }
 
-    private fun runSearchTaskTest()
+    /*private fun runSearchTaskTest()
     {
         loading_animation_view.setAnimation("searching.json")
         loading_animation_view.playAnimation()
@@ -264,5 +283,5 @@ class FindingDeviceFragment : Fragment(), IResponseListener
                 }
             }
         }
-    }
+    }*/
 }

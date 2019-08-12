@@ -5,12 +5,12 @@ package zyxel.com.multyproneo.model
  */
 data class MeshInfo
 (
-    val Object: MeshInfoObject,
-    val oper_status: String,
-    val requested_path: String
+    val Object: MeshInfoObject = MeshInfoObject(),
+    val oper_status: String = "N/A",
+    val requested_path: String = "N/A"
 )
 
 data class MeshInfoObject
 (
-    val Enable: Boolean
+    val Enable: Boolean = false
 )

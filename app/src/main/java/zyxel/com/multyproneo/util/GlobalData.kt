@@ -1,21 +1,21 @@
 package zyxel.com.multyproneo.util
 
-import zyxel.com.multyproneo.model.EndDeviceProfile
-import zyxel.com.multyproneo.model.FindingDeviceInfo
-import zyxel.com.multyproneo.model.GatewayProfile
-import zyxel.com.multyproneo.model.WanInfoProfile
+import zyxel.com.multyproneo.model.*
 
 /**
  * Created by LouisTien on 2019/5/30.
  */
 object GlobalData
 {
-    var deviceIP = "192.168.1.1"
-    var devicePort = "8443"
-    var sessionkey= ""
+    var sessionKey = ""
+    var cookie = ""
     var currentGatewayIndex = 0
-    var gatewayProfileMutableList = mutableListOf<GatewayProfile>()
-    var gatewayList = mutableListOf<FindingDeviceInfo>()
+    //var gatewayProfileMutableList = mutableListOf<GatewayProfile>()
+    var gatewayList = mutableListOf<GatewayInfo>()
+    /*var endDeviceList = mutableListOf<DevicesInfoObject>()
+    var ZYXELEndDeviceList = mutableListOf<DevicesInfoObject>()
+    var guestEndDeviceList = mutableListOf<DevicesInfoObject>()
+    var homeEndDeviceList = mutableListOf<DevicesInfoObject>()*/
     var endDeviceList = mutableListOf<EndDeviceProfile>()
     var ZYXELEndDeviceList = mutableListOf<EndDeviceProfile>()
     var guestEndDeviceList = mutableListOf<EndDeviceProfile>()
@@ -26,23 +26,29 @@ object GlobalData
     var homeDevAscendingOrder = true
     var guestDevAscendingOrder = true
 
-    fun getCurrentGatewayInfo(): GatewayProfile = gatewayProfileMutableList[currentGatewayIndex]
+    fun getCurrentGatewayInfo(): GatewayInfo = gatewayList[currentGatewayIndex]
+    fun getDeviceIP(): String = getCurrentGatewayInfo().IP
+    fun getDevicePort(): String = getCurrentGatewayInfo().SupportedApiVersion[0].HttpsPort.toString()
+    fun getProtocol(): String = getCurrentGatewayInfo().SupportedApiVersion[0].Protocol
+    fun getAPIVersion(): String = getCurrentGatewayInfo().SupportedApiVersion[0].LoginURI.substring(0, getCurrentGatewayInfo().SupportedApiVersion[0].LoginURI.lastIndexOf("/"))
+    fun getAPIPath(): String = "${GlobalData.getProtocol()}://${GlobalData.getDeviceIP()}:${GlobalData.getDevicePort()}${GlobalData.getAPIVersion()}"
     fun getConnectDeviceCount(): Int = endDeviceList.size - (ZYXELEndDeviceList.size - 1)
     fun getTotalDeviceCount(): Int = homeEndDeviceList.size + guestEndDeviceList.size
 
     fun getActivatedDeviceCount(): Int
     {
-        var count = 0
+        /*var count = 0
         for(item in homeEndDeviceList)
         {
-            if(item.Active.equals("Connect", ignoreCase = true)) count++
+            if(item.Active) count++
         }
 
         for(item in guestEndDeviceList)
         {
-            if(item.Active.equals("Connect", ignoreCase = true)) count++
+            if(item.Active) count++
         }
-        return count
+        return count*/
+        return 0
     }
 
     fun sortHomeDeviceList() = if(homeDevAscendingOrder) sortHomeDevAscendingOrder() else sortHomeDevDescendingOrder()

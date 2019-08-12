@@ -28,8 +28,6 @@ object AppConfig
 
     //Restful
     const val RESTfulBroadcastSet = true
-    const val RESTfulProtocol = "https"
-    const val RESTfulVersion = "/api/v1"
 
     enum class LoadingAnimation
     {
