@@ -12,9 +12,7 @@ import android.view.ViewGroup
 import com.google.gson.Gson
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_loading_transition.*
-import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.support.v4.runOnUiThread
-import org.jetbrains.anko.uiThread
 import org.json.JSONException
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.dialog.MessageDialog
@@ -22,14 +20,12 @@ import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayInfo
-import zyxel.com.multyproneo.model.SupportedApiVersion
 import zyxel.com.multyproneo.socketconnect.IResponseListener
 import zyxel.com.multyproneo.socketconnect.SocketController
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
-import java.util.ArrayList
 
 /**
  * Created by LouisTien on 2019/5/28.
@@ -144,25 +140,6 @@ class FindingDeviceFragment : Fragment(), IResponseListener
                 e.printStackTrace()
             }
         }
-
-        /*findingDeviceInfo = GatewayInfo(
-                "192.168.1.1",
-                "",
-                "ZYXEL RESTful API",
-                "Router",
-                "EX5510-B0",
-                "V5.15(ABQX.0)b1_0411",
-                listOf<SupportedApiVersion>
-                (
-                        SupportedApiVersion
-                        ("1.0",
-                        8443,
-                        "/api/v1/UserLogin",
-                        "HTTPS")
-                )
-        )
-        LogUtil.d(TAG, "findingDeviceInfo:${findingDeviceInfo.toString()}")
-        gatewayList.add(findingDeviceInfo)*/
     }
 
     override fun responseReceivedDone()
@@ -231,68 +208,4 @@ class FindingDeviceFragment : Fragment(), IResponseListener
         GlobalData.gatewayList.clear()
         SocketController(responseListener).deviceScan()
     }
-
-    /*private fun runSearchTaskTest()
-    {
-        loading_animation_view.setAnimation("searching.json")
-        loading_animation_view.playAnimation()
-
-        doAsync{
-
-            var res = false
-            val newGatewayProfileMutableList = mutableListOf<GatewayProfile>(
-                    GatewayProfile(
-                            modelName = "EMG6726-B10A",
-                            systemName = "EMG6726-B10A",
-                            IP = "192.168.1.1",
-                            firmwareVersion = "V5.13(ABNP.1)b2",
-                            serial = "S180Y21006075",
-                            userDefineName = "EMG6726-B10A",
-                            initFlag = -1,
-                            multyFlag = 1,
-                            internetProtocol = "HTTP",
-                            customer = "ZYXEL"
-                    ),
-                    GatewayProfile(
-                            modelName = "WAP6804",
-                            systemName = "zyxelsetup",
-                            IP = "192.168.1.151",
-                            firmwareVersion = "1.00(ABKH.6)C0",
-                            serial = "S170Y32040619",
-                            userDefineName = "WAP6804",
-                            multyFlag = 1,
-                            type = -1
-                    )
-            )
-
-            for(i in newGatewayProfileMutableList.indices)
-            {
-                userDefineName = DatabaseUtil.getInstance(activity!!)?.getDeviceUserDefineNameFromDB(newGatewayProfileMutableList[i].serial)!!
-                LogUtil.d(TAG, "userDefineName from DB:$userDefineName")
-
-                if(userDefineName == "")
-                    newGatewayProfileMutableList[i].userDefineName = newGatewayProfileMutableList[i].modelName
-                else
-                    newGatewayProfileMutableList[i].userDefineName = userDefineName
-            }
-
-            retryTimes++
-            res = false
-            Thread.sleep(3000)
-
-            uiThread{
-                if(res)
-                {
-                    GlobalData.gatewayProfileMutableList = newGatewayProfileMutableList.toMutableList()//copy list to global data
-                    GlobalBus.publish(MainEvent.SwitchToFrag(GatewayListFragment()))
-                }
-                else
-                {
-                    loading_animation_view.setAnimation("nofound.json")
-                    loading_animation_view.playAnimation()
-                    setNotFindDeviceUI()
-                }
-            }
-        }
-    }*/
 }

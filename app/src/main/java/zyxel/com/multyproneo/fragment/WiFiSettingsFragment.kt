@@ -14,16 +14,13 @@ import com.google.gson.Gson
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import kotlinx.android.synthetic.main.fragment_wifi_settings.*
-import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.support.v4.dip
 import org.jetbrains.anko.support.v4.runOnUiThread
-import org.jetbrains.anko.uiThread
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.WiFiSettingApi
-import zyxel.com.multyproneo.dialog.LoadingTransitionDialog
 import zyxel.com.multyproneo.dialog.QRCodeDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
@@ -302,31 +299,6 @@ class WiFiSettingsFragment : Fragment()
             }
         }
     }
-
-    /*private fun getWiFiSettingInfoTask()
-    {
-        doAsync{
-            WiFiName = "Zyxel06075"
-            WiFiPwd = "383TAR8ND7"
-            WiFiSecurity = "WPA2PSK"
-            guestWiFiName = "Zyxel06075_guest"
-            guestWiFiPwd = "383TAR8N"
-            guestWiFiSecurity = "WPA2PSK"
-            guestWiFiStatus = false
-
-            uiThread{
-                if(isVisible)
-                {
-                    wifi_settings_wifi_name_text.text = WiFiName
-                    wifi_settings_wifi_password_text.text = WiFiPwd
-                    wifi_settings_guest_wifi_name_text.text = guestWiFiName
-                    wifi_settings_guest_wifi_password_text.text = guestWiFiPwd
-                    wifi_settings_guest_wifi_switch_image.setImageResource(if(guestWiFiStatus) R.drawable.switch_on else R.drawable.switch_off)
-                    generateQRCode()
-                }
-            }
-        }
-    }*/
 
     private fun getMeshInfoTask()
     {

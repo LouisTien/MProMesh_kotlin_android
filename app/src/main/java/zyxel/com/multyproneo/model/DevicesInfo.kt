@@ -53,8 +53,8 @@ data class DevicesInfoObject
     val X_ZYXEL_SignalStrength: Int = 0,
     val X_ZYXEL_SoftwareVersion: String = "N/A",
     val X_ZYXEL_WiFiStatus: Boolean = false,
+    var ChangeIconIndex: Int = 0, //index of ChangeIconInfoObject list
     var UserDefineName: String = "N/A", //ChangeIconInfoObject.HostName
-    var MacAddress: String = "N/A", //ChangeIconInfoObject.MacAddress
     var Internet_Blocking_Enable: Int = 0 //ChangeIconInfoObject.Internet_Blocking_Enable
 ) : Serializable
 {
