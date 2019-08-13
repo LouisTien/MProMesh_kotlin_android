@@ -12,15 +12,16 @@ object GlobalData
     var currentGatewayIndex = 0
     //var gatewayProfileMutableList = mutableListOf<GatewayProfile>()
     var gatewayList = mutableListOf<GatewayInfo>()
-    /*var endDeviceList = mutableListOf<DevicesInfoObject>()
+    var endDeviceList = mutableListOf<DevicesInfoObject>()
     var ZYXELEndDeviceList = mutableListOf<DevicesInfoObject>()
     var guestEndDeviceList = mutableListOf<DevicesInfoObject>()
-    var homeEndDeviceList = mutableListOf<DevicesInfoObject>()*/
-    var endDeviceList = mutableListOf<EndDeviceProfile>()
+    var homeEndDeviceList = mutableListOf<DevicesInfoObject>()
+    /*var endDeviceList = mutableListOf<EndDeviceProfile>()
     var ZYXELEndDeviceList = mutableListOf<EndDeviceProfile>()
     var guestEndDeviceList = mutableListOf<EndDeviceProfile>()
-    var homeEndDeviceList = mutableListOf<EndDeviceProfile>()
-    var gatewayWanInfo = WanInfoProfile()
+    var homeEndDeviceList = mutableListOf<EndDeviceProfile>()*/
+    var gatewayWanInfo = WanInfo()
+    //var gatewayWanInfo = WanInfoProfile()
     var gatewayLanIP = ""
     var guestWiFiStatus = false
     var homeDevAscendingOrder = true
@@ -37,7 +38,7 @@ object GlobalData
 
     fun getActivatedDeviceCount(): Int
     {
-        /*var count = 0
+        var count = 0
         for(item in homeEndDeviceList)
         {
             if(item.Active) count++
@@ -47,8 +48,7 @@ object GlobalData
         {
             if(item.Active) count++
         }
-        return count*/
-        return 0
+        return count
     }
 
     fun sortHomeDeviceList() = if(homeDevAscendingOrder) sortHomeDevAscendingOrder() else sortHomeDevDescendingOrder()
@@ -56,13 +56,13 @@ object GlobalData
     private fun sortHomeDevAscendingOrder()
     {
         homeDevAscendingOrder = true
-        homeEndDeviceList.sortBy { it.Name }
+        homeEndDeviceList.sortBy{ it.getName() }
     }
 
     private fun sortHomeDevDescendingOrder()
     {
         homeDevAscendingOrder = false
-        homeEndDeviceList.sortByDescending { it.Name }
+        homeEndDeviceList.sortByDescending{ it.getName() }
     }
 
     fun sortGuestDeviceList() = if(guestDevAscendingOrder) sortGuestDevAscendingOrder() else sortGuestDevDescendingOrder()
@@ -70,12 +70,12 @@ object GlobalData
     private fun sortGuestDevAscendingOrder()
     {
         guestDevAscendingOrder = true
-        guestEndDeviceList.sortBy { it.Name }
+        guestEndDeviceList.sortBy{ it.getName() }
     }
 
     private fun sortGuestDevDescendingOrder()
     {
         guestDevAscendingOrder = false
-        guestEndDeviceList.sortByDescending { it.Name }
+        guestEndDeviceList.sortByDescending{ it.getName() }
     }
 }

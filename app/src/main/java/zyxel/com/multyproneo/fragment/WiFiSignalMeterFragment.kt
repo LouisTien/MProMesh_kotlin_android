@@ -21,8 +21,6 @@ import org.jetbrains.anko.uiThread
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.model.EndDeviceProfile
-import zyxel.com.multyproneo.util.GlobalData
 import java.net.NetworkInterface
 import java.util.*
 import kotlin.concurrent.schedule
@@ -190,7 +188,7 @@ class WiFiSignalMeterFragment : Fragment()
 
     private fun getConnectedWiFiInfoTask()
     {
-        var ssid = ""
+        /*var ssid = ""
         var neighborMAC = ""
         var connectedModel = ""
         var endDeviceProfileArrayList: MutableList<EndDeviceProfile>
@@ -333,7 +331,7 @@ class WiFiSignalMeterFragment : Fragment()
                 else
                     GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
             }
-        }
+        }*/
     }
 
     fun getRssiTask()

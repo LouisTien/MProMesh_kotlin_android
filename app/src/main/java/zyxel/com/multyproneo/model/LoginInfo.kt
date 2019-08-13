@@ -5,7 +5,7 @@ package zyxel.com.multyproneo.model
  */
 data class LoginInfo
 (
-    val MethodList: List<String>,
-    val oper_status: String,
-    val sessionkey: String
+    val MethodList: List<String> = listOf(String()),
+    val oper_status: String = "N/A",
+    val sessionkey: String = "N/A"
 )

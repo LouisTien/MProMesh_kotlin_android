@@ -18,7 +18,7 @@ import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.model.EndDeviceProfile
+import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.tool.CommonTool
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.*
@@ -30,7 +30,7 @@ class EndDeviceDetailFragment : Fragment()
 {
     private lateinit var msgDialogResponse: Disposable
     private lateinit var inputMethodManager: InputMethodManager
-    private lateinit var endDeviceInfo: EndDeviceProfile
+    private lateinit var endDeviceInfo: DevicesInfoObject
     private var isEditMode = false
     private var isBlocked = false
     private var isFromSearch = false
@@ -58,7 +58,7 @@ class EndDeviceDetailFragment : Fragment()
 
         with(arguments)
         {
-            this?.getSerializable("EndDeviceProfile")?.let{ endDeviceInfo = it as EndDeviceProfile }
+            this?.getSerializable("DevicesInfo")?.let{ endDeviceInfo = it as DevicesInfoObject }
             this?.getString("Search")?.let{ searchStr = it }
             this?.getBoolean("FromSearch")?.let{ isFromSearch = it }
         }
@@ -161,8 +161,7 @@ class EndDeviceDetailFragment : Fragment()
             end_device_detail_internet_blocking_image ->
             {
                 isBlocked = !isBlocked
-                endDeviceInfo.InternetAccess = if(isBlocked) "Blocking" else "Non-Blocking"
-                endDeviceInfo.Blocking = if(isBlocked) "Blocking" else "Non-Blocking"
+                endDeviceInfo.Internet_Blocking_Enable = if(isBlocked) 1 else 0
                 updateUI()
             }
         }
@@ -193,43 +192,39 @@ class EndDeviceDetailFragment : Fragment()
         rssi = "N/A"
         manufacturer = "N/A"
 
-        val isConnect = endDeviceInfo.Active == "Connect"
+        val isConnect = endDeviceInfo.Active
 
-        modelName = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.UserDefineName)
-        connectType = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.ConnectionType)
+        modelName = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.getName())
+        connectType = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_ConnectionType)
         connectTo = SpecialCharacterHandler.checkEmptyTextValue(
-                if(endDeviceInfo.Neighbor.equals("gateway", ignoreCase = true))
+                if(endDeviceInfo.X_ZYXEL_Neighbor.equals("gateway", ignoreCase = true))
                     GlobalData.getCurrentGatewayInfo().ModelName
                 else
-                    endDeviceInfo.Neighbor
+                    endDeviceInfo.X_ZYXEL_Neighbor
         )
         ip = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.IPAddress)
-        mac = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.MAC)
-        val oui = OUIUtil.getOUI(activity!!, endDeviceInfo.MAC)
-        manufacturer = SpecialCharacterHandler.checkEmptyTextValue(if(oui == "") endDeviceInfo.Manufacturer else oui)
-        dhcpTime = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.dhcpLeaseTime)
-
-        if(modelName.equals("N/A", ignoreCase = true))
-            modelName = endDeviceInfo.Name
+        mac = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.PhysAddress)
+        manufacturer = SpecialCharacterHandler.checkEmptyTextValue(OUIUtil.getOUI(activity!!, endDeviceInfo.PhysAddress))
+        dhcpTime = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_DHCPLeaseTime.toString())
 
         if(FeatureConfig.hostNameReplease)
         {
             if(modelName.equals("unknown", ignoreCase = true))
-                modelName = OUIUtil.getOUI(activity!!, endDeviceInfo.MAC)
+                modelName = OUIUtil.getOUI(activity!!, endDeviceInfo.PhysAddress)
         }
 
         if(connectType.equals("WiFi", ignoreCase = true))
         {
-            when(endDeviceInfo.Band)
+            when(endDeviceInfo.X_ZYXEL_Band)
             {
                 2 -> wifiBand = "5G"
                 3 -> wifiBand = "2.4G/5G"
                 else -> wifiBand = "2.4G"
             }
 
-            wifiChannel = SpecialCharacterHandler.checkEmptyTextValue(if(endDeviceInfo.Band == 2) endDeviceInfo.Channel5G.toString() else endDeviceInfo.Channel24G.toString())
-            maxSpeed = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.PhyRate.toString() + "Mbps")
-            rssi = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.Rssi.toString())
+            wifiChannel = SpecialCharacterHandler.checkEmptyTextValue(if(endDeviceInfo.X_ZYXEL_Band == 2) endDeviceInfo.X_ZYXEL_Channel_5G.toString() else endDeviceInfo.X_ZYXEL_Channel_24G.toString())
+            maxSpeed = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_PhyRate.toString() + "Mbps")
+            rssi = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_RSSI.toString())
         }
 
         end_device_detail_model_name_text.text = modelName
@@ -243,7 +238,7 @@ class EndDeviceDetailFragment : Fragment()
         end_device_detail_rssi_text.text = rssi
         end_device_detail_manufacturer_text.text = manufacturer
 
-        isBlocked = endDeviceInfo.Blocking.equals("Blocking", ignoreCase = true)
+        isBlocked = endDeviceInfo.Internet_Blocking_Enable == 1
 
         when(isConnect)
         {

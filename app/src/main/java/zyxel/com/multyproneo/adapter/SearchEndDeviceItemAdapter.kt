@@ -11,7 +11,7 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.fragment.EndDeviceDetailFragment
-import zyxel.com.multyproneo.model.EndDeviceProfile
+import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.tool.CommonTool
 
 /**
@@ -19,7 +19,7 @@ import zyxel.com.multyproneo.tool.CommonTool
  */
 class SearchEndDeviceItemAdapter(private var activity: Activity) : BaseAdapter()
 {
-    public var endDeviceList = mutableListOf<EndDeviceProfile>()
+    public var endDeviceList = mutableListOf<DevicesInfoObject>()
     public var searchStr = ""
 
     override fun getCount(): Int = endDeviceList.size
@@ -53,11 +53,11 @@ class SearchEndDeviceItemAdapter(private var activity: Activity) : BaseAdapter()
     {
         fun bind(position: Int)
         {
-            view.search_user_define_name_text.text = endDeviceList[position].UserDefineName
+            view.search_user_define_name_text.text = endDeviceList[position].getName()
             view.search_enter_detail_image.setOnClickListener{
                 CommonTool.hideKeyboard(activity)
                 val bundle = Bundle().apply{
-                    putSerializable("EndDeviceProfile", endDeviceList[position])
+                    putSerializable("DevicesInfo", endDeviceList[position])
                     putString("Search", searchStr)
                     putBoolean("FromSearch", true)
                 }

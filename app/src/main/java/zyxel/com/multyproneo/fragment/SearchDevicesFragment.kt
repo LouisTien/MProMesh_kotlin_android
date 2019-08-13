@@ -11,7 +11,7 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.SearchEndDeviceItemAdapter
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.model.EndDeviceProfile
+import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.tool.CommonTool
 import zyxel.com.multyproneo.util.GlobalData
 
@@ -21,9 +21,9 @@ import zyxel.com.multyproneo.util.GlobalData
 class SearchDevicesFragment : Fragment()
 {
     private lateinit var itemAdapter: SearchEndDeviceItemAdapter
-    private lateinit var homeEndDeviceList: MutableList<EndDeviceProfile>
-    private lateinit var guestEndDeviceList: MutableList<EndDeviceProfile>
-    private var searchResultDeviceList = mutableListOf<EndDeviceProfile>()
+    private lateinit var homeEndDeviceList: MutableList<DevicesInfoObject>
+    private lateinit var guestEndDeviceList: MutableList<DevicesInfoObject>
+    private var searchResultDeviceList = mutableListOf<DevicesInfoObject>()
     private var searchStr = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?

@@ -5,7 +5,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.provider.BaseColumns
 import android.util.Base64
-import zyxel.com.multyproneo.model.GatewayProfile
+import zyxel.com.multyproneo.model.GatewayInfo
 import zyxel.com.multyproneo.tool.CryptTool
 import zyxel.com.multyproneo.util.LogUtil
 import java.io.UnsupportedEncodingException
@@ -19,7 +19,7 @@ class DatabaseHandler(private var activity: Activity)
     private val TAG = javaClass.simpleName
     private lateinit var dbhelper: DatabaseHelper
     private lateinit var cursor: Cursor
-    private var gatewayProfileArrayListDB = arrayListOf<GatewayProfile>()
+    private var gatewayInfoArrayListDB = arrayListOf<GatewayInfo>()
 
     enum class GETINFOFROMDB
     {
@@ -48,7 +48,7 @@ class DatabaseHandler(private var activity: Activity)
                 DatabaseContents.MODEL,
                 DatabaseContents.VERSION,
                 DatabaseContents.IP,
-                DatabaseContents.SERIAL,
+                DatabaseContents.MAC,
                 DatabaseContents.PASSWORD,
                 DatabaseContents.USERNAME,
                 DatabaseContents.USERDEFINENAME,
@@ -58,71 +58,71 @@ class DatabaseHandler(private var activity: Activity)
         activity.startManagingCursor(cursor)
     }
 
-    fun getGatewayFromDB(): ArrayList<GatewayProfile>
+    fun getGatewayFromDB(): ArrayList<GatewayInfo>
     {
         openDatabase()
         getDatabaseCursor()
-        gatewayProfileArrayListDB.clear()
+        gatewayInfoArrayListDB.clear()
         while(cursor.moveToNext())
         {
-            val gatewayProfile = GatewayProfile()
-            with(gatewayProfile)
+            val gatewayInfo = GatewayInfo()
+            with(gatewayInfo)
             {
-                idInDB = cursor.getString(0)
-                modelName = cursor.getString(1)
-                firmwareVersion = cursor.getString(2)
+                IdInDB = cursor.getString(0)
+                ModelName = cursor.getString(1)
+                SoftwareVersion = cursor.getString(2)
                 IP = cursor.getString(3)
-                serial = cursor.getString(4)
-                password = cursor.getString(5)
-                userName = cursor.getString(6)
-                userDefineName = cursor.getString(7)
+                MAC = cursor.getString(4)
+                Password = cursor.getString(5)
+                UserName = cursor.getString(6)
+                UserDefineName = cursor.getString(7)
             }
-            gatewayProfileArrayListDB.add(gatewayProfile)
+            gatewayInfoArrayListDB.add(gatewayInfo)
         }
 
-        for(i in gatewayProfileArrayListDB.indices)
+        for(i in gatewayInfoArrayListDB.indices)
         {
-            LogUtil.d(TAG, "gateway profile on db id = " + gatewayProfileArrayListDB[i].idInDB)
-            LogUtil.d(TAG, "gateway profile on db model = " + gatewayProfileArrayListDB[i].modelName)
-            LogUtil.d(TAG, "gateway profile on db serial = " + gatewayProfileArrayListDB[i].serial)
-            LogUtil.d(TAG, "gateway profile on db password = " + gatewayProfileArrayListDB[i].password)
-            LogUtil.d(TAG, "gateway profile on db username = " + gatewayProfileArrayListDB[i].userName)
-            LogUtil.d(TAG, "gateway profile on db userDefineName = " + gatewayProfileArrayListDB[i].userDefineName)
+            LogUtil.d(TAG, "gateway info on db id = " + gatewayInfoArrayListDB[i].IdInDB)
+            LogUtil.d(TAG, "gateway info on db model = " + gatewayInfoArrayListDB[i].ModelName)
+            LogUtil.d(TAG, "gateway info on db mac = " + gatewayInfoArrayListDB[i].MAC)
+            LogUtil.d(TAG, "gateway info on db password = " + gatewayInfoArrayListDB[i].Password)
+            LogUtil.d(TAG, "gateway info on db account = " + gatewayInfoArrayListDB[i].UserName)
+            LogUtil.d(TAG, "gateway info on db userDefineName = " + gatewayInfoArrayListDB[i].UserDefineName)
         }
 
-        return gatewayProfileArrayListDB
+        return gatewayInfoArrayListDB
     }
 
-    private fun addToDB(deviceInfo: GatewayProfile)
+    private fun addToDB(deviceInfo: GatewayInfo)
     {
         val db = dbhelper.writableDatabase
         val values = ContentValues()
         with(values)
         {
-            put(DatabaseContents.MODEL, deviceInfo.modelName)
-            put(DatabaseContents.VERSION, deviceInfo.firmwareVersion)
+            put(DatabaseContents.MODEL, deviceInfo.ModelName)
+            put(DatabaseContents.VERSION, deviceInfo.SoftwareVersion)
             put(DatabaseContents.IP, deviceInfo.IP)
-            put(DatabaseContents.SERIAL, deviceInfo.serial)
-            put(DatabaseContents.PASSWORD, deviceInfo.password)
-            put(DatabaseContents.USERNAME, deviceInfo.userName)
-            put(DatabaseContents.USERDEFINENAME, deviceInfo.userDefineName)
+            put(DatabaseContents.MAC, deviceInfo.MAC)
+            put(DatabaseContents.PASSWORD, deviceInfo.Password)
+            put(DatabaseContents.USERNAME, deviceInfo.UserName)
+            put(DatabaseContents.USERDEFINENAME, deviceInfo.UserDefineName)
         }
         db.insert(DatabaseContents.TABLE_NAME, null, values)
     }
 
-    private fun replaceToDB(rowID: String, deviceInfo: GatewayProfile)
+    private fun replaceToDB(rowID: String, deviceInfo: GatewayInfo)
     {
         val db = dbhelper.writableDatabase
         val values = ContentValues()
         with(values)
         {
-            put(DatabaseContents.MODEL, deviceInfo.modelName)
-            put(DatabaseContents.VERSION, deviceInfo.firmwareVersion)
+            put(DatabaseContents.MODEL, deviceInfo.ModelName)
+            put(DatabaseContents.VERSION, deviceInfo.SoftwareVersion)
             put(DatabaseContents.IP, deviceInfo.IP)
-            put(DatabaseContents.SERIAL, deviceInfo.serial)
-            put(DatabaseContents.PASSWORD, deviceInfo.password)
-            put(DatabaseContents.USERNAME, deviceInfo.userName)
-            put(DatabaseContents.USERDEFINENAME, deviceInfo.userDefineName)
+            put(DatabaseContents.MAC, deviceInfo.MAC)
+            put(DatabaseContents.PASSWORD, deviceInfo.Password)
+            put(DatabaseContents.USERNAME, deviceInfo.UserName)
+            put(DatabaseContents.USERDEFINENAME, deviceInfo.UserDefineName)
         }
         db.update(DatabaseContents.TABLE_NAME, values, BaseColumns._ID + "=" + rowID, null)
     }
@@ -133,42 +133,42 @@ class DatabaseHandler(private var activity: Activity)
         db.delete(DatabaseContents.TABLE_NAME, BaseColumns._ID + "=" + id, null)
     }
 
-    fun getDevicePasswordFromDB(serial: String): String
+    fun getDevicePasswordFromDB(mac: String): String
     {
-        LogUtil.d(TAG,"getDevicePasswordFromDB, search serial:$serial")
-        return getInformationFromDB(GETINFOFROMDB.INFO_PASSWORD, serial)
+        LogUtil.d(TAG,"getDevicePasswordFromDB, search mac:$mac")
+        return getInformationFromDB(GETINFOFROMDB.INFO_PASSWORD, mac)
     }
 
-    fun getDeviceUserNameFromDB(serial: String): String
+    fun getDeviceUserNameFromDB(mac: String): String
     {
-        LogUtil.d(TAG, "getDeviceUserNameFromDB, search serial:$serial")
-        return getInformationFromDB(GETINFOFROMDB.INFO_USERNAME, serial)
+        LogUtil.d(TAG, "getDeviceUserNameFromDB, search mac:$mac")
+        return getInformationFromDB(GETINFOFROMDB.INFO_USERNAME, mac)
     }
 
-    fun getDeviceUserDefineNameFromDB(serial: String): String
+    fun getDeviceUserDefineNameFromDB(mac: String): String
     {
-        LogUtil.d(TAG, "getDeviceUserDefineNameFromDB, search serial:$serial")
-        return getInformationFromDB(GETINFOFROMDB.INFO_USERDEFINENAME, serial)
+        LogUtil.d(TAG, "getDeviceUserDefineNameFromDB, search mac:$mac")
+        return getInformationFromDB(GETINFOFROMDB.INFO_USERDEFINENAME, mac)
     }
 
-    fun getInformationFromDB(infoTag: GETINFOFROMDB, serial: String): String
+    fun getInformationFromDB(infoTag: GETINFOFROMDB, mac: String): String
     {
         var retStr = ""
         var isExist = false
 
         getGatewayFromDB()
 
-        if(gatewayProfileArrayListDB.size != 0)
+        if(gatewayInfoArrayListDB.size != 0)
         {
-            for(i in gatewayProfileArrayListDB.indices)
+            for(i in gatewayInfoArrayListDB.indices)
             {
-                if(gatewayProfileArrayListDB[i].serial.equals(serial, ignoreCase = true))
+                if(gatewayInfoArrayListDB[i].MAC.equals(mac, ignoreCase = true))
                 {
                     when(infoTag)
                     {
-                        DatabaseHandler.GETINFOFROMDB.INFO_PASSWORD -> retStr = gatewayProfileArrayListDB[i].password
-                        DatabaseHandler.GETINFOFROMDB.INFO_USERNAME -> retStr = gatewayProfileArrayListDB[i].userName
-                        DatabaseHandler.GETINFOFROMDB.INFO_USERDEFINENAME -> retStr = gatewayProfileArrayListDB[i].userDefineName
+                        DatabaseHandler.GETINFOFROMDB.INFO_PASSWORD -> retStr = gatewayInfoArrayListDB[i].Password
+                        DatabaseHandler.GETINFOFROMDB.INFO_USERNAME -> retStr = gatewayInfoArrayListDB[i].UserName
+                        DatabaseHandler.GETINFOFROMDB.INFO_USERDEFINENAME -> retStr = gatewayInfoArrayListDB[i].UserDefineName
                     }
                     isExist = true
                     break
@@ -200,7 +200,7 @@ class DatabaseHandler(private var activity: Activity)
         return retStr
     }
 
-    fun updateInformationToDB(gatewayInfo: GatewayProfile)
+    fun updateInformationToDB(gatewayInfo: GatewayInfo)
     {
         var isExist = false
         var encryptedPassword: String? = null
@@ -209,26 +209,26 @@ class DatabaseHandler(private var activity: Activity)
 
         getGatewayFromDB()
 
-        LogUtil.d(TAG, "input password = " + gatewayInfo.password)
-        LogUtil.d(TAG, "input userName = " + gatewayInfo.userName)
-        LogUtil.d(TAG, "input userDefineName = " + gatewayInfo.userDefineName)
+        LogUtil.d(TAG, "input password = " + gatewayInfo.Password)
+        LogUtil.d(TAG, "input userName = " + gatewayInfo.UserName)
+        LogUtil.d(TAG, "input userDefineName = " + gatewayInfo.UserDefineName)
 
         try
         {
             encryptedPassword = CryptTool.EncryptAES(
                     CryptTool.IvAES.toByteArray(charset("UTF-8")),
                     CryptTool.KeyAES.toByteArray(charset("UTF-8")),
-                    gatewayInfo.password.toByteArray(charset("UTF-8")))
+                    gatewayInfo.Password.toByteArray(charset("UTF-8")))
 
             encryptedUserName = CryptTool.EncryptAES(
                     CryptTool.IvAES.toByteArray(charset("UTF-8")),
                     CryptTool.KeyAES.toByteArray(charset("UTF-8")),
-                    gatewayInfo.userName.toByteArray(charset("UTF-8")))
+                    gatewayInfo.UserName.toByteArray(charset("UTF-8")))
 
             encryptedUserDefineName = CryptTool.EncryptAES(
                     CryptTool.IvAES.toByteArray(charset("UTF-8")),
                     CryptTool.KeyAES.toByteArray(charset("UTF-8")),
-                    gatewayInfo.userDefineName.toByteArray(charset("UTF-8")))
+                    gatewayInfo.UserDefineName.toByteArray(charset("UTF-8")))
         }
         catch(e: UnsupportedEncodingException)
         {
@@ -239,24 +239,24 @@ class DatabaseHandler(private var activity: Activity)
         LogUtil.d(TAG,"encrypted userName = $encryptedUserName")
         LogUtil.d(TAG,"encrypted userDefineName = $encryptedUserDefineName")
 
-        gatewayInfo.password = encryptedPassword!!
-        gatewayInfo.userName = encryptedUserName!!
-        gatewayInfo.userDefineName = encryptedUserDefineName!!
+        gatewayInfo.Password = encryptedPassword!!
+        gatewayInfo.UserName = encryptedUserName!!
+        gatewayInfo.UserDefineName = encryptedUserDefineName!!
 
-        if(gatewayProfileArrayListDB.size == 0)
+        if(gatewayInfoArrayListDB.size == 0)
         {
             LogUtil.d(TAG,"db data size is zero, add it")
             addToDB(gatewayInfo)
         }
-        else if(gatewayProfileArrayListDB.size > 0)
+        else if(gatewayInfoArrayListDB.size > 0)
         {
             LogUtil.d(TAG,"db data size is not zero, find if exist")
             var id = ""
-            for(i in gatewayProfileArrayListDB.indices)
+            for(i in gatewayInfoArrayListDB.indices)
             {
-                if(gatewayProfileArrayListDB[i].serial.equals(gatewayInfo.serial, ignoreCase = true))
+                if(gatewayInfoArrayListDB[i].MAC.equals(gatewayInfo.MAC, ignoreCase = true))
                 {
-                    id = gatewayProfileArrayListDB[i].idInDB
+                    id = gatewayInfoArrayListDB[i].IdInDB
                     isExist = true
                     break
                 }
@@ -276,21 +276,21 @@ class DatabaseHandler(private var activity: Activity)
 
         getGatewayFromDB()
 
-        gatewayInfo.password = getDevicePasswordFromDB(gatewayInfo.serial)
-        gatewayInfo.userName = getDeviceUserNameFromDB(gatewayInfo.serial)
-        gatewayInfo.userDefineName = getDeviceUserDefineNameFromDB(gatewayInfo.serial)
+        gatewayInfo.Password = getDevicePasswordFromDB(gatewayInfo.MAC)
+        gatewayInfo.UserName = getDeviceUserNameFromDB(gatewayInfo.MAC)
+        gatewayInfo.UserDefineName = getDeviceUserDefineNameFromDB(gatewayInfo.MAC)
     }
 
-    fun deleteInformationToDB(gatewayInfo: GatewayProfile)
+    fun deleteInformationToDB(gatewayInfo: GatewayInfo)
     {
         getGatewayFromDB()
 
-        for(i in gatewayProfileArrayListDB.indices)
+        for(i in gatewayInfoArrayListDB.indices)
         {
-            if(gatewayProfileArrayListDB[i].serial.equals(gatewayInfo.serial, ignoreCase = true))
+            if(gatewayInfoArrayListDB[i].MAC.equals(gatewayInfo.MAC, ignoreCase = true))
             {
-                LogUtil.d(TAG,"delete id = " + gatewayProfileArrayListDB[i].idInDB)
-                deleteToDB(gatewayProfileArrayListDB[i].idInDB)
+                LogUtil.d(TAG,"delete id = " + gatewayInfoArrayListDB[i].IdInDB)
+                deleteToDB(gatewayInfoArrayListDB[i].IdInDB)
             }
         }
 

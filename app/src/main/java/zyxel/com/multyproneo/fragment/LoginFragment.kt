@@ -148,9 +148,9 @@ class LoginFragment : Fragment()
                                     loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
                                     LogUtil.d(TAG,"loginInfo:${loginInfo.toString()}")
                                     GlobalData.sessionKey = loginInfo.sessionkey
-                                    /*gatewayInfo.password = password
-                                    gatewayInfo.userName = userName
-                                    DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)*/
+                                    gatewayInfo.Password = password
+                                    gatewayInfo.UserName = userName
+                                    DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)
                                     GlobalBus.publish(MainEvent.HideLoading())
                                     GlobalBus.publish(MainEvent.EnterHomePage())
                                 }
@@ -163,9 +163,9 @@ class LoginFragment : Fragment()
 
                             override fun onFail(code: Int, msg: String, ctxName: String)
                             {
-                                LogUtil.d(TAG, "[onFail] code = $code")
-                                LogUtil.d(TAG, "[onFail] msg = $msg")
-                                LogUtil.d(TAG, "[onFail] ctxName = $ctxName")
+                                LogUtil.e(TAG, "[onFail] code = $code")
+                                LogUtil.e(TAG, "[onFail] msg = $msg")
+                                LogUtil.e(TAG, "[onFail] ctxName = $ctxName")
 
                                 if(ctxName == TAG && code == 401)
                                 {

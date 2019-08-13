@@ -5,5 +5,5 @@ package zyxel.com.multyproneo.model
  */
 data class HttpErrorInfo
 (
-    val oper_status: String
+    val oper_status: String = "N/A"
 )

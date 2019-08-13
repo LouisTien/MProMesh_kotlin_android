@@ -20,9 +20,9 @@ import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.model.EndDeviceProfile
-import zyxel.com.multyproneo.model.GatewayProfile
-import zyxel.com.multyproneo.model.WanInfoProfile
+import zyxel.com.multyproneo.model.DevicesInfoObject
+import zyxel.com.multyproneo.model.GatewayInfo
+import zyxel.com.multyproneo.model.WanInfo
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.DatabaseUtil
@@ -34,9 +34,9 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 {
     private lateinit var msgDialogResponse: Disposable
     private lateinit var inputMethodManager: InputMethodManager
-    private lateinit var deviceInfo: GatewayProfile
-    private lateinit var deviceWanInfo: WanInfoProfile
-    private lateinit var endDeviceInfo: EndDeviceProfile
+    private lateinit var deviceInfo: GatewayInfo
+    private lateinit var deviceWanInfo: WanInfo
+    private lateinit var endDeviceInfo: DevicesInfoObject
     private var isGatewayMode = false
     private var isEditMode = false
     private var isConnect = false
@@ -63,10 +63,10 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         with(arguments)
         {
             this?.getBoolean("GatewayMode")?.let{ isGatewayMode = it }
-            this?.getSerializable("GatewayProfile")?.let{ deviceInfo = it as GatewayProfile }
-            this?.getSerializable("GatewayWanInfo")?.let { deviceWanInfo = it as WanInfoProfile }
+            this?.getSerializable("GatewayInfo")?.let{ deviceInfo = it as GatewayInfo }
+            this?.getSerializable("WanInfo")?.let { deviceWanInfo = it as WanInfo }
             this?.getString("GatewayLanIP")?.let{ deviceLanIP = it }
-            this?.getSerializable("EndDeviceProfile")?.let{ endDeviceInfo = it as EndDeviceProfile }
+            this?.getSerializable("DevicesInfo")?.let{ endDeviceInfo = it as DevicesInfoObject }
         }
 
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -171,21 +171,21 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 
     private fun initUI()
     {
-        val isGatewayConnect = deviceWanInfo.WanStatus == "Enable"
-        val isEndDeviceConnect = endDeviceInfo.Active == "Connect"
+        val isGatewayConnect = deviceWanInfo.Object.Status == "Enable"
+        val isEndDeviceConnect = endDeviceInfo.Active
         isConnect = if(isGatewayMode) isGatewayConnect else isEndDeviceConnect
 
         setConnectTypeTextListVisibility(isConnect)
 
-        modelName = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceInfo.userDefineName else endDeviceInfo.UserDefineName)
+        modelName = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceInfo.UserDefineName else endDeviceInfo.UserDefineName)
         status = SpecialCharacterHandler.checkEmptyTextValue(getString(if(isConnect) R.string.device_detail_connecting else R.string.device_detail_disconnect))
-        connectType = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) (if(isConnect) getString(R.string.device_detail_wire) else "") else endDeviceInfo.ConnectionType)
+        connectType = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) (if(isConnect) getString(R.string.device_detail_wire) else "") else endDeviceInfo.X_ZYXEL_ConnectionType)
         ip = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) "" else endDeviceInfo.IPAddress)
-        wanIP = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceWanInfo.WanIP else "")
-        dnsIP = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceWanInfo.WanDNS else "")
+        wanIP = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceWanInfo.Object.IPAddress else "")
+        dnsIP = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceWanInfo.Object.DNSServer else "")
         lanIP = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceLanIP else "")
-        mac = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceWanInfo.WanMAC else endDeviceInfo.MAC)
-        fwVer = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceInfo.firmwareVersion else endDeviceInfo.SoftwareVersion)
+        mac = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceWanInfo.Object.MAC else endDeviceInfo.PhysAddress)
+        fwVer = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceInfo.SoftwareVersion else endDeviceInfo.X_ZYXEL_SoftwareVersion)
 
         zyxel_end_device_detail_model_name_text.text = modelName
         zyxel_end_device_detail_model_name_edit.setText(modelName)
@@ -232,7 +232,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 
     private fun setGatewayModeUI()
     {
-        zyxel_end_device_detail_title_text.text = endDeviceInfo.DeviceMode + " " + getString(R.string.device_detail_detail)
+        zyxel_end_device_detail_title_text.text = endDeviceInfo.X_ZYXEL_HostType + " " + getString(R.string.device_detail_detail)
         setContentLinearListVisibility(true)
         zyxel_end_device_detail_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_reboot_button.visibility = if(isConnect) View.VISIBLE else View.INVISIBLE
@@ -241,7 +241,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 
     private fun setEndDeviceModeUI()
     {
-        zyxel_end_device_detail_title_text.text = endDeviceInfo.DeviceMode + " " + getString(R.string.device_detail_detail)
+        zyxel_end_device_detail_title_text.text = endDeviceInfo.X_ZYXEL_HostType + " " + getString(R.string.device_detail_detail)
         setContentLinearListVisibility(true)
         zyxel_end_device_detail_wan_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_dns_ip_linear.visibility = View.GONE
@@ -331,7 +331,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 
                 if(isGatewayMode)
                 {
-                    deviceInfo.userDefineName = editDeviceName
+                    deviceInfo.UserDefineName = editDeviceName
                     DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(deviceInfo)
                 }
 

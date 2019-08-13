@@ -12,15 +12,14 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.fragment.EndDeviceDetailFragment
-import zyxel.com.multyproneo.model.EndDeviceProfile
-import zyxel.com.multyproneo.tool.SpecialCharacterHandler
+import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.OUIUtil
 
 /**
  * Created by LouisTien on 2019/6/10.
  */
-class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var endDeviceList: MutableList<EndDeviceProfile>) : BaseAdapter()
+class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var endDeviceList: MutableList<DevicesInfoObject>) : BaseAdapter()
 {
     override fun getCount(): Int = endDeviceList.size
 
@@ -53,7 +52,7 @@ class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var 
     {
         fun bind(position: Int)
         {
-            var status = if(endDeviceList[position].Blocking.equals("Blocking", ignoreCase = true)) "Blocked" else endDeviceList[position].RssiValue
+            var status = if(endDeviceList[position].Internet_Blocking_Enable == 1) "Blocked" else endDeviceList[position].X_ZYXEL_RSSI_STAT
 
             view.link_quality_text.textColor = parent.context.resources.getColor(
                     with(status)
@@ -68,7 +67,7 @@ class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var 
                     }
             )
 
-            if(endDeviceList[position].Active.equals("Disconnect", ignoreCase = true))
+            if(endDeviceList[position].Active)
             {
                 status = ""
                 view.user_define_name_text.textColor = parent.context.resources.getColor(R.color.color_b4b4b4)
@@ -78,14 +77,15 @@ class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var 
 
             view.link_quality_text.text = status
 
-            var modelName = SpecialCharacterHandler.checkEmptyTextValue(endDeviceList[position].UserDefineName)
+            /*var modelName = SpecialCharacterHandler.checkEmptyTextValue(endDeviceList[position].UserDefineName)
             if(modelName.equals("N/A", ignoreCase = true))
-                modelName = endDeviceList[position].Name
+                modelName = endDeviceList[position].Name*/
+            var modelName = endDeviceList[position].getName()
 
             if(FeatureConfig.hostNameReplease)
             {
                 if(modelName.equals("unknown", ignoreCase = true))
-                    modelName = OUIUtil.getOUI(activity, endDeviceList[position].MAC)
+                    modelName = OUIUtil.getOUI(activity, endDeviceList[position].PhysAddress)
             }
 
             view.user_define_name_text.text = modelName
@@ -93,7 +93,7 @@ class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var 
 
             view.enter_detail_image.setOnClickListener{
                 val bundle = Bundle().apply{
-                    putSerializable("EndDeviceProfile", endDeviceList[position])
+                    putSerializable("DevicesInfo", endDeviceList[position])
                     putString("Search", "")
                     putBoolean("FromSearch", false)
                 }

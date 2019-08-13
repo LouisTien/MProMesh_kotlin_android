@@ -394,10 +394,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                 }
                             }
 
-                            /*GlobalData.endDeviceList = devicesInfo.Object.toMutableList()
+                            GlobalData.endDeviceList = devicesInfo.Object.toMutableList()
                             GlobalData.homeEndDeviceList = newHomeEndDeviceList.toMutableList()
                             GlobalData.ZYXELEndDeviceList = newZYXELEndDeviceList.toMutableList()
-                            GlobalData.guestEndDeviceList = newGuestEndDeviceList.toMutableList()*/
+                            GlobalData.guestEndDeviceList = newGuestEndDeviceList.toMutableList()
                         }
                         catch(e: JSONException)
                         {

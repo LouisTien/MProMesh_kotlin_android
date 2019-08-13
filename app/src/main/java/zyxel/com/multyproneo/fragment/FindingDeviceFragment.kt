@@ -26,6 +26,7 @@ import zyxel.com.multyproneo.model.SupportedApiVersion
 import zyxel.com.multyproneo.socketconnect.IResponseListener
 import zyxel.com.multyproneo.socketconnect.SocketController
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 import java.util.ArrayList
@@ -125,7 +126,17 @@ class FindingDeviceFragment : Fragment(), IResponseListener
             {
                 findingDeviceInfo = Gson().fromJson(data, GatewayInfo::class.javaObjectType)
                 findingDeviceInfo.IP = ip
+
+                userDefineName = DatabaseUtil.getInstance(activity!!)?.getDeviceUserDefineNameFromDB(findingDeviceInfo.MAC)!!
+                LogUtil.d(TAG, "userDefineName from DB:$userDefineName")
+
+                if(userDefineName == "")
+                    findingDeviceInfo.UserDefineName = findingDeviceInfo.ModelName
+                else
+                    findingDeviceInfo.UserDefineName = userDefineName
+
                 LogUtil.d(TAG, "findingDeviceInfo:${findingDeviceInfo.toString()}")
+
                 gatewayList.add(findingDeviceInfo)
             }
             catch(e: JSONException)

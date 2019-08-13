@@ -11,17 +11,17 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.fragment.ZYXELEndDeviceDetailFragment
-import zyxel.com.multyproneo.model.EndDeviceProfile
-import zyxel.com.multyproneo.model.GatewayProfile
-import zyxel.com.multyproneo.model.WanInfoProfile
+import zyxel.com.multyproneo.model.DevicesInfoObject
+import zyxel.com.multyproneo.model.GatewayInfo
+import zyxel.com.multyproneo.model.WanInfo
 
 /**
  * Created by LouisTien on 2019/6/4.
  */
 class ZYXELEndDeviceItemAdapter(
-        private var endDeviceList: MutableList<EndDeviceProfile>,
-        private var deviceInfo: GatewayProfile,
-        private var deviceWanInfo: WanInfoProfile,
+        private var endDeviceList: MutableList<DevicesInfoObject>,
+        private var deviceInfo: GatewayInfo,
+        private var deviceWanInfo: WanInfo,
         private var deviceLanIP: String) : BaseAdapter()
 {
 
@@ -54,19 +54,19 @@ class ZYXELEndDeviceItemAdapter(
 
     inner class ViewHolder(private var view: View, private var parent: ViewGroup)
     {
-        fun bind(position: Int, deviceInfo: GatewayProfile, deviceWanInfo: WanInfoProfile, deviceLanIP: String)
+        fun bind(position: Int, deviceInfo: GatewayInfo, deviceWanInfo: WanInfo, deviceLanIP: String)
         {
             var status = ""
-            if(endDeviceList[position].DeviceMode.equals("GATEWAY", ignoreCase = true))
+            if(endDeviceList[position].X_ZYXEL_HostType.equals("Router", ignoreCase = true))
                 view.connect_status_text.text = status
             else
             {
-                if(endDeviceList[position].Active.equals("Disconnect", ignoreCase = true))
+                if(endDeviceList[position].Active)
                     status = "N/A"
                 else
                 {
-                    if(endDeviceList[position].ConnectionType.equals("WiFi", ignoreCase = true))
-                        status = endDeviceList[position].RssiValue
+                    if(endDeviceList[position].X_ZYXEL_ConnectionType.equals("WiFi", ignoreCase = true))
+                        status = endDeviceList[position].X_ZYXEL_RSSI_STAT
                     else
                         status = "Good"
                 }
@@ -87,7 +87,7 @@ class ZYXELEndDeviceItemAdapter(
                 )
             }
 
-            val mode = endDeviceList[position].DeviceMode + if(status.equals("N/A", ignoreCase = true)) " disconnected" else ""
+            val mode = endDeviceList[position].X_ZYXEL_HostType + if(status.equals("N/A", ignoreCase = true)) " disconnected" else ""
             view.device_mode_text.text = mode
 
             view.user_define_name_text.text = endDeviceList[position].UserDefineName
@@ -95,10 +95,10 @@ class ZYXELEndDeviceItemAdapter(
             view.enter_detail_image.setOnClickListener{
                 val bundle = Bundle().apply{
                     putBoolean("GatewayMode", position == 0)
-                    putSerializable("GatewayProfile", deviceInfo)
-                    putSerializable("GatewayWanInfo", deviceWanInfo)
+                    putSerializable("GatewayInfo", deviceInfo)
+                    putSerializable("WanInfo", deviceWanInfo)
                     putString("GatewayLanIP", deviceLanIP)
-                    putSerializable("EndDeviceProfile", endDeviceList[position])
+                    putSerializable("DevicesInfo", endDeviceList[position])
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(ZYXELEndDeviceDetailFragment().apply{ arguments = bundle }))
             }

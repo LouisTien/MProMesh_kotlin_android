@@ -7,11 +7,11 @@ import android.provider.BaseColumns
  */
 object DatabaseContents : BaseColumns
 {
-    const val TABLE_NAME = "deviceinfo"
+    const val TABLE_NAME = "gatewayinfo"
     const val MODEL = "model"
     const val VERSION = "version"
     const val IP = "ip"
-    const val SERIAL = "serial"
+    const val MAC = "mac"
     const val PASSWORD = "password"
     const val USERNAME = "username"
     const val USERDEFINENAME = "userdefinename"

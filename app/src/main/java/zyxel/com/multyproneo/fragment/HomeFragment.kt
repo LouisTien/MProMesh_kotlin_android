@@ -13,8 +13,6 @@ import zyxel.com.multyproneo.dialog.InternetStatusDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.model.GatewayProfile
-import zyxel.com.multyproneo.socketconnect.PacketReceiver
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
@@ -108,13 +106,12 @@ class HomeFragment : Fragment()
         home_connect_device_count_text.text = GlobalData.getConnectDeviceCount().toString()
         adapter = ZYXELEndDeviceItemAdapter(
                 GlobalData.ZYXELEndDeviceList,
-                GatewayProfile(),
-                //GlobalData.getCurrentGatewayInfo(),
+                GlobalData.getCurrentGatewayInfo(),
                 GlobalData.gatewayWanInfo,
                 GlobalData.gatewayLanIP)
         home_device_list.adapter = adapter
 
-        home_internet_status_content_text.text = getString(if(GlobalData.gatewayWanInfo.WanStatus == "Enable") R.string.home_online else R.string.home_offline)
+        home_internet_status_content_text.text = getString(if(GlobalData.gatewayWanInfo.Object.Status == "Enable") R.string.home_online else R.string.home_offline)
 
         when(GlobalData.guestWiFiStatus)
         {
