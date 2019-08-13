@@ -3,14 +3,14 @@ package zyxel.com.multyproneo.model
 /**
  * Created by LouisTien on 2019/8/13.
  */
-data class ChangeIconInfo
+data class ChangeIconNameInfo
 (
-    val Object: List<ChangeIconInfoObject> = listOf(ChangeIconInfoObject()),
+    val Object: List<ChangeIconNameInfoObject> = listOf(ChangeIconNameInfoObject()),
     val oper_status: String = "N/A",
     val requested_path: String = "N/A"
 )
 
-data class ChangeIconInfoObject
+data class ChangeIconNameInfoObject
 (
     val HostName: String = "N/A",
     val MacAddress: String = "N/A",

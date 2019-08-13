@@ -24,14 +24,14 @@ object DevicesApi
         }
     }
 
-    class GetChangeIconInfo : Commander()
+    class GetChangeIconNameInfo : Commander()
     {
         override fun composeRequest(): Request
         {
-            val getChangeIconInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_Change_Icon_Name."
+            val getChangeIconNameInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_Change_Icon_Name."
             val request = Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
-                    .url(getChangeIconInfoURL)
+                    .url(getChangeIconNameInfoURL)
                     .build()
             return request
         }

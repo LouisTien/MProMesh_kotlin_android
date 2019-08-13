@@ -24,7 +24,7 @@ import zyxel.com.multyproneo.api.DevicesApi
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.fragment.*
-import zyxel.com.multyproneo.model.ChangeIconInfo
+import zyxel.com.multyproneo.model.ChangeIconNameInfo
 import zyxel.com.multyproneo.model.DevicesInfo
 import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.util.AppConfig
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var showToastDisposable: Disposable
     private lateinit var loadingDlg: Dialog
     private lateinit var devicesInfo: DevicesInfo
-    private lateinit var changeIconInfo: ChangeIconInfo
+    private lateinit var changeIconNameInfo: ChangeIconNameInfo
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
     private var currentFrag = ""
@@ -214,7 +214,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         startGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StartGetDeviceInfoTask::class.java).subscribe{
             deviceTimer = Timer()
-            deviceTimer.schedule(0, (AppConfig.endDeviceListUpdateTime * 1000).toLong()){ getChangeIconInfoTask() }
+            deviceTimer.schedule(0, (AppConfig.endDeviceListUpdateTime * 1000).toLong()){ getChangeIconNameInfoTask() }
         }
 
         stopGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StopGetDeviceInfoTask::class.java).subscribe{ deviceTimer.cancel() }
@@ -350,10 +350,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         runOnUiThread{ toast(msg) }
     }
 
-    private fun getChangeIconInfoTask()
+    private fun getChangeIconNameInfoTask()
     {
-        LogUtil.d(TAG,"getChangeIconInfoTask()")
-        DevicesApi.GetChangeIconInfo()
+        LogUtil.d(TAG,"getChangeIconNameInfoTask()")
+        DevicesApi.GetChangeIconNameInfo()
                 .setRequestPageName(TAG)
                 .setResponseListener(object: Commander.ResponseListener()
                 {
@@ -361,9 +361,9 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                     {
                         try
                         {
-                            changeIconInfo = Gson().fromJson(responseStr, ChangeIconInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"changeIconInfo:${changeIconInfo.toString()}")
-                            GlobalData.changeIconList = changeIconInfo.Object.toMutableList()
+                            changeIconNameInfo = Gson().fromJson(responseStr, ChangeIconNameInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"changeIconNameInfo:${changeIconNameInfo.toString()}")
+                            GlobalData.changeIconNameList = changeIconNameInfo.Object.toMutableList()
                             getDeviceInfoTask()
                         }
                         catch(e: JSONException)
@@ -407,13 +407,13 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
                             for(item in devicesInfo.Object)
                             {
-                                for(i in GlobalData.changeIconList.indices)
+                                for(i in GlobalData.changeIconNameList.indices)
                                 {
-                                    if(item.PhysAddress == GlobalData.changeIconList[i].MacAddress)
+                                    if(item.PhysAddress == GlobalData.changeIconNameList[i].MacAddress)
                                     {
-                                        item.ChangeIconIndex = i
-                                        item.UserDefineName = GlobalData.changeIconList[i].HostName
-                                        item.Internet_Blocking_Enable = GlobalData.changeIconList[i].Internet_Blocking_Enable
+                                        item.ChangeIconNameIndex = i
+                                        item.UserDefineName = GlobalData.changeIconNameList[i].HostName
+                                        item.Internet_Blocking_Enable = GlobalData.changeIconNameList[i].Internet_Blocking_Enable
                                     }
                                 }
 

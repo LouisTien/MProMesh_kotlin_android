@@ -15,7 +15,7 @@ object GlobalData
     var ZYXELEndDeviceList = mutableListOf<DevicesInfoObject>()
     var guestEndDeviceList = mutableListOf<DevicesInfoObject>()
     var homeEndDeviceList = mutableListOf<DevicesInfoObject>()
-    var changeIconList = mutableListOf<ChangeIconInfoObject>()
+    var changeIconNameList = mutableListOf<ChangeIconNameInfoObject>()
     var gatewayWanInfo = WanInfo()
     var gatewayLanIP = ""
     var guestWiFiStatus = false
