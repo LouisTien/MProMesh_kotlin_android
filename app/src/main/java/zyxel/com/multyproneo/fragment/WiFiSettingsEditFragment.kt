@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.fragment_wifi_settings_edit.*
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.textColor
+import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.Commander
@@ -21,6 +22,7 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
 /**
@@ -439,9 +441,19 @@ class WiFiSettingsEditFragment : Fragment()
                 {
                     override fun onSuccess(responseStr: String)
                     {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+
                         setWiFi24GPwdTask()
                     }
-
                 }).execute()
     }
 
@@ -460,10 +472,20 @@ class WiFiSettingsEditFragment : Fragment()
                 {
                     override fun onSuccess(responseStr: String)
                     {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+
                         if(!showOneSSID)
                             setWiFi5GSSIDTask()
                     }
-
                 }).execute()
     }
 
@@ -480,9 +502,19 @@ class WiFiSettingsEditFragment : Fragment()
                 {
                     override fun onSuccess(responseStr: String)
                     {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+
                         setWiFi5GPwdTask()
                     }
-
                 }).execute()
     }
 
@@ -501,9 +533,17 @@ class WiFiSettingsEditFragment : Fragment()
                 {
                     override fun onSuccess(responseStr: String)
                     {
-
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
                     }
-
                 }).execute()
     }
 
@@ -520,9 +560,19 @@ class WiFiSettingsEditFragment : Fragment()
                 {
                     override fun onSuccess(responseStr: String)
                     {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+
                         setGuestWiFi24GPwdTask()
                     }
-
                 }).execute()
     }
 
@@ -541,9 +591,19 @@ class WiFiSettingsEditFragment : Fragment()
                 {
                     override fun onSuccess(responseStr: String)
                     {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+
                         setGuestWiFi5GSSIDTask()
                     }
-
                 }).execute()
     }
 
@@ -560,9 +620,19 @@ class WiFiSettingsEditFragment : Fragment()
                 {
                     override fun onSuccess(responseStr: String)
                     {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+
                         setGuestWiFi5GPwdTask()
                     }
-
                 }).execute()
     }
 
@@ -581,9 +651,17 @@ class WiFiSettingsEditFragment : Fragment()
                 {
                     override fun onSuccess(responseStr: String)
                     {
-
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
                     }
-
                 }).execute()
     }
 }

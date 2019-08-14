@@ -150,4 +150,17 @@ object WiFiSettingApi
             return request
         }
     }
+
+    class GetGuestWiFi24GInfo : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val getGuestWiFi24GInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.WiFi.SSID.2."
+            val request = Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(getGuestWiFi24GInfoURL)
+                    .build()
+            return request
+        }
+    }
 }

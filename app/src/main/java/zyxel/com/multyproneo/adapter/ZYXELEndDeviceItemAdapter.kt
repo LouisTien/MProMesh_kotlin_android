@@ -21,8 +21,7 @@ import zyxel.com.multyproneo.model.WanInfo
 class ZYXELEndDeviceItemAdapter(
         private var endDeviceList: MutableList<DevicesInfoObject>,
         private var deviceInfo: GatewayInfo,
-        private var deviceWanInfo: WanInfo,
-        private var deviceLanIP: String) : BaseAdapter()
+        private var deviceWanInfo: WanInfo) : BaseAdapter()
 {
 
     override fun getCount(): Int = endDeviceList.size
@@ -47,14 +46,14 @@ class ZYXELEndDeviceItemAdapter(
             holder = view.tag as ViewHolder
         }
 
-        holder.bind(position, deviceInfo, deviceWanInfo, deviceLanIP)
+        holder.bind(position, deviceInfo, deviceWanInfo)
 
         return view
     }
 
     inner class ViewHolder(private var view: View, private var parent: ViewGroup)
     {
-        fun bind(position: Int, deviceInfo: GatewayInfo, deviceWanInfo: WanInfo, deviceLanIP: String)
+        fun bind(position: Int, deviceInfo: GatewayInfo, deviceWanInfo: WanInfo)
         {
             var status = ""
             if(endDeviceList[position].X_ZYXEL_HostType.equals("Router", ignoreCase = true))
@@ -90,14 +89,13 @@ class ZYXELEndDeviceItemAdapter(
             val mode = endDeviceList[position].X_ZYXEL_HostType + if(status.equals("N/A", ignoreCase = true)) " disconnected" else ""
             view.device_mode_text.text = mode
 
-            view.user_define_name_text.text = endDeviceList[position].UserDefineName
+            view.user_define_name_text.text = endDeviceList[position].getName()
 
             view.enter_detail_image.setOnClickListener{
                 val bundle = Bundle().apply{
                     putBoolean("GatewayMode", position == 0)
                     putSerializable("GatewayInfo", deviceInfo)
                     putSerializable("WanInfo", deviceWanInfo)
-                    putString("GatewayLanIP", deviceLanIP)
                     putSerializable("DevicesInfo", endDeviceList[position])
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(ZYXELEndDeviceDetailFragment().apply{ arguments = bundle }))

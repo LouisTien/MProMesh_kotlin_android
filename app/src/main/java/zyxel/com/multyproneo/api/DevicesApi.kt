@@ -36,4 +36,17 @@ object DevicesApi
             return request
         }
     }
+
+    class GetWanInfo : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val getWanInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.DeviceInfo.WanInfo."
+            val request = Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(getWanInfoURL)
+                    .build()
+            return request
+        }
+    }
 }

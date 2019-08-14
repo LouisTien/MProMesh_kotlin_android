@@ -109,13 +109,13 @@ class SearchDevicesFragment : Fragment()
                 searchResultDeviceList.clear()
                 for(item in homeEndDeviceList)
                 {
-                    if(item.UserDefineName.toUpperCase().contains(search.toUpperCase()))
+                    if(item.getName().toUpperCase().contains(search.toUpperCase()))
                         searchResultDeviceList.add(item)
                 }
 
                 for(item in guestEndDeviceList)
                 {
-                    if(item.UserDefineName.toUpperCase().contains(search.toUpperCase()))
+                    if(item.getName().toUpperCase().contains(search.toUpperCase()))
                         searchResultDeviceList.add(item)
                 }
 

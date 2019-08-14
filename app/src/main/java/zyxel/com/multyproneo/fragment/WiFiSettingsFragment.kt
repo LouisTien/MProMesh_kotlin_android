@@ -27,6 +27,7 @@ import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.MeshInfo
 import zyxel.com.multyproneo.model.WiFiSettingInfo
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
 /**
@@ -373,6 +374,17 @@ class WiFiSettingsFragment : Fragment()
                 {
                     override fun onSuccess(responseStr: String)
                     {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+
                         setGuestWiFi5GEnableTask()
                     }
 
@@ -392,7 +404,16 @@ class WiFiSettingsFragment : Fragment()
                 {
                     override fun onSuccess(responseStr: String)
                     {
-
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
                     }
 
                 }).execute()

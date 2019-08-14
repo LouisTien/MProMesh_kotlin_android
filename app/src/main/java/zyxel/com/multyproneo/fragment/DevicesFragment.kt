@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_devices.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.support.v4.runOnUiThread
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.HomeGuestEndDeviceItemAdapter
 import zyxel.com.multyproneo.event.DevicesEvent
@@ -92,20 +93,22 @@ class DevicesFragment : Fragment()
     {
         if(!isVisible) return
 
-        devices_activated_value_text.text = GlobalData.getActivatedDeviceCount().toString()
-        devices_total_value_text.text = GlobalData.getTotalDeviceCount().toString()
+        runOnUiThread{
+            devices_activated_value_text.text = GlobalData.getActivatedDeviceCount().toString()
+            devices_total_value_text.text = GlobalData.getTotalDeviceCount().toString()
 
-        devices_home_devices_sort_image.setImageResource(if(GlobalData.homeDevAscendingOrder) R.drawable.device_sorting_1 else R.drawable.device_sorting_2)
-        GlobalData.sortHomeDeviceList()
-        devices_home_devices_list.adapter = HomeGuestEndDeviceItemAdapter(activity!!, GlobalData.homeEndDeviceList)
+            devices_home_devices_sort_image.setImageResource(if(GlobalData.homeDevAscendingOrder) R.drawable.device_sorting_1 else R.drawable.device_sorting_2)
+            GlobalData.sortHomeDeviceList()
+            devices_home_devices_list.adapter = HomeGuestEndDeviceItemAdapter(activity!!, GlobalData.homeEndDeviceList)
 
-        if(GlobalData.guestEndDeviceList.size > 0)
-        {
-            devices_guest_devices_sort_image.setImageResource(if(GlobalData.guestDevAscendingOrder) R.drawable.device_sorting_1 else R.drawable.device_sorting_2)
-            GlobalData.sortGuestDeviceList()
-            devices_guest_devices_list.adapter = HomeGuestEndDeviceItemAdapter(activity!!, GlobalData.guestEndDeviceList)
+            if(GlobalData.guestEndDeviceList.size > 0)
+            {
+                devices_guest_devices_sort_image.setImageResource(if(GlobalData.guestDevAscendingOrder) R.drawable.device_sorting_1 else R.drawable.device_sorting_2)
+                GlobalData.sortGuestDeviceList()
+                devices_guest_devices_list.adapter = HomeGuestEndDeviceItemAdapter(activity!!, GlobalData.guestEndDeviceList)
+            }
+            else
+                devices_guest_devices_area_linear.visibility = View.GONE
         }
-        else
-            devices_guest_devices_area_linear.visibility = View.GONE
     }
 }

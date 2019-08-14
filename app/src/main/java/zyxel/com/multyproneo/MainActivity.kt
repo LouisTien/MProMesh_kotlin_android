@@ -21,12 +21,11 @@ import org.jetbrains.anko.toast
 import org.json.JSONException
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.DevicesApi
+import zyxel.com.multyproneo.api.WiFiSettingApi
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.fragment.*
-import zyxel.com.multyproneo.model.ChangeIconNameInfo
-import zyxel.com.multyproneo.model.DevicesInfo
-import zyxel.com.multyproneo.model.DevicesInfoObject
+import zyxel.com.multyproneo.model.*
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
@@ -57,6 +56,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var loadingDlg: Dialog
     private lateinit var devicesInfo: DevicesInfo
     private lateinit var changeIconNameInfo: ChangeIconNameInfo
+    private lateinit var wanInfo: WanInfo
+    private lateinit var guestWiFiInfo: GuestWiFiInfo
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
     private var currentFrag = ""
@@ -353,6 +354,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private fun getChangeIconNameInfoTask()
     {
         LogUtil.d(TAG,"getChangeIconNameInfoTask()")
+
+        if(GlobalData.ZYXELEndDeviceList.isEmpty())
+            GlobalBus.publish(MainEvent.ShowLoading())
+
         DevicesApi.GetChangeIconNameInfo()
                 .setRequestPageName(TAG)
                 .setResponseListener(object: Commander.ResponseListener()
@@ -369,6 +374,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         catch(e: JSONException)
                         {
                             e.printStackTrace()
+                            GlobalBus.publish(MainEvent.HideLoading())
                         }
                     }
                 }).execute()
@@ -407,13 +413,12 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
                             for(item in devicesInfo.Object)
                             {
-                                for(i in GlobalData.changeIconNameList.indices)
+                                for(itemCin in GlobalData.changeIconNameList)
                                 {
-                                    if(item.PhysAddress == GlobalData.changeIconNameList[i].MacAddress)
+                                    if(item.PhysAddress == itemCin.MacAddress)
                                     {
-                                        item.ChangeIconNameIndex = i
-                                        item.UserDefineName = GlobalData.changeIconNameList[i].HostName
-                                        item.Internet_Blocking_Enable = GlobalData.changeIconNameList[i].Internet_Blocking_Enable
+                                        item.UserDefineName = itemCin.HostName
+                                        item.Internet_Blocking_Enable = itemCin.Internet_Blocking_Enable
                                     }
                                 }
 
@@ -434,10 +439,65 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             GlobalData.homeEndDeviceList = newHomeEndDeviceList.toMutableList()
                             GlobalData.ZYXELEndDeviceList = newZYXELEndDeviceList.toMutableList()
                             GlobalData.guestEndDeviceList = newGuestEndDeviceList.toMutableList()
+
+                            getWanInfoTask()
                         }
                         catch(e: JSONException)
                         {
                             e.printStackTrace()
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun getWanInfoTask()
+    {
+        LogUtil.d(TAG,"getWanInfoTask()")
+        DevicesApi.GetWanInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            wanInfo = Gson().fromJson(responseStr, WanInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"wanInfo:${wanInfo.toString()}")
+                            GlobalData.gatewayWanInfo = wanInfo.copy()
+                            getGuestWiFiEnableTask()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun getGuestWiFiEnableTask()
+    {
+        LogUtil.d(TAG,"getGuestWiFiEnableTask()")
+        WiFiSettingApi.GetGuestWiFi24GInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            guestWiFiInfo = Gson().fromJson(responseStr, GuestWiFiInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"guestWiFiInfo:${guestWiFiInfo.toString()}")
+                            GlobalData.guestWiFiStatus = guestWiFiInfo.Object.Enable
+                            GlobalBus.publish(MainEvent.HideLoading())
+                            GlobalBus.publish(HomeEvent.GetDeviceInfoComplete())
+                            GlobalBus.publish(DevicesEvent.GetDeviceInfoComplete())
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                            GlobalBus.publish(MainEvent.HideLoading())
                         }
                     }
                 }).execute()

@@ -152,7 +152,7 @@ class EndDeviceDetailFragment : Fragment()
                 MessageDialog(
                         activity!!,
                         "",
-                        getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.UserDefineName + " ?",
+                        getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.getName() + " ?",
                         arrayOf(getString(R.string.message_dialog_delete), getString(R.string.message_dialog_cancel)),
                         AppConfig.DialogAction.ACT_DELETE_DEVICE
                 ).show()
@@ -284,7 +284,7 @@ class EndDeviceDetailFragment : Fragment()
         {
             true ->
             {
-                end_device_detail_model_name_edit.setText(endDeviceInfo.UserDefineName)
+                end_device_detail_model_name_edit.setText(endDeviceInfo.getName())
                 end_device_detail_model_name_relative.visibility = View.GONE
                 end_device_detail_model_name_edit_relative.visibility = View.VISIBLE
                 end_device_detail_content_area_relative.alpha = 0.6.toFloat()

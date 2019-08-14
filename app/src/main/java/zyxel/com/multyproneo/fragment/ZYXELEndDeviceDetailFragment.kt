@@ -40,7 +40,6 @@ class ZYXELEndDeviceDetailFragment : Fragment()
     private var isGatewayMode = false
     private var isEditMode = false
     private var isConnect = false
-    private var deviceLanIP = "N/A"
     private var modelName = "N/A"
     private var status = "N/A"
     private var connectType = "N/A"
@@ -65,7 +64,6 @@ class ZYXELEndDeviceDetailFragment : Fragment()
             this?.getBoolean("GatewayMode")?.let{ isGatewayMode = it }
             this?.getSerializable("GatewayInfo")?.let{ deviceInfo = it as GatewayInfo }
             this?.getSerializable("WanInfo")?.let { deviceWanInfo = it as WanInfo }
-            this?.getString("GatewayLanIP")?.let{ deviceLanIP = it }
             this?.getSerializable("DevicesInfo")?.let{ endDeviceInfo = it as DevicesInfoObject }
         }
 
@@ -152,7 +150,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                 MessageDialog(
                         activity!!,
                         "",
-                        getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.UserDefineName + " ?",
+                        getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.getName() + " ?",
                         arrayOf(getString(R.string.message_dialog_delete), getString(R.string.message_dialog_cancel)),
                         AppConfig.DialogAction.ACT_DELETE_ZYXEL_DEVICE
                 ).show()
@@ -177,13 +175,13 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 
         setConnectTypeTextListVisibility(isConnect)
 
-        modelName = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceInfo.UserDefineName else endDeviceInfo.UserDefineName)
+        modelName = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceInfo.getName() else endDeviceInfo.getName())
         status = SpecialCharacterHandler.checkEmptyTextValue(getString(if(isConnect) R.string.device_detail_connecting else R.string.device_detail_disconnect))
         connectType = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) (if(isConnect) getString(R.string.device_detail_wire) else "") else endDeviceInfo.X_ZYXEL_ConnectionType)
         ip = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) "" else endDeviceInfo.IPAddress)
         wanIP = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceWanInfo.Object.IPAddress else "")
         dnsIP = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceWanInfo.Object.DNSServer else "")
-        lanIP = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceLanIP else "")
+        lanIP = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceInfo.IP else "")
         mac = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceWanInfo.Object.MAC else endDeviceInfo.PhysAddress)
         fwVer = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceInfo.SoftwareVersion else endDeviceInfo.X_ZYXEL_SoftwareVersion)
 

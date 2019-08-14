@@ -17,7 +17,6 @@ object GlobalData
     var homeEndDeviceList = mutableListOf<DevicesInfoObject>()
     var changeIconNameList = mutableListOf<ChangeIconNameInfoObject>()
     var gatewayWanInfo = WanInfo()
-    var gatewayLanIP = ""
     var guestWiFiStatus = false
     var homeDevAscendingOrder = true
     var guestDevAscendingOrder = true

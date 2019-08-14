@@ -19,6 +19,15 @@ data class GatewayInfo
     var SoftwareVersion: String = "N/A",
     val SupportedApiVersion: List<SupportedApiVersion> = listOf(SupportedApiVersion())
 ) : Serializable
+{
+    fun getName(): String
+    {
+        if(UserDefineName == null || UserDefineName == "N/A" || UserDefineName == " " || UserDefineName == "")
+            return ModelName
+        else
+            return UserDefineName
+    }
+}
 
 data class SupportedApiVersion
 (

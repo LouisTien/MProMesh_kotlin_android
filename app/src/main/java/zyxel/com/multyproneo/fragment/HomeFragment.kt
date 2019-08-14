@@ -7,8 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.jetbrains.anko.support.v4.runOnUiThread
+import org.json.JSONException
+import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.ZYXELEndDeviceItemAdapter
+import zyxel.com.multyproneo.api.Commander
+import zyxel.com.multyproneo.api.WiFiSettingApi
 import zyxel.com.multyproneo.dialog.InternetStatusDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
@@ -71,6 +76,8 @@ class HomeFragment : Fragment()
 
             home_guest_wifi_switch ->
             {
+                setGuestWiFi24GEnableTask()
+
                 val bundle = Bundle().apply{
                     putString("Title", "")
                     putString("Description", getString(R.string.loading_transition_please_wait))
@@ -103,29 +110,87 @@ class HomeFragment : Fragment()
         if(!isVisible) return
 
         LogUtil.d(TAG, "updateUI()")
-        home_connect_device_count_text.text = GlobalData.getConnectDeviceCount().toString()
-        adapter = ZYXELEndDeviceItemAdapter(
-                GlobalData.ZYXELEndDeviceList,
-                GlobalData.getCurrentGatewayInfo(),
-                GlobalData.gatewayWanInfo,
-                GlobalData.gatewayLanIP)
-        home_device_list.adapter = adapter
 
-        home_internet_status_content_text.text = getString(if(GlobalData.gatewayWanInfo.Object.Status == "Enable") R.string.home_online else R.string.home_offline)
+        runOnUiThread{
+            home_connect_device_count_text.text = GlobalData.getConnectDeviceCount().toString()
+            adapter = ZYXELEndDeviceItemAdapter(
+                    GlobalData.ZYXELEndDeviceList,
+                    GlobalData.getCurrentGatewayInfo(),
+                    GlobalData.gatewayWanInfo)
+            home_device_list.adapter = adapter
 
-        when(GlobalData.guestWiFiStatus)
-        {
-            true ->
+            home_internet_status_content_text.text = getString(if(GlobalData.gatewayWanInfo.Object.Status == "Enable") R.string.home_online else R.string.home_offline)
+
+            when(GlobalData.guestWiFiStatus)
             {
-                home_guest_wifi_status_text.text = getString(R.string.home_guest_wifi_status_on)
-                home_guest_wifi_switch.setImageResource(R.drawable.switch_on)
-            }
+                true ->
+                {
+                    home_guest_wifi_status_text.text = getString(R.string.home_guest_wifi_status_on)
+                    home_guest_wifi_switch.setImageResource(R.drawable.switch_on)
+                }
 
-            else ->
-            {
-                home_guest_wifi_status_text.text = getString(R.string.home_guest_wifi_status_off)
-                home_guest_wifi_switch.setImageResource(R.drawable.switch_off)
+                else ->
+                {
+                    home_guest_wifi_status_text.text = getString(R.string.home_guest_wifi_status_off)
+                    home_guest_wifi_switch.setImageResource(R.drawable.switch_off)
+                }
             }
         }
+    }
+
+    private fun setGuestWiFi24GEnableTask()
+    {
+        val params = JSONObject()
+        params.put("Enable", !GlobalData.guestWiFiStatus)
+        LogUtil.d(TAG,"setGuestWiFi24GEnableTask param:${params.toString()}")
+
+        WiFiSettingApi.SetGuestWiFi24GInfo()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+
+                        setGuestWiFi5GEnableTask()
+                    }
+                }).execute()
+    }
+
+    private fun setGuestWiFi5GEnableTask()
+    {
+        val params = JSONObject()
+        params.put("Enable", !GlobalData.guestWiFiStatus)
+        LogUtil.d(TAG,"setGuestWiFi5GEnableTask param:${params.toString()}")
+
+        WiFiSettingApi.SetGuestWiFi5GInfo()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+                    }
+                }).execute()
     }
 }
