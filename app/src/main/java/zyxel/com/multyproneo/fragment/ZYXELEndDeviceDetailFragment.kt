@@ -11,11 +11,12 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_zyxel_end_device_detail.*
-import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.textColor
-import org.jetbrains.anko.uiThread
+import org.json.JSONObject
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.Commander
+import zyxel.com.multyproneo.api.GatewayApi
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
@@ -32,6 +33,7 @@ import zyxel.com.multyproneo.util.DatabaseUtil
  */
 class ZYXELEndDeviceDetailFragment : Fragment()
 {
+    private val TAG = javaClass.simpleName
     private lateinit var msgDialogResponse: Disposable
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var deviceInfo: GatewayInfo
@@ -74,6 +76,8 @@ class ZYXELEndDeviceDetailFragment : Fragment()
             {
                 AppConfig.DialogAction.ACT_REBOOT ->
                 {
+                    rebootTask()
+
                     val bundle = Bundle().apply{
                         putString("Title", "")
                         putString("Description", resources.getString(R.string.loading_transition_take_few_minutes))
@@ -234,7 +238,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         setContentLinearListVisibility(true)
         zyxel_end_device_detail_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_reboot_button.visibility = if(isConnect) View.VISIBLE else View.INVISIBLE
-        zyxel_end_device_detail_remove_device_text.visibility = if(isConnect) View.INVISIBLE else View.VISIBLE
+        //zyxel_end_device_detail_remove_device_text.visibility = if(isConnect) View.INVISIBLE else View.VISIBLE
     }
 
     private fun setEndDeviceModeUI()
@@ -245,7 +249,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         zyxel_end_device_detail_dns_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_lan_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_reboot_button.visibility = View.INVISIBLE
-        zyxel_end_device_detail_remove_device_text.visibility = if(isConnect) View.INVISIBLE else View.VISIBLE
+        //zyxel_end_device_detail_remove_device_text.visibility = if(isConnect) View.INVISIBLE else View.VISIBLE
     }
 
     private fun setEditModeUI()
@@ -320,26 +324,34 @@ class ZYXELEndDeviceDetailFragment : Fragment()
     private fun setDeviceNameTask()
     {
         var editDeviceName = ""
-        doAsync{
-            inputMethodManager.hideSoftInputFromWindow(zyxel_end_device_detail_model_name_edit.applicationWindowToken, 0)
-            editDeviceName = zyxel_end_device_detail_model_name_edit.text.toString()
-
-            uiThread{
-                isEditMode = false
-
-                if(isGatewayMode)
-                {
-                    deviceInfo.UserDefineName = editDeviceName
-                    DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(deviceInfo)
-                }
-
-                if(isVisible)
-                {
-                    zyxel_end_device_detail_model_name_text.text = editDeviceName
-                    zyxel_end_device_detail_model_name_edit.setText(editDeviceName)
-                    setEditModeUI()
-                }
-            }
+        inputMethodManager.hideSoftInputFromWindow(zyxel_end_device_detail_model_name_edit.applicationWindowToken, 0)
+        editDeviceName = zyxel_end_device_detail_model_name_edit.text.toString()
+        isEditMode = false
+        if(isGatewayMode)
+        {
+            deviceInfo.UserDefineName = editDeviceName
+            DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(deviceInfo)
         }
+        if(isVisible)
+        {
+            zyxel_end_device_detail_model_name_text.text = editDeviceName
+            zyxel_end_device_detail_model_name_edit.setText(editDeviceName)
+            setEditModeUI()
+        }
+    }
+
+    private fun rebootTask()
+    {
+        val params = JSONObject()
+        GatewayApi.Reboot()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+
+                    }
+                }).execute()
     }
 }

@@ -18,10 +18,12 @@ import zyxel.com.multyproneo.model.WanInfo
 /**
  * Created by LouisTien on 2019/6/4.
  */
-class ZYXELEndDeviceItemAdapter(
+class ZYXELEndDeviceItemAdapter
+(
         private var endDeviceList: MutableList<DevicesInfoObject>,
         private var deviceInfo: GatewayInfo,
-        private var deviceWanInfo: WanInfo) : BaseAdapter()
+        private var deviceWanInfo: WanInfo
+) : BaseAdapter()
 {
 
     override fun getCount(): Int = endDeviceList.size
@@ -60,7 +62,7 @@ class ZYXELEndDeviceItemAdapter(
                 view.connect_status_text.text = status
             else
             {
-                if(endDeviceList[position].Active)
+                if(!endDeviceList[position].Active)
                     status = "N/A"
                 else
                 {

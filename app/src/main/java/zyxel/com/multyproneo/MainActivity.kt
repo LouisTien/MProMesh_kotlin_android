@@ -21,6 +21,7 @@ import org.jetbrains.anko.toast
 import org.json.JSONException
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.DevicesApi
+import zyxel.com.multyproneo.api.GatewayApi
 import zyxel.com.multyproneo.api.WiFiSettingApi
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var changeIconNameInfo: ChangeIconNameInfo
     private lateinit var wanInfo: WanInfo
     private lateinit var guestWiFiInfo: GuestWiFiInfo
+    private lateinit var fSecureInfo: FSecureInfo
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
     private var currentFrag = ""
@@ -402,7 +404,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                     DevicesInfoObject
                                     (
                                             Active = true,
-                                            HostName = GlobalData.getCurrentGatewayInfo().ModelName,
+                                            HostName = GlobalData.getCurrentGatewayInfo().getName(),
                                             IPAddress = GlobalData.getCurrentGatewayInfo().IP,
                                             X_ZYXEL_CapabilityType = "L2Device",
                                             X_ZYXEL_ConnectionType = "WiFi",
@@ -413,6 +415,9 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
                             for(item in devicesInfo.Object)
                             {
+                                if(item.HostName == "N/A")
+                                    continue
+
                                 for(itemCin in GlobalData.changeIconNameList)
                                 {
                                     if(item.PhysAddress == itemCin.MacAddress)
@@ -454,7 +459,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private fun getWanInfoTask()
     {
         LogUtil.d(TAG,"getWanInfoTask()")
-        DevicesApi.GetWanInfo()
+        GatewayApi.GetWanInfo()
                 .setRequestPageName(TAG)
                 .setResponseListener(object: Commander.ResponseListener()
                 {
@@ -490,6 +495,31 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             guestWiFiInfo = Gson().fromJson(responseStr, GuestWiFiInfo::class.javaObjectType)
                             LogUtil.d(TAG,"guestWiFiInfo:${guestWiFiInfo.toString()}")
                             GlobalData.guestWiFiStatus = guestWiFiInfo.Object.Enable
+                            getFSecureInfoTask()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun getFSecureInfoTask()
+    {
+        LogUtil.d(TAG,"getFSecureInfoTask()")
+        GatewayApi.GetFSecureInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            fSecureInfo = Gson().fromJson(responseStr, FSecureInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"fSecureInfo:${fSecureInfo.toString()}")
+                            GlobalData.FSecureStatus = fSecureInfo.Object.Cyber_Security_FSC
                             GlobalBus.publish(MainEvent.HideLoading())
                             GlobalBus.publish(HomeEvent.GetDeviceInfoComplete())
                             GlobalBus.publish(DevicesEvent.GetDeviceInfoComplete())

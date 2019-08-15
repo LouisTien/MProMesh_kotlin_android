@@ -15,8 +15,8 @@ data class ChangeIconNameInfoObject
     val HostName: String = "N/A",
     val MacAddress: String = "N/A",
     val DeviceIcon: String = "N/A",
-    val Internet_Blocking_Enable: Int = 0,
-    val BrowsingProtection: Int = 0,
-    val TrackingProtection: Int = 0,
-    val IOTProtection: Int = 0
+    val Internet_Blocking_Enable: Boolean = false,
+    val BrowsingProtection: Boolean = false,
+    val TrackingProtection: Boolean = false,
+    val IOTProtection: Boolean = false
 )

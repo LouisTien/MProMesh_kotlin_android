@@ -52,7 +52,7 @@ class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var 
     {
         fun bind(position: Int)
         {
-            var status = if(endDeviceList[position].Internet_Blocking_Enable == 1) "Blocked" else endDeviceList[position].X_ZYXEL_RSSI_STAT
+            var status = if(endDeviceList[position].Internet_Blocking_Enable) "Blocked" else endDeviceList[position].X_ZYXEL_RSSI_STAT
 
             view.link_quality_text.textColor = parent.context.resources.getColor(
                     with(status)
@@ -67,7 +67,7 @@ class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var 
                     }
             )
 
-            if(endDeviceList[position].Active)
+            if(!endDeviceList[position].Active)
             {
                 status = ""
                 view.user_define_name_text.textColor = parent.context.resources.getColor(R.color.color_b4b4b4)

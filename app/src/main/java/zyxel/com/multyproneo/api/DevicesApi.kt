@@ -2,6 +2,7 @@ package zyxel.com.multyproneo.api
 
 import okhttp3.MediaType
 import okhttp3.Request
+import okhttp3.RequestBody
 import zyxel.com.multyproneo.util.GlobalData
 
 /**
@@ -37,14 +38,31 @@ object DevicesApi
         }
     }
 
-    class GetWanInfo : Commander()
+    class SetChangeIconNameInfo : Commander()
     {
         override fun composeRequest(): Request
         {
-            val getWanInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.DeviceInfo.WanInfo."
+            val setChangeIconNameInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_Change_Icon_Name.?sessionkey=${GlobalData.sessionKey}"
+            val requestParam = RequestBody.create(JSON, getParams().toString())
             val request = Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
-                    .url(getWanInfoURL)
+                    .url(setChangeIconNameInfoURL)
+                    .post(requestParam)
+                    .build()
+            return request
+        }
+    }
+
+    class SetChangeIconNameInfoByIndex(val index: Int = 0) : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val setChangeIconNameInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_Change_Icon_Name.$index.?sessionkey=${GlobalData.sessionKey}"
+            val requestParam = RequestBody.create(JSON, getParams().toString())
+            val request = Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(setChangeIconNameInfoURL)
+                    .put(requestParam)
                     .build()
             return request
         }

@@ -319,6 +319,16 @@
                         android:layout_alignParentRight="true"
                         android:src="@drawable/switch_off"/>
 
+                    <TextView
+                        android:id="@+id/end_device_detail_fsecure_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_18sp_in_1080"
+                        android:textColor="@color/color_575757"
+                        android:layout_alignParentRight="true"
+                        android:text="@string/device_detail_f_secure"
+                        android:visibility="gone"/>
+
                     <ImageView
                         android:id="@+id/end_device_detail_internet_blocking_line_image"
                         android:layout_width="wrap_content"
