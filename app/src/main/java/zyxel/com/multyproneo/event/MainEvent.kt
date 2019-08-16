@@ -12,6 +12,7 @@ class MainEvent
     class HideBottomToolbar()
     class SetHomeIconFocus()
     class StartGetDeviceInfoTask()
+    class StartGetDeviceInfoOnceTask()
     class StopGetDeviceInfoTask()
     class EnterHomePage()
     class EnterDevicesPage()

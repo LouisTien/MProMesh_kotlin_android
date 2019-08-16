@@ -12,12 +12,16 @@ import android.view.inputmethod.InputMethodManager
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_zyxel_end_device_detail.*
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
+import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.textColor
+import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.Commander
+import zyxel.com.multyproneo.api.DevicesApi
 import zyxel.com.multyproneo.api.GatewayApi
 import zyxel.com.multyproneo.dialog.MessageDialog
+import zyxel.com.multyproneo.event.DevicesDetailEvent
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
@@ -27,6 +31,8 @@ import zyxel.com.multyproneo.model.WanInfo
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.DatabaseUtil
+import zyxel.com.multyproneo.util.GlobalData
+import zyxel.com.multyproneo.util.LogUtil
 
 /**
  * Created by LouisTien on 2019/6/6.
@@ -35,6 +41,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private lateinit var msgDialogResponse: Disposable
+    private lateinit var getInfoCompleteDisposable: Disposable
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var deviceInfo: GatewayInfo
     private lateinit var deviceWanInfo: WanInfo
@@ -51,6 +58,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
     private var mac = "N/A"
     private var fwVer = "N/A"
     private var ip = "N/A"
+    private var editDeviceName = "N/A"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -94,6 +102,28 @@ class ZYXELEndDeviceDetailFragment : Fragment()
             }
         }
 
+        getInfoCompleteDisposable = GlobalBus.listen(DevicesDetailEvent.GetDeviceInfoComplete::class.java).subscribe{
+            isEditMode = false
+
+            runOnUiThread{
+                if(isVisible)
+                {
+                    zyxel_end_device_detail_model_name_text.text = editDeviceName
+                    zyxel_end_device_detail_model_name_edit.setText(editDeviceName)
+                    setEditModeUI()
+
+                    for(item in GlobalData.endDeviceList)
+                    {
+                        if(item.PhysAddress == endDeviceInfo.PhysAddress)
+                        {
+                            endDeviceInfo = item
+                            break
+                        }
+                    }
+                }
+            }
+        }
+
         setClickListener()
     }
 
@@ -113,6 +143,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
     {
         super.onDestroyView()
         if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
+        if(!getInfoCompleteDisposable.isDisposed) getInfoCompleteDisposable.dispose()
     }
 
     private val clickListener = View.OnClickListener{ view ->
@@ -248,7 +279,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         zyxel_end_device_detail_wan_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_dns_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_lan_ip_linear.visibility = View.GONE
-        zyxel_end_device_detail_reboot_button.visibility = View.INVISIBLE
+        zyxel_end_device_detail_reboot_button.visibility = if(isConnect) View.VISIBLE else View.INVISIBLE
         //zyxel_end_device_detail_remove_device_text.visibility = if(isConnect) View.INVISIBLE else View.VISIBLE
     }
 
@@ -323,35 +354,140 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 
     private fun setDeviceNameTask()
     {
-        var editDeviceName = ""
+        LogUtil.d(TAG,"setDeviceNameTask()")
         inputMethodManager.hideSoftInputFromWindow(zyxel_end_device_detail_model_name_edit.applicationWindowToken, 0)
         editDeviceName = zyxel_end_device_detail_model_name_edit.text.toString()
         isEditMode = false
+
         if(isGatewayMode)
         {
             deviceInfo.UserDefineName = editDeviceName
             DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(deviceInfo)
+            if(isVisible)
+            {
+                zyxel_end_device_detail_model_name_text.text = editDeviceName
+                zyxel_end_device_detail_model_name_edit.setText(editDeviceName)
+                setEditModeUI()
+            }
         }
-        if(isVisible)
+        else
+            setDeviceInfoTask()
+    }
+
+    private fun setDeviceInfoTask()
+    {
+        LogUtil.d(TAG,"setDeviceInfoTask()")
+        GlobalBus.publish(MainEvent.ShowLoading())
+
+        val params = JSONObject()
+        params.put("HostName", editDeviceName)
+        params.put("MacAddress", endDeviceInfo.PhysAddress)
+        params.put("Internet_Blocking_Enable", endDeviceInfo.Internet_Blocking_Enable)
+        LogUtil.d(TAG,"setDeviceInfoTask param:${params.toString()}")
+
+        var index = 0
+        for(i in GlobalData.changeIconNameList.indices)
         {
-            zyxel_end_device_detail_model_name_text.text = editDeviceName
-            zyxel_end_device_detail_model_name_edit.setText(editDeviceName)
-            setEditModeUI()
+            if(GlobalData.changeIconNameList[i].MacAddress == endDeviceInfo.PhysAddress)
+            {
+                index = i + 1
+                break
+            }
+        }
+
+        if(index == 0)
+        {
+            DevicesApi.SetChangeIconNameInfo()
+                    .setRequestPageName(TAG)
+                    .setParams(params)
+                    .setResponseListener(object: Commander.ResponseListener()
+                    {
+                        override fun onSuccess(responseStr: String)
+                        {
+                            try
+                            {
+                                val data = JSONObject(responseStr)
+                                val sessionkey = data.get("sessionkey").toString()
+                                GlobalData.sessionKey = sessionkey
+                                GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
+                            }
+                            catch(e: JSONException)
+                            {
+                                e.printStackTrace()
+                                GlobalBus.publish(MainEvent.HideLoading())
+                            }
+                        }
+                    }).execute()
+        }
+        else
+        {
+            DevicesApi.SetChangeIconNameInfoByIndex(index)
+                    .setRequestPageName(TAG)
+                    .setParams(params)
+                    .setResponseListener(object: Commander.ResponseListener()
+                    {
+                        override fun onSuccess(responseStr: String)
+                        {
+                            try
+                            {
+                                val data = JSONObject(responseStr)
+                                val sessionkey = data.get("sessionkey").toString()
+                                GlobalData.sessionKey = sessionkey
+                                GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
+                            }
+                            catch(e: JSONException)
+                            {
+                                e.printStackTrace()
+                                GlobalBus.publish(MainEvent.HideLoading())
+                            }
+                        }
+                    }).execute()
         }
     }
 
     private fun rebootTask()
     {
         val params = JSONObject()
-        GatewayApi.Reboot()
-                .setRequestPageName(TAG)
-                .setParams(params)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
 
-                    }
-                }).execute()
+        if(isGatewayMode)
+        {
+            GatewayApi.GatewayReboot()
+                    .setRequestPageName(TAG)
+                    .setParams(params)
+                    .setResponseListener(object: Commander.ResponseListener()
+                    {
+                        override fun onSuccess(responseStr: String)
+                        {
+
+                        }
+                    }).execute()
+        }
+        else
+        {
+            var index = 0
+            for(i in GlobalData.endDeviceList.indices)
+            {
+                if(GlobalData.endDeviceList[i].PhysAddress == endDeviceInfo.PhysAddress)
+                {
+                    index = i + 1
+
+                    params.put("L2DevCtrl_Reboot", true)
+                    LogUtil.d(TAG,"rebootTask param:${params.toString()}")
+
+                    GatewayApi.EndDeviceReboot(index)
+                            .setRequestPageName(TAG)
+                            .setParams(params)
+                            .setResponseListener(object: Commander.ResponseListener()
+                            {
+                                override fun onSuccess(responseStr: String)
+                                {
+
+                                }
+                            }).execute()
+
+                    break
+                }
+            }
+        }
     }
 }

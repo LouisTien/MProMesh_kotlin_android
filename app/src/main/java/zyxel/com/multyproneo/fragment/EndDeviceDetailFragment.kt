@@ -20,6 +20,7 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.DevicesApi
 import zyxel.com.multyproneo.dialog.MessageDialog
+import zyxel.com.multyproneo.event.DevicesDetailEvent
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
@@ -35,6 +36,7 @@ class EndDeviceDetailFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private lateinit var msgDialogResponse: Disposable
+    private lateinit var getInfoCompleteDisposable: Disposable
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var endDeviceInfo: DevicesInfoObject
     private var isEditMode = false
@@ -52,6 +54,7 @@ class EndDeviceDetailFragment : Fragment()
     private var rssi = "N/A"
     private var manufacturer = "N/A"
     private var searchStr = ""
+    private var editDeviceName = "N/A"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -79,6 +82,30 @@ class EndDeviceDetailFragment : Fragment()
             }
         }
 
+        getInfoCompleteDisposable = GlobalBus.listen(DevicesDetailEvent.GetDeviceInfoComplete::class.java).subscribe{
+            isEditMode = false
+
+            runOnUiThread{
+                if(isVisible)
+                {
+                    end_device_detail_model_name_text.text = editDeviceName
+                    end_device_detail_model_name_edit.setText(editDeviceName)
+                    setEditModeUI()
+
+                    for(item in GlobalData.endDeviceList)
+                    {
+                        if(item.PhysAddress == endDeviceInfo.PhysAddress)
+                        {
+                            endDeviceInfo = item
+                            break
+                        }
+                    }
+
+                    updateUI()
+                }
+            }
+        }
+
         setClickListener()
     }
 
@@ -98,6 +125,7 @@ class EndDeviceDetailFragment : Fragment()
     {
         super.onDestroyView()
         if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
+        if(!getInfoCompleteDisposable.isDisposed) getInfoCompleteDisposable.dispose()
     }
 
     private val clickListener = View.OnClickListener{ view ->
@@ -132,7 +160,7 @@ class EndDeviceDetailFragment : Fragment()
                 }
             }
 
-            end_device_detail_confirm_image -> setDeviceNameTask()
+            end_device_detail_confirm_image -> setDeviceInfoTask()
 
             end_device_detail_edit_image ->
             {
@@ -168,7 +196,7 @@ class EndDeviceDetailFragment : Fragment()
             {
                 isBlocked = !isBlocked
                 endDeviceInfo.Internet_Blocking_Enable = isBlocked
-                setInternetBlockTask()
+                setDeviceInfoTask()
             }
 
             end_device_detail_fsecure_text -> {}
@@ -189,118 +217,114 @@ class EndDeviceDetailFragment : Fragment()
 
     private fun updateUI()
     {
-        if(!isVisible) return
+        modelName = "N/A"
+        dhcpTime = "N/A"
+        connectType = "N/A"
+        connectTo = "N/A"
+        wifiBand = "N/A"
+        wifiChannel = "N/A"
+        ip = "N/A"
+        mac = "N/A"
+        maxSpeed = "N/A"
+        rssi = "N/A"
+        manufacturer = "N/A"
 
-        runOnUiThread{
-            modelName = "N/A"
-            dhcpTime = "N/A"
-            connectType = "N/A"
-            connectTo = "N/A"
-            wifiBand = "N/A"
-            wifiChannel = "N/A"
-            ip = "N/A"
-            mac = "N/A"
-            maxSpeed = "N/A"
-            rssi = "N/A"
-            manufacturer = "N/A"
+        modelName = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.getName())
+        connectType = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_ConnectionType)
+        connectTo = SpecialCharacterHandler.checkEmptyTextValue(
+                if(endDeviceInfo.X_ZYXEL_Neighbor.equals("gateway", ignoreCase = true))
+                    GlobalData.getCurrentGatewayInfo().ModelName
+                else
+                    endDeviceInfo.X_ZYXEL_Neighbor
+        )
+        ip = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.IPAddress)
+        mac = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.PhysAddress)
+        manufacturer = SpecialCharacterHandler.checkEmptyTextValue(OUIUtil.getOUI(activity!!, endDeviceInfo.PhysAddress))
+        dhcpTime = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_DHCPLeaseTime.toString())
 
-            modelName = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.getName())
-            connectType = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_ConnectionType)
-            connectTo = SpecialCharacterHandler.checkEmptyTextValue(
-                    if(endDeviceInfo.X_ZYXEL_Neighbor.equals("gateway", ignoreCase = true))
-                        GlobalData.getCurrentGatewayInfo().ModelName
-                    else
-                        endDeviceInfo.X_ZYXEL_Neighbor
-            )
-            ip = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.IPAddress)
-            mac = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.PhysAddress)
-            manufacturer = SpecialCharacterHandler.checkEmptyTextValue(OUIUtil.getOUI(activity!!, endDeviceInfo.PhysAddress))
-            dhcpTime = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_DHCPLeaseTime.toString())
-
-            if(FeatureConfig.hostNameReplease)
-            {
-                if(modelName.equals("unknown", ignoreCase = true))
-                    modelName = OUIUtil.getOUI(activity!!, endDeviceInfo.PhysAddress)
-            }
-
-            if(connectType.contains("WiFi", ignoreCase = true) || connectType.contains("Wi-Fi", ignoreCase = true))
-            {
-                when(endDeviceInfo.X_ZYXEL_Band)
-                {
-                    2 -> wifiBand = "5G"
-                    3 -> wifiBand = "2.4G/5G"
-                    else -> wifiBand = "2.4G"
-                }
-
-                wifiChannel = SpecialCharacterHandler.checkEmptyTextValue(if(endDeviceInfo.X_ZYXEL_Band == 2) endDeviceInfo.X_ZYXEL_Channel_5G.toString() else endDeviceInfo.X_ZYXEL_Channel_24G.toString())
-                maxSpeed = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_PhyRate.toString() + "Mbps")
-                rssi = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_RSSI.toString())
-            }
-
-            end_device_detail_model_name_text.text = modelName
-            end_device_detail_model_name_edit.setText(modelName)
-            end_device_detail_connect_to_text.text = connectTo
-            end_device_detail_wifi_band_text.text = wifiBand
-            end_device_detail_wifi_channel_text.text = wifiChannel
-            end_device_detail_ip_text.text = ip
-            end_device_detail_mac_text.text = mac
-            end_device_detail_max_speed_text.text = maxSpeed
-            end_device_detail_rssi_text.text = rssi
-            end_device_detail_manufacturer_text.text = manufacturer
-
-            isBlocked = endDeviceInfo.Internet_Blocking_Enable
-
-            when(endDeviceInfo.Active)
-            {
-                true ->
-                {
-                    with(end_device_detail_status_text)
-                    {
-                        text = if(isBlocked) getString(R.string.device_detail_blocked) else getString(R.string.device_detail_connecting)
-                        textColor = if(isBlocked) resources.getColor(R.color.color_ff2837) else resources.getColor(R.color.color_3c9f00)
-                    }
-                    end_device_detail_connect_type_dhcp_time_title_text.text = getString(R.string.device_detail_connect_type)
-                    end_device_detail_connect_type_dhcp_time_text.text = connectType
-                    end_device_detail_internet_blocking_area_relative.visibility = View.VISIBLE
-                    when(GlobalData.FSecureStatus)
-                    {
-                        true ->
-                        {
-                            end_device_detail_internet_blocking_title_text.text = getString(R.string.device_detail_parental_control)
-                            end_device_detail_internet_blocking_image.visibility = View.GONE
-                        }
-
-                        false ->
-                        {
-                            end_device_detail_internet_blocking_title_text.text = getString(R.string.device_detail_internet_blocking)
-                            end_device_detail_fsecure_text.visibility = View.GONE
-                        }
-                    }
-                    end_device_detail_internet_blocking_image.setImageResource(if(isBlocked) R.drawable.switch_on else R.drawable.switch_off)
-                    end_device_detail_remove_device_text.visibility = View.INVISIBLE
-                }
-
-                false ->
-                {
-                    with(end_device_detail_status_text)
-                    {
-                        text = getString(R.string.device_detail_disconnect)
-                        textColor = resources.getColor(R.color.color_575757)
-                    }
-                    end_device_detail_connect_type_dhcp_time_title_text.text = getString(R.string.device_detail_last_seen)
-                    end_device_detail_connect_type_dhcp_time_text.text = CommonTool.formatData("yyyy-MM-dd HH:mm:ss", dhcpTime.toLong())
-                    end_device_detail_connect_to_linear.visibility = View.GONE
-                    end_device_detail_wifi_band_linear.visibility = View.GONE
-                    end_device_detail_wifi_channel_linear.visibility = View.GONE
-                    end_device_detail_max_speed_linear.visibility = View.GONE
-                    end_device_detail_rssi_linear.visibility = View.GONE
-                    end_device_detail_internet_blocking_area_relative.visibility = View.GONE
-                    end_device_detail_remove_device_text.visibility = View.INVISIBLE
-                }
-            }
-
-            initEndDeviceDetailModelNameEdit()
+        if(FeatureConfig.hostNameReplease)
+        {
+            if(modelName.equals("unknown", ignoreCase = true))
+                modelName = OUIUtil.getOUI(activity!!, endDeviceInfo.PhysAddress)
         }
+
+        if(connectType.contains("WiFi", ignoreCase = true) || connectType.contains("Wi-Fi", ignoreCase = true))
+        {
+            when(endDeviceInfo.X_ZYXEL_Band)
+            {
+                2 -> wifiBand = "5G"
+                3 -> wifiBand = "2.4G/5G"
+                else -> wifiBand = "2.4G"
+            }
+
+            wifiChannel = SpecialCharacterHandler.checkEmptyTextValue(if(endDeviceInfo.X_ZYXEL_Band == 2) endDeviceInfo.X_ZYXEL_Channel_5G.toString() else endDeviceInfo.X_ZYXEL_Channel_24G.toString())
+            maxSpeed = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_PhyRate.toString() + "Mbps")
+            rssi = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_RSSI.toString())
+        }
+
+        end_device_detail_model_name_text.text = modelName
+        end_device_detail_model_name_edit.setText(modelName)
+        end_device_detail_connect_to_text.text = connectTo
+        end_device_detail_wifi_band_text.text = wifiBand
+        end_device_detail_wifi_channel_text.text = wifiChannel
+        end_device_detail_ip_text.text = ip
+        end_device_detail_mac_text.text = mac
+        end_device_detail_max_speed_text.text = maxSpeed
+        end_device_detail_rssi_text.text = rssi
+        end_device_detail_manufacturer_text.text = manufacturer
+
+        isBlocked = endDeviceInfo.Internet_Blocking_Enable
+
+        when(endDeviceInfo.Active)
+        {
+            true ->
+            {
+                with(end_device_detail_status_text)
+                {
+                    text = if(isBlocked) getString(R.string.device_detail_blocked) else getString(R.string.device_detail_connecting)
+                    textColor = if(isBlocked) resources.getColor(R.color.color_ff2837) else resources.getColor(R.color.color_3c9f00)
+                }
+                end_device_detail_connect_type_dhcp_time_title_text.text = getString(R.string.device_detail_connect_type)
+                end_device_detail_connect_type_dhcp_time_text.text = connectType
+                end_device_detail_internet_blocking_area_relative.visibility = View.VISIBLE
+                when(GlobalData.FSecureStatus)
+                {
+                    true ->
+                    {
+                        end_device_detail_internet_blocking_title_text.text = getString(R.string.device_detail_parental_control)
+                        end_device_detail_internet_blocking_image.visibility = View.GONE
+                    }
+
+                    false ->
+                    {
+                        end_device_detail_internet_blocking_title_text.text = getString(R.string.device_detail_internet_blocking)
+                        end_device_detail_fsecure_text.visibility = View.GONE
+                    }
+                }
+                end_device_detail_internet_blocking_image.setImageResource(if(isBlocked) R.drawable.switch_on else R.drawable.switch_off)
+                end_device_detail_remove_device_text.visibility = View.INVISIBLE
+            }
+
+            false ->
+            {
+                with(end_device_detail_status_text)
+                {
+                    text = getString(R.string.device_detail_disconnect)
+                    textColor = resources.getColor(R.color.color_575757)
+                }
+                end_device_detail_connect_type_dhcp_time_title_text.text = getString(R.string.device_detail_last_seen)
+                end_device_detail_connect_type_dhcp_time_text.text = CommonTool.formatData("yyyy-MM-dd HH:mm:ss", dhcpTime.toLong())
+                end_device_detail_connect_to_linear.visibility = View.GONE
+                end_device_detail_wifi_band_linear.visibility = View.GONE
+                end_device_detail_wifi_channel_linear.visibility = View.GONE
+                end_device_detail_max_speed_linear.visibility = View.GONE
+                end_device_detail_rssi_linear.visibility = View.GONE
+                end_device_detail_internet_blocking_area_relative.visibility = View.GONE
+                end_device_detail_remove_device_text.visibility = View.INVISIBLE
+            }
+        }
+
+        initEndDeviceDetailModelNameEdit()
     }
 
     private fun setEditModeUI()
@@ -378,111 +402,30 @@ class EndDeviceDetailFragment : Fragment()
         }
     }
 
-    private fun setDeviceNameTask()
+    private fun setDeviceInfoTask()
     {
-        LogUtil.d(TAG,"setDeviceNameTask()")
+        LogUtil.d(TAG,"setDeviceInfoTask()")
         inputMethodManager.hideSoftInputFromWindow(end_device_detail_model_name_edit.applicationWindowToken, 0)
         GlobalBus.publish(MainEvent.ShowLoading())
 
-        var editDeviceName = end_device_detail_model_name_edit.text.toString()
+        editDeviceName = end_device_detail_model_name_edit.text.toString()
         val params = JSONObject()
         params.put("HostName", editDeviceName)
-        LogUtil.d(TAG,"setDeviceNameTask param:${params.toString()}")
-
-        if(GlobalData.changeIconNameList.isEmpty())
-        {
-            DevicesApi.SetChangeIconNameInfo()
-                    .setRequestPageName(TAG)
-                    .setParams(params)
-                    .setResponseListener(object: Commander.ResponseListener()
-                    {
-                        override fun onSuccess(responseStr: String)
-                        {
-                            try
-                            {
-                                val data = JSONObject(responseStr)
-                                val sessionkey = data.get("sessionkey").toString()
-                                GlobalData.sessionKey = sessionkey
-
-                                isEditMode = false
-
-                                runOnUiThread{
-                                    if(isVisible)
-                                    {
-                                        end_device_detail_model_name_text.text = editDeviceName
-                                        end_device_detail_model_name_edit.setText(editDeviceName)
-                                        setEditModeUI()
-                                    }
-                                }
-
-                                GlobalBus.publish(MainEvent.HideLoading())
-                            }
-                            catch(e: JSONException)
-                            {
-                                e.printStackTrace()
-                                GlobalBus.publish(MainEvent.HideLoading())
-                            }
-                        }
-                    }).execute()
-        }
-        else
-        {
-            var index = 0
-            for(i in GlobalData.changeIconNameList.indices)
-            {
-                if(GlobalData.changeIconNameList[i].MacAddress == endDeviceInfo.PhysAddress)
-                {
-                    index = i
-                    break
-                }
-            }
-
-            DevicesApi.SetChangeIconNameInfoByIndex(index)
-                    .setRequestPageName(TAG)
-                    .setParams(params)
-                    .setResponseListener(object: Commander.ResponseListener()
-                    {
-                        override fun onSuccess(responseStr: String)
-                        {
-                            try
-                            {
-                                val data = JSONObject(responseStr)
-                                val sessionkey = data.get("sessionkey").toString()
-                                GlobalData.sessionKey = sessionkey
-
-                                isEditMode = false
-
-                                runOnUiThread{
-                                    if(isVisible)
-                                    {
-                                        end_device_detail_model_name_text.text = editDeviceName
-                                        end_device_detail_model_name_edit.setText(editDeviceName)
-                                        setEditModeUI()
-                                    }
-                                }
-
-                                GlobalBus.publish(MainEvent.HideLoading())
-                            }
-                            catch(e: JSONException)
-                            {
-                                e.printStackTrace()
-                                GlobalBus.publish(MainEvent.HideLoading())
-                            }
-                        }
-                    }).execute()
-        }
-    }
-
-    private fun setInternetBlockTask()
-    {
-        LogUtil.d(TAG,"setInternetBlockTask()")
-        GlobalBus.publish(MainEvent.ShowLoading())
-
-        val params = JSONObject()
+        params.put("MacAddress", endDeviceInfo.PhysAddress)
         params.put("Internet_Blocking_Enable", isBlocked)
-        LogUtil.d(TAG,"setInternetBlockTask param:${params.toString()}")
+        LogUtil.d(TAG,"setDeviceInfoTask param:${params.toString()}")
 
-        if(GlobalData.changeIconNameList.isEmpty())
+        var index = 0
+        for(i in GlobalData.changeIconNameList.indices)
+        {
+            if(GlobalData.changeIconNameList[i].MacAddress == endDeviceInfo.PhysAddress)
+            {
+                index = i + 1
+                break
+            }
+        }
+
+        if(index == 0)
         {
             DevicesApi.SetChangeIconNameInfo()
                     .setRequestPageName(TAG)
@@ -496,8 +439,7 @@ class EndDeviceDetailFragment : Fragment()
                                 val data = JSONObject(responseStr)
                                 val sessionkey = data.get("sessionkey").toString()
                                 GlobalData.sessionKey = sessionkey
-                                updateUI()
-                                GlobalBus.publish(MainEvent.HideLoading())
+                                GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
                             }
                             catch(e: JSONException)
                             {
@@ -509,16 +451,6 @@ class EndDeviceDetailFragment : Fragment()
         }
         else
         {
-            var index = 0
-            for(i in GlobalData.changeIconNameList.indices)
-            {
-                if(GlobalData.changeIconNameList[i].MacAddress == endDeviceInfo.PhysAddress)
-                {
-                    index = i
-                    break
-                }
-            }
-
             DevicesApi.SetChangeIconNameInfoByIndex(index)
                     .setRequestPageName(TAG)
                     .setParams(params)
@@ -531,8 +463,7 @@ class EndDeviceDetailFragment : Fragment()
                                 val data = JSONObject(responseStr)
                                 val sessionkey = data.get("sessionkey").toString()
                                 GlobalData.sessionKey = sessionkey
-                                updateUI()
-                                GlobalBus.publish(MainEvent.HideLoading())
+                                GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
                             }
                             catch(e: JSONException)
                             {

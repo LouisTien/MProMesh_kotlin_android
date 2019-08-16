@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var hideBottomToolbarDisposable: Disposable
     private lateinit var setHomeIconFocusDisposable: Disposable
     private lateinit var startGetDeviceInfoTaskDisposable: Disposable
+    private lateinit var startGetDeviceInfoTaskOnceDisposable: Disposable
     private lateinit var stopGetDeviceInfoTaskDisposable: Disposable
     private lateinit var enterHomePageDisposable: Disposable
     private lateinit var enterDevicesPageDisposable: Disposable
@@ -220,6 +221,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             deviceTimer.schedule(0, (AppConfig.endDeviceListUpdateTime * 1000).toLong()){ getChangeIconNameInfoTask() }
         }
 
+        startGetDeviceInfoTaskOnceDisposable = GlobalBus.listen(MainEvent.StartGetDeviceInfoOnceTask::class.java).subscribe{ getChangeIconNameInfoTask() }
+
         stopGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StopGetDeviceInfoTask::class.java).subscribe{ deviceTimer.cancel() }
 
         enterHomePageDisposable = GlobalBus.listen(MainEvent.EnterHomePage::class.java).subscribe{ gotoHomeFragment() }
@@ -257,6 +260,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!hideBottomToolbarDisposable.isDisposed) hideBottomToolbarDisposable.dispose()
         if(!setHomeIconFocusDisposable.isDisposed) setHomeIconFocusDisposable.dispose()
         if(!startGetDeviceInfoTaskDisposable.isDisposed) startGetDeviceInfoTaskDisposable.dispose()
+        if(!startGetDeviceInfoTaskOnceDisposable.isDisposed) startGetDeviceInfoTaskOnceDisposable.dispose()
         if(!stopGetDeviceInfoTaskDisposable.isDisposed) stopGetDeviceInfoTaskDisposable.dispose()
         if(!enterHomePageDisposable.isDisposed) enterHomePageDisposable.dispose()
         if(!enterDevicesPageDisposable.isDisposed) enterDevicesPageDisposable.dispose()
@@ -523,6 +527,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             GlobalBus.publish(MainEvent.HideLoading())
                             GlobalBus.publish(HomeEvent.GetDeviceInfoComplete())
                             GlobalBus.publish(DevicesEvent.GetDeviceInfoComplete())
+                            GlobalBus.publish(DevicesDetailEvent.GetDeviceInfoComplete())
                         }
                         catch(e: JSONException)
                         {

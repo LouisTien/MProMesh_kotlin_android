@@ -38,11 +38,26 @@ object GatewayApi
         }
     }
 
-    class Reboot : Commander()
+    class GatewayReboot : Commander()
     {
         override fun composeRequest(): Request
         {
             val rebootURL = "${GlobalData.getAPIPath()}/Reboot?sessionkey=${GlobalData.sessionKey}"
+            val requestParam = RequestBody.create(JSON, getParams().toString())
+            val request = Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(rebootURL)
+                    .post(requestParam)
+                    .build()
+            return request
+        }
+    }
+
+    class EndDeviceReboot(val index: Int = 0) : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val rebootURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.Hosts.Host.$index.X_ZYXEL_EXT.?sessionkey=${GlobalData.sessionKey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             val request = Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
