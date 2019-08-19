@@ -62,7 +62,7 @@ object GatewayApi
             val request = Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(rebootURL)
-                    .post(requestParam)
+                    .put(requestParam)
                     .build()
             return request
         }

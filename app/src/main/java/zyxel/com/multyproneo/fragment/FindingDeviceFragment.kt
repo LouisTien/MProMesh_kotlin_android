@@ -199,6 +199,8 @@ class FindingDeviceFragment : Fragment(), IResponseListener
 
     private fun runSearchTask()
     {
+        if(!isResumed) return
+
         runOnUiThread{
             loading_animation_view.setAnimation("searching.json")
             loading_animation_view.playAnimation()

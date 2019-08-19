@@ -9,7 +9,6 @@ import zyxel.com.multyproneo.util.AppConfig
  */
 class SocketController(private val responseListener: IResponseListener)
 {
-    private val TAG = javaClass.simpleName
     private val packetreceiver = PacketReceiver()
     private val sessioncontrol = SessionControl(Transport(packetreceiver))
     private val messagehandler = MessageHandler(responseListener)

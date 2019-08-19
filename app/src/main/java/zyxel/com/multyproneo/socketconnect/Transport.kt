@@ -1,7 +1,9 @@
 package zyxel.com.multyproneo.socketconnect
 
+import java.io.IOException
 import java.net.DatagramPacket
 import java.net.InetAddress
+import java.net.SocketException
 
 /**
  * Created by LouisTien on 2019/7/8.
@@ -17,7 +19,18 @@ class Transport(private val packetreceiver: PacketReceiver)
         override fun run()
         {
             var dp = DatagramPacket(data, data.size, broadip, broadcastPort)
-            packetreceiver.sendUDPPacket(dp)
+            try
+            {
+                packetreceiver.sendUDPPacket(dp)
+            }
+            catch(e: SocketException)
+            {
+                e.printStackTrace()
+            }
+            catch(e: IOException)
+            {
+                e.printStackTrace()
+            }
         }
     }
 }
