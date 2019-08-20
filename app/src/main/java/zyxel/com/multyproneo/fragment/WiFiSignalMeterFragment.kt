@@ -15,12 +15,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_wifi_signal_meter.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import org.jetbrains.anko.support.v4.runOnUiThread
+import org.json.JSONException
+import org.json.JSONObject
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.Commander
+import zyxel.com.multyproneo.api.DevicesApi
+import zyxel.com.multyproneo.api.GatewayApi
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.model.DevicesInfo
+import zyxel.com.multyproneo.util.GlobalData
+import zyxel.com.multyproneo.util.LogUtil
 import java.net.NetworkInterface
 import java.util.*
 import kotlin.concurrent.schedule
@@ -30,6 +38,7 @@ import kotlin.concurrent.schedule
  */
 class WiFiSignalMeterFragment : Fragment()
 {
+    private val TAG = javaClass.simpleName
     private val wifiReceiver = WifiReceiver()
     private lateinit var wifiManager: WifiManager
     private lateinit var connectionInfo: WifiInfo
@@ -42,6 +51,9 @@ class WiFiSignalMeterFragment : Fragment()
     private val minValue = -100f
     private val startDegree = -90f
     private val endDegree = 90f
+    private var connectedModel = ""
+    private var mobileDeviceIndex = 0
+    private var isStarted = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -80,48 +92,76 @@ class WiFiSignalMeterFragment : Fragment()
     override fun onPause()
     {
         super.onPause()
+        getRssiTimer.cancel()
+        activity?.applicationContext?.unregisterReceiver(wifiReceiver)
     }
 
     override fun onDestroyView()
     {
         super.onDestroyView()
-        getRssiTimer.cancel()
-        activity?.applicationContext?.unregisterReceiver(wifiReceiver)
     }
 
     private fun startRegularUpdateRssi()
     {
+        isStarted = true
         getRssiTimer = Timer()
         getRssiTimer.schedule(1000, 5000){ getRssiTask() }
     }
 
     private fun stopRegularUpdateRssi()
     {
+        isStarted = false
         getRssiTimer.cancel()
         setDefaultPointerStatus()
     }
 
     private fun setDefaultPointerStatus()
     {
-        wifi_signal_info_strength_text.text = ""
-        wifi_signal_info_strength_unit_text.visibility = View.INVISIBLE
-        animatePointer(wifi_signal_pointer_view, maxValue, minValue, -70f, startDegree, endDegree)
+        if(!isVisible) return
+
+        runOnUiThread{
+            wifi_signal_info_strength_text.text = ""
+            wifi_signal_info_strength_unit_text.visibility = View.INVISIBLE
+            animatePointer(wifi_signal_pointer_view, maxValue, minValue, -70f, startDegree, endDegree)
+        }
+    }
+
+    private fun updateWiFiInfoUI()
+    {
+        if(!isVisible) return
+
+        runOnUiThread{
+            for(i in scanResultList.indices)
+            {
+                if(scanResultList[i].BSSID.equals(connectionInfo.bssid, ignoreCase = true))
+                {
+                    c2gRssi = scanResultList[i].level
+                    frequency = scanResultList[i].frequency
+                    wifi_signal_info_band_text.text = if(frequency > 5000) "5GHz" else "2.4GHz"
+                }
+            }
+
+            wifi_signal_info_name_text.text = connectionInfo.ssid.substring(1, connectionInfo.ssid.length - 1)
+            wifi_signal_info_connect_text.text = if(connectedModel == "") GlobalData.getCurrentGatewayInfo().getName() else connectedModel
+        }
     }
 
     private fun updateSignalValue(value: Float)
     {
-        wifi_signal_info_strength_text.text = value.toString()
-        wifi_signal_info_strength_unit_text.visibility = View.VISIBLE
+        runOnUiThread{
+            wifi_signal_info_strength_text.text = value.toString()
+            wifi_signal_info_strength_unit_text.visibility = View.VISIBLE
 
-        var newValue = value
+            var newValue = value
 
-        if(newValue < -100f)
-            newValue = -100f
+            if(newValue < -100f)
+                newValue = -100f
 
-        if(newValue > -40f)
-            newValue = -40f
+            if(newValue > -40f)
+                newValue = -40f
 
-        animatePointer(wifi_signal_pointer_view, maxValue, minValue, newValue, startDegree, endDegree)
+            animatePointer(wifi_signal_pointer_view, maxValue, minValue, newValue, startDegree, endDegree)
+        }
     }
 
     private fun animatePointer(view: View, max: Float, min: Float, value: Float, startDegree: Float, endDegree: Float)
@@ -188,173 +228,96 @@ class WiFiSignalMeterFragment : Fragment()
 
     private fun getConnectedWiFiInfoTask()
     {
-        /*var ssid = ""
+        LogUtil.d(TAG,"getConnectedWiFiInfoTask()")
         var neighborMAC = ""
-        var connectedModel = ""
-        var endDeviceProfileArrayList: MutableList<EndDeviceProfile>
-        var result = false
+        var devicesInfo: DevicesInfo
+        val connManager = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+        if(networkInfo.isConnected)
+        {
+            val wifiManager = activity?.applicationContext?.getSystemService(Context.WIFI_SERVICE) as WifiManager
+            connectionInfo = wifiManager.connectionInfo
+            LogUtil.d(TAG, "Connected Info BSSID = ${connectionInfo.bssid}")
 
-        doAsync{
-            val connManager = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-            if(networkInfo.isConnected)
-            {
-                val wifiManager = activity?.applicationContext?.getSystemService(Context.WIFI_SERVICE) as WifiManager
-                connectionInfo = wifiManager.connectionInfo
-                ssid = connectionInfo.ssid
-                endDeviceProfileArrayList = mutableListOf<EndDeviceProfile>(
-                        EndDeviceProfile(
-                                UserDefineName = "Access Point",
-                                Name = "WAP6804-AP-40619",
-                                MAC = "5c:6a:80:e1:33:27",
-                                Active = "Connect",
-                                Blocking = "Non-Blocking",
-                                IPAddress = "192.168.1.151",
-                                ConnectionType = "Other",
-                                CapabilityType = "L2Device",
-                                SoftwareVersion = "1.00(ABKH.6)C0",
-                                HostType = 3,
-                                L2AutoConfigEnable = 3,
-                                L2WifiStatus = 1,
-                                Neighbor = "unknown",
-                                Manufacturer = "unknown",
-                                Channel24G = 11,
-                                Channel5G = 157,
-                                DeviceMode = "AP",
-                                NewDeviceFlag = 1,
-                                InternetAccess = "Non-Blocking",
-                                RssiRealFlag = 1,
-                                RssiValue = "Good",
-                                dhcpLeaseTime = "1559608754"
-                        ),
-                        EndDeviceProfile(
-                                UserDefineName = "Louis-LG V20",
-                                Name = "android-e5784d2ba14b34c5",
-                                MAC = "40:4e:36:b3:fd:15",
-                                Active = "Connect",
-                                Blocking = "Non-Blocking",
-                                IPAddress = "192.168.1.133",
-                                ConnectionType = "WiFi",
-                                CapabilityType = "Client",
-                                HostType = 1,
-                                SignalStrength = 5,
-                                PhyRate = 846,
-                                Neighbor = "gateway",
-                                Manufacturer = "unknown",
-                                Rssi = -29,
-                                Band = 2,
-                                Channel5G = 36,
-                                InternetAccess = "Non-Blocking",
-                                RssiRealFlag = 1,
-                                RssiValue = "TooClose",
-                                dhcpLeaseTime = "1559608754"
-                        ),
-                        EndDeviceProfile(
-                                UserDefineName = "Louis-LG V21",
-                                Name = "android-e5784d2ba14b34c7",
-                                MAC = "40:4e:36:b3:fd:17",
-                                Active = "Connect",
-                                Blocking = "Non-Blocking",
-                                IPAddress = "192.168.1.135",
-                                ConnectionType = "WiFi",
-                                CapabilityType = "Client",
-                                HostType = 1,
-                                SignalStrength = 5,
-                                PhyRate = 846,
-                                Neighbor = "gateway",
-                                Manufacturer = "unknown",
-                                Rssi = -29,
-                                Band = 2,
-                                Channel5G = 36,
-                                InternetAccess = "Non-Blocking",
-                                RssiRealFlag = 1,
-                                RssiValue = "TooClose",
-                                dhcpLeaseTime = "1559608754"
-                        ),
-                        EndDeviceProfile(
-                                UserDefineName = "ASUS_Phone",
-                                Name = "ASUS_Phone",
-                                MAC = "4c:ed:fb:4f:84:9c",
-                                Active = "Connect",
-                                Blocking = "Non-Blocking",
-                                IPAddress = "192.168.1.205",
-                                ConnectionType = "WiFi",
-                                CapabilityType = "Client",
-                                HostType = 1,
-                                SignalStrength = 5,
-                                PhyRate = 228,
-                                Neighbor = "gateway",
-                                GuestGroup = 1,
-                                Manufacturer = "unknown",
-                                Rssi = -29,
-                                Band = 2,
-                                Channel5G = 36,
-                                InternetAccess = "Non-Blocking",
-                                RssiRealFlag = 1,
-                                RssiValue = "Good",
-                                dhcpLeaseTime = "1561534851"
-                        )
-                )
-
-                for(i in endDeviceProfileArrayList.indices)
-                {
-                    if(endDeviceProfileArrayList[i].Neighbor != "")
+            DevicesApi.GetDevicesInfo()
+                    .setRequestPageName(TAG)
+                    .setResponseListener(object: Commander.ResponseListener()
                     {
-                        neighborMAC = endDeviceProfileArrayList[i].Neighbor
-                        for(j in endDeviceProfileArrayList.indices)
+                        override fun onSuccess(responseStr: String)
                         {
-                            if(endDeviceProfileArrayList[j].CapabilityType == "L2Device" && endDeviceProfileArrayList[j].MAC == neighborMAC)
-                                connectedModel = endDeviceProfileArrayList[j].Name
-                        }
-                    }
-                }
-                result = true
-            }
+                            try
+                            {
+                                devicesInfo = Gson().fromJson(responseStr, DevicesInfo::class.javaObjectType)
+                                LogUtil.d(TAG,"devicesInfo:${devicesInfo.toString()}")
 
-            uiThread{
-                GlobalBus.publish(MainEvent.HideLoading())
-                if(result)
-                {
-                    for(i in scanResultList.indices)
-                    {
-                        if(scanResultList[i].BSSID.equals(connectionInfo.bssid, ignoreCase = true))
-                        {
-                            c2gRssi = scanResultList[i].level
-                            frequency = scanResultList[i].frequency
-                            wifi_signal_info_band_text.text = if(frequency > 5000) "5GHz" else "2.4GHz"
-                        }
-                    }
+                                for(i in devicesInfo.Object.indices)
+                                {
+                                    if(devicesInfo.Object[i].HostName == "N/A")
+                                        continue
 
-                    wifi_signal_info_name_text.text = ssid.substring(1, ssid.length - 1)
-                    //wifi_signal_info_connect_text.text = if(connectedModel == "") GlobalData.getCurrentGatewayInfo().userDefineName else connectedModel
-                }
-                else
-                    GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
-            }
-        }*/
+                                    if( (devicesInfo.Object[i].PhysAddress == getMobileDeviceMacAddress()) && (devicesInfo.Object[i].X_ZYXEL_Neighbor != "") )
+                                    {
+                                        neighborMAC = devicesInfo.Object[i].X_ZYXEL_Neighbor
+                                        mobileDeviceIndex = i + 1
+
+                                        for(itemX in devicesInfo.Object)
+                                        {
+                                            if( (itemX.X_ZYXEL_CapabilityType == "L2Device") && (itemX.PhysAddress == neighborMAC) )
+                                            {
+                                                connectedModel = itemX.getName()
+                                                LogUtil.d(TAG, "mobile device connected to $connectedModel")
+                                            }
+                                        }
+                                    }
+                                }
+
+                                GlobalBus.publish(MainEvent.HideLoading())
+                                updateWiFiInfoUI()
+                            }
+                            catch(e: JSONException)
+                            {
+                                e.printStackTrace()
+                                GlobalBus.publish(MainEvent.HideLoading())
+                                GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
+                            }
+                        }
+                    }).execute()
+        }
     }
 
-    fun getRssiTask()
+    private fun getRssiTask()
     {
+        LogUtil.d(TAG,"getRssiTask()")
         var mobileMAC = ""
         var c2gRssi = 0
 
-        doAsync{
-            mobileMAC = getMobileDeviceMacAddress()
-            if(mobileMAC.equals("", ignoreCase = true))
-            {
+        mobileMAC = getMobileDeviceMacAddress()
+        if( (mobileMAC != "") && (mobileMAC != "02:00:00:00:00:00") )
+        {
+            c2gRssi = 0
 
-            }
-            else if(mobileMAC.equals("02:00:00:00:00:00", ignoreCase = true))
-            {
+            GatewayApi.GetRssiInfo(mobileDeviceIndex)
+                    .setRequestPageName(TAG)
+                    .setResponseListener(object: Commander.ResponseListener()
+                    {
+                        override fun onSuccess(responseStr: String)
+                        {
+                            LogUtil.d(TAG, "GetRssiInfo = $responseStr")
+                            try
+                            {
+                                val data = JSONObject(responseStr)
+                                c2gRssi = data.getJSONObject("Object").getInt("X_ZYXEL_RSSI")
+                                LogUtil.d(TAG,"c2gRssi:$c2gRssi")
 
-            }
-            else
-            {
-                c2gRssi = -64
-            }
-
-            uiThread{ updateSignalValue(c2gRssi.toFloat()) }
+                                if(isStarted)
+                                    updateSignalValue(c2gRssi.toFloat())
+                            }
+                            catch(e: JSONException)
+                            {
+                                e.printStackTrace()
+                            }
+                        }
+                    }).execute()
         }
     }
 }

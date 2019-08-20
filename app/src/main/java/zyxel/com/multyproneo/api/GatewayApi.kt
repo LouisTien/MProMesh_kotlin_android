@@ -67,4 +67,17 @@ object GatewayApi
             return request
         }
     }
+
+    class GetRssiInfo(val index: Int = 0) : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val getRssiInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.Hosts.Host.$index."
+            val request = Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(getRssiInfoURL)
+                    .build()
+            return request
+        }
+    }
 }
