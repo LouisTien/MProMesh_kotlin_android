@@ -21,14 +21,14 @@ import javax.net.ssl.TrustManager
 abstract class Commander
 {
     private val TAG = javaClass.simpleName
-    private val client = OkHttpClient().newBuilder()
+    /*private val client = OkHttpClient().newBuilder()
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(300, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .connectionPool(ConnectionPool( 7,60*5, TimeUnit.SECONDS))
             .sslSocketFactory(createSSLSocketFactory())
             .hostnameVerifier(TrustHostnameVerifier)
-            .build()
+            .build()*/
     //private var mCtx: Context
     private var headers = Headers.Builder()
     private lateinit var responseListener: ResponseListener
@@ -37,6 +37,34 @@ abstract class Commander
     private lateinit var paramStr: String
     private lateinit var errorInfo: HttpErrorInfo
     private var requestPageName = ""
+
+    companion object
+    {
+        private val client = OkHttpClient().newBuilder()
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(300, TimeUnit.SECONDS)
+                .writeTimeout(60, TimeUnit.SECONDS)
+                .connectionPool(ConnectionPool( 7,60*5, TimeUnit.SECONDS))
+                .sslSocketFactory(createSSLSocketFactory())
+                .hostnameVerifier(TrustHostnameVerifier)
+                .build()
+
+        private fun createSSLSocketFactory(): SSLSocketFactory?
+        {
+            var ssfFactory: SSLSocketFactory? = null
+            try
+            {
+                val sc = SSLContext.getInstance("TLS")
+                sc.init(null, arrayOf<TrustManager>(TrustCerts), SecureRandom())
+                ssfFactory = sc.socketFactory
+            }
+            catch(e: Exception)
+            {
+
+            }
+            return ssfFactory
+        }
+    }
 
     abstract fun composeRequest(): Request
 
@@ -69,22 +97,6 @@ abstract class Commander
             GlobalBus.publish(MainEvent.ShowToast(msg, ctxName))
             GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
         }
-    }
-
-    private fun createSSLSocketFactory(): SSLSocketFactory?
-    {
-        var ssfFactory: SSLSocketFactory? = null
-        try
-        {
-            val sc = SSLContext.getInstance("TLS")
-            sc.init(null, arrayOf<TrustManager>(TrustCerts), SecureRandom())
-            ssfFactory = sc.socketFactory
-        }
-        catch(e: Exception)
-        {
-
-        }
-        return ssfFactory
     }
 
     fun getHeaders(): Headers.Builder
