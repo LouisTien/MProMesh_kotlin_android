@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Multy Pro Neo</string>
+    <string name="app_name">MPro Mesh</string>
 
     <string name="welcome_my_home_network_title">My Home Network</string>
     <string name="welcome_guest_wifi_access_title">Guest WiFi Access</string>
