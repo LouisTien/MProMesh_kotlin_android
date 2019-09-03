@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_loading_transition.*
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
+import zyxel.com.multyproneo.event.LoadingTransitionEvent
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.AppConfig
 
@@ -17,6 +19,7 @@ import zyxel.com.multyproneo.util.AppConfig
  */
 class LoadingTransitionFragment : Fragment()
 {
+    private val TAG = javaClass.simpleName
     private var title = ""
     private var description = ""
     private var secDescription = ""
@@ -25,6 +28,7 @@ class LoadingTransitionFragment : Fragment()
     private var anim = AppConfig.LoadingAnimation.ANIM_REBOOT
     private var desPage = AppConfig.LoadingGoToPage.FRAG_SEARCH
     private lateinit var countDownTimer: CountDownTimer
+    private lateinit var WPSStatusUpdateDisposable: Disposable
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -60,6 +64,16 @@ class LoadingTransitionFragment : Fragment()
             override fun onFinish() = finishAction()
         }
 
+        WPSStatusUpdateDisposable = GlobalBus.listen(LoadingTransitionEvent.WPSStatusUpdate::class.java).subscribe{
+            countDownTimer.cancel()
+            when(it.status)
+            {
+                true -> desPage = AppConfig.LoadingGoToPage.FRAG_MESH_SUCCESS
+                false -> desPage = AppConfig.LoadingGoToPage.FRAG_MESH_FAIL
+            }
+            finishAction()
+        }
+
         initUI()
         loading_animation_view.playAnimation()
         //Handler().postDelayed({ finishAction() }, (loadingSecond * 1000).toLong())
@@ -81,6 +95,7 @@ class LoadingTransitionFragment : Fragment()
     {
         super.onDestroyView()
         countDownTimer.cancel()
+        if(!WPSStatusUpdateDisposable.isDisposed) WPSStatusUpdateDisposable.dispose()
     }
 
     private fun initUI()
@@ -122,6 +137,8 @@ class LoadingTransitionFragment : Fragment()
 
     private fun finishAction()
     {
+        GlobalBus.publish(MainEvent.StopGetWPSStatusTask())
+
         when(desPage)
         {
             AppConfig.LoadingGoToPage.FRAG_SEARCH -> GlobalBus.publish(MainEvent.EnterSearchGatewayPage())

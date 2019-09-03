@@ -19,10 +19,8 @@ import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.toast
 import org.json.JSONException
-import zyxel.com.multyproneo.api.Commander
-import zyxel.com.multyproneo.api.DevicesApi
-import zyxel.com.multyproneo.api.GatewayApi
-import zyxel.com.multyproneo.api.WiFiSettingApi
+import org.json.JSONObject
+import zyxel.com.multyproneo.api.*
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.fragment.*
@@ -47,6 +45,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var startGetDeviceInfoTaskDisposable: Disposable
     private lateinit var startGetDeviceInfoTaskOnceDisposable: Disposable
     private lateinit var stopGetDeviceInfoTaskDisposable: Disposable
+    private lateinit var startGetWPSStatusTaskDisposable: Disposable
+    private lateinit var stopGetWPSStatusTaskDisposable: Disposable
     private lateinit var enterHomePageDisposable: Disposable
     private lateinit var enterDevicesPageDisposable: Disposable
     private lateinit var enterWiFiSettingsPageDisposable: Disposable
@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var fSecureInfo: FSecureInfo
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
+    private var getWPSStatusTimer = Timer()
     private var currentFrag = ""
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -237,6 +238,13 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         enterSearchGatewayPageDisposable = GlobalBus.listen(MainEvent.EnterSearchGatewayPage::class.java).subscribe{ gotoSearchGatewayFragment() }
 
+        startGetWPSStatusTaskDisposable = GlobalBus.listen(MainEvent.StartGetWPSStatusTask::class.java).subscribe{
+            getWPSStatusTimer = Timer()
+            getWPSStatusTimer.schedule(0, (AppConfig.WPSStatusUpdateTime * 1000).toLong()){ getWPSStatusInfoTask() }
+        }
+
+        stopGetWPSStatusTaskDisposable = GlobalBus.listen(MainEvent.StopGetWPSStatusTask::class.java).subscribe{ getWPSStatusTimer.cancel() }
+
         msgDialogResponseDisposable = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
             when(it.action)
             {
@@ -262,6 +270,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!startGetDeviceInfoTaskDisposable.isDisposed) startGetDeviceInfoTaskDisposable.dispose()
         if(!startGetDeviceInfoTaskOnceDisposable.isDisposed) startGetDeviceInfoTaskOnceDisposable.dispose()
         if(!stopGetDeviceInfoTaskDisposable.isDisposed) stopGetDeviceInfoTaskDisposable.dispose()
+        if(!startGetWPSStatusTaskDisposable.isDisposed) startGetWPSStatusTaskDisposable.dispose()
+        if(!stopGetWPSStatusTaskDisposable.isDisposed) stopGetWPSStatusTaskDisposable.dispose()
         if(!enterHomePageDisposable.isDisposed) enterHomePageDisposable.dispose()
         if(!enterDevicesPageDisposable.isDisposed) enterDevicesPageDisposable.dispose()
         if(!enterWiFiSettingsPageDisposable.isDisposed) enterWiFiSettingsPageDisposable.dispose()
@@ -533,6 +543,50 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         {
                             e.printStackTrace()
                             GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun getWPSStatusInfoTask()
+    {
+        LogUtil.d(TAG,"getWPSStatusInfoTask()")
+        AddMeshApi.GetWPSStatus()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            var status = data.getJSONObject("Object").getString("X_ZYXEL_WPSRunningStatus")
+                            LogUtil.d(TAG,"WPS status:$status")
+
+                            with(status)
+                            {
+                                when
+                                {
+                                    contains("OK", ignoreCase = true) ->
+                                    {
+                                        getWPSStatusTimer.cancel()
+                                        GlobalBus.publish(LoadingTransitionEvent.WPSStatusUpdate(true))
+                                    }
+
+                                    contains("Requested", ignoreCase = true) -> {}
+
+                                    else ->
+                                    {
+                                        getWPSStatusTimer.cancel()
+                                        GlobalBus.publish(LoadingTransitionEvent.WPSStatusUpdate(false))
+                                    }
+                                }
+                            }
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                            getWPSStatusTimer.cancel()
                         }
                     }
                 }).execute()

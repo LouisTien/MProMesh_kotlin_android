@@ -14,6 +14,8 @@ class MainEvent
     class StartGetDeviceInfoTask()
     class StartGetDeviceInfoOnceTask()
     class StopGetDeviceInfoTask()
+    class StartGetWPSStatusTask()
+    class StopGetWPSStatusTask()
     class EnterHomePage()
     class EnterDevicesPage()
     class EnterWiFiSettingsPage()

@@ -8,8 +8,8 @@ android {
         applicationId "zyxel.com.multyproneo"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 20190826
-        versionName "1.0.0.190826"
+        versionCode 20190903
+        versionName "1.0.0.190903"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

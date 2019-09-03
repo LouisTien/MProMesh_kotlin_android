@@ -23,8 +23,13 @@ object AppConfig
     const val endDeviceListUpdateTime = 60
     const val WiFiSettingTime = 30
     const val rebootTime = 20
+
+    //Add Mesh
+    const val WPSStatusUpdateTime = 5
+    const val addMeshTime = 180
+
+    //Other
     const val keepScreenTime = 300
-    const val addExtenderTime = 180
 
     //Restful
     const val RESTfulBroadcastSet = true
