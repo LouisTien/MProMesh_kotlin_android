@@ -68,13 +68,13 @@ class DevicesFragment : Fragment()
                 GlobalBus.publish(MainEvent.SwitchToFrag(SearchDevicesFragment().apply{ arguments = bundle }))
             }
 
-            devices_home_devices_sort_image ->
+            devices_home_devices_sort_image, devices_home_devices_title_text ->
             {
                 GlobalData.homeDevAscendingOrder = !GlobalData.homeDevAscendingOrder
                 updateUI()
             }
 
-            devices_guest_devices_sort_image ->
+            devices_guest_devices_sort_image, devices_home_devices_title_text ->
             {
                 GlobalData.guestDevAscendingOrder = !GlobalData.guestDevAscendingOrder
                 updateUI()
@@ -87,6 +87,7 @@ class DevicesFragment : Fragment()
         devices_search_image.setOnClickListener(clickListener)
         devices_home_devices_sort_image.setOnClickListener(clickListener)
         devices_guest_devices_sort_image.setOnClickListener(clickListener)
+        devices_home_devices_title_text.setOnClickListener(clickListener)
     }
 
     private fun updateUI()
