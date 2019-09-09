@@ -52,7 +52,13 @@ class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var 
     {
         fun bind(position: Int)
         {
-            var status = if(endDeviceList[position].Internet_Blocking_Enable) "Blocked" else endDeviceList[position].X_ZYXEL_RSSI_STAT
+            var status =
+                when
+                {
+                    endDeviceList[position].Internet_Blocking_Enable -> "Blocked"
+                    endDeviceList[position].X_ZYXEL_RSSI_STAT.equals("TooClose", ignoreCase = true) -> "Good"
+                    else -> endDeviceList[position].X_ZYXEL_RSSI_STAT
+                }
 
             view.link_quality_text.textColor = parent.context.resources.getColor(
                     with(status)
