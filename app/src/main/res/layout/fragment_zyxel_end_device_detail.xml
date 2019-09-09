@@ -108,7 +108,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_22sp_in_1080"
                 android:textColor="@color/color_000000"
-                android:textStyle="bold"
                 tools:text="VMG4927"/>
 
             <TextView

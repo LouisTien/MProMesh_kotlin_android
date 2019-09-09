@@ -51,13 +51,13 @@ object GlobalData
     private fun sortHomeDevAscendingOrder()
     {
         homeDevAscendingOrder = true
-        homeEndDeviceList.sortBy{ it.getName() }
+        homeEndDeviceList.sortBy{ it.getName().toUpperCase() }
     }
 
     private fun sortHomeDevDescendingOrder()
     {
         homeDevAscendingOrder = false
-        homeEndDeviceList.sortByDescending{ it.getName() }
+        homeEndDeviceList.sortByDescending{ it.getName().toUpperCase() }
     }
 
     fun sortGuestDeviceList() = if(guestDevAscendingOrder) sortGuestDevAscendingOrder() else sortGuestDevDescendingOrder()
@@ -65,12 +65,12 @@ object GlobalData
     private fun sortGuestDevAscendingOrder()
     {
         guestDevAscendingOrder = true
-        guestEndDeviceList.sortBy{ it.getName() }
+        guestEndDeviceList.sortBy{ it.getName().toUpperCase() }
     }
 
     private fun sortGuestDevDescendingOrder()
     {
         guestDevAscendingOrder = false
-        guestEndDeviceList.sortByDescending{ it.getName() }
+        guestEndDeviceList.sortByDescending{ it.getName().toUpperCase() }
     }
 }

@@ -88,12 +88,13 @@ class ZYXELEndDeviceItemAdapter
                 )
             }
 
-            val mode = endDeviceList[position].X_ZYXEL_HostType + if(status.equals("N/A", ignoreCase = true)) " disconnected" else ""
+            val mode = if(endDeviceList[position].X_ZYXEL_HostType.equals("Router", ignoreCase = true)) "Gateway" else endDeviceList[position].X_ZYXEL_HostType +
+                    if(status.equals("N/A", ignoreCase = true)) " disconnected" else ""
             view.device_mode_text.text = mode
 
             view.user_define_name_text.text = endDeviceList[position].getName()
 
-            view.enter_detail_image.setOnClickListener{
+            view.zyxel_end_device_relative.setOnClickListener{
                 val bundle = Bundle().apply{
                     putBoolean("GatewayMode", position == 0)
                     putSerializable("GatewayInfo", deviceInfo)

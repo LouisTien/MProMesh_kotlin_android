@@ -265,7 +265,8 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 
     private fun setGatewayModeUI()
     {
-        zyxel_end_device_detail_title_text.text = endDeviceInfo.X_ZYXEL_HostType + " " + getString(R.string.device_detail_detail)
+        val title = if(endDeviceInfo.X_ZYXEL_HostType.equals("Router", ignoreCase = true)) "Gateway" else endDeviceInfo.X_ZYXEL_HostType
+        zyxel_end_device_detail_title_text.text = title + " " + getString(R.string.device_detail_detail)
         setContentLinearListVisibility(true)
         zyxel_end_device_detail_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_reboot_button.visibility = if(isConnect) View.VISIBLE else View.INVISIBLE
@@ -274,7 +275,8 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 
     private fun setEndDeviceModeUI()
     {
-        zyxel_end_device_detail_title_text.text = endDeviceInfo.X_ZYXEL_HostType + " " + getString(R.string.device_detail_detail)
+        val title = if(endDeviceInfo.X_ZYXEL_HostType.equals("Router", ignoreCase = true)) "Gateway" else endDeviceInfo.X_ZYXEL_HostType
+        zyxel_end_device_detail_title_text.text = title + " " + getString(R.string.device_detail_detail)
         setContentLinearListVisibility(true)
         zyxel_end_device_detail_wan_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_dns_ip_linear.visibility = View.GONE

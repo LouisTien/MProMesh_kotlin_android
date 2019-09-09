@@ -92,7 +92,7 @@ class HomeFragment : Fragment()
 
             home_connect_device_enter_image -> {GlobalBus.publish(MainEvent.EnterDevicesPage())}
             home_guest_wifi_enter_image -> {GlobalBus.publish(MainEvent.EnterWiFiSettingsPage())}
-            home_add_mesh_image -> {GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFragment()))}
+            home_add_mesh_image, home_add_mesh_text -> {GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFragment()))}
         }
     }
 
@@ -103,6 +103,7 @@ class HomeFragment : Fragment()
         home_connect_device_enter_image.setOnClickListener(clickListener)
         home_guest_wifi_enter_image.setOnClickListener(clickListener)
         home_add_mesh_image.setOnClickListener(clickListener)
+        home_add_mesh_text.setOnClickListener(clickListener)
     }
 
     private fun updateUI()

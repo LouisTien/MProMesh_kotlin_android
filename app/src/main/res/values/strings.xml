@@ -72,7 +72,8 @@
     <string name="device_detail_connecting">Connecting</string>
     <string name="device_detail_disconnect">Disconnect</string>
     <string name="device_detail_blocked">Blocked</string>
-    <string name="device_detail_wire">Wire</string>
+    <string name="device_detail_wire">Wired</string>
+    <string name="device_detail_wireless">Wireless</string>
     <string name="device_detail_title">Device Detail</string>
     <string name="device_detail_device_name">Device Name</string>
     <string name="device_detail_internet_access">Internet Access</string>

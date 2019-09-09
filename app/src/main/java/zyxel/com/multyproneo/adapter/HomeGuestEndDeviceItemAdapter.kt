@@ -91,7 +91,7 @@ class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var 
             view.user_define_name_text.text = modelName
             view.profile_name_text.text = ""
 
-            view.enter_detail_image.setOnClickListener{
+            view.home_guest_end_device_relative.setOnClickListener{
                 val bundle = Bundle().apply{
                     putSerializable("DevicesInfo", endDeviceList[position])
                     putString("Search", "")

@@ -231,6 +231,8 @@ class EndDeviceDetailFragment : Fragment()
 
         modelName = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.getName())
         connectType = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_ConnectionType)
+        if(connectType.contains("WiFi", ignoreCase = true) or connectType.contains("Wi-Fi", ignoreCase = true))
+            connectType = getString(R.string.device_detail_wireless)
         connectTo = SpecialCharacterHandler.checkEmptyTextValue(
                 if(endDeviceInfo.X_ZYXEL_Neighbor.equals("gateway", ignoreCase = true))
                     GlobalData.getCurrentGatewayInfo().ModelName
