@@ -49,4 +49,6 @@ dependencies {
     // Restful
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.google.code.gson:gson:2.8.4'
+    //android-PullRefreshLayout
+    implementation 'com.baoyz.pullrefreshlayout:library:1.2.0'
 }

@@ -78,18 +78,25 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/home_device_list"
-        android:layout_width="wrap_content"
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/home_device_list_swipe"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:divider="@null"
-        android:listSelector="@android:color/transparent"
         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
         android:layout_below="@+id/home_internet_status_area_linear"
         android:layout_above="@+id/home_add_mesh_relative">
 
-    </ListView>
+        <ListView
+            android:id="@+id/home_device_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:divider="@null"
+            android:listSelector="@android:color/transparent">
+
+        </ListView>
+
+    </com.baoyz.widget.PullRefreshLayout>
 
     <RelativeLayout
         android:id="@+id/home_add_mesh_relative"

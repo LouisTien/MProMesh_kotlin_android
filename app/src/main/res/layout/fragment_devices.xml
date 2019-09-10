@@ -142,17 +142,24 @@
 
             </RelativeLayout>
 
-            <ListView
-                android:id="@+id/devices_home_devices_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.baoyz.widget.PullRefreshLayout
+                android:id="@+id/devices_home_devices_list_swipe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
                 android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-                android:listSelector="@android:color/transparent"
                 android:layout_below="@+id/devices_home_devices_title_bar_relative"
                 android:layout_above="@+id/home_extra_info_area_linear">
 
-            </ListView>
+                <ListView
+                    android:id="@+id/devices_home_devices_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:listSelector="@android:color/transparent">
+
+                </ListView>
+
+            </com.baoyz.widget.PullRefreshLayout>
 
         </LinearLayout>
 
@@ -202,15 +209,24 @@
 
             </RelativeLayout>
 
-            <ListView
-                android:id="@+id/devices_guest_devices_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.baoyz.widget.PullRefreshLayout
+                android:id="@+id/devices_guest_devices_list_swipe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
                 android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-                android:listSelector="@android:color/transparent">
+                android:layout_below="@+id/devices_home_devices_title_bar_relative"
+                android:layout_above="@+id/home_extra_info_area_linear">
 
-            </ListView>
+                <ListView
+                    android:id="@+id/devices_guest_devices_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:listSelector="@android:color/transparent">
+
+                </ListView>
+
+            </com.baoyz.widget.PullRefreshLayout>
 
         </LinearLayout>
 

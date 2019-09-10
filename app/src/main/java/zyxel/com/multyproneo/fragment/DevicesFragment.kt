@@ -31,8 +31,19 @@ class DevicesFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-
         getInfoCompleteDisposable = GlobalBus.listen(DevicesEvent.GetDeviceInfoComplete::class.java).subscribe{ updateUI() }
+
+        devices_home_devices_list_swipe.setOnRefreshListener{
+            GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
+            GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
+            GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
+        }
+
+        devices_guest_devices_list_swipe.setOnRefreshListener{
+            GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
+            GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
+            GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
+        }
 
         setClickListener()
     }
@@ -74,7 +85,7 @@ class DevicesFragment : Fragment()
                 updateUI()
             }
 
-            devices_guest_devices_sort_image, devices_home_devices_title_text ->
+            devices_guest_devices_sort_image, devices_guest_devices_title_text ->
             {
                 GlobalData.guestDevAscendingOrder = !GlobalData.guestDevAscendingOrder
                 updateUI()
@@ -95,6 +106,10 @@ class DevicesFragment : Fragment()
         if(!isVisible) return
 
         runOnUiThread{
+            GlobalBus.publish(MainEvent.HideLoading())
+            devices_home_devices_list_swipe.setRefreshing(false)
+            devices_guest_devices_list_swipe.setRefreshing(false)
+
             devices_activated_value_text.text = GlobalData.getActivatedDeviceCount().toString()
             devices_total_value_text.text = GlobalData.getTotalDeviceCount().toString()
 

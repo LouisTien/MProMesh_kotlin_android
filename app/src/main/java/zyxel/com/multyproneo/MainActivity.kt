@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
+import android.widget.ProgressBar
 import com.google.gson.Gson
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 {
     private val TAG = javaClass.simpleName
     private lateinit var switchFrgDisposable: Disposable
+    private lateinit var showLoadingOnlyGrayBGDisposable: Disposable
     private lateinit var showLoadingDisposable: Disposable
     private lateinit var hideLoadingDisposable: Disposable
     private lateinit var showBottomToolbarDisposable: Disposable
@@ -61,6 +63,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var wanInfo: WanInfo
     private lateinit var guestWiFiInfo: GuestWiFiInfo
     private lateinit var fSecureInfo: FSecureInfo
+    private lateinit var progressBar: ProgressBar
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
     private var getWPSStatusTimer = Timer()
@@ -189,9 +192,16 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
     private fun createLoadingDlg(context: Context): Dialog
     {
-        val builder = AlertDialog.Builder(context, R.style.loadingStyle)
+        /*val builder = AlertDialog.Builder(context, R.style.loadingStyle)
         builder.setCancelable(false)
         builder.setView(layoutInflater.inflate(R.layout.dialog_loading, null))
+        return builder.create()*/
+
+        val builder = AlertDialog.Builder(context, R.style.loadingStyle)
+        val mView = layoutInflater.inflate(R.layout.dialog_loading, null)
+        progressBar = mView.findViewById(R.id.loadingProBar) as ProgressBar
+        builder.setCancelable(false)
+        builder.setView(mView)
         return builder.create()
     }
 
@@ -202,6 +212,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private fun listenEvent()
     {
         switchFrgDisposable = GlobalBus.listen(MainEvent.SwitchToFrag::class.java).subscribe{ switchToFragContainer(it.frag) }
+
+        showLoadingOnlyGrayBGDisposable = GlobalBus.listen(MainEvent.ShowLoadingOnlyGrayBG::class.java).subscribe{ ShowLoadingOnlyGrayBG() }
 
         showLoadingDisposable = GlobalBus.listen(MainEvent.ShowLoading::class.java).subscribe{ showLoading() }
 
@@ -219,10 +231,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         startGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StartGetDeviceInfoTask::class.java).subscribe{
             deviceTimer = Timer()
-            deviceTimer.schedule(0, (AppConfig.endDeviceListUpdateTime * 1000).toLong()){ getChangeIconNameInfoTask() }
+            deviceTimer.schedule(0, (AppConfig.endDeviceListUpdateTime * 1000).toLong()){ startGetAllNeedDeviceInfoTask() }
         }
 
-        startGetDeviceInfoTaskOnceDisposable = GlobalBus.listen(MainEvent.StartGetDeviceInfoOnceTask::class.java).subscribe{ getChangeIconNameInfoTask() }
+        startGetDeviceInfoTaskOnceDisposable = GlobalBus.listen(MainEvent.StartGetDeviceInfoOnceTask::class.java).subscribe{ startGetAllNeedDeviceInfoTask() }
 
         stopGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StopGetDeviceInfoTask::class.java).subscribe{ deviceTimer.cancel() }
 
@@ -262,6 +274,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private fun disposeEvent()
     {
         if(!switchFrgDisposable.isDisposed) switchFrgDisposable.dispose()
+        if(!showLoadingOnlyGrayBGDisposable.isDisposed) showLoadingOnlyGrayBGDisposable.dispose()
         if(!showLoadingDisposable.isDisposed) showLoadingDisposable.dispose()
         if(!hideLoadingDisposable.isDisposed) hideLoadingDisposable.dispose()
         if(!showBottomToolbarDisposable.isDisposed) showBottomToolbarDisposable.dispose()
@@ -352,9 +365,20 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         switchToFragContainer(FindingDeviceFragment())
     }
 
+    private fun ShowLoadingOnlyGrayBG()
+    {
+        runOnUiThread{
+            progressBar.visibility = View.INVISIBLE
+            if(!loadingDlg.isShowing) loadingDlg.show()
+        }
+    }
+
     private fun showLoading()
     {
-        runOnUiThread{ if(!loadingDlg.isShowing) loadingDlg.show() }
+        runOnUiThread{
+            progressBar.visibility = View.VISIBLE
+            if(!loadingDlg.isShowing) loadingDlg.show()
+        }
     }
 
     private fun hideLoading()
@@ -367,12 +391,25 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         runOnUiThread{ toast(msg) }
     }
 
+    private fun startGetAllNeedDeviceInfoTask()
+    {
+        if(GlobalData.ZYXELEndDeviceList.isEmpty())
+            GlobalBus.publish(MainEvent.ShowLoading())
+
+        getChangeIconNameInfoTask()
+    }
+
+    private fun stopGetAllNeedDeviceInfoTask()
+    {
+        GlobalBus.publish(MainEvent.HideLoading())
+        GlobalBus.publish(HomeEvent.GetDeviceInfoComplete())
+        GlobalBus.publish(DevicesEvent.GetDeviceInfoComplete())
+        GlobalBus.publish(DevicesDetailEvent.GetDeviceInfoComplete())
+    }
+
     private fun getChangeIconNameInfoTask()
     {
         LogUtil.d(TAG,"getChangeIconNameInfoTask()")
-
-        if(GlobalData.ZYXELEndDeviceList.isEmpty())
-            GlobalBus.publish(MainEvent.ShowLoading())
 
         DevicesApi.GetChangeIconNameInfo()
                 .setRequestPageName(TAG)
@@ -534,10 +571,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             fSecureInfo = Gson().fromJson(responseStr, FSecureInfo::class.javaObjectType)
                             LogUtil.d(TAG,"fSecureInfo:${fSecureInfo.toString()}")
                             GlobalData.FSecureStatus = fSecureInfo.Object.Cyber_Security_FSC
-                            GlobalBus.publish(MainEvent.HideLoading())
-                            GlobalBus.publish(HomeEvent.GetDeviceInfoComplete())
-                            GlobalBus.publish(DevicesEvent.GetDeviceInfoComplete())
-                            GlobalBus.publish(DevicesDetailEvent.GetDeviceInfoComplete())
+                            stopGetAllNeedDeviceInfoTask()
                         }
                         catch(e: JSONException)
                         {

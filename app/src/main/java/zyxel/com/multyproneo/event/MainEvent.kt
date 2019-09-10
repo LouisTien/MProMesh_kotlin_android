@@ -6,6 +6,7 @@ package zyxel.com.multyproneo.event
 class MainEvent
 {
     data class SwitchToFrag(var frag: android.support.v4.app.Fragment)
+    class ShowLoadingOnlyGrayBG()
     class ShowLoading()
     class HideLoading()
     class ShowBottomToolbar()

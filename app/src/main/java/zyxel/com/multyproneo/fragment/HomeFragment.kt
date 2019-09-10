@@ -41,6 +41,11 @@ class HomeFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
         getInfoCompleteDisposable = GlobalBus.listen(HomeEvent.GetDeviceInfoComplete::class.java).subscribe{ updateUI() }
+        home_device_list_swipe.setOnRefreshListener{
+            GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
+            GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
+            GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
+        }
         setClickListener()
     }
 
@@ -113,6 +118,9 @@ class HomeFragment : Fragment()
         LogUtil.d(TAG, "updateUI()")
 
         runOnUiThread{
+            GlobalBus.publish(MainEvent.HideLoading())
+            home_device_list_swipe.setRefreshing(false)
+
             home_connect_device_count_text.text = GlobalData.getConnectDeviceCount().toString()
             adapter = ZYXELEndDeviceItemAdapter(
                     GlobalData.ZYXELEndDeviceList,
