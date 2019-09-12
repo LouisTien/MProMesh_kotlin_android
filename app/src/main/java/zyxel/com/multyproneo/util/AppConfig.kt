@@ -34,6 +34,9 @@ object AppConfig
     //Restful
     const val RESTfulBroadcastSet = true
 
+    //Fabric
+    const val NoUploadFabric = false
+
     enum class LoadingAnimation
     {
         ANIM_REBOOT,

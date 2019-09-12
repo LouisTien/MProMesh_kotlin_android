@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "578617382573",
+    "firebase_url": "https://mpro-mesh-cf28d.firebaseio.com",
+    "project_id": "mpro-mesh-cf28d",
+    "storage_bucket": "mpro-mesh-cf28d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578617382573:android:64c93a4c608b34b7c21824",
+        "android_client_info": {
+          "package_name": "zyxel.com.multyproneo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "578617382573-6neg4p0c4m20v6s5lgngfjun3pa1c9np.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "zyxel.com.multyproneo",
+            "certificate_hash": "14c5d6545b5e51efc9312739ac4badc91967108e"
+          }
+        },
+        {
+          "client_id": "578617382573-uopc4olu2rbp381uvnokbk53sf1d2mnf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "zyxel.com.multyproneo",
+            "certificate_hash": "275a595e15c649c530aeb4e2dfdaef8872443455"
+          }
+        },
+        {
+          "client_id": "578617382573-a8hhc8eqtloubd8qdv2ukshdd6r70979.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG1MCMOXNxzYdMS0zHW0uSVisQ7RDS5co"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "578617382573-a8hhc8eqtloubd8qdv2ukshdd6r70979.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

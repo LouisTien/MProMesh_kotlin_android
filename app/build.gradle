@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -8,8 +10,8 @@ android {
         applicationId "zyxel.com.multyproneo"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 20190903
-        versionName "1.0.0.190903"
+        versionCode 20190912
+        versionName "1.0.0.190912"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -42,13 +44,19 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.airbnb.android:lottie:2.6.0'
     implementation 'com.google.zxing:core:3.2.0'
-    // Rx Dependencies
+    //Rx Dependencies
     implementation "io.reactivex.rxjava2:rxjava:2.1.16"
     implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
     implementation "io.reactivex.rxjava2:rxkotlin:2.2.0"
-    // Restful
+    //Restful
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.google.code.gson:gson:2.8.4'
     //android-PullRefreshLayout
     implementation 'com.baoyz.pullrefreshlayout:library:1.2.0'
+    //Firebase&Fabric
+    implementation 'com.google.firebase:firebase-analytics:11.4.2'
+    implementation 'com.google.firebase:firebase-core:11.4.2'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
+        transitive = true;
+    }
 }

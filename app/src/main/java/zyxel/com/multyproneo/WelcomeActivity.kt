@@ -6,9 +6,13 @@ import android.os.Handler
 import android.support.v4.view.ViewPager
 import android.view.View
 import android.view.WindowManager
+import com.crashlytics.android.Crashlytics
+import com.crashlytics.android.core.CrashlyticsCore
+import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_welcome.*
 import org.jetbrains.anko.startActivity
 import zyxel.com.multyproneo.adapter.WelcomeAdapter
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.SharedPreferencesUtil
 
 /**
@@ -23,6 +27,13 @@ class WelcomeActivity : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
+
+        val crashlyticsKit = Crashlytics.Builder()
+                .core(CrashlyticsCore.Builder().disabled(AppConfig.NoUploadFabric).build())
+                .build()
+
+        Fabric.with(this, crashlyticsKit)
+
         setContentView(R.layout.activity_welcome)
 
         welcome_view_pager.adapter = welcomeAdapter
