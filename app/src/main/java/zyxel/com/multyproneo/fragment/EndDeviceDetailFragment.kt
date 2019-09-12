@@ -244,9 +244,9 @@ class EndDeviceDetailFragment : Fragment()
         manufacturer = SpecialCharacterHandler.checkEmptyTextValue(OUIUtil.getOUI(activity!!, endDeviceInfo.PhysAddress))
         dhcpTime = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_DHCPLeaseTime.toString())
 
-        if(FeatureConfig.hostNameReplease)
+        if(FeatureConfig.hostNameReplaceStatus)
         {
-            if(modelName.equals("unknown", ignoreCase = true))
+            if(modelName.equals("unknown", ignoreCase = true) || modelName.equals("<unknown>", ignoreCase = true))
                 modelName = OUIUtil.getOUI(activity!!, endDeviceInfo.PhysAddress)
         }
 
@@ -286,10 +286,16 @@ class EndDeviceDetailFragment : Fragment()
                     text = if(isBlocked) getString(R.string.device_detail_blocked) else getString(R.string.device_detail_connecting)
                     textColor = if(isBlocked) resources.getColor(R.color.color_ff2837) else resources.getColor(R.color.color_3c9f00)
                 }
+
+                with(end_device_detail_connect_type_dhcp_time_text)
+                {
+                    text = connectType
+                    textColor = resources.getColor(R.color.color_000000)
+                }
+
                 end_device_detail_connect_type_dhcp_time_title_text.text = getString(R.string.device_detail_connect_type)
-                end_device_detail_connect_type_dhcp_time_text.text = connectType
                 end_device_detail_internet_blocking_area_relative.visibility = View.VISIBLE
-                when(GlobalData.FSecureStatus)
+                when(FeatureConfig.FSecureStatus)
                 {
                     true ->
                     {
@@ -314,8 +320,14 @@ class EndDeviceDetailFragment : Fragment()
                     text = getString(R.string.device_detail_disconnect)
                     textColor = resources.getColor(R.color.color_575757)
                 }
+
+                with(end_device_detail_connect_type_dhcp_time_text)
+                {
+                    text = CommonTool.formatData("yyyy-MM-dd HH:mm:ss", dhcpTime.toLong())
+                    textColor = resources.getColor(R.color.color_575757)
+                }
+
                 end_device_detail_connect_type_dhcp_time_title_text.text = getString(R.string.device_detail_last_seen)
-                end_device_detail_connect_type_dhcp_time_text.text = CommonTool.formatData("yyyy-MM-dd HH:mm:ss", dhcpTime.toLong())
                 end_device_detail_connect_to_linear.visibility = View.GONE
                 end_device_detail_wifi_band_linear.visibility = View.GONE
                 end_device_detail_wifi_channel_linear.visibility = View.GONE

@@ -5,5 +5,6 @@ package zyxel.com.multyproneo.util
  */
 object FeatureConfig
 {
-    var hostNameReplease = true
+    var FSecureStatus = false
+    var hostNameReplaceStatus = false
 }

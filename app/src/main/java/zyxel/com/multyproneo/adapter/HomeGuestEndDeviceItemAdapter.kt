@@ -88,9 +88,9 @@ class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var 
                 modelName = endDeviceList[position].Name*/
             var modelName = endDeviceList[position].getName()
 
-            if(FeatureConfig.hostNameReplease)
+            if(FeatureConfig.hostNameReplaceStatus)
             {
-                if(modelName.equals("unknown", ignoreCase = true))
+                if(modelName.equals("unknown", ignoreCase = true) || modelName.equals("<unknown>", ignoreCase = true))
                     modelName = OUIUtil.getOUI(activity, endDeviceList[position].PhysAddress)
             }
 

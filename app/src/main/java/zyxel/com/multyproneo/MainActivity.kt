@@ -26,10 +26,7 @@ import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.fragment.*
 import zyxel.com.multyproneo.model.*
-import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.GlobalData
-import zyxel.com.multyproneo.util.LogUtil
-import zyxel.com.multyproneo.util.OUIUtil
+import zyxel.com.multyproneo.util.*
 import zyxel.com.multyproneo.wifichart.WiFiChannelChartListener
 import java.util.*
 import kotlin.concurrent.schedule
@@ -63,6 +60,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var wanInfo: WanInfo
     private lateinit var guestWiFiInfo: GuestWiFiInfo
     private lateinit var fSecureInfo: FSecureInfo
+    private lateinit var hostNameReplaceInfo: HostNameReplaceInfo
     private lateinit var progressBar: ProgressBar
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
@@ -570,7 +568,32 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         {
                             fSecureInfo = Gson().fromJson(responseStr, FSecureInfo::class.javaObjectType)
                             LogUtil.d(TAG,"fSecureInfo:${fSecureInfo.toString()}")
-                            GlobalData.FSecureStatus = fSecureInfo.Object.Cyber_Security_FSC
+                            FeatureConfig.FSecureStatus = fSecureInfo.Object.Cyber_Security_FSC
+                            getHostNameReplaceInfoTask()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun getHostNameReplaceInfoTask()
+    {
+        LogUtil.d(TAG,"getHostNameReplaceInfoTask()")
+        GatewayApi.GetHostNameReplaceInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            hostNameReplaceInfo = Gson().fromJson(responseStr, HostNameReplaceInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"hostNameReplaceInfo:${hostNameReplaceInfo.toString()}")
+                            FeatureConfig.hostNameReplaceStatus = hostNameReplaceInfo.Object.Enable
                             stopGetAllNeedDeviceInfoTask()
                         }
                         catch(e: JSONException)

@@ -38,6 +38,19 @@ object GatewayApi
         }
     }
 
+    class GetHostNameReplaceInfo : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val getHostNameReplaceInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_EXT.HostNameReplace."
+            val request = Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(getHostNameReplaceInfoURL)
+                    .build()
+            return request
+        }
+    }
+
     class GatewayReboot : Commander()
     {
         override fun composeRequest(): Request

@@ -18,7 +18,6 @@ object GlobalData
     var changeIconNameList = mutableListOf<ChangeIconNameInfoObject>()
     var gatewayWanInfo = WanInfo()
     var guestWiFiStatus = false
-    var FSecureStatus = false
     var homeDevAscendingOrder = true
     var guestDevAscendingOrder = true
 
