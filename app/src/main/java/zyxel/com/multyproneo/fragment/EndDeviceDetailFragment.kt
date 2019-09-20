@@ -253,7 +253,7 @@ class EndDeviceDetailFragment : Fragment()
                 modelName = OUIUtil.getOUI(activity!!, endDeviceInfo.PhysAddress)
         }
 
-        if(connectType.contains("WiFi", ignoreCase = true) || connectType.contains("Wi-Fi", ignoreCase = true))
+        if(connectType == getString(R.string.device_detail_wireless))
         {
             when(endDeviceInfo.X_ZYXEL_Band)
             {
@@ -314,6 +314,14 @@ class EndDeviceDetailFragment : Fragment()
                 }
                 end_device_detail_internet_blocking_image.setImageResource(if(isBlocked) R.drawable.switch_on else R.drawable.switch_off)
                 end_device_detail_remove_device_text.visibility = View.INVISIBLE
+
+                if(connectType == getString(R.string.device_detail_wired))
+                {
+                    end_device_detail_wifi_band_linear.visibility = View.GONE
+                    end_device_detail_wifi_channel_linear.visibility = View.GONE
+                    end_device_detail_max_speed_linear.visibility = View.GONE
+                    end_device_detail_rssi_linear.visibility = View.GONE
+                }
             }
 
             false ->

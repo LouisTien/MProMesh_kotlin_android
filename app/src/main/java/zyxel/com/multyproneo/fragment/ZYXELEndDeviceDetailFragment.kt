@@ -293,7 +293,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         zyxel_end_device_detail_title_text.text = title + " " + getString(R.string.device_detail_detail)
         setContentLinearListVisibility(true)
         zyxel_end_device_detail_wan_ip_linear.visibility = View.GONE
-        zyxel_end_device_detail_dns_ip_linear.visibility = View.GONE
+        //zyxel_end_device_detail_dns_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_lan_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_reboot_button.visibility = if(isConnect) View.VISIBLE else View.INVISIBLE
         //zyxel_end_device_detail_remove_device_text.visibility = if(isConnect) View.INVISIBLE else View.VISIBLE
