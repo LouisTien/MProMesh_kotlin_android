@@ -12,6 +12,7 @@ android {
         targetSdkVersion 28
         versionCode 20190912
         versionName "1.0.0.190912"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

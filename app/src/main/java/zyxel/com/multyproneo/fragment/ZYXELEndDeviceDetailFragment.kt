@@ -210,9 +210,23 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 
         setConnectTypeTextListVisibility(isConnect)
 
+        connectType = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_ConnectionType)
+        if(connectType.contains("WiFi", ignoreCase = true) or connectType.contains("Wi-Fi", ignoreCase = true))
+            connectType = getString(R.string.device_detail_wireless)
+        else
+            connectType = getString(R.string.device_detail_wired)
+
+        if(isGatewayMode)
+        {
+            if(isConnect)
+                connectType = getString(R.string.device_detail_wired)
+            else
+                connectType = ""
+        }
+
         modelName = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceInfo.getName() else endDeviceInfo.getName())
         status = SpecialCharacterHandler.checkEmptyTextValue(getString(if(isConnect) R.string.device_detail_connecting else R.string.device_detail_disconnect))
-        connectType = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) (if(isConnect) getString(R.string.device_detail_wire) else "") else endDeviceInfo.X_ZYXEL_ConnectionType)
+        //connectType = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) (if(isConnect) getString(R.string.device_detail_wired) else "") else endDeviceInfo.X_ZYXEL_ConnectionType)
         ip = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) "" else endDeviceInfo.IPAddress)
         wanIP = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceWanInfo.Object.IPAddress else "")
         dnsIP = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceWanInfo.Object.DNSServer else "")
