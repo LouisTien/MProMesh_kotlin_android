@@ -79,6 +79,7 @@ class WiFiSettingsFragment : Fragment()
     {
         super.onResume()
         GlobalBus.publish(MainEvent.ShowBottomToolbar())
+        wifi_settings_wifi_area_linear.visibility = View.INVISIBLE
         getMeshInfoTask()
     }
 
@@ -246,6 +247,8 @@ class WiFiSettingsFragment : Fragment()
         if(isVisible)
         {
             runOnUiThread{
+                wifi_settings_wifi_area_linear.visibility = View.VISIBLE
+
                 if(meshInfo.Object.Enable)
                 {
                     val lp_share = FrameLayout.LayoutParams(wifi_settings_wifi_share_image.layoutParams).apply{
