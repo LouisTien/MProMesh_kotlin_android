@@ -236,12 +236,18 @@ class EndDeviceDetailFragment : Fragment()
         else
             connectType = getString(R.string.device_detail_wired)
 
-        connectTo = SpecialCharacterHandler.checkEmptyTextValue(
-                if(endDeviceInfo.X_ZYXEL_Neighbor.equals("gateway", ignoreCase = true))
-                    GlobalData.getCurrentGatewayInfo().ModelName
-                else
-                    endDeviceInfo.X_ZYXEL_Neighbor
-        )
+        if( endDeviceInfo.X_ZYXEL_Neighbor.equals("gateway", ignoreCase = true)
+                || endDeviceInfo.X_ZYXEL_Neighbor.equals(GlobalData.getCurrentGatewayInfo().MAC, ignoreCase = true) )
+            connectTo = SpecialCharacterHandler.checkEmptyTextValue(GlobalData.getCurrentGatewayInfo().ModelName)
+        else
+        {
+            for(item in GlobalData.ZYXELEndDeviceList)
+            {
+                if(endDeviceInfo.X_ZYXEL_Neighbor.equals(item.PhysAddress, ignoreCase = true))
+                    connectTo = SpecialCharacterHandler.checkEmptyTextValue(item.getName())
+            }
+        }
+
         ip = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.IPAddress)
         mac = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.PhysAddress)
         manufacturer = SpecialCharacterHandler.checkEmptyTextValue(OUIUtil.getOUI(activity!!, endDeviceInfo.PhysAddress))

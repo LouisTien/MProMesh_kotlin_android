@@ -59,7 +59,7 @@ data class DevicesInfoObject
 {
     fun getName(): String
     {
-        if(UserDefineName == null || UserDefineName == "N/A" || UserDefineName == " " || UserDefineName == "")
+        if(UserDefineName == null || UserDefineName == "N/A" || UserDefineName == "")
             return HostName
         else
             return UserDefineName

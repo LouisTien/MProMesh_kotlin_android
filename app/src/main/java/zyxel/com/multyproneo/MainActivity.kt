@@ -464,7 +464,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
                             for(item in devicesInfo.Object)
                             {
-                                if(item.HostName == "N/A")
+                                if( (item.HostName == "N/A") || (item.HostName == "") )
                                     continue
 
                                 for(itemCin in GlobalData.changeIconNameList)
