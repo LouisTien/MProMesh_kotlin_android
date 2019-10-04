@@ -10,8 +10,8 @@ android {
         applicationId "zyxel.com.multyproneo"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 20190923
-        versionName "1.0.0.190923"
+        versionCode 20191004
+        versionName "1.0.0.191004"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
