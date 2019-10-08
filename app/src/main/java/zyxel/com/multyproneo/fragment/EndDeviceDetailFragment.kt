@@ -217,6 +217,10 @@ class EndDeviceDetailFragment : Fragment()
 
     private fun updateUI()
     {
+        if(GlobalData.currentFrag != TAG) return
+
+        if(!isVisible) return
+
         modelName = "N/A"
         dhcpTime = "N/A"
         connectType = "N/A"

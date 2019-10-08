@@ -113,6 +113,8 @@ class HomeFragment : Fragment()
 
     private fun updateUI()
     {
+        if(GlobalData.currentFrag != TAG) return
+
         if(!isVisible) return
 
         LogUtil.d(TAG, "updateUI()")
@@ -121,7 +123,7 @@ class HomeFragment : Fragment()
             GlobalBus.publish(MainEvent.HideLoading())
             home_device_list_swipe.setRefreshing(false)
 
-            home_connect_device_count_text.text = GlobalData.getConnectDeviceCount().toString()
+            home_connect_device_count_text.text = GlobalData.getTotalDeviceCount().toString()
             adapter = ZYXELEndDeviceItemAdapter(
                     GlobalData.ZYXELEndDeviceList,
                     GlobalData.getCurrentGatewayInfo(),

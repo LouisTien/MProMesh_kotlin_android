@@ -9,6 +9,7 @@ object GlobalData
 {
     var sessionKey = ""
     var cookie = ""
+    var currentFrag = ""
     var currentGatewayIndex = 0
     var gatewayList = mutableListOf<GatewayInfo>()
     var endDeviceList = mutableListOf<DevicesInfoObject>()
@@ -27,7 +28,6 @@ object GlobalData
     fun getProtocol(): String = getCurrentGatewayInfo().SupportedApiVersion[0].Protocol
     fun getAPIVersion(): String = getCurrentGatewayInfo().SupportedApiVersion[0].LoginURI.substring(0, getCurrentGatewayInfo().SupportedApiVersion[0].LoginURI.lastIndexOf("/"))
     fun getAPIPath(): String = "${GlobalData.getProtocol()}://${GlobalData.getDeviceIP()}:${GlobalData.getDevicePort()}${GlobalData.getAPIVersion()}"
-    fun getConnectDeviceCount(): Int = endDeviceList.size - (ZYXELEndDeviceList.size - 1)
     fun getTotalDeviceCount(): Int = homeEndDeviceList.size + guestEndDeviceList.size
 
     fun getActivatedDeviceCount(): Int

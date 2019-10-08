@@ -66,7 +66,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
     private var getWPSStatusTimer = Timer()
-    private var currentFrag = ""
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -309,8 +308,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         transaction.replace(R.id.fragment_container, fragment)
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         transaction.commitAllowingStateLoss()
-        currentFrag = fragment.javaClass.simpleName
-        LogUtil.d(TAG, "currentFrag:$currentFrag")
+        GlobalData.currentFrag = fragment.javaClass.simpleName
+        LogUtil.d(TAG, "currentFrag:${GlobalData.currentFrag}")
     }
 
     private fun gotoHomeFragment()
@@ -320,7 +319,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         home_image.isSelected = true
         home_text.isSelected = true
 
-        if(currentFrag != "HomeFragment")
+        if(GlobalData.currentFrag != "HomeFragment")
             switchToFragContainer(HomeFragment())
     }
 
@@ -331,7 +330,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         devices_image.isSelected = true
         devices_text.isSelected = true
 
-        if(currentFrag != "DevicesFragment")
+        if(GlobalData.currentFrag != "DevicesFragment")
             switchToFragContainer(DevicesFragment())
     }
 
@@ -342,7 +341,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         wifi_image.isSelected = true
         wifi_text.isSelected = true
 
-        if(currentFrag != "WiFiSettingsFragment")
+        if(GlobalData.currentFrag != "WiFiSettingsFragment")
             switchToFragContainer(WiFiSettingsFragment())
     }
 
@@ -353,7 +352,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         diagnostic_image.isSelected = true
         diagnostic_text.isSelected = true
 
-        if(currentFrag != "DiagnosticFragment")
+        if(GlobalData.currentFrag != "DiagnosticFragment")
             switchToFragContainer(DiagnosticFragment())
     }
 
@@ -364,7 +363,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         account_image.isSelected = true
         account_text.isSelected = true
 
-        if(currentFrag != "AccountFragment")
+        if(GlobalData.currentFrag != "AccountFragment")
             switchToFragContainer(AccountFragment())
     }
 
@@ -455,6 +454,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             devicesInfo = Gson().fromJson(responseStr, DevicesInfo::class.javaObjectType)
                             LogUtil.d(TAG,"devicesInfo:${devicesInfo.toString()}")
 
+                            val newEndDeviceList = mutableListOf<DevicesInfoObject>()
                             val newHomeEndDeviceList = mutableListOf<DevicesInfoObject>()
                             val newZYXELEndDeviceList = mutableListOf<DevicesInfoObject>()
                             val newGuestEndDeviceList = mutableListOf<DevicesInfoObject>()
@@ -496,10 +496,12 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                         newHomeEndDeviceList.add(item)
                                 }
 
+                                newEndDeviceList.add(item)
+
                                 LogUtil.d(TAG,"update devicesInfo:${item.toString()}")
                             }
 
-                            GlobalData.endDeviceList = devicesInfo.Object.toMutableList()
+                            GlobalData.endDeviceList = newEndDeviceList.toMutableList()
                             GlobalData.homeEndDeviceList = newHomeEndDeviceList.toMutableList()
                             GlobalData.ZYXELEndDeviceList = newZYXELEndDeviceList.toMutableList()
                             GlobalData.guestEndDeviceList = newGuestEndDeviceList.toMutableList()

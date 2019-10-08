@@ -21,6 +21,7 @@ import zyxel.com.multyproneo.util.GlobalData
  */
 class DevicesFragment : Fragment()
 {
+    private val TAG = javaClass.simpleName
     private lateinit var getInfoCompleteDisposable: Disposable
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -103,6 +104,8 @@ class DevicesFragment : Fragment()
 
     private fun updateUI()
     {
+        if(GlobalData.currentFrag != TAG) return
+
         if(!isVisible) return
 
         runOnUiThread{
