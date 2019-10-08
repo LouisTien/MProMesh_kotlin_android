@@ -26,6 +26,7 @@ import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.fragment.*
 import zyxel.com.multyproneo.model.*
+import zyxel.com.multyproneo.tool.CryptTool
 import zyxel.com.multyproneo.util.*
 import zyxel.com.multyproneo.wifichart.WiFiChannelChartListener
 import java.util.*
@@ -73,6 +74,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         setContentView(R.layout.activity_main)
         loadingDlg = createLoadingDlg(this)
         OUIUtil.executeGetMacOUITask(this)
+        randomAESInfo()
         setClickListener()
         listenEvent()
         switchToFragContainer(FindingDeviceFragment())
@@ -117,6 +119,14 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     override fun onDrawCompleted()
     {
 
+    }
+
+    private fun randomAESInfo()
+    {
+        CryptTool.IvAES = CryptTool.getRandomString(16)
+        CryptTool.KeyAES = CryptTool.getRandomString(16)
+        LogUtil.d(TAG,"IvAES:${CryptTool.IvAES}")
+        LogUtil.d(TAG,"KeyAES:${CryptTool.KeyAES}")
     }
 
     private val clickListener = View.OnClickListener{ view ->

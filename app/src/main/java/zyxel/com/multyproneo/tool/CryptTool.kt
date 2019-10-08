@@ -2,6 +2,7 @@ package zyxel.com.multyproneo.tool
 
 import android.util.Base64
 import java.security.spec.AlgorithmParameterSpec
+import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
@@ -11,8 +12,10 @@ import javax.crypto.spec.SecretKeySpec
  */
 object CryptTool
 {
-    val IvAES = "1234567890abcdef"
-    val KeyAES = "zyxeloneconncet_zyxeloneconnect_"
+    val IvAESDefault = "1234567890abcdef"
+    val KeyAESDefault = "zyxeloneconncet_zyxeloneconnect_"
+    var IvAES = IvAESDefault
+    var KeyAES = KeyAESDefault
 
     fun EncryptAES(iv: ByteArray, key: ByteArray, text: ByteArray): String?
     {
@@ -28,7 +31,7 @@ object CryptTool
         }
         catch(ex: Exception)
         {
-            return null;
+            return null
         }
         return encryptedData
     }
@@ -50,5 +53,18 @@ object CryptTool
             return null
         }
         return decryptedData
+    }
+
+    fun getRandomString(length: Int): String
+    {
+        val str = "abcdefghigklmnopkrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ0123456789"
+        val random = Random()
+        val sf = StringBuffer()
+        for(i in 0 until length)
+        {
+            val number = random.nextInt(62)//0~61
+            sf.append(str[number])
+        }
+        return sf.toString()
     }
 }

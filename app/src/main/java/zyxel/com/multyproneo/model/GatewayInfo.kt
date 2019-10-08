@@ -17,6 +17,7 @@ data class GatewayInfo
     var DeviceMode: String = "N/A",
     var ModelName: String = "N/A",
     var SoftwareVersion: String = "N/A",
+    var OtherInfo: String = "N/A",
     val SupportedApiVersion: List<SupportedApiVersion> = listOf(SupportedApiVersion())
 ) : Serializable
 {

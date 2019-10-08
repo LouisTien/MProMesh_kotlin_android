@@ -76,18 +76,20 @@ class DatabaseHandler(private var activity: Activity)
                 Password = cursor.getString(5)
                 UserName = cursor.getString(6)
                 UserDefineName = cursor.getString(7)
+                OtherInfo = if(cursor.getString(8) == null) "N/A" else cursor.getString(8)
             }
             gatewayInfoArrayListDB.add(gatewayInfo)
         }
 
         for(i in gatewayInfoArrayListDB.indices)
         {
-            LogUtil.d(TAG, "gateway info on db id = " + gatewayInfoArrayListDB[i].IdInDB)
-            LogUtil.d(TAG, "gateway info on db model = " + gatewayInfoArrayListDB[i].ModelName)
-            LogUtil.d(TAG, "gateway info on db mac = " + gatewayInfoArrayListDB[i].MAC)
-            LogUtil.d(TAG, "gateway info on db password = " + gatewayInfoArrayListDB[i].Password)
-            LogUtil.d(TAG, "gateway info on db account = " + gatewayInfoArrayListDB[i].UserName)
-            LogUtil.d(TAG, "gateway info on db userDefineName = " + gatewayInfoArrayListDB[i].UserDefineName)
+            LogUtil.d(TAG, "gateway info on db id = ${gatewayInfoArrayListDB[i].IdInDB}")
+            LogUtil.d(TAG, "gateway info on db model = ${gatewayInfoArrayListDB[i].ModelName}")
+            LogUtil.d(TAG, "gateway info on db mac = ${gatewayInfoArrayListDB[i].MAC}")
+            LogUtil.d(TAG, "gateway info on db password = ${gatewayInfoArrayListDB[i].Password}")
+            LogUtil.d(TAG, "gateway info on db account = ${gatewayInfoArrayListDB[i].UserName}")
+            LogUtil.d(TAG, "gateway info on db userDefineName = ${gatewayInfoArrayListDB[i].UserDefineName}")
+            LogUtil.d(TAG, "gateway info on db OtherInfo = ${gatewayInfoArrayListDB[i].OtherInfo}")
         }
 
         return gatewayInfoArrayListDB
@@ -106,6 +108,7 @@ class DatabaseHandler(private var activity: Activity)
             put(DatabaseContents.PASSWORD, deviceInfo.Password)
             put(DatabaseContents.USERNAME, deviceInfo.UserName)
             put(DatabaseContents.USERDEFINENAME, deviceInfo.UserDefineName)
+            put(DatabaseContents.OTHER, deviceInfo.OtherInfo)
         }
         db.insert(DatabaseContents.TABLE_NAME, null, values)
     }
@@ -123,6 +126,7 @@ class DatabaseHandler(private var activity: Activity)
             put(DatabaseContents.PASSWORD, deviceInfo.Password)
             put(DatabaseContents.USERNAME, deviceInfo.UserName)
             put(DatabaseContents.USERDEFINENAME, deviceInfo.UserDefineName)
+            put(DatabaseContents.OTHER, deviceInfo.OtherInfo)
         }
         db.update(DatabaseContents.TABLE_NAME, values, BaseColumns._ID + "=" + rowID, null)
     }
@@ -154,7 +158,10 @@ class DatabaseHandler(private var activity: Activity)
     fun getInformationFromDB(infoTag: GETINFOFROMDB, mac: String): String
     {
         var retStr = ""
+        var secretInfoStr = ""
         var isExist = false
+        var IvAES = CryptTool.IvAESDefault
+        var KeyAES = CryptTool.KeyAESDefault
 
         getGatewayFromDB()
 
@@ -164,12 +171,22 @@ class DatabaseHandler(private var activity: Activity)
             {
                 if(gatewayInfoArrayListDB[i].MAC.equals(mac, ignoreCase = true))
                 {
+                    secretInfoStr = gatewayInfoArrayListDB[i].OtherInfo
+                    if(secretInfoStr != "N/A" && secretInfoStr.length >= 64)
+                    {
+                        KeyAES = secretInfoStr.substring(32, 48)
+                        IvAES = secretInfoStr.substring(48, 64)
+                    }
+                    LogUtil.d(TAG,"[DecryptAES]key:$KeyAES")
+                    LogUtil.d(TAG,"[DecryptAES]iv:$IvAES")
+
                     when(infoTag)
                     {
                         DatabaseHandler.GETINFOFROMDB.INFO_PASSWORD -> retStr = gatewayInfoArrayListDB[i].Password
                         DatabaseHandler.GETINFOFROMDB.INFO_USERNAME -> retStr = gatewayInfoArrayListDB[i].UserName
                         DatabaseHandler.GETINFOFROMDB.INFO_USERDEFINENAME -> retStr = gatewayInfoArrayListDB[i].UserDefineName
                     }
+
                     isExist = true
                     break
                 }
@@ -183,8 +200,8 @@ class DatabaseHandler(private var activity: Activity)
                 try
                 {
                     decryptedData = CryptTool.DecryptAES(
-                            CryptTool.IvAES.toByteArray(charset("UTF-8")),
-                            CryptTool.KeyAES.toByteArray(charset("UTF-8")),
+                            IvAES.toByteArray(charset("UTF-8")),
+                            KeyAES.toByteArray(charset("UTF-8")),
                             Base64.decode(retStr.toByteArray(charset("UTF-8")), Base64.DEFAULT))
                 }
                 catch(e: UnsupportedEncodingException)
@@ -196,6 +213,8 @@ class DatabaseHandler(private var activity: Activity)
                     retStr = decryptedData
             }
         }
+
+        LogUtil.d(TAG,"[getInformationFromDB]: infoTag:$infoTag, retStr:$retStr")
 
         return retStr
     }
@@ -229,19 +248,29 @@ class DatabaseHandler(private var activity: Activity)
                     CryptTool.IvAES.toByteArray(charset("UTF-8")),
                     CryptTool.KeyAES.toByteArray(charset("UTF-8")),
                     gatewayInfo.UserDefineName.toByteArray(charset("UTF-8")))
+
+            LogUtil.d(TAG,"encrypted password = $encryptedPassword")
+            LogUtil.d(TAG,"encrypted userName = $encryptedUserName")
+            LogUtil.d(TAG,"encrypted userDefineName = $encryptedUserDefineName")
+
+            gatewayInfo.Password = encryptedPassword!!
+            gatewayInfo.UserName = encryptedUserName!!
+            gatewayInfo.UserDefineName = encryptedUserDefineName!!
+            gatewayInfo.OtherInfo =
+                    CryptTool.getRandomString(16) + //fake data
+                    CryptTool.getRandomString(16) + //fake data
+                    CryptTool.KeyAES +
+                    CryptTool.IvAES +
+                    CryptTool.getRandomString(16) + //fake data
+                    CryptTool.getRandomString(16) + //fake data
+                    CryptTool.getRandomString(16)   //fake data
+
+            LogUtil.d(TAG,"input otherInfo = ${gatewayInfo.OtherInfo}")
         }
         catch(e: UnsupportedEncodingException)
         {
             e.printStackTrace();
         }
-
-        LogUtil.d(TAG,"encrypted password = $encryptedPassword")
-        LogUtil.d(TAG,"encrypted userName = $encryptedUserName")
-        LogUtil.d(TAG,"encrypted userDefineName = $encryptedUserDefineName")
-
-        gatewayInfo.Password = encryptedPassword!!
-        gatewayInfo.UserName = encryptedUserName!!
-        gatewayInfo.UserDefineName = encryptedUserDefineName!!
 
         if(gatewayInfoArrayListDB.size == 0)
         {
