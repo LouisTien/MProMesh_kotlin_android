@@ -400,7 +400,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
     private fun startGetAllNeedDeviceInfoTask()
     {
-        if(GlobalData.ZYXELEndDeviceList.isEmpty())
+        if(GlobalData.currentFrag == "HomeFragment" && GlobalData.ZYXELEndDeviceList.isEmpty())
             GlobalBus.publish(MainEvent.ShowLoading())
 
         getChangeIconNameInfoTask()
@@ -408,7 +408,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
     private fun stopGetAllNeedDeviceInfoTask()
     {
-        GlobalBus.publish(MainEvent.HideLoading())
+        if(GlobalData.currentFrag == "HomeFragment")
+            GlobalBus.publish(MainEvent.HideLoading())
         GlobalBus.publish(HomeEvent.GetDeviceInfoComplete())
         GlobalBus.publish(DevicesEvent.GetDeviceInfoComplete())
         GlobalBus.publish(DevicesDetailEvent.GetDeviceInfoComplete())
@@ -434,7 +435,9 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         catch(e: JSONException)
                         {
                             e.printStackTrace()
-                            GlobalBus.publish(MainEvent.HideLoading())
+
+                            if(GlobalData.currentFrag == "HomeFragment")
+                                GlobalBus.publish(MainEvent.HideLoading())
                         }
                     }
                 }).execute()
@@ -511,7 +514,9 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         catch(e: JSONException)
                         {
                             e.printStackTrace()
-                            GlobalBus.publish(MainEvent.HideLoading())
+
+                            if(GlobalData.currentFrag == "HomeFragment")
+                                GlobalBus.publish(MainEvent.HideLoading())
                         }
                     }
                 }).execute()
@@ -536,7 +541,9 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         catch(e: JSONException)
                         {
                             e.printStackTrace()
-                            GlobalBus.publish(MainEvent.HideLoading())
+
+                            if(GlobalData.currentFrag == "HomeFragment")
+                                GlobalBus.publish(MainEvent.HideLoading())
                         }
                     }
                 }).execute()
@@ -561,7 +568,9 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         catch(e: JSONException)
                         {
                             e.printStackTrace()
-                            GlobalBus.publish(MainEvent.HideLoading())
+
+                            if(GlobalData.currentFrag == "HomeFragment")
+                                GlobalBus.publish(MainEvent.HideLoading())
                         }
                     }
                 }).execute()
@@ -586,7 +595,9 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         catch(e: JSONException)
                         {
                             e.printStackTrace()
-                            GlobalBus.publish(MainEvent.HideLoading())
+
+                            if(GlobalData.currentFrag == "HomeFragment")
+                                GlobalBus.publish(MainEvent.HideLoading())
                         }
                     }
                 }).execute()
@@ -611,7 +622,9 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         catch(e: JSONException)
                         {
                             e.printStackTrace()
-                            GlobalBus.publish(MainEvent.HideLoading())
+
+                            if(GlobalData.currentFrag == "HomeFragment")
+                                GlobalBus.publish(MainEvent.HideLoading())
                         }
                     }
                 }).execute()
