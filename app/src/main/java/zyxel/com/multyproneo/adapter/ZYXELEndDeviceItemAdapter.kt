@@ -66,7 +66,8 @@ class ZYXELEndDeviceItemAdapter
                     status = "N/A"
                 else
                 {
-                    if(endDeviceList[position].X_ZYXEL_ConnectionType.equals("WiFi", ignoreCase = true))
+                    if(endDeviceList[position].X_ZYXEL_ConnectionType.contains("WiFi", ignoreCase = true)
+                            || endDeviceList[position].X_ZYXEL_ConnectionType.contains("Wi-Fi", ignoreCase = true))
                         status = endDeviceList[position].X_ZYXEL_RSSI_STAT
                     else
                         status = "Good"

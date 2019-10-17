@@ -169,19 +169,21 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
     private fun disSelectToolBarIcons()
     {
-        home_image.isSelected = false
-        devices_image.isSelected = false
-        parental_image.isSelected = false
-        wifi_image.isSelected = false
-        diagnostic_image.isSelected = false
-        account_image.isSelected = false
+        runOnUiThread{
+            home_image.isSelected = false
+            devices_image.isSelected = false
+            parental_image.isSelected = false
+            wifi_image.isSelected = false
+            diagnostic_image.isSelected = false
+            account_image.isSelected = false
 
-        home_text.isSelected = false
-        devices_text.isSelected = false
-        parental_text.isSelected = false
-        wifi_text.isSelected = false
-        diagnostic_text.isSelected = false
-        account_text.isSelected = false
+            home_text.isSelected = false
+            devices_text.isSelected = false
+            parental_text.isSelected = false
+            wifi_text.isSelected = false
+            diagnostic_text.isSelected = false
+            account_text.isSelected = false
+        }
     }
 
     private fun regularKeepScreen()
@@ -232,8 +234,11 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         setHomeIconFocusDisposable = GlobalBus.listen(MainEvent.SetHomeIconFocus::class.java).subscribe{
             disSelectToolBarIcons()
-            home_image.isSelected = true
-            home_text.isSelected = true
+
+            runOnUiThread{
+                home_image.isSelected = true
+                home_text.isSelected = true
+            }
         }
 
         startGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StartGetDeviceInfoTask::class.java).subscribe{
@@ -316,8 +321,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     {
         disSelectToolBarIcons()
 
-        home_image.isSelected = true
-        home_text.isSelected = true
+        runOnUiThread{
+            home_image.isSelected = true
+            home_text.isSelected = true
+        }
 
         if(GlobalData.currentFrag != "HomeFragment")
             switchToFragContainer(HomeFragment())
@@ -327,8 +334,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     {
         disSelectToolBarIcons()
 
-        devices_image.isSelected = true
-        devices_text.isSelected = true
+        runOnUiThread{
+            devices_image.isSelected = true
+            devices_text.isSelected = true
+        }
 
         if(GlobalData.currentFrag != "DevicesFragment")
             switchToFragContainer(DevicesFragment())
@@ -338,8 +347,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     {
         disSelectToolBarIcons()
 
-        wifi_image.isSelected = true
-        wifi_text.isSelected = true
+        runOnUiThread{
+            wifi_image.isSelected = true
+            wifi_text.isSelected = true
+        }
 
         if(GlobalData.currentFrag != "WiFiSettingsFragment")
             switchToFragContainer(WiFiSettingsFragment())
@@ -349,8 +360,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     {
         disSelectToolBarIcons()
 
-        diagnostic_image.isSelected = true
-        diagnostic_text.isSelected = true
+        runOnUiThread{
+            diagnostic_image.isSelected = true
+            diagnostic_text.isSelected = true
+        }
 
         if(GlobalData.currentFrag != "DiagnosticFragment")
             switchToFragContainer(DiagnosticFragment())
@@ -360,8 +373,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     {
         disSelectToolBarIcons()
 
-        account_image.isSelected = true
-        account_text.isSelected = true
+        runOnUiThread{
+            account_image.isSelected = true
+            account_text.isSelected = true
+        }
 
         if(GlobalData.currentFrag != "AccountFragment")
             switchToFragContainer(AccountFragment())
