@@ -138,8 +138,7 @@ class GatewayListFragment : Fragment()
                             LogUtil.e(TAG, "[onFail] msg = $msg")
                             LogUtil.e(TAG, "[onFail] ctxName = $ctxName")
                             GlobalBus.publish(MainEvent.HideLoading())
-                            GlobalBus.publish(MainEvent.ShowToast(msg, ctxName))
-                            GlobalBus.publish(MainEvent.SwitchToFrag(LoginFragment()))
+                            GlobalBus.publish(MainEvent.SwitchToFrag(LoginFragment().apply{ arguments = Bundle().apply{ putString("Error", msg) } }))
                         }
                     }).execute()
         }

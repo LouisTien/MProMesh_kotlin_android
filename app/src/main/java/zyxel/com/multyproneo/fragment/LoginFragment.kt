@@ -44,6 +44,7 @@ class LoginFragment : Fragment()
     private var showPassword = false
     private var userNameIllegalInput = false
     private var passwordIllegalInput = false
+    private var errorMsg = "N/A"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -53,6 +54,20 @@ class LoginFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        with(arguments)
+        {
+            this?.getString("Error")?.let{ errorMsg = it }
+        }
+
+        if(errorMsg != "N/A")
+        {
+            runOnUiThread{
+                login_password_error_text.text = errorMsg
+                login_password_error_text.visibility = View.VISIBLE
+            }
+        }
+
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         setClickListener()
         initLoginUsernameEdit()
