@@ -240,15 +240,27 @@ class EndDeviceDetailFragment : Fragment()
         else
             connectType = getString(R.string.device_detail_wired)
 
-        if( endDeviceInfo.X_ZYXEL_Neighbor.equals("gateway", ignoreCase = true)
-                || endDeviceInfo.X_ZYXEL_Neighbor.equals(GlobalData.getCurrentGatewayInfo().MAC, ignoreCase = true) )
-            connectTo = SpecialCharacterHandler.checkEmptyTextValue(GlobalData.getCurrentGatewayInfo().ModelName)
-        else
+        with(endDeviceInfo.X_ZYXEL_Neighbor)
         {
-            for(item in GlobalData.ZYXELEndDeviceList)
+            when
             {
-                if(endDeviceInfo.X_ZYXEL_Neighbor.equals(item.PhysAddress, ignoreCase = true))
-                    connectTo = SpecialCharacterHandler.checkEmptyTextValue(item.getName())
+                equals("gateway", ignoreCase = true) ||
+                equals("unknown", ignoreCase = true) ||
+                equals("NULL", ignoreCase = true) ||
+                equals("N/A", ignoreCase = true) ||
+                equals("", ignoreCase = true) ||
+                equals(GlobalData.getCurrentGatewayInfo().MAC, ignoreCase = true) ||
+                isEmpty() ->
+                { connectTo = SpecialCharacterHandler.checkEmptyTextValue(GlobalData.getCurrentGatewayInfo().ModelName) }
+
+                else ->
+                {
+                    for(item in GlobalData.ZYXELEndDeviceList)
+                    {
+                        if(endDeviceInfo.X_ZYXEL_Neighbor.equals(item.PhysAddress, ignoreCase = true))
+                            connectTo = SpecialCharacterHandler.checkEmptyTextValue(item.getName())
+                    }
+                }
             }
         }
 
