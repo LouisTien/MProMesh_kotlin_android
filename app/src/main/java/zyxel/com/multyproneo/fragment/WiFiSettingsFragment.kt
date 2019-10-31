@@ -19,6 +19,7 @@ import org.jetbrains.anko.support.v4.runOnUiThread
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.AccountApi
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.WiFiSettingApi
 import zyxel.com.multyproneo.dialog.QRCodeDialog
@@ -418,8 +419,25 @@ class WiFiSettingsFragment : Fragment()
                         {
                             e.printStackTrace()
                         }
+
+                        setLogoutTask()
                     }
 
+                }).execute()
+    }
+
+    private fun setLogoutTask()
+    {
+        val params = JSONObject()
+        AccountApi.Logout()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+
+                    }
                 }).execute()
     }
 }

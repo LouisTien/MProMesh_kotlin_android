@@ -16,6 +16,7 @@ import org.jetbrains.anko.textColor
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.AccountApi
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.WiFiSettingApi
 import zyxel.com.multyproneo.event.GlobalBus
@@ -483,7 +484,9 @@ class WiFiSettingsEditFragment : Fragment()
                             e.printStackTrace()
                         }
 
-                        if(!showOneSSID)
+                        if(showOneSSID)
+                            setLogoutTask()
+                        else
                             setWiFi5GSSIDTask()
                     }
                 }).execute()
@@ -543,6 +546,8 @@ class WiFiSettingsEditFragment : Fragment()
                         {
                             e.printStackTrace()
                         }
+
+                        setLogoutTask()
                     }
                 }).execute()
     }
@@ -661,6 +666,23 @@ class WiFiSettingsEditFragment : Fragment()
                         {
                             e.printStackTrace()
                         }
+
+                        setLogoutTask()
+                    }
+                }).execute()
+    }
+
+    private fun setLogoutTask()
+    {
+        val params = JSONObject()
+        AccountApi.Logout()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+
                     }
                 }).execute()
     }

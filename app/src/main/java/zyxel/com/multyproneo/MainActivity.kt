@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean
     {
-        if (event.action == MotionEvent.ACTION_DOWN)
+        if(event.action == MotionEvent.ACTION_DOWN)
             regularKeepScreen()
         return super.dispatchTouchEvent(event)
     }

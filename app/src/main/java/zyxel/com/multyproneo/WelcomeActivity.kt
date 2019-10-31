@@ -1,5 +1,6 @@
 package zyxel.com.multyproneo
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -12,6 +13,7 @@ import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_welcome.*
 import org.jetbrains.anko.startActivity
 import zyxel.com.multyproneo.adapter.WelcomeAdapter
+import zyxel.com.multyproneo.tool.OnClearFromRecentService
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.SharedPreferencesUtil
 
@@ -27,6 +29,8 @@ class WelcomeActivity : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
+
+        startService(Intent(baseContext, OnClearFromRecentService::class.java))
 
         val crashlyticsKit = Crashlytics.Builder()
                 .core(CrashlyticsCore.Builder().disabled(AppConfig.NoUploadFabric).build())
@@ -59,6 +63,7 @@ class WelcomeActivity : AppCompatActivity()
                         welcome_arrow_image.visibility = View.VISIBLE
                         welcome_right_start_text.visibility = View.INVISIBLE
                     }
+
                     1 ->
                     {
                         welcome_left_item_linear.visibility = View.VISIBLE
@@ -66,6 +71,7 @@ class WelcomeActivity : AppCompatActivity()
                         welcome_arrow_image.visibility = View.VISIBLE
                         welcome_right_start_text.visibility = View.INVISIBLE
                     }
+
                     2 ->
                     {
                         welcome_left_item_linear.visibility = View.INVISIBLE
@@ -73,6 +79,7 @@ class WelcomeActivity : AppCompatActivity()
                         welcome_arrow_image.visibility = View.INVISIBLE
                         welcome_right_start_text.visibility = View.VISIBLE
                     }
+
                     else ->
                     {
                     }
