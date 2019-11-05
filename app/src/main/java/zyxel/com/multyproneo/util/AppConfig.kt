@@ -12,6 +12,7 @@ object AppConfig
     const val SCAN_LISTENPORT = 6000
     const val SCAN_REMOTEPORT = 263
     const val SCAN_APPVERSION = 1
+    const val SCAN_SOCKET_TIMEOUT = 4000
     const val DEVICE_DISCOVER_REQ_MAGICNUM = "Device.X_ZyXEL_Ext.AppInfo.MagicNum"
     const val DEVICE_DISCOVER_REQ_MAGICNUM_VALUE = "Z3704"
     const val DEVICE_DISCOVER_REQ_APPVERSION = "Device.X_ZyXEL_Ext.AppInfo.AppVersion"

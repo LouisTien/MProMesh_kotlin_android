@@ -15,7 +15,7 @@ class PacketReceiver : Runnable
     private val TAG = javaClass.simpleName
     private var running = false
     private var serversocket: DatagramSocket? = null
-    private var localport = 6000
+    private var localport = AppConfig.SCAN_LISTENPORT
     private var packetReceiver: IPacketListener? = null
 
     fun setLocalListenPort(port: Int)
@@ -37,7 +37,7 @@ class PacketReceiver : Runnable
             try
             {
                 serversocket = DatagramSocket(localport)
-                serversocket?.soTimeout = 3000
+                serversocket?.soTimeout = AppConfig.SCAN_SOCKET_TIMEOUT
                 running = true
                 Thread(this).start()
             }
@@ -108,7 +108,11 @@ class PacketReceiver : Runnable
             }
             catch(e: Exception)
             {
+                LogUtil.d(TAG,"-----SocketReceiveException-------")
+                stop()
+                packetReceiver?.packetReceivedDone()
                 e.printStackTrace()
+                break
             }
         }
     }

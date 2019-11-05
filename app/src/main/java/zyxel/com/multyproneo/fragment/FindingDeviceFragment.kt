@@ -133,7 +133,19 @@ class FindingDeviceFragment : Fragment(), IResponseListener
 
                 LogUtil.d(TAG, "findingDeviceInfo:${findingDeviceInfo.toString()}")
 
-                gatewayList.add(findingDeviceInfo)
+                var exist = false
+                for(item in gatewayList)
+                {
+                    if(item.MAC == findingDeviceInfo.MAC)
+                    {
+                        LogUtil.d(TAG, "already exist, MAC:${findingDeviceInfo.MAC}")
+                        exist = true
+                        break
+                    }
+                }
+
+                if(!exist)
+                    gatewayList.add(findingDeviceInfo)
             }
             catch(e: JSONException)
             {
