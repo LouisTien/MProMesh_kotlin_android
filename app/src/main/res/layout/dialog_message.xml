@@ -73,7 +73,8 @@
             android:layout_alignParentRight="true"
             android:text="OK"
             android:textStyle="bold"
-            android:textColor="@color/color_575757"/>
+            android:textColor="@color/color_575757"
+            android:textSize="@dimen/text_size_16sp_in_1080"/>
 
         <TextView
             android:id="@+id/msg_alert_cancel"
@@ -84,7 +85,8 @@
             android:layout_toLeftOf="@+id/msg_alert_positive"
             android:text="Cancel"
             android:textStyle="bold"
-            android:textColor="@color/color_575757"/>
+            android:textColor="@color/color_575757"
+            android:textSize="@dimen/text_size_16sp_in_1080"/>
 
     </RelativeLayout>
 
