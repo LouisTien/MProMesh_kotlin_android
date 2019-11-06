@@ -89,9 +89,24 @@ class ZYXELEndDeviceItemAdapter
                 )
             }
 
-            val mode = if(endDeviceList[position].X_ZYXEL_HostType.equals("Router", ignoreCase = true)) "Gateway" else endDeviceList[position].X_ZYXEL_HostType +
-                    if(status.equals("N/A", ignoreCase = true)) " disconnected" else ""
-            view.device_mode_text.text = mode
+            view.device_mode_text.text = String.format("%s %s",
+                    with(endDeviceList[position].X_ZYXEL_HostType)
+                    {
+                        when
+                        {
+                            equals("Router", ignoreCase = true) -> "Gateway"
+                            equals("AP", ignoreCase = true) -> "Access Point"
+                            else -> endDeviceList[position].X_ZYXEL_HostType
+                        }
+                    },
+                    with(status)
+                    {
+                        when
+                        {
+                            equals("N/A", ignoreCase = true) -> "disconnected"
+                            else -> ""
+                        }
+                    })
 
             view.user_define_name_text.text = endDeviceList[position].getName()
 
