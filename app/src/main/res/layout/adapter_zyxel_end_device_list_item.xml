@@ -22,7 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/connect_status_text"
+        android:layout_toLeftOf="@+id/enter_detail_image"
         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textSize="@dimen/text_size_20sp_in_1080"
         android:textColor="@color/color_000000"
         tools:text="VMG4927"/>
@@ -33,6 +36,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_define_name_text"
         android:layout_toRightOf="@+id/connect_status_text"
+        android:layout_toLeftOf="@+id/enter_detail_image"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textSize="@dimen/text_size_16sp_in_1080"
         android:textColor="@color/color_888888"
         tools:text="Gateway"/>

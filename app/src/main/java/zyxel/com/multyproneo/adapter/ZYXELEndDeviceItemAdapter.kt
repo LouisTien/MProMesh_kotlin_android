@@ -94,8 +94,9 @@ class ZYXELEndDeviceItemAdapter
                     {
                         when
                         {
-                            equals("Router", ignoreCase = true) -> "Gateway"
-                            equals("AP", ignoreCase = true) -> "Access Point"
+                            equals("Router", ignoreCase = true) -> parent.context.getString(R.string.home_device_gateway)
+                            equals("AccessPoint", ignoreCase = true) || equals("Access Point", ignoreCase = true) || equals("AP", ignoreCase = true) -> parent.context.getString(R.string.home_device_ap)
+                            equals("Repeater", ignoreCase = true) || equals("RP", ignoreCase = true) -> parent.context.getString(R.string.home_device_ap)
                             else -> endDeviceList[position].X_ZYXEL_HostType
                         }
                     },
@@ -106,7 +107,8 @@ class ZYXELEndDeviceItemAdapter
                             equals("N/A", ignoreCase = true) -> "disconnected"
                             else -> ""
                         }
-                    })
+                    }
+            )
 
             view.user_define_name_text.text = endDeviceList[position].getName()
 

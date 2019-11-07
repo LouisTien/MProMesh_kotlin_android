@@ -20,6 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/layout_size_48dp_in_1080"
         android:layout_gravity="center|bottom"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textSize="@dimen/text_size_18sp_in_1080"
         android:text="WAP4927"/>
 
