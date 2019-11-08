@@ -102,31 +102,39 @@
             android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
             android:visibility="visible">
 
-            <TextView
-                android:id="@+id/zyxel_end_device_detail_model_name_text"
+            <LinearLayout
+                android:id="@+id/zyxel_end_device_detail_model_name_value_linear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:textSize="@dimen/text_size_22sp_in_1080"
-                android:textColor="@color/color_000000"
-                tools:text="VMG4927"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/zyxel_end_device_detail_model_name_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textSize="@dimen/text_size_22sp_in_1080"
+                    android:textColor="@color/color_000000"
+                    tools:text="VMG4927"/>
+
+                <ImageView
+                    android:id="@+id/zyxel_end_device_detail_edit_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"
+                    android:src="@drawable/icon_edit"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/zyxel_end_device_detail_model_name_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/zyxel_end_device_detail_model_name_text"
+                android:layout_below="@+id/zyxel_end_device_detail_model_name_value_linear"
                 android:textColor="@color/color_888888"
                 android:text="@string/device_detail_model_name"/>
-
-            <ImageView
-                android:id="@+id/zyxel_end_device_detail_edit_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/zyxel_end_device_detail_model_name_text"
-                android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"
-                android:src="@drawable/icon_edit"/>
 
         </RelativeLayout>
 
