@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var enterAccountPageDisposable: Disposable
     private lateinit var enterSearchGatewayPageDisposable: Disposable
     private lateinit var msgDialogResponseDisposable: Disposable
+    private lateinit var showMsgDialogDisposable: Disposable
     private lateinit var showToastDisposable: Disposable
     private lateinit var loadingDlg: Dialog
     private lateinit var devicesInfo: DevicesInfo
@@ -277,8 +278,12 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                         requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), AppConfig.PERMISSION_LOCATION_REQUESTCODE)
                 }
+
+                AppConfig.DialogAction.ACT_RESEARCH -> gotoSearchGatewayFragment()
             }
         }
+
+        showMsgDialogDisposable = GlobalBus.listen(MainEvent.ShowMsgDialog::class.java).subscribe{ showMsgDialog(it.msg, it.requestCtxName) }
 
         showToastDisposable = GlobalBus.listen(MainEvent.ShowToast::class.java).subscribe{ showToast(it.msg, it.requestCtxName) }
     }
@@ -304,6 +309,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!enterAccountPageDisposable.isDisposed) enterAccountPageDisposable.dispose()
         if(!enterSearchGatewayPageDisposable.isDisposed) enterSearchGatewayPageDisposable.dispose()
         if(!msgDialogResponseDisposable.isDisposed) msgDialogResponseDisposable.dispose()
+        if(!showMsgDialogDisposable.isDisposed) showMsgDialogDisposable.dispose()
         if(!showToastDisposable.isDisposed) showToastDisposable.dispose()
     }
 
@@ -406,6 +412,19 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private fun hideLoading()
     {
         runOnUiThread{ if(loadingDlg.isShowing) loadingDlg.dismiss() }
+    }
+
+    private fun showMsgDialog(msg: String, requestCtxName: String)
+    {
+        runOnUiThread{
+            MessageDialog(
+                    this,
+                    "",
+                    msg,
+                    arrayOf(getString(R.string.message_dialog_ok)),
+                    AppConfig.DialogAction.ACT_RESEARCH
+            ).show()
+        }
     }
 
     private fun showToast(msg: String, requestCtxName: String)

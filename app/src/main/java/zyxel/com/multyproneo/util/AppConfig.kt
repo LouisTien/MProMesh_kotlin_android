@@ -61,6 +61,7 @@ object AppConfig
         ACT_BLOCK_DEVICE,
         ACT_DELETE_ZYXEL_DEVICE,
         ACT_LOCATION_PERMISSION,
-        ACT_LOGOUT
+        ACT_LOGOUT,
+        ACT_RESEARCH
     }
 }

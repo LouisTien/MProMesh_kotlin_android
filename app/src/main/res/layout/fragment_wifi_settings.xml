@@ -80,6 +80,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                            android:singleLine="true"
+                            android:ellipsize="end"
                             android:textSize="@dimen/text_size_18sp_in_1080"
                             android:textColor="@color/color_000000"
                             tools:text="ADHBU"/>
@@ -137,6 +139,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                            android:singleLine="true"
+                            android:ellipsize="end"
                             android:textSize="@dimen/text_size_18sp_in_1080"
                             android:textColor="@color/color_000000"
                             tools:text="ADHBU.speed"/>
@@ -246,6 +250,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
                         android:layout_below="@+id/wifi_settings_guest_wifi_switch_image"
+                        android:singleLine="true"
+                        android:ellipsize="end"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_000000"
                         tools:text="Guest WiFi"/>

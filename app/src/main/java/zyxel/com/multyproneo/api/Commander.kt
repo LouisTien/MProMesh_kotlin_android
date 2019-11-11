@@ -85,8 +85,7 @@ abstract class Commander
             LogUtil.e("Commander","[onFail]msg:$msg")
             LogUtil.e("Commander","[onFail]ctxName:$ctxName")
 
-            GlobalBus.publish(MainEvent.ShowToast(msg, ctxName))
-            GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
+            GlobalBus.publish(MainEvent.ShowMsgDialog(msg, ctxName))
         }
 
         open fun onConnectFail(msg: String, ctxName: String)
@@ -94,8 +93,12 @@ abstract class Commander
             LogUtil.e("Commander","[onConnectFail]msg:$msg")
             LogUtil.e("Commander","[onConnectFail]ctxName:$ctxName")
 
-            GlobalBus.publish(MainEvent.ShowToast(msg, ctxName))
-            GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
+            GlobalBus.publish(MainEvent.ShowMsgDialog(
+                    if(msg.contains("Failed to connect to"))
+                        "Could not connect to the server."
+                    else
+                        msg
+                    , ctxName))
         }
     }
 
