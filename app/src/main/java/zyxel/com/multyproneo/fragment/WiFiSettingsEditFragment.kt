@@ -53,8 +53,6 @@ class WiFiSettingsEditFragment : Fragment()
     private var showOneSSID = true
     private var available5g = false
     private var keyboardListenersAttached = false
-    private val wifiNameRequiredLength = 1
-    private val wifiPwdRequiredLength = 8
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -252,8 +250,9 @@ class WiFiSettingsEditFragment : Fragment()
 
         wifi_edit_wifi_24g_name_edit.textChangedListener{
             onTextChanged{
-                _: CharSequence?, _: Int, _: Int, _: Int ->
-                wifiNameIllegalInput = SpecialCharacterHandler.containsEmoji(wifi_edit_wifi_24g_name_edit.text.toString())
+                str: CharSequence?, _: Int, _: Int, _: Int ->
+                wifiNameIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
+                                    || SpecialCharacterHandler.containsSpecialCharacter(str.toString())
                 checkInputEditUI()
             }
         }
@@ -273,8 +272,8 @@ class WiFiSettingsEditFragment : Fragment()
 
         wifi_edit_wifi_24g_password_edit.textChangedListener{
             onTextChanged{
-                _: CharSequence?, _: Int, _: Int, _: Int ->
-                wifiPwdIllegalInput = SpecialCharacterHandler.containsEmoji(wifi_edit_wifi_24g_password_edit.text.toString())
+                str: CharSequence?, _: Int, _: Int, _: Int ->
+                wifiPwdIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
                 checkInputEditUI()
             }
         }
@@ -294,8 +293,9 @@ class WiFiSettingsEditFragment : Fragment()
 
         wifi_edit_wifi_5g_name_edit.textChangedListener{
             onTextChanged{
-                _: CharSequence?, _: Int, _: Int, _: Int ->
-                wifiNameIllegalInput5g = SpecialCharacterHandler.containsEmoji(wifi_edit_wifi_5g_name_edit.text.toString())
+                str: CharSequence?, _: Int, _: Int, _: Int ->
+                wifiNameIllegalInput5g = SpecialCharacterHandler.containsEmoji(str.toString())
+                                        || SpecialCharacterHandler.containsSpecialCharacter(str.toString())
                 checkInputEditUI()
             }
         }
@@ -315,8 +315,8 @@ class WiFiSettingsEditFragment : Fragment()
 
         wifi_edit_wifi_5g_password_edit.textChangedListener{
             onTextChanged{
-                _: CharSequence?, _: Int, _: Int, _: Int ->
-                wifiPwdIllegalInput5g = SpecialCharacterHandler.containsEmoji(wifi_edit_wifi_5g_password_edit.text.toString())
+                str: CharSequence?, _: Int, _: Int, _: Int ->
+                wifiPwdIllegalInput5g = SpecialCharacterHandler.containsEmoji(str.toString())
                 checkInputEditUI()
             }
         }
@@ -403,15 +403,15 @@ class WiFiSettingsEditFragment : Fragment()
         var saveAvailable5g = true
         if(available5g)
         {
-            if( (wifi_edit_wifi_5g_name_edit.text.length < wifiNameRequiredLength)
-                    || (wifi_edit_wifi_5g_password_edit.text.length < wifiPwdRequiredLength)
+            if( (wifi_edit_wifi_5g_name_edit.text.length < AppConfig.wifiNameRequiredLength)
+                    || (wifi_edit_wifi_5g_password_edit.text.length < AppConfig.wifiPwdRequiredLength)
                     || wifiNameIllegalInput5g
                     || wifiPwdIllegalInput5g )
                 saveAvailable5g = false
         }
 
-        if( (wifi_edit_wifi_24g_name_edit.text.length >= wifiNameRequiredLength)
-                && (wifi_edit_wifi_24g_password_edit.text.length >= wifiPwdRequiredLength)
+        if( (wifi_edit_wifi_24g_name_edit.text.length >= AppConfig.wifiNameRequiredLength)
+                && (wifi_edit_wifi_24g_password_edit.text.length >= AppConfig.wifiPwdRequiredLength)
                 && !wifiNameIllegalInput
                 && !wifiPwdIllegalInput
                 && saveAvailable5g )

@@ -38,6 +38,17 @@ object AppConfig
     //Fabric
     const val NoUploadFabric = false
 
+    //device username required length
+    const val deviceUserNameRequiredLength = 1
+
+    //Login username and password required length
+    const val loginUserNameRequiredLength = 1
+    const val loginPwdRequiredLength = 1
+
+    //WiFi Setting name and password required length
+    const val wifiNameRequiredLength = 1
+    const val wifiPwdRequiredLength = 8
+
     enum class LoadingAnimation
     {
         ANIM_REBOOT,

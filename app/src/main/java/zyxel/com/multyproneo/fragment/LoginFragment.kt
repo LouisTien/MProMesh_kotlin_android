@@ -24,6 +24,7 @@ import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayInfo
 import zyxel.com.multyproneo.model.LoginInfo
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
@@ -38,8 +39,6 @@ class LoginFragment : Fragment()
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var loginInfo: LoginInfo
     private var gatewayIndex = 0
-    private val userNameRequiredLength = 1
-    private val passwordRequiredLength = 1
     private var keyboardListenersAttached = false
     private var showPassword = false
     private var userNameIllegalInput = false
@@ -240,8 +239,8 @@ class LoginFragment : Fragment()
 
         when
         {
-            login_username_edit.text.length >= userNameRequiredLength
-            && login_password_edit.text.length >= passwordRequiredLength
+            login_username_edit.text.length >= AppConfig.loginUserNameRequiredLength
+            && login_password_edit.text.length >= AppConfig.loginPwdRequiredLength
             && !userNameIllegalInput
             && !passwordIllegalInput
             -> login_enter_button.isEnabled = true
@@ -255,12 +254,8 @@ class LoginFragment : Fragment()
         login_username_edit.textChangedListener{
             onTextChanged{
                 str: CharSequence?, _: Int, _: Int, _: Int ->
-                try
-                {
-                    userNameIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
-                    checkInputEditUI()
-                }
-                catch(ex: NumberFormatException){}
+                userNameIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
+                checkInputEditUI()
             }
         }
     }

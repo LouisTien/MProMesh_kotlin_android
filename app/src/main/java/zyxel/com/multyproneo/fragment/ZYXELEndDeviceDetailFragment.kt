@@ -49,6 +49,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
     private var isGatewayMode = false
     private var isEditMode = false
     private var isConnect = false
+    private var userIllegalInput = false
     private var modelName = "N/A"
     private var status = "N/A"
     private var connectType = "N/A"
@@ -334,9 +335,9 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         }
     }
 
-    private fun checkInputEditUI(illegalInput: Boolean)
+    private fun checkInputEditUI()
     {
-        when(illegalInput)
+        when(userIllegalInput)
         {
             true ->
             {
@@ -347,24 +348,32 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                 }
 
                 zyxel_end_device_detail_edit_line_image.setImageResource(R.color.color_ff2837)
-
-                with(zyxel_end_device_detail_confirm_image)
-                {
-                    isEnabled = false
-                    alpha = 0.3.toFloat()
-                }
             }
 
             false ->
             {
                 zyxel_end_device_detail_model_name_edit_error_text.visibility = View.INVISIBLE
                 zyxel_end_device_detail_edit_line_image.setImageResource(R.color.color_ffc800)
+            }
+        }
+
+        when
+        {
+            zyxel_end_device_detail_model_name_edit.text.length >= AppConfig.deviceUserNameRequiredLength
+            && !userIllegalInput
+            ->
                 with(zyxel_end_device_detail_confirm_image)
                 {
                     isEnabled = true
                     alpha = 1.toFloat()
                 }
-            }
+
+            else ->
+                with(zyxel_end_device_detail_confirm_image)
+                {
+                    isEnabled = false
+                    alpha = 0.3.toFloat()
+                }
         }
     }
 
@@ -372,8 +381,10 @@ class ZYXELEndDeviceDetailFragment : Fragment()
     {
         zyxel_end_device_detail_model_name_edit.textChangedListener{
             onTextChanged{
-                _: CharSequence?, _: Int, _: Int, _: Int ->
-                checkInputEditUI(SpecialCharacterHandler.containsEmoji(zyxel_end_device_detail_model_name_edit.text.toString()))
+                str: CharSequence?, _: Int, _: Int, _: Int ->
+                userIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
+                                || SpecialCharacterHandler.containsSpecialCharacter(str.toString())
+                checkInputEditUI()
             }
         }
     }

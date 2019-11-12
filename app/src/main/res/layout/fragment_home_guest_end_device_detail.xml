@@ -71,7 +71,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_toLeftOf="@+id/end_device_detail_confirm_image"
                         android:layout_below="@+id/end_device_detail_model_name_edit_title_text"
-                        android:maxLength="30"
+                        android:maxLength="20"
                         android:singleLine="true"
                         android:background="@android:color/transparent"
                         android:textSize="@dimen/text_size_22sp_in_1080"

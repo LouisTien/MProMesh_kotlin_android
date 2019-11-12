@@ -1,5 +1,6 @@
 package zyxel.com.multyproneo.tool
 
+import zyxel.com.multyproneo.util.AppConfig
 import java.lang.Character
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -9,9 +10,6 @@ import java.util.regex.Pattern
  */
 object SpecialCharacterHandler
 {
-    var filterCharacter = ""
-
-    fun containsSpecialCharacter(source: String): Matcher? = Pattern.compile(filterCharacter).matcher(source)
 
     fun containsEmoji(source: String): Boolean
     {
@@ -20,6 +18,31 @@ object SpecialCharacterHandler
             when(c.toInt()) { Character.SURROGATE.toInt() or Character.OTHER_SYMBOL.toInt(), in 256 .. Int.MAX_VALUE -> return true }
         }
         return false
+    }
+
+    fun containsExcludeASCII(source: String): Boolean
+    {
+        val len = source.length
+        for(i in 0 until len)
+        {
+            val codePoint = source[i]
+            val cValue = codePoint.toInt()
+
+            if(cValue == Character.SURROGATE.toInt() || cValue == Character.OTHER_SYMBOL.toInt())
+                return true
+
+            //check if characters is out of ASCII Extend Range
+            if(cValue > 126 || cValue < 32)
+                return true
+        }
+        return false
+    }
+
+    fun containsSpecialCharacter(str: String): Boolean
+    {
+        val p = Pattern.compile("[\"'`<>^\$]")
+        val m = p.matcher(str)
+        return m.find()
     }
 
     fun checkEmptyTextValue(srcStr: String): String

@@ -112,7 +112,8 @@
                     android:layout_height="@dimen/layout_size_44dp_in_1080"
                     android:gravity="center"
                     android:textColor="@color/edittext_bg"
-                    android:text="@string/button_text_start" />
+                    android:text="@string/button_text_start"
+                    android:visibility="invisible"/>
 
             </LinearLayout>
 

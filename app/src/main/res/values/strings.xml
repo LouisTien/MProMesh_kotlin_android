@@ -196,7 +196,7 @@
     <string name="message_dialog_not_connect">Cannot Connect</string>
     <string name="message_dialog_not_connect_try_again">Please check your WiFi connection and try again later.</string>
     <string name="message_dialog_reboot_reminder_title">Would you like to restart your device?</string>
-    <string name="message_dialog_reboot_reminder">It will take a few seconds to reconnect to your Device.</string>
+    <string name="message_dialog_reboot_reminder">It will take a few minutes to reconnect to your Device.</string>
     <string name="message_dialog_block_title">Block \"...\" from the Internet?</string>
     <string name="message_dialog_block_msg">The devices assigned to \"Steve\" profile will be blocked from the Internet until 9am, tomorrow.</string>
     <string name="message_dialog_block_always">Always block</string>

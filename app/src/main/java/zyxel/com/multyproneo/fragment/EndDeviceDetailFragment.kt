@@ -42,6 +42,7 @@ class EndDeviceDetailFragment : Fragment()
     private var isEditMode = false
     private var isBlocked = false
     private var isFromSearch = false
+    private var userIllegalInput = false
     private var modelName = "N/A"
     private var dhcpTime = "N/A"
     private var connectType = "N/A"
@@ -403,11 +404,9 @@ class EndDeviceDetailFragment : Fragment()
         }
     }
 
-    private fun checkInputEditUI(illegalInput: Boolean)
+    private fun checkInputEditUI()
     {
-        if(!isVisible) return
-
-        when(illegalInput)
+        when(userIllegalInput)
         {
             true ->
             {
@@ -417,12 +416,6 @@ class EndDeviceDetailFragment : Fragment()
                     visibility = View.VISIBLE
                 }
 
-                with(end_device_detail_confirm_image)
-                {
-                    isEnabled = false
-                    alpha = 0.3.toFloat()
-                }
-
                 end_device_detail_edit_line_image.setImageResource(R.color.color_ff2837)
             }
 
@@ -430,12 +423,26 @@ class EndDeviceDetailFragment : Fragment()
             {
                 end_device_detail_model_name_edit_error_text.visibility = View.INVISIBLE
                 end_device_detail_edit_line_image.setImageResource(R.color.color_ffc800)
+            }
+        }
+
+        when
+        {
+            end_device_detail_model_name_edit.text.length >= AppConfig.deviceUserNameRequiredLength
+            && !userIllegalInput
+            ->
                 with(end_device_detail_confirm_image)
                 {
                     isEnabled = true
                     alpha = 1.toFloat()
                 }
-            }
+
+            else ->
+                with(end_device_detail_confirm_image)
+                {
+                    isEnabled = false
+                    alpha = 0.3.toFloat()
+                }
         }
     }
 
@@ -443,8 +450,10 @@ class EndDeviceDetailFragment : Fragment()
     {
         end_device_detail_model_name_edit.textChangedListener{
             onTextChanged{
-                _: CharSequence?, _: Int, _: Int, _: Int ->
-                checkInputEditUI(SpecialCharacterHandler.containsEmoji(end_device_detail_model_name_edit.text.toString()))
+                str: CharSequence?, _: Int, _: Int, _: Int ->
+                userIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
+                                || SpecialCharacterHandler.containsSpecialCharacter(str.toString())
+                checkInputEditUI()
             }
         }
     }
