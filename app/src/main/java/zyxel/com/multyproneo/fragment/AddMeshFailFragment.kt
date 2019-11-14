@@ -66,7 +66,7 @@ class AddMeshFailFragment : Fragment()
                     putString("Sec_Description", getString(R.string.loading_transition_extender))
                     putInt("LoadingSecond", AppConfig.addMeshTime)
                     putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
-                    putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_MESH_SUCCESS)
+                    putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_MESH_FAIL)
                     putBoolean("ShowCountDownTimer", true)
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
