@@ -384,6 +384,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                 str: CharSequence?, _: Int, _: Int, _: Int ->
                 userIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
                                 || SpecialCharacterHandler.containsSpecialCharacter(str.toString())
+                                || SpecialCharacterHandler.containsExcludeASCII(str.toString())
                 checkInputEditUI()
             }
         }

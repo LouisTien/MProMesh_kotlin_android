@@ -253,6 +253,7 @@ class WiFiSettingsEditFragment : Fragment()
                 str: CharSequence?, _: Int, _: Int, _: Int ->
                 wifiNameIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
                                     || SpecialCharacterHandler.containsSpecialCharacter(str.toString())
+                                    || SpecialCharacterHandler.containsExcludeASCII(str.toString())
                 checkInputEditUI()
             }
         }
@@ -274,6 +275,7 @@ class WiFiSettingsEditFragment : Fragment()
             onTextChanged{
                 str: CharSequence?, _: Int, _: Int, _: Int ->
                 wifiPwdIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
+                                   || SpecialCharacterHandler.containsExcludeASCII(str.toString())
                 checkInputEditUI()
             }
         }
@@ -296,6 +298,7 @@ class WiFiSettingsEditFragment : Fragment()
                 str: CharSequence?, _: Int, _: Int, _: Int ->
                 wifiNameIllegalInput5g = SpecialCharacterHandler.containsEmoji(str.toString())
                                         || SpecialCharacterHandler.containsSpecialCharacter(str.toString())
+                                        || SpecialCharacterHandler.containsExcludeASCII(str.toString())
                 checkInputEditUI()
             }
         }
@@ -317,6 +320,7 @@ class WiFiSettingsEditFragment : Fragment()
             onTextChanged{
                 str: CharSequence?, _: Int, _: Int, _: Int ->
                 wifiPwdIllegalInput5g = SpecialCharacterHandler.containsEmoji(str.toString())
+                                     || SpecialCharacterHandler.containsExcludeASCII(str.toString())
                 checkInputEditUI()
             }
         }

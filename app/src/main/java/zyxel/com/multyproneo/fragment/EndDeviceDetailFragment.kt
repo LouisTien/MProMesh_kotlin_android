@@ -456,6 +456,7 @@ class EndDeviceDetailFragment : Fragment()
                 userNameEditCurrentEnd = start + count
                 userIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
                                 || SpecialCharacterHandler.containsSpecialCharacter(str.toString())
+                                || SpecialCharacterHandler.containsExcludeASCII(str.toString())
                 checkInputEditUI()
             }
 
