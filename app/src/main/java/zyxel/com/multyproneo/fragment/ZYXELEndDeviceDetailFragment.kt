@@ -85,7 +85,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
             {
                 AppConfig.DialogAction.ACT_REBOOT ->
                 {
-                    rebootTask()
+                    /*rebootTask()
 
                     val bundle = Bundle().apply{
                         putString("Title", "")
@@ -96,7 +96,8 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                         putSerializable("DesPage", if(isGatewayMode) AppConfig.LoadingGoToPage.FRAG_SEARCH else AppConfig.LoadingGoToPage.FRAG_HOME)
                         putBoolean("ShowCountDownTimer", false)
                     }
-                    GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
+                    GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))*/
+                    GlobalBus.publish(MainEvent.EnterHomePage())
                 }
 
                 AppConfig.DialogAction.ACT_DELETE_DEVICE -> {}
