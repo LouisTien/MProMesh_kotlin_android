@@ -114,12 +114,17 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                     zyxel_end_device_detail_model_name_edit.setText(editDeviceName)
                     setEditModeUI()
 
-                    for(item in GlobalData.endDeviceList)
+                    if(isGatewayMode)
+                        deviceInfo.UserDefineName = editDeviceName
+                    else
                     {
-                        if(item.PhysAddress == endDeviceInfo.PhysAddress)
+                        for(item in GlobalData.endDeviceList)
                         {
-                            endDeviceInfo = item
-                            break
+                            if(item.PhysAddress == endDeviceInfo.PhysAddress)
+                            {
+                                endDeviceInfo = item
+                                break
+                            }
                         }
                     }
                 }
@@ -399,18 +404,41 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         isEditMode = false
 
         if(isGatewayMode)
-        {
-            deviceInfo.UserDefineName = editDeviceName
-            DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(deviceInfo)
-            if(isVisible)
-            {
-                zyxel_end_device_detail_model_name_text.text = editDeviceName
-                zyxel_end_device_detail_model_name_edit.setText(editDeviceName)
-                setEditModeUI()
-            }
-        }
+            setGatewayInfoTask()
         else
             setDeviceInfoTask()
+    }
+
+    private fun setGatewayInfoTask()
+    {
+        LogUtil.d(TAG,"setGatewayInfoTask()")
+        GlobalBus.publish(MainEvent.ShowLoading())
+
+        val params = JSONObject()
+        params.put("HostName", editDeviceName)
+        LogUtil.d(TAG,"setGatewayInfoTask param:${params}")
+
+        GatewayApi.SetSystemInfo()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                            GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
     }
 
     private fun setDeviceInfoTask()
@@ -422,7 +450,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         params.put("HostName", editDeviceName)
         params.put("MacAddress", endDeviceInfo.PhysAddress)
         params.put("Internet_Blocking_Enable", endDeviceInfo.Internet_Blocking_Enable)
-        LogUtil.d(TAG,"setDeviceInfoTask param:${params.toString()}")
+        LogUtil.d(TAG,"setDeviceInfoTask param:${params}")
 
         var index = 0
         for(i in GlobalData.changeIconNameList.indices)
@@ -511,7 +539,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                     index = i + 1
 
                     params.put("L2DevCtrl_Reboot", true)
-                    LogUtil.d(TAG,"rebootTask param:${params.toString()}")
+                    LogUtil.d(TAG,"rebootTask param:${params}")
 
                     GatewayApi.EndDeviceReboot(index)
                             .setRequestPageName(TAG)

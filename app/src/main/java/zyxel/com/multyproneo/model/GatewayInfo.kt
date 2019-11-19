@@ -10,7 +10,7 @@ data class GatewayInfo
     var IdInDB: String = "N/A",
     var UserName: String = "N/A",
     var Password: String = "N/A",
-    var UserDefineName: String = "N/A",
+    var UserDefineName: String = "N/A", //as HostName when gateway
     var IP: String = "N/A",
     var MAC: String = "00:00:00:00:00",
     var ApiName: String = "N/A",

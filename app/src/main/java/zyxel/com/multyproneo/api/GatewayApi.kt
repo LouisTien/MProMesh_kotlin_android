@@ -12,6 +12,34 @@ object GatewayApi
 {
     private val JSON = MediaType.parse("application/json; charset=utf-8")
 
+    class SetSystemInfo : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val setChangeGatewayNameInfo = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_System_Info.?sessionkey=${GlobalData.sessionKey}"
+            val requestParam = RequestBody.create(JSON, getParams().toString())
+            val request = Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(setChangeGatewayNameInfo)
+                    .put(requestParam)
+                    .build()
+            return request
+        }
+    }
+
+    class GetSystemInfo : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val getChangeGatewayNameInfo = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_System_Info."
+            val request = Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(getChangeGatewayNameInfo)
+                    .build()
+            return request
+        }
+    }
+
     class GetWanInfo : Commander()
     {
         override fun composeRequest(): Request

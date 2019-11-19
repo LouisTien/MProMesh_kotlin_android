@@ -254,7 +254,7 @@ class EndDeviceDetailFragment : Fragment()
                 equals("", ignoreCase = true) ||
                 equals(GlobalData.getCurrentGatewayInfo().MAC, ignoreCase = true) ||
                 isEmpty() ->
-                { connectTo = SpecialCharacterHandler.checkEmptyTextValue(GlobalData.getCurrentGatewayInfo().ModelName) }
+                { connectTo = SpecialCharacterHandler.checkEmptyTextValue(GlobalData.getCurrentGatewayInfo().UserDefineName) }
 
                 else ->
                 {
@@ -482,7 +482,7 @@ class EndDeviceDetailFragment : Fragment()
         params.put("HostName", editDeviceName)
         params.put("MacAddress", endDeviceInfo.PhysAddress)
         params.put("Internet_Blocking_Enable", isBlocked)
-        LogUtil.d(TAG,"setDeviceInfoTask param:${params.toString()}")
+        LogUtil.d(TAG,"setDeviceInfoTask param:${params}")
 
         var index = 0
         for(i in GlobalData.changeIconNameList.indices)

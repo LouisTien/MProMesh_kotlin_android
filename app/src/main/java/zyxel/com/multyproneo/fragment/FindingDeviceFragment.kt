@@ -123,13 +123,13 @@ class FindingDeviceFragment : Fragment(), IResponseListener
                 findingDeviceInfo = Gson().fromJson(data, GatewayInfo::class.javaObjectType)
                 findingDeviceInfo.IP = ip
 
-                userDefineName = DatabaseUtil.getInstance(activity!!)?.getDeviceUserDefineNameFromDB(findingDeviceInfo.MAC)!!
+                /*userDefineName = DatabaseUtil.getInstance(activity!!)?.getDeviceUserDefineNameFromDB(findingDeviceInfo.MAC)!!
                 LogUtil.d(TAG, "userDefineName from DB:$userDefineName")
 
                 if(userDefineName == "")
                     findingDeviceInfo.UserDefineName = findingDeviceInfo.ModelName
                 else
-                    findingDeviceInfo.UserDefineName = userDefineName
+                    findingDeviceInfo.UserDefineName = userDefineName*/
 
                 LogUtil.d(TAG, "findingDeviceInfo:${findingDeviceInfo.toString()}")
 

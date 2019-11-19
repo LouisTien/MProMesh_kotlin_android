@@ -437,7 +437,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(GlobalData.ZYXELEndDeviceList.isEmpty())
             GlobalBus.publish(MainEvent.ShowLoading())
 
-        getChangeIconNameInfoTask()
+        getSystemInfoTask()
     }
 
     private fun stopGetAllNeedDeviceInfoTask()
@@ -446,6 +446,33 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         GlobalBus.publish(HomeEvent.GetDeviceInfoComplete())
         GlobalBus.publish(DevicesEvent.GetDeviceInfoComplete())
         GlobalBus.publish(DevicesDetailEvent.GetDeviceInfoComplete())
+    }
+
+    private fun getSystemInfoTask()
+    {
+        LogUtil.d(TAG,"getSystemInfoTask()")
+        GatewayApi.GetSystemInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            var name = data.getJSONObject("Object").getString("HostName")
+                            LogUtil.d(TAG,"HostName:$name")
+                            GlobalData.getCurrentGatewayInfo().UserDefineName = name
+                            getChangeIconNameInfoTask()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
     }
 
     private fun getChangeIconNameInfoTask()

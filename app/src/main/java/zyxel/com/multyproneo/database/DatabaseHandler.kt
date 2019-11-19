@@ -182,9 +182,9 @@ class DatabaseHandler(private var activity: Activity)
 
                     when(infoTag)
                     {
-                        DatabaseHandler.GETINFOFROMDB.INFO_PASSWORD -> retStr = gatewayInfoArrayListDB[i].Password
-                        DatabaseHandler.GETINFOFROMDB.INFO_USERNAME -> retStr = gatewayInfoArrayListDB[i].UserName
-                        DatabaseHandler.GETINFOFROMDB.INFO_USERDEFINENAME -> retStr = gatewayInfoArrayListDB[i].UserDefineName
+                        GETINFOFROMDB.INFO_PASSWORD -> retStr = gatewayInfoArrayListDB[i].Password
+                        GETINFOFROMDB.INFO_USERNAME -> retStr = gatewayInfoArrayListDB[i].UserName
+                        GETINFOFROMDB.INFO_USERDEFINENAME -> retStr = gatewayInfoArrayListDB[i].UserDefineName
                     }
 
                     isExist = true
