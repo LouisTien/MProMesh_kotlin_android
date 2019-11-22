@@ -96,7 +96,7 @@ class ZYXELEndDeviceItemAdapter
                         {
                             equals("Router", ignoreCase = true) -> parent.context.getString(R.string.home_device_gateway)
                             equals("AccessPoint", ignoreCase = true) || equals("Access Point", ignoreCase = true) || equals("AP", ignoreCase = true) -> parent.context.getString(R.string.home_device_ap)
-                            equals("Repeater", ignoreCase = true) || equals("RP", ignoreCase = true) -> parent.context.getString(R.string.home_device_ap)
+                            equals("Repeater", ignoreCase = true) || equals("RP", ignoreCase = true) -> parent.context.getString(R.string.home_device_rp)
                             else -> endDeviceList[position].X_ZYXEL_HostType
                         }
                     },
