@@ -50,6 +50,11 @@ object AppConfig
     const val wifiNameRequiredLength = 1
     const val wifiPwdRequiredLength = 8
 
+    //Speed Test
+    const val SpeedTestActive = false
+    const val SpeedTestStatusUpdateTime = 5
+    const val SpeedTestTimeout = 180
+
     enum class LoadingAnimation
     {
         ANIM_REBOOT,

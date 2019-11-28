@@ -36,4 +36,4 @@ data class SupportedApiVersion
     val HttpsPort: Int = 0,
     val LoginURI: String = "N/A",
     val Protocol: String = "N/A"
-)
+) : Serializable

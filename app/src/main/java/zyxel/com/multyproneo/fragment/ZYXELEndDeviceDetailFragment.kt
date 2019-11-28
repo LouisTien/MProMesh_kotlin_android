@@ -21,10 +21,7 @@ import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.DevicesApi
 import zyxel.com.multyproneo.api.GatewayApi
 import zyxel.com.multyproneo.dialog.MessageDialog
-import zyxel.com.multyproneo.event.DevicesDetailEvent
-import zyxel.com.multyproneo.event.DialogEvent
-import zyxel.com.multyproneo.event.GlobalBus
-import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.model.GatewayInfo
 import zyxel.com.multyproneo.model.WanInfo
@@ -42,6 +39,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
     private val TAG = javaClass.simpleName
     private lateinit var msgDialogResponse: Disposable
     private lateinit var getInfoCompleteDisposable: Disposable
+    private lateinit var getSpeedTestResultDisposable: Disposable
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var deviceInfo: GatewayInfo
     private lateinit var deviceWanInfo: WanInfo
@@ -131,6 +129,14 @@ class ZYXELEndDeviceDetailFragment : Fragment()
             }
         }
 
+        getSpeedTestResultDisposable = GlobalBus.listen(GatewayEvent.GetSpeedTestComplete::class.java).subscribe{
+            runOnUiThread{
+                zyxel_end_device_detail_speed_test_download_content_text.text = it.downloadResult
+                zyxel_end_device_detail_speed_test_upload_content_text.text = it.uploadResult
+                zyxel_end_device_detail_speed_test_linear.visibility = View.VISIBLE
+            }
+        }
+
         setClickListener()
     }
 
@@ -144,6 +150,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
     override fun onPause()
     {
         super.onPause()
+        GlobalBus.publish(MainEvent.StopGetSpeedTestStatusTask())
     }
 
     override fun onDestroyView()
@@ -151,6 +158,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         super.onDestroyView()
         if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
         if(!getInfoCompleteDisposable.isDisposed) getInfoCompleteDisposable.dispose()
+        if(!getSpeedTestResultDisposable.isDisposed) getSpeedTestResultDisposable.dispose()
     }
 
     private val clickListener = View.OnClickListener{ view ->
@@ -197,6 +205,8 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                         AppConfig.DialogAction.ACT_DELETE_ZYXEL_DEVICE
                 ).show()
             }
+
+            zyxel_end_device_detail_speed_test_button -> startSpeedTestTask()
         }
     }
 
@@ -207,6 +217,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         zyxel_end_device_detail_edit_image.setOnClickListener(clickListener)
         zyxel_end_device_detail_reboot_button.setOnClickListener(clickListener)
         zyxel_end_device_detail_remove_device_text.setOnClickListener(clickListener)
+        zyxel_end_device_detail_speed_test_button.setOnClickListener(clickListener)
     }
 
     private fun initUI()
@@ -292,6 +303,8 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         zyxel_end_device_detail_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_reboot_button.visibility = View.VISIBLE
         //zyxel_end_device_detail_remove_device_text.visibility = if(isConnect) View.INVISIBLE else View.VISIBLE
+        zyxel_end_device_detail_speed_test_linear.visibility = View.GONE
+        zyxel_end_device_detail_speed_test_button.visibility = if(AppConfig.SpeedTestActive) View.VISIBLE else View.INVISIBLE
     }
 
     private fun setEndDeviceModeUI()
@@ -314,6 +327,8 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         zyxel_end_device_detail_lan_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_reboot_button.visibility = if(isConnect) View.VISIBLE else View.INVISIBLE
         //zyxel_end_device_detail_remove_device_text.visibility = if(isConnect) View.INVISIBLE else View.VISIBLE
+        zyxel_end_device_detail_speed_test_linear.visibility = View.GONE
+        zyxel_end_device_detail_speed_test_button.visibility = View.INVISIBLE
     }
 
     private fun setEditModeUI()
@@ -556,5 +571,33 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                 }
             }
         }
+    }
+
+    private fun startSpeedTestTask()
+    {
+        val params = JSONObject()
+        params.put("Start", true)
+        LogUtil.d(TAG,"startSpeedTestTask param:${params}")
+
+        GatewayApi.StartSpeedTest()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                            GlobalBus.publish(MainEvent.StartGetSpeedTestStatusTask())
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+                    }
+                }).execute()
     }
 }

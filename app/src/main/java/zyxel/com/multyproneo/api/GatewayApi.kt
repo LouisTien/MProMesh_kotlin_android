@@ -121,4 +121,32 @@ object GatewayApi
             return request
         }
     }
+
+    class StartSpeedTest : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val startSpeedTestURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_EXT.SpeedTestInfo.?sessionkey=${GlobalData.sessionKey}"
+            val requestParam = RequestBody.create(JSON, getParams().toString())
+            val request = Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(startSpeedTestURL)
+                    .put(requestParam)
+                    .build()
+            return request
+        }
+    }
+
+    class GetSpeedTestStatus : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val getSpeedTestStatusURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_EXT.SpeedTestInfo."
+            val request = Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(getSpeedTestStatusURL)
+                    .build()
+            return request
+        }
+    }
 }

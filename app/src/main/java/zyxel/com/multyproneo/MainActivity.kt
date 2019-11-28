@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
@@ -47,6 +48,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var stopGetDeviceInfoTaskDisposable: Disposable
     private lateinit var startGetWPSStatusTaskDisposable: Disposable
     private lateinit var stopGetWPSStatusTaskDisposable: Disposable
+    private lateinit var startGetSpeedTestStatusTaskDisposable: Disposable
+    private lateinit var stopGetSpeedTestStatusTaskDisposable: Disposable
     private lateinit var enterHomePageDisposable: Disposable
     private lateinit var enterDevicesPageDisposable: Disposable
     private lateinit var enterWiFiSettingsPageDisposable: Disposable
@@ -64,6 +67,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var fSecureInfo: FSecureInfo
     private lateinit var hostNameReplaceInfo: HostNameReplaceInfo
     private lateinit var progressBar: ProgressBar
+    private lateinit var getSpeedTestStatusTimer: CountDownTimer
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
     private var getWPSStatusTimer = Timer()
@@ -75,6 +79,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         loadingDlg = createLoadingDlg(this)
         OUIUtil.executeGetMacOUITask(this)
         randomAESInfo()
+        initSpeedTestTimer()
         setClickListener()
         listenEvent()
         switchToFragContainer(FindingDeviceFragment())
@@ -127,6 +132,23 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         CryptTool.KeyAES = CryptTool.getRandomString(16)
         LogUtil.d(TAG,"IvAES:${CryptTool.IvAES}")
         LogUtil.d(TAG,"KeyAES:${CryptTool.KeyAES}")
+    }
+
+    private fun initSpeedTestTimer()
+    {
+        getSpeedTestStatusTimer = object : CountDownTimer((AppConfig.SpeedTestTimeout * 1000).toLong(), (AppConfig.SpeedTestStatusUpdateTime * 1000).toLong())
+        {
+            override fun onTick(millisUntilFinished: Long)
+            {
+                getSpeedTestStatusInfoTask()
+            }
+
+            override fun onFinish()
+            {
+                stopSpeedTest()
+                GlobalBus.publish(GatewayEvent.GetSpeedTestComplete("0", "0"))
+            }
+        }
     }
 
     private val clickListener = View.OnClickListener{ view ->
@@ -270,6 +292,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         stopGetWPSStatusTaskDisposable = GlobalBus.listen(MainEvent.StopGetWPSStatusTask::class.java).subscribe{ getWPSStatusTimer.cancel() }
 
+        startGetSpeedTestStatusTaskDisposable = GlobalBus.listen(MainEvent.StartGetSpeedTestStatusTask::class.java).subscribe{ startSpeedTest() }
+
+        stopGetSpeedTestStatusTaskDisposable = GlobalBus.listen(MainEvent.StopGetSpeedTestStatusTask::class.java).subscribe{ stopSpeedTest() }
+
         msgDialogResponseDisposable = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
             when(it.action)
             {
@@ -302,6 +328,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!stopGetDeviceInfoTaskDisposable.isDisposed) stopGetDeviceInfoTaskDisposable.dispose()
         if(!startGetWPSStatusTaskDisposable.isDisposed) startGetWPSStatusTaskDisposable.dispose()
         if(!stopGetWPSStatusTaskDisposable.isDisposed) stopGetWPSStatusTaskDisposable.dispose()
+        if(!startGetSpeedTestStatusTaskDisposable.isDisposed) startGetSpeedTestStatusTaskDisposable.dispose()
+        if(!stopGetSpeedTestStatusTaskDisposable.isDisposed) stopGetSpeedTestStatusTaskDisposable.dispose()
         if(!enterHomePageDisposable.isDisposed) enterHomePageDisposable.dispose()
         if(!enterDevicesPageDisposable.isDisposed) enterDevicesPageDisposable.dispose()
         if(!enterWiFiSettingsPageDisposable.isDisposed) enterWiFiSettingsPageDisposable.dispose()
@@ -430,6 +458,18 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private fun showToast(msg: String, requestCtxName: String)
     {
         runOnUiThread{ toast(msg) }
+    }
+
+    private fun startSpeedTest()
+    {
+        showLoading()
+        getSpeedTestStatusTimer.start()
+    }
+
+    private fun stopSpeedTest()
+    {
+        hideLoading()
+        getSpeedTestStatusTimer.cancel()
     }
 
     private fun startGetAllNeedDeviceInfoTask()
@@ -723,6 +763,51 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         {
                             e.printStackTrace()
                             getWPSStatusTimer.cancel()
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun getSpeedTestStatusInfoTask()
+    {
+        LogUtil.d(TAG,"getSpeedTestStatusInfoTask()")
+        GatewayApi.GetSpeedTestStatus()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            var status = data.getJSONObject("Object").getString("Status")
+                            LogUtil.d(TAG,"SpeedTest status:$status")
+
+                            with(status)
+                            {
+                                when
+                                {
+                                    contains("Completed", ignoreCase = true) ->
+                                    {
+                                        stopSpeedTest()
+                                        GlobalBus.publish(GatewayEvent.GetSpeedTestComplete("100", "100"))
+                                    }
+
+                                    contains("Ready", ignoreCase = true) or
+                                    contains("Doing", ignoreCase = true) -> {}
+
+                                    else ->
+                                    {
+                                        stopSpeedTest()
+                                        GlobalBus.publish(GatewayEvent.GetSpeedTestComplete("0", "0"))
+                                    }
+                                }
+                            }
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                            stopSpeedTest()
                         }
                     }
                 }).execute()

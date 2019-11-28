@@ -10,7 +10,7 @@ data class DevicesInfo
     val Object: List<DevicesInfoObject> = listOf(DevicesInfoObject()),
     val oper_status: String = "N/A",
     val requested_path: String = "N/A"
-)
+) : Serializable
 
 data class DevicesInfoObject
 (

@@ -21,4 +21,4 @@ data class WanInfoObject
     val RxRate: Int = 0,
     val Status: String = "N/A",
     val TxRate: Int = 0
-)
+) : Serializable
