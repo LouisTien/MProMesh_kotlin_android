@@ -780,7 +780,11 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         try
                         {
                             val data = JSONObject(responseStr)
+                            var uploadResult = data.getJSONObject("Object").getString("UploadSpeedResult")
+                            var downloadResult = data.getJSONObject("Object").getString("DownloadSpeedResult")
                             var status = data.getJSONObject("Object").getString("Status")
+                            LogUtil.d(TAG,"SpeedTest uploadResult:$uploadResult")
+                            LogUtil.d(TAG,"SpeedTest downloadResult:$downloadResult")
                             LogUtil.d(TAG,"SpeedTest status:$status")
 
                             with(status)
@@ -790,7 +794,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                     contains("Completed", ignoreCase = true) ->
                                     {
                                         stopSpeedTest()
-                                        GlobalBus.publish(GatewayEvent.GetSpeedTestComplete("100", "100"))
+                                        GlobalBus.publish(GatewayEvent.GetSpeedTestComplete(uploadResult, downloadResult))
                                     }
 
                                     contains("Ready", ignoreCase = true) or
@@ -799,7 +803,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                     else ->
                                     {
                                         stopSpeedTest()
-                                        GlobalBus.publish(GatewayEvent.GetSpeedTestComplete("0", "0"))
+                                        GlobalBus.publish(GatewayEvent.GetSpeedTestComplete("-", "-"))
                                     }
                                 }
                             }
@@ -808,6 +812,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         {
                             e.printStackTrace()
                             stopSpeedTest()
+                            GlobalBus.publish(GatewayEvent.GetSpeedTestComplete("-", "-"))
                         }
                     }
                 }).execute()
