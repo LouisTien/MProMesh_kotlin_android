@@ -83,9 +83,9 @@ class ZYXELEndDeviceDetailFragment : Fragment()
             {
                 AppConfig.DialogAction.ACT_REBOOT ->
                 {
-                    /*rebootTask()
+                    rebootTask()
 
-                    val bundle = Bundle().apply{
+                    /*val bundle = Bundle().apply{
                         putString("Title", "")
                         putString("Description", resources.getString(R.string.loading_transition_take_few_minutes))
                         putString("Sec_Description", resources.getString(R.string.loading_transition_reboot))
@@ -95,6 +95,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                         putBoolean("ShowCountDownTimer", false)
                     }
                     GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))*/
+
                     GlobalBus.publish(MainEvent.EnterHomePage())
                 }
 
