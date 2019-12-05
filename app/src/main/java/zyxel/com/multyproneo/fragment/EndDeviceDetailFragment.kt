@@ -359,7 +359,7 @@ class EndDeviceDetailFragment : Fragment()
 
                 with(end_device_detail_connect_type_dhcp_time_text)
                 {
-                    text = CommonTool.formatData("yyyy-MM-dd HH:mm:ss", dhcpTime.toLong())
+                    text = CommonTool.formatData("yyyy-MM-dd HH:mm", dhcpTime.toLong())
                     textColor = resources.getColor(R.color.color_575757)
                 }
 

@@ -66,9 +66,9 @@ class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var 
                         when
                         {
                             equals("Good", ignoreCase = true) -> R.color.color_3c9f00
-                            equals("TooClose", ignoreCase = true) or equals("Too Close", ignoreCase = true) -> R.color.color_ff6800
-                            equals("Weak", ignoreCase = true) or equals("Blocked", ignoreCase = true) -> R.color.color_d9003c
-                            else -> R.color.color_575757
+                            equals("TooClose", ignoreCase = true) || equals("Too Close", ignoreCase = true) -> R.color.color_ff6800
+                            equals("Weak", ignoreCase = true) || equals("Blocked", ignoreCase = true) -> R.color.color_d9003c
+                            else -> R.color.color_b4b4b4
                         }
                     }
             )

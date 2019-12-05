@@ -96,8 +96,8 @@ abstract class Commander
 
             stopAllRegularTask()
             GlobalBus.publish(MainEvent.ShowMsgDialog(
-                    if(msg.contains("Failed to connect to"))
-                        "Could not connect to the server."
+                    if( (msg.contains("failed to connect to")) or (msg.contains("Failed to connect to")) )
+                        "Server is disconnect."
                     else
                         msg
                     , ctxName))

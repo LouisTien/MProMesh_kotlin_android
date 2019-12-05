@@ -317,7 +317,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                     {
                         equals("Router", ignoreCase = true) -> getString(R.string.home_device_gateway)
                         equals("AccessPoint", ignoreCase = true) || equals("Access Point", ignoreCase = true) || equals("AP", ignoreCase = true) -> getString(R.string.home_device_ap)
-                        equals("Repeater", ignoreCase = true) || equals("RP", ignoreCase = true) -> getString(R.string.home_device_ap)
+                        equals("Repeater", ignoreCase = true) || equals("RP", ignoreCase = true) -> getString(R.string.home_device_rp)
                         else -> endDeviceInfo.X_ZYXEL_HostType
                     }
                 },
