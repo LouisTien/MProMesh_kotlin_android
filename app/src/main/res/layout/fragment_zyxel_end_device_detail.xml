@@ -421,50 +421,22 @@
                             android:layout_weight="1"
                             android:orientation="horizontal">
 
-                            <RelativeLayout
-                                android:id="@+id/zyxel_end_device_detail_speed_test_download_relative"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/zyxel_end_device_detail_speed_test_download_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+                                android:src="@drawable/speed_info_download"/>
 
-                                <ImageView
-                                    android:id="@+id/zyxel_end_device_detail_speed_test_download_image"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
-                                    android:layout_toLeftOf="@+id/zyxel_end_device_detail_speed_test_download_content_linear"
-                                    android:src="@drawable/speed_info_download"/>
-
-                                <LinearLayout
-                                    android:id="@+id/zyxel_end_device_detail_speed_test_download_content_linear"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/layout_size_25dp_in_1080"
-                                    android:layout_alignParentRight="true"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:id="@+id/zyxel_end_device_detail_speed_test_download_content_text"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="center|top"
-                                        android:layout_gravity="center"
-                                        android:textSize="@dimen/text_size_18sp_in_1080"
-                                        android:textColor="@color/color_575757"
-                                        android:text="0"/>
-
-                                    <TextView
-                                        android:id="@+id/zyxel_end_device_detail_speed_test_download_unit_text"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="center|top"
-                                        android:layout_gravity="center"
-                                        android:textSize="@dimen/text_size_18sp_in_1080"
-                                        android:textColor="@color/color_575757"
-                                        android:text="@string/device_detail_speed_test_unit"/>
-
-                                </LinearLayout>
-
-                            </RelativeLayout>
+                            <TextView
+                                android:id="@+id/zyxel_end_device_detail_speed_test_download_content_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center|top"
+                                android:layout_gravity="center"
+                                android:textSize="@dimen/text_size_18sp_in_1080"
+                                android:textColor="@color/color_575757"
+                                android:text="0"/>
 
                         </LinearLayout>
 
@@ -475,48 +447,22 @@
                             android:layout_weight="1"
                             android:orientation="horizontal">
 
-                            <RelativeLayout
-                                android:id="@+id/zyxel_end_device_detail_speed_test_upload_relative"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/zyxel_end_device_detail_speed_test_upload_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/speed_info_upload"/>
 
-                                <ImageView
-                                    android:id="@+id/zyxel_end_device_detail_speed_test_upload_image"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/speed_info_upload"/>
-
-                                <LinearLayout
-                                    android:id="@+id/zyxel_end_device_detail_speed_test_upload_content_linear"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
-                                    android:layout_toRightOf="@+id/zyxel_end_device_detail_speed_test_upload_image"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:id="@+id/zyxel_end_device_detail_speed_test_upload_content_text"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="center|top"
-                                        android:layout_gravity="center"
-                                        android:textSize="@dimen/text_size_18sp_in_1080"
-                                        android:textColor="@color/color_575757"
-                                        android:text="0"/>
-
-                                    <TextView
-                                        android:id="@+id/zyxel_end_device_detail_speed_test_upload_unit_text"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="center|top"
-                                        android:layout_gravity="center"
-                                        android:textSize="@dimen/text_size_18sp_in_1080"
-                                        android:textColor="@color/color_575757"
-                                        android:text="@string/device_detail_speed_test_unit"/>
-
-                                </LinearLayout>
-
-                            </RelativeLayout>
+                            <TextView
+                                android:id="@+id/zyxel_end_device_detail_speed_test_upload_content_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center|top"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                                android:textSize="@dimen/text_size_18sp_in_1080"
+                                android:textColor="@color/color_575757"
+                                android:text="0"/>
 
                         </LinearLayout>
 

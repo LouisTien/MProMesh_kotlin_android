@@ -787,6 +787,15 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             LogUtil.d(TAG,"SpeedTest downloadResult:$downloadResult")
                             LogUtil.d(TAG,"SpeedTest status:$status")
 
+                            /*var start = data.getJSONObject("Object").getString("Start")
+                            var serverIP = data.getJSONObject("Object").getString("ServerIP")
+                            var CPE_WANname = data.getJSONObject("Object").getString("CPE_WANname")
+                            LogUtil.d(TAG,"SpeedTest start:$start")
+                            LogUtil.d(TAG,"SpeedTest serverIP:$serverIP")
+                            LogUtil.d(TAG,"SpeedTest CPE_WANname:$CPE_WANname")
+
+                            showToast("uploadResult:$uploadResult\ndownloadResult:$downloadResult\nstatus:$status\nstart:$start\nserverIP:$serverIP\nCPE_WANname:$CPE_WANname", "")*/
+
                             with(status)
                             {
                                 when
@@ -803,7 +812,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                     else ->
                                     {
                                         stopSpeedTest()
-                                        GlobalBus.publish(GatewayEvent.GetSpeedTestComplete("-", "-"))
+                                        GlobalBus.publish(GatewayEvent.GetSpeedTestComplete("- Mbps", "- Mbps"))
                                     }
                                 }
                             }
@@ -812,7 +821,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         {
                             e.printStackTrace()
                             stopSpeedTest()
-                            GlobalBus.publish(GatewayEvent.GetSpeedTestComplete("-", "-"))
+                            GlobalBus.publish(GatewayEvent.GetSpeedTestComplete("- Mbps", "- Mbps"))
                         }
                     }
                 }).execute()
