@@ -574,10 +574,16 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                     )
                             )
 
+                            var index = 1
                             for(item in devicesInfo.Object)
                             {
+                                item.IndexFromFW = index
+
                                 if( (item.HostName == "N/A") || (item.HostName == "") )
+                                {
+                                    index++
                                     continue
+                                }
 
                                 for(itemCin in GlobalData.changeIconNameList)
                                 {
@@ -600,7 +606,9 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
                                 newEndDeviceList.add(item)
 
-                                LogUtil.d(TAG,"update devicesInfo:${item.toString()}")
+                                LogUtil.d(TAG,"update devicesInfo:$item")
+
+                                index++
                             }
 
                             GlobalData.endDeviceList = newEndDeviceList.toMutableList()

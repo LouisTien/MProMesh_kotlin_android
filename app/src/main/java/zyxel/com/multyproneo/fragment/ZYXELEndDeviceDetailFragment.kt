@@ -85,18 +85,24 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                 {
                     rebootTask()
 
-                    /*val bundle = Bundle().apply{
-                        putString("Title", "")
-                        putString("Description", resources.getString(R.string.loading_transition_take_few_minutes))
-                        putString("Sec_Description", resources.getString(R.string.loading_transition_reboot))
-                        putInt("LoadingSecond", AppConfig.rebootTime)
-                        putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
-                        putSerializable("DesPage", if(isGatewayMode) AppConfig.LoadingGoToPage.FRAG_SEARCH else AppConfig.LoadingGoToPage.FRAG_HOME)
-                        putBoolean("ShowCountDownTimer", false)
-                    }
-                    GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))*/
+                    when(isGatewayMode)
+                    {
+                        true ->
+                        {
+                            val bundle = Bundle().apply{
+                                putString("Title", "")
+                                putString("Description", resources.getString(R.string.loading_transition_take_few_minutes))
+                                putString("Sec_Description", resources.getString(R.string.loading_transition_reboot))
+                                putInt("LoadingSecond", AppConfig.rebootTime)
+                                putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
+                                putSerializable("DesPage", if(isGatewayMode) AppConfig.LoadingGoToPage.FRAG_SEARCH else AppConfig.LoadingGoToPage.FRAG_HOME)
+                                putBoolean("ShowCountDownTimer", false)
+                            }
+                            GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
+                        }
 
-                    GlobalBus.publish(MainEvent.EnterHomePage())
+                        false -> GlobalBus.publish(MainEvent.EnterHomePage())
+                    }
                 }
 
                 AppConfig.DialogAction.ACT_DELETE_DEVICE -> {}
@@ -547,7 +553,22 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         }
         else
         {
-            var index = 0
+            params.put("L2DevCtrl_Reboot", true)
+            LogUtil.d(TAG,"rebootTask param:$params")
+            LogUtil.d(TAG,"rebootTask index:${endDeviceInfo.IndexFromFW}")
+
+            GatewayApi.EndDeviceReboot(endDeviceInfo.IndexFromFW)
+                    .setRequestPageName(TAG)
+                    .setParams(params)
+                    .setResponseListener(object: Commander.ResponseListener()
+                    {
+                        override fun onSuccess(responseStr: String)
+                        {
+
+                        }
+                    }).execute()
+
+            /*var index = 0
             for(i in GlobalData.endDeviceList.indices)
             {
                 if(GlobalData.endDeviceList[i].PhysAddress == endDeviceInfo.PhysAddress)
@@ -570,7 +591,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 
                     break
                 }
-            }
+            }*/
         }
     }
 

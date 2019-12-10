@@ -67,6 +67,8 @@ class FindingDeviceFragment : Fragment(), IResponseListener
 
         if(!isNetworkAvailable())
         {
+            setNotFindDeviceUI()
+
             MessageDialog(
                     activity!!,
                     getString(R.string.message_dialog_not_connect),

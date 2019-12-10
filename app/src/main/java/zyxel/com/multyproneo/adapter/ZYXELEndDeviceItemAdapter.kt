@@ -83,7 +83,7 @@ class ZYXELEndDeviceItemAdapter
                                 equals("Good", ignoreCase = true) -> R.color.color_3c9f00
                                 equals("TooClose", ignoreCase = true) || equals("Too Close", ignoreCase = true) -> R.color.color_ff6800
                                 equals("Weak", ignoreCase = true) -> R.color.color_d9003c
-                                else -> R.color.color_b4b4b4
+                                else -> R.color.color_575757
                             }
                         }
                 )

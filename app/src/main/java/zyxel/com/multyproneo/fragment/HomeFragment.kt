@@ -124,7 +124,7 @@ class HomeFragment : Fragment()
             GlobalBus.publish(MainEvent.HideLoading())
             home_device_list_swipe.setRefreshing(false)
 
-            home_connect_device_count_text.text = GlobalData.getTotalDeviceCount().toString()
+            home_connect_device_count_text.text = GlobalData.getActivatedDeviceCount().toString()
             adapter = ZYXELEndDeviceItemAdapter(
                     GlobalData.ZYXELEndDeviceList,
                     GlobalData.getCurrentGatewayInfo(),

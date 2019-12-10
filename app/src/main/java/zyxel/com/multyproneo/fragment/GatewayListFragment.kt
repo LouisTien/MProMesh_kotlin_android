@@ -33,6 +33,7 @@ class GatewayListFragment : Fragment()
     private lateinit var deviceSelectedDisposable: Disposable
     private lateinit var gatewayInfoMutableList: MutableList<GatewayInfo>
     private lateinit var loginInfo: LoginInfo
+    private var autoLogin = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -42,6 +43,11 @@ class GatewayListFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        with(arguments)
+        {
+            this?.getBoolean("AutoLogin")?.let{ autoLogin = it }
+        }
 
         gateway_retry_image.setOnClickListener{
             GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
@@ -67,7 +73,7 @@ class GatewayListFragment : Fragment()
             adapter = GatewayItemAdapter(gatewayInfoMutableList)
         }
 
-        if(gatewayInfoMutableList.size == 1)
+        if(autoLogin && gatewayInfoMutableList.size == 1)
         {
             GlobalBus.publish(MainEvent.ShowLoading())
             OnDeviceSelected(0)

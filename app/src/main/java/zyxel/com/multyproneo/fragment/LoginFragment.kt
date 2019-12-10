@@ -125,7 +125,7 @@ class LoginFragment : Fragment()
             {
                 inputMethodManager.hideSoftInputFromWindow(login_username_edit.applicationWindowToken, 0)
                 inputMethodManager.hideSoftInputFromWindow(login_password_edit.applicationWindowToken, 0)
-                GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
+                GlobalBus.publish(MainEvent.SwitchToFrag(GatewayListFragment().apply{arguments = Bundle().apply{putBoolean("AutoLogin", false)}}))
             }
 
             login_password_show_image ->
