@@ -325,7 +325,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
                         android:layout_alignParentRight="true"
-                        android:src="@drawable/switch_off"/>
+                        android:src="@drawable/switch_off_2"/>
 
                     <TextView
                         android:id="@+id/end_device_detail_fsecure_text"

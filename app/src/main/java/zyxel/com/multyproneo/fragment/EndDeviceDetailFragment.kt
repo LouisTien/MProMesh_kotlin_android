@@ -337,7 +337,7 @@ class EndDeviceDetailFragment : Fragment()
                         end_device_detail_fsecure_text.visibility = View.GONE
                     }
                 }
-                end_device_detail_internet_blocking_image.setImageResource(if(isBlocked) R.drawable.switch_on else R.drawable.switch_off)
+                end_device_detail_internet_blocking_image.setImageResource(if(isBlocked) R.drawable.switch_on else R.drawable.switch_off_2)
                 end_device_detail_remove_device_text.visibility = View.INVISIBLE
 
                 if(connectType == getString(R.string.device_detail_wired))
