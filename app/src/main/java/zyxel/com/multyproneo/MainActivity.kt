@@ -57,9 +57,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var enterAccountPageDisposable: Disposable
     private lateinit var enterSearchGatewayPageDisposable: Disposable
     private lateinit var msgDialogResponseDisposable: Disposable
-    private lateinit var showMsgDialogDisposable: Disposable
+    private lateinit var showErrorMsgDialogDisposable: Disposable
     private lateinit var showToastDisposable: Disposable
     private lateinit var loadingDlg: Dialog
+    private lateinit var errorMsgDlg: MessageDialog
     private lateinit var devicesInfo: DevicesInfo
     private lateinit var changeIconNameInfo: ChangeIconNameInfo
     private lateinit var wanInfo: WanInfo
@@ -77,6 +78,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         loadingDlg = createLoadingDlg(this)
+        createErrorMsgDlg()
         OUIUtil.executeGetMacOUITask(this)
         randomAESInfo()
         initSpeedTestTimer()
@@ -237,6 +239,17 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         return builder.create()
     }
 
+    private fun createErrorMsgDlg()
+    {
+        errorMsgDlg = MessageDialog(
+                this,
+                "",
+                "",
+                arrayOf(getString(R.string.message_dialog_ok)),
+                AppConfig.DialogAction.ACT_RESEARCH
+        )
+    }
+
     private fun hasLocationPermission() =
             ContextCompat.checkSelfPermission(this.applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
@@ -309,7 +322,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             }
         }
 
-        showMsgDialogDisposable = GlobalBus.listen(MainEvent.ShowMsgDialog::class.java).subscribe{ showMsgDialog(it.msg, it.requestCtxName) }
+        showErrorMsgDialogDisposable = GlobalBus.listen(MainEvent.ShowErrorMsgDialog::class.java).subscribe{ showErrorMsgDialog(it.msg, it.requestCtxName) }
 
         showToastDisposable = GlobalBus.listen(MainEvent.ShowToast::class.java).subscribe{ showToast(it.msg, it.requestCtxName) }
     }
@@ -337,7 +350,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!enterAccountPageDisposable.isDisposed) enterAccountPageDisposable.dispose()
         if(!enterSearchGatewayPageDisposable.isDisposed) enterSearchGatewayPageDisposable.dispose()
         if(!msgDialogResponseDisposable.isDisposed) msgDialogResponseDisposable.dispose()
-        if(!showMsgDialogDisposable.isDisposed) showMsgDialogDisposable.dispose()
+        if(!showErrorMsgDialogDisposable.isDisposed) showErrorMsgDialogDisposable.dispose()
         if(!showToastDisposable.isDisposed) showToastDisposable.dispose()
     }
 
@@ -442,16 +455,12 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         runOnUiThread{ if(loadingDlg.isShowing) loadingDlg.dismiss() }
     }
 
-    private fun showMsgDialog(msg: String, requestCtxName: String)
+    private fun showErrorMsgDialog(msg: String, requestCtxName: String)
     {
         runOnUiThread{
-            MessageDialog(
-                    this,
-                    "",
-                    msg,
-                    arrayOf(getString(R.string.message_dialog_ok)),
-                    AppConfig.DialogAction.ACT_RESEARCH
-            ).show()
+            errorMsgDlg.description = msg
+            if(!errorMsgDlg.isShowing)
+                errorMsgDlg.show()
         }
     }
 

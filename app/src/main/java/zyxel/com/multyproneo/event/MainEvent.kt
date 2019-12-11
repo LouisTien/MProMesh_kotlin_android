@@ -25,6 +25,6 @@ class MainEvent
     class EnterDiagnosticPage()
     class EnterAccountPage()
     class EnterSearchGatewayPage()
-    class ShowMsgDialog(var msg: String, var requestCtxName: String)
+    class ShowErrorMsgDialog(var msg: String, var requestCtxName: String)
     class ShowToast(var msg: String, var requestCtxName: String)
 }

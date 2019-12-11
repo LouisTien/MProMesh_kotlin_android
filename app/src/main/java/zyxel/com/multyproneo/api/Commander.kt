@@ -86,7 +86,7 @@ abstract class Commander
             LogUtil.e("Commander","[onFail]ctxName:$ctxName")
 
             stopAllRegularTask()
-            GlobalBus.publish(MainEvent.ShowMsgDialog(msg, ctxName))
+            GlobalBus.publish(MainEvent.ShowErrorMsgDialog(msg, ctxName))
         }
 
         open fun onConnectFail(msg: String, ctxName: String)
@@ -95,7 +95,7 @@ abstract class Commander
             LogUtil.e("Commander","[onConnectFail]ctxName:$ctxName")
 
             stopAllRegularTask()
-            GlobalBus.publish(MainEvent.ShowMsgDialog(
+            GlobalBus.publish(MainEvent.ShowErrorMsgDialog(
                     if( (msg.contains("failed to connect to")) or (msg.contains("Failed to connect to")) )
                         "Server is disconnect."
                     else
