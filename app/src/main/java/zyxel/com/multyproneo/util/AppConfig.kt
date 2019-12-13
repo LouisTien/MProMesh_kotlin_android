@@ -52,6 +52,7 @@ object AppConfig
 
     //Speed Test
     const val SpeedTestActive = false
+    const val SpeedTestActiveDebug = false
     const val SpeedTestStatusUpdateTime = 5
     const val SpeedTestTimeout = 180
 

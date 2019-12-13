@@ -217,4 +217,6 @@
     <string name="loading_transition_reboot">Rebooting...</string>
     <string name="loading_transition_extender">Waiting for your WiFi Extender to be ready...</string>
 
+    <string name="speed_test_error">Something Wrong!!</string>
+
 </resources>

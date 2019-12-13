@@ -19,6 +19,7 @@ import android.widget.ProgressBar
 import com.google.gson.Gson
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
 import org.json.JSONException
 import org.json.JSONObject
@@ -469,6 +470,11 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         runOnUiThread{ toast(msg) }
     }
 
+    private fun showLongToast(msg: String, requestCtxName: String)
+    {
+        runOnUiThread{ longToast(msg) }
+    }
+
     private fun startSpeedTest()
     {
         showLoading()
@@ -804,14 +810,17 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             LogUtil.d(TAG,"SpeedTest downloadResult:$downloadResult")
                             LogUtil.d(TAG,"SpeedTest status:$status")
 
-                            /*var start = data.getJSONObject("Object").getString("Start")
-                            var serverIP = data.getJSONObject("Object").getString("ServerIP")
-                            var CPE_WANname = data.getJSONObject("Object").getString("CPE_WANname")
-                            LogUtil.d(TAG,"SpeedTest start:$start")
-                            LogUtil.d(TAG,"SpeedTest serverIP:$serverIP")
-                            LogUtil.d(TAG,"SpeedTest CPE_WANname:$CPE_WANname")
+                            if(AppConfig.SpeedTestActive && AppConfig.SpeedTestActiveDebug)
+                            {
+                                var start = data.getJSONObject("Object").getString("Start")
+                                var serverIP = data.getJSONObject("Object").getString("ServerIP")
+                                var CPE_WANname = data.getJSONObject("Object").getString("CPE_WANname")
+                                LogUtil.d(TAG,"SpeedTest start:$start")
+                                LogUtil.d(TAG,"SpeedTest serverIP:$serverIP")
+                                LogUtil.d(TAG,"SpeedTest CPE_WANname:$CPE_WANname")
 
-                            showToast("uploadResult:$uploadResult\ndownloadResult:$downloadResult\nstatus:$status\nstart:$start\nserverIP:$serverIP\nCPE_WANname:$CPE_WANname", "")*/
+                                showLongToast("uploadResult:$uploadResult\ndownloadResult:$downloadResult\nstatus:$status\nstart:$start\nserverIP:$serverIP\nCPE_WANname:$CPE_WANname", "")
+                            }
 
                             with(status)
                             {
@@ -825,6 +834,23 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
                                     contains("Ready", ignoreCase = true) or
                                     contains("Doing", ignoreCase = true) -> {}
+
+                                    contains("Err", ignoreCase = true) ->
+                                    {
+                                        stopSpeedTest()
+
+                                        runOnUiThread{
+                                            MessageDialog(
+                                                    this@MainActivity,
+                                                    "",
+                                                    getString(R.string.speed_test_error),
+                                                    arrayOf(getString(R.string.message_dialog_ok)),
+                                                    AppConfig.DialogAction.ACT_NONE
+                                            ).show()
+                                        }
+
+                                        GlobalBus.publish(GatewayEvent.GetSpeedTestComplete("- Mbps", "- Mbps"))
+                                    }
 
                                     else ->
                                     {
