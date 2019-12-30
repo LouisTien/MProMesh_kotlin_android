@@ -57,7 +57,6 @@ class EndDeviceDetailFragment : Fragment()
     private var manufacturer = "N/A"
     private var searchStr = ""
     private var editDeviceName = "N/A"
-    private var userNameEditCurrentEnd = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -453,20 +452,10 @@ class EndDeviceDetailFragment : Fragment()
         end_device_detail_model_name_edit.textChangedListener{
             onTextChanged{
                 str: CharSequence?, start: Int, _: Int, count: Int ->
-                userNameEditCurrentEnd = start + count
                 userIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
                                 || SpecialCharacterHandler.containsSpecialCharacter(str.toString())
                                 || SpecialCharacterHandler.containsExcludeASCII(str.toString())
                 checkInputEditUI()
-            }
-
-            afterTextChanged{
-                s: Editable? ->
-                while(s!!.length > AppConfig.deviceUserNameMaxLength)
-                {
-                    userNameEditCurrentEnd--
-                    s.delete(userNameEditCurrentEnd, userNameEditCurrentEnd + 1)
-                }
             }
         }
     }

@@ -40,7 +40,6 @@ object AppConfig
 
     //device username required length
     const val deviceUserNameRequiredLength = 1
-    const val deviceUserNameMaxLength = 20
 
     //Login username and password required length
     const val loginUserNameRequiredLength = 1
