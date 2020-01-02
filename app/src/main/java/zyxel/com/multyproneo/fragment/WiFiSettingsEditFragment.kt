@@ -488,10 +488,7 @@ class WiFiSettingsEditFragment : Fragment()
                             e.printStackTrace()
                         }
 
-                        if(showOneSSID)
-                            setLogoutTask()
-                        else
-                            setWiFi5GSSIDTask()
+                        setWiFi5GSSIDTask()
                     }
                 }).execute()
     }
@@ -499,7 +496,7 @@ class WiFiSettingsEditFragment : Fragment()
     private fun setWiFi5GSSIDTask()
     {
         val params = JSONObject()
-        params.put("SSID", name5g)
+        params.put("SSID", if(showOneSSID) name else name5g)
         LogUtil.d(TAG,"setWiFi5GSSIDTask param:${params}")
 
         WiFiSettingApi.SetWiFi5GInfo()
@@ -528,8 +525,8 @@ class WiFiSettingsEditFragment : Fragment()
     private fun setWiFi5GPwdTask()
     {
         val params = JSONObject()
-        params.put("ModeEnabled", security5g)
-        params.put("KeyPassphrase", pwd5g)
+        params.put("ModeEnabled", if(showOneSSID) security else security5g)
+        params.put("KeyPassphrase", if(showOneSSID) pwd else pwd5g)
         params.put("X_ZYXEL_AutoGenPSK", false)
         LogUtil.d(TAG,"setWiFi5GPwdTask param:${params}")
 
