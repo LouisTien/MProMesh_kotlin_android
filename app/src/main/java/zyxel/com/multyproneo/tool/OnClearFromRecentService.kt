@@ -18,7 +18,7 @@ class OnClearFromRecentService : Service()
     {
         LogUtil.d(TAG, "onStartCommand")
         //return super.onStartCommand(intent, flags, startId)
-        return START_NOT_STICKY;
+        return START_NOT_STICKY
     }
 
     override fun onTaskRemoved(rootIntent: Intent?)
