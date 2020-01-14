@@ -132,6 +132,8 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                             }
                         }
                     }
+
+                    initUI()
                 }
             }
         }
