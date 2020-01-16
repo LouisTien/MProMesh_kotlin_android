@@ -28,7 +28,7 @@
                 android:id="@+id/diagnostic_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
                 android:textStyle="bold"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_36sp_in_1080"

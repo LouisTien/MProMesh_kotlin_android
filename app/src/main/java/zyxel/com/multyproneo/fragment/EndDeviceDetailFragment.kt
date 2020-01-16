@@ -327,13 +327,15 @@ class EndDeviceDetailFragment : Fragment()
                     true ->
                     {
                         end_device_detail_internet_blocking_title_text.text = getString(R.string.device_detail_parental_control)
-                        end_device_detail_internet_blocking_image.visibility = View.GONE
+                        end_device_detail_internet_blocking_image.visibility = View.INVISIBLE
+                        end_device_detail_fsecure_text.visibility = View.VISIBLE
                     }
 
                     false ->
                     {
                         end_device_detail_internet_blocking_title_text.text = getString(R.string.device_detail_internet_blocking)
                         end_device_detail_fsecure_text.visibility = View.GONE
+                        end_device_detail_internet_blocking_image.visibility = View.VISIBLE
                     }
                 }
                 end_device_detail_internet_blocking_image.setImageResource(if(isBlocked) R.drawable.switch_on else R.drawable.switch_off_2)
