@@ -561,6 +561,9 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                     {
                         override fun onSuccess(responseStr: String)
                         {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
                             GlobalBus.publish(MainEvent.EnterHomePage())
                         }
                     }).execute()
