@@ -72,7 +72,7 @@
     <string name="device_detail_fw_version">Firmware Version</string>
     <string name="device_detail_reboot">Reboot</string>
     <string name="device_detail_remove_device"><u>Remove this device</u></string>
-    <string name="device_detail_connecting">Connecting</string>
+    <string name="device_detail_connecting">Connected</string>
     <string name="device_detail_disconnect">Disconnect</string>
     <string name="device_detail_blocked">Blocked</string>
     <string name="device_detail_wired">Wired</string>

@@ -163,7 +163,7 @@
                 android:textSize="@dimen/text_size_18sp_in_1080"
                 android:textColor="@color/color_3c9f00"
                 android:textStyle="bold"
-                tools:text="Connecting"/>
+                tools:text="Connected"/>
 
             <TextView
                 android:id="@+id/zyxel_end_device_detail_connect_type_text"
