@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         initSpeedTestTimer()
         setClickListener()
         listenEvent()
-        switchToFragContainer(FindingDeviceFragment())
+        switchToFragContainer(SetupControllerReadyFragment())
     }
 
     override fun onResume()

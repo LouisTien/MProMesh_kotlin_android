@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/setup_controller_ready_help_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_note"/>
+
+    <RelativeLayout
+        android:id="@+id/setup_controller_ready_content_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_35dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_30dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
+        android:layout_below="@+id/setup_controller_ready_help_image">
+
+        <TextView
+            android:id="@+id/setup_controller_ready_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_22sp_in_1080"
+            android:textColor="@color/color_000000"
+            android:text="@string/setup_controller_ready_title"/>
+
+        <TextView
+            android:id="@+id/setup_controller_ready_description_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/setup_controller_ready_title_text"
+            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+            android:text="@string/setup_controller_ready_description"
+            android:textColor="@color/color_575757"
+            android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/setup_controller_ready_content_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/layout_size_94dp_in_1080"
+        android:layout_below="@+id/setup_controller_ready_content_relative"
+        android:src="@drawable/img_setupcontroller_01"/>
+
+    <ImageView
+        android:id="@+id/setup_controller_ready_next_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/btn_wifiledon"/>
+
+</RelativeLayout>
