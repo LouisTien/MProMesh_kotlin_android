@@ -106,6 +106,7 @@
     <dimen name="layout_size_271dp_in_1080">271dp</dimen>
     <dimen name="layout_size_273dp_in_1080">273dp</dimen>
     <dimen name="layout_size_300dp_in_1080">300dp</dimen>
+    <dimen name="layout_size_305dp_in_1080">305dp</dimen>
     <dimen name="layout_size_315dp_in_1080">315dp</dimen>
     <dimen name="layout_size_320dp_in_1080">320dp</dimen>
     <dimen name="layout_size_328dp_in_1080">328dp</dimen>

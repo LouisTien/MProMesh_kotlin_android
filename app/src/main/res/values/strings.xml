@@ -10,6 +10,9 @@
 
     <string name="setup_controller_ready_title">Get Your Mesh Controller Ready</string>
     <string name="setup_controller_ready_description">Connect the Controller to your modem and power it on.</string>
+    <string name="setup_controller_ready_help_connect_description">Connect the Controller to your modem with the Ethernet cable.</string>
+    <string name="setup_controller_ready_help_power_description">Plug the Controller into power.</string>
+    <string name="setup_controller_ready_help_led_description">Wait till the WiFi LED turns on.</string>
 
     <string name="button_text_start"><u>START</u></string>
     <string name="button_text_home">Home</string>
@@ -66,7 +69,7 @@
     <string name="device_detail_detail">Detail</string>
     <string name="device_detail_model_name">Model Name</string>
     <string name="device_detail_status">Status</string>
-    <string name="device_detail_connect_type">Connect Type</string>
+    <string name="device_detail_connect_type">Connection Type</string>
     <string name="device_detail_wan_ip">WAN IP</string>
     <string name="device_detail_dns_ip">DNS IP</string>
     <string name="device_detail_lan_ip">LAN IP</string>
@@ -102,7 +105,7 @@
     <string name="device_search_cancel">Cancel</string>
 
     <string name="devices_title">Devices</string>
-    <string name="devices_activated">activated /</string>
+    <string name="devices_activated">active /</string>
     <string name="devices_total">total</string>
     <string name="devices_home_devices">Home Devices</string>
     <string name="devices_guest_devices">Guest Devices</string>

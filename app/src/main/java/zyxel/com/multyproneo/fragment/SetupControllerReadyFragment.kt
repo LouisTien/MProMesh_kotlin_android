@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_setup_controller_ready.*
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.dialog.SetupControllerReadyHelpDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 
 class SetupControllerReadyFragment : Fragment()
 {
+    private lateinit var helpDlg: SetupControllerReadyHelpDialog
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         return inflater.inflate(R.layout.fragment_setup_controller_ready, container, false)
@@ -42,7 +45,11 @@ class SetupControllerReadyFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            setup_controller_ready_help_image -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFragment()))
+            setup_controller_ready_help_image ->
+            {
+                helpDlg = SetupControllerReadyHelpDialog(activity!!)
+                helpDlg.show()
+            }
 
             setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshTipsFragment().apply{ arguments = Bundle().apply{ putString("FromFrag", "AddMeshExtender") } }))
         }

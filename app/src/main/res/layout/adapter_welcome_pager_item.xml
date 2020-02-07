@@ -43,5 +43,7 @@
             android:text="@string/welcome_my_home_network_description"
             android:textColor="@color/color_575757"
             android:textSize="@dimen/text_size_18sp_in_1080"/>
+
     </RelativeLayout>
+
 </FrameLayout>
