@@ -51,7 +51,7 @@ class SetupControllerReadyFragment : Fragment()
                 helpDlg.show()
             }
 
-            setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshTipsFragment().apply{ arguments = Bundle().apply{ putString("FromFrag", "AddMeshExtender") } }))
+            setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
         }
     }
 

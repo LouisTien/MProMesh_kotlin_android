@@ -6,6 +6,7 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
+
     defaultConfig {
         applicationId "zyxel.com.multyproneo"
         minSdkVersion 21
@@ -67,4 +68,6 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
         transitive = true;
     }
+    //QRCode
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
 }

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/setup_connect_controller_back_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_back"/>
+
+    <ImageView
+        android:id="@+id/setup_connect_controller_help_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_note"/>
+
+    <RelativeLayout
+        android:id="@+id/setup_connect_controller_literal_content_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_38dp_in_1080"
+        android:layout_toRightOf="@+id/setup_connect_controller_back_image"
+        android:layout_toLeftOf="@+id/setup_connect_controller_help_image"
+        android:layout_below="@+id/setup_connect_controller_help_image">
+
+        <TextView
+            android:id="@+id/setup_connect_controller_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:textColor="@color/color_000000"
+            android:text="@string/setup_connect_controller_title"/>
+
+        <TextView
+            android:id="@+id/setup_connect_controller_description_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/setup_connect_controller_title_text"
+            android:layout_marginTop="@dimen/layout_size_18dp_in_1080"
+            android:text="@string/setup_connect_controller_description"
+            android:textColor="@color/color_575757"
+            android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/setup_connect_controller_icon_content_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_30dp_in_1080"
+        android:layout_below="@+id/setup_connect_controller_literal_content_relative"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/setup_connect_controller_qrcode_relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/setup_connect_controller_qrcode_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/icon_qrcode_on"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/setup_connect_controller_edit_relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/setup_connect_controller_edit_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/icon_edit_off"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/setup_connect_controller_qrcodeView"
+        android:layout_below="@+id/setup_connect_controller_icon_content_linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/layout_size_25dp_in_1080"
+        android:layout_above="@+id/setup_connect_controller_next_image"
+        app:zxing_scanner_layout="@layout/layout_custom_qrcode" />
+
+    <RelativeLayout
+        android:id="@+id/setup_connect_controller_editView"
+        android:layout_below="@+id/setup_connect_controller_icon_content_linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/layout_size_25dp_in_1080"
+        android:layout_above="@+id/setup_connect_controller_next_image"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test"
+            android:textSize="@dimen/layout_size_25dp_in_1080"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/setup_connect_controller_next_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/layout_size_30dp_in_1080"
+        android:src="@drawable/btn_alreadyconnected"/>
+
+</RelativeLayout>

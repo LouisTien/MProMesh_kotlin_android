@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_30dp_in_1080"
         android:src="@drawable/btn_wifiledon"/>
 
 </RelativeLayout>
