@@ -21,7 +21,7 @@ class MessageDialog(context: Context, private var title: String, var description
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_message)
-        setCancelable(true)
+        setCancelable(false)
         setClickListener()
     }
 
@@ -60,7 +60,11 @@ class MessageDialog(context: Context, private var title: String, var description
                 dismiss()
             }
 
-            msg_alert_cancel -> dismiss()
+            msg_alert_cancel ->
+            {
+                GlobalBus.publish(DialogEvent.OnCancelBtn(action))
+                dismiss()
+            }
 
             block_check_image ->
             {

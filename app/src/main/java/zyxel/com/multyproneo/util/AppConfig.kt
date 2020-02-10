@@ -79,6 +79,10 @@ object AppConfig
         ACT_DELETE_ZYXEL_DEVICE,
         ACT_LOCATION_PERMISSION,
         ACT_LOGOUT,
-        ACT_RESEARCH
+        ACT_RESEARCH,
+        ACT_GOTO_SETTING,
+        ACT_QRCODE_SCAN_HELP,
+        ACT_QRCODE_SCAN_ERROR,
+        ACT_QRCODE_SCAN_OK
     }
 }

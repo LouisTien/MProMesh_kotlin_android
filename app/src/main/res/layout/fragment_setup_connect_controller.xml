@@ -102,23 +102,6 @@
         android:layout_above="@+id/setup_connect_controller_next_image"
         app:zxing_scanner_layout="@layout/layout_custom_qrcode" />
 
-    <RelativeLayout
-        android:id="@+id/setup_connect_controller_editView"
-        android:layout_below="@+id/setup_connect_controller_icon_content_linear"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/layout_size_25dp_in_1080"
-        android:layout_above="@+id/setup_connect_controller_next_image"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="test"
-            android:textSize="@dimen/layout_size_25dp_in_1080"/>
-
-    </RelativeLayout>
-
     <ImageView
         android:id="@+id/setup_connect_controller_next_image"
         android:layout_width="wrap_content"
