@@ -24,6 +24,7 @@ import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
 class SetupConnectControllerFragment : Fragment()
@@ -64,12 +65,22 @@ class SetupConnectControllerFragment : Fragment()
                         && parts[3] == "S"
                         && parts[5] == "P"
                         && parts[7] == "LoginA"
-                        && parts[9] == "LoginP")
+                        && parts[9] == "LoginP" )
                     {
+                        GlobalData.scanSSID = parts[4]
+                        GlobalData.scanPWD = parts[6]
+                        GlobalData.scanAccount = parts[8]
+                        GlobalData.scanAccountPWD = parts[10]
+
+                        LogUtil.d(TAG,"QRCode SSID:${GlobalData.scanSSID}")
+                        LogUtil.d(TAG,"QRCode PWD:${GlobalData.scanPWD}")
+                        LogUtil.d(TAG,"QRCode Account:${GlobalData.scanAccount}")
+                        LogUtil.d(TAG,"QRCode AccountPWD:${GlobalData.scanAccountPWD}")
+
                         MessageDialog(
                                 activity!!,
                                 "",
-                                getString(R.string.setup_connect_controller_scan_ok_dialog_description) + " 「${parts[4]}」 ?",
+                                getString(R.string.setup_connect_controller_scan_ok_dialog_description) + " 「${GlobalData.scanSSID}」 ?",
                                 arrayOf(getString(R.string.setup_connect_controller_scan_ok_dialog_confirm), getString(R.string.setup_connect_controller_setting_dialog_cancel)),
                                 AppConfig.DialogAction.ACT_QRCODE_SCAN_OK
                         ).show()
@@ -98,7 +109,7 @@ class SetupConnectControllerFragment : Fragment()
             {
                 AppConfig.DialogAction.ACT_GOTO_SETTING -> startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
                 AppConfig.DialogAction.ACT_QRCODE_SCAN_ERROR -> availableScan = true
-                AppConfig.DialogAction.ACT_QRCODE_SCAN_OK -> {}
+                AppConfig.DialogAction.ACT_QRCODE_SCAN_OK -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingControllerFragment()))
             }
         }
 

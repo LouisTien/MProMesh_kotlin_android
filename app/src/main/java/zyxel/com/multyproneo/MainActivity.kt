@@ -129,6 +129,11 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
     }
 
+    override fun onBackPressed()
+    {
+        //super.onBackPressed()
+    }
+
     private fun randomAESInfo()
     {
         CryptTool.IvAES = CryptTool.getRandomString(16)

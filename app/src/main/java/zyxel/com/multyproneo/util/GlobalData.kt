@@ -21,13 +21,17 @@ object GlobalData
     var guestWiFiStatus = false
     var homeDevAscendingOrder = true
     var guestDevAscendingOrder = true
+    var scanSSID = ""
+    var scanPWD = ""
+    var scanAccount = ""
+    var scanAccountPWD = ""
 
     fun getCurrentGatewayInfo(): GatewayInfo = gatewayList[currentGatewayIndex]
     fun getDeviceIP(): String = getCurrentGatewayInfo().IP
     fun getDevicePort(): String = getCurrentGatewayInfo().SupportedApiVersion[0].HttpsPort.toString()
     fun getProtocol(): String = getCurrentGatewayInfo().SupportedApiVersion[0].Protocol
     fun getAPIVersion(): String = getCurrentGatewayInfo().SupportedApiVersion[0].LoginURI.substring(0, getCurrentGatewayInfo().SupportedApiVersion[0].LoginURI.lastIndexOf("/"))
-    fun getAPIPath(): String = "${GlobalData.getProtocol()}://${GlobalData.getDeviceIP()}:${GlobalData.getDevicePort()}${GlobalData.getAPIVersion()}"
+    fun getAPIPath(): String = "${getProtocol()}://${getDeviceIP()}:${getDevicePort()}${getAPIVersion()}"
     fun getTotalDeviceCount(): Int = homeEndDeviceList.size + guestEndDeviceList.size
 
     fun getActivatedDeviceCount(): Int
