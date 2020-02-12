@@ -13,7 +13,7 @@
         android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
         android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
         android:layout_gravity="center"
-        android:gravity="center"
+        android:gravity="left"
         android:text="Title"
         android:textStyle="bold"
         android:textColor="@color/color_000000"
@@ -27,10 +27,10 @@
         android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
         android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
         android:layout_gravity="center"
-        android:gravity="center"
+        android:gravity="left"
         android:text="Description"
         android:textColor="@color/color_000000"
-        android:textSize="@dimen/text_size_20sp_in_1080" />
+        android:textSize="@dimen/text_size_18sp_in_1080" />
 
     <LinearLayout
         android:id="@+id/block_check_linear"

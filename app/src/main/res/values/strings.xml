@@ -27,6 +27,16 @@
     <string name="setup_connecting_controller_title">Connecting to Mesh Controller</string>
     <string name="setup_connecting_controller_description">Please wait.\nThis may take a few seconds.</string>
 
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_title">Cannot Connect to the Controller</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_sub_title">Check the followings.</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description1">Make sure the Controller is powered on and its WiFi LED already turns on.</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description2">Make sure you have connected to the WiFi network of the Controller.</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description3">If the default WiFi name and password were changed. Enter new name and password or reset the Controller to connect to the WiFi network using default credentials.</string>
+    <string name="setup_connect_troubleshooting_no_internet_title">No Internet Connection</string>
+    <string name="setup_connect_troubleshooting_no_internet_sub_title">Check the following troubleshooting guides. If you still have problems, please contact your Internet service provider.</string>
+    <string name="setup_connect_troubleshooting_no_internet_description1">Check the network cables are well connected.</string>
+    <string name="setup_connect_troubleshooting_no_internet_description2">Check the modem your Controller connected to is not turned off.</string>
+
     <string name="button_text_start"><u>START</u></string>
     <string name="button_text_home">Home</string>
     <string name="button_text_devices">Devices</string>

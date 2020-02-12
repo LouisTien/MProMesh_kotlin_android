@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/setup_connect_troubleshooting_back_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_back"/>
+
+    <RelativeLayout
+        android:id="@+id/setup_connect_troubleshooting_literal_content_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_38dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_toRightOf="@+id/setup_connect_troubleshooting_back_image"
+        android:layout_above="@+id/setup_connect_troubleshooting_retry_image"
+        android:layout_below="@+id/setup_connect_troubleshooting_back_image">
+
+        <TextView
+            android:id="@+id/setup_connect_troubleshooting_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:textColor="@color/color_ff2837"
+            android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_title"/>
+
+        <ScrollView
+            android:id="@+id/setup_connect_troubleshooting_description_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_38dp_in_1080"
+            android:layout_below="@+id/setup_connect_troubleshooting_title_text">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/setup_connect_troubleshooting_sub_title_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_sub_title"
+                    android:textColor="@color/color_575757"
+                    android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+                <LinearLayout
+                    android:id="@+id/setup_connect_troubleshooting_description1_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="•"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+                    <TextView
+                        android:id="@+id/setup_connect_troubleshooting_description1_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description1"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/setup_connect_troubleshooting_description2_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="•"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+                    <TextView
+                        android:id="@+id/setup_connect_troubleshooting_description2_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description2"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/setup_connect_troubleshooting_description3_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="•"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+                    <TextView
+                        android:id="@+id/setup_connect_troubleshooting_description3_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description3"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/setup_connect_troubleshooting_description4_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="•"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+                    <TextView
+                        android:id="@+id/setup_connect_troubleshooting_description4_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description1"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/setup_connect_troubleshooting_description5_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="•"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+                    <TextView
+                        android:id="@+id/setup_connect_troubleshooting_description5_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description1"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/setup_connect_troubleshooting_retry_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/layout_size_30dp_in_1080"
+        android:src="@drawable/btn_retry"/>
+
+</RelativeLayout>

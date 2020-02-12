@@ -85,4 +85,10 @@ object AppConfig
         ACT_QRCODE_SCAN_ERROR,
         ACT_QRCODE_SCAN_OK
     }
+
+    enum class TroubleshootingPage
+    {
+        PAGE_NO_INTERNET,
+        PAGE_CONNOT_CONNECT_CONTROLLER
+    }
 }

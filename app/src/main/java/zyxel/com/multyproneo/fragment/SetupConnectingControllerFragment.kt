@@ -10,15 +10,26 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
+import org.json.JSONException
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.model.GatewayInfo
+import zyxel.com.multyproneo.socketconnect.IResponseListener
+import zyxel.com.multyproneo.socketconnect.SocketController
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
-class SetupConnectingControllerFragment : Fragment()
+class SetupConnectingControllerFragment : Fragment(), IResponseListener
 {
     private val TAG = javaClass.simpleName
+    private lateinit var findingDeviceInfo: GatewayInfo
+    private var gatewayList = mutableListOf<GatewayInfo>()
+    private val responseListener = this
+    private var retryTimes = 0
+    private var needConnectFlow = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -29,10 +40,24 @@ class SetupConnectingControllerFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
 
-        val mWifiConfiguration = WifiConfiguration()
-        mWifiConfiguration.SSID = String.format("\"%s\"", GlobalData.scanSSID);
-        mWifiConfiguration.preSharedKey = String.format("\"%s\"", GlobalData.scanPWD)
-        WiFiConfigTask(mWifiConfiguration).execute()
+        with(arguments)
+        {
+            this?.getBoolean("needConnectFlow")?.let{ needConnectFlow = it }
+        }
+
+        when(needConnectFlow)
+        {
+            true ->
+            {
+                val mWifiConfiguration = WifiConfiguration()
+                mWifiConfiguration.SSID = String.format("\"%s\"", GlobalData.scanSSID);
+                mWifiConfiguration.preSharedKey = String.format("\"%s\"", GlobalData.scanPWD)
+                WiFiConfigTask(mWifiConfiguration).execute()
+            }
+
+            false -> startFindDevice()
+        }
+
     }
 
     override fun onResume()
@@ -51,6 +76,107 @@ class SetupConnectingControllerFragment : Fragment()
         super.onDestroyView()
     }
 
+    override fun responseReceived(ip: String, data: String)
+    {
+        LogUtil.d(TAG,"responseReceived: ip = $ip, data = $data")
+        /*if(data.contains("ApiName") && data.contains("SupportedApiVersion"))
+        {
+            val data = JSONObject(data)
+            val ApiName = data.get("ApiName").toString()
+            LogUtil.d(TAG, "ApiName:$ApiName")
+            val ModelName = data.get("ModelName").toString()
+            LogUtil.d(TAG, "ModelName:$ModelName")
+            val SoftwareVersion = data.get("SoftwareVersion").toString()
+            LogUtil.d(TAG, "SoftwareVersion:$SoftwareVersion")
+            val DeviceMode = data.get("DeviceMode").toString()
+            LogUtil.d(TAG, "DeviceMode:$DeviceMode")
+            val SupportedApiVersion = data.getJSONArray("SupportedApiVersion")
+            val subdata = JSONObject(SupportedApiVersion[0].toString())
+            LogUtil.d(TAG, "subdata:$subdata")
+            val ApiVersion = subdata.get("ApiVersion").toString()
+            LogUtil.d(TAG, "ApiVersion:$ApiVersion")
+            val LoginURL = subdata.get("LoginURL").toString()
+            LogUtil.d(TAG, "LoginURL:$LoginURL")
+        }*/
+
+        if(data.contains("ApiName") && data.contains("SupportedApiVersion"))
+        {
+            try
+            {
+                findingDeviceInfo = Gson().fromJson(data, GatewayInfo::class.javaObjectType)
+                findingDeviceInfo.IP = ip
+
+                /*userDefineName = DatabaseUtil.getInstance(activity!!)?.getDeviceUserDefineNameFromDB(findingDeviceInfo.MAC)!!
+                LogUtil.d(TAG, "userDefineName from DB:$userDefineName")
+
+                if(userDefineName == "")
+                    findingDeviceInfo.UserDefineName = findingDeviceInfo.ModelName
+                else
+                    findingDeviceInfo.UserDefineName = userDefineName*/
+
+                LogUtil.d(TAG, "findingDeviceInfo:${findingDeviceInfo}")
+
+                var exist = false
+                for(item in gatewayList)
+                {
+                    if(item.MAC == findingDeviceInfo.MAC)
+                    {
+                        LogUtil.d(TAG, "already exist, MAC:${findingDeviceInfo.MAC}")
+                        exist = true
+                        break
+                    }
+                }
+
+                if(!exist)
+                    gatewayList.add(findingDeviceInfo)
+            }
+            catch(e: JSONException)
+            {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    override fun responseReceivedDone()
+    {
+        LogUtil.d(TAG,"responseReceivedDone")
+        if(gatewayList.size > 0)
+        {
+            GlobalData.gatewayList = gatewayList.toMutableList()//copy list to global data
+            //GlobalBus.publish(MainEvent.SwitchToFrag(GatewayListFragment()))
+        }
+        else
+        {
+            if(retryTimes < 5)
+                runSearchTask()
+            else
+                gotoCannotConnectControllerTroubleshootingPage()
+        }
+    }
+
+    private fun startFindDevice()
+    {
+        retryTimes = 6
+        runSearchTask()
+    }
+
+    private fun runSearchTask()
+    {
+        retryTimes++
+        GlobalData.gatewayList.clear()
+        SocketController(responseListener).deviceScan()
+    }
+
+    private fun gotoCannotConnectControllerTroubleshootingPage()
+    {
+        val bundle = Bundle().apply{
+            putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER)
+            putBoolean("needConnectFlowForBack", needConnectFlow)
+        }
+
+        GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))
+    }
+
     inner class WiFiConfigTask(var mWifiConfiguration: WifiConfiguration) : AsyncTask<String, Int, Boolean>()
     {
         private var isRunning = true
@@ -59,6 +185,8 @@ class SetupConnectingControllerFragment : Fragment()
 
         override fun onPreExecute()
         {
+            LogUtil.d(TAG, "[WiFiConfigTask]onPreExecute()")
+
             super.onPreExecute()
 
             mWifiConfiguration.allowedProtocols.set(WifiConfiguration.Protocol.RSN)
@@ -75,6 +203,8 @@ class SetupConnectingControllerFragment : Fragment()
 
         override fun doInBackground(vararg params: String?): Boolean
         {
+            LogUtil.d(TAG, "[WiFiConfigTask]doInBackground()")
+
             val wifiManager = activity!!.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
             if(wifiManager.isWifiEnabled)
                 LogUtil.d(TAG, "WiFi is already enabled")
@@ -160,9 +290,19 @@ class SetupConnectingControllerFragment : Fragment()
 
         override fun onPostExecute(result: Boolean?)
         {
+            LogUtil.d(TAG, "[WiFiConfigTask]onPostExecute()")
+
             super.onPostExecute(result)
 
             LogUtil.d(TAG, "connect status = $result")
+
+            when(result)
+            {
+                true -> startFindDevice()
+
+                false -> gotoCannotConnectControllerTroubleshootingPage()
+            }
+
         }
     }
 }

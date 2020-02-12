@@ -10,6 +10,7 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.dialog.SetupControllerReadyHelpDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.util.AppConfig
 
 class SetupControllerReadyFragment : Fragment()
 {

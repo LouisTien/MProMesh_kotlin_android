@@ -108,8 +108,17 @@ class SetupConnectControllerFragment : Fragment()
             when(it.action)
             {
                 AppConfig.DialogAction.ACT_GOTO_SETTING -> startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+
                 AppConfig.DialogAction.ACT_QRCODE_SCAN_ERROR -> availableScan = true
-                AppConfig.DialogAction.ACT_QRCODE_SCAN_OK -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingControllerFragment()))
+
+                AppConfig.DialogAction.ACT_QRCODE_SCAN_OK ->
+                {
+                    val bundle = Bundle().apply{
+                        putBoolean("needConnectFlow", true)
+                    }
+
+                    GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingControllerFragment().apply{ arguments = bundle }))
+                }
             }
         }
 
@@ -170,6 +179,15 @@ class SetupConnectControllerFragment : Fragment()
             {
                 availableScan = false
                 SetupConnectControllerHelpDialog(activity!!).show()
+            }
+
+            setup_connect_controller_next_image ->
+            {
+                val bundle = Bundle().apply{
+                    putBoolean("needConnectFlow", false)
+                }
+
+                GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingControllerFragment().apply{ arguments = bundle }))
             }
         }
     }
