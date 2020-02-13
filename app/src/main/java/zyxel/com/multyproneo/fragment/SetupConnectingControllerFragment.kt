@@ -12,10 +12,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
 import org.json.JSONException
+import org.json.JSONObject
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.AccountApi
+import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayInfo
+import zyxel.com.multyproneo.model.LoginInfo
 import zyxel.com.multyproneo.socketconnect.IResponseListener
 import zyxel.com.multyproneo.socketconnect.SocketController
 import zyxel.com.multyproneo.util.AppConfig
@@ -26,6 +30,7 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
 {
     private val TAG = javaClass.simpleName
     private lateinit var findingDeviceInfo: GatewayInfo
+    private lateinit var loginInfo: LoginInfo
     private var gatewayList = mutableListOf<GatewayInfo>()
     private val responseListener = this
     private var retryTimes = 0
@@ -114,7 +119,7 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
                 else
                     findingDeviceInfo.UserDefineName = userDefineName*/
 
-                LogUtil.d(TAG, "findingDeviceInfo:${findingDeviceInfo}")
+                LogUtil.d(TAG, "findingDeviceInfo:$findingDeviceInfo")
 
                 var exist = false
                 for(item in gatewayList)
@@ -143,7 +148,7 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
         if(gatewayList.size > 0)
         {
             GlobalData.gatewayList = gatewayList.toMutableList()//copy list to global data
-            //GlobalBus.publish(MainEvent.SwitchToFrag(GatewayListFragment()))
+            login()
         }
         else
         {
@@ -167,11 +172,65 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
         SocketController(responseListener).deviceScan()
     }
 
+    private fun login()
+    {
+        if(needConnectFlow)
+        {
+            GlobalData.currentGatewayIndex = 0
+
+            val params = JSONObject()
+            params.put("username", GlobalData.scanAccount)
+            params.put("password", GlobalData.scanAccountPWD)
+            LogUtil.d(TAG,"login param:$params")
+            AccountApi.Login()
+                    .setRequestPageName(TAG)
+                    .setParams(params)
+                    .setResponseListener(object: Commander.ResponseListener()
+                    {
+                        override fun onSuccess(responseStr: String)
+                        {
+                            try
+                            {
+                                loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
+                                LogUtil.d(TAG,"loginInfo:$loginInfo")
+                                GlobalData.sessionKey = loginInfo.sessionkey
+                                GlobalData.gatewayList[0].Password = GlobalData.scanAccount
+                                GlobalData.gatewayList[0].UserName = GlobalData.scanAccountPWD
+                                GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingInternetFragment()))
+                            }
+                            catch(e: JSONException)
+                            {
+                                e.printStackTrace()
+                            }
+                        }
+
+                        override fun onFail(code: Int, msg: String, ctxName: String)
+                        {
+                            LogUtil.e(TAG, "[onFail] code = $code")
+                            LogUtil.e(TAG, "[onFail] msg = $msg")
+                            LogUtil.e(TAG, "[onFail] ctxName = $ctxName")
+                            gotoLoginPage()
+                        }
+                    }).execute()
+        }
+        else
+            gotoLoginPage()
+    }
+
+    private fun gotoLoginPage()
+    {
+        val bundle = Bundle().apply{
+            putBoolean("needConnectFlowForRetry", needConnectFlow)
+        }
+
+        GlobalBus.publish(MainEvent.SwitchToFrag(SetupLoginFragment().apply{ arguments = bundle }))
+    }
+
     private fun gotoCannotConnectControllerTroubleshootingPage()
     {
         val bundle = Bundle().apply{
             putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER)
-            putBoolean("needConnectFlowForBack", needConnectFlow)
+            putBoolean("needConnectFlowForRetry", needConnectFlow)
         }
 
         GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))

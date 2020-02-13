@@ -14,7 +14,7 @@ import zyxel.com.multyproneo.util.AppConfig
 class SetupConnectTroubleshootingFragment : Fragment()
 {
     private var pageMode = AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER
-    private var needConnectFlowForBack = false
+    private var needConnectFlowForRetry = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -28,7 +28,7 @@ class SetupConnectTroubleshootingFragment : Fragment()
         with(arguments)
         {
             this?.getSerializable("pageMode")?.let{ pageMode = it as AppConfig.TroubleshootingPage }
-            this?.getBoolean("needConnectFlowForBack")?.let{ needConnectFlowForBack = it }
+            this?.getBoolean("needConnectFlowForRetry")?.let{ needConnectFlowForRetry = it }
         }
 
         updateUI()
@@ -111,11 +111,13 @@ class SetupConnectTroubleshootingFragment : Fragment()
                     AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER ->
                     {
                         val bundle = Bundle().apply{
-                            putBoolean("needConnectFlowForBack", needConnectFlowForBack)
+                            putBoolean("needConnectFlowForRetry", needConnectFlowForRetry)
                         }
 
                         GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingControllerFragment().apply{ arguments = bundle }))
                     }
+
+                    AppConfig.TroubleshootingPage.PAGE_NO_INTERNET -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingInternetFragment()))
                 }
             }
         }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/setup_connecting_internet_help_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_note"
+        android:visibility="invisible"/>
+
+    <RelativeLayout
+        android:id="@+id/setup_connecting_internet_content_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_35dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_30dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
+        android:layout_below="@+id/setup_connecting_internet_help_image">
+
+        <TextView
+            android:id="@+id/setup_connecting_internet_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_22sp_in_1080"
+            android:textColor="@color/color_000000"
+            android:text="@string/setup_connecting_internet_title"/>
+
+        <TextView
+            android:id="@+id/setup_connecting_internet_description_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/setup_connecting_internet_title_text"
+            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+            android:text="@string/setup_connecting_internet_description"
+            android:textColor="@color/color_575757"
+            android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/setup_connecting_internet_content_image"
+        android:layout_width="@dimen/layout_size_300dp_in_1080"
+        android:layout_height="@dimen/layout_size_201dp_in_1080"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/layout_size_94dp_in_1080"
+        android:layout_below="@+id/setup_connecting_internet_content_relative"
+        android:src="@drawable/gif_connectiongtotheinternet_01"/>
+
+</RelativeLayout>

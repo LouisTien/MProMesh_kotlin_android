@@ -11,28 +11,25 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_setup_login.*
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
-import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.AccountApi
+import zyxel.com.multyproneo.api.Commander
+import zyxel.com.multyproneo.dialog.SetupLoginHelpDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayInfo
 import zyxel.com.multyproneo.model.LoginInfo
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
-/**
- * Created by LouisTien on 2019/5/31.
- */
-class LoginFragment : Fragment()
+class SetupLoginFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private lateinit var gatewayInfo: GatewayInfo
@@ -43,11 +40,11 @@ class LoginFragment : Fragment()
     private var showPassword = false
     private var userNameIllegalInput = false
     private var passwordIllegalInput = false
-    private var errorMsg = "N/A"
+    private var needConnectFlowForRetry = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(R.layout.fragment_setup_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
@@ -56,15 +53,7 @@ class LoginFragment : Fragment()
 
         with(arguments)
         {
-            this?.getString("Error")?.let{ errorMsg = it }
-        }
-
-        if(errorMsg != "N/A")
-        {
-            runOnUiThread{
-                login_password_error_text.text = errorMsg
-                login_password_error_text.visibility = View.VISIBLE
-            }
+            this?.getBoolean("needConnectFlowForRetry")?.let{ needConnectFlowForRetry = it }
         }
 
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -79,9 +68,6 @@ class LoginFragment : Fragment()
         GlobalBus.publish(MainEvent.HideBottomToolbar())
         gatewayIndex = GlobalData.currentGatewayIndex
         gatewayInfo = GlobalData.getCurrentGatewayInfo()
-        login_title_text.text = getString(R.string.login_title) + " " + gatewayInfo.ModelName
-        //login_username_edit.setText(DatabaseUtil.getInstance(activity!!)?.getDeviceUserNameFromDB(gatewayInfo.serial))
-        //login_password_edit.setText(DatabaseUtil.getInstance(activity!!)?.getDevicePasswordFromDB(gatewayInfo.serial))
         attachKeyboardListeners()
     }
 
@@ -107,13 +93,13 @@ class LoginFragment : Fragment()
             val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)
             if(heightDiff > 500)
             {
-                login_title_text.visibility = View.GONE
-                login_description_text.visibility = View.GONE
+                setup_login_title_text.visibility = View.GONE
+                setup_login_description_text.visibility = View.GONE
             }
             else
             {
-                login_title_text.visibility = View.VISIBLE
-                login_description_text.visibility = View.VISIBLE
+                setup_login_title_text.visibility = View.VISIBLE
+                setup_login_description_text.visibility = View.VISIBLE
             }
         }
     }
@@ -121,26 +107,21 @@ class LoginFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            login_back_image ->
-            {
-                inputMethodManager.hideSoftInputFromWindow(login_username_edit.applicationWindowToken, 0)
-                inputMethodManager.hideSoftInputFromWindow(login_password_edit.applicationWindowToken, 0)
-                GlobalBus.publish(MainEvent.SwitchToFrag(GatewayListFragment().apply{arguments = Bundle().apply{putBoolean("AutoLogin", false)}}))
-            }
+            setup_login_help_image -> SetupLoginHelpDialog(activity!!).show()
 
-            login_password_show_image ->
+            setup_login_password_show_image ->
             {
-                login_password_edit.transformationMethod = if(showPassword) PasswordTransformationMethod() else null
-                login_password_show_image.setImageDrawable(resources.getDrawable(if(showPassword) R.drawable.icon_hide else R.drawable.icon_show))
+                setup_login_password_edit.transformationMethod = if(showPassword) PasswordTransformationMethod() else null
+                setup_login_password_show_image.setImageDrawable(resources.getDrawable(if(showPassword) R.drawable.icon_hide else R.drawable.icon_show))
                 showPassword = !showPassword
             }
 
-            login_enter_button ->
+            setup_login_enter_button ->
             {
-                inputMethodManager.hideSoftInputFromWindow(login_username_edit.applicationWindowToken, 0)
-                inputMethodManager.hideSoftInputFromWindow(login_password_edit.applicationWindowToken, 0)
-                val password = login_password_edit.text.toString()
-                val userName = login_username_edit.text.toString()
+                inputMethodManager.hideSoftInputFromWindow(setup_login_username_edit.applicationWindowToken, 0)
+                inputMethodManager.hideSoftInputFromWindow(setup_login_password_edit.applicationWindowToken, 0)
+                val password = setup_login_password_edit.text.toString()
+                val userName = setup_login_username_edit.text.toString()
                 LogUtil.d(TAG,"loginPasswordEdit:$password")
                 LogUtil.d(TAG,"loginUsernameEdit:$userName")
 
@@ -164,14 +145,14 @@ class LoginFragment : Fragment()
                                     GlobalData.sessionKey = loginInfo.sessionkey
                                     gatewayInfo.Password = password
                                     gatewayInfo.UserName = userName
-                                    DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)
                                     GlobalBus.publish(MainEvent.HideLoading())
-                                    GlobalBus.publish(MainEvent.EnterHomePage())
+                                    GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingInternetFragment()))
                                 }
                                 catch(e: JSONException)
                                 {
-                                    GlobalBus.publish(MainEvent.HideLoading())
                                     e.printStackTrace()
+                                    GlobalBus.publish(MainEvent.HideLoading())
+                                    gotoCannotConnectControllerTroubleshootingPage()
                                 }
                             }
 
@@ -184,14 +165,14 @@ class LoginFragment : Fragment()
                                 if(ctxName == TAG && code == 401)
                                 {
                                     runOnUiThread{
-                                        login_password_error_text.text = getString(R.string.login_error)
-                                        login_password_error_text.visibility = View.VISIBLE
+                                        setup_login_password_error_text.text = getString(R.string.login_error)
+                                        setup_login_password_error_text.visibility = View.VISIBLE
                                     }
                                 }
                                 else
                                 {
                                     GlobalBus.publish(MainEvent.ShowToast(msg, ctxName))
-                                    GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
+                                    gotoCannotConnectControllerTroubleshootingPage()
                                 }
                             }
                         }).execute()
@@ -208,9 +189,9 @@ class LoginFragment : Fragment()
 
     private fun setClickListener()
     {
-        login_back_image.setOnClickListener(clickListener)
-        login_password_show_image.setOnClickListener(clickListener)
-        login_enter_button.setOnClickListener(clickListener)
+        setup_login_help_image.setOnClickListener(clickListener)
+        setup_login_password_show_image.setOnClickListener(clickListener)
+        setup_login_enter_button.setOnClickListener(clickListener)
     }
 
     private fun checkInputEditUI()
@@ -219,39 +200,39 @@ class LoginFragment : Fragment()
         {
             true ->
             {
-                login_username_error_text.text = getString(R.string.login_no_support_character)
-                login_username_error_text.visibility = View.VISIBLE
+                setup_login_username_error_text.text = getString(R.string.login_no_support_character)
+                setup_login_username_error_text.visibility = View.VISIBLE
             }
 
-            false -> login_username_error_text.visibility = View.INVISIBLE
+            false -> setup_login_username_error_text.visibility = View.INVISIBLE
         }
 
         when(passwordIllegalInput)
         {
             true ->
             {
-                login_password_error_text.text = getString(R.string.login_no_support_character)
-                login_password_error_text.visibility = View.VISIBLE
+                setup_login_password_error_text.text = getString(R.string.login_no_support_character)
+                setup_login_password_error_text.visibility = View.VISIBLE
             }
 
-            false -> login_password_error_text.visibility = View.INVISIBLE
+            false -> setup_login_password_error_text.visibility = View.INVISIBLE
         }
 
         when
         {
-            login_username_edit.text.length >= AppConfig.loginUserNameRequiredLength
-            && login_password_edit.text.length >= AppConfig.loginPwdRequiredLength
-            && !userNameIllegalInput
-            && !passwordIllegalInput
-            -> login_enter_button.isEnabled = true
+            setup_login_username_edit.text.length >= AppConfig.loginUserNameRequiredLength
+                    && setup_login_password_edit.text.length >= AppConfig.loginPwdRequiredLength
+                    && !userNameIllegalInput
+                    && !passwordIllegalInput
+            -> setup_login_enter_button.isEnabled = true
 
-            else -> login_enter_button.isEnabled = false
+            else -> setup_login_enter_button.isEnabled = false
         }
     }
 
     private fun initLoginUsernameEdit()
     {
-        login_username_edit.textChangedListener{
+        setup_login_username_edit.textChangedListener{
             onTextChanged{
                 str: CharSequence?, _: Int, _: Int, _: Int ->
                 userNameIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
@@ -262,12 +243,22 @@ class LoginFragment : Fragment()
 
     private fun initLoginPasswordEdit()
     {
-        login_password_edit.textChangedListener{
+        setup_login_password_edit.textChangedListener{
             onTextChanged{
                 str: CharSequence?, _: Int, _: Int, _: Int ->
                 passwordIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
                 checkInputEditUI()
             }
         }
+    }
+
+    private fun gotoCannotConnectControllerTroubleshootingPage()
+    {
+        val bundle = Bundle().apply{
+            putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER)
+            putBoolean("needConnectFlowForRetry", needConnectFlowForRetry)
+        }
+
+        GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))
     }
 }

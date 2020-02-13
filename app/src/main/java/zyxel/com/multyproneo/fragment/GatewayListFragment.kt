@@ -111,7 +111,7 @@ class GatewayListFragment : Fragment()
             val params = JSONObject()
             params.put("username", userName)
             params.put("password", password)
-            LogUtil.d(TAG,"login param:${params}")
+            LogUtil.d(TAG,"login param:$params")
             AccountApi.Login()
                     .setRequestPageName(TAG)
                     .setParams(params)
@@ -122,7 +122,7 @@ class GatewayListFragment : Fragment()
                             try
                             {
                                 loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
-                                LogUtil.d(TAG,"loginInfo:${loginInfo.toString()}")
+                                LogUtil.d(TAG,"loginInfo:$loginInfo")
                                 GlobalData.sessionKey = loginInfo.sessionkey
                                 gatewayInfoMutableList[index].Password = password!!
                                 gatewayInfoMutableList[index].UserName = userName!!

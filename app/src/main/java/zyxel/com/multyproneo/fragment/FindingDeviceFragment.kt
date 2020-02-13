@@ -133,7 +133,7 @@ class FindingDeviceFragment : Fragment(), IResponseListener
                 else
                     findingDeviceInfo.UserDefineName = userDefineName*/
 
-                LogUtil.d(TAG, "findingDeviceInfo:${findingDeviceInfo}")
+                LogUtil.d(TAG, "findingDeviceInfo:$findingDeviceInfo")
 
                 var exist = false
                 for(item in gatewayList)

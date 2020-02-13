@@ -20,6 +20,9 @@ object AppConfig
     const val DEVICE_DISCOVER_REQ = 1
     const val DEVICE_DISCOVER_RESP = 2
 
+    //Check Internet
+    const val VERFY_INTERNET_DOMAIN_URL = "https://www.google.com"
+
     //WiFi setting
     const val endDeviceListUpdateTime = 60
     const val WiFiSettingTime = 30
