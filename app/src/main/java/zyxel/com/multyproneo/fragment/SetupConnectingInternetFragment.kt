@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_setup_connecting_internet.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.uiThread
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
@@ -29,6 +30,11 @@ class SetupConnectingInternetFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        setup_connecting_internet_next_button.onClick{
+
+        }
+
         startInternetCheckTask()
     }
 
@@ -70,6 +76,15 @@ class SetupConnectingInternetFragment : Fragment()
                 result = false
             }
 
+            try
+            {
+                Thread.sleep(1000)
+            }
+            catch(e: InterruptedException)
+            {
+                e.printStackTrace()
+            }
+
             uiThread{
                 when(result)
                 {
@@ -77,6 +92,7 @@ class SetupConnectingInternetFragment : Fragment()
                         setup_connecting_internet_title_text.text = getString(R.string.setup_connecting_internet_success_title)
                         setup_connecting_internet_description_text.visibility = View.INVISIBLE
                         setup_connecting_internet_content_image.setImageResource(R.drawable.gif_connectiongtotheinternet_02)
+                        setup_connecting_internet_next_button.visibility = View.VISIBLE
                     }
 
                     false ->

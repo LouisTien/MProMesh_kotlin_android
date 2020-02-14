@@ -52,4 +52,16 @@
         android:layout_below="@+id/setup_connecting_internet_content_relative"
         android:src="@drawable/gif_connectiongtotheinternet_01"/>
 
+    <Button
+        android:id="@+id/setup_connecting_internet_next_button"
+        android:layout_width="@dimen/layout_size_70dp_in_1080"
+        android:layout_height="@dimen/layout_size_36dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_style_yellow_bg"
+        android:text="@string/mesh_next"
+        android:textAllCaps="false"
+        android:textSize="@dimen/layout_size_20dp_in_1080"/>
+
 </RelativeLayout>
