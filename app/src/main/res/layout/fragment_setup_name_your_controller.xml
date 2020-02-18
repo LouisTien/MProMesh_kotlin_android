@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/setup_name_your_controller_help_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_note"
+        android:visibility="invisible"/>
+
+    <RelativeLayout
+        android:id="@+id/setup_name_your_controller_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+        android:layout_below="@+id/setup_name_your_controller_help_image">
+
+        <TextView
+            android:id="@+id/setup_name_your_controller_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/layout_size_22dp_in_1080"
+            android:textColor="@color/color_2d2b40"
+            android:text="@string/setup_name_controller_title"/>
+
+        <TextView
+            android:id="@+id/setup_name_your_controller_description_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/layout_size_18dp_in_1080"
+            android:text="@string/setup_name_controller_description"
+            android:layout_below="@+id/setup_name_your_controller_title_text"/>
+
+        <TextView
+            android:id="@+id/setup_name_your_controller_location_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setup_name_controller_location"
+            android:layout_marginTop="@dimen/layout_size_40dp_in_1080"
+            android:layout_below="@+id/setup_name_your_controller_description_text"/>
+
+        <EditText
+            android:id="@+id/setup_name_your_controller_location_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="30"
+            android:singleLine="true"
+            android:background="@null"
+            android:drawableBottom="@drawable/edittext_style_line"
+            android:textSize="@dimen/text_size_22sp_in_1080"
+            android:layout_below="@+id/setup_name_your_controller_location_text"/>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/setup_name_your_controller_location_name_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:background="@color/color_ffffff"
+        android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_25dp_in_1080"
+        android:layout_below="@+id/setup_name_your_controller_area_relative"
+        android:layout_above="@+id/setup_name_your_controller_next_image">
+
+    </ListView>
+
+    <ImageView
+        android:id="@+id/setup_name_your_controller_next_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/layout_size_30dp_in_1080"
+        android:src="@drawable/btn_next"/>
+
+</RelativeLayout>

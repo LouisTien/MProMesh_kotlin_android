@@ -35,7 +35,7 @@
             android:id="@+id/setup_connect_controller_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_000000"
             android:text="@string/setup_connect_controller_title"/>
 

@@ -27,7 +27,7 @@
             android:id="@+id/setup_connect_troubleshooting_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_ff2837"
             android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_title"/>
 
@@ -73,7 +73,7 @@
                         android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description1"
                         android:textColor="@color/color_000000"
-                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+                        android:textSize="@dimen/text_size_16sp_in_1080"/>
 
                 </LinearLayout>
 
@@ -98,7 +98,7 @@
                         android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description2"
                         android:textColor="@color/color_000000"
-                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+                        android:textSize="@dimen/text_size_16sp_in_1080"/>
 
                 </LinearLayout>
 
@@ -123,7 +123,7 @@
                         android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description3"
                         android:textColor="@color/color_000000"
-                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+                        android:textSize="@dimen/text_size_16sp_in_1080"/>
 
                 </LinearLayout>
 
@@ -148,7 +148,7 @@
                         android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description1"
                         android:textColor="@color/color_000000"
-                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+                        android:textSize="@dimen/text_size_16sp_in_1080"/>
 
                 </LinearLayout>
 
@@ -173,7 +173,7 @@
                         android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description1"
                         android:textColor="@color/color_000000"
-                        android:textSize="@dimen/text_size_18sp_in_1080"/>
+                        android:textSize="@dimen/text_size_16sp_in_1080"/>
 
                 </LinearLayout>
 

@@ -88,7 +88,8 @@ class SetupConnectingInternetFragment : Fragment()
             uiThread{
                 when(result)
                 {
-                    true -> {
+                    true ->
+                    {
                         setup_connecting_internet_title_text.text = getString(R.string.setup_connecting_internet_success_title)
                         setup_connecting_internet_description_text.visibility = View.INVISIBLE
                         setup_connecting_internet_content_image.setImageResource(R.drawable.gif_connectiongtotheinternet_02)

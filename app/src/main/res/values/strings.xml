@@ -40,6 +40,16 @@
     <string name="setup_login_help_title">Find the default admin username and password on the label of your Controller.</string>
     <string name="setup_login_help_description">If the default admin credentials were changed, enter new username and password to log in.</string>
 
+    <string name="setup_change_admin_pwd_title">Change Admin Password</string>
+    <string name="setup_change_admin_pwd_description">To avoid any unauthorized user accessing your password on the label of your Controller, we recommend to change it.</string>
+    <string name="setup_change_admin_pwd_new_password">New Password</string>
+    <string name="setup_change_admin_pwd_confirm_new_password">Confirm New Password</string>
+    <string name="setup_change_admin_pwd_not_match_error_msg">Password and confirm password does not match</string>
+
+    <string name="setup_name_controller_title">Name Your Controller</string>
+    <string name="setup_name_controller_description">Name your Controller after its location.</string>
+    <string name="setup_name_controller_location">Location</string>
+
     <string name="setup_connect_troubleshooting_cannot_connect_controller_title">Cannot Connect to the Controller</string>
     <string name="setup_connect_troubleshooting_cannot_connect_controller_sub_title">Check the followings.</string>
     <string name="setup_connect_troubleshooting_cannot_connect_controller_description1">Make sure the Controller is powered on and its WiFi LED already turns on.</string>

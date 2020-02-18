@@ -20,6 +20,11 @@ object AppConfig
     const val DEVICE_DISCOVER_REQ = 1
     const val DEVICE_DISCOVER_RESP = 2
 
+    //Database
+    const val DATABASE_NAME = "mpromesh.db"
+    const val TABLE_SITE_INFO_NAME = "site_information"
+    const val TABLE_CLIENT_LIST_NAME = "client_list"
+
     //Check Internet
     const val VERFY_INTERNET_DOMAIN_URL = "https://www.google.com"
 
@@ -32,7 +37,7 @@ object AppConfig
     const val WPSStatusUpdateTime = 5
     const val addMeshTime = 180
 
-    //Other
+    //Keep screen on
     const val keepScreenTime = 300
 
     //Restful
@@ -57,6 +62,14 @@ object AppConfig
     const val SpeedTestActiveDebug = false
     const val SpeedTestStatusUpdateTime = 5
     const val SpeedTestTimeout = 180
+
+    //Location name list
+    val locationNamesArray = arrayOf(
+            "Attic", "Basement", "Children's Room", "Den",
+            "Dining Room", "First Floor", "Foyer", "Kitchen",
+            "Laundry", "Loft", "Lounge", "Master Room", "Office",
+            "Playroom", "Reception Room"
+    )
 
     enum class LoadingAnimation
     {
