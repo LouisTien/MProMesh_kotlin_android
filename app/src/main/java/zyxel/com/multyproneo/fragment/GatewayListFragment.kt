@@ -122,7 +122,7 @@ class GatewayListFragment : Fragment()
                             try
                             {
                                 loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
-                                LogUtil.d(TAG,"loginInfo:${loginInfo.toString()}")
+                                LogUtil.d(TAG,"loginInfo:$loginInfo")
                                 GlobalData.sessionKey = loginInfo.sessionkey
                                 gatewayInfoMutableList[index].Password = password!!
                                 gatewayInfoMutableList[index].UserName = userName!!

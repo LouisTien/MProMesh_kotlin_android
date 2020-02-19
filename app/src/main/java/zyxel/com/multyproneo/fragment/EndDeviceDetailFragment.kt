@@ -321,7 +321,13 @@ class EndDeviceDetailFragment : Fragment()
                 }
 
                 end_device_detail_connect_type_dhcp_time_title_text.text = getString(R.string.device_detail_connect_type)
-                end_device_detail_internet_blocking_area_relative.visibility = View.VISIBLE
+
+                when(FeatureConfig.internetBlockingStatus)
+                {
+                    true -> end_device_detail_internet_blocking_area_relative.visibility = View.VISIBLE
+                    false -> end_device_detail_internet_blocking_area_relative.visibility = View.GONE
+                }
+
                 when(FeatureConfig.FSecureStatus)
                 {
                     true ->

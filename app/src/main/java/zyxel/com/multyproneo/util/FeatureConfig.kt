@@ -7,4 +7,5 @@ object FeatureConfig
 {
     var FSecureStatus = false
     var hostNameReplaceStatus = false
+    var internetBlockingStatus = true
 }

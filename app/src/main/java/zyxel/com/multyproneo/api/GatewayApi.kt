@@ -149,4 +149,17 @@ object GatewayApi
             return request
         }
     }
+
+    class GetInternetBlockingInfo : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val getInternetBlockingInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_EXT.InternetBlocking."
+            val request = Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(getInternetBlockingInfoURL)
+                    .build()
+            return request
+        }
+    }
 }

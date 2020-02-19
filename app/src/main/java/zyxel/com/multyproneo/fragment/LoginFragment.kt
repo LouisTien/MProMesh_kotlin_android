@@ -160,7 +160,7 @@ class LoginFragment : Fragment()
                                 try
                                 {
                                     loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
-                                    LogUtil.d(TAG,"loginInfo:${loginInfo.toString()}")
+                                    LogUtil.d(TAG,"loginInfo:$loginInfo")
                                     GlobalData.sessionKey = loginInfo.sessionkey
                                     gatewayInfo.Password = password
                                     gatewayInfo.UserName = userName

@@ -6,6 +6,7 @@ import org.json.JSONObject
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.HttpErrorInfo
+import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 import java.io.IOException
@@ -206,15 +207,30 @@ abstract class Commander
                         if(call.request().url().toString().contains("UserLogin"))
                         {
                             val cookies = response.headers().values("Set-Cookie")
-                            val cookie = cookies.get(0).substring(0, cookies.get(0).indexOf(";"))
+                            val cookie = cookies[0].substring(0, cookies.get(0).indexOf(";"))
                             GlobalData.cookie = cookie
                             LogUtil.d(TAG,"cookie:$cookie")
                         }
                     }
                     else
                     {
-                        GlobalBus.publish(MainEvent.HideLoading())
-                        responseListener.onFail(responseCode, result, getRequestPageName())
+                        if(call.request().url().toString().contains("Device.X_ZYXEL_EXT.InternetBlocking"))
+                        {
+                            responseStr = "{\n" +
+                                          "\"requested_path\": \"Device.X_ZYXEL_EXT.InternetBlocking.\",\n" +
+                                          "\"oper_status\": \"Success\",\n" +
+                                          "\"Object\": {\n" +
+                                          "\"Enable\": ${FeatureConfig.internetBlockingStatus}\n" +
+                                          "}\n" +
+                                          "}"
+
+                            responseListener.onSuccess(responseStr)
+                        }
+                        else
+                        {
+                            GlobalBus.publish(MainEvent.HideLoading())
+                            responseListener.onFail(responseCode, result, getRequestPageName())
+                        }
                     }
                 }
                 else
