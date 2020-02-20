@@ -1,4 +1,4 @@
-package zyxel.com.multyproneo.fragment
+package zyxel.com.multyproneo.fragment.cloud
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

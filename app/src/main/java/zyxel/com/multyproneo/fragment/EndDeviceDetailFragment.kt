@@ -76,7 +76,7 @@ class EndDeviceDetailFragment : Fragment()
 
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe {
+        msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
             when(it.action)
             {
                 AppConfig.DialogAction.ACT_BLOCK_DEVICE -> {}
@@ -321,7 +321,13 @@ class EndDeviceDetailFragment : Fragment()
                 }
 
                 end_device_detail_connect_type_dhcp_time_title_text.text = getString(R.string.device_detail_connect_type)
-                end_device_detail_internet_blocking_area_relative.visibility = View.VISIBLE
+
+                when(FeatureConfig.internetBlockingStatus)
+                {
+                    true -> end_device_detail_internet_blocking_area_relative.visibility = View.VISIBLE
+                    false -> end_device_detail_internet_blocking_area_relative.visibility = View.GONE
+                }
+
                 when(FeatureConfig.FSecureStatus)
                 {
                     true ->

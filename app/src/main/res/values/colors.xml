@@ -75,6 +75,10 @@
     <color name="color_d9003c">#d9003c</color>
     <color name="color_dcdcdc">#dcdcdc</color>
     <color name="color_b4b4b4">#b4b4b4</color>
+    <color name="color_003eab">#003eab</color>
+    <color name="color_0073ff">#0073ff</color>
+    <color name="color_eff0f1">#eff0f1</color>
+    <color name="color_f5f5fb">#f5f5fb</color>
     <color name="edittext_bg">#33000000</color>
     <color name="firmware_upgrade_result_header_bg">#1A17ffff</color>
     <color name="firmware_upgrade_result_bg">#992d2b40</color>

@@ -10,10 +10,11 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.LocationNamesListEvent
 import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.GlobalData
 
 class LocationNamesItemAdapter : BaseAdapter()
 {
+    private var index = -1
+
     override fun getCount(): Int = AppConfig.locationNamesArray.size
 
     override fun getItem(position: Int): Any = AppConfig.locationNamesArray[position]
@@ -45,7 +46,7 @@ class LocationNamesItemAdapter : BaseAdapter()
     {
         fun bind(position: Int)
         {
-            if(position == GlobalData.locationNamesSelectIndex)
+            if(position == index)
                 view.location_select_image.visibility = View.VISIBLE
             else
                 view.location_select_image.visibility = View.INVISIBLE
@@ -53,7 +54,7 @@ class LocationNamesItemAdapter : BaseAdapter()
             view.location_name_text.text = AppConfig.locationNamesArray[position]
 
             view.location_name_relative.onClick{
-                GlobalData.locationNamesSelectIndex = position
+                index = position
                 GlobalBus.publish(LocationNamesListEvent.OnDeviceSelected(AppConfig.locationNamesArray[position]))
             }
         }

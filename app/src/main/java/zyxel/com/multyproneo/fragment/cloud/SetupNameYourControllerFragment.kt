@@ -1,4 +1,4 @@
-package zyxel.com.multyproneo.fragment
+package zyxel.com.multyproneo.fragment.cloud
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -30,8 +30,6 @@ class SetupNameYourControllerFragment : Fragment()
         super.onViewCreated(view, savedInstanceState)
 
         //setup_name_your_controller_location_edit.setText(GlobalData.getCurrentGatewayInfo().getName())
-
-        GlobalData.locationNamesSelectIndex = -1
 
         setup_name_your_controller_location_name_list.adapter = adapter
 

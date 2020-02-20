@@ -1,4 +1,4 @@
-package zyxel.com.multyproneo.fragment
+package zyxel.com.multyproneo.fragment.cloud
 
 import android.content.Context
 import android.net.ConnectivityManager

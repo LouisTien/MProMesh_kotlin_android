@@ -25,7 +25,6 @@ object GlobalData
     var scanPWD = ""
     var scanAccount = ""
     var scanAccountPWD = ""
-    var locationNamesSelectIndex = -1
 
     fun getCurrentGatewayInfo(): GatewayInfo = gatewayList[currentGatewayIndex]
     fun getDeviceIP(): String = getCurrentGatewayInfo().IP

@@ -248,7 +248,7 @@ class WiFiSignalMeterFragment : Fragment()
                             try
                             {
                                 devicesInfo = Gson().fromJson(responseStr, DevicesInfo::class.javaObjectType)
-                                LogUtil.d(TAG,"devicesInfo:${devicesInfo.toString()}")
+                                LogUtil.d(TAG,"devicesInfo:$devicesInfo")
 
                                 for(i in devicesInfo.Object.indices)
                                 {

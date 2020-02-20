@@ -27,6 +27,7 @@ import zyxel.com.multyproneo.api.*
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.fragment.*
+import zyxel.com.multyproneo.fragment.cloud.SetupControllerReadyFragment
 import zyxel.com.multyproneo.model.*
 import zyxel.com.multyproneo.tool.CryptTool
 import zyxel.com.multyproneo.util.*
@@ -68,6 +69,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var guestWiFiInfo: GuestWiFiInfo
     private lateinit var fSecureInfo: FSecureInfo
     private lateinit var hostNameReplaceInfo: HostNameReplaceInfo
+    private lateinit var internetBlockingInfo: InternetBlockingInfo
     private lateinit var progressBar: ProgressBar
     private lateinit var getSpeedTestStatusTimer: CountDownTimer
     private var deviceTimer = Timer()
@@ -548,7 +550,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         try
                         {
                             changeIconNameInfo = Gson().fromJson(responseStr, ChangeIconNameInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"changeIconNameInfo:${changeIconNameInfo.toString()}")
+                            LogUtil.d(TAG,"changeIconNameInfo:$changeIconNameInfo")
                             GlobalData.changeIconNameList = changeIconNameInfo.Object.toMutableList()
                             getDeviceInfoTask()
                         }
@@ -574,7 +576,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         try
                         {
                             devicesInfo = Gson().fromJson(responseStr, DevicesInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"devicesInfo:${devicesInfo.toString()}")
+                            LogUtil.d(TAG,"devicesInfo:$devicesInfo")
 
                             val newEndDeviceList = mutableListOf<DevicesInfoObject>()
                             val newHomeEndDeviceList = mutableListOf<DevicesInfoObject>()
@@ -660,7 +662,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         try
                         {
                             wanInfo = Gson().fromJson(responseStr, WanInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"wanInfo:${wanInfo.toString()}")
+                            LogUtil.d(TAG,"wanInfo:$wanInfo")
                             GlobalData.gatewayWanInfo = wanInfo.copy()
                             getGuestWiFiEnableTask()
                         }
@@ -686,7 +688,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         try
                         {
                             guestWiFiInfo = Gson().fromJson(responseStr, GuestWiFiInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"guestWiFiInfo:${guestWiFiInfo.toString()}")
+                            LogUtil.d(TAG,"guestWiFiInfo:$guestWiFiInfo")
                             GlobalData.guestWiFiStatus = guestWiFiInfo.Object.Enable
                             getFSecureInfoTask()
                         }
@@ -712,7 +714,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         try
                         {
                             fSecureInfo = Gson().fromJson(responseStr, FSecureInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"fSecureInfo:${fSecureInfo.toString()}")
+                            LogUtil.d(TAG,"fSecureInfo:$fSecureInfo")
                             FeatureConfig.FSecureStatus = fSecureInfo.Object.Cyber_Security_FSC
                             getHostNameReplaceInfoTask()
                         }
@@ -738,8 +740,34 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         try
                         {
                             hostNameReplaceInfo = Gson().fromJson(responseStr, HostNameReplaceInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"hostNameReplaceInfo:${hostNameReplaceInfo.toString()}")
+                            LogUtil.d(TAG,"hostNameReplaceInfo:$hostNameReplaceInfo")
                             FeatureConfig.hostNameReplaceStatus = hostNameReplaceInfo.Object.Enable
+                            getInternetBlockingInfoTask()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun getInternetBlockingInfoTask()
+    {
+        LogUtil.d(TAG,"getInternetBlockingInfoTask()")
+        GatewayApi.GetInternetBlockingInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            internetBlockingInfo = Gson().fromJson(responseStr, InternetBlockingInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"internetBlockingInfo:$internetBlockingInfo")
+                            FeatureConfig.internetBlockingStatus = internetBlockingInfo.Object.Enable
                             stopGetAllNeedDeviceInfoTask()
                         }
                         catch(e: JSONException)

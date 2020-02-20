@@ -319,7 +319,7 @@ class WiFiSettingsFragment : Fragment()
                         try
                         {
                             meshInfo = Gson().fromJson(responseStr, MeshInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"meshInfo:${meshInfo.toString()}")
+                            LogUtil.d(TAG,"meshInfo:$meshInfo")
                             getWiFiSettingInfoTask()
                         }
                         catch(e: JSONException)
@@ -341,7 +341,7 @@ class WiFiSettingsFragment : Fragment()
                         try
                         {
                             WiFiSettingInfoSet = Gson().fromJson(responseStr, WiFiSettingInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"wiFiSettingInfo:${WiFiSettingInfoSet.toString()}")
+                            LogUtil.d(TAG,"wiFiSettingInfo:$WiFiSettingInfoSet")
 
                             WiFiName = WiFiSettingInfoSet.Object.SSID[0].SSID
                             WiFiPwd = WiFiSettingInfoSet.Object.AccessPoint[0].Security.KeyPassphrase

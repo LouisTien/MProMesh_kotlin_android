@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/layout_size_22dp_in_1080"
-            android:textColor="@color/color_2d2b40"
+            android:textColor="@color/color_000000"
             android:text="@string/setup_name_controller_title"/>
 
         <TextView

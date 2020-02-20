@@ -1,4 +1,4 @@
-package zyxel.com.multyproneo.fragment
+package zyxel.com.multyproneo.fragment.cloud
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -104,6 +104,36 @@ class SetupControllerReadyFragment : Fragment()
                 true
         )
 
+        var test4 = DatabaseSiteInfoEntity(
+                4,
+                "ccc",
+                "D",
+                "xxx/xx3",
+                "WC",
+                "WCP",
+                true
+        )
+
+        var test5 = DatabaseSiteInfoEntity(
+                5,
+                "ccc",
+                "E",
+                "xxx/xx3",
+                "WC",
+                "WCP",
+                true
+        )
+
+        var test6 = DatabaseSiteInfoEntity(
+                6,
+                "ccc",
+                "F",
+                "xxx/xx3",
+                "WC",
+                "WCP",
+                true
+        )
+
 
         var client1 = DatabaseClientListEntity(
                 1,
@@ -130,6 +160,9 @@ class SetupControllerReadyFragment : Fragment()
             db.getSiteInfoDao().insert(test1)
             db.getSiteInfoDao().insert(test2)
             db.getSiteInfoDao().insert(test3)
+            db.getSiteInfoDao().insert(test4)
+            db.getSiteInfoDao().insert(test5)
+            db.getSiteInfoDao().insert(test6)
             db.getClientListDao().insert(client1)
             db.getClientListDao().insert(client2)
             db.getClientListDao().insert(client3)

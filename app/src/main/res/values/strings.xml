@@ -50,6 +50,13 @@
     <string name="setup_name_controller_description">Name your Controller after its location.</string>
     <string name="setup_name_controller_location">Location</string>
 
+    <string name="setup_previous_setting_title">Apply Previous Settings</string>
+    <string name="setup_previous_setting_description">Settings of previous Controller are found. You can choose to apply them to this Controller.</string>
+    <string name="setup_previous_setting_sub_title">Apply settings of</string>
+    <string name="setup_previous_setting_check_description">Save WiFi setting</string>
+    <string name="setup_previous_setting_details"><u>Details</u></string>
+    <string name="setup_previous_setting_name_dialog_done">Done</string>
+
     <string name="setup_connect_troubleshooting_cannot_connect_controller_title">Cannot Connect to the Controller</string>
     <string name="setup_connect_troubleshooting_cannot_connect_controller_sub_title">Check the followings.</string>
     <string name="setup_connect_troubleshooting_cannot_connect_controller_description1">Make sure the Controller is powered on and its WiFi LED already turns on.</string>
@@ -256,8 +263,6 @@
     <string name="message_dialog_block_msg">The devices assigned to \"Steve\" profile will be blocked from the Internet until 9am, tomorrow.</string>
     <string name="message_dialog_block_always">Always block</string>
     <string name="message_dialog_check_lougot">Are you sure to logout this app?</string>
-
-    <string name="slide_dialog_profile_title">Select a profile</string>
 
     <string name="qrcode_dialog_wifi_msg">Connect to WiFi by scanning the QR code.</string>
     <string name="qrcode_dialog_guest_wifi_msg">Guests can connect to Guest WiFi by scanning the QR code.</string>
