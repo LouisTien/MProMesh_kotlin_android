@@ -20,10 +20,26 @@ object AppConfig
     const val DEVICE_DISCOVER_REQ = 1
     const val DEVICE_DISCOVER_RESP = 2
 
+    //TUTK cloud
+    const val TUTK_AM_SITE = "https://am1.tutk.com"
+    const val TUTK_AM_STATE = "1234"
+    const val TUTK_AM_CLIENT_ID = "vXudLCmYSwonVSetUPZrfiVDOjL5kmv2NQaUDmRG"
+    const val TUTK_AM_CLIENT_SECRET = "8Xj9bgS9IY7JspwEttChbyoHAEJrp05E6oGW6kqx4OsrITwYFxUae5x4wloWPYYoGC8XdQZoVlKm0clXdeyjgLpBkO08rt0yINEUZC35tkqjwR2oVMD3uCiOr9Z5rboz"
+    const val TUTK_DM_SITE = "https://hst-dm1.kalayservice.com"
+    const val TUTK_API_VER = "/hestia/api/v2"
+    const val TUTK_REALM = "zyxel"
+    const val TUTK_DM_AUTHORIZATION = "ZXoycXlNTllOQVE0aVVwSkZYM0hacGhHSVd2bnpqSUliaTVDMGVxbTpUSzRLbFZiVkgyV2hPdlpQUHhYUGpEdURVeTBocXdOVEc0NnM4bk5vSzFRWVJSYXVEUmxNZGhHVTN5c1FPSG93R1pnRVN4UW8wRGdoTFpLMXEzRll3TjFQR296TFZTWFE2RTdUVEh6a2M5bmlhdWlONTA1dngxNFpsWFJja2d5OQ=="
+
     //Database
     const val DATABASE_NAME = "mpromesh.db"
     const val TABLE_SITE_INFO_NAME = "site_information"
     const val TABLE_CLIENT_LIST_NAME = "client_list"
+
+    //SharedPreferences
+    const val SHAREDPREF_NAME = "name_device_setting"
+    const val SHAREDPREF_FIRST_TIME_KEY = "key_first_time_use"
+    const val SHAREDPREF_TUTK_REFRESH_TOKEN_KEY = "TUTK_refresh_token"
+    const val SHAREDPREF_TUTK_ACCESS_TOKEN_KEY = "TUTK_access_token"
 
     //Check Internet
     const val VERFY_INTERNET_DOMAIN_URL = "https://www.google.com"
@@ -46,7 +62,7 @@ object AppConfig
     //Fabric
     const val NoUploadFabric = false
 
-    //device username required length
+    //Device username required length
     const val deviceUserNameRequiredLength = 1
 
     //Login username and password required length

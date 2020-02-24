@@ -32,6 +32,7 @@ abstract class Commander
             .build()*/
     //private var mCtx: Context
     private var headers = Headers.Builder()
+    private var formBody = FormBody.Builder()
     private lateinit var responseListener: ResponseListener
     private lateinit var request: Request
     private lateinit var params: JSONObject
@@ -121,6 +122,18 @@ abstract class Commander
     {
         for(key in headerMap.keys)
             headers.add(key, headerMap[key].toString())
+        return this
+    }
+
+    fun getFormBody(): FormBody.Builder
+    {
+        return formBody
+    }
+
+    fun setFormBody(bodyMap: Map<String, Any>): Commander
+    {
+        for(key in bodyMap.keys)
+            formBody.add(key, bodyMap[key].toString())
         return this
     }
 

@@ -87,7 +87,7 @@ class AddMeshFailFragment : Fragment()
     {
         val params = JSONObject()
         params.put("X_ZyXEL_TriggerWPSPushButton", true)
-        LogUtil.d(TAG,"startPairingTask param:${params}")
+        LogUtil.d(TAG,"startPairingTask param:$params")
 
         AddMeshApi.StartPairing()
                 .setRequestPageName(TAG)

@@ -17,11 +17,10 @@ object DevicesApi
         override fun composeRequest(): Request
         {
             val getDeviceInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.Hosts.Host."
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(getDeviceInfoURL)
                     .build()
-            return request
         }
     }
 
@@ -44,12 +43,11 @@ object DevicesApi
         {
             val setChangeIconNameInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_Change_Icon_Name.?sessionkey=${GlobalData.sessionKey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(setChangeIconNameInfoURL)
                     .post(requestParam)
                     .build()
-            return request
         }
     }
 
@@ -59,12 +57,11 @@ object DevicesApi
         {
             val setChangeIconNameInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_Change_Icon_Name.$index.?sessionkey=${GlobalData.sessionKey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(setChangeIconNameInfoURL)
                     .put(requestParam)
                     .build()
-            return request
         }
     }
 }

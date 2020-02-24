@@ -67,6 +67,9 @@
     <string name="setup_connect_troubleshooting_no_internet_description1">Check the network cables are well connected.</string>
     <string name="setup_connect_troubleshooting_no_internet_description2">Check the modem your Controller connected to is not turned off.</string>
 
+    <string name="cloud_login_no_internet">Unable to connect to the server. Please check your network access.</string>
+    <string name="cloud_login_no_ssl_error">SSL error occurred. Would you like to proceed?</string>
+
     <string name="button_text_start"><u>START</u></string>
     <string name="button_text_home">Home</string>
     <string name="button_text_devices">Devices</string>

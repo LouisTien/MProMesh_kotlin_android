@@ -18,12 +18,11 @@ object AccountApi
         {
             val loginURL = "${GlobalData.getAPIPath()}/UserLogin"
             val requestParam = RequestBody.create(JSON, getParams().toString())
-            val request = Request.Builder()
+            return Request.Builder()
                     //.headers(getHeaders().build())
                     .url(loginURL)
                     .post(requestParam)
                     .build()
-            return request
         }
     }
 
@@ -33,12 +32,11 @@ object AccountApi
         {
             val logoutURL = "${GlobalData.getAPIPath()}/UserLogout?sessionkey=${GlobalData.sessionKey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(logoutURL)
                     .post(requestParam)
                     .build()
-            return request
         }
     }
 }

@@ -18,12 +18,11 @@ object AddMeshApi
         {
             val startPairingURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.WiFi.AccessPoint.5.WPS.?sessionkey=${GlobalData.sessionKey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(startPairingURL)
                     .put(requestParam)
                     .build()
-            return request
         }
     }
 
@@ -32,11 +31,10 @@ object AddMeshApi
         override fun composeRequest(): Request
         {
             val getWPSStatusURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.WiFi.AccessPoint.5.WPS."
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(getWPSStatusURL)
                     .build()
-            return request
         }
     }
 }

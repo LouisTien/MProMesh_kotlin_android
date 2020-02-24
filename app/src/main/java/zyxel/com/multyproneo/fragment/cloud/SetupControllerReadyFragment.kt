@@ -15,6 +15,7 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.DatabaseCloudUtil
 import zyxel.com.multyproneo.util.LogUtil
+import zyxel.com.multyproneo.util.SharedPreferencesUtil
 
 class SetupControllerReadyFragment : Fragment()
 {
@@ -55,12 +56,13 @@ class SetupControllerReadyFragment : Fragment()
         {
             setup_controller_ready_help_image ->
             {
-                //helpDlg = SetupControllerReadyHelpDialog(activity!!)
-                //helpDlg.show()
-                dbTest()
+                helpDlg = SetupControllerReadyHelpDialog(activity!!)
+                helpDlg.show()
+                //dbTest()
             }
 
             setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
+            //setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment()))
         }
     }
 

@@ -26,6 +26,9 @@ object GlobalData
     var scanAccount = ""
     var scanAccountPWD = ""
 
+    //TUTK
+    var tokenType = "Bearer"
+
     fun getCurrentGatewayInfo(): GatewayInfo = gatewayList[currentGatewayIndex]
     fun getDeviceIP(): String = getCurrentGatewayInfo().IP
     fun getDevicePort(): String = getCurrentGatewayInfo().SupportedApiVersion[0].HttpsPort.toString()

@@ -18,12 +18,11 @@ object GatewayApi
         {
             val setChangeGatewayNameInfo = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_System_Info.?sessionkey=${GlobalData.sessionKey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(setChangeGatewayNameInfo)
                     .put(requestParam)
                     .build()
-            return request
         }
     }
 
@@ -32,11 +31,10 @@ object GatewayApi
         override fun composeRequest(): Request
         {
             val getChangeGatewayNameInfo = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_System_Info."
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(getChangeGatewayNameInfo)
                     .build()
-            return request
         }
     }
 
@@ -45,11 +43,10 @@ object GatewayApi
         override fun composeRequest(): Request
         {
             val getWanInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.DeviceInfo.WanInfo."
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(getWanInfoURL)
                     .build()
-            return request
         }
     }
 
@@ -58,11 +55,10 @@ object GatewayApi
         override fun composeRequest(): Request
         {
             val getFSecureInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_License."
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(getFSecureInfoURL)
                     .build()
-            return request
         }
     }
 
@@ -71,11 +67,10 @@ object GatewayApi
         override fun composeRequest(): Request
         {
             val getHostNameReplaceInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_EXT.HostNameReplace."
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(getHostNameReplaceInfoURL)
                     .build()
-            return request
         }
     }
 
@@ -85,12 +80,11 @@ object GatewayApi
         {
             val rebootURL = "${GlobalData.getAPIPath()}/Reboot?sessionkey=${GlobalData.sessionKey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(rebootURL)
                     .post(requestParam)
                     .build()
-            return request
         }
     }
 
@@ -100,12 +94,11 @@ object GatewayApi
         {
             val rebootURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.Hosts.Host.$index.X_ZYXEL_EXT.?sessionkey=${GlobalData.sessionKey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(rebootURL)
                     .put(requestParam)
                     .build()
-            return request
         }
     }
 
@@ -114,11 +107,10 @@ object GatewayApi
         override fun composeRequest(): Request
         {
             val getRssiInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.Hosts.Host.$index."
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(getRssiInfoURL)
                     .build()
-            return request
         }
     }
 
@@ -128,12 +120,11 @@ object GatewayApi
         {
             val startSpeedTestURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_EXT.SpeedTestInfo.?sessionkey=${GlobalData.sessionKey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(startSpeedTestURL)
                     .put(requestParam)
                     .build()
-            return request
         }
     }
 
@@ -142,11 +133,10 @@ object GatewayApi
         override fun composeRequest(): Request
         {
             val getSpeedTestStatusURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_EXT.SpeedTestInfo."
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(getSpeedTestStatusURL)
                     .build()
-            return request
         }
     }
 
@@ -155,11 +145,10 @@ object GatewayApi
         override fun composeRequest(): Request
         {
             val getInternetBlockingInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_EXT.InternetBlocking."
-            val request = Request.Builder()
+            return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(getInternetBlockingInfoURL)
                     .build()
-            return request
         }
     }
 }

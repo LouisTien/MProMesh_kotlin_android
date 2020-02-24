@@ -24,7 +24,7 @@ class WelcomeActivity : AppCompatActivity()
 {
     private val WELCOME_DISPLAY_TIME_IN_MILLISECONDS: Long = 1500
     private val welcomeAdapter = WelcomeAdapter(this)
-    private var firstTimeUse by SharedPreferencesUtil(this, "key_first_time_use", true)
+    private var firstTimeUse by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_FIRST_TIME_KEY, true)
 
     override fun onCreate(savedInstanceState: Bundle?)
     {

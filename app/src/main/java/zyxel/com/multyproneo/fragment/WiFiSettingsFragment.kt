@@ -370,7 +370,7 @@ class WiFiSettingsFragment : Fragment()
     {
         val params = JSONObject()
         params.put("Enable", guestWiFiStatus)
-        LogUtil.d(TAG,"setGuestWiFi24GEnableTask param:${params}")
+        LogUtil.d(TAG,"setGuestWiFi24GEnableTask param:$params")
 
         WiFiSettingApi.SetGuestWiFi24GInfo()
                 .setRequestPageName(TAG)
@@ -400,7 +400,7 @@ class WiFiSettingsFragment : Fragment()
     {
         val params = JSONObject()
         params.put("Enable", guestWiFiStatus)
-        LogUtil.d(TAG,"setGuestWiFi5GEnableTask param:${params}")
+        LogUtil.d(TAG,"setGuestWiFi5GEnableTask param:$params")
 
         WiFiSettingApi.SetGuestWiFi5GInfo()
                 .setRequestPageName(TAG)

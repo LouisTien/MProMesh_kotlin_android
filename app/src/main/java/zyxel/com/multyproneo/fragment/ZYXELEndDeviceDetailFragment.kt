@@ -435,7 +435,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 
         val params = JSONObject()
         params.put("HostName", editDeviceName)
-        LogUtil.d(TAG,"setGatewayInfoTask param:${params}")
+        LogUtil.d(TAG,"setGatewayInfoTask param:$params")
 
         GatewayApi.SetSystemInfo()
                 .setRequestPageName(TAG)
@@ -469,7 +469,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         params.put("HostName", editDeviceName)
         params.put("MacAddress", endDeviceInfo.PhysAddress)
         params.put("Internet_Blocking_Enable", endDeviceInfo.Internet_Blocking_Enable)
-        LogUtil.d(TAG,"setDeviceInfoTask param:${params}")
+        LogUtil.d(TAG,"setDeviceInfoTask param:$params")
 
         var index = 0
         for(i in GlobalData.changeIconNameList.indices)
@@ -576,7 +576,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                     index = i + 1
 
                     params.put("L2DevCtrl_Reboot", true)
-                    LogUtil.d(TAG,"rebootTask param:${params}")
+                    LogUtil.d(TAG,"rebootTask param:$params")
 
                     GatewayApi.EndDeviceReboot(index)
                             .setRequestPageName(TAG)
@@ -599,7 +599,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
     {
         val params = JSONObject()
         params.put("Start", true)
-        LogUtil.d(TAG,"startSpeedTestTask param:${params}")
+        LogUtil.d(TAG,"startSpeedTestTask param:$params")
 
         GatewayApi.StartSpeedTest()
                 .setRequestPageName(TAG)

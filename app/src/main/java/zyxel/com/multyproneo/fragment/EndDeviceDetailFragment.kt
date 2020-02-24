@@ -479,7 +479,7 @@ class EndDeviceDetailFragment : Fragment()
         params.put("HostName", editDeviceName)
         params.put("MacAddress", endDeviceInfo.PhysAddress)
         params.put("Internet_Blocking_Enable", isBlocked)
-        LogUtil.d(TAG,"setDeviceInfoTask param:${params}")
+        LogUtil.d(TAG,"setDeviceInfoTask param:$params")
 
         var index = 0
         for(i in GlobalData.changeIconNameList.indices)
