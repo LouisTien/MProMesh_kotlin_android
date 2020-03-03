@@ -5,7 +5,7 @@ import okhttp3.Request
 import okhttp3.RequestBody
 import zyxel.com.multyproneo.util.AppConfig
 
-object TUTKApi
+object AMDMApi
 {
     private val JSON = MediaType.parse("application/json; charset=utf-8")
 

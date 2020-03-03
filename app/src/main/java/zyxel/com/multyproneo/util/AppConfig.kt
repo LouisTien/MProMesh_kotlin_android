@@ -20,7 +20,7 @@ object AppConfig
     const val DEVICE_DISCOVER_REQ = 1
     const val DEVICE_DISCOVER_RESP = 2
 
-    //TUTK cloud
+    //TUTK AMDM
     const val TUTK_AM_SITE = "https://am1.tutk.com"
     const val TUTK_AM_STATE = "1234"
     const val TUTK_AM_CLIENT_ID = "vXudLCmYSwonVSetUPZrfiVDOjL5kmv2NQaUDmRG"
@@ -29,6 +29,10 @@ object AppConfig
     const val TUTK_API_VER = "/hestia/api/v2"
     const val TUTK_REALM = "zyxel"
     const val TUTK_DM_AUTHORIZATION = "ZXoycXlNTllOQVE0aVVwSkZYM0hacGhHSVd2bnpqSUliaTVDMGVxbTpUSzRLbFZiVkgyV2hPdlpQUHhYUGpEdURVeTBocXdOVEc0NnM4bk5vSzFRWVJSYXVEUmxNZGhHVTN5c1FPSG93R1pnRVN4UW8wRGdoTFpLMXEzRll3TjFQR296TFZTWFE2RTdUVEh6a2M5bmlhdWlONTA1dngxNFpsWFJja2d5OQ=="
+
+    //TUTK P2P
+    const val TUTK_MAXSIZE_RECVBUF = 10240
+    const val TUTK_STATUS_INIT_SEARCH_DEV = 10
 
     //Database
     const val DATABASE_NAME = "mpromesh.db"
@@ -122,5 +126,13 @@ object AppConfig
     {
         PAGE_NO_INTERNET,
         PAGE_CONNOT_CONNECT_CONTROLLER
+    }
+
+    enum class TUTKP2PMethod(val value: Int)
+    {
+        MTD_GET(0x1),
+        MTD_POST(0x2),
+        MTD_PUT(0x3),
+        MTD_DELETE(0x4)
     }
 }

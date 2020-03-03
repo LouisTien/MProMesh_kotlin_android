@@ -15,7 +15,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.cloud.TUTKCommander
-import zyxel.com.multyproneo.api.cloud.TUTKApi
+import zyxel.com.multyproneo.api.cloud.AMDMApi
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.cloud.*
@@ -114,7 +114,7 @@ class CloudLoginFragment : Fragment()
                 body["grant_type"] = "authorization_code"
                 body["code"] = codeToken
 
-                TUTKApi.GetToken()
+                AMDMApi.GetToken()
                         .setRequestPageName(TAG)
                         .setHeaders(header)
                         .setFormBody(body)
@@ -190,7 +190,7 @@ class CloudLoginFragment : Fragment()
         body["grant_type"] = "refresh_token"
         body["refresh_token"] = refreshToken
 
-        TUTKApi.RefreshToken()
+        AMDMApi.RefreshToken()
                 .setRequestPageName(TAG)
                 .setHeaders(header)
                 .setFormBody(body)
@@ -225,7 +225,7 @@ class CloudLoginFragment : Fragment()
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
 
-        TUTKApi.GetUserInfo()
+        AMDMApi.GetUserInfo()
                 .setRequestPageName(TAG)
                 .setHeaders(header)
                 .setResponseListener(object: TUTKCommander.ResponseListener()
@@ -254,7 +254,7 @@ class CloudLoginFragment : Fragment()
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
 
-        TUTKApi.GetAllDevice()
+        AMDMApi.GetAllDevice()
                 .setRequestPageName(TAG)
                 .setHeaders(header)
                 .setResponseListener(object: TUTKCommander.ResponseListener()
@@ -283,7 +283,7 @@ class CloudLoginFragment : Fragment()
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
 
-        TUTKApi.GetSpecificDevice("EBKUAX3MUD7M9G6GU1CJ")
+        AMDMApi.GetSpecificDevice("EBKUAX3MUD7M9G6GU1CJ")
                 .setRequestPageName(TAG)
                 .setHeaders(header)
                 .setResponseListener(object: TUTKCommander.ResponseListener()
@@ -319,7 +319,7 @@ class CloudLoginFragment : Fragment()
         params.put("credential", "testtesttesttesttesttest")
         LogUtil.d(TAG,"addDevice param:$params")
 
-        TUTKApi.AddDevice()
+        AMDMApi.AddDevice()
                 .setRequestPageName(TAG)
                 .setHeaders(header)
                 .setParams(params)
@@ -356,7 +356,7 @@ class CloudLoginFragment : Fragment()
         params.put("credential", "xxxxxxxxxxxxx")
         LogUtil.d(TAG,"updateDevice param:$params")
 
-        TUTKApi.UpdateDevice("kkkkkkkkkkkkkkkkkkkk")
+        AMDMApi.UpdateDevice("kkkkkkkkkkkkkkkkkkkk")
                 .setRequestPageName(TAG)
                 .setHeaders(header)
                 .setParams(params)
@@ -386,7 +386,7 @@ class CloudLoginFragment : Fragment()
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
 
-        TUTKApi.DeleteDevice("kkkkkkkkkkkkkkkkkkkk")
+        AMDMApi.DeleteDevice("kkkkkkkkkkkkkkkkkkkk")
                 .setRequestPageName(TAG)
                 .setHeaders(header)
                 .setResponseListener(object: TUTKCommander.ResponseListener()

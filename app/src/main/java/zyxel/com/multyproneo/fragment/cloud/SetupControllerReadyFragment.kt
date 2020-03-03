@@ -5,14 +5,18 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_setup_controller_ready.*
 import org.jetbrains.anko.doAsync
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.cloud.*
 import zyxel.com.multyproneo.database.room.DatabaseClientListEntity
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 import zyxel.com.multyproneo.dialog.SetupControllerReadyHelpDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.model.DevicesInfo
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.DatabaseCloudUtil
 import zyxel.com.multyproneo.util.LogUtil
 import zyxel.com.multyproneo.util.SharedPreferencesUtil
@@ -33,6 +37,9 @@ class SetupControllerReadyFragment : Fragment()
         super.onViewCreated(view, savedInstanceState)
         setClickListener()
         db = DatabaseCloudUtil.getInstance(context!!)!!
+
+        if(TUTKP2PBaseApi.initIOTCRDT() >= 0)
+            TUTKP2PBaseApi.startSession("EZPAA13CVHRC9HPGY1WJ")
     }
 
     override fun onResume()
@@ -59,10 +66,11 @@ class SetupControllerReadyFragment : Fragment()
                 helpDlg = SetupControllerReadyHelpDialog(activity!!)
                 helpDlg.show()
                 //dbTest()
+                //p2pTest()
             }
 
             setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
-            //setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment()))
+            //setup_controller_ready_next_image -> p2pTest2()
         }
     }
 
@@ -194,5 +202,39 @@ class SetupControllerReadyFragment : Fragment()
                 LogUtil.d(TAG,"[LOUIS]-------------------------------------")
             }
         }
+    }
+
+    fun p2pTest()
+    {
+        //if(TUTKP2PBaseApi.initIOTCRDT() >= 0)
+            //TUTKP2PBaseApi.startSession("EZPAA13CVHRC9HPGY1WJ")
+
+        P2PGatewayApi.GetSystemInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: TUTKP2PResponseCallback()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        LogUtil.d(TAG,"responseStr:$responseStr")
+                    }
+                }).execute()
+    }
+
+    fun p2pTest2()
+    {
+        P2PDevicesApi.GetDevicesInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: TUTKP2PResponseCallback()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        LogUtil.d(TAG,"responseStr:$responseStr")
+
+                        var devicesInfo = Gson().fromJson(responseStr, DevicesInfo::class.javaObjectType)
+                        LogUtil.d(TAG,"devicesInfo:$devicesInfo")
+
+                        LogUtil.d(TAG,"size:${devicesInfo.Object.size}")
+                    }
+                }).execute()
     }
 }

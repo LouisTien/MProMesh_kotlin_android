@@ -1,6 +1,5 @@
 package zyxel.com.multyproneo.api.cloud
 
-import com.google.gson.Gson
 import okhttp3.*
 import org.json.JSONObject
 import zyxel.com.multyproneo.event.GlobalBus

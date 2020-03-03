@@ -16,11 +16,11 @@ object GatewayApi
     {
         override fun composeRequest(): Request
         {
-            val setChangeGatewayNameInfo = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_System_Info.?sessionkey=${GlobalData.sessionKey}"
+            val setChangeGatewayNameInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_System_Info.?sessionkey=${GlobalData.sessionKey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
-                    .url(setChangeGatewayNameInfo)
+                    .url(setChangeGatewayNameInfoURL)
                     .put(requestParam)
                     .build()
         }
@@ -30,10 +30,10 @@ object GatewayApi
     {
         override fun composeRequest(): Request
         {
-            val getChangeGatewayNameInfo = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_System_Info."
+            val getChangeGatewayNameInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_System_Info."
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
-                    .url(getChangeGatewayNameInfo)
+                    .url(getChangeGatewayNameInfoURL)
                     .build()
         }
     }
