@@ -39,14 +39,14 @@ data class Radio
 
 data class Stats
 (
-    val BytesReceived: Int = 0,
-    val BytesSent: Int = 0,
-    val DiscardPacketsReceived: Int = 0,
-    val DiscardPacketsSent: Int = 0,
-    val ErrorsReceived: Int = 0,
-    val ErrorsSent: Int = 0,
-    val PacketsReceived: Int = 0,
-    val PacketsSent: Int = 0,
+    val BytesReceived: Long = 0,
+    val BytesSent: Long = 0,
+    val DiscardPacketsReceived: Long = 0,
+    val DiscardPacketsSent: Long = 0,
+    val ErrorsReceived: Long = 0,
+    val ErrorsSent: Long = 0,
+    val PacketsReceived: Long = 0,
+    val PacketsSent: Long = 0,
     val X_ZYXEL_Rate: String = "N/A"
 )
 
