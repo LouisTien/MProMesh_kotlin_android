@@ -146,7 +146,7 @@
     <string name="device_detail_profile">Profile</string>
     <string name="device_detail_last_seen">Last Seen</string>
     <string name="device_detail_connect_to">Connect To</string>
-    <string name="device_detail_wifi_band">WiFi Bnad</string>
+    <string name="device_detail_wifi_band">WiFi Band</string>
     <string name="device_detail_wifi_channel">WiFi Channel</string>
     <string name="device_detail_max_speed">Max Speed</string>
     <string name="device_detail_rssi">RSSI (Client to AP)</string>
@@ -233,7 +233,7 @@
     <string name="mesh_more_info_hint">WPS may be enabled by different behaviors from different extenders.</string>
     <string name="mesh_see_tip">See Tips</string>
     <string name="mesh_extender_title">Place WiFi Extender</string>
-    <string name="mesh_extender_description">Locate mode switch on the back panel of the WiFi Extender. Switch to \"RP\" to connect extender wirelessly.</string>
+    <string name="mesh_extender_description">Place the Extender half-way between WiFi router and the dead zone, but the it MUST be within the wireless range of the WiFi router.</string>
     <string name="mesh_next">Next</string>
     <string name="mesh_wps_title">Press WPS button</string>
     <string name="mesh_wps_description">Tap <b>\"Start Pairing\"</b> button and then pressing <b>WPS</b> physical button of your WiFi Extender.</string>
