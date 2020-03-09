@@ -5,13 +5,13 @@
     android:layout_height="@dimen/layout_size_250dp_in_1080">
 
     <RelativeLayout
-        android:id="@+id/slide_dialog_previous_setting_name_title_relative"
+        android:id="@+id/slide_dialog_previous_settings_name_title_relative"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_size_35dp_in_1080"
         android:background="@color/color_eff0f1">
 
         <TextView
-            android:id="@+id/slide_dialog_previous_setting_name_done_text"
+            android:id="@+id/slide_dialog_previous_settings_name_done_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -19,16 +19,16 @@
             android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
             android:textColor="@color/color_0073ff"
             android:textSize="@dimen/text_size_14sp_in_1080"
-            android:text="@string/setup_previous_setting_name_dialog_done"/>
+            android:text="@string/setup_previous_settings_name_dialog_done"/>
 
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/slide_dialog_previous_setting_name_list"
+        android:id="@+id/slide_dialog_previous_settings_name_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_f5f5fb"
-        android:layout_below="@+id/slide_dialog_previous_setting_name_title_relative"
+        android:layout_below="@+id/slide_dialog_previous_settings_name_title_relative"
         android:divider="@null"
         android:listSelector="@android:color/transparent">
 

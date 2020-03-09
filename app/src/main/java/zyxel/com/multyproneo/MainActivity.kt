@@ -327,6 +327,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                 }
 
                 AppConfig.DialogAction.ACT_RESEARCH -> gotoSearchGatewayFragment()
+
+                AppConfig.DialogAction.ACT_RESTART -> {}
             }
         }
 
@@ -465,8 +467,19 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
     private fun showErrorMsgDialog(msg: String, requestCtxName: String)
     {
+        setErrorMsgDialog(msg, AppConfig.DialogAction.ACT_RESEARCH)
+    }
+
+    private fun showErrorMsgDialogCloud(msg: String, requestCtxName: String)
+    {
+        setErrorMsgDialog(msg, AppConfig.DialogAction.ACT_RESTART)
+    }
+
+    private fun setErrorMsgDialog(msg: String, act: AppConfig.DialogAction)
+    {
         runOnUiThread{
             errorMsgDlg.description = msg
+            errorMsgDlg.action = act
             if(!errorMsgDlg.isShowing)
                 errorMsgDlg.show()
         }

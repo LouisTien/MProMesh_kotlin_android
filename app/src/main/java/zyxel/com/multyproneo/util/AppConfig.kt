@@ -31,8 +31,11 @@ object AppConfig
     const val TUTK_DM_AUTHORIZATION = "ZXoycXlNTllOQVE0aVVwSkZYM0hacGhHSVd2bnpqSUliaTVDMGVxbTpUSzRLbFZiVkgyV2hPdlpQUHhYUGpEdURVeTBocXdOVEc0NnM4bk5vSzFRWVJSYXVEUmxNZGhHVTN5c1FPSG93R1pnRVN4UW8wRGdoTFpLMXEzRll3TjFQR296TFZTWFE2RTdUVEh6a2M5bmlhdWlONTA1dngxNFpsWFJja2d5OQ=="
 
     //TUTK P2P
-    const val TUTK_MAXSIZE_RECVBUF = 10240
+    const val TUTK_MAXSIZE_RECVBUF = 102400
     const val TUTK_STATUS_INIT_SEARCH_DEV = 10
+    const val TUTK_RDT_WAIT_TIMEMS = 30000
+    const val TUTK_RDT_RECV_TIMEOUT_TIMES = 30
+    const val TUTK_RECV_HEADER_LENGTH = 4
 
     //Database
     const val DATABASE_NAME = "mpromesh.db"
@@ -119,13 +122,15 @@ object AppConfig
         ACT_GOTO_SETTING,
         ACT_QRCODE_SCAN_HELP,
         ACT_QRCODE_SCAN_ERROR,
-        ACT_QRCODE_SCAN_OK
+        ACT_QRCODE_SCAN_OK,
+        ACT_RESTART
     }
 
     enum class TroubleshootingPage
     {
         PAGE_NO_INTERNET,
-        PAGE_CONNOT_CONNECT_CONTROLLER
+        PAGE_CONNOT_CONNECT_CONTROLLER,
+        PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET
     }
 
     enum class TUTKP2PMethod(val value: Int)

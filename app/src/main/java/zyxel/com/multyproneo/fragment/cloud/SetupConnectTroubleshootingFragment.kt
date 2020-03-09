@@ -15,6 +15,7 @@ class SetupConnectTroubleshootingFragment : Fragment()
 {
     private var pageMode = AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER
     private var needConnectFlowForRetry = false
+    private var mac = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -29,6 +30,7 @@ class SetupConnectTroubleshootingFragment : Fragment()
         {
             this?.getSerializable("pageMode")?.let{ pageMode = it as AppConfig.TroubleshootingPage }
             this?.getBoolean("needConnectFlowForRetry")?.let{ needConnectFlowForRetry = it }
+            this?.getString("MAC")?.let{ mac = it }
         }
 
         updateUI()
@@ -62,7 +64,7 @@ class SetupConnectTroubleshootingFragment : Fragment()
 
         when(pageMode)
         {
-            AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER ->
+            AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER, AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET ->
             {
                 setup_connect_troubleshooting_title_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_controller_title)
                 setup_connect_troubleshooting_sub_title_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_controller_sub_title)
@@ -101,6 +103,7 @@ class SetupConnectTroubleshootingFragment : Fragment()
                 when(pageMode)
                 {
                     AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
+                    AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
                 }
             }
 
@@ -118,6 +121,14 @@ class SetupConnectTroubleshootingFragment : Fragment()
                     }
 
                     AppConfig.TroubleshootingPage.PAGE_NO_INTERNET -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingInternetFragment()))
+
+                    AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET ->
+                    {
+                        val bundle = Bundle().apply{
+                            putString("MAC", mac)
+                        }
+                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupRecoonectRouterPreviousSettingsFragment().apply{ arguments = bundle }))
+                    }
                 }
             }
         }

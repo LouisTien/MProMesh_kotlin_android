@@ -9,10 +9,10 @@ data class DatabaseClientListEntity
 (
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
-    var mac: String = "",
-    var deviceMac: String = "",
-    var deviceName: String = "",
-    var reserveOne: String = "",
-    var reserveTwo: String = "",
-    var reserveThree: String = ""
+    var mac: String = "N/A",
+    var deviceMac: String = "N/A",
+    var deviceName: String = "N/A",
+    var reserveOne: String = "N/A",
+    var reserveTwo: String = "N/A",
+    var reserveThree: String = "N/A"
 )

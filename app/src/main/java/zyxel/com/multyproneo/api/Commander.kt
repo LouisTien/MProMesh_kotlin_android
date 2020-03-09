@@ -39,6 +39,7 @@ abstract class Commander
     private lateinit var paramStr: String
     private lateinit var errorInfo: HttpErrorInfo
     private var requestPageName = ""
+    private var cloudUsing = false
 
     companion object
     {
@@ -81,28 +82,37 @@ abstract class Commander
     {
         abstract fun onSuccess(responseStr: String)
 
-        open fun onFail(code: Int, msg: String, ctxName: String)
+        open fun onFail(code: Int, msg: String, ctxName: String, isCloudUsing: Boolean)
         {
             LogUtil.e("Commander","[onFail]code:$code")
             LogUtil.e("Commander","[onFail]msg:$msg")
             LogUtil.e("Commander","[onFail]ctxName:$ctxName")
 
-            stopAllRegularTask()
-            GlobalBus.publish(MainEvent.ShowErrorMsgDialog(msg, ctxName))
+            if(isCloudUsing)
+                GlobalBus.publish(MainEvent.ShowErrorMsgDialogCloud(msg, ctxName))
+            else
+            {
+                stopAllRegularTask()
+                GlobalBus.publish(MainEvent.ShowErrorMsgDialog(msg, ctxName))
+            }
         }
 
-        open fun onConnectFail(msg: String, ctxName: String)
+        open fun onConnectFail(msg: String, ctxName: String, isCloudUsing: Boolean)
         {
             LogUtil.e("Commander","[onConnectFail]msg:$msg")
             LogUtil.e("Commander","[onConnectFail]ctxName:$ctxName")
 
-            stopAllRegularTask()
-            GlobalBus.publish(MainEvent.ShowErrorMsgDialog(
-                    if( (msg.contains("failed to connect to")) or (msg.contains("Failed to connect to")) )
-                        "Server is disconnect."
-                    else
-                        msg
-                    , ctxName))
+            var specialMsg = msg
+            if( (msg.contains("failed to connect to")) or (msg.contains("Failed to connect to")) )
+                specialMsg = "Server is disconnect."
+
+            if(isCloudUsing)
+                GlobalBus.publish(MainEvent.ShowErrorMsgDialogCloud(specialMsg, ctxName))
+            else
+            {
+                stopAllRegularTask()
+                GlobalBus.publish(MainEvent.ShowErrorMsgDialog(specialMsg, ctxName))
+            }
         }
 
         private fun stopAllRegularTask()
@@ -170,6 +180,12 @@ abstract class Commander
         return this
     }
 
+    fun setIsUsingInCloudFlow(value: Boolean): Commander
+    {
+        cloudUsing = value
+        return this
+    }
+
     fun setResponseListener(listener: ResponseListener): Commander
     {
         responseListener = listener
@@ -187,7 +203,7 @@ abstract class Commander
             {
                 LogUtil.e(TAG,"[onFailure]")
                 GlobalBus.publish(MainEvent.HideLoading())
-                responseListener.onConnectFail("${e.message}", getRequestPageName())
+                responseListener.onConnectFail("${e.message}", getRequestPageName(), cloudUsing)
             }
 
             override fun onResponse(call: Call, response: Response)
@@ -242,7 +258,7 @@ abstract class Commander
                         else
                         {
                             GlobalBus.publish(MainEvent.HideLoading())
-                            responseListener.onFail(responseCode, result, getRequestPageName())
+                            responseListener.onFail(responseCode, result, getRequestPageName(), cloudUsing)
                         }
                     }
                 }
@@ -250,7 +266,7 @@ abstract class Commander
                 {
                     GlobalBus.publish(MainEvent.HideLoading())
                     errorInfo = Gson().fromJson(responseStr, HttpErrorInfo::class.javaObjectType)
-                    responseListener.onFail(responseCode, errorInfo.oper_status, getRequestPageName())
+                    responseListener.onFail(responseCode, errorInfo.oper_status, getRequestPageName(), cloudUsing)
                 }
             }
         })

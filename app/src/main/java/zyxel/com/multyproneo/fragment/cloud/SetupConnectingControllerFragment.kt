@@ -204,7 +204,7 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
                             }
                         }
 
-                        override fun onFail(code: Int, msg: String, ctxName: String)
+                        override fun onFail(code: Int, msg: String, ctxName: String, isCloudUsing: Boolean)
                         {
                             LogUtil.e(TAG, "[onFail] code = $code")
                             LogUtil.e(TAG, "[onFail] msg = $msg")

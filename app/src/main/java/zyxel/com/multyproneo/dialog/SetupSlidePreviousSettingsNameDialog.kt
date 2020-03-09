@@ -11,7 +11,7 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.SlideDialogPreviousSettingNameItemAdapter
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 
-class SlidePreviousSettingNameDialog(context: Context, private var contentList: List<DatabaseSiteInfoEntity>, private var focusIndex: Int) : Dialog(context, R.style.slideDialogStyle)
+class SetupSlidePreviousSettingsNameDialog(context: Context, private var contentList: List<DatabaseSiteInfoEntity>, private var focusIndex: Int) : Dialog(context, R.style.slideDialogStyle)
 {
     private lateinit var adapter: SlideDialogPreviousSettingNameItemAdapter
 
@@ -27,9 +27,9 @@ class SlidePreviousSettingNameDialog(context: Context, private var contentList: 
 
         adapter = SlideDialogPreviousSettingNameItemAdapter(contentList, focusIndex)
 
-        slide_dialog_previous_setting_name_list.adapter = adapter
+        slide_dialog_previous_settings_name_list.adapter = adapter
 
-        slide_dialog_previous_setting_name_done_text.onClick{
+        slide_dialog_previous_settings_name_done_text.onClick{
             dismiss()
         }
     }

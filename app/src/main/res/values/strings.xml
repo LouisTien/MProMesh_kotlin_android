@@ -8,67 +8,84 @@
     <string name="welcome_guest_wifi_access_description">Give your house guests basic Internet access to common web, email or online games.</string>
     <string name="welcome_auto_configuration_description">Allow the device to automatically update the wireless settings on the Zyxel APs or wireless repeaters in its network.</string>
 
-    <string name="setup_controller_ready_title">Get Your Mesh Controller Ready</string>
-    <string name="setup_controller_ready_description">Connect the Controller to your modem and power it on.</string>
-    <string name="setup_controller_ready_help_connect_description">Connect the Controller to your modem with the Ethernet cable.</string>
-    <string name="setup_controller_ready_help_power_description">Plug the Controller into power.</string>
+    <string name="setup_controller_ready_title">Get Your WiFi Router Ready</string>
+    <string name="setup_controller_ready_description">Connect the WiFi Router to your modem and power it on.</string>
+    <string name="setup_controller_ready_help_connect_description">Connect the WiFi Router to your modem with the Ethernet cable.</string>
+    <string name="setup_controller_ready_help_power_description">Plug the WiFI Router into power.</string>
     <string name="setup_controller_ready_help_led_description">Wait till the WiFi LED turns on.</string>
 
-    <string name="setup_connect_controller_title">Connect to Mesh Controller</string>
-    <string name="setup_connect_controller_description">Connect to the WiFi of the Controller that you want to set up.</string>
-    <string name="setup_connect_controller_help">If the Controller has a QR code on its label, you can scan the QR code to get its WiFi and admin\'s credentials.</string>
-    <string name="setup_connect_controller_setting_dialog">Connect to the WiFi network of your Controller in the WiFi setup page of your modile device.</string>
+    <string name="setup_connect_controller_title">Connect to WiFi Router</string>
+    <string name="setup_connect_controller_description">Connect to the WiFi of the WiFi Router that you want to set up.</string>
+    <string name="setup_connect_controller_help">If the WiFi Router has a QR code on its label, you can scan the QR code to get its WiFi and admin\'s credentials.</string>
+    <string name="setup_connect_controller_setting_dialog">Connect to the WiFi network of your WiFi Router in the WiFi setup page of your modile device.</string>
     <string name="setup_connect_controller_setting_dialog_confirm">Settings</string>
     <string name="setup_connect_controller_setting_dialog_cancel">Cancel</string>
     <string name="setup_connect_controller_format_error_dialog_title">Problem with the QR Code</string>
-    <string name="setup_connect_controller_format_error_dialog_description">Scan the QR code on the label of your Controller. If it has no QR code, please enter WiFi name and password manually.</string>
+    <string name="setup_connect_controller_format_error_dialog_description">Scan the QR code on the label of your WiFi Router. If it has no QR code, please enter WiFi name and password manually.</string>
     <string name="setup_connect_controller_format_error_dialog_confirm">Got it</string>
     <string name="setup_connect_controller_scan_ok_dialog_description">Is「MPro Mesh」want to join</string>
     <string name="setup_connect_controller_scan_ok_dialog_confirm">Join</string>
 
-    <string name="setup_connecting_controller_title">Connecting to Mesh Controller</string>
+    <string name="setup_connecting_controller_title">Connecting to WiFi Router</string>
     <string name="setup_connecting_controller_description">Please wait.\nThis may take a few seconds.</string>
 
     <string name="setup_connecting_internet_title">Connecting to the Internet</string>
     <string name="setup_connecting_internet_success_title">Successfully Connect to the Internet!</string>
     <string name="setup_connecting_internet_description">Please wait.\nThis may take a few seconds.</string>
 
-    <string name="setup_login_title">Log In Controller</string>
+    <string name="setup_login_title">Log In WiFi Router</string>
     <string name="setup_login_description">Enter username and password to continue.</string>
     <string name="setup_login_username">Username</string>
     <string name="setup_login_password">Password</string>
-    <string name="setup_login_help_title">Find the default admin username and password on the label of your Controller.</string>
+    <string name="setup_login_help_title">Find the default admin username and password on the label of your WiFi Router.</string>
     <string name="setup_login_help_description">If the default admin credentials were changed, enter new username and password to log in.</string>
 
     <string name="setup_change_admin_pwd_title">Change Admin Password</string>
-    <string name="setup_change_admin_pwd_description">To avoid any unauthorized user accessing your password on the label of your Controller, we recommend to change it.</string>
+    <string name="setup_change_admin_pwd_description">To avoid any unauthorized user accessing your password on the label of your WiFi Router, we recommend to change it.</string>
     <string name="setup_change_admin_pwd_new_password">New Password</string>
     <string name="setup_change_admin_pwd_confirm_new_password">Confirm New Password</string>
     <string name="setup_change_admin_pwd_not_match_error_msg">Password and confirm password does not match</string>
 
-    <string name="setup_name_controller_title">Name Your Controller</string>
-    <string name="setup_name_controller_description">Name your Controller after its location.</string>
+    <string name="setup_name_controller_title">Name Your WiFi Router</string>
+    <string name="setup_name_controller_description">Name your WiFi Router after its location.</string>
     <string name="setup_name_controller_location">Location</string>
 
-    <string name="setup_previous_setting_title">Apply Previous Settings</string>
-    <string name="setup_previous_setting_description">Settings of previous Controller are found. You can choose to apply them to this Controller.</string>
-    <string name="setup_previous_setting_sub_title">Apply settings of</string>
-    <string name="setup_previous_setting_check_description">Save WiFi setting</string>
-    <string name="setup_previous_setting_details"><u>Details</u></string>
-    <string name="setup_previous_setting_name_dialog_done">Done</string>
+    <string name="setup_previous_settings_title">Apply Previous Settings</string>
+    <string name="setup_previous_settings_description">Settings of previous WiFi Router are found. You can choose to apply them to this WiFi Router.</string>
+    <string name="setup_previous_settings_sub_title">Apply WiFi settings of</string>
+    <string name="setup_previous_settings_check_description">Save WiFi setting</string>
+    <string name="setup_previous_settings_details"><u>Details</u></string>
+    <string name="setup_previous_settings_name_dialog_done">Done</string>
+    <string name="setup_previous_settings_details_title">WiFi Settings of</string>
+    <string name="setup_previous_settings_details_wifi_title">WIFI NAME &amp; PASSWORD</string>
+    <string name="setup_previous_settings_details_network_name_title">Network name</string>
+    <string name="setup_previous_settings_details_password_title">Password</string>
+    <string name="setup_previous_settings_details_devices_title">LOCAL DEVICE NAMES</string>
 
-    <string name="setup_connect_troubleshooting_cannot_connect_controller_title">Cannot Connect to the Controller</string>
+    <string name="setup_apply_previous_settings_title">Applying Previous Settings</string>
+    <string name="setup_apply_previous_settings_description">Please wait.\nThis may take a few seconds.</string>
+
+    <string name="setup_apply_reconnect_previous_settings_title">Re-Connecting to WiFi Router Using New WiFi Name and Password</string>
+    <string name="setup_apply_reconnect_previous_settings_description">Please wait.\nThis may take a few seconds.</string>
+
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_title">Cannot Connect to the WiFi Router</string>
     <string name="setup_connect_troubleshooting_cannot_connect_controller_sub_title">Check the followings.</string>
-    <string name="setup_connect_troubleshooting_cannot_connect_controller_description1">Make sure the Controller is powered on and its WiFi LED already turns on.</string>
-    <string name="setup_connect_troubleshooting_cannot_connect_controller_description2">Make sure you have connected to the WiFi network of the Controller.</string>
-    <string name="setup_connect_troubleshooting_cannot_connect_controller_description3">If the default WiFi name and password were changed. Enter new name and password or reset the Controller to connect to the WiFi network using default credentials.</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description1">Make sure the WiFi Router is powered on and its WiFi LED already turns on.</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description2">Make sure you have connected to the WiFi network of the WiFi Router.</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description3">If the default WiFi name and password were changed. Enter new name and password or reset the WiFi Router to connect to the WiFi network using default credentials.</string>
     <string name="setup_connect_troubleshooting_no_internet_title">No Internet Connection</string>
     <string name="setup_connect_troubleshooting_no_internet_sub_title">Check the following troubleshooting guides. If you still have problems, please contact your Internet service provider.</string>
     <string name="setup_connect_troubleshooting_no_internet_description1">Check the network cables are well connected.</string>
-    <string name="setup_connect_troubleshooting_no_internet_description2">Check the modem your Controller connected to is not turned off.</string>
+    <string name="setup_connect_troubleshooting_no_internet_description2">Check the modem your WiFi Router connected to is not turned off.</string>
 
     <string name="cloud_login_no_internet">Unable to connect to the server. Please check your network access.</string>
     <string name="cloud_login_no_ssl_error">SSL error occurred. Would you like to proceed?</string>
+
+    <string name="connect_to_cloud_title">Connect to the Cloud</string>
+    <string name="connect_to_cloud_description">A Cloud account allows you to manage your WiFi Router anywhere.</string>
+
+    <string name="finalizing_network_title">Finalizing Your Home Network</string>
+    <string name="finalizing_network_description">Please wait.\nThis may take a few seconds.</string>
 
     <string name="button_text_start"><u>START</u></string>
     <string name="button_text_home">Home</string>

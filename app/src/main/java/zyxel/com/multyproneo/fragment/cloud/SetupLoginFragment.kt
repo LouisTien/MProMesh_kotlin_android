@@ -156,7 +156,7 @@ class SetupLoginFragment : Fragment()
                                 }
                             }
 
-                            override fun onFail(code: Int, msg: String, ctxName: String)
+                            override fun onFail(code: Int, msg: String, ctxName: String, isCloudUsing: Boolean)
                             {
                                 LogUtil.e(TAG, "[onFail] code = $code")
                                 LogUtil.e(TAG, "[onFail] msg = $msg")
@@ -243,6 +243,8 @@ class SetupLoginFragment : Fragment()
 
     private fun initLoginPasswordEdit()
     {
+        //setup_login_password_edit.requestFocus()
+
         setup_login_password_edit.textChangedListener{
             onTextChanged{
                 str: CharSequence?, _: Int, _: Int, _: Int ->

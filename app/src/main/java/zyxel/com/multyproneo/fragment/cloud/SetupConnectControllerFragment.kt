@@ -57,25 +57,28 @@ class SetupConnectControllerFragment : Fragment()
                     doVibrate()
 
                     LogUtil.d(TAG,"QRCode result:$result")
-                    //WIFI:T:WPA;S:EX5510-B0;P:12345678;LoginA:admin;LoginP:12345678;
+                    //WIFI:T:WPA;S:Zyxel51705;P:LG4DFA7MEQ;LoginA:admin;LoginP:33WTN5Vvwy;UID:1234567890ABCDFGHIJK;;
                     val parts = result!!.text.split(":", ";")
-                    if( parts.size == 12
+                    if( parts.size == 14
                         && parts[0] == "WIFI"
                         && parts[1] == "T"
                         && parts[3] == "S"
                         && parts[5] == "P"
                         && parts[7] == "LoginA"
-                        && parts[9] == "LoginP" )
+                        && parts[9] == "LoginP"
+                        && parts[11] == "UID")
                     {
                         GlobalData.scanSSID = parts[4]
                         GlobalData.scanPWD = parts[6]
                         GlobalData.scanAccount = parts[8]
                         GlobalData.scanAccountPWD = parts[10]
+                        GlobalData.scanUID = parts[12]
 
                         LogUtil.d(TAG,"QRCode SSID:${GlobalData.scanSSID}")
                         LogUtil.d(TAG,"QRCode PWD:${GlobalData.scanPWD}")
                         LogUtil.d(TAG,"QRCode Account:${GlobalData.scanAccount}")
                         LogUtil.d(TAG,"QRCode AccountPWD:${GlobalData.scanAccountPWD}")
+                        LogUtil.d(TAG,"QRCode UID:${GlobalData.scanUID}")
 
                         MessageDialog(
                                 activity!!,
@@ -160,9 +163,7 @@ class SetupConnectControllerFragment : Fragment()
         {
             setup_connect_controller_back_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupControllerReadyFragment()))
 
-            setup_connect_controller_qrcode_image -> {}
-
-            setup_connect_controller_edit_image ->
+            setup_connect_controller_manual_image ->
             {
                 availableScan = false
 
@@ -196,8 +197,7 @@ class SetupConnectControllerFragment : Fragment()
     {
         setup_connect_controller_back_image.setOnClickListener(clickListener)
         setup_connect_controller_help_image.setOnClickListener(clickListener)
-        setup_connect_controller_qrcode_image.setOnClickListener(clickListener)
-        setup_connect_controller_edit_image.setOnClickListener(clickListener)
+        setup_connect_controller_manual_image.setOnClickListener(clickListener)
         setup_connect_controller_next_image.setOnClickListener(clickListener)
     }
 

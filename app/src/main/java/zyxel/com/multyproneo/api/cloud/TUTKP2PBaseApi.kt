@@ -152,7 +152,7 @@ object TUTKP2PBaseApi
 
         var nWrite = -1
 
-        nWrite = RDTAPIs.RDT_Write(mRDT_ID, sendBuf, (4 + cmdLength))
+        nWrite = RDTAPIs.RDT_Write(mRDT_ID, sendBuf, (AppConfig.TUTK_RECV_HEADER_LENGTH + cmdLength))
 
         LogUtil.d(TAG, "RDT_Write command:$command")
 
@@ -169,16 +169,104 @@ object TUTKP2PBaseApi
 
     fun receiveData()
     {
+        var headerBuf = ByteArray(AppConfig.TUTK_RECV_HEADER_LENGTH)
+        var cmdBuf = ByteArray(AppConfig.TUTK_MAXSIZE_RECVBUF)
+        var count = 0
+        var nRead = -1
+        var errorCode = 0
+        var payloadLength = 0
+        var resultStr = ""
+
+        nRead = RDTAPIs.RDT_Read(mRDT_ID, headerBuf, AppConfig.TUTK_RECV_HEADER_LENGTH, AppConfig.TUTK_RDT_WAIT_TIMEMS)
+        LogUtil.d(TAG, "RDT_Read header, nRead:$nRead")
+
+        if(nRead < 0)
+        {
+            LogUtil.e(TAG, "RDT_Read header error:$nRead")
+            destroyRDT_ID()
+            return
+        }
+
+        /*
+        c code header structure which FW received
+
+        struct cloud_resp_header {
+            uint8_t error;
+            int16_t length;
+        };
+
+        size : 4bytes (because of OS alignment)
+        */
+        errorCode = headerBuf[0].toInt()
+        payloadLength = (headerBuf[3].toInt() and 0xFF) + (headerBuf[2].toInt() and 0xFF shl 8)
+        LogUtil.e(TAG, "Receive header errorCode:$errorCode")
+        LogUtil.e(TAG, "Receive header payloadLength:$payloadLength")
+
+        var remainLength = payloadLength
+        while(count < AppConfig.TUTK_RDT_RECV_TIMEOUT_TIMES)
+        {
+            for(i in 0 until cmdBuf.size)
+            {
+                cmdBuf[i] = 0
+            }
+
+            nRead = RDTAPIs.RDT_Read(mRDT_ID, cmdBuf, remainLength, AppConfig.TUTK_RDT_WAIT_TIMEMS)
+            LogUtil.d(TAG, "RDT_Read, nRead:$nRead")
+
+            if(nRead < 0)
+            {
+                LogUtil.e(TAG, "RDT_Read error:$nRead")
+                destroyRDT_ID()
+                return
+            }
+
+            remainLength -= nRead
+
+            var tmpBuf = ByteArray(nRead)
+            for(i in 0 until nRead)
+            {
+                tmpBuf[i] = cmdBuf[i]
+            }
+
+            var tmpStr = String(tmpBuf, StandardCharsets.UTF_8)
+            //LogUtil.d(TAG, "RDT_Read receive data:$tmpStr")
+
+            resultStr += tmpStr
+
+            if(remainLength == 0 || remainLength < 0)
+            {
+                LogUtil.d(TAG, "receiveData End")
+
+                responseCallback.onSuccess(resultStr)
+
+                if(resultStr.length > 4000)
+                {
+                    for(i in resultStr.indices step 4000)
+                    {
+                        if(i + 4000 < resultStr.length)
+                            LogUtil.d(TAG, "RDT_Read, result: (count) = ${resultStr.substring(i, i + 4000)}")
+                        else
+                            LogUtil.d(TAG, "RDT_Read, result: (end) = ${resultStr.substring(i, resultStr.length)}")
+                    }
+                }
+                else
+                    LogUtil.d(TAG, "RDT_Read, result: $resultStr")
+
+                return
+            }
+
+            count++
+        }
+    }
+
+    fun receiveData2()
+    {
         var recvBuf = ByteArray(AppConfig.TUTK_MAXSIZE_RECVBUF)
         var nRead = -1
         var error = 0
         var length = 0
         lateinit var result: String
         lateinit var cmdBuf: ByteArray
-
-
-        for(i in 0 until recvBuf.size)
-            recvBuf[i] = 0
 
         nRead = RDTAPIs.RDT_Read(mRDT_ID, recvBuf, AppConfig.TUTK_MAXSIZE_RECVBUF, 1000)
         LogUtil.d(TAG, "RDT_Read, nRead:$nRead")

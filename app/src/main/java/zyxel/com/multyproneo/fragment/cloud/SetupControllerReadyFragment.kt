@@ -38,8 +38,8 @@ class SetupControllerReadyFragment : Fragment()
         setClickListener()
         db = DatabaseCloudUtil.getInstance(context!!)!!
 
-        if(TUTKP2PBaseApi.initIOTCRDT() >= 0)
-            TUTKP2PBaseApi.startSession("EZPAA13CVHRC9HPGY1WJ")
+        //if(TUTKP2PBaseApi.initIOTCRDT() >= 0)
+            //TUTKP2PBaseApi.startSession("EZPAA13CVHRC9HPGY1WJ")
     }
 
     override fun onResume()
@@ -66,11 +66,11 @@ class SetupControllerReadyFragment : Fragment()
                 helpDlg = SetupControllerReadyHelpDialog(activity!!)
                 helpDlg.show()
                 //dbTest()
-                //p2pTest()
+                //p2pTest2()
             }
 
             setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
-            //setup_controller_ready_next_image -> p2pTest2()
+            //setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupApplyPreviousSettingsFragment()))
         }
     }
 
@@ -116,7 +116,7 @@ class SetupControllerReadyFragment : Fragment()
 
         var test4 = DatabaseSiteInfoEntity(
                 4,
-                "ccc",
+                "ddd",
                 "D",
                 "xxx/xx3",
                 "WC",
@@ -126,7 +126,7 @@ class SetupControllerReadyFragment : Fragment()
 
         var test5 = DatabaseSiteInfoEntity(
                 5,
-                "ccc",
+                "eee",
                 "E",
                 "xxx/xx3",
                 "WC",
@@ -136,7 +136,7 @@ class SetupControllerReadyFragment : Fragment()
 
         var test6 = DatabaseSiteInfoEntity(
                 6,
-                "ccc",
+                "fff",
                 "F",
                 "xxx/xx3",
                 "WC",
@@ -166,6 +166,34 @@ class SetupControllerReadyFragment : Fragment()
                 "NG"
         )
 
+        var client4 = DatabaseClientListEntity(
+                4,
+                "ccc",
+                "hhh",
+                "NH"
+        )
+
+        var client5 = DatabaseClientListEntity(
+                5,
+                "ccc",
+                "iii",
+                "NI"
+        )
+
+        var client6 = DatabaseClientListEntity(
+                6,
+                "ccc",
+                "jjj",
+                "NJ"
+        )
+
+        var client7 = DatabaseClientListEntity(
+                7,
+                "ccc",
+                "kkk",
+                "NK"
+        )
+
         doAsync{
             db.getSiteInfoDao().insert(test1)
             db.getSiteInfoDao().insert(test2)
@@ -176,6 +204,10 @@ class SetupControllerReadyFragment : Fragment()
             db.getClientListDao().insert(client1)
             db.getClientListDao().insert(client2)
             db.getClientListDao().insert(client3)
+            db.getClientListDao().insert(client4)
+            db.getClientListDao().insert(client5)
+            db.getClientListDao().insert(client6)
+            db.getClientListDao().insert(client7)
 
             var array: List<DatabaseSiteInfoEntity> = ArrayList()
             array = db.getSiteInfoDao().getAll()
@@ -192,7 +224,7 @@ class SetupControllerReadyFragment : Fragment()
             }
 
             var array2: List<DatabaseClientListEntity> = ArrayList()
-            array2 = db.getClientListDao().queryByMac("aaa")
+            array2 = db.getClientListDao().queryByMac("ccc")
             for(item in array2)
             {
                 LogUtil.d(TAG,"[LOUIS][2]ID:${item.id}")
@@ -230,10 +262,24 @@ class SetupControllerReadyFragment : Fragment()
                     {
                         LogUtil.d(TAG,"responseStr:$responseStr")
 
-                        var devicesInfo = Gson().fromJson(responseStr, DevicesInfo::class.javaObjectType)
-                        LogUtil.d(TAG,"devicesInfo:$devicesInfo")
+                        //var devicesInfo = Gson().fromJson(responseStr, DevicesInfo::class.javaObjectType)
+                        //LogUtil.d(TAG,"devicesInfo:$devicesInfo")
+                    }
+                }).execute()
+    }
 
-                        LogUtil.d(TAG,"size:${devicesInfo.Object.size}")
+    fun p2pTest3()
+    {
+        P2PGatewayApi.GetSystemInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: TUTKP2PResponseCallback()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        LogUtil.d(TAG,"responseStr:$responseStr")
+
+                        //var devicesInfo = Gson().fromJson(responseStr, DevicesInfo::class.javaObjectType)
+                        //LogUtil.d(TAG,"devicesInfo:$devicesInfo")
                     }
                 }).execute()
     }

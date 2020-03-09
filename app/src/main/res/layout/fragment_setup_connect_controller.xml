@@ -51,64 +51,55 @@
 
     </RelativeLayout>
 
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/setup_connect_controller_qrcodeView"
+        android:layout_below="@+id/setup_connect_controller_literal_content_relative"
+        android:layout_above="@+id/setup_connect_controller_icon_content_linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
+        app:zxing_scanner_layout="@layout/layout_custom_qrcode" />
+
     <LinearLayout
         android:id="@+id/setup_connect_controller_icon_content_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/layout_size_30dp_in_1080"
-        android:layout_below="@+id/setup_connect_controller_literal_content_relative"
+        android:layout_margin="@dimen/layout_size_30dp_in_1080"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <RelativeLayout
-            android:id="@+id/setup_connect_controller_qrcode_relative"
+            android:id="@+id/setup_connect_controller_manual_relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/setup_connect_controller_qrcode_image"
+                android:id="@+id/setup_connect_controller_manual_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/icon_qrcode_on"/>
+                android:src="@drawable/btn_type_code"/>
 
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/setup_connect_controller_edit_relative"
+            android:id="@+id/setup_connect_controller_next_relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/setup_connect_controller_edit_image"
+                android:id="@+id/setup_connect_controller_next_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/icon_edit_off"/>
+                android:src="@drawable/btn_connected_next"/>
 
         </RelativeLayout>
 
     </LinearLayout>
-
-    <com.journeyapps.barcodescanner.DecoratedBarcodeView
-        android:id="@+id/setup_connect_controller_qrcodeView"
-        android:layout_below="@+id/setup_connect_controller_icon_content_linear"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/layout_size_25dp_in_1080"
-        android:layout_above="@+id/setup_connect_controller_next_image"
-        app:zxing_scanner_layout="@layout/layout_custom_qrcode" />
-
-    <ImageView
-        android:id="@+id/setup_connect_controller_next_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/layout_size_30dp_in_1080"
-        android:src="@drawable/btn_alreadyconnected"/>
 
 </RelativeLayout>

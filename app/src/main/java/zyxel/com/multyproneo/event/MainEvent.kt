@@ -26,5 +26,6 @@ class MainEvent
     class EnterAccountPage()
     class EnterSearchGatewayPage()
     class ShowErrorMsgDialog(var msg: String, var requestCtxName: String)
+    class ShowErrorMsgDialogCloud(var msg: String, var requestCtxName: String)
     class ShowToast(var msg: String, var requestCtxName: String)
 }

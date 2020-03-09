@@ -12,6 +12,12 @@ interface DatabaseSiteInfoDao
     @Query("select * from " + AppConfig.TABLE_SITE_INFO_NAME + " where id LIKE :id LIMIT 1")
     fun queryById(id: Long): DatabaseSiteInfoEntity
 
+    @Query("select * from " + AppConfig.TABLE_SITE_INFO_NAME + " where mac LIKE :mac LIMIT 1")
+    fun queryByMac(mac: String): DatabaseSiteInfoEntity
+
+    @Query("select * from " + AppConfig.TABLE_SITE_INFO_NAME + " where backup LIKE :value")
+    fun queryByBackup(value: Boolean): List<DatabaseSiteInfoEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(item: DatabaseSiteInfoEntity): Long
 
