@@ -5,15 +5,22 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_setup_connecting_internet.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.uiThread
+import org.json.JSONException
+import org.json.JSONObject
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.Commander
+import zyxel.com.multyproneo.api.GatewayApi
+import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.LogUtil
+import zyxel.com.multyproneo.model.GatewayInfo
+import zyxel.com.multyproneo.model.UIDInfo
+import zyxel.com.multyproneo.util.*
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
@@ -21,6 +28,12 @@ import java.net.URL
 class SetupConnectingInternetFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
+    private lateinit var db: DatabaseCloudUtil
+    private lateinit var siteInfoList: List<DatabaseSiteInfoEntity>
+    private lateinit var uidInfo: UIDInfo
+    private lateinit var gatewayInfo: GatewayInfo
+    private var hasPreviousSettings = false
+    private var hasUID = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -31,8 +44,11 @@ class SetupConnectingInternetFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
 
-        setup_connecting_internet_next_button.onClick{
+        db = DatabaseCloudUtil.getInstance(context!!)!!
 
+        setup_connecting_internet_next_button.onClick{
+            GlobalBus.publish(MainEvent.ShowLoading())
+            startGetUIDTask()
         }
 
         startInternetCheckTask()
@@ -41,6 +57,7 @@ class SetupConnectingInternetFragment : Fragment()
     override fun onResume()
     {
         super.onResume()
+        gatewayInfo = GlobalData.getCurrentGatewayInfo()
         GlobalBus.publish(MainEvent.HideBottomToolbar())
     }
 
@@ -56,6 +73,8 @@ class SetupConnectingInternetFragment : Fragment()
 
     private fun startInternetCheckTask()
     {
+        LogUtil.d(TAG,"startInternetCheckTask()")
+
         doAsync{
             var result = false
             try
@@ -105,6 +124,68 @@ class SetupConnectingInternetFragment : Fragment()
                         GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))
                     }
                 }
+            }
+        }
+    }
+
+    private fun startGetUIDTask()
+    {
+        LogUtil.d(TAG,"startGetUIDTask()")
+        GatewayApi.GetUID()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            uidInfo = Gson().fromJson(responseStr, UIDInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"getUID:$uidInfo")
+
+                            if(uidInfo.Object.TUTK_UID.isNotEmpty()
+                                && uidInfo.Object.TUTK_UID != "N/A"
+                                && uidInfo.Object.TUTK_UID != ""
+                                && uidInfo.Object.TUTK_UID != " ")
+                            {
+                                hasUID = true
+                                GlobalData.currentUID = uidInfo.Object.TUTK_UID
+                            }
+
+                            startGetPreviousSettingsTask()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun startGetPreviousSettingsTask()
+    {
+        LogUtil.d(TAG,"startGetPreviousSettingsTask()")
+
+        doAsync{
+            siteInfoList = db.getSiteInfoDao().queryByBackup(true)
+            hasPreviousSettings = siteInfoList.isNotEmpty()
+
+            uiThread{
+                if(hasUID)
+                {
+                    if(hasPreviousSettings)
+                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupApplyPreviousSettingsFragment()))
+                    else
+                        GlobalBus.publish(MainEvent.SwitchToFrag(ConnectToCloudFragment()))
+                }
+                else
+                {
+                    DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)
+                    GlobalBus.publish(MainEvent.EnterHomePage())
+                }
+
+                GlobalBus.publish(MainEvent.HideLoading())
             }
         }
     }

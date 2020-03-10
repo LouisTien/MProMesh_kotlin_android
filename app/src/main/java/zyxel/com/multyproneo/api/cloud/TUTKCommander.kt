@@ -41,7 +41,7 @@ abstract class TUTKCommander
             LogUtil.e("Commander","[onFail]msg:$msg")
             LogUtil.e("Commander","[onFail]ctxName:$ctxName")
 
-            GlobalBus.publish(MainEvent.ShowErrorMsgDialog(msg, ctxName))
+            GlobalBus.publish(MainEvent.ShowErrorMsgDialogCloud(msg, ctxName))
         }
 
         open fun onConnectFail(msg: String, ctxName: String)
@@ -49,7 +49,7 @@ abstract class TUTKCommander
             LogUtil.e("Commander","[onConnectFail]msg:$msg")
             LogUtil.e("Commander","[onConnectFail]ctxName:$ctxName")
 
-            GlobalBus.publish(MainEvent.ShowErrorMsgDialog(msg, ctxName))
+            GlobalBus.publish(MainEvent.ShowErrorMsgDialogCloud(msg, ctxName))
         }
     }
 

@@ -255,6 +255,11 @@ abstract class Commander
 
                             responseListener.onSuccess(responseStr)
                         }
+                        else if(call.request().url().toString().contains("Device.X_ZYXEL_TUTK_CloudAgent."))
+                        {
+                            responseStr = "{}"
+                            responseListener.onSuccess(responseStr)
+                        }
                         else
                         {
                             GlobalBus.publish(MainEvent.HideLoading())

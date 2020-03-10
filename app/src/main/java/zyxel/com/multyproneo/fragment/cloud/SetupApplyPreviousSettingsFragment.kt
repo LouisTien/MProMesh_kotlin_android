@@ -87,7 +87,7 @@ class SetupApplyPreviousSettingsFragment : Fragment()
                 detailsDialog.show()
             }
 
-            setup_previous_settings_skip_image -> {}
+            setup_previous_settings_skip_image -> { GlobalBus.publish(MainEvent.SwitchToFrag(ConnectToCloudFragment())) }
 
             setup_previous_settings_apply_image -> {
                 val bundle = Bundle().apply{

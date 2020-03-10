@@ -132,7 +132,7 @@ class CloudLoginFragment : Fragment()
                                     LogUtil.d(TAG, "refreshToken:$refreshToken")
                                     LogUtil.d(TAG, "accessToken:$accessToken")
 
-                                    deleteDevice()
+                                    GlobalBus.publish(MainEvent.SwitchToFrag(SetupFinalizingYourHomeNetwork()))
                                 }
                                 catch(e: JSONException)
                                 {

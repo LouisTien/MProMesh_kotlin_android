@@ -151,4 +151,16 @@ object GatewayApi
                     .build()
         }
     }
+
+    class GetUID : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val getUIDURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_TUTK_CloudAgent."
+            return Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(getUIDURL)
+                    .build()
+        }
+    }
 }

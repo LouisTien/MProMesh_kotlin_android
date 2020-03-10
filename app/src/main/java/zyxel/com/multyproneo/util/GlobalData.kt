@@ -1,6 +1,7 @@
 package zyxel.com.multyproneo.util
 
 import zyxel.com.multyproneo.model.*
+import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
 
 /**
  * Created by LouisTien on 2019/5/30.
@@ -29,6 +30,8 @@ object GlobalData
 
     //TUTK
     var tokenType = "Bearer"
+    var currentUID = ""
+    var cloudGatewayListInfo = TUTKAllDeviceInfo()
 
     fun getCurrentGatewayInfo(): GatewayInfo = gatewayList[currentGatewayIndex]
     fun getDeviceIP(): String = getCurrentGatewayInfo().IP
