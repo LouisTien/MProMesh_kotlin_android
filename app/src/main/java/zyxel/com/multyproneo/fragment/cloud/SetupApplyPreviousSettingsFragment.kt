@@ -54,6 +54,8 @@ class SetupApplyPreviousSettingsFragment : Fragment()
 
             if(siteInfoList.isNotEmpty())
                 currentEntity = siteInfoList[0]
+            else
+                currentEntity = DatabaseSiteInfoEntity()
 
             uiThread{
                 updateUI()

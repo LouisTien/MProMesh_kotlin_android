@@ -7,9 +7,8 @@ import zyxel.com.multyproneo.util.AppConfig
 @Entity(tableName = AppConfig.TABLE_CLIENT_LIST_NAME)
 data class DatabaseClientListEntity
 (
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
     var mac: String = "N/A",
+    @PrimaryKey
     var deviceMac: String = "N/A",
     var deviceName: String = "N/A",
     var reserveOne: String = "N/A",

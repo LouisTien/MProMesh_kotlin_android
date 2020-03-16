@@ -77,4 +77,7 @@ dependencies {
     //annotationProcessor "androidx.room:room-compiler:$room_version"
     kapt "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
     testImplementation "androidx.room:room-testing:$room_version"
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    kapt 'com.github.bumptech.glide:compiler:4.7.1'
 }

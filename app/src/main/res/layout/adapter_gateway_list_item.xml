@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/device_wap4927"/>
+        android:src="@drawable/device_wap4825"/>
 
     <TextView
         android:id="@+id/gateway_model_name_text"

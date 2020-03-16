@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/cloud_home_title_area_linear"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_size_90dp_in_1080"
+        android:orientation="vertical"
+        android:background="@drawable/actionbar_homewifi_bg">
+
+        <RelativeLayout
+            android:id="@+id/cloud_home_title_item_area_relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginRight="@dimen/layout_size_10dp_in_1080">
+
+            <ImageView
+                android:id="@+id/cloud_home_site_pic_image"
+                android:layout_width="@dimen/layout_size_50dp_in_1080"
+                android:layout_height="@dimen/layout_size_50dp_in_1080"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/layout_size_10dp_in_1080"/>
+
+            <TextView
+                android:id="@+id/cloud_home_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/color_000000"
+                android:textSize="@dimen/text_size_36sp_in_1080"
+                android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                android:text="@string/home_title"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/cloud_home_wifi_router_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+        android:layout_below="@+id/cloud_home_title_area_linear">
+
+        <ImageView
+            android:id="@+id/cloud_home_wifi_router_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+            android:src="@drawable/icon_device_has"/>
+
+        <TextView
+            android:id="@+id/cloud_home_wifi_router_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            tools:text="My House"
+            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+            android:layout_toRightOf="@+id/cloud_home_wifi_router_image"/>
+
+        <ImageView
+            android:id="@+id/cloud_home_wifi_router_detail_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+            android:src="@drawable/icon_detail"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/cloud_home_device_list_relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
+        android:layout_below="@+id/cloud_home_wifi_router_area_relative"
+        android:layout_above="@+id/cloud_home_extra_info_area_linear">
+
+        <LinearLayout
+            android:id="@+id/cloud_home_mesh_devices_area_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/cloud_home_mesh_devices_title_bar_relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/devicetype_bg">
+
+                <TextView
+                    android:id="@+id/cloud_home_mesh_devices_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+                    android:textColor="@color/color_575757"
+                    android:textSize="@dimen/text_size_16sp_in_1080"
+                    android:text="@string/home_mesh_devices"/>
+
+                <ImageView
+                    android:id="@+id/cloud_home_mesh_devices_add_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                    android:layout_marginRight="@dimen/layout_size_25dp_in_1080"
+                    android:src="@drawable/icon_add"/>
+
+            </RelativeLayout>
+
+            <com.baoyz.widget.PullRefreshLayout
+                android:id="@+id/cloud_home_mesh_device_list_swipe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                android:layout_below="@+id/cloud_home_mesh_devices_title_bar_relative"
+                android:layout_above="@+id/cloud_home_extra_info_area_linear">
+
+                <ListView
+                    android:id="@+id/cloud_home_mesh_device_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:listSelector="@android:color/transparent"/>
+
+            </com.baoyz.widget.PullRefreshLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/cloud_home_extra_info_area_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/cloud_home_connect_device_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/card_homedevicebg">
+
+            <TextView
+                android:id="@+id/cloud_home_connect_device_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginLeft="@dimen/layout_size_35dp_in_1080"
+                android:textColor="@color/color_000000"
+                android:textSize="@dimen/text_size_36sp_in_1080"
+                tools:text="20"/>
+
+            <TextView
+                android:id="@+id/cloud_home_connect_device_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/layout_size_35dp_in_1080"
+                android:layout_marginLeft="@dimen/layout_size_35dp_in_1080"
+                android:textColor="@color/color_575757"
+                android:textSize="@dimen/text_size_20sp_in_1080"
+                android:text="@string/home_connected_devices" />
+
+            <ImageView
+                android:id="@+id/cloud_home_connect_device_enter_image"
+                android:layout_width="@dimen/layout_size_30dp_in_1080"
+                android:layout_height="@dimen/layout_size_25dp_in_1080"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginRight="@dimen/layout_size_20dp_in_1080"/>
+
+        </FrameLayout >
+
+        <FrameLayout
+            android:id="@+id/cloud_home_guest_wifi_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:background="@drawable/card_homeguestwifibg">
+
+            <TextView
+                android:id="@+id/cloud_home_guest_wifi_status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginLeft="@dimen/layout_size_35dp_in_1080"
+                android:textColor="@color/color_000000"
+                android:textSize="@dimen/text_size_36sp_in_1080"
+                tools:text="OFF"/>
+
+            <ImageView
+                android:id="@+id/cloud_home_guest_wifi_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/layout_size_35dp_in_1080"
+                android:layout_marginBottom="@dimen/layout_size_15dp_in_1080"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/switch_off"/>
+
+            <TextView
+                android:id="@+id/cloud_home_guest_wifi_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/layout_size_35dp_in_1080"
+                android:layout_marginLeft="@dimen/layout_size_35dp_in_1080"
+                android:textColor="@color/color_575757"
+                android:textSize="@dimen/text_size_20sp_in_1080"
+                android:text="@string/home_guest_wifi" />
+
+            <ImageView
+                android:id="@+id/cloud_home_guest_wifi_enter_image"
+                android:layout_width="@dimen/layout_size_30dp_in_1080"
+                android:layout_height="@dimen/layout_size_25dp_in_1080"
+                android:layout_gravity="bottom|right"
+                android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginRight="@dimen/layout_size_20dp_in_1080"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

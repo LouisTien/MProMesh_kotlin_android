@@ -3,6 +3,7 @@ package zyxel.com.multyproneo.api
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 
 /**
@@ -16,7 +17,7 @@ object DevicesApi
     {
         override fun composeRequest(): Request
         {
-            val getDeviceInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.Hosts.Host."
+            val getDeviceInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_DEVICE_HOST_INFO}"
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(getDeviceInfoURL)
@@ -28,7 +29,7 @@ object DevicesApi
     {
         override fun composeRequest(): Request
         {
-            val getChangeIconNameInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_Change_Icon_Name."
+            val getChangeIconNameInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_CHANGE_ICON_NAME_INFO}"
             val request = Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(getChangeIconNameInfoURL)
@@ -41,7 +42,7 @@ object DevicesApi
     {
         override fun composeRequest(): Request
         {
-            val setChangeIconNameInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_Change_Icon_Name.?sessionkey=${GlobalData.sessionKey}"
+            val setChangeIconNameInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_CHANGE_ICON_NAME_INFO}?sessionkey=${GlobalData.sessionKey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -55,7 +56,7 @@ object DevicesApi
     {
         override fun composeRequest(): Request
         {
-            val setChangeIconNameInfoURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.X_ZYXEL_Change_Icon_Name.$index.?sessionkey=${GlobalData.sessionKey}"
+            val setChangeIconNameInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_CHANGE_ICON_NAME_INFO}$index.?sessionkey=${GlobalData.sessionKey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)

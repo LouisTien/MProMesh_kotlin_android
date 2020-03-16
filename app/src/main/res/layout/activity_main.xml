@@ -4,22 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/bottom_toolbar"
-            android:background="@drawable/content_bg"/>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_toolbar_area"
+        android:background="@drawable/content_bg"/>
+
+    <LinearLayout
+        android:id="@+id/bottom_toolbar_area"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_size_main_bottom_toolbar_in_1080"
+        android:background="@drawable/tab_bg"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
 
         <!-- 下選單 -->
         <LinearLayout
             android:id="@+id/bottom_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/layout_size_main_bottom_toolbar_in_1080"
-            android:orientation="horizontal"
-            android:background="@drawable/tab_bg"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true">
+            android:layout_height="match_parent">
 
             <RelativeLayout
                 android:id="@+id/home_relative"
@@ -179,5 +184,173 @@
             </RelativeLayout>
 
         </LinearLayout>
+
+        <!-- cloud下選單 -->
+        <LinearLayout
+            android:id="@+id/cloud_bottom_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:id="@+id/cloud_home_relative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/cloud_home_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/toolbar_home_btn"/>
+
+                <TextView
+                    android:id="@+id/cloud_home_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/cloud_home_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:textColor="@drawable/toolbar_btn_text"
+                    android:text="@string/button_text_home"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/cloud_devices_relative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/cloud_devices_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/toolbar_devices_btn"/>
+
+                <TextView
+                    android:id="@+id/cloud_devices_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/cloud_devices_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:textColor="@drawable/toolbar_btn_text"
+                    android:text="@string/button_text_devices"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/cloud_parental_relative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/cloud_parental_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/toolbar_parental_btn"/>
+
+                <TextView
+                    android:id="@+id/cloud_parental_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/cloud_parental_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:textColor="@drawable/toolbar_btn_text"
+                    android:text="@string/button_text_parental"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/cloud_wifi_relative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/cloud_wifi_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/toolbar_wifi_btn"/>
+
+                <TextView
+                    android:id="@+id/cloud_wifi_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/cloud_wifi_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:textColor="@drawable/toolbar_btn_text"
+                    android:text="@string/button_text_wifi"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/cloud_diagnostic_relative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/cloud_diagnostic_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/toolbar_diagnostic_btn"/>
+
+                <TextView
+                    android:id="@+id/cloud_diagnostic_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/cloud_diagnostic_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:textColor="@drawable/toolbar_btn_text"
+                    android:text="@string/button_text_diagnostic"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/cloud_settings_relative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/cloud_settings_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/toolbar_settings_btn"/>
+
+                <TextView
+                    android:id="@+id/cloud_settings_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/cloud_settings_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:textColor="@drawable/toolbar_btn_text"
+                    android:text="@string/button_text_settings"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

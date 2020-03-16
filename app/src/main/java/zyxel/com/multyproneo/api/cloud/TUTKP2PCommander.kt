@@ -6,6 +6,7 @@ import zyxel.com.multyproneo.util.AppConfig
 abstract class TUTKP2PCommander
 {
     private var requestPageName = ""
+    private var requestPayload = ""
 
     fun getRequestPageName(): String
     {
@@ -15,6 +16,17 @@ abstract class TUTKP2PCommander
     fun setRequestPageName(pageName: String): TUTKP2PCommander
     {
         requestPageName = pageName
+        return this
+    }
+
+    fun getRequestPayload(): String
+    {
+        return requestPayload
+    }
+
+    fun setRequestPayload(payload: String): TUTKP2PCommander
+    {
+        requestPayload = payload
         return this
     }
 

@@ -7,8 +7,7 @@ import zyxel.com.multyproneo.util.AppConfig
 @Entity(tableName = AppConfig.TABLE_SITE_INFO_NAME)
 data class DatabaseSiteInfoEntity
 (
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
+    @PrimaryKey
     var mac: String = "N/A",
     var siteName: String = "N/A",
     var sitePicPath: String = "N/A",

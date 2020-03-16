@@ -56,7 +56,7 @@ class GatewayItemAdapter(private val gatewayList: MutableList<GatewayInfo>) : Re
                 }
             }
 
-            itemView.gateway_model_enter_image.setOnClickListener{
+            itemView.gateway_model_frame.setOnClickListener{
                 GlobalBus.publish(GatewayListEvent.OnDeviceSelected(position))
             }
         }

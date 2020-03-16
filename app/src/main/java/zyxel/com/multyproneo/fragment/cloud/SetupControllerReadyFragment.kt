@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_setup_controller_ready.*
 import org.jetbrains.anko.doAsync
+import org.json.JSONArray
+import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.cloud.*
 import zyxel.com.multyproneo.database.room.DatabaseClientListEntity
@@ -66,11 +68,17 @@ class SetupControllerReadyFragment : Fragment()
                 helpDlg = SetupControllerReadyHelpDialog(activity!!)
                 helpDlg.show()
                 //dbTest()
-                //p2pTest2()
+                //p2pTest()
             }
 
             setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
-            //setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupApplyPreviousSettingsFragment()))
+            /*setup_controller_ready_next_image ->
+            {
+                val bundle = Bundle().apply{
+                    putBoolean("isInSetupFlow", false)
+                }
+                GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment().apply{ arguments = bundle }))
+            }*/
         }
     }
 
@@ -85,7 +93,6 @@ class SetupControllerReadyFragment : Fragment()
         //var db = DatabaseCloudUtil.getInstance(context!!)!!
 
         var test1 = DatabaseSiteInfoEntity(
-                1,
                 "aaa",
                 "A",
                 "xxx/xx1",
@@ -95,7 +102,6 @@ class SetupControllerReadyFragment : Fragment()
         )
 
         var test2 = DatabaseSiteInfoEntity(
-                2,
                 "bbb",
                 "B",
                 "xxx/xx2",
@@ -105,7 +111,6 @@ class SetupControllerReadyFragment : Fragment()
         )
 
         var test3 = DatabaseSiteInfoEntity(
-                3,
                 "ccc",
                 "C",
                 "xxx/xx3",
@@ -115,7 +120,6 @@ class SetupControllerReadyFragment : Fragment()
         )
 
         var test4 = DatabaseSiteInfoEntity(
-                4,
                 "ddd",
                 "D",
                 "xxx/xx3",
@@ -125,7 +129,6 @@ class SetupControllerReadyFragment : Fragment()
         )
 
         var test5 = DatabaseSiteInfoEntity(
-                5,
                 "eee",
                 "E",
                 "xxx/xx3",
@@ -135,10 +138,9 @@ class SetupControllerReadyFragment : Fragment()
         )
 
         var test6 = DatabaseSiteInfoEntity(
-                6,
-                "fff",
+                "bbb",
                 "F",
-                "xxx/xx3",
+                "xxx/xx333333",
                 "WC",
                 "WCP",
                 true
@@ -146,49 +148,42 @@ class SetupControllerReadyFragment : Fragment()
 
 
         var client1 = DatabaseClientListEntity(
-                1,
                 "aaa",
                 "eee",
                 "NE"
         )
 
         var client2 = DatabaseClientListEntity(
-                2,
                 "aaa",
                 "fff",
                 "NF"
         )
 
         var client3 = DatabaseClientListEntity(
-                3,
                 "ccc",
                 "ggg",
                 "NG"
         )
 
         var client4 = DatabaseClientListEntity(
-                4,
                 "ccc",
                 "hhh",
                 "NH"
         )
 
         var client5 = DatabaseClientListEntity(
-                5,
                 "ccc",
                 "iii",
                 "NI"
         )
 
         var client6 = DatabaseClientListEntity(
-                6,
                 "ccc",
                 "jjj",
                 "NJ"
         )
 
         var client7 = DatabaseClientListEntity(
-                7,
                 "ccc",
                 "kkk",
                 "NK"
@@ -211,9 +206,9 @@ class SetupControllerReadyFragment : Fragment()
 
             var array: List<DatabaseSiteInfoEntity> = ArrayList()
             array = db.getSiteInfoDao().getAll()
+            LogUtil.d(TAG,"[LOUIS]isEmpty:${array.isEmpty()}")
             for(item in array)
             {
-                LogUtil.d(TAG,"[LOUIS]ID:${item.id}")
                 LogUtil.d(TAG,"[LOUIS]mac:${item.mac}")
                 LogUtil.d(TAG,"[LOUIS]siteName:${item.siteName}")
                 LogUtil.d(TAG,"[LOUIS]sitePicPath:${item.sitePicPath}")
@@ -225,21 +220,31 @@ class SetupControllerReadyFragment : Fragment()
 
             var array2: List<DatabaseClientListEntity> = ArrayList()
             array2 = db.getClientListDao().queryByMac("ccc")
+            LogUtil.d(TAG,"[LOUIS]2isEmpty:${array2.isEmpty()}")
             for(item in array2)
             {
-                LogUtil.d(TAG,"[LOUIS][2]ID:${item.id}")
                 LogUtil.d(TAG,"[LOUIS][2]mac:${item.mac}")
                 LogUtil.d(TAG,"[LOUIS][2]deviceMac:${item.deviceMac}")
                 LogUtil.d(TAG,"[LOUIS][2]deviceName:${item.deviceName}")
                 LogUtil.d(TAG,"[LOUIS]-------------------------------------")
             }
+
+            var info = DatabaseSiteInfoEntity()
+            info = db.getSiteInfoDao().queryByMac("zzz")
+            LogUtil.d(TAG,"[LOUIS1]mac:${info.mac}")
+            LogUtil.d(TAG,"[LOUIS1]siteName:${info.siteName}")
+            LogUtil.d(TAG,"[LOUIS1]sitePicPath:${info.sitePicPath}")
+            LogUtil.d(TAG,"[LOUIS1]wifiSSID:${info.wifiSSID}")
+            LogUtil.d(TAG,"[LOUIS1]wifiPWD:${info.wifiPWD}")
+            LogUtil.d(TAG,"[LOUIS1]backup:${info.backup}")
+            LogUtil.d(TAG,"[LOUIS1]-------------------------------------")
         }
     }
 
     fun p2pTest()
     {
-        //if(TUTKP2PBaseApi.initIOTCRDT() >= 0)
-            //TUTKP2PBaseApi.startSession("EZPAA13CVHRC9HPGY1WJ")
+        if(TUTKP2PBaseApi.initIOTCRDT() >= 0)
+            TUTKP2PBaseApi.startSession("E7KA952WU5RMUH6GY1CJ")
 
         P2PGatewayApi.GetSystemInfo()
                 .setRequestPageName(TAG)

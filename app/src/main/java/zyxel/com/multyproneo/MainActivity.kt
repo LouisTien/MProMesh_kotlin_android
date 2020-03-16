@@ -27,6 +27,7 @@ import zyxel.com.multyproneo.api.*
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.fragment.*
+import zyxel.com.multyproneo.fragment.cloud.CloudHomeFragment
 import zyxel.com.multyproneo.fragment.cloud.SetupControllerReadyFragment
 import zyxel.com.multyproneo.model.*
 import zyxel.com.multyproneo.tool.CryptTool
@@ -43,8 +44,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var showLoadingDisposable: Disposable
     private lateinit var hideLoadingDisposable: Disposable
     private lateinit var showBottomToolbarDisposable: Disposable
+    private lateinit var showCloudBottomToolbarDisposable: Disposable
     private lateinit var hideBottomToolbarDisposable: Disposable
     private lateinit var setHomeIconFocusDisposable: Disposable
+    private lateinit var setCloudHomeIconFocusDisposable: Disposable
     private lateinit var startGetDeviceInfoTaskDisposable: Disposable
     private lateinit var startGetDeviceInfoTaskOnceDisposable: Disposable
     private lateinit var stopGetDeviceInfoTaskDisposable: Disposable
@@ -57,6 +60,11 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var enterWiFiSettingsPageDisposable: Disposable
     private lateinit var enterDiagnosticPageDisposable: Disposable
     private lateinit var enterAccountPageDisposable: Disposable
+    private lateinit var enterCloudHomePageDisposable: Disposable
+    private lateinit var enterCloudDevicesPageDisposable: Disposable
+    private lateinit var enterCloudWiFiSettingsPageDisposable: Disposable
+    private lateinit var enterCloudDiagnosticPageDisposable: Disposable
+    private lateinit var enterCloudSettingsPageDisposable: Disposable
     private lateinit var enterSearchGatewayPageDisposable: Disposable
     private lateinit var msgDialogResponseDisposable: Disposable
     private lateinit var showErrorMsgDialogDisposable: Disposable
@@ -75,6 +83,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
     private var getWPSStatusTimer = Timer()
+    private var isCloudDiagnostic = false
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -118,7 +127,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                 if((grantResults.isNotEmpty()) && (grantResults[0] == PackageManager.PERMISSION_GRANTED))
                 {
                     LogUtil.d(TAG, "Location permission granted!")
-                    gotoDiagnosticFragment()
+                    if(isCloudDiagnostic)
+                        gotoCloudDiagnosticFragment()
+                    else
+                        gotoDiagnosticFragment()
                 }
                 else
                     LogUtil.d(TAG, "Location permission denied!")
@@ -166,9 +178,15 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         {
             home_relative -> gotoHomeFragment()
 
+            cloud_home_relative -> gotoCloudHomeFragment()
+
             devices_relative -> gotoDevicesFragment()
 
+            cloud_devices_relative -> gotoCloudDevicesFragment()
+
             wifi_relative -> gotoWiFiFragment()
+
+            cloud_wifi_relative -> gotoCloudWiFiFragment()
 
             diagnostic_relative ->
             {
@@ -176,6 +194,26 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                     gotoDiagnosticFragment()
                 else
                 {
+                    isCloudDiagnostic = false
+
+                    MessageDialog(
+                            this,
+                            "",
+                            getString(R.string.diagnostic_request_location_permission),
+                            arrayOf(getString(R.string.message_dialog_ok)),
+                            AppConfig.DialogAction.ACT_LOCATION_PERMISSION
+                    ).show()
+                }
+            }
+
+            cloud_diagnostic_relative ->
+            {
+                if(hasLocationPermission())
+                    gotoCloudDiagnosticFragment()
+                else
+                {
+                    isCloudDiagnostic = true
+
                     MessageDialog(
                             this,
                             "",
@@ -187,6 +225,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             }
 
             account_relative -> gotoAccountFragment()
+
+            cloud_settings_relative -> gotoCloudSettingsFragment()
         }
     }
 
@@ -198,6 +238,12 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         wifi_relative.setOnClickListener(clickListener)
         diagnostic_relative.setOnClickListener(clickListener)
         account_relative.setOnClickListener(clickListener)
+
+        cloud_home_relative.setOnClickListener(clickListener)
+        cloud_devices_relative.setOnClickListener(clickListener)
+        cloud_wifi_relative.setOnClickListener(clickListener)
+        cloud_diagnostic_relative.setOnClickListener(clickListener)
+        cloud_settings_relative.setOnClickListener(clickListener)
     }
 
     private fun disSelectToolBarIcons()
@@ -216,6 +262,20 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             wifi_text.isSelected = false
             diagnostic_text.isSelected = false
             account_text.isSelected = false
+
+            cloud_home_image.isSelected = false
+            cloud_devices_image.isSelected = false
+            cloud_parental_image.isSelected = false
+            cloud_wifi_image.isSelected = false
+            cloud_diagnostic_image.isSelected = false
+            cloud_settings_image.isSelected = false
+
+            cloud_home_text.isSelected = false
+            cloud_devices_text.isSelected = false
+            cloud_parental_text.isSelected = false
+            cloud_wifi_text.isSelected = false
+            cloud_diagnostic_text.isSelected = false
+            cloud_settings_text.isSelected = false
         }
     }
 
@@ -272,9 +332,23 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         hideLoadingDisposable = GlobalBus.listen(MainEvent.HideLoading::class.java).subscribe{ hideLoading() }
 
-        showBottomToolbarDisposable = GlobalBus.listen(MainEvent.ShowBottomToolbar::class.java).subscribe{ bottom_toolbar.visibility = View.VISIBLE }
+        showBottomToolbarDisposable = GlobalBus.listen(MainEvent.ShowBottomToolbar::class.java).subscribe{
+            bottom_toolbar_area.visibility = View.VISIBLE
+            bottom_toolbar.visibility = View.VISIBLE
+            cloud_bottom_toolbar.visibility = View.GONE
+        }
 
-        hideBottomToolbarDisposable = GlobalBus.listen(MainEvent.HideBottomToolbar::class.java).subscribe{ bottom_toolbar.visibility = View.GONE }
+        showCloudBottomToolbarDisposable = GlobalBus.listen(MainEvent.ShowCloudBottomToolbar::class.java).subscribe{
+            bottom_toolbar_area.visibility = View.VISIBLE
+            bottom_toolbar.visibility = View.GONE
+            cloud_bottom_toolbar.visibility = View.VISIBLE
+        }
+
+        hideBottomToolbarDisposable = GlobalBus.listen(MainEvent.HideBottomToolbar::class.java).subscribe{
+            bottom_toolbar_area.visibility = View.GONE
+            bottom_toolbar.visibility = View.GONE
+            cloud_bottom_toolbar.visibility = View.GONE
+        }
 
         setHomeIconFocusDisposable = GlobalBus.listen(MainEvent.SetHomeIconFocus::class.java).subscribe{
             disSelectToolBarIcons()
@@ -282,6 +356,15 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             runOnUiThread{
                 home_image.isSelected = true
                 home_text.isSelected = true
+            }
+        }
+
+        setCloudHomeIconFocusDisposable = GlobalBus.listen(MainEvent.SetCloudHomeIconFocus::class.java).subscribe{
+            disSelectToolBarIcons()
+
+            runOnUiThread{
+                cloud_home_image.isSelected = true
+                cloud_home_text.isSelected = true
             }
         }
 
@@ -303,6 +386,16 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         enterDiagnosticPageDisposable = GlobalBus.listen(MainEvent.EnterDiagnosticPage::class.java).subscribe{ gotoDiagnosticFragment() }
 
         enterAccountPageDisposable = GlobalBus.listen(MainEvent.EnterAccountPage::class.java).subscribe{ gotoAccountFragment() }
+
+        enterCloudHomePageDisposable = GlobalBus.listen(MainEvent.EnterCloudHomePage::class.java).subscribe{ gotoCloudHomeFragment() }
+
+        enterCloudDevicesPageDisposable = GlobalBus.listen(MainEvent.EnterCloudDevicesPage::class.java).subscribe{ gotoCloudDevicesFragment() }
+
+        enterCloudWiFiSettingsPageDisposable = GlobalBus.listen(MainEvent.EnterCloudWiFiSettingsPage::class.java).subscribe{ gotoCloudWiFiFragment() }
+
+        enterCloudDiagnosticPageDisposable = GlobalBus.listen(MainEvent.EnterCloudDiagnosticPage::class.java).subscribe{ gotoCloudDiagnosticFragment() }
+
+        enterCloudSettingsPageDisposable = GlobalBus.listen(MainEvent.EnterCloudSettingsPage::class.java).subscribe{ gotoCloudSettingsFragment() }
 
         enterSearchGatewayPageDisposable = GlobalBus.listen(MainEvent.EnterSearchGatewayPage::class.java).subscribe{ gotoSearchGatewayFragment() }
 
@@ -344,8 +437,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!showLoadingDisposable.isDisposed) showLoadingDisposable.dispose()
         if(!hideLoadingDisposable.isDisposed) hideLoadingDisposable.dispose()
         if(!showBottomToolbarDisposable.isDisposed) showBottomToolbarDisposable.dispose()
+        if(!showCloudBottomToolbarDisposable.isDisposed) showCloudBottomToolbarDisposable.dispose()
         if(!hideBottomToolbarDisposable.isDisposed) hideBottomToolbarDisposable.dispose()
         if(!setHomeIconFocusDisposable.isDisposed) setHomeIconFocusDisposable.dispose()
+        if(!setCloudHomeIconFocusDisposable.isDisposed) setCloudHomeIconFocusDisposable.dispose()
         if(!startGetDeviceInfoTaskDisposable.isDisposed) startGetDeviceInfoTaskDisposable.dispose()
         if(!startGetDeviceInfoTaskOnceDisposable.isDisposed) startGetDeviceInfoTaskOnceDisposable.dispose()
         if(!stopGetDeviceInfoTaskDisposable.isDisposed) stopGetDeviceInfoTaskDisposable.dispose()
@@ -358,6 +453,11 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!enterWiFiSettingsPageDisposable.isDisposed) enterWiFiSettingsPageDisposable.dispose()
         if(!enterDiagnosticPageDisposable.isDisposed) enterDiagnosticPageDisposable.dispose()
         if(!enterAccountPageDisposable.isDisposed) enterAccountPageDisposable.dispose()
+        if(!enterCloudHomePageDisposable.isDisposed) enterCloudHomePageDisposable.dispose()
+        if(!enterCloudDevicesPageDisposable.isDisposed) enterCloudDevicesPageDisposable.dispose()
+        if(!enterCloudWiFiSettingsPageDisposable.isDisposed) enterCloudWiFiSettingsPageDisposable.dispose()
+        if(!enterCloudDiagnosticPageDisposable.isDisposed) enterCloudDiagnosticPageDisposable.dispose()
+        if(!enterCloudSettingsPageDisposable.isDisposed) enterCloudSettingsPageDisposable.dispose()
         if(!enterSearchGatewayPageDisposable.isDisposed) enterSearchGatewayPageDisposable.dispose()
         if(!msgDialogResponseDisposable.isDisposed) msgDialogResponseDisposable.dispose()
         if(!showErrorMsgDialogDisposable.isDisposed) showErrorMsgDialogDisposable.dispose()
@@ -415,6 +515,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
     private fun gotoDiagnosticFragment()
     {
+        isCloudDiagnostic = false
+
         disSelectToolBarIcons()
 
         runOnUiThread{
@@ -437,6 +539,73 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         if(GlobalData.currentFrag != "AccountFragment")
             switchToFragContainer(AccountFragment())
+    }
+
+    private fun gotoCloudHomeFragment()
+    {
+        disSelectToolBarIcons()
+
+        runOnUiThread{
+            cloud_home_image.isSelected = true
+            cloud_home_text.isSelected = true
+        }
+
+        if(GlobalData.currentFrag != "CloudHomeFragment")
+            switchToFragContainer(CloudHomeFragment())
+    }
+
+    private fun gotoCloudDevicesFragment()
+    {
+        disSelectToolBarIcons()
+
+        runOnUiThread{
+            cloud_devices_image.isSelected = true
+            cloud_devices_text.isSelected = true
+        }
+
+        /*if(GlobalData.currentFrag != "CloudDevicesFragment")
+            switchToFragContainer(CloudDevicesFragment())*/
+    }
+
+    private fun gotoCloudWiFiFragment()
+    {
+        disSelectToolBarIcons()
+
+        runOnUiThread{
+            cloud_wifi_image.isSelected = true
+            cloud_wifi_text.isSelected = true
+        }
+
+        /*if(GlobalData.currentFrag != "CloudWiFiSettingsFragment")
+            switchToFragContainer(CloudWiFiSettingsFragment())*/
+    }
+
+    private fun gotoCloudDiagnosticFragment()
+    {
+        isCloudDiagnostic = true
+
+        disSelectToolBarIcons()
+
+        runOnUiThread{
+            cloud_diagnostic_image.isSelected = true
+            cloud_diagnostic_text.isSelected = true
+        }
+
+        /*if(GlobalData.currentFrag != "CloudDiagnosticFragment")
+            switchToFragContainer(CloudDiagnosticFragment())*/
+    }
+
+    private fun gotoCloudSettingsFragment()
+    {
+        disSelectToolBarIcons()
+
+        runOnUiThread{
+            cloud_settings_image.isSelected = true
+            cloud_settings_text.isSelected = true
+        }
+
+        /*if(GlobalData.currentFrag != "CloudSettingsFragment")
+            switchToFragContainer(CloudSettingsFragment())*/
     }
 
     private fun gotoSearchGatewayFragment()
@@ -553,7 +722,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private fun getChangeIconNameInfoTask()
     {
         LogUtil.d(TAG,"getChangeIconNameInfoTask()")
-
         DevicesApi.GetChangeIconNameInfo()
                 .setRequestPageName(TAG)
                 .setResponseListener(object: Commander.ResponseListener()

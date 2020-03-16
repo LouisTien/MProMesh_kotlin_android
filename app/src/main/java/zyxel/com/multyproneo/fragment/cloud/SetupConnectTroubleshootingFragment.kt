@@ -64,8 +64,15 @@ class SetupConnectTroubleshootingFragment : Fragment()
 
         when(pageMode)
         {
-            AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER, AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET ->
+            AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER,
+            AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET,
+            AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST
+            ->
             {
+
+                if(pageMode == AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST)
+                    setup_connect_troubleshooting_back_image.visibility = View.INVISIBLE
+
                 setup_connect_troubleshooting_title_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_controller_title)
                 setup_connect_troubleshooting_sub_title_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_controller_sub_title)
 
@@ -128,6 +135,15 @@ class SetupConnectTroubleshootingFragment : Fragment()
                             putString("MAC", mac)
                         }
                         GlobalBus.publish(MainEvent.SwitchToFrag(SetupRecoonectRouterPreviousSettingsFragment().apply{ arguments = bundle }))
+                    }
+
+                    AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST ->
+                    {
+                        val bundle = Bundle().apply{
+                            putSerializable("AutoLogin", false)
+                        }
+
+                        GlobalBus.publish(MainEvent.SwitchToFrag(CloudGatewayListFragment().apply{ arguments = bundle }))
                     }
                 }
             }

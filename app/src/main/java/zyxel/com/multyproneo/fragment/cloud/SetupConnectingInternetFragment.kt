@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_setup_connecting_internet.*
 import org.jetbrains.anko.doAsync
@@ -52,6 +53,8 @@ class SetupConnectingInternetFragment : Fragment()
         }
 
         startInternetCheckTask()
+
+        //Glide.with(activity!!).load(R.drawable.slide1).into(setup_connecting_internet_content_image)
     }
 
     override fun onResume()

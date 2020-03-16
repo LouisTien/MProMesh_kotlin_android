@@ -6,4 +6,5 @@ package zyxel.com.multyproneo.event
 class HomeEvent
 {
     class GetDeviceInfoComplete()
+    class MeshDevicePlacementStatus()
 }

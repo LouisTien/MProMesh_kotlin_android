@@ -3,6 +3,7 @@ package zyxel.com.multyproneo.api
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 
 /**
@@ -16,7 +17,7 @@ object AddMeshApi
     {
         override fun composeRequest(): Request
         {
-            val startPairingURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.WiFi.AccessPoint.5.WPS.?sessionkey=${GlobalData.sessionKey}"
+            val startPairingURL = "${GlobalData.getAPIPath()}${AppConfig.API_MESH}?sessionkey=${GlobalData.sessionKey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -30,7 +31,7 @@ object AddMeshApi
     {
         override fun composeRequest(): Request
         {
-            val getWPSStatusURL = "${GlobalData.getAPIPath()}/TR181/Value/Device.WiFi.AccessPoint.5.WPS."
+            val getWPSStatusURL = "${GlobalData.getAPIPath()}${AppConfig.API_MESH}"
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
                     .url(getWPSStatusURL)

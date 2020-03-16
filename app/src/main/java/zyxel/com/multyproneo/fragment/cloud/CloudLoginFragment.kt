@@ -35,6 +35,7 @@ class CloudLoginFragment : Fragment()
     private lateinit var specificDeviceInfo: TUTKSpecificDeviceInfo
     private lateinit var addDeviceInfo: TUTKAddDeviceInfo
     private lateinit var updateDeviceInfo: TUTKUpdateDeviceInfo
+    private var isInSetupFlow = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -44,6 +45,12 @@ class CloudLoginFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        with(arguments)
+        {
+            this?.getBoolean("isInSetupFlow")?.let{ isInSetupFlow = it }
+        }
+
         initWebView()
     }
 
@@ -132,7 +139,10 @@ class CloudLoginFragment : Fragment()
                                     LogUtil.d(TAG, "refreshToken:$refreshToken")
                                     LogUtil.d(TAG, "accessToken:$accessToken")
 
-                                    GlobalBus.publish(MainEvent.SwitchToFrag(SetupFinalizingYourHomeNetwork()))
+                                    if(isInSetupFlow)
+                                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupFinalizingYourHomeNetwork()))
+                                    else
+                                        getAllDevice()
                                 }
                                 catch(e: JSONException)
                                 {
@@ -249,6 +259,8 @@ class CloudLoginFragment : Fragment()
 
     private fun getAllDevice()
     {
+        LogUtil.d(TAG,"getAllDevice()")
+
         var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
@@ -263,8 +275,9 @@ class CloudLoginFragment : Fragment()
                     {
                         try
                         {
-                            allDeviceInfo = Gson().fromJson(responseStr, TUTKAllDeviceInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"allDeviceInfo:$allDeviceInfo")
+                            GlobalData.cloudGatewayListInfo = Gson().fromJson(responseStr, TUTKAllDeviceInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"allDeviceInfo:${GlobalData.cloudGatewayListInfo}")
+                            GlobalBus.publish(MainEvent.SwitchToFrag(CloudGatewayListFragment()))
                         }
                         catch(e: JSONException)
                         {

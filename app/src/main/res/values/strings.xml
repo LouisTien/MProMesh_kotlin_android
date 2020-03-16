@@ -87,6 +87,17 @@
     <string name="finalizing_network_title">Finalizing Your Home Network</string>
     <string name="finalizing_network_description">Please wait.\nThis may take a few seconds.</string>
 
+    <string name="gateway_status_title">Internet Status</string>
+    <string name="gateway_status_has_internet">Has Internet Connection</string>
+    <string name="gateway_status_no_internet">No Internet Connection</string>
+
+    <string name="mesh_device_status_title">Mesh Device Placement Status</string>
+    <string name="mesh_device_status_wire_connect">Wired connection</string>
+    <string name="mesh_device_status_good">Good to go</string>
+    <string name="mesh_device_status_too_close">Too close to the WiFi Router</string>
+    <string name="mesh_device_status_far_away">Too far away from the WiFi Router</string>
+    <string name="mesh_device_status_no_connect">No connection</string>
+
     <string name="button_text_start"><u>START</u></string>
     <string name="button_text_home">Home</string>
     <string name="button_text_devices">Devices</string>
@@ -94,6 +105,7 @@
     <string name="button_text_wifi">WiFi</string>
     <string name="button_text_diagnostic">Diagnostic</string>
     <string name="button_text_account">Account</string>
+    <string name="button_text_settings">Settings</string>
 
     <string name="menu_text_diagnostic">Diagnostic</string>
     <string name="menu_text_add_mesh">Add Mesh</string>
@@ -109,6 +121,10 @@
 
     <string name="gateway_list_title">Device Found</string>
     <string name="gateway_list_choose">Choose a device to login</string>
+
+    <string name="cloud_gateway_list_title">Your WiFi Router</string>
+    <string name="cloud_gateway_list_choose">Choose one to manage.</string>
+    <string name="cloud_gateway_list_no_choose">No WiFi Router yet.</string>
 
     <string name="login_title">Login</string>
     <string name="login_description">Enter Username and Password</string>
@@ -128,6 +144,7 @@
     <string name="home_device_gateway">Gateway</string>
     <string name="home_device_ap">Access Point</string>
     <string name="home_device_rp">Repeater</string>
+    <string name="home_mesh_devices">Mesh Devices</string>
 
     <string name="internet_status_dialog_good">Good</string>
     <string name="internet_status_dialog_weak">Weak</string>

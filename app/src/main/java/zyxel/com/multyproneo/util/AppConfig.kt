@@ -20,6 +20,32 @@ object AppConfig
     const val DEVICE_DISCOVER_REQ = 1
     const val DEVICE_DISCOVER_RESP = 2
 
+    //API Command
+    const val API_LOGOUT = "/UserLogin"
+    const val API_MESH = "/TR181/Value/Device.WiFi.AccessPoint.5.WPS."
+    const val API_DEVICE_HOST_INFO = "/TR181/Value/Device.Hosts.Host."
+    const val API_CHANGE_ICON_NAME_INFO = "/TR181/Value/Device.X_ZYXEL_Change_Icon_Name."
+    const val API_SYSTEM_INFO = "/TR181/Value/Device.X_ZYXEL_System_Info."
+    const val API_DEVICE_INFO = "/TR181/Value/Device.DeviceInfo."
+    const val API_WAN_INFO = "/TR181/Value/Device.DeviceInfo.WanInfo."
+    const val API_IP_INTERFACE_INFO = "/TR181/Value/Device.IP.Interface.?first_level_only=false"
+    const val API_FSECURE_INFO = "/TR181/Value/Device.X_ZYXEL_License."
+    const val API_HOST_NAME_REPLACE_INFO = "/TR181/Value/Device.X_ZYXEL_EXT.HostNameReplace."
+    const val API_REBOOT = "/Reboot"
+    const val API_SPEED_TEST_INFO = "/TR181/Value/Device.X_ZYXEL_EXT.SpeedTestInfo."
+    const val API_INTERNET_BLOCKING_INFO = "/TR181/Value/Device.X_ZYXEL_EXT.InternetBlocking."
+    const val API_UID = "/TR181/Value/Device.X_ZYXEL_TUTK_CloudAgent."
+    const val API_WIFI_SETTING_INFO = "/TR181/Value/Device.WiFi.?first_level_only=false"
+    const val API_MESH_INFO = "/TR181/Value/Device.X_ZYXEL_EXT.EasyMesh."
+    const val API_WIFI_24G_INFO = "/TR181/Value/Device.WiFi.SSID.1."
+    const val API_WIFI_24G_PWD = "/TR181/Value/Device.WiFi.AccessPoint.1.Security."
+    const val API_WIFI_5G_INFO = "/TR181/Value/Device.WiFi.SSID.5."
+    const val API_WIFI_5G_PWD = "/TR181/Value/Device.WiFi.AccessPoint.5.Security."
+    const val API_GUEST_WIFI_24G_INFO = "/TR181/Value/Device.WiFi.SSID.2."
+    const val API_GUEST_WIFI_24G_PWD = "/TR181/Value/Device.WiFi.AccessPoint.2.Security."
+    const val API_GUEST_WIFI_5G_INFO = "/TR181/Value/Device.WiFi.SSID.6."
+    const val API_GUEST_WIFI_5G_PWD = "/TR181/Value/Device.WiFi.AccessPoint.6.Security."
+
     //TUTK AMDM
     const val TUTK_AM_SITE = "https://am1.tutk.com"
     const val TUTK_AM_STATE = "1234"
@@ -130,7 +156,8 @@ object AppConfig
     {
         PAGE_NO_INTERNET,
         PAGE_CONNOT_CONNECT_CONTROLLER,
-        PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET
+        PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET,
+        PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST
     }
 
     enum class TUTKP2PMethod(val value: Int)

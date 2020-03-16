@@ -9,9 +9,6 @@ interface DatabaseSiteInfoDao
     @Query("select * from " + AppConfig.TABLE_SITE_INFO_NAME)
     fun getAll(): List<DatabaseSiteInfoEntity>
 
-    @Query("select * from " + AppConfig.TABLE_SITE_INFO_NAME + " where id LIKE :id LIMIT 1")
-    fun queryById(id: Long): DatabaseSiteInfoEntity
-
     @Query("select * from " + AppConfig.TABLE_SITE_INFO_NAME + " where mac LIKE :mac LIMIT 1")
     fun queryByMac(mac: String): DatabaseSiteInfoEntity
 

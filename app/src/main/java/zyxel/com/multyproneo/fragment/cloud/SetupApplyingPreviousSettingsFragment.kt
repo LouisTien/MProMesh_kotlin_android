@@ -9,12 +9,15 @@ import android.view.ViewGroup
 import org.jetbrains.anko.appcompat.v7.Appcompat
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.AccountApi
 import zyxel.com.multyproneo.api.Commander
+import zyxel.com.multyproneo.api.DevicesApi
 import zyxel.com.multyproneo.api.WiFiSettingApi
+import zyxel.com.multyproneo.database.room.DatabaseClientListEntity
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
@@ -29,6 +32,7 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
     private var mac = ""
     private lateinit var db: DatabaseCloudUtil
     private lateinit var siteInfo: DatabaseSiteInfoEntity
+    private lateinit var clientList: List<DatabaseClientListEntity>
     private lateinit var countDownTimer: CountDownTimer
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -72,12 +76,54 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
     {
         doAsync{
             siteInfo = db.getSiteInfoDao().queryByMac(mac)
+            clientList = db.getClientListDao().queryByMac(mac)
 
             uiThread{
                 countDownTimer.start()
-                setWiFi24GSSIDTask()
+                setLocalDeviceNames()
             }
         }
+    }
+
+    private fun setLocalDeviceNames()
+    {
+        val params = JSONObject()
+        val paramsSub = JSONObject()
+        val paramsArray = JSONArray()
+
+        for(i in 0 until clientList.size)
+        {
+            paramsSub.put("HostName", clientList[i].deviceName)
+            paramsSub.put("MacAddress", clientList[i].deviceMac)
+            paramsSub.put("Internet_Blocking_Enable", false)
+            paramsArray.put(paramsSub)
+        }
+
+        params.put("multiObject", paramsArray)
+        LogUtil.d(TAG,"setLocalDeviceNames param:$params")
+
+        DevicesApi.SetChangeIconNameInfo()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setIsUsingInCloudFlow(true)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            val sessionkey = data.get("sessionkey").toString()
+                            GlobalData.sessionKey = sessionkey
+                            setWiFi24GSSIDTask()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
     }
 
     private fun setWiFi24GSSIDTask()
@@ -121,6 +167,7 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
         WiFiSettingApi.SetWiFi24GPwd()
                 .setRequestPageName(TAG)
                 .setParams(params)
+                .setIsUsingInCloudFlow(true)
                 .setResponseListener(object: Commander.ResponseListener()
                 {
                     override fun onSuccess(responseStr: String)
@@ -150,6 +197,7 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
         WiFiSettingApi.SetWiFi5GInfo()
                 .setRequestPageName(TAG)
                 .setParams(params)
+                .setIsUsingInCloudFlow(true)
                 .setResponseListener(object: Commander.ResponseListener()
                 {
                     override fun onSuccess(responseStr: String)
@@ -181,6 +229,7 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
         WiFiSettingApi.SetWiFi5GPwd()
                 .setRequestPageName(TAG)
                 .setParams(params)
+                .setIsUsingInCloudFlow(true)
                 .setResponseListener(object: Commander.ResponseListener()
                 {
                     override fun onSuccess(responseStr: String)
@@ -207,6 +256,7 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
         AccountApi.Logout()
                 .setRequestPageName(TAG)
                 .setParams(params)
+                .setIsUsingInCloudFlow(true)
                 .setResponseListener(object: Commander.ResponseListener()
                 {
                     override fun onSuccess(responseStr: String)

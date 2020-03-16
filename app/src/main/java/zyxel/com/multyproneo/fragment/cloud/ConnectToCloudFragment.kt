@@ -21,7 +21,12 @@ class ConnectToCloudFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-        connect_to_cloud_continue_image.onClick{ GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment())) }
+        connect_to_cloud_continue_image.onClick{
+            val bundle = Bundle().apply{
+                putBoolean("isInSetupFlow", true)
+            }
+            GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment().apply{ arguments = bundle }))
+        }
     }
 
     override fun onResume()
