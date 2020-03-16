@@ -1041,7 +1041,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                 {
                                     contains("OK", ignoreCase = true) ->
                                     {
-                                        getWPSStatusTimer.cancel()
+                                        getCloudWPSStatusTimer.cancel()
                                         GlobalBus.publish(LoadingTransitionEvent.WPSStatusUpdate(true))
                                     }
 
@@ -1049,7 +1049,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
                                     else ->
                                     {
-                                        getWPSStatusTimer.cancel()
+                                        getCloudWPSStatusTimer.cancel()
                                         GlobalBus.publish(LoadingTransitionEvent.WPSStatusUpdate(false))
                                     }
                                 }
@@ -1058,7 +1058,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         catch(e: Exception)
                         {
                             e.printStackTrace()
-                            getWPSStatusTimer.cancel()
+                            getCloudWPSStatusTimer.cancel()
                         }
                     }
                 }).execute()
