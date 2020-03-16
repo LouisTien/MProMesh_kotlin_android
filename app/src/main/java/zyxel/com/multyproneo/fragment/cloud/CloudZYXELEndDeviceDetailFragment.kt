@@ -455,9 +455,11 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
         LogUtil.d(TAG,"setGatewayInfoTask()")
         GlobalBus.publish(MainEvent.ShowLoading())
 
+        val params = ",\"HostName\":\"$editDeviceName\""
+
         P2PGatewayApi.SetSystemInfo()
                 .setRequestPageName(TAG)
-                .setRequestPayload(",\"HostName\":\"$editDeviceName\"")
+                .setRequestPayload(params)
                 .setResponseListener(object: TUTKP2PResponseCallback()
                 {
                     override fun onSuccess(responseStr: String)
@@ -555,7 +557,7 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
         }
         else
         {
-            val params = ",\"L2DevCtrl_Reboot\":\"true\""
+            val params = ",\"L2DevCtrl_Reboot\":true"
 
             P2PDevicesApi.EndDeviceReboot(endDeviceInfo.IndexFromFW)
                     .setRequestPageName(TAG)

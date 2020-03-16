@@ -71,14 +71,14 @@ class SetupControllerReadyFragment : Fragment()
                 //p2pTest()
             }
 
-            setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
-            /*setup_controller_ready_next_image ->
+            //setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
+            setup_controller_ready_next_image ->
             {
                 val bundle = Bundle().apply{
                     putBoolean("isInSetupFlow", false)
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment().apply{ arguments = bundle }))
-            }*/
+            }
         }
     }
 

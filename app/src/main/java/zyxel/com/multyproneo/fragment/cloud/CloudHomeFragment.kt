@@ -124,6 +124,8 @@ class CloudHomeFragment : Fragment()
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoadingTransitionFragment().apply{ arguments = bundle }))
             }
+
+            cloud_home_mesh_devices_add_image -> {GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFragment()))}
         }
     }
 

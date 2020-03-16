@@ -24,6 +24,8 @@ import org.jetbrains.anko.toast
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.api.*
+import zyxel.com.multyproneo.api.cloud.P2PAddMeshApi
+import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.fragment.*
@@ -53,6 +55,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var stopGetDeviceInfoTaskDisposable: Disposable
     private lateinit var startGetWPSStatusTaskDisposable: Disposable
     private lateinit var stopGetWPSStatusTaskDisposable: Disposable
+    private lateinit var startCloudGetWPSStatusTaskDisposable: Disposable
+    private lateinit var stopCloudGetWPSStatusTaskDisposable: Disposable
     private lateinit var startGetSpeedTestStatusTaskDisposable: Disposable
     private lateinit var stopGetSpeedTestStatusTaskDisposable: Disposable
     private lateinit var enterHomePageDisposable: Disposable
@@ -83,6 +87,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
     private var getWPSStatusTimer = Timer()
+    private var getCloudWPSStatusTimer = Timer()
     private var isCloudDiagnostic = false
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -406,6 +411,13 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         stopGetWPSStatusTaskDisposable = GlobalBus.listen(MainEvent.StopGetWPSStatusTask::class.java).subscribe{ getWPSStatusTimer.cancel() }
 
+        startCloudGetWPSStatusTaskDisposable = GlobalBus.listen(MainEvent.StartCloudGetWPSStatusTask::class.java).subscribe{
+            getCloudWPSStatusTimer = Timer()
+            getCloudWPSStatusTimer.schedule(0, (AppConfig.WPSStatusUpdateTime * 1000).toLong()){ getCloudWPSStatusInfoTask() }
+        }
+
+        stopCloudGetWPSStatusTaskDisposable = GlobalBus.listen(MainEvent.StopGetWPSStatusTask::class.java).subscribe{ getCloudWPSStatusTimer.cancel() }
+
         startGetSpeedTestStatusTaskDisposable = GlobalBus.listen(MainEvent.StartGetSpeedTestStatusTask::class.java).subscribe{ startSpeedTest() }
 
         stopGetSpeedTestStatusTaskDisposable = GlobalBus.listen(MainEvent.StopGetSpeedTestStatusTask::class.java).subscribe{ stopSpeedTest() }
@@ -446,6 +458,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!stopGetDeviceInfoTaskDisposable.isDisposed) stopGetDeviceInfoTaskDisposable.dispose()
         if(!startGetWPSStatusTaskDisposable.isDisposed) startGetWPSStatusTaskDisposable.dispose()
         if(!stopGetWPSStatusTaskDisposable.isDisposed) stopGetWPSStatusTaskDisposable.dispose()
+        if(!startCloudGetWPSStatusTaskDisposable.isDisposed) startGetWPSStatusTaskDisposable.dispose()
+        if(!stopCloudGetWPSStatusTaskDisposable.isDisposed) stopGetWPSStatusTaskDisposable.dispose()
         if(!startGetSpeedTestStatusTaskDisposable.isDisposed) startGetSpeedTestStatusTaskDisposable.dispose()
         if(!stopGetSpeedTestStatusTaskDisposable.isDisposed) stopGetSpeedTestStatusTaskDisposable.dispose()
         if(!enterHomePageDisposable.isDisposed) enterHomePageDisposable.dispose()
@@ -997,6 +1011,51 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             }
                         }
                         catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                            getWPSStatusTimer.cancel()
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun getCloudWPSStatusInfoTask()
+    {
+        LogUtil.d(TAG,"getCloudWPSStatusInfoTask()")
+
+        P2PAddMeshApi.GetWPSStatus()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: TUTKP2PResponseCallback()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            var status = data.getJSONObject("Object").getString("X_ZYXEL_WPSRunningStatus")
+                            LogUtil.d(TAG,"WPS status:$status")
+
+                            with(status)
+                            {
+                                when
+                                {
+                                    contains("OK", ignoreCase = true) ->
+                                    {
+                                        getWPSStatusTimer.cancel()
+                                        GlobalBus.publish(LoadingTransitionEvent.WPSStatusUpdate(true))
+                                    }
+
+                                    contains("Requested", ignoreCase = true) -> {}
+
+                                    else ->
+                                    {
+                                        getWPSStatusTimer.cancel()
+                                        GlobalBus.publish(LoadingTransitionEvent.WPSStatusUpdate(false))
+                                    }
+                                }
+                            }
+                        }
+                        catch(e: Exception)
                         {
                             e.printStackTrace()
                             getWPSStatusTimer.cancel()
