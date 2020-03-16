@@ -416,7 +416,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             getCloudWPSStatusTimer.schedule(0, (AppConfig.WPSStatusUpdateTime * 1000).toLong()){ getCloudWPSStatusInfoTask() }
         }
 
-        stopCloudGetWPSStatusTaskDisposable = GlobalBus.listen(MainEvent.StopGetWPSStatusTask::class.java).subscribe{ getCloudWPSStatusTimer.cancel() }
+        stopCloudGetWPSStatusTaskDisposable = GlobalBus.listen(MainEvent.StopCloudGetWPSStatusTask::class.java).subscribe{ getCloudWPSStatusTimer.cancel() }
 
         startGetSpeedTestStatusTaskDisposable = GlobalBus.listen(MainEvent.StartGetSpeedTestStatusTask::class.java).subscribe{ startSpeedTest() }
 
