@@ -18,6 +18,7 @@ import zyxel.com.multyproneo.adapter.cloud.CloudZYXELEndDeviceItemAdapter
 import zyxel.com.multyproneo.api.cloud.*
 import zyxel.com.multyproneo.dialog.GatewayStatusDialog
 import zyxel.com.multyproneo.dialog.MeshDeviceStatusDialog
+import zyxel.com.multyproneo.dialog.OtherMeshNetworksDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
@@ -126,6 +127,8 @@ class CloudHomeFragment : Fragment()
             }
 
             cloud_home_mesh_devices_add_image -> {GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFragment()))}
+
+            cloud_home_site_pic_image -> { OtherMeshNetworksDialog(activity!!, GlobalData.getCurrentGatewayInfo().UserDefineName, GlobalData.cloudGatewayListInfo).show() }
         }
     }
 

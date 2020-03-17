@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/other_mesh_list_item_relative"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/other_mesh_list_item_image"
+        android:layout_width="@dimen/layout_size_50dp_in_1080"
+        android:layout_height="@dimen/layout_size_50dp_in_1080"
+        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
+        android:src="@drawable/img_locationdefault"/>
+
+    <TextView
+        android:id="@+id/other_mesh_list_item_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_toRightOf="@+id/other_mesh_list_item_image"
+        android:layout_centerVertical="true"
+        android:textColor="@color/color_000000"
+        android:textSize="@dimen/text_size_18sp_in_1080"
+        tools:text="My House"/>
+
+</RelativeLayout>

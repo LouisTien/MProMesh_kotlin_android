@@ -11,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_setup_connecting_controller.*
+import org.jetbrains.anko.support.v4.runOnUiThread
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
@@ -62,6 +64,11 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
 
             false -> startFindDevice()
         }
+
+        /*runOnUiThread{
+            setup_connecting_controller_content_animation_view.setAnimation("connect_to_the_cloud.json")
+            setup_connecting_controller_content_animation_view.playAnimation()
+        }*/
 
     }
 

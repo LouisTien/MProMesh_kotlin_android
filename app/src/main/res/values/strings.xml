@@ -91,6 +91,9 @@
     <string name="gateway_status_has_internet">Has Internet Connection</string>
     <string name="gateway_status_no_internet">No Internet Connection</string>
 
+    <string name="other_mesh_title">Other Mesh Networks</string>
+    <string name="other_mesh_setup_description">set Up New Mesh Network</string>
+
     <string name="mesh_device_status_title">Mesh Device Placement Status</string>
     <string name="mesh_device_status_wire_connect">Wired connection</string>
     <string name="mesh_device_status_good">Good to go</string>

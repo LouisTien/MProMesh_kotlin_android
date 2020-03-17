@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/other_mesh_close_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_close"/>
+
+    <RelativeLayout
+        android:id="@+id/other_mesh_main_mesh_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
+        android:layout_below="@+id/other_mesh_close_image">
+
+        <ImageView
+            android:id="@+id/other_mesh_main_mesh_image"
+            android:layout_width="@dimen/layout_size_50dp_in_1080"
+            android:layout_height="@dimen/layout_size_50dp_in_1080"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:src="@drawable/img_locationdefault"/>
+
+        <TextView
+            android:id="@+id/other_mesh_main_mesh_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:layout_toRightOf="@+id/other_mesh_main_mesh_image"
+            android:layout_centerVertical="true"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            tools:text="My House"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/other_mesh_line_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bar1"
+        android:layout_marginLeft="@dimen/layout_size_5dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_5dp_in_1080"
+        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+        android:layout_below="@+id/other_mesh_main_mesh_relative"/>
+
+    <RelativeLayout
+        android:id="@+id/other_mesh_content_relative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
+        android:layout_below="@+id/other_mesh_line_image">
+
+        <TextView
+            android:id="@+id/other_mesh_content_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/other_mesh_title"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+        <ListView
+            android:id="@+id/other_mesh_content_list"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_size_150dp_in_1080"
+            android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
+            android:layout_below="@+id/other_mesh_content_title_text"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/other_mesh_add_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+        android:layout_below="@+id/other_mesh_content_relative">
+
+        <ImageView
+            android:id="@+id/other_mesh_add_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:src="@drawable/icon_add2"/>
+
+        <TextView
+            android:id="@+id/other_mesh_add_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+            android:layout_toRightOf="@+id/other_mesh_add_image"
+            android:layout_centerVertical="true"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:text="@string/other_mesh_setup_description"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/other_mesh_empty_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_below="@+id/other_mesh_add_relative"
+        android:src="@drawable/icon_close"
+        android:visibility="invisible"/>
+
+</RelativeLayout>
