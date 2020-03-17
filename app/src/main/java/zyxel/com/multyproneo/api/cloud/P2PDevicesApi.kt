@@ -47,7 +47,7 @@ object P2PDevicesApi
     {
         override fun requestURL(): String
         {
-            return "{\"URI\":\"${AppConfig.API_CHANGE_ICON_NAME_INFO}$index\"${getRequestPayload()}}"
+            return "{\"URI\":\"${AppConfig.API_CHANGE_ICON_NAME_INFO}$index.\"${getRequestPayload()}}"
         }
 
         override fun method(): AppConfig.TUTKP2PMethod

@@ -29,6 +29,7 @@ import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.fragment.*
+import zyxel.com.multyproneo.fragment.cloud.CloudDevicesFragment
 import zyxel.com.multyproneo.fragment.cloud.CloudHomeFragment
 import zyxel.com.multyproneo.fragment.cloud.SetupControllerReadyFragment
 import zyxel.com.multyproneo.model.*
@@ -577,8 +578,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             cloud_devices_text.isSelected = true
         }
 
-        /*if(GlobalData.currentFrag != "CloudDevicesFragment")
-            switchToFragContainer(CloudDevicesFragment())*/
+        if(GlobalData.currentFrag != "CloudDevicesFragment")
+            switchToFragContainer(CloudDevicesFragment())
     }
 
     private fun gotoCloudWiFiFragment()

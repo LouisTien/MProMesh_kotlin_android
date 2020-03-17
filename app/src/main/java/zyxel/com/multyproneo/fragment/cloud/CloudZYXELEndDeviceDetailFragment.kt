@@ -483,7 +483,7 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
         LogUtil.d(TAG,"setDeviceInfoTask()")
         GlobalBus.publish(MainEvent.ShowLoading())
 
-        val params = ",\"HostName\":\"$editDeviceName\",\"MacAddress\":\"${endDeviceInfo.PhysAddress}\",\"Internet_Blocking_Enable\":\"${endDeviceInfo.Internet_Blocking_Enable}\""
+        val params = ",\"HostName\":\"$editDeviceName\",\"MacAddress\":\"${endDeviceInfo.PhysAddress}\",\"Internet_Blocking_Enable\":${endDeviceInfo.Internet_Blocking_Enable}"
 
         var index = 0
         for(i in GlobalData.changeIconNameList.indices)

@@ -169,7 +169,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="vertical"
-            android:layout_below="@+id/devices_home_devices_area_linear">
+            android:layout_below="@+id/devices_home_devices_area_linear"
+            android:visibility="gone">
 
             <RelativeLayout
                 android:id="@+id/devices_guest_devices_title_bar_relative"

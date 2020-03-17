@@ -64,6 +64,7 @@ class CloudHomeFragment : Fragment()
 
         Glide.with(activity!!).load(R.drawable.img_locationdefault).apply(RequestOptions.circleCropTransform()).into(cloud_home_site_pic_image)
 
+        GlobalBus.publish(MainEvent.ShowLoading())
         startGetAllNeedDeviceInfoTask()
     }
 
@@ -145,6 +146,8 @@ class CloudHomeFragment : Fragment()
 
     private fun updateUI()
     {
+        GlobalBus.publish(MainEvent.HideLoading())
+
         if(GlobalData.currentFrag != TAG) return
 
         if(!isVisible) return
@@ -181,15 +184,11 @@ class CloudHomeFragment : Fragment()
                     cloud_home_guest_wifi_switch.setImageResource(R.drawable.switch_off)
                 }
             }
-
-            GlobalBus.publish(MainEvent.HideLoading())
         }
     }
 
     private fun startGetAllNeedDeviceInfoTask()
     {
-        GlobalBus.publish(MainEvent.ShowLoading())
-
         var gatewayList = mutableListOf<GatewayInfo>()
         var findingDeviceInfo = GatewayInfo()
         gatewayList.add(findingDeviceInfo)
