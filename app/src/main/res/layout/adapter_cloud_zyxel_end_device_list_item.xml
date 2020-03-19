@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-        android:src="@drawable/icon_detail" />
+        android:src="@drawable/icon_detail"/>
 
     <ImageView
         android:id="@+id/home_empty_line_image"

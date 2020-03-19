@@ -1,4 +1,4 @@
-package zyxel.com.multyproneo.fragment
+package zyxel.com.multyproneo.fragment.cloud
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -21,9 +21,9 @@ import org.jetbrains.anko.support.v4.runOnUiThread
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
-import zyxel.com.multyproneo.api.Commander
-import zyxel.com.multyproneo.api.DevicesApi
-import zyxel.com.multyproneo.api.GatewayApi
+import zyxel.com.multyproneo.api.cloud.P2PDevicesApi
+import zyxel.com.multyproneo.api.cloud.P2PGatewayApi
+import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.DevicesInfo
@@ -33,10 +33,7 @@ import java.net.NetworkInterface
 import java.util.*
 import kotlin.concurrent.schedule
 
-/**
- * Created by LouisTien on 2019/6/26.
- */
-class WiFiSignalMeterFragment : Fragment()
+class CloudWiFiSignalMeterFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private val wifiReceiver = WifiReceiver()
@@ -239,9 +236,9 @@ class WiFiSignalMeterFragment : Fragment()
             connectionInfo = wifiManager.connectionInfo
             LogUtil.d(TAG, "Connected Info BSSID = ${connectionInfo.bssid}")
 
-            DevicesApi.GetDevicesInfo()
+            P2PDevicesApi.GetDevicesInfo()
                     .setRequestPageName(TAG)
-                    .setResponseListener(object: Commander.ResponseListener()
+                    .setResponseListener(object: TUTKP2PResponseCallback()
                     {
                         override fun onSuccess(responseStr: String)
                         {
@@ -259,6 +256,7 @@ class WiFiSignalMeterFragment : Fragment()
                                     {
                                         neighborMAC = devicesInfo.Object[i].X_ZYXEL_Neighbor
                                         mobileDeviceIndex = devicesInfo.Object[i].IndexFromFW
+                                        LogUtil.e(TAG,"[1]mobileDeviceIndex:$mobileDeviceIndex")
 
                                         for(itemX in devicesInfo.Object)
                                         {
@@ -296,9 +294,10 @@ class WiFiSignalMeterFragment : Fragment()
         {
             c2gRssi = 0
 
-            GatewayApi.GetRssiInfo(mobileDeviceIndex)
+            LogUtil.e(TAG,"[2]mobileDeviceIndex:$mobileDeviceIndex")
+            P2PGatewayApi.GetRssiInfo(mobileDeviceIndex)
                     .setRequestPageName(TAG)
-                    .setResponseListener(object: Commander.ResponseListener()
+                    .setResponseListener(object: TUTKP2PResponseCallback()
                     {
                         override fun onSuccess(responseStr: String)
                         {

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/settings_cloud_account_detail_title_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_size_60dp_in_1080"
+        android:background="@drawable/actionbar_detail_bg"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/settings_cloud_account_detail_back_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:src="@drawable/icon_back"/>
+
+        <TextView
+            android:id="@+id/settings_cloud_account_detail_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:textColor="@color/color_575757"
+            android:text="@string/settings_cloud_account"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/settings_cloud_account_detail_content_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_size_25dp_in_1080"
+        android:layout_below="@+id/settings_cloud_account_detail_title_area_relative">
+
+        <TextView
+            android:id="@+id/settings_cloud_account_detail_sub_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:text="@string/settings_cloud_account"/>
+
+        <TextView
+            android:id="@+id/settings_cloud_account_detail_value_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/settings_cloud_account_detail_sub_title_text"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/color_888888"
+            android:textSize="@dimen/layout_size_18dp_in_1080"
+            tools:text="xxxx@xxxx.com"/>
+
+        <ImageView
+            android:id="@+id/settings_cloud_account_detail_line_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bar1"
+            android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+            android:layout_below="@+id/settings_cloud_account_detail_value_text"/>
+
+        <TextView
+            android:id="@+id/settings_cloud_account_detail_router_list_sub_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_575757"
+            android:textSize="@dimen/layout_size_12dp_in_1080"
+            android:text="@string/settings_cloud_account_router_list_title"
+            android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
+            android:layout_below="@+id/settings_cloud_account_detail_line_image"/>
+
+        <TextView
+            android:id="@+id/settings_cloud_account_detail_router_list_action_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/color_0073ff"
+            android:textSize="@dimen/layout_size_15dp_in_1080"
+            android:text="@string/settings_cloud_account_router_action_edit"
+            android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
+            android:layout_below="@+id/settings_cloud_account_detail_line_image"/>
+
+        <ImageView
+            android:id="@+id/settings_cloud_account_detail_router_list_line_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bar1"
+            android:layout_below="@+id/settings_cloud_account_detail_router_list_sub_title_text"/>
+
+        <ListView
+            android:id="@+id/settings_cloud_account_detail_router_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/settings_cloud_account_detail_router_list_line_image"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

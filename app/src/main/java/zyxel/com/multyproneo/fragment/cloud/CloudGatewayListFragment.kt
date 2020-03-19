@@ -98,7 +98,10 @@ class CloudGatewayListFragment : Fragment()
             if(TUTKP2PBaseApi.initIOTCRDT() >= 0)
             {
                 if(TUTKP2PBaseApi.startSession(uid) >= 0)
+                {
+                    GlobalData.currentUID = uid
                     GlobalBus.publish(MainEvent.SwitchToFrag(CloudHomeFragment()))
+                }
                 else
                     gotoTroubleShooting()
             }

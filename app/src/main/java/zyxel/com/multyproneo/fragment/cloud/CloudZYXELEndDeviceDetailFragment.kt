@@ -421,16 +421,7 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
                 if(isGatewayMode)
                     deviceInfo.UserDefineName = editDeviceName
                 else
-                {
-                    for(item in GlobalData.endDeviceList)
-                    {
-                        if(item.PhysAddress == endDeviceInfo.PhysAddress)
-                        {
-                            endDeviceInfo = item
-                            break
-                        }
-                    }
-                }
+                    endDeviceInfo.UserDefineName = editDeviceName
 
                 initUI()
             }

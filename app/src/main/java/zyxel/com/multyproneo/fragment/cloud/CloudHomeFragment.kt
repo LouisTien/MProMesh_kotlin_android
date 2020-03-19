@@ -23,6 +23,8 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.*
+import zyxel.com.multyproneo.model.cloud.AllDeviceInfo
+import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
@@ -129,7 +131,15 @@ class CloudHomeFragment : Fragment()
 
             cloud_home_mesh_devices_add_image -> {GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFragment()))}
 
-            cloud_home_site_pic_image -> { OtherMeshNetworksDialog(activity!!, GlobalData.getCurrentGatewayInfo().UserDefineName, GlobalData.cloudGatewayListInfo).show() }
+            cloud_home_site_pic_image -> {
+                var otherMeshListInfo = TUTKAllDeviceInfo()
+                for(item in GlobalData.cloudGatewayListInfo.data)
+                {
+                    if(item.udid != GlobalData.currentUID)
+                        otherMeshListInfo.data.add(item)
+                }
+                OtherMeshNetworksDialog(activity!!, GlobalData.getCurrentGatewayInfo().UserDefineName, otherMeshListInfo).show()
+            }
         }
     }
 
@@ -658,19 +668,6 @@ class CloudHomeFragment : Fragment()
         P2PWiFiSettingApi.SetGuestWiFi5GInfo()
                 .setRequestPageName(TAG)
                 .setRequestPayload(params)
-                .setResponseListener(object: TUTKP2PResponseCallback()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        setLogoutTask()
-                    }
-                }).execute()
-    }
-
-    private fun setLogoutTask()
-    {
-        P2PAccountApi.Logout()
-                .setRequestPageName(TAG)
                 .setResponseListener(object: TUTKP2PResponseCallback()
                 {
                     override fun onSuccess(responseStr: String)

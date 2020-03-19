@@ -24,6 +24,7 @@ import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.model.WiFiSettingInfo
 import zyxel.com.multyproneo.model.cloud.TUTKAddDeviceInfo
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
+import zyxel.com.multyproneo.model.cloud.TUTKUserInfo
 import zyxel.com.multyproneo.util.*
 import java.util.HashMap
 
@@ -33,6 +34,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     private lateinit var addDeviceInfo: TUTKAddDeviceInfo
     private lateinit var devicesInfo: DevicesInfo
     private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
+    private lateinit var userInfo: TUTKUserInfo
     private lateinit var db: DatabaseCloudUtil
     private var newHomeEndDeviceList = mutableListOf<DevicesInfoObject>()
     private var WiFiName = ""
@@ -215,6 +217,37 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                 }).execute()
     }
 
+    private fun getUserInfo()
+    {
+        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+
+        val header = HashMap<String, Any>()
+        header["authorization"] = "${GlobalData.tokenType} $accessToken"
+
+        AMDMApi.GetUserInfo()
+                .setRequestPageName(TAG)
+                .setHeaders(header)
+                .setResponseListener(object: TUTKCommander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            userInfo = Gson().fromJson(responseStr, TUTKUserInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"userInfo:$userInfo")
+                            GlobalData.currentEmail = userInfo.email
+                            getAllDevice()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
+    }
+
     private fun addToDB()
     {
         doAsync{
@@ -241,7 +274,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                 db.getClientListDao().insert(clientInfo)
             }
 
-            getAllDevice()
+            getUserInfo()
         }
     }
 }

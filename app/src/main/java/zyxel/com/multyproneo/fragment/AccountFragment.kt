@@ -55,6 +55,7 @@ class AccountFragment : Fragment()
     override fun onResume()
     {
         super.onResume()
+        GlobalBus.publish(MainEvent.ShowBottomToolbar())
     }
 
     override fun onPause()

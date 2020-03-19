@@ -2,7 +2,7 @@ package zyxel.com.multyproneo.model.cloud
 
 data class TUTKAllDeviceInfo
 (
-    val data: List<AllDeviceInfo> = listOf(AllDeviceInfo())
+    val data: ArrayList<AllDeviceInfo> = ArrayList()
 )
 
 data class AllDeviceInfo

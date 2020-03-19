@@ -468,16 +468,7 @@ class CloudEndDeviceDetailFragment : Fragment()
                 end_device_detail_model_name_text.text = editDeviceName
                 end_device_detail_model_name_edit.setText(editDeviceName)
                 setEditModeUI()
-
-                for(item in GlobalData.endDeviceList)
-                {
-                    if(item.PhysAddress == endDeviceInfo.PhysAddress)
-                    {
-                        endDeviceInfo = item
-                        break
-                    }
-                }
-
+                endDeviceInfo.UserDefineName = editDeviceName
                 updateUI()
             }
         }

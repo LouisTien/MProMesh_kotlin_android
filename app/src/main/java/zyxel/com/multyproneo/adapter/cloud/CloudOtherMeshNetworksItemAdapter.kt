@@ -1,4 +1,4 @@
-package zyxel.com.multyproneo.adapter
+package zyxel.com.multyproneo.adapter.cloud
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,16 +7,12 @@ import android.widget.BaseAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.adapter_other_mesh_list_item.view.*
-import org.jetbrains.anko.doAsync
 import zyxel.com.multyproneo.R
-import zyxel.com.multyproneo.api.cloud.TUTKP2PBaseApi
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
-import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.fragment.cloud.CloudHomeFragment
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
 
-class OtherMeshNetworksItemAdapter(private var gatewayListInfo: TUTKAllDeviceInfo) : BaseAdapter()
+class CloudOtherMeshNetworksItemAdapter(private var gatewayListInfo: TUTKAllDeviceInfo) : BaseAdapter()
 {
     override fun getCount(): Int = gatewayListInfo.data.size
 

@@ -249,6 +249,20 @@
     <string name="diagnostic_wifi_signal_poor">Poor</string>
     <string name="diagnostic_wifi_signal_excellent">Excellent</string>
 
+    <string name="settings_title">Settings</string>
+    <string name="settings_notification">Notification</string>
+    <string name="settings_preserve_settings">Preserve WiFi Settings</string>
+    <string name="settings_troubleshooting">Troubleshooting</string>
+    <string name="settings_hint">Preserved WiFi settings can be applied to a WiFi Router during its setup.</string>
+    <string name="settings_cloud_account">Cloud Account</string>
+    <string name="settings_privacy_policy">Privacy Policy</string>
+    <string name="settings_app_version">APP Version</string>
+    <string name="settings_notification_sub_title">New Connected Device</string>
+    <string name="settings_cloud_account_router_list_title">YOUR WIFI ROUTER</string>
+    <string name="settings_cloud_account_router_action_edit">Edit</string>
+    <string name="settings_cloud_account_router_action_done">Done</string>
+    <string name="settings_cloud_account_router_list_hint">This WiFi Router</string>
+
     <string name="mesh_title">What scenario you need?</string>
     <string name="mesh_tip"><u>See Tips</u></string>
     <string name="mesh_with_wireless">With Wirelessly</string>

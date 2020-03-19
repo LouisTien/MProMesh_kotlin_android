@@ -29,9 +29,7 @@ import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.fragment.*
-import zyxel.com.multyproneo.fragment.cloud.CloudDevicesFragment
-import zyxel.com.multyproneo.fragment.cloud.CloudHomeFragment
-import zyxel.com.multyproneo.fragment.cloud.SetupControllerReadyFragment
+import zyxel.com.multyproneo.fragment.cloud.*
 import zyxel.com.multyproneo.model.*
 import zyxel.com.multyproneo.tool.CryptTool
 import zyxel.com.multyproneo.util.*
@@ -591,8 +589,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             cloud_wifi_text.isSelected = true
         }
 
-        /*if(GlobalData.currentFrag != "CloudWiFiSettingsFragment")
-            switchToFragContainer(CloudWiFiSettingsFragment())*/
+        if(GlobalData.currentFrag != "CloudWiFiSettingsFragment")
+            switchToFragContainer(CloudWiFiSettingsFragment())
     }
 
     private fun gotoCloudDiagnosticFragment()
@@ -606,8 +604,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             cloud_diagnostic_text.isSelected = true
         }
 
-        /*if(GlobalData.currentFrag != "CloudDiagnosticFragment")
-            switchToFragContainer(CloudDiagnosticFragment())*/
+        if(GlobalData.currentFrag != "CloudDiagnosticFragment")
+            switchToFragContainer(CloudDiagnosticFragment())
     }
 
     private fun gotoCloudSettingsFragment()
@@ -619,8 +617,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             cloud_settings_text.isSelected = true
         }
 
-        /*if(GlobalData.currentFrag != "CloudSettingsFragment")
-            switchToFragContainer(CloudSettingsFragment())*/
+        if(GlobalData.currentFrag != "CloudSettingsFragment")
+            switchToFragContainer(CloudSettingsFragment())
     }
 
     private fun gotoSearchGatewayFragment()

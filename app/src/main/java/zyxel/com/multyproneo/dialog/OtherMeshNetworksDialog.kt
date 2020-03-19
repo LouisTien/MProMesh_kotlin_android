@@ -9,7 +9,7 @@ import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.dialog_other_mesh_netowrks.*
 import org.jetbrains.anko.doAsync
 import zyxel.com.multyproneo.R
-import zyxel.com.multyproneo.adapter.OtherMeshNetworksItemAdapter
+import zyxel.com.multyproneo.adapter.cloud.CloudOtherMeshNetworksItemAdapter
 import zyxel.com.multyproneo.api.cloud.TUTKP2PBaseApi
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
@@ -20,7 +20,7 @@ import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
 
 class OtherMeshNetworksDialog(context: Context, private var siteName: String, private var gatewayListInfo: TUTKAllDeviceInfo) : Dialog(context)
 {
-    private lateinit var deviceSelectedDisposable: Disposable
+    private lateinit var siteSelectedDisposable: Disposable
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -32,7 +32,7 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
 
         other_mesh_main_mesh_text.text = siteName
 
-        other_mesh_content_list.adapter = OtherMeshNetworksItemAdapter(gatewayListInfo)
+        other_mesh_content_list.adapter = CloudOtherMeshNetworksItemAdapter(gatewayListInfo)
 
         other_mesh_close_image.setOnClickListener{ dismiss() }
 
@@ -41,7 +41,7 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
             GlobalBus.publish(MainEvent.SwitchToFrag(SetupControllerReadyFragment()))
         }
 
-        deviceSelectedDisposable = GlobalBus.listen(DialogEvent.OnOtherSiteSelect::class.java).subscribe{
+        siteSelectedDisposable = GlobalBus.listen(DialogEvent.OnOtherSiteSelect::class.java).subscribe{
             doAsync{
                 GlobalBus.publish(MainEvent.ShowLoading())
 
@@ -73,6 +73,6 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
     override fun dismiss()
     {
         super.dismiss()
-        if(!deviceSelectedDisposable.isDisposed) deviceSelectedDisposable.dispose()
+        if(!siteSelectedDisposable.isDisposed) siteSelectedDisposable.dispose()
     }
 }

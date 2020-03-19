@@ -120,4 +120,17 @@ object P2PGatewayApi
             return AppConfig.TUTKP2PMethod.MTD_POST
         }
     }
+
+    class GetRssiInfo(val index: Int = 0) : TUTKP2PCommander()
+    {
+        override fun requestURL(): String
+        {
+            return "{\"URI\":\"${AppConfig.API_DEVICE_HOST_INFO}$index.\"}"
+        }
+
+        override fun method(): AppConfig.TUTKP2PMethod
+        {
+            return AppConfig.TUTKP2PMethod.MTD_GET
+        }
+    }
 }

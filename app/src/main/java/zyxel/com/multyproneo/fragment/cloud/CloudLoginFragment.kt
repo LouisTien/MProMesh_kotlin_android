@@ -142,7 +142,7 @@ class CloudLoginFragment : Fragment()
                                     if(isInSetupFlow)
                                         GlobalBus.publish(MainEvent.SwitchToFrag(SetupFinalizingYourHomeNetwork()))
                                     else
-                                        getAllDevice()
+                                        getUserInfo()
                                 }
                                 catch(e: JSONException)
                                 {
@@ -246,6 +246,8 @@ class CloudLoginFragment : Fragment()
                         {
                             userInfo = Gson().fromJson(responseStr, TUTKUserInfo::class.javaObjectType)
                             LogUtil.d(TAG,"userInfo:$userInfo")
+                            GlobalData.currentEmail = userInfo.email
+                            getAllDevice()
                         }
                         catch(e: JSONException)
                         {
