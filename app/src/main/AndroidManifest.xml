@@ -44,6 +44,10 @@
             android:name=".tool.OnClearFromRecentService"
             android:stopWithTask="false" />
 
+        <!--<meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_stat_notify_multypro" />-->
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="17f2f9a1e815a4e1a82f8e271e41bffebd28c85f" />
