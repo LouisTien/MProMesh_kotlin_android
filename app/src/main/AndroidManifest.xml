@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/multyproneo_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <service android:name=".service.NotificationMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -29,14 +30,15 @@
         <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan">
+        </activity>
 
         <service
             android:name=".tool.OnClearFromRecentService"
@@ -45,6 +47,7 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="17f2f9a1e815a4e1a82f8e271e41bffebd28c85f" />
+
     </application>
 
 </manifest>
