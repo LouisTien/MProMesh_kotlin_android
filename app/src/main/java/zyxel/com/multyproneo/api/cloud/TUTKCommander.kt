@@ -151,7 +151,7 @@ abstract class TUTKCommander
 
                 if(response.isSuccessful)
                 {
-                    GlobalBus.publish(MainEvent.HideLoading())
+                    //GlobalBus.publish(MainEvent.HideLoading())
                     responseListener.onSuccess(responseStr)
                 }
                 else

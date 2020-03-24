@@ -158,7 +158,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
         params.put("udid", GlobalData.currentUID)
         params.put("fwVer", GlobalData.getCurrentGatewayInfo().SoftwareVersion)
         params.put("displayName", GlobalData.getCurrentGatewayInfo().ModelName)
-        params.put("credential", "")
+        params.put("credential", GlobalData.getCurrentGatewayInfo().MAC)
         LogUtil.d(TAG,"addDevice param:$params")
 
         AMDMApi.AddDevice()
@@ -254,6 +254,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
 
             var siteInfo = DatabaseSiteInfoEntity(
                     GlobalData.getCurrentGatewayInfo().MAC,
+                    GlobalData.currentUID,
                     GlobalData.getCurrentGatewayInfo().ModelName,
                     "N/A",
                     WiFiName,

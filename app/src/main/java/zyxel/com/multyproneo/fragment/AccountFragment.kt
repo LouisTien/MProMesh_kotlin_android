@@ -21,7 +21,6 @@ import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
-import zyxel.com.multyproneo.util.LogUtil
 
 /**
  * Created by LouisTien on 2019/6/13.

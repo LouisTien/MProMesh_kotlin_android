@@ -248,6 +248,7 @@ class CloudLoginFragment : Fragment()
                             LogUtil.d(TAG,"userInfo:$userInfo")
                             GlobalData.currentEmail = userInfo.email
                             getAllDevice()
+                            //addDevice()
                         }
                         catch(e: JSONException)
                         {
@@ -328,10 +329,84 @@ class CloudLoginFragment : Fragment()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
 
         val params = JSONObject()
-        params.put("udid", "kkkkkkkkkkkkkkkkkkkk")
-        params.put("fwVer", "v3.0.1")
-        params.put("displayName", "LouisHome")
-        params.put("credential", "testtesttesttesttesttest")
+        params.put("udid", "77KA952WU5RMUH6GY123")
+        params.put("fwVer", "V5.17(ABUP.0)b2_20200311")
+        params.put("displayName", "EX3510-Test")
+        params.put("credential", "00:00:00:00:00")
+        LogUtil.d(TAG,"addDevice param:$params")
+
+        AMDMApi.AddDevice()
+                .setRequestPageName(TAG)
+                .setHeaders(header)
+                .setParams(params)
+                .setResponseListener(object: TUTKCommander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            addDeviceInfo = Gson().fromJson(responseStr, TUTKAddDeviceInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"addDeviceInfo:$addDeviceInfo")
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun addDevice2()
+    {
+        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+
+        val header = HashMap<String, Any>()
+        header["authorization"] = "${GlobalData.tokenType} $accessToken"
+
+        val params = JSONObject()
+        params.put("udid", "78KA952WU5RMUH6GY123")
+        params.put("fwVer", "V5.17(ABUP.0)b2_20200311")
+        params.put("displayName", "EX3510-Test2")
+        params.put("credential", "00:00:00:00:00")
+        LogUtil.d(TAG,"addDevice param:$params")
+
+        AMDMApi.AddDevice()
+                .setRequestPageName(TAG)
+                .setHeaders(header)
+                .setParams(params)
+                .setResponseListener(object: TUTKCommander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            addDeviceInfo = Gson().fromJson(responseStr, TUTKAddDeviceInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"addDeviceInfo:$addDeviceInfo")
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun addDevice3()
+    {
+        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+
+        val header = HashMap<String, Any>()
+        header["authorization"] = "${GlobalData.tokenType} $accessToken"
+
+        val params = JSONObject()
+        params.put("udid", "79KA952WU5RMUH6GY123")
+        params.put("fwVer", "V5.17(ABUP.0)b2_20200311")
+        params.put("displayName", "EX3510-Test3")
+        params.put("credential", "00:00:00:00:00")
         LogUtil.d(TAG,"addDevice param:$params")
 
         AMDMApi.AddDevice()

@@ -16,6 +16,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.ProgressBar
+import android.widget.TextView
 import com.google.gson.Gson
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var switchFrgDisposable: Disposable
     private lateinit var showLoadingOnlyGrayBGDisposable: Disposable
     private lateinit var showLoadingDisposable: Disposable
+    private lateinit var showLoadingHintDisposable: Disposable
     private lateinit var hideLoadingDisposable: Disposable
     private lateinit var showBottomToolbarDisposable: Disposable
     private lateinit var showCloudBottomToolbarDisposable: Disposable
@@ -73,6 +75,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var showErrorMsgDialogDisposable: Disposable
     private lateinit var showToastDisposable: Disposable
     private lateinit var loadingDlg: Dialog
+    private lateinit var loadingHintDlg: Dialog
     private lateinit var errorMsgDlg: MessageDialog
     private lateinit var devicesInfo: DevicesInfo
     private lateinit var changeIconNameInfo: ChangeIconNameInfo
@@ -82,6 +85,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var hostNameReplaceInfo: HostNameReplaceInfo
     private lateinit var internetBlockingInfo: InternetBlockingInfo
     private lateinit var progressBar: ProgressBar
+    private lateinit var progressBarHint: ProgressBar
+    private lateinit var progressHintText: TextView
     private lateinit var getSpeedTestStatusTimer: CountDownTimer
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
@@ -94,6 +99,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         loadingDlg = createLoadingDlg(this)
+        loadingHintDlg = createLoadingHintDlg(this)
         createErrorMsgDlg()
         OUIUtil.executeGetMacOUITask(this)
         randomAESInfo()
@@ -311,6 +317,17 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         return builder.create()
     }
 
+    private fun createLoadingHintDlg(context: Context): Dialog
+    {
+        val builder = AlertDialog.Builder(context, R.style.loadingStyle)
+        val mView = layoutInflater.inflate(R.layout.dialog_loading_show_hint, null)
+        progressBarHint = mView.findViewById(R.id.loadingProBar) as ProgressBar
+        progressHintText = mView.findViewById(R.id.loadingProBarHint) as TextView
+        builder.setCancelable(false)
+        builder.setView(mView)
+        return builder.create()
+    }
+
     private fun createErrorMsgDlg()
     {
         errorMsgDlg = MessageDialog(
@@ -333,6 +350,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         showLoadingOnlyGrayBGDisposable = GlobalBus.listen(MainEvent.ShowLoadingOnlyGrayBG::class.java).subscribe{ ShowLoadingOnlyGrayBG() }
 
         showLoadingDisposable = GlobalBus.listen(MainEvent.ShowLoading::class.java).subscribe{ showLoading() }
+
+        showLoadingHintDisposable = GlobalBus.listen(MainEvent.ShowHintLoading::class.java).subscribe{ showHintLoading(it.hint) }
 
         hideLoadingDisposable = GlobalBus.listen(MainEvent.HideLoading::class.java).subscribe{ hideLoading() }
 
@@ -446,6 +465,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!switchFrgDisposable.isDisposed) switchFrgDisposable.dispose()
         if(!showLoadingOnlyGrayBGDisposable.isDisposed) showLoadingOnlyGrayBGDisposable.dispose()
         if(!showLoadingDisposable.isDisposed) showLoadingDisposable.dispose()
+        if(!showLoadingHintDisposable.isDisposed) showLoadingHintDisposable.dispose()
         if(!hideLoadingDisposable.isDisposed) hideLoadingDisposable.dispose()
         if(!showBottomToolbarDisposable.isDisposed) showBottomToolbarDisposable.dispose()
         if(!showCloudBottomToolbarDisposable.isDisposed) showCloudBottomToolbarDisposable.dispose()
@@ -642,9 +662,20 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         }
     }
 
+    private fun showHintLoading(hint: String)
+    {
+        runOnUiThread{
+            progressHintText.text = hint
+            if(!loadingHintDlg.isShowing) loadingHintDlg.show()
+        }
+    }
+
     private fun hideLoading()
     {
-        runOnUiThread{ if(loadingDlg.isShowing) loadingDlg.dismiss() }
+        runOnUiThread{
+            if(loadingDlg.isShowing) loadingDlg.dismiss()
+            if(loadingHintDlg.isShowing) loadingHintDlg.dismiss()
+        }
     }
 
     private fun showErrorMsgDialog(msg: String, requestCtxName: String)

@@ -12,6 +12,9 @@ interface DatabaseSiteInfoDao
     @Query("select * from " + AppConfig.TABLE_SITE_INFO_NAME + " where mac LIKE :mac LIMIT 1")
     fun queryByMac(mac: String): DatabaseSiteInfoEntity
 
+    @Query("select * from " + AppConfig.TABLE_SITE_INFO_NAME + " where uid LIKE :uid LIMIT 1")
+    fun queryByUid(uid: String): DatabaseSiteInfoEntity
+
     @Query("select * from " + AppConfig.TABLE_SITE_INFO_NAME + " where backup LIKE :value")
     fun queryByBackup(value: Boolean): List<DatabaseSiteInfoEntity>
 

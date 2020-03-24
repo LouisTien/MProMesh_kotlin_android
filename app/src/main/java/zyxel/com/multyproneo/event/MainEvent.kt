@@ -8,6 +8,7 @@ class MainEvent
     data class SwitchToFrag(var frag: android.support.v4.app.Fragment)
     class ShowLoadingOnlyGrayBG()
     class ShowLoading()
+    class ShowHintLoading(var hint: String)
     class HideLoading()
     class ShowBottomToolbar()
     class ShowCloudBottomToolbar()

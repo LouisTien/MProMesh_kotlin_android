@@ -21,7 +21,7 @@ class CloudSettingsFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private lateinit var db: DatabaseCloudUtil
-    private lateinit var currentDBInfo: DatabaseSiteInfoEntity
+    private var currentDBInfo: DatabaseSiteInfoEntity? = null
     private var preserveSettingsEnable = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -56,46 +56,40 @@ class CloudSettingsFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            settings_notification_enter_image -> { GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsNotificationDetailFragment())) }
+            settings_notification_relative -> { GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsNotificationDetailFragment())) }
 
             settings_preserve_settings_switch_image -> {
                 preserveSettingsEnable = !preserveSettingsEnable
-                currentDBInfo.backup = preserveSettingsEnable
 
                 doAsync{
-                    db.getSiteInfoDao().insert(currentDBInfo)
-
+                    if(currentDBInfo != null)
+                    {
+                        currentDBInfo!!.backup = preserveSettingsEnable
+                        db.getSiteInfoDao().insert(currentDBInfo!!)
+                    }
                     uiThread{ updateUI() }
                 }
             }
 
-            settings_cloud_account_enter_image -> { GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsCloudAccountDetailFragment())) }
+            settings_cloud_account_relative -> { GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsCloudAccountDetailFragment())) }
         }
     }
 
     private fun setClickListener()
     {
-        settings_notification_enter_image.setOnClickListener(clickListener)
+        settings_notification_relative.setOnClickListener(clickListener)
         settings_preserve_settings_switch_image.setOnClickListener(clickListener)
-        settings_troubleshooting_enter_image.setOnClickListener(clickListener)
-        settings_cloud_account_enter_image.setOnClickListener(clickListener)
-        settings_privacy_policy_enter_image.setOnClickListener(clickListener)
+        settings_troubleshooting_relative.setOnClickListener(clickListener)
+        settings_cloud_account_relative.setOnClickListener(clickListener)
+        settings_privacy_policy_relative.setOnClickListener(clickListener)
     }
 
     private fun getInfoFromDB()
     {
         doAsync{
             currentDBInfo = db.getSiteInfoDao().queryByMac(GlobalData.getCurrentGatewayInfo().MAC)
-
-            try
-            {
-                preserveSettingsEnable = currentDBInfo.backup
-            }
-            catch(e: NullPointerException)
-            {
-                e.printStackTrace()
-            }
-
+            preserveSettingsEnable = currentDBInfo?.backup?:false
+            LogUtil.e(TAG,"preserveSettingsEnable:$preserveSettingsEnable")
             uiThread{ updateUI() }
         }
     }

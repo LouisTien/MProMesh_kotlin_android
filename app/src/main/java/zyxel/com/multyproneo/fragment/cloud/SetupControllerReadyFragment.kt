@@ -42,6 +42,8 @@ class SetupControllerReadyFragment : Fragment()
 
         //if(TUTKP2PBaseApi.initIOTCRDT() >= 0)
             //TUTKP2PBaseApi.startSession("EZPAA13CVHRC9HPGY1WJ")
+
+        //GlobalBus.publish(MainEvent.ShowHintLoading("test"))
     }
 
     override fun onResume()
@@ -71,14 +73,14 @@ class SetupControllerReadyFragment : Fragment()
                 //p2pTest()
             }
 
-            setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
-            /*setup_controller_ready_next_image ->
+            //setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
+            setup_controller_ready_next_image ->
             {
                 val bundle = Bundle().apply{
                     putBoolean("isInSetupFlow", false)
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment().apply{ arguments = bundle }))
-            }*/
+            }
         }
     }
 
@@ -94,6 +96,7 @@ class SetupControllerReadyFragment : Fragment()
 
         var test1 = DatabaseSiteInfoEntity(
                 "aaa",
+                "AAA",
                 "A",
                 "xxx/xx1",
                 "WA",
@@ -103,6 +106,7 @@ class SetupControllerReadyFragment : Fragment()
 
         var test2 = DatabaseSiteInfoEntity(
                 "bbb",
+                "BBB",
                 "B",
                 "xxx/xx2",
                 "WB",
@@ -112,6 +116,7 @@ class SetupControllerReadyFragment : Fragment()
 
         var test3 = DatabaseSiteInfoEntity(
                 "ccc",
+                "CCC",
                 "C",
                 "xxx/xx3",
                 "WC",
@@ -121,6 +126,7 @@ class SetupControllerReadyFragment : Fragment()
 
         var test4 = DatabaseSiteInfoEntity(
                 "ddd",
+                "DDD",
                 "D",
                 "xxx/xx3",
                 "WC",
@@ -130,6 +136,7 @@ class SetupControllerReadyFragment : Fragment()
 
         var test5 = DatabaseSiteInfoEntity(
                 "eee",
+                "EEE",
                 "E",
                 "xxx/xx3",
                 "WC",
@@ -139,6 +146,7 @@ class SetupControllerReadyFragment : Fragment()
 
         var test6 = DatabaseSiteInfoEntity(
                 "bbb",
+                "FFF",
                 "F",
                 "xxx/xx333333",
                 "WC",
@@ -215,6 +223,9 @@ class SetupControllerReadyFragment : Fragment()
                 LogUtil.d(TAG,"[LOUIS]wifiSSID:${item.wifiSSID}")
                 LogUtil.d(TAG,"[LOUIS]wifiPWD:${item.wifiPWD}")
                 LogUtil.d(TAG,"[LOUIS]backup:${item.backup}")
+                LogUtil.d(TAG,"[LOUIS]reserveOne:${item.reserveOne}")
+                LogUtil.d(TAG,"[LOUIS]reserveTwo:${item.reserveTwo}")
+                LogUtil.d(TAG,"[LOUIS]reserveThree:${item.reserveThree}")
                 LogUtil.d(TAG,"[LOUIS]-------------------------------------")
             }
 
@@ -226,18 +237,46 @@ class SetupControllerReadyFragment : Fragment()
                 LogUtil.d(TAG,"[LOUIS][2]mac:${item.mac}")
                 LogUtil.d(TAG,"[LOUIS][2]deviceMac:${item.deviceMac}")
                 LogUtil.d(TAG,"[LOUIS][2]deviceName:${item.deviceName}")
+                LogUtil.d(TAG,"[LOUIS][2]reserveOne:${item.reserveOne}")
+                LogUtil.d(TAG,"[LOUIS][2]reserveTwo:${item.reserveTwo}")
+                LogUtil.d(TAG,"[LOUIS][2]reserveThree:${item.reserveThree}")
                 LogUtil.d(TAG,"[LOUIS]-------------------------------------")
             }
 
             var info = DatabaseSiteInfoEntity()
             info = db.getSiteInfoDao().queryByMac("zzz")
-            LogUtil.d(TAG,"[LOUIS1]mac:${info.mac}")
-            LogUtil.d(TAG,"[LOUIS1]siteName:${info.siteName}")
-            LogUtil.d(TAG,"[LOUIS1]sitePicPath:${info.sitePicPath}")
-            LogUtil.d(TAG,"[LOUIS1]wifiSSID:${info.wifiSSID}")
-            LogUtil.d(TAG,"[LOUIS1]wifiPWD:${info.wifiPWD}")
-            LogUtil.d(TAG,"[LOUIS1]backup:${info.backup}")
-            LogUtil.d(TAG,"[LOUIS1]-------------------------------------")
+            if(info == null)
+                LogUtil.e(TAG,"mac : zzz return NULL!!!!!")
+            else
+            {
+                LogUtil.d(TAG,"[LOUIS1]mac:${info.mac}")
+                LogUtil.d(TAG,"[LOUIS1]siteName:${info.siteName}")
+                LogUtil.d(TAG,"[LOUIS1]sitePicPath:${info.sitePicPath}")
+                LogUtil.d(TAG,"[LOUIS1]wifiSSID:${info.wifiSSID}")
+                LogUtil.d(TAG,"[LOUIS1]wifiPWD:${info.wifiPWD}")
+                LogUtil.d(TAG,"[LOUIS1]backup:${info.backup}")
+                LogUtil.d(TAG,"[LOUIS1]-------------------------------------")
+            }
+
+            var clientInfoList = db.getClientListDao().queryByMac("ZZZ")
+            if(clientInfoList == null)
+            {
+                LogUtil.e(TAG,"clientInfoList is NULL!!")
+            }
+
+            if(clientInfoList.isEmpty())
+            {
+                LogUtil.e(TAG,"clientInfoList is EMPTY!!")
+            }
+
+            for(item in clientInfoList)
+            {
+                LogUtil.e(TAG,"clientInfoList mac:${item.mac}")
+                LogUtil.e(TAG,"clientInfoList deviceMac:${item.deviceMac}")
+                LogUtil.e(TAG,"clientInfoList deviceName:${item.deviceName}")
+            }
+
+            LogUtil.e(TAG,"clientInfoList size:${clientInfoList.size}")
         }
     }
 

@@ -9,6 +9,7 @@ data class DatabaseSiteInfoEntity
 (
     @PrimaryKey
     var mac: String = "N/A",
+    var uid: String = "N/A",
     var siteName: String = "N/A",
     var sitePicPath: String = "N/A",
     var wifiSSID: String = "N/A",

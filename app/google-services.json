@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "578617382573-vo8qt1vj1plnfs7ipj49ttfs0cc7aa77.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "zyxel.com.multyproneo",
+            "certificate_hash": "4a4617ad792b8d62777aa0b5f0798d27ef04ca06"
+          }
+        },
+        {
           "client_id": "578617382573-6neg4p0c4m20v6s5lgngfjun3pa1c9np.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
