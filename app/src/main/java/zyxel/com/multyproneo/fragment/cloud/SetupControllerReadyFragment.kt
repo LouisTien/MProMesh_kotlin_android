@@ -1,6 +1,7 @@
 package zyxel.com.multyproneo.fragment.cloud
 
 import android.os.Bundle
+import android.provider.Settings
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,11 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_setup_controller_ready.*
 import org.jetbrains.anko.doAsync
 import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.Commander
+import zyxel.com.multyproneo.api.DevicesApi
 import zyxel.com.multyproneo.api.cloud.*
 import zyxel.com.multyproneo.database.room.DatabaseClientListEntity
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
@@ -18,10 +22,8 @@ import zyxel.com.multyproneo.dialog.SetupControllerReadyHelpDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.DevicesInfo
-import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.DatabaseCloudUtil
-import zyxel.com.multyproneo.util.LogUtil
-import zyxel.com.multyproneo.util.SharedPreferencesUtil
+import zyxel.com.multyproneo.util.*
+import java.util.HashMap
 
 class SetupControllerReadyFragment : Fragment()
 {
@@ -71,6 +73,7 @@ class SetupControllerReadyFragment : Fragment()
                 helpDlg.show()
                 //dbTest()
                 //p2pTest()
+                notificationTest()
             }
 
             //setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
@@ -324,6 +327,66 @@ class SetupControllerReadyFragment : Fragment()
 
                         //var devicesInfo = Gson().fromJson(responseStr, DevicesInfo::class.javaObjectType)
                         //LogUtil.d(TAG,"devicesInfo:$devicesInfo")
+                    }
+                }).execute()
+    }
+
+    fun notificationTest()
+    {
+        var phoneUdid = Settings.System.getString(activity!!.contentResolver, Settings.Secure.ANDROID_ID)
+        var notificationToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_NOTIFICATION_TOKEN, "")
+
+        val header = HashMap<String, Any>()
+        val body = HashMap<String, Any>()
+        body["cmd"] = "client"
+        body["os"] = "android"
+        body["appid"] = AppConfig.NOTI_BUNDLE_ID
+        body["udid"] = phoneUdid
+        body["token"] = notificationToken
+        body["lang"] = "en_US"
+        body["bgfetch"] = 1
+        body["dev"] = 0
+
+        NotificationApi.Register(activity!!)
+                .setRequestPageName(TAG)
+                .setHeaders(header)
+                .setFormBody(body)
+                .setResponseListener(object: TUTKCommander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        LogUtil.d(TAG,"NotificationApi Register:$responseStr")
+                        mapping()
+                    }
+                }).execute()
+    }
+
+    fun mapping()
+    {
+        LogUtil.d(TAG,"mapping()")
+
+        var phoneUdid = Settings.System.getString(activity!!.contentResolver, Settings.Secure.ANDROID_ID)
+
+        val header = HashMap<String, Any>()
+        val body = HashMap<String, Any>()
+        body["cmd"] = "mapping"
+        body["os"] = "android"
+        body["appid"] = AppConfig.NOTI_BUNDLE_ID
+        body["uid"] = "E7KA952WU5RMUH6GY1CJ"
+        body["udid"] = phoneUdid
+        body["format"] = "e2Rldl9uYW1lfSB7ZXZlbnRfdHlwZX0NCnttc2d9"
+        body["interval"] = 5
+        body["customized_payload"] = "eyJjb250ZW50X2F2YWlsYWJsZSI6dHJ1ZSwibm90aWZpY2F0aW9uIjp7InRpdGxlIjp7JU1ZVE9QSUMlfSwiYm9keSI6eyVNWUJPRFklfX19"
+
+        NotificationApi.Mapping(activity!!)
+                .setRequestPageName(TAG)
+                .setHeaders(header)
+                .setFormBody(body)
+                .setResponseListener(object: TUTKCommander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        LogUtil.d(TAG,"NotificationApi Mapping:$responseStr")
                     }
                 }).execute()
     }

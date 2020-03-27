@@ -87,11 +87,11 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
     private fun setLocalDeviceNames()
     {
         val params = JSONObject()
-        val paramsSub = JSONObject()
         val paramsArray = JSONArray()
 
         for(i in 0 until clientList.size)
         {
+            val paramsSub = JSONObject()
             paramsSub.put("HostName", clientList[i].deviceName)
             paramsSub.put("MacAddress", clientList[i].deviceMac)
             paramsSub.put("Internet_Blocking_Enable", false)

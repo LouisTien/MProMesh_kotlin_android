@@ -13,6 +13,8 @@ import zyxel.com.multyproneo.event.MainEvent
 
 class ConnectToCloudFragment : Fragment()
 {
+    private var isInSetupFlow = true
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         return inflater.inflate(R.layout.fragment_connect_to_cloud, container, false)
@@ -21,9 +23,15 @@ class ConnectToCloudFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        with(arguments)
+        {
+            this?.getBoolean("isInSetupFlow")?.let{ isInSetupFlow = it }
+        }
+
         connect_to_cloud_continue_image.onClick{
             val bundle = Bundle().apply{
-                putBoolean("isInSetupFlow", true)
+                putBoolean("isInSetupFlow", isInSetupFlow)
             }
             GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment().apply{ arguments = bundle }))
         }

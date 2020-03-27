@@ -13,7 +13,9 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.WelcomeActivity
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.LogUtil
+import zyxel.com.multyproneo.util.SharedPreferencesUtil
 
 
 class NotificationMessagingService : FirebaseMessagingService()
@@ -67,6 +69,9 @@ class NotificationMessagingService : FirebaseMessagingService()
     override fun onNewToken(token: String?)
     {
         LogUtil.d(TAG, "Refreshed token: " + token!!)
+
+        var notificationToken by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_NOTIFICATION_TOKEN, "N/A")
+        notificationToken = token
 
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the

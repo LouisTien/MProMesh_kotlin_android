@@ -142,7 +142,7 @@ class CloudLoginFragment : Fragment()
                                     if(isInSetupFlow)
                                         GlobalBus.publish(MainEvent.SwitchToFrag(SetupFinalizingYourHomeNetwork()))
                                     else
-                                        getUserInfo()
+                                        GlobalBus.publish(MainEvent.GetCloudInfo())
                                 }
                                 catch(e: JSONException)
                                 {

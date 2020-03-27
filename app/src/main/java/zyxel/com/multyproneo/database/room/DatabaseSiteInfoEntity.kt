@@ -15,6 +15,7 @@ data class DatabaseSiteInfoEntity
     var wifiSSID: String = "N/A",
     var wifiPWD: String = "N/A",
     var backup: Boolean = false, //true: save wifiSSID, wifiPWD in this table, save deviceMac, deviceName in TABLE_CLIENT_LIST_NAME table
+    var notification: Boolean = false,
     var reserveOne: String = "N/A",
     var reserveTwo: String = "N/A",
     var reserveThree: String = "N/A"

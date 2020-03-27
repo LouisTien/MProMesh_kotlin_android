@@ -4,6 +4,7 @@ import okhttp3.*
 import org.json.JSONObject
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.LogUtil
 import java.io.IOException
 import java.util.concurrent.TimeUnit
@@ -35,13 +36,18 @@ abstract class TUTKCommander
     {
         abstract fun onSuccess(responseStr: String)
 
-        open fun onFail(code: Int, msg: String, ctxName: String)
+        open fun onFail(code: Int, msg: String, ctxName: String, act: AppConfig.HTTPErrorAction)
         {
             LogUtil.e("Commander","[onFail]code:$code")
             LogUtil.e("Commander","[onFail]msg:$msg")
             LogUtil.e("Commander","[onFail]ctxName:$ctxName")
+            LogUtil.e("Commander","[onFail]act:$act")
 
-            GlobalBus.publish(MainEvent.ShowErrorMsgDialogCloud(msg, ctxName))
+            when(act)
+            {
+                AppConfig.HTTPErrorAction.ERR_ACT_GOTO_LOGIN -> {}
+                else -> {}
+            }
         }
 
         open fun onConnectFail(msg: String, ctxName: String)
@@ -157,7 +163,11 @@ abstract class TUTKCommander
                 else
                 {
                     GlobalBus.publish(MainEvent.HideLoading())
-                    responseListener.onFail(responseCode, responseStr, getRequestPageName())
+
+                    if(call.request().url().toString().contains("refresh_token"))
+                        responseListener.onFail(responseCode, responseStr, getRequestPageName(), AppConfig.HTTPErrorAction.ERR_ACT_GOTO_LOGIN)
+                    else
+                        responseListener.onFail(responseCode, responseStr, getRequestPageName(), AppConfig.HTTPErrorAction.ERR_ACT_GOTO_RESTART)
                 }
             }
         })

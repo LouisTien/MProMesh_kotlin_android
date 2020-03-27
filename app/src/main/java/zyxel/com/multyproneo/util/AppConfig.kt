@@ -5,6 +5,9 @@ package zyxel.com.multyproneo.util
  */
 object AppConfig
 {
+    //Welcome display time
+    const val WELCOME_DISPLAY_TIME_IN_MILLISECONDS: Long = 1500
+
     //Diagnostic permission request
     const val PERMISSION_LOCATION_REQUESTCODE = 1
 
@@ -63,16 +66,27 @@ object AppConfig
     const val TUTK_RDT_RECV_TIMEOUT_TIMES = 30
     const val TUTK_RECV_HEADER_LENGTH = 4
 
+    //TUTK Notification
+    const val TUTK_NOTI_KPNS = "http://push.iotcplatform.com"
+
+    //Notification
+    const val NOTI_APP_ID = "1:578617382573:android:64c93a4c608b34b7c21824"
+    const val NOTI_BUNDLE_ID = "zyxel.com.multyproneo"
+    const val NOTI_SERVER_Key = "AAAAhrhIlq0:APA91bFzNi3ngFviCO4W6J6coY-YI3hUzS0pRjP47iG6MyV76kjgm7HFYhHjFZhAK-VWqeoWeUEw0G7d2-MUClRpUS_tHt1AQLvZHR6RayYLg0MRV4HUN969wWXzn8PvjQMUq2Q7B1Dx"
+
     //Database
     const val DATABASE_NAME = "mpromesh.db"
     const val TABLE_SITE_INFO_NAME = "site_information"
     const val TABLE_CLIENT_LIST_NAME = "client_list"
+    const val TABLE_NOTIFICATION_LIST_NAME = "notification_list"
 
     //SharedPreferences
     const val SHAREDPREF_NAME = "name_device_setting"
     const val SHAREDPREF_FIRST_TIME_KEY = "key_first_time_use"
     const val SHAREDPREF_TUTK_REFRESH_TOKEN_KEY = "TUTK_refresh_token"
     const val SHAREDPREF_TUTK_ACCESS_TOKEN_KEY = "TUTK_access_token"
+    const val SHAREDPREF_NOTIFICATION_TOKEN = "notification_token"
+    const val SHAREDPREF_PHONE_UDID = "phone_udid"
 
     //Check Internet
     const val VERFY_INTERNET_DOMAIN_URL = "https://www.google.com"
@@ -150,6 +164,13 @@ object AppConfig
         ACT_QRCODE_SCAN_ERROR,
         ACT_QRCODE_SCAN_OK,
         ACT_RESTART
+    }
+
+    enum class HTTPErrorAction
+    {
+        ERR_ACT_NONE,
+        ERR_ACT_GOTO_RESTART,
+        ERR_ACT_GOTO_LOGIN
     }
 
     enum class TroubleshootingPage

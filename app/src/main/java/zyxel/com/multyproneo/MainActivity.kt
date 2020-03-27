@@ -25,13 +25,17 @@ import org.jetbrains.anko.toast
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.api.*
+import zyxel.com.multyproneo.api.cloud.AMDMApi
 import zyxel.com.multyproneo.api.cloud.P2PAddMeshApi
+import zyxel.com.multyproneo.api.cloud.TUTKCommander
 import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.fragment.*
 import zyxel.com.multyproneo.fragment.cloud.*
 import zyxel.com.multyproneo.model.*
+import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
+import zyxel.com.multyproneo.model.cloud.TUTKUserInfo
 import zyxel.com.multyproneo.tool.CryptTool
 import zyxel.com.multyproneo.util.*
 import zyxel.com.multyproneo.wifichart.WiFiChannelChartListener
@@ -74,6 +78,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var msgDialogResponseDisposable: Disposable
     private lateinit var showErrorMsgDialogDisposable: Disposable
     private lateinit var showToastDisposable: Disposable
+    private lateinit var getCloudInfoDisposable: Disposable
     private lateinit var loadingDlg: Dialog
     private lateinit var loadingHintDlg: Dialog
     private lateinit var errorMsgDlg: MessageDialog
@@ -88,6 +93,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var progressBarHint: ProgressBar
     private lateinit var progressHintText: TextView
     private lateinit var getSpeedTestStatusTimer: CountDownTimer
+    private lateinit var userInfo: TUTKUserInfo
+    private lateinit var allDeviceInfo: TUTKAllDeviceInfo
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
     private var getWPSStatusTimer = Timer()
@@ -106,7 +113,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         initSpeedTestTimer()
         setClickListener()
         listenEvent()
-        switchToFragContainer(SetupControllerReadyFragment())
+        switchToFragContainer(CloudWelcomeFragment())
     }
 
     override fun onResume()
@@ -458,6 +465,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         showErrorMsgDialogDisposable = GlobalBus.listen(MainEvent.ShowErrorMsgDialog::class.java).subscribe{ showErrorMsgDialog(it.msg, it.requestCtxName) }
 
         showToastDisposable = GlobalBus.listen(MainEvent.ShowToast::class.java).subscribe{ showToast(it.msg, it.requestCtxName) }
+
+        getCloudInfoDisposable = GlobalBus.listen(MainEvent.GetCloudInfo::class.java).subscribe{ getUserInfo() }
     }
 
     private fun disposeEvent()
@@ -495,6 +504,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!msgDialogResponseDisposable.isDisposed) msgDialogResponseDisposable.dispose()
         if(!showErrorMsgDialogDisposable.isDisposed) showErrorMsgDialogDisposable.dispose()
         if(!showToastDisposable.isDisposed) showToastDisposable.dispose()
+        if(!getCloudInfoDisposable.isDisposed) getCloudInfoDisposable.dispose()
     }
 
     private fun switchToFragContainer(fragment: Fragment)
@@ -1168,6 +1178,69 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             e.printStackTrace()
                             stopSpeedTest()
                             GlobalBus.publish(GatewayEvent.GetSpeedTestComplete("- Mbps", "- Mbps"))
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun getUserInfo()
+    {
+        var accessToken by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+
+        val header = HashMap<String, Any>()
+        header["authorization"] = "${GlobalData.tokenType} $accessToken"
+
+        AMDMApi.GetUserInfo()
+                .setRequestPageName(TAG)
+                .setHeaders(header)
+                .setResponseListener(object: TUTKCommander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            userInfo = Gson().fromJson(responseStr, TUTKUserInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"userInfo:$userInfo")
+                            GlobalData.currentEmail = userInfo.email
+                            getAllDevice()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun getAllDevice()
+    {
+        LogUtil.d(TAG,"getAllDevice()")
+
+        var accessToken by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+
+        val header = HashMap<String, Any>()
+        header["authorization"] = "${GlobalData.tokenType} $accessToken"
+
+        AMDMApi.GetAllDevice()
+                .setRequestPageName(TAG)
+                .setHeaders(header)
+                .setResponseListener(object: TUTKCommander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            GlobalData.cloudGatewayListInfo = Gson().fromJson(responseStr, TUTKAllDeviceInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"allDeviceInfo:${GlobalData.cloudGatewayListInfo}")
+                            GlobalBus.publish(MainEvent.SwitchToFrag(CloudGatewayListFragment()))
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            GlobalBus.publish(MainEvent.HideLoading())
                         }
                     }
                 }).execute()

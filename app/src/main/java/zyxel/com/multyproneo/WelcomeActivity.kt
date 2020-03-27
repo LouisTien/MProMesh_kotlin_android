@@ -22,7 +22,6 @@ import zyxel.com.multyproneo.util.SharedPreferencesUtil
  */
 class WelcomeActivity : AppCompatActivity()
 {
-    private val WELCOME_DISPLAY_TIME_IN_MILLISECONDS: Long = 1500
     private val welcomeAdapter = WelcomeAdapter(this)
     private var firstTimeUse by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_FIRST_TIME_KEY, true)
 
@@ -97,7 +96,7 @@ class WelcomeActivity : AppCompatActivity()
         welcome_right_start_text.setOnClickListener{ launch() }
         welcome_left_start_text.setOnClickListener{ launch() }
 
-        Handler().postDelayed({ startMainActivity() }, WELCOME_DISPLAY_TIME_IN_MILLISECONDS)
+        Handler().postDelayed({ startMainActivity() }, AppConfig.WELCOME_DISPLAY_TIME_IN_MILLISECONDS)
 
     }
 
