@@ -73,17 +73,20 @@ class SetupControllerReadyFragment : Fragment()
                 helpDlg.show()
                 //dbTest()
                 //p2pTest()
-                notificationTest()
+                //notificationTest()
+                //removeMapping()
             }
 
-            //setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
-            setup_controller_ready_next_image ->
+            setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
+            /*setup_controller_ready_next_image ->
             {
                 val bundle = Bundle().apply{
                     putBoolean("isInSetupFlow", false)
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment().apply{ arguments = bundle }))
-            }
+            }*/
+            //setup_controller_ready_next_image -> removeMapping()
+            //setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsFragment()))
         }
     }
 
@@ -347,7 +350,7 @@ class SetupControllerReadyFragment : Fragment()
         body["bgfetch"] = 1
         body["dev"] = 0
 
-        NotificationApi.Register(activity!!)
+        NotificationApi.Common(activity!!)
                 .setRequestPageName(TAG)
                 .setHeaders(header)
                 .setFormBody(body)
@@ -374,11 +377,11 @@ class SetupControllerReadyFragment : Fragment()
         body["appid"] = AppConfig.NOTI_BUNDLE_ID
         body["uid"] = "E7KA952WU5RMUH6GY1CJ"
         body["udid"] = phoneUdid
-        body["format"] = "e2Rldl9uYW1lfSB7ZXZlbnRfdHlwZX0NCnttc2d9"
+        body["format"] = "e2Rldl9uYW1lfSB7ZXZlbnRfdHlwZX0="//""e2Rldl9uYW1lfSB7ZXZlbnRfdHlwZX0NCnttc2d9"
         body["interval"] = 5
         body["customized_payload"] = "eyJjb250ZW50X2F2YWlsYWJsZSI6dHJ1ZSwibm90aWZpY2F0aW9uIjp7InRpdGxlIjp7JU1ZVE9QSUMlfSwiYm9keSI6eyVNWUJPRFklfX19"
 
-        NotificationApi.Mapping(activity!!)
+        NotificationApi.Common(activity!!)
                 .setRequestPageName(TAG)
                 .setHeaders(header)
                 .setFormBody(body)
@@ -387,6 +390,33 @@ class SetupControllerReadyFragment : Fragment()
                     override fun onSuccess(responseStr: String)
                     {
                         LogUtil.d(TAG,"NotificationApi Mapping:$responseStr")
+                    }
+                }).execute()
+    }
+
+    fun removeMapping()
+    {
+        LogUtil.d(TAG,"removeMapping()")
+
+        var phoneUdid = Settings.System.getString(activity!!.contentResolver, Settings.Secure.ANDROID_ID)
+
+        val header = HashMap<String, Any>()
+        val body = HashMap<String, Any>()
+        body["cmd"] = "rm_mapping"
+        body["os"] = "android"
+        body["appid"] = AppConfig.NOTI_BUNDLE_ID
+        body["uid"] = "E7KA952WU5RMUH6GY1CJ"
+        body["udid"] = phoneUdid
+
+        NotificationApi.Common(activity!!)
+                .setRequestPageName(TAG)
+                .setHeaders(header)
+                .setFormBody(body)
+                .setResponseListener(object: TUTKCommander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        LogUtil.d(TAG,"NotificationApi removeMapping:$responseStr")
                     }
                 }).execute()
     }

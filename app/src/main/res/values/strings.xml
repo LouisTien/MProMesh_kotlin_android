@@ -50,7 +50,7 @@
     <string name="setup_name_controller_description">Name your WiFi Router after its location.</string>
     <string name="setup_name_controller_location">Location</string>
 
-    <string name="setup_previous_settings_title">Apply Previous Settings</string>
+    <string name="setup_previous_settings_title">Apply Saved/Save WiFi Settings</string>
     <string name="setup_previous_settings_description">Settings of previous WiFi Router are found. You can choose to apply them to this WiFi Router.</string>
     <string name="setup_previous_settings_sub_title">Apply WiFi settings of</string>
     <string name="setup_previous_settings_check_description">Save WiFi setting</string>
@@ -62,7 +62,7 @@
     <string name="setup_previous_settings_details_password_title">Password</string>
     <string name="setup_previous_settings_details_devices_title">LOCAL DEVICE NAMES</string>
 
-    <string name="setup_apply_previous_settings_title">Applying Previous Settings</string>
+    <string name="setup_apply_previous_settings_title">Applying Saved/Save Settings</string>
     <string name="setup_apply_previous_settings_description">Please wait.\nThis may take a few seconds.</string>
 
     <string name="setup_apply_reconnect_previous_settings_title">Re-Connecting to WiFi Router Using New WiFi Name and Password</string>
@@ -71,12 +71,17 @@
     <string name="setup_connect_troubleshooting_cannot_connect_controller_title">Cannot Connect to the WiFi Router</string>
     <string name="setup_connect_troubleshooting_cannot_connect_controller_sub_title">Check the followings.</string>
     <string name="setup_connect_troubleshooting_cannot_connect_controller_description1">Make sure the WiFi Router is powered on and its WiFi LED already turns on.</string>
-    <string name="setup_connect_troubleshooting_cannot_connect_controller_description2">Make sure you have connected to the WiFi network of the WiFi Router.</string>
-    <string name="setup_connect_troubleshooting_cannot_connect_controller_description3">If the default WiFi name and password were changed. Enter new name and password or reset the WiFi Router to connect to the WiFi network using default credentials.</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description2">Make sure you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description3">If the default credentials were changed, please go to phone settings  and tap the name of the WiFi network that you want to join.</string>
     <string name="setup_connect_troubleshooting_no_internet_title">No Internet Connection</string>
     <string name="setup_connect_troubleshooting_no_internet_sub_title">Check the following troubleshooting guides. If you still have problems, please contact your Internet service provider.</string>
-    <string name="setup_connect_troubleshooting_no_internet_description1">Check the network cables are well connected.</string>
-    <string name="setup_connect_troubleshooting_no_internet_description2">Check the modem your WiFi Router connected to is not turned off.</string>
+    <string name="setup_connect_troubleshooting_no_internet_description1">Check the hardware connections, and make sure the LEDs are behaving as expected.</string>
+    <string name="setup_connect_troubleshooting_no_internet_description2">Make sure you entered your ISP account information correctly in the GUI (Network Setting > Broadband) screen. These fields are case-sensitive, so make sure [Caps Lock] is not on.</string>
+    <string name="setup_connect_troubleshooting_no_internet_description3">Disconnect all the cables from your device and reconnect them.</string>
+    <string name="setup_connect_troubleshooting_no_internet_description4">If the problem continues, contact your ISP.</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_cloud_title">Cannot Connect to the Cloud</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_cloud_description1">Make sure your mobile device is connected to the Internet. Check to see whether your cellular data is enabled and working.</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_cloud_description2">Or you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.</string>
 
     <string name="cloud_login_no_internet">Unable to connect to the server. Please check your network access.</string>
     <string name="cloud_login_no_ssl_error">SSL error occurred. Would you like to proceed?</string>
@@ -251,7 +256,7 @@
 
     <string name="settings_title">Settings</string>
     <string name="settings_notification">Notification</string>
-    <string name="settings_preserve_settings">Preserve WiFi Settings</string>
+    <string name="settings_preserve_settings">Saved/Save WiFi Settings</string>
     <string name="settings_troubleshooting">Troubleshooting</string>
     <string name="settings_hint">Preserved WiFi settings can be applied to a WiFi Router during its setup.</string>
     <string name="settings_cloud_account">Cloud Account</string>

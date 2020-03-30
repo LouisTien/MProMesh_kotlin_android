@@ -134,6 +134,7 @@ class SetupLoginFragment : Fragment()
                 AccountApi.Login()
                         .setRequestPageName(TAG)
                         .setParams(params)
+                        .setIsUsingInCloudFlow(true)
                         .setResponseListener(object: Commander.ResponseListener()
                         {
                             override fun onSuccess(responseStr: String)

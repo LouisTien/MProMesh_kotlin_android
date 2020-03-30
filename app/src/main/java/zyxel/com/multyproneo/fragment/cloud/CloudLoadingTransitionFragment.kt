@@ -140,7 +140,7 @@ class CloudLoadingTransitionFragment : Fragment()
 
         when(desPage)
         {
-            AppConfig.LoadingGoToPage.FRAG_SEARCH -> GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
+            AppConfig.LoadingGoToPage.FRAG_SEARCH -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudWelcomeFragment()))
             AppConfig.LoadingGoToPage.FRAG_HOME -> GlobalBus.publish(MainEvent.EnterCloudHomePage())
             AppConfig.LoadingGoToPage.FRAG_MESH_SUCCESS -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshSuccessFragment()))
             AppConfig.LoadingGoToPage.FRAG_MESH_FAIL -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFailFragment()))

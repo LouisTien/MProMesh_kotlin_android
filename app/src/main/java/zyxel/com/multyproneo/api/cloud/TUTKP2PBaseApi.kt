@@ -1,10 +1,12 @@
 package zyxel.com.multyproneo.api.cloud
 
+import android.os.Bundle
 import com.tutk.IOTC.IOTCAPIs
 import com.tutk.IOTC.RDTAPIs
 import com.tutk.IOTC.St_RDT_Status
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.fragment.cloud.SetupConnectTroubleshootingFragment
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.LogUtil
 import java.nio.ByteBuffer
@@ -174,8 +176,8 @@ object TUTKP2PBaseApi
         else if(nWrite < 0)
         {
             LogUtil.e(TAG, "RDT_Write error:$nWrite")
-            GlobalBus.publish(MainEvent.HideLoading())
             destroyRDT_ID()
+            gotoTroubleShooting()
         }
     }
 
@@ -195,8 +197,8 @@ object TUTKP2PBaseApi
         if(nRead < 0)
         {
             LogUtil.e(TAG, "RDT_Read header error:$nRead")
-            GlobalBus.publish(MainEvent.HideLoading())
             destroyRDT_ID()
+            gotoTroubleShooting()
             return
         }
 
@@ -229,8 +231,8 @@ object TUTKP2PBaseApi
             if(nRead < 0)
             {
                 LogUtil.e(TAG, "RDT_Read error:$nRead")
-                GlobalBus.publish(MainEvent.HideLoading())
                 destroyRDT_ID()
+                gotoTroubleShooting()
                 return
             }
 
@@ -272,7 +274,7 @@ object TUTKP2PBaseApi
             count++
 
             if(count >= AppConfig.TUTK_RDT_RECV_TIMEOUT_TIMES)
-                responseCallback.onSuccess("")
+                gotoTroubleShooting()
         }
     }
 
@@ -303,5 +305,16 @@ object TUTKP2PBaseApi
     fun setCallback(callback: TUTKP2PResponseCallback)
     {
         responseCallback = callback
+    }
+
+    private fun gotoTroubleShooting()
+    {
+        GlobalBus.publish(MainEvent.HideLoading())
+
+        val bundle = Bundle().apply{
+            putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR)
+        }
+
+        GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))
     }
 }

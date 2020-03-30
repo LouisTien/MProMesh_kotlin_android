@@ -56,7 +56,7 @@ class CloudSettingsFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            settings_notification_relative -> { GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsNotificationDetailFragment())) }
+            settings_notification_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsNotificationDetailFragment()))
 
             settings_preserve_settings_switch_image -> {
                 preserveSettingsEnable = !preserveSettingsEnable
@@ -71,7 +71,9 @@ class CloudSettingsFragment : Fragment()
                 }
             }
 
-            settings_cloud_account_relative -> { GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsCloudAccountDetailFragment())) }
+            settings_cloud_account_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsCloudAccountDetailFragment()))
+
+            settings_privacy_policy_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsPrivacyPolicyFragment()))
         }
     }
 

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_setup_connect_troubleshooting.*
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.cloud.TUTKP2PBaseApi
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.AppConfig
@@ -66,7 +67,8 @@ class SetupConnectTroubleshootingFragment : Fragment()
         {
             AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER,
             AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET,
-            AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST
+            AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST,
+            AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR
             ->
             {
 
@@ -98,6 +100,26 @@ class SetupConnectTroubleshootingFragment : Fragment()
 
                 setup_connect_troubleshooting_description2_linear.visibility = View.VISIBLE
                 setup_connect_troubleshooting_description2_text.text = getString(R.string.setup_connect_troubleshooting_no_internet_description2)
+
+                setup_connect_troubleshooting_description3_linear.visibility = View.VISIBLE
+                setup_connect_troubleshooting_description3_text.text = getString(R.string.setup_connect_troubleshooting_no_internet_description3)
+
+                setup_connect_troubleshooting_description4_linear.visibility = View.VISIBLE
+                setup_connect_troubleshooting_description4_text.text = getString(R.string.setup_connect_troubleshooting_no_internet_description4)
+            }
+
+            AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_TO_CLOUD ->
+            {
+                setup_connect_troubleshooting_back_image.visibility = View.INVISIBLE
+
+                setup_connect_troubleshooting_title_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_cloud_title)
+                setup_connect_troubleshooting_sub_title_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_controller_sub_title)
+
+                setup_connect_troubleshooting_description1_linear.visibility = View.VISIBLE
+                setup_connect_troubleshooting_description1_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_cloud_description1)
+
+                setup_connect_troubleshooting_description2_linear.visibility = View.VISIBLE
+                setup_connect_troubleshooting_description2_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_cloud_description2)
             }
         }
     }
@@ -111,6 +133,7 @@ class SetupConnectTroubleshootingFragment : Fragment()
                 {
                     AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
                     AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
+                    else -> {}
                 }
             }
 
@@ -144,6 +167,12 @@ class SetupConnectTroubleshootingFragment : Fragment()
                         }
 
                         GlobalBus.publish(MainEvent.SwitchToFrag(CloudGatewayListFragment().apply{ arguments = bundle }))
+                    }
+
+                    else ->
+                    {
+                        TUTKP2PBaseApi.stopSession()
+                        GlobalBus.publish(MainEvent.SwitchToFrag(CloudWelcomeFragment()))
                     }
                 }
             }

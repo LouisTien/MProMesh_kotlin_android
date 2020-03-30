@@ -1,9 +1,12 @@
 package zyxel.com.multyproneo.api.cloud
 
+import android.os.Bundle
 import okhttp3.*
 import org.json.JSONObject
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.fragment.cloud.ConnectToCloudFragment
+import zyxel.com.multyproneo.fragment.cloud.SetupConnectTroubleshootingFragment
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.LogUtil
 import java.io.IOException
@@ -45,8 +48,8 @@ abstract class TUTKCommander
 
             when(act)
             {
-                AppConfig.HTTPErrorAction.ERR_ACT_GOTO_LOGIN -> {}
-                else -> {}
+                AppConfig.HTTPErrorAction.ERR_ACT_GOTO_LOGIN -> { GlobalBus.publish(MainEvent.SwitchToFrag(ConnectToCloudFragment())) }
+                else -> { gotoTroubleShooting() }
             }
         }
 
@@ -55,7 +58,16 @@ abstract class TUTKCommander
             LogUtil.e("Commander","[onConnectFail]msg:$msg")
             LogUtil.e("Commander","[onConnectFail]ctxName:$ctxName")
 
-            GlobalBus.publish(MainEvent.ShowErrorMsgDialogCloud(msg, ctxName))
+            gotoTroubleShooting()
+        }
+
+        private fun gotoTroubleShooting()
+        {
+            val bundle = Bundle().apply{
+                putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR)
+            }
+
+            GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))
         }
     }
 

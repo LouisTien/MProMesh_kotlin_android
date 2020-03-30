@@ -53,7 +53,8 @@
                 android:id="@+id/settings_notification_relative"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/layout_size_10dp_in_1080">
+                android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/settings_notification_text"

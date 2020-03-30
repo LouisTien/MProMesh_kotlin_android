@@ -136,6 +136,7 @@ class SetupConnectingInternetFragment : Fragment()
         LogUtil.d(TAG,"startGetUIDTask()")
         GatewayApi.GetUID()
                 .setRequestPageName(TAG)
+                .setIsUsingInCloudFlow(true)
                 .setResponseListener(object: Commander.ResponseListener()
                 {
                     override fun onSuccess(responseStr: String)

@@ -39,4 +39,5 @@ class MainEvent
     class ShowErrorMsgDialogCloud(var msg: String, var requestCtxName: String)
     class ShowToast(var msg: String, var requestCtxName: String)
     class GetCloudInfo()
+    class RefreshToken(var isInSetupFlow: Boolean)
 }

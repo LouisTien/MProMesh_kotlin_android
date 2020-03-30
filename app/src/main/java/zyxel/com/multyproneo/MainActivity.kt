@@ -35,6 +35,7 @@ import zyxel.com.multyproneo.fragment.*
 import zyxel.com.multyproneo.fragment.cloud.*
 import zyxel.com.multyproneo.model.*
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
+import zyxel.com.multyproneo.model.cloud.TUTKTokenInfo
 import zyxel.com.multyproneo.model.cloud.TUTKUserInfo
 import zyxel.com.multyproneo.tool.CryptTool
 import zyxel.com.multyproneo.util.*
@@ -79,6 +80,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var showErrorMsgDialogDisposable: Disposable
     private lateinit var showToastDisposable: Disposable
     private lateinit var getCloudInfoDisposable: Disposable
+    private lateinit var refreshTokenDisposable: Disposable
     private lateinit var loadingDlg: Dialog
     private lateinit var loadingHintDlg: Dialog
     private lateinit var errorMsgDlg: MessageDialog
@@ -94,7 +96,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var progressHintText: TextView
     private lateinit var getSpeedTestStatusTimer: CountDownTimer
     private lateinit var userInfo: TUTKUserInfo
-    private lateinit var allDeviceInfo: TUTKAllDeviceInfo
+    private lateinit var tokenInfo: TUTKTokenInfo
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
     private var getWPSStatusTimer = Timer()
@@ -467,6 +469,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         showToastDisposable = GlobalBus.listen(MainEvent.ShowToast::class.java).subscribe{ showToast(it.msg, it.requestCtxName) }
 
         getCloudInfoDisposable = GlobalBus.listen(MainEvent.GetCloudInfo::class.java).subscribe{ getUserInfo() }
+
+        refreshTokenDisposable = GlobalBus.listen(MainEvent.RefreshToken::class.java).subscribe{ refreshToken(it.isInSetupFlow) }
     }
 
     private fun disposeEvent()
@@ -505,6 +509,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!showErrorMsgDialogDisposable.isDisposed) showErrorMsgDialogDisposable.dispose()
         if(!showToastDisposable.isDisposed) showToastDisposable.dispose()
         if(!getCloudInfoDisposable.isDisposed) getCloudInfoDisposable.dispose()
+        if(!refreshTokenDisposable.isDisposed) refreshTokenDisposable.dispose()
     }
 
     private fun switchToFragContainer(fragment: Fragment)
@@ -1244,5 +1249,57 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         }
                     }
                 }).execute()
+    }
+
+    private fun refreshToken(isInSetupFlow: Boolean)
+    {
+        var refreshToken by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_TUTK_REFRESH_TOKEN_KEY, "")
+        var accessToken by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+
+        if(refreshToken == "" || accessToken == "")
+        {
+            val bundle = Bundle().apply{
+                putBoolean("isInSetupFlow", isInSetupFlow)
+            }
+            switchToFragContainer(ConnectToCloudFragment().apply{ arguments = bundle })
+        }
+        else
+        {
+            val header = HashMap<String, Any>()
+            header["authorization"] = "Basic ${AppConfig.TUTK_DM_AUTHORIZATION}"
+            header["content-type"] = "application/x-www-form-urlencoded"
+
+            val body = HashMap<String, Any>()
+            body["grant_type"] = "refresh_token"
+            body["refresh_token"] = refreshToken
+
+            AMDMApi.RefreshToken()
+                    .setRequestPageName(TAG)
+                    .setHeaders(header)
+                    .setFormBody(body)
+                    .setResponseListener(object: TUTKCommander.ResponseListener()
+                    {
+                        override fun onSuccess(responseStr: String)
+                        {
+                            try
+                            {
+                                tokenInfo = Gson().fromJson(responseStr, TUTKTokenInfo::class.javaObjectType)
+                                LogUtil.d(TAG,"refreshTokenInfo:$tokenInfo")
+                                refreshToken = tokenInfo.refresh_token
+                                accessToken = tokenInfo.access_token
+                                GlobalData.tokenType = tokenInfo.token_type
+                                LogUtil.d(TAG, "refreshToken:$refreshToken")
+                                LogUtil.d(TAG, "accessToken:$accessToken")
+                                getUserInfo()
+                            }
+                            catch(e: JSONException)
+                            {
+                                e.printStackTrace()
+
+                                hideLoading()
+                            }
+                        }
+                    }).execute()
+        }
     }
 }

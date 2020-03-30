@@ -1,11 +1,14 @@
 package zyxel.com.multyproneo.api
 
+import android.os.Bundle
 import com.google.gson.Gson
 import okhttp3.*
 import org.json.JSONObject
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.fragment.cloud.SetupConnectTroubleshootingFragment
 import zyxel.com.multyproneo.model.HttpErrorInfo
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
@@ -89,7 +92,7 @@ abstract class Commander
             LogUtil.e("Commander","[onFail]ctxName:$ctxName")
 
             if(isCloudUsing)
-                GlobalBus.publish(MainEvent.ShowErrorMsgDialogCloud(msg, ctxName))
+                gotoTroubleShooting()
             else
             {
                 stopAllRegularTask()
@@ -107,7 +110,7 @@ abstract class Commander
                 specialMsg = "Server is disconnect."
 
             if(isCloudUsing)
-                GlobalBus.publish(MainEvent.ShowErrorMsgDialogCloud(specialMsg, ctxName))
+                gotoTroubleShooting()
             else
             {
                 stopAllRegularTask()
@@ -120,6 +123,15 @@ abstract class Commander
             GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
             GlobalBus.publish(MainEvent.StopGetWPSStatusTask())
             GlobalBus.publish(MainEvent.StopGetSpeedTestStatusTask())
+        }
+
+        private fun gotoTroubleShooting()
+        {
+            val bundle = Bundle().apply{
+                putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR)
+            }
+
+            GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))
         }
     }
 

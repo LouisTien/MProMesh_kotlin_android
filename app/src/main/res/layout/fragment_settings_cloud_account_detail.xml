@@ -9,8 +9,7 @@
         android:id="@+id/settings_cloud_account_detail_title_area_relative"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_size_60dp_in_1080"
-        android:background="@drawable/actionbar_detail_bg"
-        android:orientation="horizontal">
+        android:background="@drawable/actionbar_detail_bg">
 
         <ImageView
             android:id="@+id/settings_cloud_account_detail_back_image"

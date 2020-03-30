@@ -67,7 +67,7 @@ object AppConfig
     const val TUTK_RECV_HEADER_LENGTH = 4
 
     //TUTK Notification
-    const val TUTK_NOTI_KPNS = "http://push.iotcplatform.com"
+    const val TUTK_NOTI_KPNS = "http://push.iotcplatform.com/tpns"
 
     //Notification
     const val NOTI_APP_ID = "1:578617382573:android:64c93a4c608b34b7c21824"
@@ -178,7 +178,9 @@ object AppConfig
         PAGE_NO_INTERNET,
         PAGE_CONNOT_CONNECT_CONTROLLER,
         PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET,
-        PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST
+        PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST,
+        PAGE_CONNOT_CONNECT_TO_CLOUD,
+        PAGE_CLOUD_API_ERROR
     }
 
     enum class TUTKP2PMethod(val value: Int)

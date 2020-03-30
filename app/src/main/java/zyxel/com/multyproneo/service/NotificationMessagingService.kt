@@ -22,61 +22,40 @@ class NotificationMessagingService : FirebaseMessagingService()
 {
     private val TAG = javaClass.simpleName
     private val NOTIFICATION_CHANNEL_ID = "10001"
+    private var bundle: Bundle? = null
+    private var title: String = ""
+    private var msg: String = ""
+    private var alert: String = ""
+    private var dev_name: String = ""
 
-    override fun onMessageReceived(remoteMessage: RemoteMessage)
+    override fun handleIntent(intent: Intent?)
     {
-        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        LogUtil.d(TAG, "From: " + remoteMessage.from!!)
+        //super.handleIntent(intent); // disable this to prevent show notification from system
 
-        // Check if message contains a data payload.
-        if(remoteMessage.data.isNotEmpty())
+        /*
+        {received_at=1585375972, google.delivered_priority=high, google.sent_time=1585375972468, google.ttl=2419200, google.original_priority=high, gcm.notification.e=1, gcm.notification.title={"type":{"0":"out","1":"in"}}, msg=LouisHouse, uid=E7KA952WU5RMUH6GY1CJ, from=578617382573, alert= LouisTest is Connected, sound=sound.aif, google.message_id=0:1585375972499266%10ac36f910ac36f9, gcm.notification.body=0, customized_payload={"content_available":true,"notification":{"title":"{\"type\":{\"0\":\"out\",\"1\":\"in\"}}","body":"0"}}, event_time=1585375972, event_type=60, google.c.a.e=1, dev_name=LouisTest, google.c.sender.id=578617382573, collapse_key=zyxel.com.multyproneo}
+         */
+
+        with(intent)
         {
-            LogUtil.d(TAG, "Message data payload: " + remoteMessage.data)
-            LogUtil.d(TAG, "Message data title: " + remoteMessage.notification!!.title)
-            LogUtil.d(TAG, "Message data body: " + remoteMessage.notification!!.body)
-
-            /*if(*//* Check if data needs to be processed by long running job *//* true)
-            {
-                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-                scheduleJob()
-            }
-            else
-            {
-                // Handle message within 10 seconds
-                handleNow()
-            }*/
-
+            this?.extras?.let{ bundle = it }
         }
 
-        // Check if message contains a notification payload.
-        if(remoteMessage.notification != null)
+        with(bundle)
         {
-            LogUtil.d(TAG, "Message Notification title: " + remoteMessage.notification!!.title)
-            LogUtil.d(TAG, "Message Notification Body: " + remoteMessage.notification!!.body)
-            sendNotification(remoteMessage.notification!!.title?:"", remoteMessage.notification!!.body?:"")
+            this?.getString("gcm.notification.title")?.let{ title = it }
+            this?.getString("msg")?.let{ msg = it }
+            this?.getString("alert")?.let{ alert = it }
+            this?.getString("dev_name")?.let{ dev_name = it }
         }
 
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
-    }
+        LogUtil.d(TAG, "Message bundle : $bundle")
+        LogUtil.d(TAG, "Message title : $title")
+        LogUtil.d(TAG, "Message msg : $msg")
+        LogUtil.d(TAG, "Message alert : $alert")
+        LogUtil.d(TAG, "Message dev_name : $dev_name")
 
-
-    /**
-     * Called if InstanceID token is updated. This may occur if the security of
-     * the previous token had been compromised. Note that this is called when the InstanceID token
-     * is initially generated so this is where you would retrieve the token.
-     */
-    override fun onNewToken(token: String?)
-    {
-        LogUtil.d(TAG, "Refreshed token: " + token!!)
-
-        var notificationToken by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_NOTIFICATION_TOKEN, "N/A")
-        notificationToken = token
-
-        // If you want to send messages to this application instance or
-        // manage this apps subscriptions on the server side, send the
-        // Instance ID token to your app server.
-        //sendRegistrationToServer(token)
+        sendNotification(alert, msg)
     }
 
     private fun sendNotification(title: String, messageBody: String)

@@ -15,8 +15,10 @@ import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.fragment.cloud.CloudHomeFragment
+import zyxel.com.multyproneo.fragment.cloud.SetupConnectTroubleshootingFragment
 import zyxel.com.multyproneo.fragment.cloud.SetupControllerReadyFragment
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
+import zyxel.com.multyproneo.util.AppConfig
 
 class OtherMeshNetworksDialog(context: Context, private var siteName: String, private var gatewayListInfo: TUTKAllDeviceInfo) : Dialog(context)
 {
@@ -56,15 +58,13 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
                     else
                     {
                         dismiss()
-                        GlobalBus.publish(MainEvent.HideLoading())
-                        // restart app
+                        gotoTroubleShooting()
                     }
                 }
                 else
                 {
                     dismiss()
-                    GlobalBus.publish(MainEvent.HideLoading())
-                    // restart app
+                    gotoTroubleShooting()
                 }
             }
         }
@@ -74,5 +74,16 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
     {
         super.dismiss()
         if(!siteSelectedDisposable.isDisposed) siteSelectedDisposable.dispose()
+    }
+
+    private fun gotoTroubleShooting()
+    {
+        GlobalBus.publish(MainEvent.HideLoading())
+
+        val bundle = Bundle().apply{
+            putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR)
+        }
+
+        GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))
     }
 }
