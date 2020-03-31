@@ -22,6 +22,13 @@ import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.*
+import android.text.format.Formatter.formatIpAddress
+import android.content.Context.WIFI_SERVICE
+import android.support.v4.content.ContextCompat.getSystemService
+import android.net.wifi.WifiManager
+import android.text.format.Formatter
+import org.jetbrains.anko.support.v4.alert
+
 
 class CloudEndDeviceDetailFragment : Fragment()
 {
@@ -186,9 +193,22 @@ class CloudEndDeviceDetailFragment : Fragment()
 
             end_device_detail_internet_blocking_image ->
             {
-                isBlocked = !isBlocked
-                endDeviceInfo.Internet_Blocking_Enable = isBlocked
-                setDeviceInfoTask()
+                val wifiManager = activity!!.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
+                val ipAddress = formatIpAddress(wifiManager.connectionInfo.ipAddress)
+
+                if(ipAddress == endDeviceInfo.IPAddress)
+                {
+                    alert(getString(R.string.device_detail_cannot_block_yourself))
+                    {
+                        positiveButton("OK") {}
+                    }.show()
+                }
+                else
+                {
+                    isBlocked = !isBlocked
+                    endDeviceInfo.Internet_Blocking_Enable = isBlocked
+                    setDeviceInfoTask()
+                }
             }
 
             //end_device_detail_fsecure_text -> {}

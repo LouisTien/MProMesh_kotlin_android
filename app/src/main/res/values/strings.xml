@@ -199,6 +199,7 @@
     <string name="device_detail_speed_test_result">Speed Test Result</string>
     <string name="device_detail_speed_test">Speed Test</string>
     <string name="device_detail_speed_test_unit">Mbps</string>
+    <string name="device_detail_cannot_block_yourself">You can\'t block yourself</string>
 
     <string name="device_search_cancel">Cancel</string>
 

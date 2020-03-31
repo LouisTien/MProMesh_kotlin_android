@@ -104,7 +104,8 @@ class CloudSettingsCloudAccountDetailFragment : Fragment()
         {
             settings_cloud_account_detail_back_image -> GlobalBus.publish(MainEvent.EnterCloudSettingsPage())
 
-            settings_cloud_account_detail_router_list_action_text -> {
+            settings_cloud_account_detail_router_list_action_text ->
+            {
                 deleteMode = !deleteMode
                 updateUI()
             }
@@ -232,6 +233,7 @@ class CloudSettingsCloudAccountDetailFragment : Fragment()
                 if(isDelSelf)
                 {
                     TUTKP2PBaseApi.stopSession()
+                    GlobalBus.publish(MainEvent.SwitchToFrag(CloudWelcomeFragment()))
                 }
                 else
                     getAllDevice()

@@ -10,6 +10,7 @@ import org.jetbrains.anko.doAsync
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.AccountApi
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.DevicesApi
 import zyxel.com.multyproneo.api.WiFiSettingApi
@@ -149,7 +150,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     {
         LogUtil.d(TAG,"addDevice()")
 
-        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
@@ -189,7 +190,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     {
         LogUtil.d(TAG,"getAllDevice()")
 
-        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
@@ -219,7 +220,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
 
     private fun getUserInfo()
     {
-        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
@@ -252,7 +253,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     {
         doAsync{
 
-            var siteInfo = DatabaseSiteInfoEntity(
+            val siteInfo = DatabaseSiteInfoEntity(
                     GlobalData.getCurrentGatewayInfo().MAC,
                     GlobalData.currentUID,
                     GlobalData.getCurrentGatewayInfo().ModelName,
@@ -266,7 +267,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
 
             for(item in newHomeEndDeviceList)
             {
-                var clientInfo = DatabaseClientListEntity(
+                val clientInfo = DatabaseClientListEntity(
                         GlobalData.getCurrentGatewayInfo().MAC,
                         item.PhysAddress,
                         item.HostName
@@ -275,7 +276,24 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                 db.getClientListDao().insert(clientInfo)
             }
 
+            setLogoutTask()
             getUserInfo()
         }
+    }
+
+    private fun setLogoutTask()
+    {
+        val params = JSONObject()
+        AccountApi.Logout()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setIsUsingInCloudFlow(true)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+
+                    }
+                }).execute()
     }
 }

@@ -131,7 +131,8 @@ class CloudHomeFragment : Fragment()
 
             cloud_home_mesh_devices_add_image -> {GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFragment()))}
 
-            cloud_home_site_pic_image -> {
+            cloud_home_site_pic_image ->
+            {
                 var otherMeshListInfo = TUTKAllDeviceInfo()
                 for(item in GlobalData.cloudGatewayListInfo.data)
                 {
