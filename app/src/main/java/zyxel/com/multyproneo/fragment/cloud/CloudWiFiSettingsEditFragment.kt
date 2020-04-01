@@ -11,21 +11,26 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.fragment_wifi_settings_edit.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.textColor
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.cloud.P2PAccountApi
 import zyxel.com.multyproneo.api.cloud.P2PWiFiSettingApi
 import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
+import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.DatabaseCloudUtil
+import zyxel.com.multyproneo.util.GlobalData
 
 class CloudWiFiSettingsEditFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private lateinit var inputMethodManager: InputMethodManager
+    private lateinit var db: DatabaseCloudUtil
     private var name = ""
     private var pwd = ""
     private var security = ""
@@ -46,6 +51,8 @@ class CloudWiFiSettingsEditFragment : Fragment()
     private var showOneSSID = true
     private var available5g = false
     private var keyboardListenersAttached = false
+    private var preserveSettingsEnable = false
+    private var currentSiteInfo: DatabaseSiteInfoEntity? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -55,6 +62,8 @@ class CloudWiFiSettingsEditFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        db = DatabaseCloudUtil.getInstance(context!!)!!
 
         with(arguments)
         {
@@ -488,7 +497,7 @@ class CloudWiFiSettingsEditFragment : Fragment()
                 {
                     override fun onSuccess(responseStr: String)
                     {
-
+                        saveToDB()
                     }
                 }).execute()
     }
@@ -556,5 +565,19 @@ class CloudWiFiSettingsEditFragment : Fragment()
                     }
                 }).execute()
 
+    }
+
+    private fun saveToDB()
+    {
+        doAsync{
+            currentSiteInfo = db.getSiteInfoDao().queryByMac(GlobalData.getCurrentGatewayInfo().MAC)
+            preserveSettingsEnable = currentSiteInfo?.backup?:false
+            if(preserveSettingsEnable && (currentSiteInfo != null))
+            {
+                currentSiteInfo!!.wifiSSID = name
+                currentSiteInfo!!.wifiPWD = pwd
+                db.getSiteInfoDao().update(currentSiteInfo!!)
+            }
+        }
     }
 }

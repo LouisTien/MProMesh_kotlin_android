@@ -27,7 +27,11 @@ import android.content.Context.WIFI_SERVICE
 import android.support.v4.content.ContextCompat.getSystemService
 import android.net.wifi.WifiManager
 import android.text.format.Formatter
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.support.v4.alert
+import org.jetbrains.anko.uiThread
+import zyxel.com.multyproneo.database.room.DatabaseClientListEntity
+import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 
 
 class CloudEndDeviceDetailFragment : Fragment()
@@ -37,6 +41,10 @@ class CloudEndDeviceDetailFragment : Fragment()
     //private lateinit var getInfoCompleteDisposable: Disposable
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var endDeviceInfo: DevicesInfoObject
+    private lateinit var db: DatabaseCloudUtil
+    private var currentSiteInfo: DatabaseSiteInfoEntity? = null
+    private var currentClientListInfo: List<DatabaseClientListEntity> = ArrayList()
+    private var preserveSettingsEnable = false
     private var isEditMode = false
     private var isBlocked = false
     private var isFromSearch = false
@@ -63,6 +71,8 @@ class CloudEndDeviceDetailFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        db = DatabaseCloudUtil.getInstance(context!!)!!
 
         with(arguments)
         {
@@ -482,14 +492,44 @@ class CloudEndDeviceDetailFragment : Fragment()
     {
         isEditMode = false
 
-        runOnUiThread{
-            if(isVisible)
+        doAsync{
+            currentSiteInfo = db.getSiteInfoDao().queryByMac(GlobalData.getCurrentGatewayInfo().MAC)
+            preserveSettingsEnable = currentSiteInfo?.backup?:false
+            if(preserveSettingsEnable && (currentSiteInfo != null))
             {
-                end_device_detail_model_name_text.text = editDeviceName
-                end_device_detail_model_name_edit.setText(editDeviceName)
-                setEditModeUI()
-                endDeviceInfo.UserDefineName = editDeviceName
-                updateUI()
+                var inDB = false
+                currentClientListInfo = db.getClientListDao().queryByMac(endDeviceInfo.PhysAddress)
+                for(item in currentClientListInfo)
+                {
+                    if(item.mac == currentSiteInfo!!.mac)
+                    {
+                        inDB = true
+                        item.deviceName = editDeviceName
+                        db.getClientListDao().insert(item)
+                    }
+                }
+
+                if(!inDB)
+                {
+                    var clientInfo = DatabaseClientListEntity(
+                            GlobalData.getCurrentGatewayInfo().MAC,
+                            endDeviceInfo.PhysAddress,
+                            editDeviceName
+                    )
+
+                    db.getClientListDao().insert(clientInfo)
+                }
+            }
+
+            uiThread{
+                if(isVisible)
+                {
+                    end_device_detail_model_name_text.text = editDeviceName
+                    end_device_detail_model_name_edit.setText(editDeviceName)
+                    setEditModeUI()
+                    endDeviceInfo.UserDefineName = editDeviceName
+                    updateUI()
+                }
             }
         }
     }
