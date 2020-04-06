@@ -244,7 +244,7 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
     private fun gotoCannotConnectControllerTroubleshootingPage()
     {
         val bundle = Bundle().apply{
-            putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER)
+            putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER)
             putBoolean("needConnectFlowForRetry", needConnectFlow)
         }
 

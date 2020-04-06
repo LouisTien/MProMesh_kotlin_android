@@ -177,11 +177,19 @@ object AppConfig
     enum class TroubleshootingPage
     {
         PAGE_NO_INTERNET,
-        PAGE_CONNOT_CONNECT_CONTROLLER,
-        PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET,
+        PAGE_CANNOT_CONNECT_CONTROLLER,
+        PAGE_CANNOT_CONNECT_CONTROLLER_PREVIOUS_SET,
         PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST,
-        PAGE_CONNOT_CONNECT_TO_CLOUD,
+        PAGE_CANNOT_CONNECT_TO_CLOUD,
         PAGE_CLOUD_API_ERROR
+    }
+
+    enum class TroubleshootingDetailPage
+    {
+        PAGE_DETAIL_NO_INTERNET,
+        PAGE_DETAIL_NO_ETHERNET,
+        PAGE_DETAIL_QRCODE_ERROR,
+        PAGE_DETAIL_CANNOT_CONNECT_TO_WIFI
     }
 
     enum class TUTKP2PMethod(val value: Int)

@@ -46,7 +46,7 @@ class CloudWelcomeFragment : Fragment()
             startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
         }
 
-        if(!isNetworkAvailable())
+        /*if(!isNetworkAvailable())
         {
             MessageDialog(
                     activity!!,
@@ -57,7 +57,9 @@ class CloudWelcomeFragment : Fragment()
             ).show()
         }
         else
-            Handler().postDelayed({ decideFlow() }, AppConfig.WELCOME_DISPLAY_TIME_IN_MILLISECONDS)
+            Handler().postDelayed({ decideFlow() }, AppConfig.WELCOME_DISPLAY_TIME_IN_MILLISECONDS)*/
+
+        Handler().postDelayed({ decideFlow() }, AppConfig.WELCOME_DISPLAY_TIME_IN_MILLISECONDS)
     }
 
     override fun onPause()

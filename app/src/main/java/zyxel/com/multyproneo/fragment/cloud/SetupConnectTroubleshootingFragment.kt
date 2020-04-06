@@ -14,7 +14,7 @@ import zyxel.com.multyproneo.util.AppConfig
 
 class SetupConnectTroubleshootingFragment : Fragment()
 {
-    private var pageMode = AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER
+    private var pageMode = AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER
     private var needConnectFlowForRetry = false
     private var mac = ""
 
@@ -65,8 +65,8 @@ class SetupConnectTroubleshootingFragment : Fragment()
 
         when(pageMode)
         {
-            AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER,
-            AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET,
+            AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER,
+            AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER_PREVIOUS_SET,
             AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST,
             AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR
             ->
@@ -109,7 +109,7 @@ class SetupConnectTroubleshootingFragment : Fragment()
                 setup_connect_troubleshooting_description4_text.text = getString(R.string.setup_connect_troubleshooting_no_internet_description4)
             }
 
-            AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_TO_CLOUD ->
+            AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_TO_CLOUD ->
             {
                 setup_connect_troubleshooting_back_image.visibility = View.INVISIBLE
 
@@ -132,8 +132,8 @@ class SetupConnectTroubleshootingFragment : Fragment()
             {
                 when(pageMode)
                 {
-                    AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
-                    AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
+                    AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
+                    AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER_PREVIOUS_SET -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
                     else -> {}
                 }
             }
@@ -142,7 +142,7 @@ class SetupConnectTroubleshootingFragment : Fragment()
             {
                 when(pageMode)
                 {
-                    AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER ->
+                    AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER ->
                     {
                         val bundle = Bundle().apply{
                             putBoolean("needConnectFlowForRetry", needConnectFlowForRetry)
@@ -153,7 +153,7 @@ class SetupConnectTroubleshootingFragment : Fragment()
 
                     AppConfig.TroubleshootingPage.PAGE_NO_INTERNET -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingInternetFragment()))
 
-                    AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET ->
+                    AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER_PREVIOUS_SET ->
                     {
                         val bundle = Bundle().apply{
                             putString("MAC", mac)

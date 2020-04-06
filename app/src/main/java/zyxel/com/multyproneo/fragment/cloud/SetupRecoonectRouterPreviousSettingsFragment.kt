@@ -198,7 +198,7 @@ class SetupRecoonectRouterPreviousSettingsFragment : Fragment()
                 false ->
                 {
                     val bundle = Bundle().apply{
-                        putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CONNOT_CONNECT_CONTROLLER_PREVIOUS_SET)
+                        putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER_PREVIOUS_SET)
                         putString("MAC", mac)
                     }
 

@@ -74,6 +74,8 @@ class CloudSettingsFragment : Fragment()
             settings_cloud_account_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsCloudAccountDetailFragment()))
 
             settings_privacy_policy_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsPrivacyPolicyFragment()))
+
+            settings_troubleshooting_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsTroubleshootingFragment()))
         }
     }
 

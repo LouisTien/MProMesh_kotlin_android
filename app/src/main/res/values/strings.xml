@@ -275,6 +275,16 @@
     <string name="settings_cloud_account_router_action_edit">Edit</string>
     <string name="settings_cloud_account_router_action_done">Done</string>
     <string name="settings_cloud_account_router_list_hint">This WiFi Router</string>
+    <string name="settings_troubleshooting_internet_title">I cannot access the Internet</string>
+    <string name="settings_troubleshooting_ethernet_title">I cannot connect to the Internet using an Ethernet connection</string>
+    <string name="settings_troubleshooting_qrcode_title">Unable to join WiFi using QR Code</string>
+    <string name="settings_troubleshooting_wifi_title">Unable to Connect to the WiFi network</string>
+    <string name="settings_troubleshooting_no_ethernet_description1">Make sure you have the Ethernet WAN port connected to a MODEM or Router.</string>
+    <string name="settings_troubleshooting_no_ethernet_description2">Make sure you configured a proper Ethernet WAN interface in GUI (Network Setting > Broadband)  screen with the Internet account information provided by your ISP and that is enabled.</string>
+    <string name="settings_troubleshooting_no_ethernet_description3">Check that the Wan interface you are connected to is in the same interface group as the Ethernet connection in GUI(Network Setting > Interface Group).</string>
+    <string name="settings_troubleshooting_no_ethernet_description4">If you set up a WAN connection using bridging service, make sure you turn off the DHCP feature in the GUI (Network Setting > Home Networking > LAN Setup) screen to have the clients get WAN IP address directly from your ISP\’s DHCP server.</string>
+    <string name="settings_troubleshooting_qrcode_error_description1">Make sure that your router is on and you\'re within range.</string>
+    <string name="settings_troubleshooting_qrcode_error_description2">Turn up your phone\'s brightness to the highest setting. Place the QR Code directly in front the camera lens. Slowly move your device back approximately 6\'\' away from the lens.</string>
 
     <string name="mesh_title">What scenario you need?</string>
     <string name="mesh_tip"><u>See Tips</u></string>
