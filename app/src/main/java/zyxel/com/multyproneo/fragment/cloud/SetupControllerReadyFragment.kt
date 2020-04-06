@@ -3,6 +3,7 @@ package zyxel.com.multyproneo.fragment.cloud
 import android.os.Bundle
 import android.provider.Settings
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.adapter.SetupControllerReadyHelpAdapter
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.DevicesApi
 import zyxel.com.multyproneo.api.cloud.*
@@ -21,6 +23,7 @@ import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 import zyxel.com.multyproneo.dialog.SetupControllerReadyHelpDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.fragment.FindingDeviceFragment
 import zyxel.com.multyproneo.model.DevicesInfo
 import zyxel.com.multyproneo.util.*
 import java.util.HashMap
@@ -39,8 +42,30 @@ class SetupControllerReadyFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        val helpAdapter = SetupControllerReadyHelpAdapter(activity!!)
+        setup_controller_ready_help_pager.adapter = helpAdapter
+        setup_controller_ready_help_pager.offscreenPageLimit = 3
+        setup_controller_ready_help_pager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener
+        {
+            override fun onPageScrollStateChanged(state: Int)
+            {
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int)
+            {
+            }
+
+            override fun onPageSelected(position: Int)
+            {
+            }
+
+        })
+        setup_controller_ready_help_pager_indicator.attachTo(setup_controller_ready_help_pager)
+
         setClickListener()
-        db = DatabaseCloudUtil.getInstance(context!!)!!
+
+        //db = DatabaseCloudUtil.getInstance(context!!)!!
 
         //if(TUTKP2PBaseApi.initIOTCRDT() >= 0)
             //TUTKP2PBaseApi.startSession("EZPAA13CVHRC9HPGY1WJ")
@@ -71,10 +96,6 @@ class SetupControllerReadyFragment : Fragment()
             {
                 helpDlg = SetupControllerReadyHelpDialog(activity!!)
                 helpDlg.show()
-                //dbTest()
-                //p2pTest()
-                //notificationTest()
-                //removeMapping()
             }
 
             setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
@@ -85,8 +106,7 @@ class SetupControllerReadyFragment : Fragment()
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment().apply{ arguments = bundle }))
             }*/
-            //setup_controller_ready_next_image -> removeMapping()
-            //setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsFragment()))
+            //setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupFinalizingYourHomeNetwork()))
         }
     }
 
@@ -419,5 +439,10 @@ class SetupControllerReadyFragment : Fragment()
                         LogUtil.d(TAG,"NotificationApi removeMapping:$responseStr")
                     }
                 }).execute()
+    }
+
+    fun startFWRDT()
+    {
+
     }
 }

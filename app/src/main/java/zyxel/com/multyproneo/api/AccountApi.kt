@@ -17,7 +17,7 @@ object AccountApi
     {
         override fun composeRequest(): Request
         {
-            val loginURL = "${GlobalData.getAPIPath()}${AppConfig.API_LOGOUT}"
+            val loginURL = "${GlobalData.getAPIPath()}${AppConfig.API_LOGIN}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     //.headers(getHeaders().build())

@@ -11,7 +11,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
         android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-        android:src="@drawable/icon_note"/>
+        android:src="@drawable/icon_note"
+        android:visibility="invisible"/>
 
     <RelativeLayout
         android:id="@+id/setup_controller_ready_content_relative"
@@ -30,26 +31,30 @@
             android:textColor="@color/color_000000"
             android:text="@string/setup_controller_ready_title"/>
 
-        <TextView
-            android:id="@+id/setup_controller_ready_description_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/setup_controller_ready_title_text"
-            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-            android:text="@string/setup_controller_ready_description"
-            android:textColor="@color/color_575757"
-            android:textSize="@dimen/text_size_18sp_in_1080"/>
-
     </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/setup_controller_ready_content_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/layout_size_94dp_in_1080"
-        android:layout_below="@+id/setup_controller_ready_content_relative"
-        android:src="@drawable/img_setupcontroller_01"/>
+    <RelativeLayout
+        android:id="@+id/setup_controller_ready_help_relative"
+        android:layout_width="@dimen/layout_size_305dp_in_1080"
+        android:layout_height="@dimen/layout_size_390dp_in_1080"
+        android:layout_centerInParent="true">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/setup_controller_ready_help_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/setup_controller_ready_help_pager_indicator">
+        </android.support.v4.view.ViewPager>
+
+        <com.chahinem.pageindicator.PageIndicator
+            android:id="@+id/setup_controller_ready_help_pager_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/layout_size_25dp_in_1080"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/setup_controller_ready_next_image"

@@ -20,7 +20,19 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
         android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-        android:src="@drawable/icon_note"/>
+        android:src="@drawable/icon_note"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/setup_connect_controller_next_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:textSize="@dimen/layout_size_18dp_in_1080"
+        android:textColor="@color/color_000000"
+        android:text="@string/setup_connect_controller_next"/>
 
     <RelativeLayout
         android:id="@+id/setup_connect_controller_literal_content_relative"
@@ -29,7 +41,7 @@
         android:layout_marginTop="@dimen/layout_size_38dp_in_1080"
         android:layout_toRightOf="@+id/setup_connect_controller_back_image"
         android:layout_toLeftOf="@+id/setup_connect_controller_help_image"
-        android:layout_below="@+id/setup_connect_controller_help_image">
+        android:layout_below="@+id/setup_connect_controller_back_image">
 
         <TextView
             android:id="@+id/setup_connect_controller_title_text"
@@ -51,55 +63,49 @@
 
     </RelativeLayout>
 
-    <com.journeyapps.barcodescanner.DecoratedBarcodeView
-        android:id="@+id/setup_connect_controller_qrcodeView"
-        android:layout_below="@+id/setup_connect_controller_literal_content_relative"
-        android:layout_above="@+id/setup_connect_controller_icon_content_linear"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
-        app:zxing_scanner_layout="@layout/layout_custom_qrcode" />
+    <ImageView
+        android:id="@+id/setup_connect_controller_content_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/img_setupcontroller_07"/>
 
-    <LinearLayout
-        android:id="@+id/setup_connect_controller_icon_content_linear"
+    <TextView
+        android:id="@+id/setup_connect_controller_content_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_size_25dp_in_1080"
+        android:layout_toRightOf="@+id/setup_connect_controller_back_image"
+        android:layout_toLeftOf="@+id/setup_connect_controller_help_image"
+        android:layout_below="@+id/setup_connect_controller_content_image"
+        android:textSize="@dimen/layout_size_14dp_in_1080"
+        android:textColor="@color/color_000000"
+        android:text="@string/setup_connect_controller_scan_description"/>
+
+    <RelativeLayout
+        android:id="@+id/setup_connect_controller_icon_content_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/layout_size_30dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_30dp_in_1080"
+        android:layout_toRightOf="@+id/setup_connect_controller_back_image"
+        android:layout_toLeftOf="@+id/setup_connect_controller_help_image"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
-        <RelativeLayout
-            android:id="@+id/setup_connect_controller_manual_relative"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/setup_connect_controller_manual_image"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/btn_manual"/>
 
-            <ImageView
-                android:id="@+id/setup_connect_controller_manual_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/btn_type_code"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/setup_connect_controller_next_relative"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/setup_connect_controller_scan_code_image"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_alignParentRight="true"
+            android:src="@drawable/btn_scancode"/>
 
-            <ImageView
-                android:id="@+id/setup_connect_controller_next_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/btn_connected_next"/>
-
-        </RelativeLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

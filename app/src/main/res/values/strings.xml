@@ -8,6 +8,10 @@
     <string name="welcome_guest_wifi_access_description">Give your house guests basic Internet access to common web, email or online games.</string>
     <string name="welcome_auto_configuration_description">Allow the device to automatically update the wireless settings on the Zyxel APs or wireless repeaters in its network.</string>
 
+    <string name="setup_first_time_using_description1">Simple controls for home network</string>
+    <string name="setup_first_time_using_description2">Easily expand WiFi coverage by adding extenders</string>
+    <string name="setup_first_time_using_description3">Enable / Disable guest WiFi</string>
+
     <string name="setup_controller_ready_title">Get Your WiFi Router Ready</string>
     <string name="setup_controller_ready_description">Connect the WiFi Router to your modem and power it on.</string>
     <string name="setup_controller_ready_help_connect_description">Connect the WiFi Router to your modem with the Ethernet cable.</string>
@@ -17,14 +21,16 @@
     <string name="setup_connect_controller_title">Connect to WiFi Router</string>
     <string name="setup_connect_controller_description">Connect to the WiFi of the WiFi Router that you want to set up.</string>
     <string name="setup_connect_controller_help">If the WiFi Router has a QR code on its label, you can scan the QR code to get its WiFi and admin\'s credentials.</string>
-    <string name="setup_connect_controller_setting_dialog">Connect to the WiFi network of your WiFi Router in the WiFi setup page of your modile device.</string>
+    <string name="setup_connect_controller_setting_dialog">Go to WiFi Settings of your mobile device and type WiFi name and password to connect.</string>
     <string name="setup_connect_controller_setting_dialog_confirm">Settings</string>
     <string name="setup_connect_controller_setting_dialog_cancel">Cancel</string>
     <string name="setup_connect_controller_format_error_dialog_title">Problem with the QR Code</string>
-    <string name="setup_connect_controller_format_error_dialog_description">Scan the QR code on the label of your WiFi Router. If it has no QR code, please enter WiFi name and password manually.</string>
+    <string name="setup_connect_controller_format_error_dialog_description">Scan the QR code on the label of your WiFi Router. If there is no QR code, please choose \'Manual\' in the previous step.</string>
     <string name="setup_connect_controller_format_error_dialog_confirm">Got it</string>
     <string name="setup_connect_controller_scan_ok_dialog_description">Is「MPro Mesh」want to join</string>
     <string name="setup_connect_controller_scan_ok_dialog_confirm">Join</string>
+    <string name="setup_connect_controller_next">Connected, Next</string>
+    <string name="setup_connect_controller_scan_description">Scan the QR code on the label of your WiFi Router to get its WiFi and admin\'s credentials and connect automatically.</string>
 
     <string name="setup_connecting_controller_title">Connecting to WiFi Router</string>
     <string name="setup_connecting_controller_description">Please wait.\nThis may take a few seconds.</string>
@@ -39,6 +45,7 @@
     <string name="setup_login_password">Password</string>
     <string name="setup_login_help_title">Find the default admin username and password on the label of your WiFi Router.</string>
     <string name="setup_login_help_description">If the default admin credentials were changed, enter new username and password to log in.</string>
+    <string name="setup_login_label_description">Find the default admin username and password on the label of your WiFi Router.</string>
 
     <string name="setup_change_admin_pwd_title">Change Admin Password</string>
     <string name="setup_change_admin_pwd_description">To avoid any unauthorized user accessing your password on the label of your WiFi Router, we recommend to change it.</string>
@@ -317,6 +324,7 @@
     <string name="message_dialog_add">ADD</string>
     <string name="message_dialog_not_connect">Cannot Connect</string>
     <string name="message_dialog_not_connect_try_again">Please check your WiFi connection and try again later.</string>
+    <string name="message_dialog_wifi_off">Turn on WiFi and connect to the WiFi of your WiFi Router.</string>
     <string name="message_dialog_reboot_reminder_title">Would you like to restart your device?</string>
     <string name="message_dialog_reboot_reminder">It will take a few minutes to reconnect to your Device.</string>
     <string name="message_dialog_block_title">Block \"...\" from the Internet?</string>

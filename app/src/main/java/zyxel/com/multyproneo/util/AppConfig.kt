@@ -24,7 +24,8 @@ object AppConfig
     const val DEVICE_DISCOVER_RESP = 2
 
     //API Command
-    const val API_LOGOUT = "/UserLogin"
+    const val API_LOGIN = "/UserLogin"
+    const val API_LOGOUT = "/UserLogout"
     const val API_MESH = "/TR181/Value/Device.WiFi.AccessPoint.5.WPS."
     const val API_DEVICE_HOST_INFO = "/TR181/Value/Device.Hosts.Host."
     const val API_CHANGE_ICON_NAME_INFO = "/TR181/Value/Device.X_ZYXEL_Change_Icon_Name."
@@ -37,7 +38,7 @@ object AppConfig
     const val API_REBOOT = "/Reboot"
     const val API_SPEED_TEST_INFO = "/TR181/Value/Device.X_ZYXEL_EXT.SpeedTestInfo."
     const val API_INTERNET_BLOCKING_INFO = "/TR181/Value/Device.X_ZYXEL_EXT.InternetBlocking."
-    const val API_UID = "/TR181/Value/Device.X_ZYXEL_TUTK_CloudAgent."
+    const val API_CLOUD_AGENT = "/TR181/Value/Device.X_ZYXEL_TUTK_CloudAgent."
     const val API_WIFI_SETTING_INFO = "/TR181/Value/Device.WiFi.?first_level_only=false"
     const val API_MESH_INFO = "/TR181/Value/Device.X_ZYXEL_EXT.EasyMesh."
     const val API_WIFI_24G_INFO = "/TR181/Value/Device.WiFi.SSID.1."
@@ -83,10 +84,10 @@ object AppConfig
     //SharedPreferences
     const val SHAREDPREF_NAME = "name_device_setting"
     const val SHAREDPREF_FIRST_TIME_KEY = "key_first_time_use"
+    const val SHAREDPREF_SETUP_FIRST_TIME_KEY = "setup_key_first_time_use"
     const val SHAREDPREF_TUTK_REFRESH_TOKEN_KEY = "TUTK_refresh_token"
     const val SHAREDPREF_TUTK_ACCESS_TOKEN_KEY = "TUTK_access_token"
     const val SHAREDPREF_NOTIFICATION_TOKEN = "notification_token"
-    const val SHAREDPREF_PHONE_UDID = "phone_udid"
 
     //Check Internet
     const val VERFY_INTERNET_DOMAIN_URL = "https://www.google.com"

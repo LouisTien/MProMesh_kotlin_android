@@ -153,14 +153,28 @@ object GatewayApi
         }
     }
 
-    class GetUID : Commander()
+    class GetCloudAgentInfo : Commander()
     {
         override fun composeRequest(): Request
         {
-            val getUIDURL = "${GlobalData.getAPIPath()}${AppConfig.API_UID}"
+            val getCloudAgentInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_CLOUD_AGENT}"
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
-                    .url(getUIDURL)
+                    .url(getCloudAgentInfoURL)
+                    .build()
+        }
+    }
+
+    class ControlCloudAgent : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val controlURL = "${GlobalData.getAPIPath()}${AppConfig.API_CLOUD_AGENT}?sessionkey=${GlobalData.sessionKey}"
+            val requestParam = RequestBody.create(JSON, getParams().toString())
+            return Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(controlURL)
+                    .put(requestParam)
                     .build()
         }
     }

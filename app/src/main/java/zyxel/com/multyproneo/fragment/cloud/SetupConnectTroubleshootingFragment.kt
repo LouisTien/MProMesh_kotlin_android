@@ -72,7 +72,8 @@ class SetupConnectTroubleshootingFragment : Fragment()
             ->
             {
 
-                if(pageMode == AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST)
+                if( (pageMode == AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST)
+                    || (pageMode == AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR) )
                     setup_connect_troubleshooting_back_image.visibility = View.INVISIBLE
 
                 setup_connect_troubleshooting_title_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_controller_title)

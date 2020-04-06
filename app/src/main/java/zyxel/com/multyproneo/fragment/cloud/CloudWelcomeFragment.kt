@@ -1,14 +1,21 @@
 package zyxel.com.multyproneo.fragment.cloud
 
+import android.content.Context
+import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
+import android.provider.Settings
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import io.reactivex.disposables.Disposable
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.dialog.MessageDialog
+import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.fragment.FindingDeviceFragment
@@ -17,6 +24,7 @@ import zyxel.com.multyproneo.util.*
 class CloudWelcomeFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
+    private lateinit var startWiFiSettingDisposable: Disposable
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -26,23 +34,48 @@ class CloudWelcomeFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-        Handler().postDelayed({ decideFlow() }, AppConfig.WELCOME_DISPLAY_TIME_IN_MILLISECONDS)
     }
 
     override fun onResume()
     {
         super.onResume()
+
         GlobalBus.publish(MainEvent.HideBottomToolbar())
+
+        startWiFiSettingDisposable = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
+            startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
+        }
+
+        if(!isNetworkAvailable())
+        {
+            MessageDialog(
+                    activity!!,
+                    "",
+                    getString(R.string.message_dialog_wifi_off),
+                    arrayOf(getString(R.string.message_dialog_ok)),
+                    AppConfig.DialogAction.ACT_NONE
+            ).show()
+        }
+        else
+            Handler().postDelayed({ decideFlow() }, AppConfig.WELCOME_DISPLAY_TIME_IN_MILLISECONDS)
     }
 
     override fun onPause()
     {
         super.onPause()
+        if(!startWiFiSettingDisposable.isDisposed) startWiFiSettingDisposable.dispose()
     }
 
     override fun onDestroyView()
     {
         super.onDestroyView()
+    }
+
+    private fun isNetworkAvailable(): Boolean
+    {
+        val connectivityManager = activity!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val wifiNetInfo = connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+        return wifiNetInfo.isAvailable && wifiNetInfo.isConnected
     }
 
     private fun decideFlow()
@@ -76,7 +109,13 @@ class CloudWelcomeFragment : Fragment()
                 else if(newDBExist)
                     GlobalBus.publish(MainEvent.RefreshToken(false))
                 else
-                    GlobalBus.publish(MainEvent.SwitchToFrag(SetupControllerReadyFragment()))
+                {
+                    val firstTimeUse by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_SETUP_FIRST_TIME_KEY, true)
+                    if(firstTimeUse)
+                        GlobalBus.publish(MainEvent.SwitchToFrag(CloudFirstTimeUsingFragment()))
+                    else
+                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupControllerReadyFragment()))
+                }
             }
         }
     }

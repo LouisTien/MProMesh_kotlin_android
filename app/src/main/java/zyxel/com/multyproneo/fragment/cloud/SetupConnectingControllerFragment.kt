@@ -65,10 +65,10 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
             false -> startFindDevice()
         }
 
-        /*runOnUiThread{
-            setup_connecting_controller_content_animation_view.setAnimation("connect_to_the_cloud.json")
+        runOnUiThread{
+            setup_connecting_controller_content_animation_view.setAnimation("ConnectToWiFiRouter_1_oldJson.json")
             setup_connecting_controller_content_animation_view.playAnimation()
-        }*/
+        }
 
     }
 
@@ -154,6 +154,13 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
         LogUtil.d(TAG,"responseReceivedDone")
         if(gatewayList.size > 0)
         {
+            runOnUiThread{
+                setup_connecting_controller_content_animation_view.setAnimation("ConnectToWiFiRouter_2_oldJson.json")
+                setup_connecting_controller_content_animation_view.playAnimation()
+            }
+
+            Thread.sleep(2500)
+
             GlobalData.gatewayList = gatewayList.toMutableList()//copy list to global data
             login()
         }

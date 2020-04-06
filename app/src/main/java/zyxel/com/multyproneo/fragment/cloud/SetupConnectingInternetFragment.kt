@@ -5,14 +5,13 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_setup_connecting_internet.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.sdk27.coroutines.onClick
+import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.uiThread
 import org.json.JSONException
-import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.GatewayApi
@@ -20,7 +19,7 @@ import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayInfo
-import zyxel.com.multyproneo.model.UIDInfo
+import zyxel.com.multyproneo.model.cloud.CloudAgentInfo
 import zyxel.com.multyproneo.util.*
 import java.io.IOException
 import java.net.HttpURLConnection
@@ -31,7 +30,7 @@ class SetupConnectingInternetFragment : Fragment()
     private val TAG = javaClass.simpleName
     private lateinit var db: DatabaseCloudUtil
     private lateinit var siteInfoList: List<DatabaseSiteInfoEntity>
-    private lateinit var uidInfo: UIDInfo
+    private lateinit var cloudAgentInfo: CloudAgentInfo
     private lateinit var gatewayInfo: GatewayInfo
     private var hasPreviousSettings = false
     private var hasUID = false
@@ -53,6 +52,11 @@ class SetupConnectingInternetFragment : Fragment()
         }
 
         startInternetCheckTask()
+
+        runOnUiThread{
+            setup_connecting_internet_content_animation_view.setAnimation("ConnectToTheInternet_1_oldJson.json")
+            setup_connecting_internet_content_animation_view.playAnimation()
+        }
 
         //Glide.with(activity!!).load(R.drawable.slide1).into(setup_connecting_internet_content_image)
     }
@@ -114,8 +118,13 @@ class SetupConnectingInternetFragment : Fragment()
                     {
                         setup_connecting_internet_title_text.text = getString(R.string.setup_connecting_internet_success_title)
                         setup_connecting_internet_description_text.visibility = View.INVISIBLE
-                        setup_connecting_internet_content_image.setImageResource(R.drawable.gif_connectiongtotheinternet_02)
+                        //setup_connecting_internet_content_image.setImageResource(R.drawable.gif_connectiongtotheinternet_02)
                         setup_connecting_internet_next_button.visibility = View.VISIBLE
+
+                        runOnUiThread{
+                            setup_connecting_internet_content_animation_view.setAnimation("ConnectToTheInternet_2_oldJson.json")
+                            setup_connecting_internet_content_animation_view.playAnimation()
+                        }
                     }
 
                     false ->
@@ -134,7 +143,7 @@ class SetupConnectingInternetFragment : Fragment()
     private fun startGetUIDTask()
     {
         LogUtil.d(TAG,"startGetUIDTask()")
-        GatewayApi.GetUID()
+        GatewayApi.GetCloudAgentInfo()
                 .setRequestPageName(TAG)
                 .setIsUsingInCloudFlow(true)
                 .setResponseListener(object: Commander.ResponseListener()
@@ -143,16 +152,16 @@ class SetupConnectingInternetFragment : Fragment()
                     {
                         try
                         {
-                            uidInfo = Gson().fromJson(responseStr, UIDInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"getUID:$uidInfo")
+                            cloudAgentInfo = Gson().fromJson(responseStr, CloudAgentInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"getUID:$cloudAgentInfo")
 
-                            if(uidInfo.Object.TUTK_UID.isNotEmpty()
-                                && uidInfo.Object.TUTK_UID != "N/A"
-                                && uidInfo.Object.TUTK_UID != ""
-                                && uidInfo.Object.TUTK_UID != " ")
+                            if(cloudAgentInfo.Object.TUTK_UID.isNotEmpty()
+                                && cloudAgentInfo.Object.TUTK_UID != "N/A"
+                                && cloudAgentInfo.Object.TUTK_UID != ""
+                                && cloudAgentInfo.Object.TUTK_UID != " ")
                             {
                                 hasUID = true
-                                GlobalData.currentUID = uidInfo.Object.TUTK_UID
+                                GlobalData.currentUID = cloudAgentInfo.Object.TUTK_UID
                             }
 
                             startGetPreviousSettingsTask()

@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_setup_finalizing_your_home_network.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.support.v4.runOnUiThread
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
@@ -50,6 +52,14 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
         db = DatabaseCloudUtil.getInstance(activity!!)!!
+
+        runOnUiThread{
+            setup_finalizing_network_content_animation_view.setAnimation("FinalizingNetwork_1_oldJson.json")
+            setup_finalizing_network_content_animation_view.playAnimation()
+        }
+
+        Thread.sleep(2000)
+
         getWiFiSettingInfoTask()
     }
 
@@ -206,6 +216,14 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                         {
                             GlobalData.cloudGatewayListInfo = Gson().fromJson(responseStr, TUTKAllDeviceInfo::class.javaObjectType)
                             LogUtil.d(TAG,"allDeviceInfo:${GlobalData.cloudGatewayListInfo}")
+
+                            runOnUiThread{
+                                setup_finalizing_network_content_animation_view.setAnimation("FinalizingNetwork_2_oldJson.json")
+                                setup_finalizing_network_content_animation_view.playAnimation()
+                            }
+
+                            Thread.sleep(5500)
+
                             GlobalBus.publish(MainEvent.SwitchToFrag(CloudGatewayListFragment()))
                         }
                         catch(e: JSONException)

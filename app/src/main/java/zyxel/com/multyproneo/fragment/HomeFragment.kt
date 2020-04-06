@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.jetbrains.anko.support.v4.runOnUiThread
@@ -14,11 +15,13 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.ZYXELEndDeviceItemAdapter
 import zyxel.com.multyproneo.api.AccountApi
 import zyxel.com.multyproneo.api.Commander
+import zyxel.com.multyproneo.api.GatewayApi
 import zyxel.com.multyproneo.api.WiFiSettingApi
 import zyxel.com.multyproneo.dialog.InternetStatusDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.model.cloud.CloudAgentInfo
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
@@ -78,6 +81,8 @@ class HomeFragment : Fragment()
             {
                 internetStatusHelper = InternetStatusDialog(activity!!)
                 internetStatusHelper.show()
+                //startRDTServer()
+                //getIOTCLoginStatus()
             }
 
             home_guest_wifi_switch ->
@@ -219,6 +224,50 @@ class HomeFragment : Fragment()
                     override fun onSuccess(responseStr: String)
                     {
 
+                    }
+                }).execute()
+    }
+
+    private fun startRDTServer()
+    {
+        val params = JSONObject()
+        params.put("Enable", true)
+        LogUtil.d(TAG,"startRDTServer param:$params")
+
+        GatewayApi.ControlCloudAgent()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setIsUsingInCloudFlow(true)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        LogUtil.d(TAG,"responseStr:$responseStr")
+                    }
+                }).execute()
+    }
+
+    private fun getIOTCLoginStatus()
+    {
+        LogUtil.d(TAG,"getIOTCLoginStatus()")
+        GatewayApi.GetCloudAgentInfo()
+                .setRequestPageName(TAG)
+                .setIsUsingInCloudFlow(true)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            val cloudAgentInfo = Gson().fromJson(responseStr, CloudAgentInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"getIOTCLoginStatus:$cloudAgentInfo")
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
                     }
                 }).execute()
     }
