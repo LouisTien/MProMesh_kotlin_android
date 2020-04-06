@@ -12,10 +12,7 @@ import org.jetbrains.anko.support.v4.runOnUiThread
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
-import zyxel.com.multyproneo.api.AccountApi
-import zyxel.com.multyproneo.api.Commander
-import zyxel.com.multyproneo.api.DevicesApi
-import zyxel.com.multyproneo.api.WiFiSettingApi
+import zyxel.com.multyproneo.api.*
 import zyxel.com.multyproneo.api.cloud.AMDMApi
 import zyxel.com.multyproneo.api.cloud.TUTKCommander
 import zyxel.com.multyproneo.database.room.DatabaseClientListEntity
@@ -25,6 +22,7 @@ import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.DevicesInfo
 import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.model.WiFiSettingInfo
+import zyxel.com.multyproneo.model.cloud.CloudAgentInfo
 import zyxel.com.multyproneo.model.cloud.TUTKAddDeviceInfo
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
 import zyxel.com.multyproneo.model.cloud.TUTKUserInfo
@@ -37,6 +35,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     private lateinit var addDeviceInfo: TUTKAddDeviceInfo
     private lateinit var devicesInfo: DevicesInfo
     private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
+    private lateinit var cloudAgentInfo: CloudAgentInfo
     private lateinit var userInfo: TUTKUserInfo
     private lateinit var db: DatabaseCloudUtil
     private var newHomeEndDeviceList = mutableListOf<DevicesInfoObject>()
@@ -144,7 +143,60 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                                 index++
                             }
 
-                            addDevice()
+                            startRDTServer()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun startRDTServer()
+    {
+        val params = JSONObject()
+        params.put("Enable", true)
+        LogUtil.d(TAG,"startRDTServer param:$params")
+
+        GatewayApi.ControlCloudAgent()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setIsUsingInCloudFlow(true)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        cloudAgentInfo = Gson().fromJson(responseStr, CloudAgentInfo::class.javaObjectType)
+                        LogUtil.d(TAG,"startRDTServer:$cloudAgentInfo")
+                        GlobalData.sessionKey = cloudAgentInfo.sessionkey
+                        Thread.sleep(3000)
+                        getIOTCLoginStatus()
+                    }
+                }).execute()
+    }
+
+    private fun getIOTCLoginStatus()
+    {
+        LogUtil.d(TAG,"getIOTCLoginStatus()")
+        GatewayApi.GetCloudAgentInfo()
+                .setRequestPageName(TAG)
+                .setIsUsingInCloudFlow(true)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            cloudAgentInfo = Gson().fromJson(responseStr, CloudAgentInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"getIOTCLoginStatus:$cloudAgentInfo")
+
+                            if(cloudAgentInfo.Object.Status.contains("success", ignoreCase = true))
+                                addDevice()
+                            else
+                                gotoTroubleShooting()
                         }
                         catch(e: JSONException)
                         {
@@ -295,7 +347,6 @@ class SetupFinalizingYourHomeNetwork : Fragment()
             }
 
             setLogoutTask()
-            getUserInfo()
         }
     }
 
@@ -310,8 +361,17 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                 {
                     override fun onSuccess(responseStr: String)
                     {
-
+                        getUserInfo()
                     }
                 }).execute()
+    }
+
+    private fun gotoTroubleShooting()
+    {
+        val bundle = Bundle().apply{
+            putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR)
+        }
+
+        GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))
     }
 }

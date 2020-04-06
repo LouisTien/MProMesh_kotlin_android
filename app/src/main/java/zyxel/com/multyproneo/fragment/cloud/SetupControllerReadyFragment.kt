@@ -106,7 +106,7 @@ class SetupControllerReadyFragment : Fragment()
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment().apply{ arguments = bundle }))
             }*/
-            //setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupFinalizingYourHomeNetwork()))
+            //setup_controller_ready_next_image -> GlobalBus.publish(MainEvent.SwitchToFrag(FindingDeviceFragment()))
         }
     }
 

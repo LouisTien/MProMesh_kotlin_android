@@ -5,7 +5,7 @@ data class CloudAgentInfo
         val Object: CloudAgentInfoObject = CloudAgentInfoObject(),
         val oper_status: String = "N/A",
         val requested_path: String = "N/A",
-        val sessionkey: Int = 0
+        val sessionkey: String = "N/A"
 )
 
 data class CloudAgentInfoObject
