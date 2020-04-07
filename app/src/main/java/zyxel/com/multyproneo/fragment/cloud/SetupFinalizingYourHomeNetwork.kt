@@ -19,10 +19,7 @@ import zyxel.com.multyproneo.database.room.DatabaseClientListEntity
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.model.DevicesInfo
-import zyxel.com.multyproneo.model.DevicesInfoObject
-import zyxel.com.multyproneo.model.WanInfo
-import zyxel.com.multyproneo.model.WiFiSettingInfo
+import zyxel.com.multyproneo.model.*
 import zyxel.com.multyproneo.model.cloud.CloudAgentInfo
 import zyxel.com.multyproneo.model.cloud.TUTKAddDeviceInfo
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
@@ -39,10 +36,12 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
     private lateinit var cloudAgentInfo: CloudAgentInfo
     private lateinit var userInfo: TUTKUserInfo
+    private lateinit var loginInfo: LoginInfo
     private lateinit var db: DatabaseCloudUtil
     private var newHomeEndDeviceList = mutableListOf<DevicesInfoObject>()
     private var WiFiName = ""
     private var WiFiPwd = ""
+    private var needLoginWhenFinal = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -52,6 +51,12 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        with(arguments)
+        {
+            this?.getBoolean("needLoginWhenFinal", false)?.let{ needLoginWhenFinal = it }
+        }
+
         db = DatabaseCloudUtil.getInstance(activity!!)!!
 
         runOnUiThread{
@@ -61,7 +66,10 @@ class SetupFinalizingYourHomeNetwork : Fragment()
 
         Thread.sleep(2000)
 
-        getWanInfoTask()
+        if(needLoginWhenFinal)
+            login()
+        else
+            getWanInfoTask()
     }
 
     override fun onResume()
@@ -80,9 +88,41 @@ class SetupFinalizingYourHomeNetwork : Fragment()
         super.onDestroyView()
     }
 
+    private fun login()
+    {
+        LogUtil.d(TAG,"login()")
+
+        val params = JSONObject()
+        params.put("username", GlobalData.getCurrentGatewayInfo().UserName)
+        params.put("password", GlobalData.getCurrentGatewayInfo().Password)
+        LogUtil.d(TAG,"login param:$params")
+        AccountApi.Login()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setIsUsingInCloudFlow(true)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"loginInfo:$loginInfo")
+                            GlobalData.sessionKey = loginInfo.sessionkey
+                            getWanInfoTask()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+                    }
+                }).execute()
+    }
+
     private fun getWanInfoTask()
     {
         LogUtil.d(TAG,"getWanInfoTask()")
+
         GatewayApi.GetWanInfo()
                 .setRequestPageName(TAG)
                 .setIsUsingInCloudFlow(true)

@@ -15,6 +15,7 @@ import zyxel.com.multyproneo.event.MainEvent
 class ConnectToCloudFragment : Fragment()
 {
     private var isInSetupFlow = true
+    private var needLoginWhenFinal = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -27,12 +28,14 @@ class ConnectToCloudFragment : Fragment()
 
         with(arguments)
         {
-            this?.getBoolean("isInSetupFlow")?.let{ isInSetupFlow = it }
+            this?.getBoolean("isInSetupFlow", true)?.let{ isInSetupFlow = it }
+            this?.getBoolean("needLoginWhenFinal", false)?.let{ needLoginWhenFinal = it }
         }
 
         connect_to_cloud_continue_image.onClick{
             val bundle = Bundle().apply{
                 putBoolean("isInSetupFlow", isInSetupFlow)
+                putBoolean("needLoginWhenFinal", needLoginWhenFinal)
             }
             GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment().apply{ arguments = bundle }))
         }

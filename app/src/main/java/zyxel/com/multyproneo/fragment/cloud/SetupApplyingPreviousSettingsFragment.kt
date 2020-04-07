@@ -276,6 +276,7 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
     {
         val bundle = Bundle().apply{
             putString("MAC", mac)
+            putBoolean("needLoginWhenFinal", true)
         }
         GlobalBus.publish(MainEvent.SwitchToFrag(SetupReconnectRouterPreviousSettingsFragment().apply{ arguments = bundle }))
     }

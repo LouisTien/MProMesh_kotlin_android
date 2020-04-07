@@ -35,6 +35,7 @@ class CloudLoginFragment : Fragment()
     private lateinit var addDeviceInfo: TUTKAddDeviceInfo
     private lateinit var updateDeviceInfo: TUTKUpdateDeviceInfo
     private var isInSetupFlow = false
+    private var needLoginWhenFinal = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -47,7 +48,8 @@ class CloudLoginFragment : Fragment()
 
         with(arguments)
         {
-            this?.getBoolean("isInSetupFlow")?.let{ isInSetupFlow = it }
+            this?.getBoolean("isInSetupFlow", false)?.let{ isInSetupFlow = it }
+            this?.getBoolean("needLoginWhenFinal", false)?.let{ needLoginWhenFinal = it }
         }
 
         initWebView()
@@ -139,7 +141,12 @@ class CloudLoginFragment : Fragment()
                                     LogUtil.d(TAG, "accessToken:$accessToken")
 
                                     if(isInSetupFlow)
-                                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupFinalizingYourHomeNetwork()))
+                                    {
+                                        val bundle = Bundle().apply{
+                                            putBoolean("needLoginWhenFinal", needLoginWhenFinal)
+                                        }
+                                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupFinalizingYourHomeNetwork().apply{ arguments = bundle }))
+                                    }
                                     else
                                         GlobalBus.publish(MainEvent.GetCloudInfo())
                                 }

@@ -25,6 +25,7 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private var mac = ""
+    private var needLoginWhenFinal = false
     private lateinit var db: DatabaseCloudUtil
     private lateinit var siteInfo: DatabaseSiteInfoEntity
 
@@ -36,7 +37,12 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-        with(arguments){ this?.getString("MAC")?.let{ mac = it } }
+
+        with(arguments)
+        {
+            this?.getString("MAC")?.let{ mac = it }
+            this?.getBoolean("needLoginWhenFinal", false)?.let{ needLoginWhenFinal = it }
+        }
 
         db = DatabaseCloudUtil.getInstance(activity!!)!!
         getDataFromDB()
@@ -194,7 +200,11 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
 
                     Thread.sleep(2500)
 
-                    GlobalBus.publish(MainEvent.SwitchToFrag(ConnectToCloudFragment()))
+                    val bundle = Bundle().apply{
+                        putBoolean("needLoginWhenFinal", needLoginWhenFinal)
+                    }
+
+                    GlobalBus.publish(MainEvent.SwitchToFrag(ConnectToCloudFragment().apply{ arguments = bundle }))
                 }
 
                 false ->

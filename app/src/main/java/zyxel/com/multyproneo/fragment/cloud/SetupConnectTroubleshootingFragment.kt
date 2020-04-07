@@ -155,10 +155,12 @@ class SetupConnectTroubleshootingFragment : Fragment()
 
                     AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER_PREVIOUS_SET ->
                     {
-                        val bundle = Bundle().apply{
+                        /*val bundle = Bundle().apply{
                             putString("MAC", mac)
                         }
-                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupReconnectRouterPreviousSettingsFragment().apply{ arguments = bundle }))
+                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupReconnectRouterPreviousSettingsFragment().apply{ arguments = bundle }))*/
+
+                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupControllerReadyFragment()))
                     }
 
                     AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST ->
