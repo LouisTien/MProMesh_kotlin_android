@@ -111,30 +111,29 @@ class SetupConnectingInternetFragment : Fragment()
                 e.printStackTrace()
             }
 
-            uiThread{
-                when(result)
+            when(result)
+            {
+                true ->
                 {
-                    true ->
-                    {
+                    runOnUiThread{
                         setup_connecting_internet_title_text.text = getString(R.string.setup_connecting_internet_success_title)
-                        setup_connecting_internet_description_text.visibility = View.INVISIBLE
-                        //setup_connecting_internet_content_image.setImageResource(R.drawable.gif_connectiongtotheinternet_02)
-                        setup_connecting_internet_next_button.visibility = View.VISIBLE
-
-                        runOnUiThread{
-                            setup_connecting_internet_content_animation_view.setAnimation("ConnectToTheInternet_2_oldJson.json")
-                            setup_connecting_internet_content_animation_view.playAnimation()
-                        }
+                        setup_connecting_internet_description_text.visibility = View.GONE
+                        setup_connecting_internet_content_animation_view.setAnimation("ConnectToTheInternet_2_oldJson.json")
+                        setup_connecting_internet_content_animation_view.playAnimation()
                     }
 
-                    false ->
-                    {
-                        val bundle = Bundle().apply{
-                            putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_NO_INTERNET)
-                        }
+                    Thread.sleep(2500)
 
-                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))
+                    startGetUIDTask()
+                }
+
+                false ->
+                {
+                    val bundle = Bundle().apply{
+                        putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_NO_INTERNET)
                     }
+
+                    GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))
                 }
             }
         }

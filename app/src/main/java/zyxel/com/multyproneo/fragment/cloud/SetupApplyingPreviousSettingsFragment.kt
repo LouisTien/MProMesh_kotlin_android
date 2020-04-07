@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_applying_previous_settings.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.uiThread
 import org.json.JSONArray
 import org.json.JSONException
@@ -52,6 +54,11 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
 
         db = DatabaseCloudUtil.getInstance(activity!!)!!
         getDataFromDB()
+
+        runOnUiThread{
+            setup_apply_previous_settings_content_animation_view.setAnimation("ApplyingWiFiSettings_oldJson.json")
+            setup_apply_previous_settings_content_animation_view.playAnimation()
+        }
     }
 
     override fun onResume()
@@ -270,6 +277,6 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
         val bundle = Bundle().apply{
             putString("MAC", mac)
         }
-        GlobalBus.publish(MainEvent.SwitchToFrag(SetupRecoonectRouterPreviousSettingsFragment().apply{ arguments = bundle }))
+        GlobalBus.publish(MainEvent.SwitchToFrag(SetupReconnectRouterPreviousSettingsFragment().apply{ arguments = bundle }))
     }
 }

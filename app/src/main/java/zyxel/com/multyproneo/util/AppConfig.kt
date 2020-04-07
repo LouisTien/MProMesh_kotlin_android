@@ -71,15 +71,12 @@ object AppConfig
     const val TUTK_NOTI_KPNS = "http://push.iotcplatform.com/tpns"
 
     //Notification
-    const val NOTI_APP_ID = "1:578617382573:android:64c93a4c608b34b7c21824"
     const val NOTI_BUNDLE_ID = "zyxel.com.multyproneo"
-    const val NOTI_SERVER_Key = "AAAAhrhIlq0:APA91bFzNi3ngFviCO4W6J6coY-YI3hUzS0pRjP47iG6MyV76kjgm7HFYhHjFZhAK-VWqeoWeUEw0G7d2-MUClRpUS_tHt1AQLvZHR6RayYLg0MRV4HUN969wWXzn8PvjQMUq2Q7B1Dx"
 
     //Database
     const val DATABASE_NAME = "mpromesh.db"
     const val TABLE_SITE_INFO_NAME = "site_information"
     const val TABLE_CLIENT_LIST_NAME = "client_list"
-    const val TABLE_NOTIFICATION_LIST_NAME = "notification_list"
 
     //SharedPreferences
     const val SHAREDPREF_NAME = "name_device_setting"

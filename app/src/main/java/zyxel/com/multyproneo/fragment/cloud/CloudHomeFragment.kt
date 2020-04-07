@@ -129,7 +129,7 @@ class CloudHomeFragment : Fragment()
                 GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoadingTransitionFragment().apply{ arguments = bundle }))
             }
 
-            cloud_home_mesh_devices_add_image -> {GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFragment()))}
+            cloud_home_mesh_devices_add_image -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFragment()))
 
             cloud_home_site_pic_image ->
             {
@@ -141,6 +141,10 @@ class CloudHomeFragment : Fragment()
                 }
                 OtherMeshNetworksDialog(activity!!, GlobalData.getCurrentGatewayInfo().UserDefineName, otherMeshListInfo).show()
             }
+
+            cloud_home_connect_device_frame -> GlobalBus.publish(MainEvent.EnterCloudDevicesPage())
+
+            cloud_home_guest_wifi_frame -> GlobalBus.publish(MainEvent.EnterCloudWiFiSettingsPage())
         }
     }
 
@@ -553,6 +557,7 @@ class CloudHomeFragment : Fragment()
                             wanInfo = Gson().fromJson(responseStr, WanInfo::class.javaObjectType)
                             LogUtil.d(TAG,"wanInfo:$wanInfo")
                             GlobalData.gatewayWanInfo = wanInfo.copy()
+                            GlobalData.getCurrentGatewayInfo().MAC = wanInfo.Object.MAC
                             getGuestWiFiEnableTask()
                         }
                         catch(e: JSONException)

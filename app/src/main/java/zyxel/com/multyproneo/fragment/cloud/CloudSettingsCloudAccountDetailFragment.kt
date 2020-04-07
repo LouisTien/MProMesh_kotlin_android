@@ -233,6 +233,7 @@ class CloudSettingsCloudAccountDetailFragment : Fragment()
                 if(isDelSelf)
                 {
                     TUTKP2PBaseApi.stopSession()
+                    GlobalBus.publish(MainEvent.HideLoading())
                     GlobalBus.publish(MainEvent.SwitchToFrag(CloudWelcomeFragment()))
                 }
                 else

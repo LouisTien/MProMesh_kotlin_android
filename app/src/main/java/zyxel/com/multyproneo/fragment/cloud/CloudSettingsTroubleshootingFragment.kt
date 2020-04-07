@@ -44,9 +44,13 @@ class CloudSettingsTroubleshootingFragment : Fragment()
         when(view)
         {
             settings_troubleshooting_back_image -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsFragment()))
+
             settings_troubleshooting_internet_relative -> gotoTroubleshootingDetailPage(AppConfig.TroubleshootingDetailPage.PAGE_DETAIL_NO_INTERNET)
+
             settings_troubleshooting_ethernet_relative -> gotoTroubleshootingDetailPage(AppConfig.TroubleshootingDetailPage.PAGE_DETAIL_NO_ETHERNET)
+
             settings_troubleshooting_qrcode_relative -> gotoTroubleshootingDetailPage(AppConfig.TroubleshootingDetailPage.PAGE_DETAIL_QRCODE_ERROR)
+
             settings_troubleshooting_wifi_relative -> gotoTroubleshootingDetailPage(AppConfig.TroubleshootingDetailPage.PAGE_DETAIL_CANNOT_CONNECT_TO_WIFI)
         }
     }

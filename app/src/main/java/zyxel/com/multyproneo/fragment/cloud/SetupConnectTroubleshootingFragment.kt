@@ -158,7 +158,7 @@ class SetupConnectTroubleshootingFragment : Fragment()
                         val bundle = Bundle().apply{
                             putString("MAC", mac)
                         }
-                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupRecoonectRouterPreviousSettingsFragment().apply{ arguments = bundle }))
+                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupReconnectRouterPreviousSettingsFragment().apply{ arguments = bundle }))
                     }
 
                     AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST ->

@@ -10,7 +10,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_reconnect_router_previous_settings.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.support.v4.runOnUiThread
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 import zyxel.com.multyproneo.event.GlobalBus
@@ -19,7 +21,7 @@ import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.DatabaseCloudUtil
 import zyxel.com.multyproneo.util.LogUtil
 
-class SetupRecoonectRouterPreviousSettingsFragment : Fragment()
+class SetupReconnectRouterPreviousSettingsFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private var mac = ""
@@ -38,6 +40,11 @@ class SetupRecoonectRouterPreviousSettingsFragment : Fragment()
 
         db = DatabaseCloudUtil.getInstance(activity!!)!!
         getDataFromDB()
+
+        runOnUiThread{
+            setup_reconnect_apply_previous_settings_content_animation_view.setAnimation("ConnectToTheInternet_1_oldJson.json")
+            setup_reconnect_apply_previous_settings_content_animation_view.playAnimation()
+        }
     }
 
     override fun onResume()
@@ -122,7 +129,7 @@ class SetupRecoonectRouterPreviousSettingsFragment : Fragment()
                 }
             }
 
-            if(wifiManager.configuredNetworks != null)
+            /*if(wifiManager.configuredNetworks != null)
             {
                 LogUtil.d(TAG, "new wifi config")
                 val netId = wifiManager.addNetwork(mWifiConfiguration)
@@ -148,7 +155,60 @@ class SetupRecoonectRouterPreviousSettingsFragment : Fragment()
                 return connectStatus
             }
             else
-                return false
+                return false*/
+
+            if(wifiManager.configuredNetworks != null)
+            {
+                LogUtil.d(TAG, "new wifi config")
+                val netId = wifiManager.addNetwork(mWifiConfiguration)
+                wifiManager.disconnect()
+                wifiManager.enableNetwork(netId, true)
+                wifiManager.reconnect()
+
+                while(isRunning)
+                {
+                    count++
+                    publishProgress(count)
+                    try
+                    {
+                        Thread.sleep(1000)
+                    }
+                    catch(e: InterruptedException)
+                    {
+                        e.printStackTrace()
+                    }
+
+                }
+            }
+            else
+                connectStatus = false
+
+
+            when(connectStatus)
+            {
+                true -> {
+                    runOnUiThread{
+                        setup_reconnect_apply_previous_settings_content_animation_view.setAnimation("ConnectToTheInternet_2_oldJson.json")
+                        setup_reconnect_apply_previous_settings_content_animation_view.playAnimation()
+                    }
+
+                    Thread.sleep(2500)
+
+                    GlobalBus.publish(MainEvent.SwitchToFrag(ConnectToCloudFragment()))
+                }
+
+                false ->
+                {
+                    val bundle = Bundle().apply{
+                        putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER_PREVIOUS_SET)
+                        putString("MAC", mac)
+                    }
+
+                    GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))
+                }
+            }
+
+            return true
         }
 
         override fun onProgressUpdate(vararg values: Int?)
@@ -183,7 +243,7 @@ class SetupRecoonectRouterPreviousSettingsFragment : Fragment()
             }
         }
 
-        override fun onPostExecute(result: Boolean?)
+        /*override fun onPostExecute(result: Boolean?)
         {
             LogUtil.d(TAG, "[WiFiConfigTask]onPostExecute()")
 
@@ -193,7 +253,16 @@ class SetupRecoonectRouterPreviousSettingsFragment : Fragment()
 
             when(result)
             {
-                true -> {}
+                true -> {
+                    runOnUiThread{
+                        setup_reconnect_apply_previous_settings_content_animation_view.setAnimation("ConnectToTheInternet_2_oldJson.json")
+                        setup_reconnect_apply_previous_settings_content_animation_view.playAnimation()
+                    }
+
+                    Thread.sleep(2500)
+
+                    GlobalBus.publish(MainEvent.SwitchToFrag(ConnectToCloudFragment()))
+                }
 
                 false ->
                 {
@@ -205,6 +274,6 @@ class SetupRecoonectRouterPreviousSettingsFragment : Fragment()
                     GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))
                 }
             }
-        }
+        }*/
     }
 }

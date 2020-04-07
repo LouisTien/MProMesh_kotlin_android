@@ -21,6 +21,7 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.DevicesInfo
 import zyxel.com.multyproneo.model.DevicesInfoObject
+import zyxel.com.multyproneo.model.WanInfo
 import zyxel.com.multyproneo.model.WiFiSettingInfo
 import zyxel.com.multyproneo.model.cloud.CloudAgentInfo
 import zyxel.com.multyproneo.model.cloud.TUTKAddDeviceInfo
@@ -33,6 +34,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
 {
     private val TAG = javaClass.simpleName
     private lateinit var addDeviceInfo: TUTKAddDeviceInfo
+    private lateinit var wanInfo: WanInfo
     private lateinit var devicesInfo: DevicesInfo
     private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
     private lateinit var cloudAgentInfo: CloudAgentInfo
@@ -59,7 +61,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
 
         Thread.sleep(2000)
 
-        getWiFiSettingInfoTask()
+        getWanInfoTask()
     }
 
     override fun onResume()
@@ -76,6 +78,34 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+    }
+
+    private fun getWanInfoTask()
+    {
+        LogUtil.d(TAG,"getWanInfoTask()")
+        GatewayApi.GetWanInfo()
+                .setRequestPageName(TAG)
+                .setIsUsingInCloudFlow(true)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            wanInfo = Gson().fromJson(responseStr, WanInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"wanInfo:$wanInfo")
+                            GlobalData.gatewayWanInfo = wanInfo.copy()
+                            GlobalData.getCurrentGatewayInfo().MAC = wanInfo.Object.MAC
+                            getWiFiSettingInfoTask()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
     }
 
     private fun getWiFiSettingInfoTask()

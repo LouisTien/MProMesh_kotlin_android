@@ -15,7 +15,6 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.textColor
 import zyxel.com.multyproneo.R
-import zyxel.com.multyproneo.api.cloud.P2PAccountApi
 import zyxel.com.multyproneo.api.cloud.P2PWiFiSettingApi
 import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity

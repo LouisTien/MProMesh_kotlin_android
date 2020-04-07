@@ -70,6 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/icon_detail"
+                android:layout_below="@+id/setup_previous_settings_sub_title"
                 android:layout_marginTop="@dimen/layout_size_2dp_in_1080"
                 android:layout_alignParentRight="true"/>
 
@@ -81,6 +82,7 @@
                 android:textSize="@dimen/layout_size_18dp_in_1080"
                 android:textColor="@color/color_888888"
                 android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+                android:layout_below="@+id/setup_previous_settings_sub_title"
                 android:layout_toLeftOf="@+id/setup_previous_settings_detail_image"/>
 
             <ImageView

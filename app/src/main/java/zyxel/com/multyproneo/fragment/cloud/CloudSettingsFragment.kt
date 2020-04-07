@@ -90,10 +90,11 @@ class CloudSettingsFragment : Fragment()
 
     private fun getInfoFromDB()
     {
+        LogUtil.d(TAG,"MAC:${GlobalData.getCurrentGatewayInfo().MAC}")
         doAsync{
             currentDBInfo = db.getSiteInfoDao().queryByMac(GlobalData.getCurrentGatewayInfo().MAC)
             preserveSettingsEnable = currentDBInfo?.backup?:false
-            LogUtil.e(TAG,"preserveSettingsEnable:$preserveSettingsEnable")
+            LogUtil.d(TAG,"preserveSettingsEnable:$preserveSettingsEnable")
             uiThread{ updateUI() }
         }
     }

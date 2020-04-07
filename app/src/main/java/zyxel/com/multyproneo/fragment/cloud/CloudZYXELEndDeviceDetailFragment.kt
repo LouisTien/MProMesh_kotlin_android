@@ -15,6 +15,7 @@ import org.jetbrains.anko.textColor
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.cloud.P2PDevicesApi
 import zyxel.com.multyproneo.api.cloud.P2PGatewayApi
+import zyxel.com.multyproneo.api.cloud.TUTKP2PBaseApi
 import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
@@ -542,7 +543,7 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
                     {
                         override fun onSuccess(responseStr: String)
                         {
-
+                            TUTKP2PBaseApi.stopSession()
                         }
                     }).execute()
         }
