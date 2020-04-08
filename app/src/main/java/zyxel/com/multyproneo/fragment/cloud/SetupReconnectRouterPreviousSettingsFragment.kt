@@ -80,7 +80,7 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
     private fun connectRouterTask()
     {
         val mWifiConfiguration = WifiConfiguration()
-        mWifiConfiguration.SSID = String.format("\"%s\"", siteInfo.wifiSSID);
+        mWifiConfiguration.SSID = String.format("\"%s\"", siteInfo.wifiSSID)
         mWifiConfiguration.preSharedKey = String.format("\"%s\"", siteInfo.wifiPWD)
         WiFiConfigTask(mWifiConfiguration).execute()
     }

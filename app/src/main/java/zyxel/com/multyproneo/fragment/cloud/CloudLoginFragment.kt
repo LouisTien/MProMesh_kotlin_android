@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_cloud_login.*
 import org.jetbrains.anko.support.v4.alert
 import org.json.JSONException
 import org.json.JSONObject
+import zyxel.com.multyproneo.BuildConfig
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.cloud.TUTKCommander
 import zyxel.com.multyproneo.api.cloud.AMDMApi
@@ -28,7 +29,9 @@ import java.util.HashMap
 class CloudLoginFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
-    private val CODE_TOKEN_PARAM = "&code="
+    private val CODE_TOKEN_PARAM_PRO = "&code="
+    private val CODE_TOKEN_PARAM_BETA = "?code="
+    private val CODE_TOKEN_PARAM_SEC_BETA = "&state="
     private lateinit var tokenInfo: TUTKTokenInfo
     private lateinit var userInfo: TUTKUserInfo
     private lateinit var specificDeviceInfo: TUTKSpecificDeviceInfo
@@ -82,7 +85,7 @@ class CloudLoginFragment : Fragment()
         cloudLoginWebView.settings.javaScriptCanOpenWindowsAutomatically = false
         cloudLoginWebView.settings.saveFormData = false
         //https://am1.tutk.com/auth/authorize/?response_type=code&state=1234&client_id=vXudLCmYSwonVSetUPZrfiVDOjL5kmv2NQaUDmRG&client_secret=8Xj9bgS9IY7JspwEttChbyoHAEJrp05E6oGW6kqx4OsrITwYFxUae5x4wloWPYYoGC8XdQZoVlKm0clXdeyjgLpBkO08rt0yINEUZC35tkqjwR2oVMD3uCiOr9Z5rboz
-        cloudLoginWebView.loadUrl("${AppConfig.TUTK_AM_SITE}/auth/authorize/?response_type=code&state=${AppConfig.TUTK_AM_STATE}&client_id=${AppConfig.TUTK_AM_CLIENT_ID}&client_secret=${AppConfig.TUTK_AM_CLIENT_SECRET}")
+        cloudLoginWebView.loadUrl("${BuildConfig.TUTK_AM_SITE}/auth/authorize/?response_type=code&state=${BuildConfig.TUTK_AM_STATE}&client_id=${BuildConfig.TUTK_AM_CLIENT_ID}&client_secret=${BuildConfig.TUTK_AM_CLIENT_SECRET}")
         //cloudLoginWebView.addJavascriptInterface(this, "onSubmitListener")
         cloudLoginWebView.clearCache(true)
         cloudLoginWebView.clearHistory()
@@ -101,13 +104,24 @@ class CloudLoginFragment : Fragment()
         override fun onPageFinished(view: WebView?, url: String?)
         {
             super.onPageFinished(view, url)
+
+            //TUTK_AMDM_PRODUCTION = true
             //https://am1.tutk.com/oauth/callback/?state=1234&code=7RZ2aTWquqWisnHQbsyMxNtE6rlnNN
+
+            //TUTK_AMDM_PRODUCTION = false
+            //https://test-us-am1-zyxel.kalayservice.com/oauth/callback/?code=DlPkcDHqXJtR8KnVBKJUGoAGIl58J0&state=1234
+
             LogUtil.d(TAG, "onPageFinished : $url")
             GlobalBus.publish(MainEvent.HideLoading())
 
             if(url!!.contains("oauth/callback"))
             {
-                val codeToken = url.substring(url.indexOf(CODE_TOKEN_PARAM) + CODE_TOKEN_PARAM.length)
+                val codeToken =
+                        if(BuildConfig.TUTK_AMDM_PRODUCTION)
+                            url.substring(url.indexOf(CODE_TOKEN_PARAM_PRO) + CODE_TOKEN_PARAM_PRO.length)
+                        else
+                            url.substring((url.indexOf(CODE_TOKEN_PARAM_BETA) + CODE_TOKEN_PARAM_BETA.length), url.indexOf(CODE_TOKEN_PARAM_SEC_BETA))
+
                 LogUtil.d(TAG, "get code token : $codeToken")
 
                 var refreshToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_REFRESH_TOKEN_KEY, "")
@@ -115,7 +129,7 @@ class CloudLoginFragment : Fragment()
 
                 //Get Token
                 val header = HashMap<String, Any>()
-                header["authorization"] = "Basic ${AppConfig.TUTK_DM_AUTHORIZATION}"
+                header["authorization"] = "Basic ${BuildConfig.TUTK_DM_AUTHORIZATION}"
                 header["content-type"] = "application/x-www-form-urlencoded"
 
                 val body = HashMap<String, Any>()
@@ -199,7 +213,7 @@ class CloudLoginFragment : Fragment()
         var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
-        header["authorization"] = "Basic ${AppConfig.TUTK_DM_AUTHORIZATION}"
+        header["authorization"] = "Basic ${BuildConfig.TUTK_DM_AUTHORIZATION}"
         header["content-type"] = "application/x-www-form-urlencoded"
 
         val body = HashMap<String, Any>()

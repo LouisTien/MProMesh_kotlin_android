@@ -50,7 +50,7 @@ object AppConfig
     const val API_GUEST_WIFI_5G_INFO = "/TR181/Value/Device.WiFi.SSID.6."
     const val API_GUEST_WIFI_5G_PWD = "/TR181/Value/Device.WiFi.AccessPoint.6.Security."
 
-    //TUTK AMDM
+    /*//TUTK AMDM Production
     const val TUTK_AM_SITE = "https://am1.tutk.com"
     const val TUTK_AM_STATE = "1234"
     const val TUTK_AM_CLIENT_ID = "vXudLCmYSwonVSetUPZrfiVDOjL5kmv2NQaUDmRG"
@@ -58,7 +58,17 @@ object AppConfig
     const val TUTK_DM_SITE = "https://hst-dm1.kalayservice.com"
     const val TUTK_API_VER = "/hestia/api/v2"
     const val TUTK_REALM = "zyxel"
-    const val TUTK_DM_AUTHORIZATION = "ZXoycXlNTllOQVE0aVVwSkZYM0hacGhHSVd2bnpqSUliaTVDMGVxbTpUSzRLbFZiVkgyV2hPdlpQUHhYUGpEdURVeTBocXdOVEc0NnM4bk5vSzFRWVJSYXVEUmxNZGhHVTN5c1FPSG93R1pnRVN4UW8wRGdoTFpLMXEzRll3TjFQR296TFZTWFE2RTdUVEh6a2M5bmlhdWlONTA1dngxNFpsWFJja2d5OQ=="
+    const val TUTK_DM_AUTHORIZATION = "ZXoycXlNTllOQVE0aVVwSkZYM0hacGhHSVd2bnpqSUliaTVDMGVxbTpUSzRLbFZiVkgyV2hPdlpQUHhYUGpEdURVeTBocXdOVEc0NnM4bk5vSzFRWVJSYXVEUmxNZGhHVTN5c1FPSG93R1pnRVN4UW8wRGdoTFpLMXEzRll3TjFQR296TFZTWFE2RTdUVEh6a2M5bmlhdWlONTA1dngxNFpsWFJja2d5OQ=="*/
+
+    /*//TUTK AMDM Beta Test
+    const val TUTK_AM_SITE = "https://test-us-am1-zyxel.kalayservice.com"
+    const val TUTK_AM_STATE = "1234"
+    const val TUTK_AM_CLIENT_ID = "xyGkoKRo2pISjxYkPJG92we0BKeijNQheMiGQp4w"
+    const val TUTK_AM_CLIENT_SECRET = "btneGK2Owtue1LQLoqaPpY1oxMiWHZDZ5eXyFoihI8NWnJtUEllMU5OWSnzJZNVOgGRykhqE4x2EgIsaVvNvBGOieYAPa7OPGIVTqlmlvdVdaZ8xKSRHGYMXSsIJSatX"
+    const val TUTK_DM_SITE = "https://test-us-dm1-tutk.kalayservice.com"
+    const val TUTK_API_VER = "/hestia/api/v2"
+    const val TUTK_REALM = "zyxel"
+    const val TUTK_DM_AUTHORIZATION = "eHlHa29LUm8ycElTanhZa1BKRzkyd2UwQktlaWpOUWhlTWlHUXA0dzpidG5lR0syT3d0dWUxTFFMb3FhUHBZMW94TWlXSFpEWjVlWHlGb2loSThOV25KdFVFbGxNVTVPV1NuekpaTlZPZ0dSeWtocUU0eDJFZ0lzYVZ2TnZCR09pZVlBUGE3T1BHSVZUcWxtbHZkVmRhWjh4S1NSSEdZTVhTc0lKU2F0WA=="*/
 
     //TUTK P2P
     const val TUTK_MAXSIZE_RECVBUF = 102400
@@ -93,6 +103,8 @@ object AppConfig
     const val endDeviceListUpdateTime = 60
     const val WiFiSettingTime = 30
     const val rebootTime = 20
+    const val waitForLoginTime = 3
+    const val waitForGetIOTCLoginStatus = 3
 
     //Add Mesh
     const val WPSStatusUpdateTime = 5

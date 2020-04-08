@@ -172,11 +172,7 @@ class SetupConnectTroubleshootingFragment : Fragment()
                         GlobalBus.publish(MainEvent.SwitchToFrag(CloudGatewayListFragment().apply{ arguments = bundle }))
                     }
 
-                    else ->
-                    {
-                        TUTKP2PBaseApi.stopSession()
-                        GlobalBus.publish(MainEvent.SwitchToFrag(CloudWelcomeFragment()))
-                    }
+                    else -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudWelcomeFragment()))
                 }
             }
         }

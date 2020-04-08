@@ -114,7 +114,7 @@ class CloudGatewayListFragment : Fragment()
     {
         GlobalBus.publish(MainEvent.HideLoading())
 
-        TUTKP2PBaseApi.stopSession()
+        TUTKP2PBaseApi.forceStopSession()
 
         val bundle = Bundle().apply{
             putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST)

@@ -295,6 +295,12 @@ object TUTKP2PBaseApi
 
     fun stopSession()
     {
+        if(m_bHasClientConn)
+            forceStopSession()
+    }
+
+    fun forceStopSession()
+    {
         LogUtil.d(TAG,"stopSession")
         IOTCAPIs.IOTC_Connect_Stop()
         destroyRDT_ID()

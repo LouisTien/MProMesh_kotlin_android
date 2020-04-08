@@ -19,6 +19,7 @@ import zyxel.com.multyproneo.fragment.cloud.SetupConnectTroubleshootingFragment
 import zyxel.com.multyproneo.fragment.cloud.SetupControllerReadyFragment
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.GlobalData
 
 class OtherMeshNetworksDialog(context: Context, private var siteName: String, private var gatewayListInfo: TUTKAllDeviceInfo) : Dialog(context)
 {
@@ -46,6 +47,8 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
         siteSelectedDisposable = GlobalBus.listen(DialogEvent.OnOtherSiteSelect::class.java).subscribe{
             doAsync{
                 GlobalBus.publish(MainEvent.ShowLoading())
+
+                GlobalData.currentUID = it.uid
 
                 TUTKP2PBaseApi.stopSession()
                 if(TUTKP2PBaseApi.initIOTCRDT() >= 0)
@@ -79,6 +82,8 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
     private fun gotoTroubleShooting()
     {
         GlobalBus.publish(MainEvent.HideLoading())
+
+        TUTKP2PBaseApi.forceStopSession()
 
         val bundle = Bundle().apply{
             putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR)

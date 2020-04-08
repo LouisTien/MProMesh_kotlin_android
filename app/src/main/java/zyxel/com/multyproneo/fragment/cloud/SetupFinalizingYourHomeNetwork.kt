@@ -1,6 +1,7 @@
 package zyxel.com.multyproneo.fragment.cloud
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,10 +39,14 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     private lateinit var userInfo: TUTKUserInfo
     private lateinit var loginInfo: LoginInfo
     private lateinit var db: DatabaseCloudUtil
+    private lateinit var countDownTimerWanInfo: CountDownTimer
+    private lateinit var countDownTimerIOTCStatus: CountDownTimer
     private var newHomeEndDeviceList = mutableListOf<DevicesInfoObject>()
     private var WiFiName = ""
     private var WiFiPwd = ""
     private var needLoginWhenFinal = false
+    private var getIOTCStatusCount = 0
+    private val IOTCRetryTimes = 5
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -57,6 +62,18 @@ class SetupFinalizingYourHomeNetwork : Fragment()
             this?.getBoolean("needLoginWhenFinal", false)?.let{ needLoginWhenFinal = it }
         }
 
+        countDownTimerWanInfo = object : CountDownTimer((AppConfig.waitForLoginTime * 1000).toLong(), 1000)
+        {
+            override fun onTick(millisUntilFinished: Long) {}
+            override fun onFinish() = getWanInfoTask()
+        }
+
+        countDownTimerIOTCStatus = object : CountDownTimer((AppConfig.waitForGetIOTCLoginStatus * 1000).toLong(), 1000)
+        {
+            override fun onTick(millisUntilFinished: Long) {}
+            override fun onFinish() = getIOTCLoginStatus()
+        }
+
         db = DatabaseCloudUtil.getInstance(activity!!)!!
 
         runOnUiThread{
@@ -67,7 +84,10 @@ class SetupFinalizingYourHomeNetwork : Fragment()
         Thread.sleep(2000)
 
         if(needLoginWhenFinal)
+        {
             login()
+            countDownTimerWanInfo.start()
+        }
         else
             getWanInfoTask()
     }
@@ -86,6 +106,8 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+        countDownTimerWanInfo.cancel()
+        countDownTimerIOTCStatus.cancel()
     }
 
     private fun login()
@@ -109,7 +131,6 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                             loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
                             LogUtil.d(TAG,"loginInfo:$loginInfo")
                             GlobalData.sessionKey = loginInfo.sessionkey
-                            getWanInfoTask()
                         }
                         catch(e: JSONException)
                         {
@@ -242,8 +263,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                         cloudAgentInfo = Gson().fromJson(responseStr, CloudAgentInfo::class.javaObjectType)
                         LogUtil.d(TAG,"startRDTServer:$cloudAgentInfo")
                         GlobalData.sessionKey = cloudAgentInfo.sessionkey
-                        Thread.sleep(3000)
-                        getIOTCLoginStatus()
+                        countDownTimerIOTCStatus.start()
                     }
                 }).execute()
     }
@@ -251,6 +271,9 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     private fun getIOTCLoginStatus()
     {
         LogUtil.d(TAG,"getIOTCLoginStatus()")
+
+        getIOTCStatusCount++
+
         GatewayApi.GetCloudAgentInfo()
                 .setRequestPageName(TAG)
                 .setIsUsingInCloudFlow(true)
@@ -266,7 +289,12 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                             if(cloudAgentInfo.Object.Status.contains("success", ignoreCase = true))
                                 addDevice()
                             else
-                                gotoTroubleShooting()
+                            {
+                                if(getIOTCStatusCount <= IOTCRetryTimes)
+                                    countDownTimerIOTCStatus.start()
+                                else
+                                    gotoTroubleShooting()
+                            }
                         }
                         catch(e: JSONException)
                         {

@@ -48,7 +48,13 @@ abstract class TUTKCommander
 
             when(act)
             {
-                AppConfig.HTTPErrorAction.ERR_ACT_GOTO_LOGIN -> { GlobalBus.publish(MainEvent.SwitchToFrag(ConnectToCloudFragment())) }
+                AppConfig.HTTPErrorAction.ERR_ACT_GOTO_LOGIN ->
+                {
+                    val bundle = Bundle().apply{
+                        putBoolean("isInSetupFlow", false)
+                    }
+                    GlobalBus.publish(MainEvent.SwitchToFrag(ConnectToCloudFragment().apply{ arguments = bundle }))
+                }
                 else -> { gotoTroubleShooting() }
             }
         }

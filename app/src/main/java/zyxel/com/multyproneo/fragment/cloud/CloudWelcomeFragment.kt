@@ -14,6 +14,7 @@ import io.reactivex.disposables.Disposable
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.cloud.TUTKP2PBaseApi
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
@@ -34,6 +35,7 @@ class CloudWelcomeFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+        TUTKP2PBaseApi.stopSession()
     }
 
     override fun onResume()

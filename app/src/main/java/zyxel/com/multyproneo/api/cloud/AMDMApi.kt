@@ -3,6 +3,7 @@ package zyxel.com.multyproneo.api.cloud
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
+import zyxel.com.multyproneo.BuildConfig
 import zyxel.com.multyproneo.util.AppConfig
 
 object AMDMApi
@@ -20,7 +21,7 @@ object AMDMApi
     {
         override fun composeRequest(): Request
         {
-            val getTokenURL = "${AppConfig.TUTK_DM_SITE}${AppConfig.TUTK_API_VER}/auth/oauth_token?realm=${AppConfig.TUTK_REALM}"
+            val getTokenURL = "${BuildConfig.TUTK_DM_SITE}${BuildConfig.TUTK_API_VER}/auth/oauth_token?realm=${BuildConfig.TUTK_REALM}"
             return Request.Builder()
                     .headers(getHeaders().build())
                     .url(getTokenURL)
@@ -38,7 +39,7 @@ object AMDMApi
     {
         override fun composeRequest(): Request
         {
-            val refreshTokenURL = "${AppConfig.TUTK_DM_SITE}${AppConfig.TUTK_API_VER}/auth/refresh_token"
+            val refreshTokenURL = "${BuildConfig.TUTK_DM_SITE}${BuildConfig.TUTK_API_VER}/auth/refresh_token"
             return Request.Builder()
                     .headers(getHeaders().build())
                     .url(refreshTokenURL)
@@ -56,7 +57,7 @@ object AMDMApi
     {
         override fun composeRequest(): Request
         {
-            val getUserInfoURL = "${AppConfig.TUTK_DM_SITE}${AppConfig.TUTK_API_VER}/dm/account"
+            val getUserInfoURL = "${BuildConfig.TUTK_DM_SITE}${BuildConfig.TUTK_API_VER}/dm/account"
             return Request.Builder()
                     .headers(getHeaders().build())
                     .url(getUserInfoURL)
@@ -73,7 +74,7 @@ object AMDMApi
     {
         override fun composeRequest(): Request
         {
-            val getAllDeviceURL = "${AppConfig.TUTK_DM_SITE}${AppConfig.TUTK_API_VER}/dm/devices"
+            val getAllDeviceURL = "${BuildConfig.TUTK_DM_SITE}${BuildConfig.TUTK_API_VER}/dm/devices"
             return Request.Builder()
                     .headers(getHeaders().build())
                     .url(getAllDeviceURL)
@@ -90,7 +91,7 @@ object AMDMApi
     {
         override fun composeRequest(): Request
         {
-            val getSpecificDeviceURL = "${AppConfig.TUTK_DM_SITE}${AppConfig.TUTK_API_VER}/dm/devices/$udid"
+            val getSpecificDeviceURL = "${BuildConfig.TUTK_DM_SITE}${BuildConfig.TUTK_API_VER}/dm/devices/$udid"
             return Request.Builder()
                     .headers(getHeaders().build())
                     .url(getSpecificDeviceURL)
@@ -107,7 +108,7 @@ object AMDMApi
     {
         override fun composeRequest(): Request
         {
-            val addDeviceURL = "${AppConfig.TUTK_DM_SITE}${AppConfig.TUTK_API_VER}/dm/devices"
+            val addDeviceURL = "${BuildConfig.TUTK_DM_SITE}${BuildConfig.TUTK_API_VER}/dm/devices"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .headers(getHeaders().build())
@@ -126,7 +127,7 @@ object AMDMApi
     {
         override fun composeRequest(): Request
         {
-            val updateDeviceURL = "${AppConfig.TUTK_DM_SITE}${AppConfig.TUTK_API_VER}/dm/devices/$udid"
+            val updateDeviceURL = "${BuildConfig.TUTK_DM_SITE}${BuildConfig.TUTK_API_VER}/dm/devices/$udid"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .headers(getHeaders().build())
@@ -140,7 +141,7 @@ object AMDMApi
     {
         override fun composeRequest(): Request
         {
-            val deleteDeviceURL = "${AppConfig.TUTK_DM_SITE}${AppConfig.TUTK_API_VER}/dm/devices/$udid"
+            val deleteDeviceURL = "${BuildConfig.TUTK_DM_SITE}${BuildConfig.TUTK_API_VER}/dm/devices/$udid"
             return Request.Builder()
                     .headers(getHeaders().build())
                     .url(deleteDeviceURL)

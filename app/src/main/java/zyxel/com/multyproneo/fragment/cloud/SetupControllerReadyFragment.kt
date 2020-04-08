@@ -31,6 +31,8 @@ class SetupControllerReadyFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
 
+        TUTKP2PBaseApi.stopSession()
+
         val helpAdapter = SetupControllerReadyHelpAdapter(activity!!)
         setup_controller_ready_help_pager.adapter = helpAdapter
         setup_controller_ready_help_pager.offscreenPageLimit = 3

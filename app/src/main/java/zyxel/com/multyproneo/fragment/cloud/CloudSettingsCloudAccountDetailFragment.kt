@@ -232,7 +232,6 @@ class CloudSettingsCloudAccountDetailFragment : Fragment()
             uiThread{
                 if(isDelSelf)
                 {
-                    TUTKP2PBaseApi.stopSession()
                     GlobalBus.publish(MainEvent.HideLoading())
                     GlobalBus.publish(MainEvent.SwitchToFrag(CloudWelcomeFragment()))
                 }

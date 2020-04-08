@@ -1273,7 +1273,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         else
         {
             val header = HashMap<String, Any>()
-            header["authorization"] = "Basic ${AppConfig.TUTK_DM_AUTHORIZATION}"
+            header["authorization"] = "Basic ${BuildConfig.TUTK_DM_AUTHORIZATION}"
             header["content-type"] = "application/x-www-form-urlencoded"
 
             val body = HashMap<String, Any>()

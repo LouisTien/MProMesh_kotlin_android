@@ -23,7 +23,6 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.*
-import zyxel.com.multyproneo.model.cloud.AllDeviceInfo
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.FeatureConfig
