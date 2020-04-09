@@ -549,6 +549,8 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
         }
         else
         {
+            GlobalBus.publish(MainEvent.ShowLoading())
+
             val params = ",\"L2DevCtrl_Reboot\":true"
 
             P2PDevicesApi.EndDeviceReboot(endDeviceInfo.IndexFromFW)
@@ -560,6 +562,7 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
                         {
                             try
                             {
+                                GlobalBus.publish(MainEvent.HideLoading())
                                 GlobalBus.publish(MainEvent.EnterCloudHomePage())
                             }
                             catch(e: Exception)

@@ -65,4 +65,18 @@ object DevicesApi
                     .build()
         }
     }
+
+    class EndDeviceReboot(val index: Int = 0) : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val rebootURL = "${GlobalData.getAPIPath()}${AppConfig.API_DEVICE_HOST_INFO}$index.X_ZYXEL_EXT.?sessionkey=${GlobalData.sessionKey}"
+            val requestParam = RequestBody.create(DevicesApi.JSON, getParams().toString())
+            return Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(rebootURL)
+                    .put(requestParam)
+                    .build()
+        }
+    }
 }

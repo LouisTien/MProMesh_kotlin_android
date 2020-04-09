@@ -57,7 +57,7 @@ class SetupConnectControllerScanFragment : Fragment()
                     LogUtil.d(TAG,"QRCode result:$result")
                     //WIFI:T:WPA;S:Zyxel51705;P:LG4DFA7MEQ;LoginA:admin;LoginP:33WTN5Vvwy;UID:1234567890ABCDFGHIJK;;
                     val parts = result!!.text.split(":", ";")
-                    if( parts.size == 14
+                    if( parts.size == 15
                         && parts[0] == "WIFI"
                         && parts[1] == "T"
                         && parts[3] == "S"

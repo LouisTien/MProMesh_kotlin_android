@@ -554,7 +554,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
             LogUtil.d(TAG,"rebootTask param:$params")
             LogUtil.d(TAG,"rebootTask index:${endDeviceInfo.IndexFromFW}")
 
-            GatewayApi.EndDeviceReboot(endDeviceInfo.IndexFromFW)
+            DevicesApi.EndDeviceReboot(endDeviceInfo.IndexFromFW)
                     .setRequestPageName(TAG)
                     .setParams(params)
                     .setResponseListener(object: Commander.ResponseListener()

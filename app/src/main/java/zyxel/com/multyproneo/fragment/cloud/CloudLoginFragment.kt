@@ -1,6 +1,7 @@
 package zyxel.com.multyproneo.fragment.cloud
 
 import android.graphics.Bitmap
+import android.net.Uri
 import android.net.http.SslError
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -105,10 +106,10 @@ class CloudLoginFragment : Fragment()
         {
             super.onPageFinished(view, url)
 
-            //TUTK_AMDM_PRODUCTION = true
+            //Production
             //https://am1.tutk.com/oauth/callback/?state=1234&code=7RZ2aTWquqWisnHQbsyMxNtE6rlnNN
 
-            //TUTK_AMDM_PRODUCTION = false
+            //Beta
             //https://test-us-am1-zyxel.kalayservice.com/oauth/callback/?code=DlPkcDHqXJtR8KnVBKJUGoAGIl58J0&state=1234
 
             LogUtil.d(TAG, "onPageFinished : $url")
@@ -116,12 +117,7 @@ class CloudLoginFragment : Fragment()
 
             if(url!!.contains("oauth/callback"))
             {
-                val codeToken =
-                        if(BuildConfig.TUTK_AMDM_PRODUCTION)
-                            url.substring(url.indexOf(CODE_TOKEN_PARAM_PRO) + CODE_TOKEN_PARAM_PRO.length)
-                        else
-                            url.substring((url.indexOf(CODE_TOKEN_PARAM_BETA) + CODE_TOKEN_PARAM_BETA.length), url.indexOf(CODE_TOKEN_PARAM_SEC_BETA))
-
+                val codeToken = Uri.parse(url).getQueryParameter("code")
                 LogUtil.d(TAG, "get code token : $codeToken")
 
                 var refreshToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_REFRESH_TOKEN_KEY, "")
@@ -134,7 +130,7 @@ class CloudLoginFragment : Fragment()
 
                 val body = HashMap<String, Any>()
                 body["grant_type"] = "authorization_code"
-                body["code"] = codeToken
+                body["code"] = codeToken?:""
 
                 AMDMApi.GetToken()
                         .setRequestPageName(TAG)

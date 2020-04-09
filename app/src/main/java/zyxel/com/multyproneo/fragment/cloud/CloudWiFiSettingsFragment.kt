@@ -18,7 +18,6 @@ import org.jetbrains.anko.support.v4.dip
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.json.JSONException
 import zyxel.com.multyproneo.R
-import zyxel.com.multyproneo.api.cloud.P2PAccountApi
 import zyxel.com.multyproneo.api.cloud.P2PWiFiSettingApi
 import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.dialog.QRCodeDialog

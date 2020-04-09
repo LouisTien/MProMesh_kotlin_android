@@ -65,7 +65,7 @@ object P2PDevicesApi
 
         override fun method(): AppConfig.TUTKP2PMethod
         {
-            return AppConfig.TUTKP2PMethod.MTD_POST
+            return AppConfig.TUTKP2PMethod.MTD_PUT
         }
     }
 }
