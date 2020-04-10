@@ -1,10 +1,10 @@
 package zyxel.com.multyproneo.fragment.cloud
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_setup_connecting_internet.*
 import org.jetbrains.anko.doAsync
@@ -47,8 +47,18 @@ class SetupConnectingInternetFragment : Fragment()
         db = DatabaseCloudUtil.getInstance(context!!)!!
 
         setup_connecting_internet_next_button.onClick{
-            GlobalBus.publish(MainEvent.ShowLoading())
-            startGetUIDTask()
+            if(hasUID)
+            {
+                if(hasPreviousSettings)
+                    GlobalBus.publish(MainEvent.SwitchToFrag(SetupApplyPreviousSettingsFragment()))
+                else
+                    GlobalBus.publish(MainEvent.SwitchToFrag(ConnectToCloudFragment()))
+            }
+            else
+            {
+                DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)
+                GlobalBus.publish(MainEvent.EnterHomePage())
+            }
         }
 
         startInternetCheckTask()
@@ -115,14 +125,14 @@ class SetupConnectingInternetFragment : Fragment()
             {
                 true ->
                 {
-                    runOnUiThread{
+                    /*runOnUiThread{
                         setup_connecting_internet_title_text.text = getString(R.string.setup_connecting_internet_success_title)
-                        setup_connecting_internet_description_text.visibility = View.GONE
+                        setup_connecting_internet_description_text.visibility = View.INVISIBLE
                         setup_connecting_internet_content_animation_view.setAnimation("ConnectToTheInternet_2_oldJson.json")
                         setup_connecting_internet_content_animation_view.playAnimation()
                     }
 
-                    Thread.sleep(2500)
+                    Thread.sleep(2500)*/
 
                     startGetUIDTask()
                 }
@@ -184,7 +194,7 @@ class SetupConnectingInternetFragment : Fragment()
             hasPreviousSettings = siteInfoList.isNotEmpty()
 
             uiThread{
-                if(hasUID)
+                /*if(hasUID)
                 {
                     if(hasPreviousSettings)
                         GlobalBus.publish(MainEvent.SwitchToFrag(SetupApplyPreviousSettingsFragment()))
@@ -195,9 +205,14 @@ class SetupConnectingInternetFragment : Fragment()
                 {
                     DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)
                     GlobalBus.publish(MainEvent.EnterHomePage())
-                }
+                }*/
 
-                GlobalBus.publish(MainEvent.HideLoading())
+                setup_connecting_internet_next_button.visibility = View.VISIBLE
+                setup_connecting_internet_title_text.text = getString(R.string.setup_connecting_internet_success_title)
+                //setup_connecting_internet_description_text.visibility = View.INVISIBLE
+                setup_connecting_internet_description_text.text = ""
+                setup_connecting_internet_content_animation_view.setAnimation("ConnectToTheInternet_2_oldJson.json")
+                setup_connecting_internet_content_animation_view.playAnimation()
             }
         }
     }

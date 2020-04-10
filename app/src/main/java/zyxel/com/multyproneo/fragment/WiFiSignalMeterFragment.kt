@@ -9,12 +9,12 @@ import android.net.wifi.ScanResult
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_wifi_signal_meter.*
 import org.jetbrains.anko.support.v4.runOnUiThread
@@ -258,7 +258,7 @@ class WiFiSignalMeterFragment : Fragment()
                                     if( (devicesInfo.Object[i].PhysAddress == getMobileDeviceMacAddress()) && (devicesInfo.Object[i].X_ZYXEL_Neighbor != "") )
                                     {
                                         neighborMAC = devicesInfo.Object[i].X_ZYXEL_Neighbor
-                                        mobileDeviceIndex = devicesInfo.Object[i].IndexFromFW
+                                        mobileDeviceIndex = i + 1
 
                                         for(itemX in devicesInfo.Object)
                                         {

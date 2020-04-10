@@ -3,13 +3,13 @@ package zyxel.com.multyproneo.fragment.cloud
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.method.PasswordTransformationMethod
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter

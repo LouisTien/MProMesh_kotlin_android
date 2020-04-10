@@ -1,11 +1,11 @@
 package zyxel.com.multyproneo.fragment.cloud
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_diagnostic.*
 import zyxel.com.multyproneo.R

@@ -1,9 +1,9 @@
 package zyxel.com.multyproneo.adapter
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.adapter_gateway_list_item.view.*
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GatewayListEvent

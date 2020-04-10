@@ -1,10 +1,10 @@
 package zyxel.com.multyproneo.fragment.cloud
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_settings_cloud_account_detail.*
@@ -16,7 +16,6 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.cloud.CloudAccountWiFiRouterItemAdapter
 import zyxel.com.multyproneo.api.cloud.AMDMApi
 import zyxel.com.multyproneo.api.cloud.TUTKCommander
-import zyxel.com.multyproneo.api.cloud.TUTKP2PBaseApi
 import zyxel.com.multyproneo.database.room.DatabaseClientListEntity
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 import zyxel.com.multyproneo.dialog.RemoveSiteDialog

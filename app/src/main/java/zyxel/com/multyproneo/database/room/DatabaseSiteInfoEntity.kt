@@ -1,7 +1,7 @@
 package zyxel.com.multyproneo.database.room
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import zyxel.com.multyproneo.util.AppConfig
 
 @Entity(tableName = AppConfig.TABLE_SITE_INFO_NAME)

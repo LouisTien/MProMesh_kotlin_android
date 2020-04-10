@@ -1,10 +1,10 @@
 package zyxel.com.multyproneo.adapter
 
 import android.content.Context
-import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager.widget.PagerAdapter
 import kotlinx.android.synthetic.main.adapter_controller_ready_help_item.view.*
 import zyxel.com.multyproneo.R
 

@@ -2,10 +2,10 @@ package zyxel.com.multyproneo.fragment.cloud
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_setup_finalizing_your_home_network.*
 import org.jetbrains.anko.doAsync
@@ -33,7 +33,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     private val TAG = javaClass.simpleName
     private lateinit var addDeviceInfo: TUTKAddDeviceInfo
     private lateinit var wanInfo: WanInfo
-    private lateinit var devicesInfo: DevicesInfo
+    private lateinit var changeIconNameInfo: ChangeIconNameInfo
     private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
     private lateinit var cloudAgentInfo: CloudAgentInfo
     private lateinit var userInfo: TUTKUserInfo
@@ -41,7 +41,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     private lateinit var db: DatabaseCloudUtil
     private lateinit var countDownTimerWanInfo: CountDownTimer
     private lateinit var countDownTimerIOTCStatus: CountDownTimer
-    private var newHomeEndDeviceList = mutableListOf<DevicesInfoObject>()
+    private var changeIconNameList = mutableListOf<ChangeIconNameInfoObject>()
     private var WiFiName = ""
     private var WiFiPwd = ""
     private var needLoginWhenFinal = false
@@ -188,7 +188,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                             WiFiName = WiFiSettingInfoSet.Object.SSID[0].SSID
                             WiFiPwd = WiFiSettingInfoSet.Object.AccessPoint[0].Security.KeyPassphrase
 
-                            getDeviceInfoTask()
+                            getChangeIconNameInfoTask()
                         }
                         catch(e: JSONException)
                         {
@@ -199,41 +199,21 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                 }).execute()
     }
 
-    private fun getDeviceInfoTask()
+    private fun getChangeIconNameInfoTask()
     {
-        LogUtil.d(TAG,"getDeviceInfoTask()")
+        LogUtil.d(TAG,"getChangeIconNameInfoTask()")
 
-        DevicesApi.GetDevicesInfo()
+        DevicesApi.GetChangeIconNameInfo()
                 .setRequestPageName(TAG)
-                .setIsUsingInCloudFlow(true)
                 .setResponseListener(object: Commander.ResponseListener()
                 {
                     override fun onSuccess(responseStr: String)
                     {
                         try
                         {
-                            devicesInfo = Gson().fromJson(responseStr, DevicesInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"devicesInfo:$devicesInfo")
-
-                            var index = 1
-                            for(item in devicesInfo.Object)
-                            {
-                                item.IndexFromFW = index
-
-                                if( (item.HostName == "N/A") || (item.HostName == "") )
-                                {
-                                    index++
-                                    continue
-                                }
-
-                                if(item.X_ZYXEL_CapabilityType != "L2Device" && item.X_ZYXEL_Conn_Guest != 1)
-                                    newHomeEndDeviceList.add(item)
-
-                                LogUtil.d(TAG,"update devicesInfo:$item")
-
-                                index++
-                            }
-
+                            changeIconNameInfo = Gson().fromJson(responseStr, ChangeIconNameInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"changeIconNameInfo:$changeIconNameInfo")
+                            changeIconNameList = changeIconNameInfo.Object.toMutableList()
                             startRDTServer()
                         }
                         catch(e: JSONException)
@@ -433,11 +413,11 @@ class SetupFinalizingYourHomeNetwork : Fragment()
 
             db.getSiteInfoDao().insert(siteInfo)
 
-            for(item in newHomeEndDeviceList)
+            for(item in changeIconNameList)
             {
                 val clientInfo = DatabaseClientListEntity(
                         GlobalData.getCurrentGatewayInfo().MAC,
-                        item.PhysAddress,
+                        item.MacAddress,
                         item.HostName
                 )
 

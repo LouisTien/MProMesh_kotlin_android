@@ -3,13 +3,13 @@ package zyxel.com.multyproneo.fragment.cloud
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_setup_login.*
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener

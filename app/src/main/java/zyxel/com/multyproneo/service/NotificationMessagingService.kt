@@ -8,7 +8,8 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.NotificationCompat
+import androidx.core.app.NotificationCompat
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import zyxel.com.multyproneo.R
@@ -28,13 +29,13 @@ class NotificationMessagingService : FirebaseMessagingService()
     private var alert: String = ""
     private var dev_name: String = ""
 
-    override fun handleIntent(intent: Intent?)
+    /*override fun handleIntent(intent: Intent?)
     {
         //super.handleIntent(intent); // disable this to prevent show notification from system
 
-        /*
+        *//*
         {received_at=1585375972, google.delivered_priority=high, google.sent_time=1585375972468, google.ttl=2419200, google.original_priority=high, gcm.notification.e=1, gcm.notification.title={"type":{"0":"out","1":"in"}}, msg=LouisHouse, uid=E7KA952WU5RMUH6GY1CJ, from=578617382573, alert= LouisTest is Connected, sound=sound.aif, google.message_id=0:1585375972499266%10ac36f910ac36f9, gcm.notification.body=0, customized_payload={"content_available":true,"notification":{"title":"{\"type\":{\"0\":\"out\",\"1\":\"in\"}}","body":"0"}}, event_time=1585375972, event_type=60, google.c.a.e=1, dev_name=LouisTest, google.c.sender.id=578617382573, collapse_key=zyxel.com.multyproneo}
-         */
+         *//*
 
         with(intent)
         {
@@ -56,6 +57,28 @@ class NotificationMessagingService : FirebaseMessagingService()
         LogUtil.d(TAG, "Message dev_name : $dev_name")
 
         sendNotification(alert, msg)
+    }*/
+
+    override fun onMessageReceived(remoteMessage: RemoteMessage)
+    {
+        if(remoteMessage.data.isNotEmpty())
+        {
+            LogUtil.d(TAG, "Message data : ${remoteMessage.data}")
+        }
+
+        if(remoteMessage.notification != null)
+        {
+            LogUtil.d(TAG, "Message Notification Title : ${remoteMessage.notification!!.title}")
+            LogUtil.d(TAG, "Message Notification Body : ${remoteMessage.notification!!.body}")
+            sendNotification(remoteMessage.notification!!.title?:"", remoteMessage.notification!!.body?:"")
+        }
+    }
+
+    override fun onNewToken(token: String)
+    {
+        var notificationToken by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_NOTIFICATION_TOKEN, "")
+        notificationToken = token
+        LogUtil.d(TAG, "Refreshed token: $notificationToken")
     }
 
     private fun sendNotification(title: String, messageBody: String)

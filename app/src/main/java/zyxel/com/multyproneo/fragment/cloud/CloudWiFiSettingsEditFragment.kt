@@ -3,13 +3,13 @@ package zyxel.com.multyproneo.fragment.cloud
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_wifi_settings_edit.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener

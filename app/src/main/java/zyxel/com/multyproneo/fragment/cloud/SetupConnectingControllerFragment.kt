@@ -6,10 +6,10 @@ import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_setup_connecting_controller.*
 import org.jetbrains.anko.support.v4.runOnUiThread

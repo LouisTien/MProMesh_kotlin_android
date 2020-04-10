@@ -39,12 +39,12 @@
         android:layout_height="@dimen/layout_size_390dp_in_1080"
         android:layout_centerInParent="true">
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/setup_controller_ready_help_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/setup_controller_ready_help_pager_indicator">
-        </android.support.v4.view.ViewPager>
+        </androidx.viewpager.widget.ViewPager>
 
         <com.chahinem.pageindicator.PageIndicator
             android:id="@+id/setup_controller_ready_help_pager_indicator"

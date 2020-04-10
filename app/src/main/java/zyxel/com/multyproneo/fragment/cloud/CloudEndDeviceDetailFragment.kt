@@ -2,7 +2,6 @@ package zyxel.com.multyproneo.fragment.cloud
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,9 +23,9 @@ import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.*
 import android.text.format.Formatter.formatIpAddress
 import android.content.Context.WIFI_SERVICE
-import android.support.v4.content.ContextCompat.getSystemService
 import android.net.wifi.WifiManager
 import android.text.format.Formatter
+import androidx.fragment.app.Fragment
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.uiThread

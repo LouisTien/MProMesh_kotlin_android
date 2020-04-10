@@ -1,13 +1,13 @@
 package zyxel.com.multyproneo.fragment.cloud
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import android.webkit.WebSettings
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_settings_privacy_policy.*
 import zyxel.com.multyproneo.R
 

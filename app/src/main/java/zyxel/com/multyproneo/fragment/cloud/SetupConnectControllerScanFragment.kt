@@ -6,10 +6,10 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
@@ -55,7 +55,7 @@ class SetupConnectControllerScanFragment : Fragment()
                     doVibrate()
 
                     LogUtil.d(TAG,"QRCode result:$result")
-                    //WIFI:T:WPA;S:Zyxel51705;P:LG4DFA7MEQ;LoginA:admin;LoginP:33WTN5Vvwy;UID:1234567890ABCDFGHIJK;;
+                    //WIFI:T:WPA;S:Zyxel00001;P:12345678;LoginA:admin;LoginP:a12345678;UID:E7KA952WU5RMUH6GY1CJ;;
                     val parts = result!!.text.split(":", ";")
                     if( parts.size == 15
                         && parts[0] == "WIFI"

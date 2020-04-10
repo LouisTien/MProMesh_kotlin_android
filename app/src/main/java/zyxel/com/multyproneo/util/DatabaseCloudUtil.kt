@@ -1,9 +1,9 @@
 package zyxel.com.multyproneo.util
 
 import android.content.Context
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import zyxel.com.multyproneo.database.room.DatabaseClientListDao
 import zyxel.com.multyproneo.database.room.DatabaseClientListEntity
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoDao

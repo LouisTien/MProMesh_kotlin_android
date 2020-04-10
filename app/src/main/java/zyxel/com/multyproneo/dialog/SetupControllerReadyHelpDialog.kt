@@ -3,7 +3,7 @@ package zyxel.com.multyproneo.dialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.dialog_controller_ready_help.*
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.SetupControllerReadyHelpAdapter

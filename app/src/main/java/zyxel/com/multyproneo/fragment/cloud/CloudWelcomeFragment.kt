@@ -6,10 +6,10 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import io.reactivex.disposables.Disposable
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -26,6 +26,7 @@ class CloudWelcomeFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private lateinit var startWiFiSettingDisposable: Disposable
+    private lateinit var db: DatabaseCloudUtil
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {

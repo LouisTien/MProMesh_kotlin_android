@@ -1,6 +1,6 @@
 package zyxel.com.multyproneo.database.room
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import zyxel.com.multyproneo.util.AppConfig
 
 @Dao
