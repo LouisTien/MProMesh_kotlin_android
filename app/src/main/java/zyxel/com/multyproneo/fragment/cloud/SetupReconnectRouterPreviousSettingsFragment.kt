@@ -87,9 +87,11 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
 
     inner class WiFiConfigTask(var mWifiConfiguration: WifiConfiguration) : AsyncTask<String, Int, Boolean>()
     {
+        private val sWaitWiFiConnectionCount = 30
         private var isRunning = true
         private var connectStatus = false
         private var count = 0
+        private var networkID = 0
 
         override fun onPreExecute()
         {
@@ -122,58 +124,52 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
                 wifiManager.isWifiEnabled = true
             }
 
+            var existID = 0
             if(wifiManager.configuredNetworks != null)
             {
                 for(configuration in wifiManager.configuredNetworks)
                 {
+                    LogUtil.d(TAG, "configured = ${configuration.SSID}")
+
                     val newSSID = configuration.SSID
                     if(mWifiConfiguration.SSID == newSSID)
                     {
                         LogUtil.d(TAG, "set task exist net id = ${configuration.networkId}")
-                        wifiManager.removeNetwork(configuration.networkId)
+                        val isExistConfiguration = wifiManager.removeNetwork(configuration.networkId)
+                        LogUtil.d(TAG, "delete exist net id = $isExistConfiguration")
+
+                        if(!isExistConfiguration)
+                            existID = configuration.networkId
                     }
                 }
             }
-
-            /*if(wifiManager.configuredNetworks != null)
-            {
-                LogUtil.d(TAG, "new wifi config")
-                val netId = wifiManager.addNetwork(mWifiConfiguration)
-                wifiManager.disconnect()
-                wifiManager.enableNetwork(netId, true)
-                wifiManager.reconnect()
-
-                while(isRunning)
-                {
-                    count++
-                    publishProgress(count)
-                    try
-                    {
-                        Thread.sleep(1000)
-                    }
-                    catch(e: InterruptedException)
-                    {
-                        e.printStackTrace()
-                    }
-
-                }
-
-                return connectStatus
-            }
-            else
-                return false*/
 
             if(wifiManager.configuredNetworks != null)
             {
-                LogUtil.d(TAG, "new wifi config")
-                val netId = wifiManager.addNetwork(mWifiConfiguration)
+                networkID = wifiManager.addNetwork(mWifiConfiguration)
+                if(networkID == -1)
+                {
+                    networkID = existID
+                    LogUtil.d(TAG, "set exist wifi network id = $networkID")
+                }
+                else
+                    LogUtil.d(TAG, "set new wifi network id = $networkID")
+
+
                 wifiManager.disconnect()
-                wifiManager.enableNetwork(netId, true)
+                wifiManager.enableNetwork(networkID, true)
                 wifiManager.reconnect()
 
                 while(isRunning)
                 {
                     count++
+                    LogUtil.d(TAG, "wifi connect count = $count")
+                    LogUtil.d(TAG, "set wifi network id = $networkID")
+                    LogUtil.d(TAG, "set wifi SSID = ${mWifiConfiguration.SSID}")
+
+                    wifiManager.enableNetwork(networkID, true)
+                    wifiManager.reconnect()
+
                     publishProgress(count)
                     try
                     {
@@ -183,7 +179,6 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
                     {
                         e.printStackTrace()
                     }
-
                 }
             }
             else
@@ -229,12 +224,13 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
             val wifiManager = activity!!.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
             LogUtil.d(TAG, "extra = " + ConnectivityManager.EXTRA_NO_CONNECTIVITY)
             val mWifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-            LogUtil.d(TAG, "network info = " + mWifi.isConnected)
-            LogUtil.d(TAG, "network info connecting = " + mWifi.isConnectedOrConnecting)
+            LogUtil.d(TAG, "network info connected = ${mWifi.isConnected}")
 
             if(mWifi.isConnected)
             {
                 val activeWifiInfo = wifiManager.connectionInfo
+                LogUtil.d(TAG, "network info = $activeWifiInfo")
+
                 if(activeWifiInfo != null)
                 {
                     isRunning = false
@@ -242,13 +238,15 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
                 }
                 else
                 {
-                    isRunning = (count != 15)
+                    wifiManager.disconnect()
+
+                    isRunning = (count != sWaitWiFiConnectionCount)
                     connectStatus = false
                 }
             }
             else
             {
-                isRunning = (count != 15)
+                isRunning = (count != sWaitWiFiConnectionCount)
                 connectStatus = false
             }
         }
