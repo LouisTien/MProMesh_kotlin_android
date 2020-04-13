@@ -87,6 +87,7 @@ object AppConfig
     const val DATABASE_NAME = "mpromesh.db"
     const val TABLE_SITE_INFO_NAME = "site_information"
     const val TABLE_CLIENT_LIST_NAME = "client_list"
+    const val TABLE_RESERVE_NAME = "reserve"
 
     //SharedPreferences
     const val SHAREDPREF_NAME = "name_device_setting"

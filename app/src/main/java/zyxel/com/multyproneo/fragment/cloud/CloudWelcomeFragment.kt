@@ -26,7 +26,6 @@ class CloudWelcomeFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private lateinit var startWiFiSettingDisposable: Disposable
-    private lateinit var db: DatabaseCloudUtil
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
