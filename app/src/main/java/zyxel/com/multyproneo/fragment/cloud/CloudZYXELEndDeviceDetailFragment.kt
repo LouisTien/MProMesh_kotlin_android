@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_zyxel_end_device_detail.*
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.textColor
@@ -543,7 +544,7 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
                     {
                         override fun onSuccess(responseStr: String)
                         {
-                            TUTKP2PBaseApi.stopSession()
+                            doAsync{ TUTKP2PBaseApi.stopSession() }
                         }
                     }).execute()
         }

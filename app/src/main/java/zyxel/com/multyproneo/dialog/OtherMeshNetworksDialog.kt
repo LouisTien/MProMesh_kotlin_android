@@ -81,9 +81,9 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
 
     private fun gotoTroubleShooting()
     {
-        GlobalBus.publish(MainEvent.HideLoading())
-
         TUTKP2PBaseApi.forceStopSession()
+
+        GlobalBus.publish(MainEvent.HideLoading())
 
         val bundle = Bundle().apply{
             putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR)

@@ -35,7 +35,6 @@ class CloudWelcomeFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-        TUTKP2PBaseApi.stopSession()
     }
 
     override fun onResume()
@@ -61,7 +60,11 @@ class CloudWelcomeFragment : Fragment()
         else
             Handler().postDelayed({ decideFlow() }, AppConfig.WELCOME_DISPLAY_TIME_IN_MILLISECONDS)*/
 
-        Handler().postDelayed({ decideFlow() }, AppConfig.WELCOME_DISPLAY_TIME_IN_MILLISECONDS)
+        doAsync{
+            TUTKP2PBaseApi.stopSession()
+            Thread.sleep(AppConfig.WELCOME_DISPLAY_TIME_IN_MILLISECONDS)
+            decideFlow()
+        }
     }
 
     override fun onPause()

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.fragment_setup_controller_ready.*
+import org.jetbrains.anko.doAsync
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.SetupControllerReadyHelpAdapter
 import zyxel.com.multyproneo.api.cloud.*
@@ -31,8 +32,6 @@ class SetupControllerReadyFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
 
-        TUTKP2PBaseApi.stopSession()
-
         val helpAdapter = SetupControllerReadyHelpAdapter(activity!!)
         setup_controller_ready_help_pager.adapter = helpAdapter
         setup_controller_ready_help_pager.offscreenPageLimit = 3
@@ -54,6 +53,12 @@ class SetupControllerReadyFragment : Fragment()
         setup_controller_ready_help_pager_indicator.attachTo(setup_controller_ready_help_pager)
 
         setClickListener()
+
+        GlobalBus.publish(MainEvent.ShowLoading())
+        doAsync{
+            TUTKP2PBaseApi.stopSession()
+            GlobalBus.publish(MainEvent.HideLoading())
+        }
     }
 
     override fun onResume()
