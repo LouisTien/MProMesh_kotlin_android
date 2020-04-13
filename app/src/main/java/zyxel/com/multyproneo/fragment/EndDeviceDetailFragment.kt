@@ -257,10 +257,38 @@ class EndDeviceDetailFragment : Fragment()
 
                 else ->
                 {
-                    for(item in GlobalData.ZYXELEndDeviceList)
+                    /*for(item in GlobalData.ZYXELEndDeviceList)
                     {
                         if(endDeviceInfo.X_ZYXEL_Neighbor.equals(item.PhysAddress, ignoreCase = true))
                             connectTo = SpecialCharacterHandler.checkEmptyTextValue(item.getName())
+                    }*/
+
+                    //if mac = 00:11:22:33:44:50, check the mac 00:11:22:33:44:5 to compare for work around of FW bug#117125
+
+                    for(item in GlobalData.ZYXELEndDeviceList)
+                    {
+                        var neighborSubMAC = ""
+                        var deviceSubMAC = ""
+
+                        if(endDeviceInfo.X_ZYXEL_Neighbor.contains(":")
+                            && ( (endDeviceInfo.X_ZYXEL_Neighbor.lastIndexOf(":") + 2) == (endDeviceInfo.X_ZYXEL_Neighbor.length - 1)) )
+                        {
+                            neighborSubMAC = endDeviceInfo.X_ZYXEL_Neighbor.substring(0, endDeviceInfo.X_ZYXEL_Neighbor.lastIndexOf(":") + 2)
+                            LogUtil.d(TAG,"neighborSubMAC:$neighborSubMAC")
+                        }
+
+                        if(item.PhysAddress.contains(":")
+                            && ( (item.PhysAddress.lastIndexOf(":") + 2) == (item.PhysAddress.length - 1)) )
+                        {
+                            deviceSubMAC = item.PhysAddress.substring(0, item.PhysAddress.lastIndexOf(":") + 2)
+                            LogUtil.d(TAG,"deviceSubMAC:$deviceSubMAC")
+                        }
+
+                        if(neighborSubMAC != "" && deviceSubMAC != "")
+                        {
+                            if(neighborSubMAC.equals(deviceSubMAC, ignoreCase = true))
+                                connectTo = SpecialCharacterHandler.checkEmptyTextValue(item.getName())
+                        }
                     }
                 }
             }

@@ -76,6 +76,9 @@ class ZYXELEndDeviceDetailFragment : Fragment()
             this?.getSerializable("DevicesInfo")?.let{ endDeviceInfo = it as DevicesInfoObject }
         }
 
+        if(isGatewayMode)
+            editDeviceName = deviceInfo.UserDefineName
+
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
