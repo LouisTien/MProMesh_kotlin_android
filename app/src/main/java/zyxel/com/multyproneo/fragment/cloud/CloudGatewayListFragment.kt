@@ -57,7 +57,7 @@ class CloudGatewayListFragment : Fragment()
             LogUtil.d(TAG,"select name:${gatewayListInfo.data[it.index].displayName}")
             LogUtil.d(TAG,"select udid:${gatewayListInfo.data[it.index].udid}")
 
-            connectP2P(gatewayListInfo.data[it.index].udid)
+            connectP2P(gatewayListInfo.data[it.index].udid, gatewayListInfo.data[it.index].displayName)
         }
 
         gatewayListInfo = GlobalData.cloudGatewayListInfo
@@ -76,7 +76,7 @@ class CloudGatewayListFragment : Fragment()
             cloud_gateway_choose_text.text = getString(R.string.cloud_gateway_list_choose)
 
         if(autoLogin && gatewayListInfo.data.size == 1)
-            connectP2P(gatewayListInfo.data[0].udid)
+            connectP2P(gatewayListInfo.data[0].udid, gatewayListInfo.data[0].displayName)
     }
 
     override fun onPause()
@@ -90,7 +90,7 @@ class CloudGatewayListFragment : Fragment()
         super.onDestroyView()
     }
 
-    private fun connectP2P(uid: String)
+    private fun connectP2P(uid: String, name: String)
     {
         GlobalBus.publish(MainEvent.ShowLoading())
 
@@ -99,6 +99,7 @@ class CloudGatewayListFragment : Fragment()
             {
                 if(TUTKP2PBaseApi.startSession(uid) >= 0)
                 {
+                    GlobalData.currentDisplayName = name
                     GlobalData.currentUID = uid
                     GlobalBus.publish(MainEvent.SwitchToFrag(CloudHomeFragment()))
                 }
