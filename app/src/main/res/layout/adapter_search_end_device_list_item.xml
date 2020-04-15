@@ -12,7 +12,6 @@
         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
         android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
         android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-        android:layout_toLeftOf="@+id/link_quality_text"
         android:singleLine="true"
         android:ellipsize="end"
         android:textSize="@dimen/text_size_18sp_in_1080"
