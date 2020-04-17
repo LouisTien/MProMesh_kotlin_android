@@ -109,7 +109,6 @@ class SetupControllerReadyFragment : Fragment()
         body["udid"] = phoneUdid
         body["token"] = notificationToken
         body["lang"] = "enUS"
-        body["bgfetch"] = 1
         body["dev"] = 0
 
         NotificationApi.Common(activity!!)
