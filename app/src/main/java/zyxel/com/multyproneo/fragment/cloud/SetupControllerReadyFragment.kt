@@ -16,7 +16,7 @@ import zyxel.com.multyproneo.dialog.SetupControllerReadyHelpDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.*
-import java.util.HashMap
+import java.util.*
 
 class SetupControllerReadyFragment : Fragment()
 {
@@ -108,7 +108,7 @@ class SetupControllerReadyFragment : Fragment()
         body["appid"] = AppConfig.NOTI_BUNDLE_ID
         body["udid"] = phoneUdid
         body["token"] = notificationToken
-        body["lang"] = "en_US"
+        body["lang"] = "enUS"
         body["bgfetch"] = 1
         body["dev"] = 0
 
@@ -137,11 +137,11 @@ class SetupControllerReadyFragment : Fragment()
         body["cmd"] = "mapping"
         body["os"] = "android"
         body["appid"] = AppConfig.NOTI_BUNDLE_ID
-        body["uid"] = "E7KA952WU5RMUH6GY1CJ"
+        body["uid"] = "EBKUAX3MUD7M9G6GU1CJ"
         body["udid"] = phoneUdid
-        body["format"] = "e2Rldl9uYW1lfSB7ZXZlbnRfdHlwZX0="//""e2Rldl9uYW1lfSB7ZXZlbnRfdHlwZX0NCnttc2d9"
-        body["interval"] = 5
-        body["customized_payload"] = "eyJjb250ZW50X2F2YWlsYWJsZSI6dHJ1ZSwibm90aWZpY2F0aW9uIjp7InRpdGxlIjp7JU1ZVE9QSUMlfSwiYm9keSI6eyVNWUJPRFklfX19"
+        body["format"] = "e2Rldl9uYW1lfSB7ZXZlbnRfdHlwZX0=" //{dev_name} {event_type}
+        body["interval"] = 3
+        //body["customized_payload"] = "eyJjb250ZW50LWF2YWlsYWJsZSI6MSwiYWxlcnQiOnsidGl0bGUiOnslTVlUT1BJQyV9LCJib2R5Ijp7JU1ZQk9EWSV9fSwiZGF0YSI6eyJMb3VpcyI6eyVMTEwlfSwiQW15Ijp7JUFBQSV9fX0==="
 
         NotificationApi.Common(activity!!)
                 .setRequestPageName(TAG)
@@ -167,7 +167,7 @@ class SetupControllerReadyFragment : Fragment()
         body["cmd"] = "rm_mapping"
         body["os"] = "android"
         body["appid"] = AppConfig.NOTI_BUNDLE_ID
-        body["uid"] = "E7KA952WU5RMUH6GY1CJ"
+        body["uid"] = "EBKUAX3MUD7M9G6GU1CJ"
         body["udid"] = phoneUdid
 
         NotificationApi.Common(activity!!)

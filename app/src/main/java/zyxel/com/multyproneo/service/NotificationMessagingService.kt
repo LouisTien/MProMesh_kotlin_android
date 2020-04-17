@@ -28,6 +28,8 @@ class NotificationMessagingService : FirebaseMessagingService()
     private var msg: String = ""
     private var alert: String = ""
     private var dev_name: String = ""
+    private var mac: String = ""
+    private var uid: String = ""
 
     /*override fun handleIntent(intent: Intent?)
     {
@@ -64,21 +66,50 @@ class NotificationMessagingService : FirebaseMessagingService()
         if(remoteMessage.data.isNotEmpty())
         {
             LogUtil.d(TAG, "Message data : ${remoteMessage.data}")
+
+            val remoteMessageMap = remoteMessage.data
+            val keySet = remoteMessageMap.keys
+            val iterator = keySet.iterator()
+            while(iterator.hasNext())
+            {
+                val key = iterator.next() as String
+                //LogUtil.d(TAG, "key : $key")
+                //LogUtil.d(TAG, "value : ${remoteMessageMap[key]}")
+                with(key)
+                {
+                    when
+                    {
+                        equals("mac", ignoreCase = true) -> mac = remoteMessageMap[key]?:""
+                        equals("msg", ignoreCase = true) -> msg = remoteMessageMap[key]?:""
+                        equals("uid", ignoreCase = true) -> uid = remoteMessageMap[key]?:""
+                        equals("alert", ignoreCase = true) -> alert = remoteMessageMap[key]?:""
+                        equals("dev_name", ignoreCase = true) -> dev_name = remoteMessageMap[key]?:""
+                    }
+                }
+            }
+
+            LogUtil.d(TAG, "mac : $mac")
+            LogUtil.d(TAG, "msg : $msg")
+            LogUtil.d(TAG, "uid : $uid")
+            LogUtil.d(TAG, "alert : $alert")
+            LogUtil.d(TAG, "dev_name : $dev_name")
+
+            sendNotification(alert, msg)
         }
 
-        if(remoteMessage.notification != null)
+        /*if(remoteMessage.notification != null)
         {
             LogUtil.d(TAG, "Message Notification Title : ${remoteMessage.notification!!.title}")
             LogUtil.d(TAG, "Message Notification Body : ${remoteMessage.notification!!.body}")
             sendNotification(remoteMessage.notification!!.title?:"", remoteMessage.notification!!.body?:"")
-        }
+        }*/
     }
 
     override fun onNewToken(token: String)
     {
         var notificationToken by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_NOTIFICATION_TOKEN, "")
         notificationToken = token
-        LogUtil.d(TAG, "Refreshed token: $notificationToken")
+        LogUtil.d(TAG, "Notification Refreshed token : $notificationToken")
     }
 
     private fun sendNotification(title: String, messageBody: String)
@@ -96,9 +127,9 @@ class NotificationMessagingService : FirebaseMessagingService()
 
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.mipmap.multyproneo_launcher)
+                .setSmallIcon(R.mipmap.ic_stat_notify_mpro)
                 .setContentTitle(title)
-                .setContentText(messageBody)
+                .setContentText(" $messageBody")
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent)
