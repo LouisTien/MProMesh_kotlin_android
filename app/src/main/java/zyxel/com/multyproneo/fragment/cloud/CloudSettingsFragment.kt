@@ -169,6 +169,5 @@ class CloudSettingsFragment : Fragment()
                         }
                     }
                 }).execute()
-
     }
 }
