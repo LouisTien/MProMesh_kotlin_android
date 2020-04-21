@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_devices.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.json.JSONException
@@ -13,17 +14,20 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.cloud.CloudHomeGuestEndDeviceItemAdapter
 import zyxel.com.multyproneo.api.cloud.P2PDevicesApi
 import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
+import zyxel.com.multyproneo.event.DevicesEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.ChangeIconNameInfo
 import zyxel.com.multyproneo.model.DevicesInfo
 import zyxel.com.multyproneo.model.DevicesInfoObject
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
 class CloudDevicesFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
+    private lateinit var getCloudInfoCompleteDisposable: Disposable
     private lateinit var changeIconNameInfo: ChangeIconNameInfo
     private lateinit var devicesInfo: DevicesInfo
 
@@ -36,20 +40,19 @@ class CloudDevicesFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
 
+        getCloudInfoCompleteDisposable = GlobalBus.listen(DevicesEvent.GetCloudDeviceInfoComplete::class.java).subscribe{ updateUI() }
+
         devices_home_devices_list_swipe.setOnRefreshListener{
-            GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
-            startGetAllNeedDeviceInfoTask()
+            GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoForDevicePageTask(AppConfig.LoadingStyle.STY_ONLY_BG))
         }
 
         devices_guest_devices_list_swipe.setOnRefreshListener{
-            GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
-            startGetAllNeedDeviceInfoTask()
+            GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoForDevicePageTask(AppConfig.LoadingStyle.STY_ONLY_BG))
         }
 
         setClickListener()
 
-        GlobalBus.publish(MainEvent.ShowLoading())
-        startGetAllNeedDeviceInfoTask()
+        GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoForDevicePageTask(AppConfig.LoadingStyle.STY_NORMAL))
     }
 
     override fun onResume()
@@ -66,6 +69,7 @@ class CloudDevicesFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+        if(!getCloudInfoCompleteDisposable.isDisposed) getCloudInfoCompleteDisposable.dispose()
     }
 
     private val clickListener = View.OnClickListener{ view ->
@@ -130,122 +134,5 @@ class CloudDevicesFragment : Fragment()
             else
                 devices_guest_devices_area_linear.visibility = View.GONE
         }
-    }
-
-    private fun startGetAllNeedDeviceInfoTask()
-    {
-        getChangeIconNameInfoTask()
-    }
-
-    private fun getChangeIconNameInfoTask()
-    {
-        LogUtil.d(TAG,"getChangeIconNameInfoTask()")
-        P2PDevicesApi.GetChangeIconNameInfo()
-                .setRequestPageName(TAG)
-                .setResponseListener(object: TUTKP2PResponseCallback()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            changeIconNameInfo = Gson().fromJson(responseStr, ChangeIconNameInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"changeIconNameInfo:$changeIconNameInfo")
-                            GlobalData.changeIconNameList = changeIconNameInfo.Object.toMutableList()
-                            getDeviceInfoTask()
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-
-                            GlobalBus.publish(MainEvent.HideLoading())
-                        }
-                    }
-                }).execute()
-    }
-
-    private fun getDeviceInfoTask()
-    {
-        LogUtil.d(TAG,"getDeviceInfoTask()")
-        P2PDevicesApi.GetDevicesInfo()
-                .setRequestPageName(TAG)
-                .setResponseListener(object: TUTKP2PResponseCallback()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            devicesInfo = Gson().fromJson(responseStr, DevicesInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"devicesInfo:$devicesInfo")
-
-                            val newEndDeviceList = mutableListOf<DevicesInfoObject>()
-                            val newHomeEndDeviceList = mutableListOf<DevicesInfoObject>()
-                            val newZYXELEndDeviceList = mutableListOf<DevicesInfoObject>()
-                            val newGuestEndDeviceList = mutableListOf<DevicesInfoObject>()
-
-                            /*newZYXELEndDeviceList.add(
-                                    DevicesInfoObject
-                                    (
-                                            Active = true,
-                                            HostName = GlobalData.getCurrentGatewayInfo().getName(),
-                                            IPAddress = GlobalData.getCurrentGatewayInfo().IP,
-                                            X_ZYXEL_CapabilityType = "L2Device",
-                                            X_ZYXEL_ConnectionType = "WiFi",
-                                            X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
-                                            X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion
-                                    )
-                            )*/
-
-                            var index = 1
-                            for(item in devicesInfo.Object)
-                            {
-                                item.IndexFromFW = index
-
-                                if( (item.HostName == "N/A") || (item.HostName == "") )
-                                {
-                                    index++
-                                    continue
-                                }
-
-                                for(itemCin in GlobalData.changeIconNameList)
-                                {
-                                    if(item.PhysAddress == itemCin.MacAddress)
-                                    {
-                                        item.UserDefineName = itemCin.HostName
-                                        item.Internet_Blocking_Enable = itemCin.Internet_Blocking_Enable
-                                    }
-                                }
-
-                                if(item.X_ZYXEL_CapabilityType == "L2Device")
-                                    newZYXELEndDeviceList.add(item)
-                                else
-                                {
-                                    if(item.X_ZYXEL_Conn_Guest == 1)
-                                        newGuestEndDeviceList.add(item)
-                                    else
-                                        newHomeEndDeviceList.add(item)
-                                }
-
-                                newEndDeviceList.add(item)
-
-                                LogUtil.d(TAG,"update devicesInfo:$item")
-
-                                index++
-                            }
-
-                            GlobalData.endDeviceList = newEndDeviceList.toMutableList()
-                            GlobalData.homeEndDeviceList = newHomeEndDeviceList.toMutableList()
-                            GlobalData.ZYXELEndDeviceList = newZYXELEndDeviceList.toMutableList()
-                            GlobalData.guestEndDeviceList = newGuestEndDeviceList.toMutableList()
-
-                            updateUI()
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-
-                            GlobalBus.publish(MainEvent.HideLoading())
-                        }
-                    }
-                }).execute()
     }
 }

@@ -1,5 +1,7 @@
 package zyxel.com.multyproneo.event
 
+import zyxel.com.multyproneo.util.AppConfig
+
 /**
  * Created by LouisTien on 2019/5/24.
  */
@@ -16,6 +18,8 @@ class MainEvent
     class SetHomeIconFocus()
     class SetCloudHomeIconFocus()
     class StartGetDeviceInfoTask()
+    class StartGetCloudDeviceInfoTask(var style: AppConfig.LoadingStyle)
+    class StartGetCloudDeviceInfoForDevicePageTask(var style: AppConfig.LoadingStyle)
     class StartGetDeviceInfoOnceTask()
     class StopGetDeviceInfoTask()
     class StartGetWPSStatusTask()

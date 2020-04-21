@@ -9,11 +9,10 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
-import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import zyxel.com.multyproneo.MainActivity
 import zyxel.com.multyproneo.R
-import zyxel.com.multyproneo.WelcomeActivity
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.LogUtil
 import zyxel.com.multyproneo.util.SharedPreferencesUtil
@@ -23,8 +22,6 @@ class NotificationMessagingService : FirebaseMessagingService()
 {
     private val TAG = javaClass.simpleName
     private val NOTIFICATION_CHANNEL_ID = "10001"
-    private var bundle: Bundle? = null
-    private var title: String = ""
     private var msg: String = ""
     private var alert: String = ""
     private var dev_name: String = ""
@@ -114,15 +111,14 @@ class NotificationMessagingService : FirebaseMessagingService()
 
     private fun sendNotification(title: String, messageBody: String)
     {
-        val intent = Intent(this, WelcomeActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        /*if(data != null)
-        {
-            val bundle = Bundle()
-            bundle.putString("organization_id", data.getOrganizationId())
-            bundle.putString("site_id", data.getSiteId())
-            intent.putExtras(bundle)
-        }*/
+
+        val bundle = Bundle()
+        bundle.putString("noti_uid", uid)
+        bundle.putString("noti_mac", mac)
+        intent.putExtras(bundle)
+
         val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT)
 
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)

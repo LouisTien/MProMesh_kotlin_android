@@ -11,6 +11,7 @@ import zyxel.com.multyproneo.api.cloud.TUTKP2PBaseApi
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.GlobalData
 
 class SetupConnectTroubleshootingFragment : Fragment()
 {
@@ -33,6 +34,9 @@ class SetupConnectTroubleshootingFragment : Fragment()
             this?.getBoolean("needConnectFlowForRetry")?.let{ needConnectFlowForRetry = it }
             this?.getString("MAC")?.let{ mac = it }
         }
+
+        GlobalData.notiMac = ""
+        GlobalData.notiUid = ""
 
         updateUI()
 

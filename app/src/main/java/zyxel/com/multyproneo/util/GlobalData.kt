@@ -27,6 +27,8 @@ object GlobalData
     var scanAccount = ""
     var scanAccountPWD = ""
     var scanUID = ""
+    var notiUid = ""
+    var notiMac = ""
 
     //TUTK
     var tokenType = "Bearer"
