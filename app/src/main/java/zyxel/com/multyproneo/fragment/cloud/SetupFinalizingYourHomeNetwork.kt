@@ -2,6 +2,7 @@ package zyxel.com.multyproneo.fragment.cloud
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.*
 import zyxel.com.multyproneo.api.cloud.AMDMApi
+import zyxel.com.multyproneo.api.cloud.NotificationApi
 import zyxel.com.multyproneo.api.cloud.TUTKCommander
 import zyxel.com.multyproneo.database.room.DatabaseClientListEntity
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
@@ -314,7 +316,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                         {
                             addDeviceInfo = Gson().fromJson(responseStr, TUTKAddDeviceInfo::class.javaObjectType)
                             LogUtil.d(TAG,"addDeviceInfo:$addDeviceInfo")
-                            addToDB()
+                            registerNoti()
                         }
                         catch(e: JSONException)
                         {
@@ -397,6 +399,67 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                 }).execute()
     }
 
+    private fun registerNoti()
+    {
+        LogUtil.d(TAG,"registerNoti()")
+
+        val phoneUdid = Settings.System.getString(activity!!.contentResolver, Settings.Secure.ANDROID_ID)
+        val notificationToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_NOTIFICATION_TOKEN, "")
+
+        val header = HashMap<String, Any>()
+        val body = HashMap<String, Any>()
+        body["cmd"] = "client"
+        body["os"] = "android"
+        body["appid"] = AppConfig.NOTI_BUNDLE_ID
+        body["udid"] = phoneUdid
+        body["token"] = notificationToken
+        body["lang"] = "enUS"
+        body["dev"] = 0
+
+        NotificationApi.Common(activity!!)
+                .setRequestPageName(TAG)
+                .setHeaders(header)
+                .setFormBody(body)
+                .setResponseListener(object: TUTKCommander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        LogUtil.d(TAG,"NotificationApi Register:$responseStr")
+                        mappingNoti()
+                    }
+                }).execute()
+    }
+
+    private fun mappingNoti()
+    {
+        LogUtil.d(TAG,"mappingNoti()")
+
+        val phoneUdid = Settings.System.getString(activity!!.contentResolver, Settings.Secure.ANDROID_ID)
+
+        val header = HashMap<String, Any>()
+        val body = HashMap<String, Any>()
+        body["cmd"] = "mapping"
+        body["os"] = "android"
+        body["appid"] = AppConfig.NOTI_BUNDLE_ID
+        body["uid"] = GlobalData.currentUID
+        body["udid"] = phoneUdid
+        body["format"] = AppConfig.NOTI_FORMAT
+        body["interval"] = 3
+
+        NotificationApi.Common(activity!!)
+                .setRequestPageName(TAG)
+                .setHeaders(header)
+                .setFormBody(body)
+                .setResponseListener(object: TUTKCommander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        LogUtil.d(TAG,"NotificationApi Mapping:$responseStr")
+                        addToDB()
+                    }
+                }).execute()
+    }
+
     private fun addToDB()
     {
         doAsync{
@@ -408,6 +471,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                     "N/A",
                     WiFiName,
                     WiFiPwd,
+                    true,
                     true
             )
 

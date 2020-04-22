@@ -18,6 +18,9 @@ interface DatabaseSiteInfoDao
     @Query("select * from " + AppConfig.TABLE_SITE_INFO_NAME + " where backup LIKE :value")
     fun queryByBackup(value: Boolean): List<DatabaseSiteInfoEntity>
 
+    @Query("select * from " + AppConfig.TABLE_SITE_INFO_NAME + " where notification LIKE :value")
+    fun queryByNoti(value: Boolean): List<DatabaseSiteInfoEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(item: DatabaseSiteInfoEntity): Long
 

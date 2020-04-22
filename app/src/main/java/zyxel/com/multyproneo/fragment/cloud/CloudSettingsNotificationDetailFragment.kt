@@ -166,7 +166,7 @@ class CloudSettingsNotificationDetailFragment : Fragment()
                 }).execute()
     }
 
-    fun registerNoti()
+    private fun registerNoti()
     {
         LogUtil.d(TAG,"registerNoti()")
 
@@ -197,7 +197,7 @@ class CloudSettingsNotificationDetailFragment : Fragment()
                 }).execute()
     }
 
-    fun mappingNoti()
+    private fun mappingNoti()
     {
         LogUtil.d(TAG,"mappingNoti()")
 
@@ -210,7 +210,7 @@ class CloudSettingsNotificationDetailFragment : Fragment()
         body["appid"] = AppConfig.NOTI_BUNDLE_ID
         body["uid"] = GlobalData.currentUID
         body["udid"] = phoneUdid
-        body["format"] = "e2Rldl9uYW1lfSB7ZXZlbnRfdHlwZX0=" //{dev_name} {event_type}
+        body["format"] = AppConfig.NOTI_FORMAT
         body["interval"] = 3
         //body["customized_payload"] = "eyJjb250ZW50LWF2YWlsYWJsZSI6MSwiYWxlcnQiOnsidGl0bGUiOnslTVlUT1BJQyV9LCJib2R5Ijp7JU1ZQk9EWSV9fSwiZGF0YSI6eyJMb3VpcyI6eyVMTEwlfSwiQW15Ijp7JUFBQSV9fX0==="
 
@@ -228,7 +228,7 @@ class CloudSettingsNotificationDetailFragment : Fragment()
                 }).execute()
     }
 
-    fun removeMappingNoti()
+    private fun removeMappingNoti()
     {
         LogUtil.d(TAG,"removeMappingNoti()")
 

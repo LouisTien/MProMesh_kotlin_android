@@ -7,6 +7,8 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.provider.Settings
+import android.util.Base64
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
@@ -26,6 +28,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.toast
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.api.*
@@ -102,6 +105,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var tokenInfo: TUTKTokenInfo
     private lateinit var gateDetailInfo: GatewayDetailInfo
     private lateinit var ipInterfaceInfo: IPInterfaceInfo
+    private lateinit var db: DatabaseCloudUtil
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
     private var getWPSStatusTimer = Timer()
@@ -117,6 +121,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                 .build()
         Fabric.with(this, crashlyticsKit)
         setContentView(R.layout.activity_main)
+
+        db = DatabaseCloudUtil.getInstance(this)!!
 
         GlobalData.notiUid = intent.getStringExtra("noti_uid")?:""
         GlobalData.notiMac = intent.getStringExtra("noti_mac")?:""
@@ -1688,7 +1694,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
     private fun getUserInfo()
     {
-        var accessToken by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
@@ -1792,7 +1798,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                 GlobalData.tokenType = tokenInfo.token_type
                                 LogUtil.d(TAG, "refreshToken:$refreshToken")
                                 LogUtil.d(TAG, "accessToken:$accessToken")
-                                getUserInfo()
+                                registerNoti()
                             }
                             catch(e: JSONException)
                             {
@@ -1894,7 +1900,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         }
         else
             gotoCloudHomeFragment()
-
     }
 
     private fun gotoTroubleShooting()
@@ -1908,5 +1913,94 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         }
 
         switchToFragContainer(SetupConnectTroubleshootingFragment().apply{ arguments = bundle })
+    }
+
+    private fun syncNoti()
+    {
+        LogUtil.d(TAG,"syncNoti()")
+
+        doAsync{
+            val siteList = db.getSiteInfoDao().queryByNoti(true)
+            if(siteList.isNotEmpty())
+            {
+                val paramsArray = JSONArray()
+                for(item in siteList)
+                {
+                    val params = JSONObject()
+                    params.put("uid", item.uid)
+                    paramsArray.put(params)
+                }
+                LogUtil.d(TAG,"paramsArray:$paramsArray")
+
+                val base64Decoded = Base64.encodeToString(paramsArray.toString().toByteArray(), Base64.DEFAULT)
+                LogUtil.d(TAG,"base64Decoded:$base64Decoded")
+
+                mappingSyncNoti(base64Decoded)
+            }
+            else
+            {
+                LogUtil.d(TAG,"no noti enable in DB!!")
+                getUserInfo()
+            }
+        }
+    }
+
+    private fun registerNoti()
+    {
+        LogUtil.d(TAG,"registerNoti()")
+
+        val phoneUdid = Settings.System.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
+        val notificationToken by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_NOTIFICATION_TOKEN, "")
+
+        val header = HashMap<String, Any>()
+        val body = HashMap<String, Any>()
+        body["cmd"] = "client"
+        body["os"] = "android"
+        body["appid"] = AppConfig.NOTI_BUNDLE_ID
+        body["udid"] = phoneUdid
+        body["token"] = notificationToken
+        body["lang"] = "enUS"
+        body["dev"] = 0
+
+        NotificationApi.Common(this)
+                .setRequestPageName(TAG)
+                .setHeaders(header)
+                .setFormBody(body)
+                .setResponseListener(object: TUTKCommander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        LogUtil.d(TAG,"NotificationApi Register:$responseStr")
+                        syncNoti()
+                    }
+                }).execute()
+    }
+
+    private fun mappingSyncNoti(map: String)
+    {
+        LogUtil.d(TAG,"mappingSyncNoti()")
+
+        val phoneUdid = Settings.System.getString(this.contentResolver, Settings.Secure.ANDROID_ID)
+
+        val header = HashMap<String, Any>()
+        val body = HashMap<String, Any>()
+        body["cmd"] = "mapsync"
+        body["os"] = "android"
+        body["appid"] = AppConfig.NOTI_BUNDLE_ID
+        body["udid"] = phoneUdid
+        body["map"] = map
+
+        NotificationApi.Common(this)
+                .setRequestPageName(TAG)
+                .setHeaders(header)
+                .setFormBody(body)
+                .setResponseListener(object: TUTKCommander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        LogUtil.d(TAG,"NotificationApi Map Sync:$responseStr")
+                        getUserInfo()
+                    }
+                }).execute()
     }
 }

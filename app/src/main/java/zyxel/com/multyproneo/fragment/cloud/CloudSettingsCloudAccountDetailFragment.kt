@@ -1,6 +1,7 @@
 package zyxel.com.multyproneo.fragment.cloud
 
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import org.json.JSONException
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.cloud.CloudAccountWiFiRouterItemAdapter
 import zyxel.com.multyproneo.api.cloud.AMDMApi
+import zyxel.com.multyproneo.api.cloud.NotificationApi
 import zyxel.com.multyproneo.api.cloud.TUTKCommander
 import zyxel.com.multyproneo.database.room.DatabaseClientListEntity
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
@@ -175,7 +177,7 @@ class CloudSettingsCloudAccountDetailFragment : Fragment()
                     override fun onSuccess(responseStr: String)
                     {
                         LogUtil.d(TAG,"deleteDevice:$responseStr")
-                        deleteFromDB()
+                        removeMappingNoti()
                     }
                 }).execute()
     }
@@ -208,6 +210,34 @@ class CloudSettingsCloudAccountDetailFragment : Fragment()
 
                             GlobalBus.publish(MainEvent.HideLoading())
                         }
+                    }
+                }).execute()
+    }
+
+    fun removeMappingNoti()
+    {
+        LogUtil.d(TAG,"removeMappingNoti()")
+
+        val phoneUdid = Settings.System.getString(activity!!.contentResolver, Settings.Secure.ANDROID_ID)
+
+        val header = HashMap<String, Any>()
+        val body = HashMap<String, Any>()
+        body["cmd"] = "rm_mapping"
+        body["os"] = "android"
+        body["appid"] = AppConfig.NOTI_BUNDLE_ID
+        body["uid"] = GlobalData.currentUID
+        body["udid"] = phoneUdid
+
+        NotificationApi.Common(activity!!)
+                .setRequestPageName(TAG)
+                .setHeaders(header)
+                .setFormBody(body)
+                .setResponseListener(object: TUTKCommander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        LogUtil.d(TAG,"NotificationApi removeMapping:$responseStr")
+                        deleteFromDB()
                     }
                 }).execute()
     }
