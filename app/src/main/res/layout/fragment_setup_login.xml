@@ -69,7 +69,6 @@
                     android:background="@null"
                     android:drawableBottom="@drawable/edittext_style_line"
                     android:textSize="@dimen/text_size_22sp_in_1080"
-                    android:text="admin"
                     android:layout_below="@+id/setup_login_username_title"/>
 
                 <TextView

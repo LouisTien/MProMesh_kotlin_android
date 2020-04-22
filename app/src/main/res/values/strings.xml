@@ -345,8 +345,8 @@
     <string name="message_dialog_check_lougot">Are you sure to logout this app?</string>
 
     <string name="remove_site_dialog_title">Remove \'%s\' from the Cloud</string>
-    <string name="remove_site_dialog_description">You will need to set up the WiFi Router again to build it back to the cloud.</string>
-    <string name="remove_site_dialog_description_self">You will need to set up the WiFi Router again to build it back to the cloud.\n\nYou will be logged out after removing it.</string>
+    <string name="remove_site_dialog_description">You will need to set up the WiFi Router again to bind it back to the cloud.</string>
+    <string name="remove_site_dialog_description_self">You will need to set up the WiFi Router again to bind it back to the cloud.\n\nYou will be logged out after removing it.</string>
     <string name="remove_site_dialog_preserved_setting_description">Keep its preserved WiFi settings for later setup</string>
     <string name="remove_site_dialog_remove">Remove</string>
     <string name="remove_site_dialog_cancel">Cancel</string>
