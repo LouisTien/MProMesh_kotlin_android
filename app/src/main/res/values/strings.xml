@@ -275,6 +275,8 @@
     <string name="settings_cloud_account_router_action_edit">Edit</string>
     <string name="settings_cloud_account_router_action_done">Done</string>
     <string name="settings_cloud_account_router_list_hint">This WiFi Router</string>
+    <string name="settings_preserve_settings_alert_title">Turning Off this feature will not be able to restore current WiFi setting if you reinstall WiFi router by MPro Mesh app.</string>
+    <string name="settings_preserve_settings_alert_msg">Confirm turn off this feature.</string>
     <string name="settings_troubleshooting_internet_title">I cannot access the Internet</string>
     <string name="settings_troubleshooting_ethernet_title">I cannot connect to the Internet using an Ethernet connection</string>
     <string name="settings_troubleshooting_qrcode_title">Unable to join WiFi using QR Code</string>

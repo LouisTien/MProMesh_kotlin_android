@@ -1634,7 +1634,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         }
                     }
                 }).execute()
-
     }
 
     private fun getCloudFSecureInfoTask()
@@ -1840,7 +1839,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             else
                 gotoTroubleShooting()
         }
-
     }
 
     private fun checkNotiFlowFinalStep()

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_cloud_settings.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -15,9 +16,12 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.cloud.P2PWiFiSettingApi
 import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
+import zyxel.com.multyproneo.dialog.MessageDialog
+import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.WiFiSettingInfo
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.DatabaseCloudUtil
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
@@ -25,6 +29,7 @@ import zyxel.com.multyproneo.util.LogUtil
 class CloudSettingsFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
+    private lateinit var msgDialogResponse: Disposable
     private lateinit var db: DatabaseCloudUtil
     private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
     private var currentDBInfo: DatabaseSiteInfoEntity? = null
@@ -40,6 +45,11 @@ class CloudSettingsFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
+            checkPreviousSetting()
+        }
+
         db = DatabaseCloudUtil.getInstance(activity!!)!!
         setClickListener()
         getInfoFromDB()
@@ -59,6 +69,7 @@ class CloudSettingsFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+        if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
     }
 
     private val clickListener = View.OnClickListener{ view ->
@@ -67,21 +78,19 @@ class CloudSettingsFragment : Fragment()
             settings_notification_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsNotificationDetailFragment()))
 
             settings_preserve_settings_switch_image -> {
-                preserveSettingsEnable = !preserveSettingsEnable
 
-                doAsync{
-                    if(currentDBInfo != null)
-                    {
-                        currentDBInfo!!.backup = preserveSettingsEnable
-                        db.getSiteInfoDao().insert(currentDBInfo!!)
-                        uiThread{ updateUI() }
-                    }
-                    else
-                    {
-                        GlobalBus.publish(MainEvent.ShowLoading())
-                        getWiFiSettingInfoTask()
-                    }
+                if(preserveSettingsEnable)
+                {
+                    MessageDialog(
+                            activity!!,
+                            getString(R.string.settings_preserve_settings_alert_title),
+                            getString(R.string.settings_preserve_settings_alert_msg),
+                            arrayOf(getString(R.string.message_dialog_ok), getString(R.string.message_dialog_cancel)),
+                            AppConfig.DialogAction.ACT_NONE
+                    ).show()
                 }
+                else
+                    checkPreviousSetting()
             }
 
             settings_cloud_account_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsCloudAccountDetailFragment()))
@@ -99,6 +108,25 @@ class CloudSettingsFragment : Fragment()
         settings_troubleshooting_relative.setOnClickListener(clickListener)
         settings_cloud_account_relative.setOnClickListener(clickListener)
         settings_privacy_policy_relative.setOnClickListener(clickListener)
+    }
+
+    private fun checkPreviousSetting()
+    {
+        preserveSettingsEnable = !preserveSettingsEnable
+
+        doAsync{
+            if(currentDBInfo != null)
+            {
+                currentDBInfo!!.backup = preserveSettingsEnable
+                db.getSiteInfoDao().insert(currentDBInfo!!)
+                uiThread{ updateUI() }
+            }
+            else
+            {
+                GlobalBus.publish(MainEvent.ShowLoading())
+                getWiFiSettingInfoTask()
+            }
+        }
     }
 
     private fun getInfoFromDB()
