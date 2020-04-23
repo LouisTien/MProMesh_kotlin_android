@@ -14,5 +14,7 @@ data class CloudAgentInfoObject
         val IsBound: Boolean = false,
         val Location: String = "N/A",
         val Status: String = "N/A",
-        val TUTK_UID: String = "N/A"
+        val TUTK_UID: String = "N/A",
+        val GenCredential: Boolean = false,
+        val Credential: String = "N/A"
 )

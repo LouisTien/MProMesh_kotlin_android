@@ -56,7 +56,7 @@ class LoginFragment : Fragment()
 
         with(arguments)
         {
-            this?.getString("Error")?.let{ errorMsg = it }
+            this?.getString("Error", "N/A")?.let{ errorMsg = it }
         }
 
         if(errorMsg != "N/A")

@@ -74,14 +74,7 @@ class SetupConnectControllerFragment : Fragment()
                 ).show()
             }
 
-            setup_connect_controller_next_text ->
-            {
-                val bundle = Bundle().apply{
-                    putBoolean("needConnectFlow", false)
-                }
-
-                GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingControllerFragment().apply{ arguments = bundle }))
-            }
+            setup_connect_controller_next_text -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingControllerFragment()))
 
             setup_connect_controller_scan_code_image -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerScanFragment()))
         }

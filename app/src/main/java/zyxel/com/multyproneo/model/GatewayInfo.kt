@@ -18,6 +18,7 @@ data class GatewayInfo
     var ModelName: String = "N/A",
     var SoftwareVersion: String = "N/A",
     var OtherInfo: String = "N/A",
+    var SupportedCloudAgent: Boolean = false,
     val SupportedApiVersion: List<SupportedApiVersion> = listOf(SupportedApiVersion())
 ) : Serializable
 {

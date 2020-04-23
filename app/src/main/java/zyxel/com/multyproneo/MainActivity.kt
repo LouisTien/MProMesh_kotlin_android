@@ -1743,8 +1743,19 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             GlobalData.cloudGatewayListInfo = Gson().fromJson(responseStr, TUTKAllDeviceInfo::class.javaObjectType)
                             LogUtil.d(TAG,"allDeviceInfo:${GlobalData.cloudGatewayListInfo}")
 
-                            if(GlobalData.notiMac.isNotEmpty() && GlobalData.notiUid.isNotEmpty())
+                            if(GlobalData.notiUid.isNotEmpty() && GlobalData.notiMac.isNotEmpty())
+                            {
+                                for(item in GlobalData.cloudGatewayListInfo.data)
+                                {
+                                    if(item.udid == GlobalData.notiUid)
+                                    {
+                                        GlobalData.currentCredential = item.credential
+                                        break
+                                    }
+                                }
+
                                 connectP2PFromNoti()
+                            }
                             else
                                 switchToFragContainer(CloudGatewayListFragment())
                         }
@@ -1831,7 +1842,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                 {
                     GlobalData.currentDisplayName = name
                     GlobalData.currentUID = GlobalData.notiUid
-                    startCloudGetAllNeedDeviceInfoTask(AppConfig.LoadingStyle.STY_NONE)
+                    verifyCloudAgentTask()
                 }
                 else
                     gotoTroubleShooting()
@@ -1998,6 +2009,32 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                     {
                         LogUtil.d(TAG,"NotificationApi Map Sync:$responseStr")
                         getUserInfo()
+                    }
+                }).execute()
+    }
+
+    private fun verifyCloudAgentTask()
+    {
+        LogUtil.d(TAG,"verifyCloudAgentTask()")
+
+        val params = ",\"credential\":\"${GlobalData.currentCredential}\""
+
+        P2PGatewayApi.VerifyCloudAgent()
+                .setRequestPageName(TAG)
+                .setRequestPayload(params)
+                .setResponseListener(object: TUTKP2PResponseCallback()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            startCloudGetAllNeedDeviceInfoTask(AppConfig.LoadingStyle.STY_NONE)
+                        }
+                        catch(e: Exception)
+                        {
+                            e.printStackTrace()
+                            hideLoading()
+                        }
                     }
                 }).execute()
     }

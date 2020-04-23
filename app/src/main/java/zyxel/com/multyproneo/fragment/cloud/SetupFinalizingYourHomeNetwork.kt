@@ -232,6 +232,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     {
         val params = JSONObject()
         params.put("Enable", true)
+        params.put("GenCredential", true)
         LogUtil.d(TAG,"startRDTServer param:$params")
 
         GatewayApi.ControlCloudAgent()
@@ -245,6 +246,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                         cloudAgentInfo = Gson().fromJson(responseStr, CloudAgentInfo::class.javaObjectType)
                         LogUtil.d(TAG,"startRDTServer:$cloudAgentInfo")
                         GlobalData.sessionKey = cloudAgentInfo.sessionkey
+                        GlobalData.currentCredential = cloudAgentInfo.Object.Credential
                         countDownTimerIOTCStatus.start()
                     }
                 }).execute()
@@ -269,7 +271,10 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                             LogUtil.d(TAG,"getIOTCLoginStatus:$cloudAgentInfo")
 
                             if(cloudAgentInfo.Object.Status.contains("success", ignoreCase = true))
+                            {
+                                GlobalData.currentCredential = cloudAgentInfo.Object.Credential
                                 addDevice()
+                            }
                             else
                             {
                                 if(getIOTCStatusCount <= IOTCRetryTimes)
@@ -301,7 +306,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
         params.put("udid", GlobalData.currentUID)
         params.put("fwVer", GlobalData.getCurrentGatewayInfo().SoftwareVersion)
         params.put("displayName", GlobalData.getCurrentGatewayInfo().ModelName)
-        params.put("credential", "")
+        params.put("credential", GlobalData.currentCredential)
         LogUtil.d(TAG,"addDevice param:$params")
 
         AMDMApi.AddDevice()

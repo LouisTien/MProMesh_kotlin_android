@@ -35,6 +35,7 @@ object GlobalData
     var currentUID = ""
     var currentEmail = ""
     var currentDisplayName = ""
+    var currentCredential = ""
     var cloudGatewayListInfo = TUTKAllDeviceInfo()
 
     fun getCurrentGatewayInfo(): GatewayInfo = gatewayList[currentGatewayIndex]

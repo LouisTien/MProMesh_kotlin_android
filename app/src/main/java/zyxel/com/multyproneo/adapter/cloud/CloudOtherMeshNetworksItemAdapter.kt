@@ -48,7 +48,7 @@ class CloudOtherMeshNetworksItemAdapter(private var gatewayListInfo: TUTKAllDevi
             Glide.with(view).load(R.drawable.img_locationdefault).apply(RequestOptions.circleCropTransform()).into(view.other_mesh_list_item_image)
             view.other_mesh_list_item_text.text = gatewayListInfo.data[position].displayName
             view.other_mesh_list_item_relative.setOnClickListener{
-                GlobalBus.publish(DialogEvent.OnOtherSiteSelect(gatewayListInfo.data[position].udid))
+                GlobalBus.publish(DialogEvent.OnOtherSiteSelect(gatewayListInfo.data[position].udid, gatewayListInfo.data[position].credential))
             }
         }
     }

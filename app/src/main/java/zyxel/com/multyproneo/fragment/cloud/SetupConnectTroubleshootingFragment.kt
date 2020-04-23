@@ -75,9 +75,9 @@ class SetupConnectTroubleshootingFragment : Fragment()
             AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR
             ->
             {
-
-                if( (pageMode == AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST)
-                    || (pageMode == AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR) )
+                if(pageMode == AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER_PREVIOUS_SET)
+                    setup_connect_troubleshooting_back_image.visibility = View.VISIBLE
+                else
                     setup_connect_troubleshooting_back_image.visibility = View.INVISIBLE
 
                 setup_connect_troubleshooting_title_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_controller_title)
@@ -164,7 +164,7 @@ class SetupConnectTroubleshootingFragment : Fragment()
                         }
                         GlobalBus.publish(MainEvent.SwitchToFrag(SetupReconnectRouterPreviousSettingsFragment().apply{ arguments = bundle }))*/
 
-                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupControllerReadyFragment()))
+                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingControllerFragment()))
                     }
 
                     AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST ->

@@ -20,6 +20,7 @@ import zyxel.com.multyproneo.api.AccountApi
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.fragment.LoginFragment
 import zyxel.com.multyproneo.model.GatewayInfo
 import zyxel.com.multyproneo.model.LoginInfo
 import zyxel.com.multyproneo.socketconnect.IResponseListener
@@ -49,7 +50,7 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
 
         with(arguments)
         {
-            this?.getBoolean("needConnectFlow")?.let{ needConnectFlow = it }
+            this?.getBoolean("needConnectFlow", false)?.let{ needConnectFlow = it }
         }
 
         when(needConnectFlow)
@@ -234,11 +235,16 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
 
     private fun gotoLoginPage()
     {
-        val bundle = Bundle().apply{
-            putBoolean("needConnectFlowForRetry", needConnectFlow)
-        }
+        if(GlobalData.gatewayList[0].SupportedCloudAgent)
+        {
+            val bundle = Bundle().apply{
+                putBoolean("needConnectFlowForRetry", needConnectFlow)
+            }
 
-        GlobalBus.publish(MainEvent.SwitchToFrag(SetupLoginFragment().apply{ arguments = bundle }))
+            GlobalBus.publish(MainEvent.SwitchToFrag(SetupLoginFragment().apply{ arguments = bundle }))
+        }
+        else
+            GlobalBus.publish(MainEvent.SwitchToFrag(LoginFragment()))
     }
 
     private fun gotoCannotConnectControllerTroubleshootingPage()

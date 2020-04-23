@@ -11,7 +11,9 @@ import kotlinx.android.synthetic.main.fragment_cloud_gateway_list.*
 import org.jetbrains.anko.doAsync
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.cloud.CloudGatewayItemAdapter
+import zyxel.com.multyproneo.api.cloud.P2PGatewayApi
 import zyxel.com.multyproneo.api.cloud.TUTKP2PBaseApi
+import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.event.GatewayListEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
@@ -42,7 +44,7 @@ class CloudGatewayListFragment : Fragment()
         }
 
         cloud_gateway_add_image.setOnClickListener{
-            GlobalBus.publish(MainEvent.SwitchToFrag(SetupControllerReadyFragment()))
+            GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingControllerFragment()))
         }
     }
 
@@ -57,7 +59,7 @@ class CloudGatewayListFragment : Fragment()
             LogUtil.d(TAG,"select name:${gatewayListInfo.data[it.index].displayName}")
             LogUtil.d(TAG,"select udid:${gatewayListInfo.data[it.index].udid}")
 
-            connectP2P(gatewayListInfo.data[it.index].udid, gatewayListInfo.data[it.index].displayName)
+            connectP2P(gatewayListInfo.data[it.index].udid, gatewayListInfo.data[it.index].displayName, gatewayListInfo.data[it.index].credential)
         }
 
         gatewayListInfo = GlobalData.cloudGatewayListInfo
@@ -76,7 +78,7 @@ class CloudGatewayListFragment : Fragment()
             cloud_gateway_choose_text.text = getString(R.string.cloud_gateway_list_choose)
 
         if(autoLogin && gatewayListInfo.data.size == 1)
-            connectP2P(gatewayListInfo.data[0].udid, gatewayListInfo.data[0].displayName)
+            connectP2P(gatewayListInfo.data[0].udid, gatewayListInfo.data[0].displayName, gatewayListInfo.data[0].credential)
     }
 
     override fun onPause()
@@ -90,7 +92,7 @@ class CloudGatewayListFragment : Fragment()
         super.onDestroyView()
     }
 
-    private fun connectP2P(uid: String, name: String)
+    private fun connectP2P(uid: String, name: String, credential: String)
     {
         GlobalBus.publish(MainEvent.ShowLoading())
 
@@ -101,7 +103,7 @@ class CloudGatewayListFragment : Fragment()
                 {
                     GlobalData.currentDisplayName = name
                     GlobalData.currentUID = uid
-                    GlobalBus.publish(MainEvent.SwitchToFrag(CloudHomeFragment()))
+                    verifyCloudAgentTask(credential)
                 }
                 else
                     gotoTroubleShooting()
@@ -109,6 +111,34 @@ class CloudGatewayListFragment : Fragment()
             else
                 gotoTroubleShooting()
         }
+    }
+
+    private fun verifyCloudAgentTask(credential: String)
+    {
+        LogUtil.d(TAG,"verifyCloudAgentTask()")
+
+        val params = ",\"credential\":\"$credential\""
+
+        P2PGatewayApi.VerifyCloudAgent()
+                .setRequestPageName(TAG)
+                .setRequestPayload(params)
+                .setResponseListener(object: TUTKP2PResponseCallback()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            GlobalData.currentCredential = credential
+                            GlobalBus.publish(MainEvent.HideLoading())
+                            GlobalBus.publish(MainEvent.SwitchToFrag(CloudHomeFragment()))
+                        }
+                        catch(e: Exception)
+                        {
+                            e.printStackTrace()
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
     }
 
     private fun gotoTroubleShooting()

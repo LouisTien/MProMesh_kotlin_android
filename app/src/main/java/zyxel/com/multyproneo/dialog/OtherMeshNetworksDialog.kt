@@ -10,19 +10,23 @@ import kotlinx.android.synthetic.main.dialog_other_mesh_netowrks.*
 import org.jetbrains.anko.doAsync
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.cloud.CloudOtherMeshNetworksItemAdapter
+import zyxel.com.multyproneo.api.cloud.P2PGatewayApi
 import zyxel.com.multyproneo.api.cloud.TUTKP2PBaseApi
+import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.fragment.cloud.CloudHomeFragment
 import zyxel.com.multyproneo.fragment.cloud.SetupConnectTroubleshootingFragment
-import zyxel.com.multyproneo.fragment.cloud.SetupControllerReadyFragment
+import zyxel.com.multyproneo.fragment.cloud.SetupConnectingControllerFragment
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
+import zyxel.com.multyproneo.util.LogUtil
 
 class OtherMeshNetworksDialog(context: Context, private var siteName: String, private var gatewayListInfo: TUTKAllDeviceInfo) : Dialog(context)
 {
+    private val TAG = javaClass.simpleName
     private lateinit var siteSelectedDisposable: Disposable
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -41,7 +45,7 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
 
         other_mesh_add_image.setOnClickListener{
             dismiss()
-            GlobalBus.publish(MainEvent.SwitchToFrag(SetupControllerReadyFragment()))
+            GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingControllerFragment()))
         }
 
         siteSelectedDisposable = GlobalBus.listen(DialogEvent.OnOtherSiteSelect::class.java).subscribe{
@@ -56,7 +60,7 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
                     if(TUTKP2PBaseApi.startSession(it.uid) >= 0)
                     {
                         dismiss()
-                        GlobalBus.publish(MainEvent.SwitchToFrag(CloudHomeFragment()))
+                        verifyCloudAgentTask(it.credential)
                     }
                     else
                     {
@@ -77,6 +81,34 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
     {
         super.dismiss()
         if(!siteSelectedDisposable.isDisposed) siteSelectedDisposable.dispose()
+    }
+
+    private fun verifyCloudAgentTask(credential: String)
+    {
+        LogUtil.d(TAG,"verifyCloudAgentTask()")
+
+        val params = ",\"credential\":\"$credential\""
+
+        P2PGatewayApi.VerifyCloudAgent()
+                .setRequestPageName(TAG)
+                .setRequestPayload(params)
+                .setResponseListener(object: TUTKP2PResponseCallback()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            GlobalData.currentCredential = credential
+                            GlobalBus.publish(MainEvent.HideLoading())
+                            GlobalBus.publish(MainEvent.SwitchToFrag(CloudHomeFragment()))
+                        }
+                        catch(e: Exception)
+                        {
+                            e.printStackTrace()
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
     }
 
     private fun gotoTroubleShooting()

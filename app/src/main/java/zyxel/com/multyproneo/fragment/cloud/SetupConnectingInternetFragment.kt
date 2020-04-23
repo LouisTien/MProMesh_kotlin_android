@@ -125,14 +125,14 @@ class SetupConnectingInternetFragment : Fragment()
             {
                 true ->
                 {
-                    /*runOnUiThread{
+                    runOnUiThread{
                         setup_connecting_internet_title_text.text = getString(R.string.setup_connecting_internet_success_title)
-                        setup_connecting_internet_description_text.visibility = View.INVISIBLE
+                        setup_connecting_internet_description_text.text = ""
                         setup_connecting_internet_content_animation_view.setAnimation("ConnectToTheInternet_2_oldJson.json")
                         setup_connecting_internet_content_animation_view.playAnimation()
                     }
 
-                    Thread.sleep(2500)*/
+                    Thread.sleep(2500)
 
                     startGetUIDTask()
                 }
@@ -194,7 +194,7 @@ class SetupConnectingInternetFragment : Fragment()
             hasPreviousSettings = siteInfoList.isNotEmpty()
 
             uiThread{
-                /*if(hasUID)
+                if(hasUID)
                 {
                     if(hasPreviousSettings)
                         GlobalBus.publish(MainEvent.SwitchToFrag(SetupApplyPreviousSettingsFragment()))
@@ -205,14 +205,14 @@ class SetupConnectingInternetFragment : Fragment()
                 {
                     DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)
                     GlobalBus.publish(MainEvent.EnterHomePage())
-                }*/
+                }
 
-                setup_connecting_internet_next_button.visibility = View.VISIBLE
+                /*//setup_connecting_internet_next_button.visibility = View.VISIBLE
                 setup_connecting_internet_title_text.text = getString(R.string.setup_connecting_internet_success_title)
                 //setup_connecting_internet_description_text.visibility = View.INVISIBLE
                 setup_connecting_internet_description_text.text = ""
                 setup_connecting_internet_content_animation_view.setAnimation("ConnectToTheInternet_2_oldJson.json")
-                setup_connecting_internet_content_animation_view.playAnimation()
+                setup_connecting_internet_content_animation_view.playAnimation()*/
             }
         }
     }

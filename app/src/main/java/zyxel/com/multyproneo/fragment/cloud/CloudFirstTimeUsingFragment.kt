@@ -26,7 +26,7 @@ class CloudFirstTimeUsingFragment : Fragment()
         setup_first_time_start_image.onClick{
             var firstTimeUse by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_SETUP_FIRST_TIME_KEY, true)
             firstTimeUse = false
-            GlobalBus.publish(MainEvent.SwitchToFrag(SetupControllerReadyFragment()))
+            GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingControllerFragment()))
         }
     }
 

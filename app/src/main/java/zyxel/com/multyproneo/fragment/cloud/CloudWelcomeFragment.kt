@@ -120,7 +120,7 @@ class CloudWelcomeFragment : Fragment()
                     if(firstTimeUse)
                         GlobalBus.publish(MainEvent.SwitchToFrag(CloudFirstTimeUsingFragment()))
                     else
-                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupControllerReadyFragment()))
+                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingControllerFragment()))
                 }
             }
         }
