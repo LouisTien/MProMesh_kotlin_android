@@ -5,31 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.gson.Gson
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_devices.*
 import org.jetbrains.anko.support.v4.runOnUiThread
-import org.json.JSONException
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.cloud.CloudHomeGuestEndDeviceItemAdapter
-import zyxel.com.multyproneo.api.cloud.P2PDevicesApi
-import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
+import zyxel.com.multyproneo.dialog.MeshDeviceStatusDialog
 import zyxel.com.multyproneo.event.DevicesEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.model.ChangeIconNameInfo
-import zyxel.com.multyproneo.model.DevicesInfo
-import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
-import zyxel.com.multyproneo.util.LogUtil
 
 class CloudDevicesFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
+    private lateinit var meshDevicePlacementStatusDisposable: Disposable
     private lateinit var getCloudInfoCompleteDisposable: Disposable
-    private lateinit var changeIconNameInfo: ChangeIconNameInfo
-    private lateinit var devicesInfo: DevicesInfo
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -39,6 +31,10 @@ class CloudDevicesFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        meshDevicePlacementStatusDisposable = GlobalBus.listen(DevicesEvent.MeshDevicePlacementStatus::class.java).subscribe{
+            MeshDeviceStatusDialog(activity!!, it.isHomePage).show()
+        }
 
         getCloudInfoCompleteDisposable = GlobalBus.listen(DevicesEvent.GetCloudDeviceInfoComplete::class.java).subscribe{ updateUI() }
 
@@ -69,6 +65,7 @@ class CloudDevicesFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+        if(!meshDevicePlacementStatusDisposable.isDisposed) meshDevicePlacementStatusDisposable.dispose()
         if(!getCloudInfoCompleteDisposable.isDisposed) getCloudInfoCompleteDisposable.dispose()
     }
 

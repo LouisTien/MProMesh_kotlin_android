@@ -73,7 +73,7 @@ class CloudZYXELEndDeviceItemAdapter
             view.user_define_name_text.text = endDeviceList[position].getName()
 
             view.connect_status_image.setOnClickListener{
-                GlobalBus.publish(HomeEvent.MeshDevicePlacementStatus())
+                GlobalBus.publish(HomeEvent.MeshDevicePlacementStatus(true))
             }
 
             view.zyxel_end_device_relative.setOnClickListener{

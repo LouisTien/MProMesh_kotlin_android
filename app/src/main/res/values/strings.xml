@@ -112,6 +112,7 @@
     <string name="mesh_device_status_too_close">Too close to the WiFi Router</string>
     <string name="mesh_device_status_far_away">Too far away from the WiFi Router</string>
     <string name="mesh_device_status_no_connect">No connection</string>
+    <string name="mesh_device_status_block">Block</string>
 
     <string name="button_text_start"><u>START</u></string>
     <string name="button_text_home">Home</string>

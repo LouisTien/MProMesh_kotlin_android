@@ -7,4 +7,5 @@ class DevicesEvent
 {
     class GetDeviceInfoComplete()
     class GetCloudDeviceInfoComplete()
+    class MeshDevicePlacementStatus(var isHomePage: Boolean)
 }

@@ -1,5 +1,7 @@
 package zyxel.com.multyproneo.fragment.cloud
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -95,7 +97,8 @@ class CloudSettingsFragment : Fragment()
 
             settings_cloud_account_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsCloudAccountDetailFragment()))
 
-            settings_privacy_policy_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsPrivacyPolicyFragment()))
+            //settings_privacy_policy_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsPrivacyPolicyFragment()))
+            settings_privacy_policy_relative -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zyxel.com/privacy_policy.shtml")))
 
             settings_troubleshooting_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsTroubleshootingFragment()))
         }

@@ -138,7 +138,8 @@
                     android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
                     android:textColor="@color/color_575757"
                     android:textSize="@dimen/text_size_16sp_in_1080"
-                    android:text="@string/devices_link_quality"/>
+                    android:text="@string/devices_link_quality"
+                    android:visibility="invisible"/>
 
             </RelativeLayout>
 

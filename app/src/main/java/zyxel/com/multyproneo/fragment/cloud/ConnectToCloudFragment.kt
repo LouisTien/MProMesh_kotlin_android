@@ -40,10 +40,10 @@ class ConnectToCloudFragment : Fragment()
             GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment().apply{ arguments = bundle }))
         }
 
-        runOnUiThread{
+        /*runOnUiThread{
             connect_to_cloud_content_animation_view.setAnimation("ConnectToTheCloud_oldJson.json")
             connect_to_cloud_content_animation_view.playAnimation()
-        }
+        }*/
     }
 
     override fun onResume()

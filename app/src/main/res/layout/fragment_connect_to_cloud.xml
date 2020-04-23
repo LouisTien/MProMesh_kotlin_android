@@ -43,16 +43,16 @@
 
     </RelativeLayout>
 
-    <!--<ImageView
+    <ImageView
         android:id="@+id/connect_to_cloud_content_image"
         android:layout_width="@dimen/layout_size_300dp_in_1080"
         android:layout_height="@dimen/layout_size_201dp_in_1080"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/layout_size_94dp_in_1080"
         android:layout_below="@+id/connect_to_cloud_content_relative"
-        android:src="@drawable/gif_connecttothecloud"/>-->
+        android:src="@drawable/gif_connecttothecloud"/>
 
-    <com.airbnb.lottie.LottieAnimationView
+    <!--<com.airbnb.lottie.LottieAnimationView
         android:id="@+id/connect_to_cloud_content_animation_view"
         android:layout_width="@dimen/layout_size_300dp_in_1080"
         android:layout_height="@dimen/layout_size_230dp_in_1080"
@@ -62,7 +62,7 @@
         android:scaleType="centerCrop"
         android:layout_gravity="center"
         app:lottie_imageAssetsFolder="images"
-        app:lottie_loop="true"/>
+        app:lottie_loop="true"/>-->
 
     <ImageView
         android:id="@+id/connect_to_cloud_continue_image"

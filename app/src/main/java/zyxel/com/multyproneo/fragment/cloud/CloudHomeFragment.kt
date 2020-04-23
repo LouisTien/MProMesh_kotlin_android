@@ -49,7 +49,7 @@ class CloudHomeFragment : Fragment()
         }
 
         meshDevicePlacementStatusDisposable = GlobalBus.listen(HomeEvent.MeshDevicePlacementStatus::class.java).subscribe{
-            MeshDeviceStatusDialog(activity!!).show()
+            MeshDeviceStatusDialog(activity!!, it.isHomePage).show()
         }
 
         getCloudInfoCompleteDisposable = GlobalBus.listen(HomeEvent.GetCloudDeviceInfoComplete::class.java).subscribe{ updateUI() }

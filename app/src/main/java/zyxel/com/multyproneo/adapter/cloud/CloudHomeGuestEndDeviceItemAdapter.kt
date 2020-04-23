@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import kotlinx.android.synthetic.main.adapter_home_guest_end_device_list_item.view.*
-import org.jetbrains.anko.textColor
+import kotlinx.android.synthetic.main.adapter_cloud_zyxel_end_device_list_item.view.*
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.event.DevicesEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.fragment.cloud.CloudEndDeviceDetailFragment
@@ -30,7 +30,7 @@ class CloudHomeGuestEndDeviceItemAdapter(private var activity: Activity, private
         val holder: ViewHolder
         if(convertView == null)
         {
-            view = LayoutInflater.from(parent?.context).inflate(R.layout.adapter_home_guest_end_device_list_item, parent, false)
+            view = LayoutInflater.from(parent?.context).inflate(R.layout.adapter_cloud_zyxel_end_device_list_item, parent, false)
             holder = ViewHolder(view, parent!!)
             view.tag = holder
         }
@@ -49,15 +49,34 @@ class CloudHomeGuestEndDeviceItemAdapter(private var activity: Activity, private
     {
         fun bind(position: Int)
         {
-            var status =
-                    when
-                    {
-                        endDeviceList[position].Internet_Blocking_Enable -> "Blocked"
-                        endDeviceList[position].X_ZYXEL_RSSI_STAT.equals("TooClose", ignoreCase = true) or endDeviceList[position].X_ZYXEL_RSSI_STAT.equals("Too Close", ignoreCase = true) -> "Good"
-                        else -> endDeviceList[position].X_ZYXEL_RSSI_STAT
-                    }
+            var imageId = R.drawable.icon_wifi_noconnection
 
-            view.link_quality_text.textColor = parent.context.resources.getColor(
+            if(!endDeviceList[position].Active)
+                imageId = R.drawable.icon_wifi_noconnection
+            else
+            {
+                if(endDeviceList[position].X_ZYXEL_ConnectionType.contains("WiFi", ignoreCase = true)
+                    || endDeviceList[position].X_ZYXEL_ConnectionType.contains("Wi-Fi", ignoreCase = true))
+                {
+                    val status =
+                            when
+                            {
+                                endDeviceList[position].Internet_Blocking_Enable -> "Blocked"
+                                endDeviceList[position].X_ZYXEL_RSSI_STAT.equals("TooClose", ignoreCase = true) or endDeviceList[position].X_ZYXEL_RSSI_STAT.equals("Too Close", ignoreCase = true) -> "Good"
+                                else -> endDeviceList[position].X_ZYXEL_RSSI_STAT
+                            }
+
+                    imageId = getSignalStatusImage(status)
+                }
+                else if(endDeviceList[position].X_ZYXEL_ConnectionType.contains("Ethernet", ignoreCase = true))
+                    imageId = R.drawable.icon_wired
+                else
+                    imageId = R.drawable.icon_wifi_good
+            }
+
+            view.connect_status_image.setImageResource(imageId)
+
+            /*view.link_quality_text.textColor = parent.context.resources.getColor(
                     with(status)
                     {
                         when
@@ -72,17 +91,12 @@ class CloudHomeGuestEndDeviceItemAdapter(private var activity: Activity, private
 
             if(!endDeviceList[position].Active)
             {
-                status = ""
                 view.user_define_name_text.textColor = parent.context.resources.getColor(R.color.color_b4b4b4)
             }
             else
                 view.user_define_name_text.textColor = parent.context.resources.getColor(R.color.color_000000)
+            */
 
-            view.link_quality_text.text = status
-
-            /*var modelName = SpecialCharacterHandler.checkEmptyTextValue(endDeviceList[position].UserDefineName)
-            if(modelName.equals("N/A", ignoreCase = true))
-                modelName = endDeviceList[position].Name*/
             var modelName = endDeviceList[position].getName()
 
             if(FeatureConfig.hostNameReplaceStatus)
@@ -92,9 +106,12 @@ class CloudHomeGuestEndDeviceItemAdapter(private var activity: Activity, private
             }
 
             view.user_define_name_text.text = modelName
-            view.profile_name_text.text = ""
 
-            view.home_guest_end_device_relative.setOnClickListener{
+            view.connect_status_image.setOnClickListener{
+                GlobalBus.publish(DevicesEvent.MeshDevicePlacementStatus(false))
+            }
+
+            view.zyxel_end_device_relative.setOnClickListener{
                 val bundle = Bundle().apply{
                     putSerializable("DevicesInfo", endDeviceList[position])
                     putString("Search", "")
@@ -102,6 +119,24 @@ class CloudHomeGuestEndDeviceItemAdapter(private var activity: Activity, private
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(CloudEndDeviceDetailFragment().apply{ arguments = bundle }))
             }
+        }
+
+        private fun getSignalStatusImage(status: String): Int
+        {
+            var imageId = R.drawable.icon_wifi_good
+
+            with(status)
+            {
+                when
+                {
+                    equals("Good", ignoreCase = true) -> imageId = R.drawable.icon_wifi_good
+                    equals("TooClose", ignoreCase = true) || equals("Too Close", ignoreCase = true) -> imageId = R.drawable.icon_wifi_tooclose
+                    equals("Weak", ignoreCase = true) -> imageId = R.drawable.icon_wifi_tooforaway
+                    equals("Blocked", ignoreCase = true) -> return R.drawable.icon_block
+                }
+            }
+
+            return imageId
         }
     }
 }
