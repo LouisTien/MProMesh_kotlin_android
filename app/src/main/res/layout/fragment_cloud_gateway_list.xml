@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/cloud_gateway_retry_image"
+    <TextView
+        android:id="@+id/cloud_gateway_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:src="@drawable/icon_retry"
-        android:visibility="invisible"/>
+        android:layout_margin="@dimen/layout_size_15dp_in_1080"
+        android:textColor="@color/color_2d2b40"
+        android:textSize="@dimen/layout_size_18dp_in_1080"
+        android:text="@string/settings_cloud_account_router_action_edit"/>
 
     <RelativeLayout
         android:id="@+id/cloud_gateway_msg_area_relative"
@@ -19,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
         android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
-        android:layout_below="@+id/cloud_gateway_retry_image">
+        android:layout_below="@+id/cloud_gateway_edit_text">
 
         <TextView
             android:id="@+id/cloud_gateway_found_title_text"

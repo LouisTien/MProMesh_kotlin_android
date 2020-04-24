@@ -7,10 +7,18 @@ import android.view.View
 import kotlinx.android.synthetic.main.dialog_remove_site.*
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.CloudAccountEvent
+import zyxel.com.multyproneo.event.GatewayListEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.model.cloud.AllDeviceInfo
+import zyxel.com.multyproneo.util.AppConfig
 
-class RemoveSiteDialog(context: Context, private var info: AllDeviceInfo, private var isSelf: Boolean) : Dialog(context)
+class RemoveSiteDialog
+(
+        context: Context,
+        private var info: AllDeviceInfo,
+        private var isSelf: Boolean,
+        private var page: AppConfig.RemoveSitePage
+) : Dialog(context)
 {
     private var preserved_set = true
 
@@ -41,7 +49,11 @@ class RemoveSiteDialog(context: Context, private var info: AllDeviceInfo, privat
 
             remove_site_alert_remove ->
             {
-                GlobalBus.publish(CloudAccountEvent.ConfirmSiteDelete(info, preserved_set))
+                when(page)
+                {
+                    AppConfig.RemoveSitePage.RM_SITE_PAGE_CLOUD_ACCOUNT -> GlobalBus.publish(CloudAccountEvent.ConfirmSiteDelete(info, preserved_set))
+                    AppConfig.RemoveSitePage.RM_SITE_PAGE_CLOUD_GATEWAY_LIST -> GlobalBus.publish(GatewayListEvent.ConfirmDeviceDelete(info, preserved_set))
+                }
                 dismiss()
             }
 

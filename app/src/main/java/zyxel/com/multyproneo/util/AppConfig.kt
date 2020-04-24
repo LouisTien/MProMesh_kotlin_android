@@ -186,6 +186,12 @@ object AppConfig
         ERR_ACT_GOTO_LOGIN
     }
 
+    enum class RemoveSitePage
+    {
+        RM_SITE_PAGE_CLOUD_GATEWAY_LIST,
+        RM_SITE_PAGE_CLOUD_ACCOUNT
+    }
+
     enum class TroubleshootingPage
     {
         PAGE_NO_INTERNET,

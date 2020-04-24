@@ -186,7 +186,7 @@
             android:id="@+id/mesh_device_status_block_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"
             android:layout_toRightOf="@+id/mesh_device_status_block_image"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_18sp_in_1080"

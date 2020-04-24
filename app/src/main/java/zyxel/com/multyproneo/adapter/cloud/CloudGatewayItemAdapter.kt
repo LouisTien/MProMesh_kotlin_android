@@ -11,7 +11,7 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.model.cloud.AllDeviceInfo
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
 
-class CloudGatewayItemAdapter(private val gatewayListInfo: TUTKAllDeviceInfo) : RecyclerView.Adapter<CloudGatewayItemAdapter.ViewHolder>()
+class CloudGatewayItemAdapter(private val gatewayListInfo: TUTKAllDeviceInfo, private var deleteMode: Boolean) : RecyclerView.Adapter<CloudGatewayItemAdapter.ViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
     {
@@ -32,8 +32,17 @@ class CloudGatewayItemAdapter(private val gatewayListInfo: TUTKAllDeviceInfo) : 
         {
             itemView.gateway_model_name_text.text = gatewayInfo.displayName
 
+            if(deleteMode)
+                itemView.gateway_delete_image.visibility = View.VISIBLE
+            else
+                itemView.gateway_delete_image.visibility = View.GONE
+
             itemView.gateway_model_frame.setOnClickListener{
                 GlobalBus.publish(GatewayListEvent.OnDeviceSelected(position))
+            }
+
+            itemView.gateway_delete_image.setOnClickListener{
+                GlobalBus.publish(GatewayListEvent.OnDeviceDelete(position))
             }
         }
     }

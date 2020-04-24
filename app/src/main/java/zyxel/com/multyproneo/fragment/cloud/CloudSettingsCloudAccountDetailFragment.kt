@@ -62,7 +62,7 @@ class CloudSettingsCloudAccountDetailFragment : Fragment()
             LogUtil.d(TAG,"OnSiteSelect info:${it.info}")
             LogUtil.d(TAG,"OnSiteSelect is self :${it.self}")
             isDelSelf = it.self
-            RemoveSiteDialog(activity!!, it.info, it.self).show()
+            RemoveSiteDialog(activity!!, it.info, it.self, AppConfig.RemoveSitePage.RM_SITE_PAGE_CLOUD_ACCOUNT).show()
         }
 
         confirmSiteDeleteDisposable = GlobalBus.listen(CloudAccountEvent.ConfirmSiteDelete::class.java).subscribe{
