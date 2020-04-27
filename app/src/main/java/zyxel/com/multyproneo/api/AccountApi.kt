@@ -40,4 +40,31 @@ object AccountApi
                     .build()
         }
     }
+
+    class SNLogin : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val loginURL = "${GlobalData.getAPIPath()}${AppConfig.API_SNLOGIN}"
+            val requestParam = RequestBody.create(JSON, getParams().toString())
+            return Request.Builder()
+                    .url(loginURL)
+                    .post(requestParam)
+                    .build()
+        }
+    }
+
+    class SNLogout : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val logoutURL = "${GlobalData.getAPIPath()}${AppConfig.API_SNLOGOUT}?sessionkey=${GlobalData.sessionKey}"
+            val requestParam = RequestBody.create(JSON, getParams().toString())
+            return Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(logoutURL)
+                    .post(requestParam)
+                    .build()
+        }
+    }
 }

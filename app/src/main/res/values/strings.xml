@@ -310,7 +310,7 @@
     <string name="mesh_more_info_hint">WPS may be enabled by different behaviors from different extenders.</string>
     <string name="mesh_see_tip">See Tips</string>
     <string name="mesh_extender_title">Place WiFi Extender</string>
-    <string name="mesh_extender_description">Place the Extender half-way between WiFi router and the dead zone, but the it MUST be within the wireless range of the WiFi router.</string>
+    <string name="mesh_extender_description">Tap button \"Next\" and press WPS button on extender to process pairing.</string>
     <string name="mesh_next">Next</string>
     <string name="mesh_wps_title">Press WPS button</string>
     <string name="mesh_wps_description">Tap <b>\"Start Pairing\"</b> button and then pressing <b>WPS</b> physical button of your WiFi Extender.</string>

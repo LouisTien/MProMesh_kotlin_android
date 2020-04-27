@@ -26,6 +26,8 @@ object AppConfig
     //API Command
     const val API_LOGIN = "/UserLogin"
     const val API_LOGOUT = "/UserLogout"
+    const val API_SNLOGIN = "/SerialNumberLogin"
+    const val API_SNLOGOUT = "/SerialNumberLogout"
     const val API_CLOUD_AUTH = "/CloudAuth"
     const val API_MESH = "/TR181/Value/Device.WiFi.AccessPoint.5.WPS."
     const val API_DEVICE_HOST_INFO = "/TR181/Value/Device.Hosts.Host."
