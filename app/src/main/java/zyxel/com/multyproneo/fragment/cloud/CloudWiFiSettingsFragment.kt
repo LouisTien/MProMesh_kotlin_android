@@ -369,7 +369,7 @@ class CloudWiFiSettingsFragment : Fragment()
 
     private fun setGuestWiFi24GEnableTask()
     {
-        val params = ",\"Enable\":\"$guestWiFiStatus\""
+        val params = ",\"Enable\":$guestWiFiStatus"
 
         P2PWiFiSettingApi.SetGuestWiFi24GInfo()
                 .setRequestPageName(TAG)
@@ -385,7 +385,7 @@ class CloudWiFiSettingsFragment : Fragment()
 
     private fun setGuestWiFi5GEnableTask()
     {
-        val params = ",\"Enable\":\"$guestWiFiStatus\""
+        val params = ",\"Enable\":$guestWiFiStatus"
 
         P2PWiFiSettingApi.SetGuestWiFi5GInfo()
                 .setRequestPageName(TAG)

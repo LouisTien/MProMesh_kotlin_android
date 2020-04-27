@@ -196,8 +196,7 @@ class CloudHomeFragment : Fragment()
 
     private fun setGuestWiFi24GEnableTask()
     {
-        val value = if(GlobalData.guestWiFiStatus) "false" else "true"
-        val params = ",\"Enable\":\"$value\""
+        val params = ",\"Enable\":${!GlobalData.guestWiFiStatus}"
 
         P2PWiFiSettingApi.SetGuestWiFi24GInfo()
                 .setRequestPageName(TAG)
@@ -213,8 +212,7 @@ class CloudHomeFragment : Fragment()
 
     private fun setGuestWiFi5GEnableTask()
     {
-        val value = if(GlobalData.guestWiFiStatus) "false" else "true"
-        val params = ",\"Enable\":\"$value\""
+        val params = ",\"Enable\":${!GlobalData.guestWiFiStatus}"
 
         P2PWiFiSettingApi.SetGuestWiFi5GInfo()
                 .setRequestPageName(TAG)
