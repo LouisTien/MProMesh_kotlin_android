@@ -8,6 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.dialog_other_mesh_netowrks.*
 import org.jetbrains.anko.doAsync
+import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.cloud.CloudOtherMeshNetworksItemAdapter
 import zyxel.com.multyproneo.api.cloud.P2PGatewayApi
@@ -98,14 +99,21 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
                     {
                         try
                         {
-                            GlobalData.currentCredential = credential
-                            GlobalBus.publish(MainEvent.HideLoading())
-                            GlobalBus.publish(MainEvent.SwitchToFrag(CloudHomeFragment()))
+                            val data = JSONObject(responseStr)
+                            val result = data.get("oper_status").toString()
+                            if(result.equals("Success", ignoreCase = false))
+                            {
+                                GlobalData.currentCredential = credential
+                                GlobalBus.publish(MainEvent.HideLoading())
+                                GlobalBus.publish(MainEvent.SwitchToFrag(CloudHomeFragment()))
+                            }
+                            else
+                                gotoTroubleShooting()
                         }
                         catch(e: Exception)
                         {
                             e.printStackTrace()
-                            GlobalBus.publish(MainEvent.HideLoading())
+                            gotoTroubleShooting()
                         }
                     }
                 }).execute()

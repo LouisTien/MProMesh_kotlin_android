@@ -241,7 +241,11 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
                 putBoolean("needConnectFlowForRetry", needConnectFlow)
             }
 
-            GlobalBus.publish(MainEvent.SwitchToFrag(SetupLoginFragment().apply{ arguments = bundle }))
+            when(AppConfig.SNLogin)
+            {
+                true -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupSNLoginFragment().apply{ arguments = bundle }))
+                else -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupLoginFragment().apply{ arguments = bundle }))
+            }
         }
         else
             GlobalBus.publish(MainEvent.SwitchToFrag(LoginFragment()))

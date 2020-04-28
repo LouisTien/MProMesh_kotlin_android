@@ -87,7 +87,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
 
         if(needLoginWhenFinal)
         {
-            login()
+            if(AppConfig.SNLogin) SNlogin() else login()
             countDownTimerWanInfo.start()
         }
         else
@@ -121,6 +121,35 @@ class SetupFinalizingYourHomeNetwork : Fragment()
         params.put("password", GlobalData.getCurrentGatewayInfo().Password)
         LogUtil.d(TAG,"login param:$params")
         AccountApi.Login()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setIsUsingInCloudFlow(true)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"loginInfo:$loginInfo")
+                            GlobalData.sessionKey = loginInfo.sessionkey
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun SNlogin()
+    {
+        LogUtil.d(TAG,"SNlogin()")
+
+        val params = JSONObject()
+        params.put("serialnumber", GlobalData.getCurrentGatewayInfo().SerialNumber)
+        LogUtil.d(TAG,"login param:$params")
+        AccountApi.SNLogin()
                 .setRequestPageName(TAG)
                 .setParams(params)
                 .setIsUsingInCloudFlow(true)
@@ -493,7 +522,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                 db.getClientListDao().insert(clientInfo)
             }
 
-            setLogoutTask()
+            if(AppConfig.SNLogin) setSNLogoutTask() else setLogoutTask()
         }
     }
 
@@ -501,6 +530,22 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     {
         val params = JSONObject()
         AccountApi.Logout()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setIsUsingInCloudFlow(true)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        getUserInfo()
+                    }
+                }).execute()
+    }
+
+    private fun setSNLogoutTask()
+    {
+        val params = JSONObject()
+        AccountApi.SNLogout()
                 .setRequestPageName(TAG)
                 .setParams(params)
                 .setIsUsingInCloudFlow(true)

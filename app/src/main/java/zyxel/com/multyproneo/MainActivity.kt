@@ -860,6 +860,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                             Active = true,
                                             HostName = GlobalData.getCurrentGatewayInfo().getName(),
                                             IPAddress = GlobalData.getCurrentGatewayInfo().IP,
+                                            PhysAddress = GlobalData.getCurrentGatewayInfo().MAC,
                                             X_ZYXEL_CapabilityType = "L2Device",
                                             X_ZYXEL_ConnectionType = "WiFi",
                                             X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
@@ -1836,6 +1837,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         }
 
         doAsync{
+            TUTKP2PBaseApi.stopSession()
             if(TUTKP2PBaseApi.initIOTCRDT() >= 0)
             {
                 if(TUTKP2PBaseApi.startSession(GlobalData.notiUid) >= 0)
@@ -1908,7 +1910,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             }
         }
         else
-            gotoCloudHomeFragment()
+            switchToFragContainer(CloudEndDeviceDetailOfflineFragment())
     }
 
     private fun gotoTroubleShooting()
@@ -1918,7 +1920,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         hideLoading()
 
         val bundle = Bundle().apply{
-            putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST)
+            putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR)
         }
 
         switchToFragContainer(SetupConnectTroubleshootingFragment().apply{ arguments = bundle })
@@ -2028,7 +2030,12 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                     {
                         try
                         {
-                            startCloudGetAllNeedDeviceInfoTask(AppConfig.LoadingStyle.STY_NONE)
+                            val data = JSONObject(responseStr)
+                            val result = data.get("oper_status").toString()
+                            if(result.equals("Success", ignoreCase = false))
+                                startCloudGetAllNeedDeviceInfoTask(AppConfig.LoadingStyle.STY_NONE)
+                            else
+                                gotoTroubleShooting()
                         }
                         catch(e: Exception)
                         {

@@ -14,6 +14,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.uiThread
 import org.json.JSONException
+import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.cloud.CloudGatewayItemAdapter
 import zyxel.com.multyproneo.api.cloud.*
@@ -174,6 +175,7 @@ class CloudGatewayListFragment : Fragment()
         GlobalBus.publish(MainEvent.ShowLoading())
 
         doAsync{
+            TUTKP2PBaseApi.stopSession()
             if(TUTKP2PBaseApi.initIOTCRDT() >= 0)
             {
                 if(TUTKP2PBaseApi.startSession(deviceInfo.udid) >= 0)
@@ -205,14 +207,21 @@ class CloudGatewayListFragment : Fragment()
                     {
                         try
                         {
-                            GlobalData.currentCredential = deviceInfo.credential
-                            GlobalBus.publish(MainEvent.HideLoading())
-                            GlobalBus.publish(MainEvent.SwitchToFrag(CloudHomeFragment()))
+                            val data = JSONObject(responseStr)
+                            val result = data.get("oper_status").toString()
+                            if(result.equals("Success", ignoreCase = false))
+                            {
+                                GlobalData.currentCredential = deviceInfo.credential
+                                GlobalBus.publish(MainEvent.HideLoading())
+                                GlobalBus.publish(MainEvent.SwitchToFrag(CloudHomeFragment()))
+                            }
+                            else
+                                gotoTroubleShooting()
                         }
                         catch(e: Exception)
                         {
                             e.printStackTrace()
-                            GlobalBus.publish(MainEvent.HideLoading())
+                            gotoTroubleShooting()
                         }
                     }
                 }).execute()

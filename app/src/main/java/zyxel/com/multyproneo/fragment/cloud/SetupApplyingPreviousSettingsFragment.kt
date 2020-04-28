@@ -251,7 +251,7 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
                             e.printStackTrace()
                         }
 
-                        setLogoutTask()
+                        if(AppConfig.SNLogin) setSNLogoutTask() else setLogoutTask()
                     }
                 }).execute()
     }
@@ -260,6 +260,22 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
     {
         val params = JSONObject()
         AccountApi.Logout()
+                .setRequestPageName(TAG)
+                .setParams(params)
+                .setIsUsingInCloudFlow(true)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+
+                    }
+                }).execute()
+    }
+
+    private fun setSNLogoutTask()
+    {
+        val params = JSONObject()
+        AccountApi.SNLogout()
                 .setRequestPageName(TAG)
                 .setParams(params)
                 .setIsUsingInCloudFlow(true)

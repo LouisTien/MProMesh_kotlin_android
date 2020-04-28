@@ -245,17 +245,18 @@ abstract class Commander
                     {
                         responseListener.onSuccess(responseStr)
 
-                        if(call.request().url().toString().contains("UserLogin"))
+                        if(call.request().url().toString().contains(AppConfig.API_LOGIN)
+                            || call.request().url().toString().contains(AppConfig.API_SNLOGIN) )
                         {
                             val cookies = response.headers().values("Set-Cookie")
-                            val cookie = cookies[0].substring(0, cookies.get(0).indexOf(";"))
+                            val cookie = cookies[0].substring(0, cookies[0].indexOf(";"))
                             GlobalData.cookie = cookie
                             LogUtil.d(TAG,"cookie:$cookie")
                         }
                     }
                     else
                     {
-                        if(call.request().url().toString().contains("Device.X_ZYXEL_EXT.InternetBlocking"))
+                        if(call.request().url().toString().contains(AppConfig.API_INTERNET_BLOCKING_INFO))
                         {
                             responseStr = "{\n" +
                                           "\"requested_path\": \"Device.X_ZYXEL_EXT.InternetBlocking.\",\n" +
@@ -267,7 +268,7 @@ abstract class Commander
 
                             responseListener.onSuccess(responseStr)
                         }
-                        else if(call.request().url().toString().contains("Device.X_ZYXEL_TUTK_CloudAgent."))
+                        else if(call.request().url().toString().contains(AppConfig.API_CLOUD_AGENT))
                         {
                             responseStr = "{}"
                             responseListener.onSuccess(responseStr)

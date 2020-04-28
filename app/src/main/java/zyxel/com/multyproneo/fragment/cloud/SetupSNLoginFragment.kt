@@ -3,7 +3,6 @@ package zyxel.com.multyproneo.fragment.cloud
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
-import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.fragment_setup_login.*
+import kotlinx.android.synthetic.main.fragment_setup_sn_login.*
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.json.JSONException
@@ -19,7 +18,6 @@ import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.AccountApi
 import zyxel.com.multyproneo.api.Commander
-import zyxel.com.multyproneo.dialog.SetupLoginHelpDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayInfo
@@ -29,22 +27,19 @@ import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
-class SetupLoginFragment : Fragment()
+class SetupSNLoginFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private lateinit var gatewayInfo: GatewayInfo
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var loginInfo: LoginInfo
-    private var gatewayIndex = 0
     private var keyboardListenersAttached = false
-    private var showPassword = false
-    private var userNameIllegalInput = false
-    private var passwordIllegalInput = false
+    private var serialNumberIllegalInput = false
     private var needConnectFlowForRetry = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        return inflater.inflate(R.layout.fragment_setup_login, container, false)
+        return inflater.inflate(R.layout.fragment_setup_sn_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
@@ -58,15 +53,13 @@ class SetupLoginFragment : Fragment()
 
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         setClickListener()
-        initLoginUsernameEdit()
-        initLoginPasswordEdit()
+        initLoginSerialNumberEdit()
     }
 
     override fun onResume()
     {
         super.onResume()
         GlobalBus.publish(MainEvent.HideBottomToolbar())
-        gatewayIndex = GlobalData.currentGatewayIndex
         gatewayInfo = GlobalData.getCurrentGatewayInfo()
         attachKeyboardListeners()
     }
@@ -93,13 +86,13 @@ class SetupLoginFragment : Fragment()
             val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)
             if(heightDiff > 500)
             {
-                setup_login_title_text.visibility = View.GONE
-                setup_login_description_text.visibility = View.GONE
+                setup_sn_login_title_text.visibility = View.GONE
+                setup_sn_login_description_text.visibility = View.GONE
             }
             else
             {
-                setup_login_title_text.visibility = View.VISIBLE
-                setup_login_description_text.visibility = View.VISIBLE
+                setup_sn_login_title_text.visibility = View.VISIBLE
+                setup_sn_login_description_text.visibility = View.VISIBLE
             }
         }
     }
@@ -107,31 +100,18 @@ class SetupLoginFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            setup_login_help_image -> SetupLoginHelpDialog(activity!!).show()
-
-            setup_login_password_show_image ->
+            setup_sn_login_enter_button ->
             {
-                setup_login_password_edit.transformationMethod = if(showPassword) PasswordTransformationMethod() else null
-                setup_login_password_show_image.setImageDrawable(resources.getDrawable(if(showPassword) R.drawable.icon_hide else R.drawable.icon_show))
-                showPassword = !showPassword
-            }
-
-            setup_login_enter_button ->
-            {
-                inputMethodManager.hideSoftInputFromWindow(setup_login_username_edit.applicationWindowToken, 0)
-                inputMethodManager.hideSoftInputFromWindow(setup_login_password_edit.applicationWindowToken, 0)
-                val password = setup_login_password_edit.text.toString()
-                val userName = setup_login_username_edit.text.toString()
-                LogUtil.d(TAG,"loginPasswordEdit:$password")
-                LogUtil.d(TAG,"loginUsernameEdit:$userName")
+                inputMethodManager.hideSoftInputFromWindow(setup_sn_login_edit.applicationWindowToken, 0)
+                val serialNumber = setup_sn_login_edit.text.toString()
+                LogUtil.d(TAG,"loginEdit:$serialNumber")
 
                 GlobalBus.publish(MainEvent.ShowLoading())
 
                 val params = JSONObject()
-                params.put("username", userName)
-                params.put("password", password)
+                params.put("serialnumber", serialNumber)
                 LogUtil.d(TAG,"login param:$params")
-                AccountApi.Login()
+                AccountApi.SNLogin()
                         .setRequestPageName(TAG)
                         .setParams(params)
                         .setIsUsingInCloudFlow(true)
@@ -144,8 +124,7 @@ class SetupLoginFragment : Fragment()
                                     loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
                                     LogUtil.d(TAG,"loginInfo:$loginInfo")
                                     GlobalData.sessionKey = loginInfo.sessionkey
-                                    gatewayInfo.Password = password
-                                    gatewayInfo.UserName = userName
+                                    gatewayInfo.SerialNumber = serialNumber
                                     GlobalBus.publish(MainEvent.HideLoading())
                                     GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingInternetFragment()))
                                 }
@@ -166,8 +145,8 @@ class SetupLoginFragment : Fragment()
                                 if(ctxName == TAG && code == 401)
                                 {
                                     runOnUiThread{
-                                        setup_login_password_error_text.text = getString(R.string.login_error)
-                                        setup_login_password_error_text.visibility = View.VISIBLE
+                                        setup_sn_login_error_text.text = getString(R.string.login_error)
+                                        setup_sn_login_error_text.visibility = View.VISIBLE
                                     }
                                 }
                                 else
@@ -187,66 +166,37 @@ class SetupLoginFragment : Fragment()
 
     private fun setClickListener()
     {
-        setup_login_help_image.setOnClickListener(clickListener)
-        setup_login_password_show_image.setOnClickListener(clickListener)
-        setup_login_enter_button.setOnClickListener(clickListener)
+        setup_sn_login_enter_button.setOnClickListener(clickListener)
     }
 
     private fun checkInputEditUI()
     {
-        when(userNameIllegalInput)
+        when(serialNumberIllegalInput)
         {
             true ->
             {
-                setup_login_username_error_text.text = getString(R.string.login_no_support_character)
-                setup_login_username_error_text.visibility = View.VISIBLE
+                setup_sn_login_error_text.text = getString(R.string.login_no_support_character)
+                setup_sn_login_error_text.visibility = View.VISIBLE
             }
 
-            false -> setup_login_username_error_text.visibility = View.INVISIBLE
-        }
-
-        when(passwordIllegalInput)
-        {
-            true ->
-            {
-                setup_login_password_error_text.text = getString(R.string.login_no_support_character)
-                setup_login_password_error_text.visibility = View.VISIBLE
-            }
-
-            false -> setup_login_password_error_text.visibility = View.INVISIBLE
+            false -> setup_sn_login_error_text.visibility = View.INVISIBLE
         }
 
         when
         {
-            setup_login_username_edit.text.length >= AppConfig.loginUserNameRequiredLength
-                    && setup_login_password_edit.text.length >= AppConfig.loginPwdRequiredLength
-                    && !userNameIllegalInput
-                    && !passwordIllegalInput
-            -> setup_login_enter_button.isEnabled = true
+            setup_sn_login_edit.text.length >= AppConfig.loginSerialNumberRequiredLength && !serialNumberIllegalInput
+            -> setup_sn_login_enter_button.isEnabled = true
 
-            else -> setup_login_enter_button.isEnabled = false
+            else -> setup_sn_login_enter_button.isEnabled = false
         }
     }
 
-    private fun initLoginUsernameEdit()
+    private fun initLoginSerialNumberEdit()
     {
-        setup_login_username_edit.textChangedListener{
+        setup_sn_login_edit.textChangedListener{
             onTextChanged{
                 str: CharSequence?, _: Int, _: Int, _: Int ->
-                userNameIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
-                checkInputEditUI()
-            }
-        }
-    }
-
-    private fun initLoginPasswordEdit()
-    {
-        //setup_login_password_edit.requestFocus()
-
-        setup_login_password_edit.textChangedListener{
-            onTextChanged{
-                str: CharSequence?, _: Int, _: Int, _: Int ->
-                passwordIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
+                serialNumberIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
                 checkInputEditUI()
             }
         }

@@ -130,6 +130,7 @@ object AppConfig
     //Login username and password required length
     const val loginUserNameRequiredLength = 1
     const val loginPwdRequiredLength = 1
+    const val loginSerialNumberRequiredLength = 1
 
     //WiFi Setting name and password required length
     const val wifiNameRequiredLength = 1
@@ -140,6 +141,9 @@ object AppConfig
     const val SpeedTestActiveDebug = false
     const val SpeedTestStatusUpdateTime = 5
     const val SpeedTestTimeout = 180
+
+    //SN Login
+    const val SNLogin = false
 
     //Location name list
     val locationNamesArray = arrayOf(
