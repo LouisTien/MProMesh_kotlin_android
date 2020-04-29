@@ -124,6 +124,17 @@ class HomeFragment : Fragment()
             GlobalBus.publish(MainEvent.HideLoading())
             home_device_list_swipe.setRefreshing(false)
 
+            home_mesh_status_content_text.text = getString(R.string.home_mesh_down)
+
+            for(item in GlobalData.ZYXELEndDeviceList)
+            {
+                if(!item.X_ZYXEL_HostType.equals("Router", ignoreCase = true))
+                {
+                    if(item.Active)
+                        home_mesh_status_content_text.text = getString(R.string.home_mesh_up)
+                }
+            }
+
             home_connect_device_count_text.text = GlobalData.getActivatedDeviceCount().toString()
             adapter = ZYXELEndDeviceItemAdapter(
                     GlobalData.ZYXELEndDeviceList,

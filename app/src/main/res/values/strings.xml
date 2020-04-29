@@ -46,6 +46,9 @@
     <string name="home_guest_wifi_status_off">OFF</string>
     <string name="home_online">Online</string>
     <string name="home_offline">Offline</string>
+    <string name="home_mesh">MESH:</string>
+    <string name="home_mesh_up">Up</string>
+    <string name="home_mesh_down">Down</string>
     <string name="home_device_gateway">Gateway</string>
     <string name="home_device_ap">Access Point</string>
     <string name="home_device_rp">Repeater</string>

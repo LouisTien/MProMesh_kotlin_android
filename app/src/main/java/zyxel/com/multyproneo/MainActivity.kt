@@ -583,6 +583,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                             Active = true,
                                             HostName = GlobalData.getCurrentGatewayInfo().getName(),
                                             IPAddress = GlobalData.getCurrentGatewayInfo().IP,
+                                            PhysAddress = GlobalData.getCurrentGatewayInfo().MAC,
                                             X_ZYXEL_CapabilityType = "L2Device",
                                             X_ZYXEL_ConnectionType = "WiFi",
                                             X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
