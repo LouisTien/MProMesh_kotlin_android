@@ -241,7 +241,7 @@ abstract class Commander
                 {
                     val data = JSONObject(responseStr)
                     val result = data.get("oper_status").toString()
-                    if(result.equals("Success", ignoreCase = false))
+                    if(result.equals("Success", ignoreCase = true))
                     {
                         responseListener.onSuccess(responseStr)
 

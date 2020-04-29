@@ -101,7 +101,7 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
                         {
                             val data = JSONObject(responseStr)
                             val result = data.get("oper_status").toString()
-                            if(result.equals("Success", ignoreCase = false))
+                            if(result.equals("Success", ignoreCase = true))
                             {
                                 GlobalData.currentCredential = credential
                                 GlobalBus.publish(MainEvent.HideLoading())
@@ -126,7 +126,7 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
         GlobalBus.publish(MainEvent.HideLoading())
 
         val bundle = Bundle().apply{
-            putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR)
+            putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST)
         }
 
         GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))

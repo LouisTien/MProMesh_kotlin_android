@@ -1920,7 +1920,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         hideLoading()
 
         val bundle = Bundle().apply{
-            putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR)
+            putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_P2P_INIT_FAIL_IN_GATEWAY_LIST)
         }
 
         switchToFragContainer(SetupConnectTroubleshootingFragment().apply{ arguments = bundle })
@@ -2032,7 +2032,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         {
                             val data = JSONObject(responseStr)
                             val result = data.get("oper_status").toString()
-                            if(result.equals("Success", ignoreCase = false))
+                            if(result.equals("Success", ignoreCase = true))
                                 startCloudGetAllNeedDeviceInfoTask(AppConfig.LoadingStyle.STY_NONE)
                             else
                                 gotoTroubleShooting()

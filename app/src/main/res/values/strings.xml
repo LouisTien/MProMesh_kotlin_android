@@ -281,8 +281,10 @@
     <string name="settings_cloud_account_router_action_edit">Edit</string>
     <string name="settings_cloud_account_router_action_done">Done</string>
     <string name="settings_cloud_account_router_list_hint">This WiFi Router</string>
-    <string name="settings_preserve_settings_alert_title">Turning Off this feature will not be able to restore current WiFi setting if you reinstall WiFi router by MPro Mesh app.</string>
-    <string name="settings_preserve_settings_alert_msg">Confirm turn off this feature.</string>
+    <string name="settings_preserve_settings_alert_title">Deleting WiFi Setting Backup</string>
+    <string name="settings_preserve_settings_alert_msg">Turning off Save WiFi Settings will DELETE the setting backup. MPro Mesh app will not be able to restore the WiFi settings to your WiFi Router during reinstallation.</string>
+    <string name="settings_login_cloud_title">Log In Cloud</string>
+    <string name="settings_login_cloud_msg">Log in to a different cloud account will REMOVE this WiFi Router from the original one.</string>
     <string name="settings_troubleshooting_internet_title">I cannot access the Internet</string>
     <string name="settings_troubleshooting_ethernet_title">I cannot connect to the Internet using an Ethernet connection</string>
     <string name="settings_troubleshooting_qrcode_title">Unable to join WiFi using QR Code</string>
@@ -338,6 +340,7 @@
     <string name="message_dialog_warning">Warning</string>
     <string name="message_dialog_delete_lower_case">Delete</string>
     <string name="message_dialog_delete">DELETE</string>
+    <string name="message_dialog_turn_off">TURN OFF</string>
     <string name="message_dialog_applying">Applying...</string>
     <string name="message_dialog_add">ADD</string>
     <string name="message_dialog_not_connect">Cannot Connect</string>

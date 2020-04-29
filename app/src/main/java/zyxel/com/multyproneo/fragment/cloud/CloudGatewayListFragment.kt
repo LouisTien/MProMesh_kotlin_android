@@ -209,7 +209,7 @@ class CloudGatewayListFragment : Fragment()
                         {
                             val data = JSONObject(responseStr)
                             val result = data.get("oper_status").toString()
-                            if(result.equals("Success", ignoreCase = false))
+                            if(result.equals("Success", ignoreCase = true))
                             {
                                 GlobalData.currentCredential = deviceInfo.credential
                                 GlobalBus.publish(MainEvent.HideLoading())
