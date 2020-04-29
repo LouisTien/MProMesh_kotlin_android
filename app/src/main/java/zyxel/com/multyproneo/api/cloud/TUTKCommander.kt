@@ -70,7 +70,7 @@ abstract class TUTKCommander
         private fun gotoTroubleShooting()
         {
             val bundle = Bundle().apply{
-                putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR)
+                putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_TO_CLOUD)
             }
 
             GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))
