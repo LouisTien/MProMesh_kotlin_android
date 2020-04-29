@@ -81,13 +81,22 @@
             android:id="@+id/home_mesh_status_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_3c9f00"
+            android:textColor="@color/color_575757"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:layout_toLeftOf="@+id/home_mesh_status_content_text"
+            android:text="@string/home_mesh"/>
+
+        <TextView
+            android:id="@+id/home_mesh_status_content_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_575757"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:layout_alignParentRight="true"
-            android:text="@string/home_mesh"
-            android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-            android:visibility="invisible"/>
+            tools:text="@string/home_mesh_up"
+            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"/>
 
     </RelativeLayout>
 
