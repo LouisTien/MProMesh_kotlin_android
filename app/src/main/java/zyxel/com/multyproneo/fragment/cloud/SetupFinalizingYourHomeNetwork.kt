@@ -27,6 +27,7 @@ import zyxel.com.multyproneo.model.cloud.CloudAgentInfo
 import zyxel.com.multyproneo.model.cloud.TUTKAddDeviceInfo
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
 import zyxel.com.multyproneo.model.cloud.TUTKUserInfo
+import zyxel.com.multyproneo.tool.CryptTool
 import zyxel.com.multyproneo.util.*
 import java.util.HashMap
 
@@ -146,8 +147,15 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     {
         LogUtil.d(TAG,"SNlogin()")
 
+        val iv = CryptTool.getRandomString(16)
+        val encryptedSN = CryptTool.EncryptAES(
+                iv.toByteArray(charset("UTF-8")),
+                CryptTool.KeyAESDefault.toByteArray(charset("UTF-8")),
+                GlobalData.getCurrentGatewayInfo().SerialNumber.toByteArray(charset("UTF-8")))
+
         val params = JSONObject()
-        params.put("serialnumber", GlobalData.getCurrentGatewayInfo().SerialNumber)
+        params.put("serialnumber", encryptedSN)
+        params.put("iv", iv)
         LogUtil.d(TAG,"login param:$params")
         AccountApi.SNLogin()
                 .setRequestPageName(TAG)

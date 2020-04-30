@@ -27,7 +27,6 @@ class NotificationMessagingService : FirebaseMessagingService()
     private var dev_name: String = ""
     private var mac: String = ""
     private var uid: String = ""
-    private var credential: String = ""
 
     /*override fun handleIntent(intent: Intent?)
     {
@@ -82,7 +81,6 @@ class NotificationMessagingService : FirebaseMessagingService()
                         equals("uid", ignoreCase = true) -> uid = remoteMessageMap[key]?:""
                         equals("alert", ignoreCase = true) -> alert = remoteMessageMap[key]?:""
                         equals("dev_name", ignoreCase = true) -> dev_name = remoteMessageMap[key]?:""
-                        equals("credential", ignoreCase = true) -> credential = remoteMessageMap[key]?:""
                     }
                 }
             }
@@ -92,7 +90,6 @@ class NotificationMessagingService : FirebaseMessagingService()
             LogUtil.d(TAG, "uid : $uid")
             LogUtil.d(TAG, "alert : $alert")
             LogUtil.d(TAG, "dev_name : $dev_name")
-            LogUtil.d(TAG, "credential : $credential")
 
             sendNotification(alert, msg)
         }
@@ -120,7 +117,6 @@ class NotificationMessagingService : FirebaseMessagingService()
         val bundle = Bundle()
         bundle.putString("noti_uid", uid)
         bundle.putString("noti_mac", mac)
-        bundle.putString("noti_credential", credential)
         intent.putExtras(bundle)
 
         val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT)

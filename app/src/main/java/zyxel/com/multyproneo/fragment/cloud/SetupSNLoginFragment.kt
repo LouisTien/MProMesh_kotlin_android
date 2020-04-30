@@ -22,6 +22,7 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayInfo
 import zyxel.com.multyproneo.model.LoginInfo
+import zyxel.com.multyproneo.tool.CryptTool
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
@@ -108,8 +109,15 @@ class SetupSNLoginFragment : Fragment()
 
                 GlobalBus.publish(MainEvent.ShowLoading())
 
+                val iv = CryptTool.getRandomString(16)
+                val encryptedSN = CryptTool.EncryptAES(
+                        iv.toByteArray(charset("UTF-8")),
+                        CryptTool.KeyAESDefault.toByteArray(charset("UTF-8")),
+                        serialNumber.toByteArray(charset("UTF-8")))
+
                 val params = JSONObject()
-                params.put("serialnumber", serialNumber)
+                params.put("serialnumber", encryptedSN)
+                params.put("iv", iv)
                 LogUtil.d(TAG,"login param:$params")
                 AccountApi.SNLogin()
                         .setRequestPageName(TAG)
@@ -145,7 +153,7 @@ class SetupSNLoginFragment : Fragment()
                                 if(ctxName == TAG && code == 401)
                                 {
                                     runOnUiThread{
-                                        setup_sn_login_error_text.text = getString(R.string.login_error)
+                                        setup_sn_login_error_text.text = getString(R.string.login_sn_error)
                                         setup_sn_login_error_text.visibility = View.VISIBLE
                                     }
                                 }

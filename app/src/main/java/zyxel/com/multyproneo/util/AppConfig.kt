@@ -143,7 +143,7 @@ object AppConfig
     const val SpeedTestTimeout = 180
 
     //SN Login
-    const val SNLogin = false
+    const val SNLogin = true
 
     //Location name list
     val locationNamesArray = arrayOf(

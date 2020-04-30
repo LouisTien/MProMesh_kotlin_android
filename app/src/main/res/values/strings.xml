@@ -150,6 +150,7 @@
     <string name="login_username_hint">Enter Username</string>
     <string name="login_password_hint">Enter Password</string>
     <string name="login_error">Username or Password error</string>
+    <string name="login_sn_error">Serial number error</string>
     <string name="login_no_support_character">Special characters are not supported</string>
 
     <string name="home_title">Home</string>
