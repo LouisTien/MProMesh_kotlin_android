@@ -103,6 +103,7 @@
                 android:layout_centerHorizontal="true"
                 android:textSize="@dimen/layout_size_14dp_in_1080"
                 android:textColor="@color/color_000000"
+                android:textStyle="italic"
                 android:text="@string/setup_sn_login_label_description"
                 android:layout_below="@+id/setup_sn_login_label_image"/>
 

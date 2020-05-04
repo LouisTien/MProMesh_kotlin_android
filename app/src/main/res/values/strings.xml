@@ -60,8 +60,8 @@
     <string name="setup_name_controller_description">Name your WiFi Router after its location.</string>
     <string name="setup_name_controller_location">Location</string>
 
-    <string name="setup_previous_settings_title">Apply Saved/Save WiFi Settings</string>
-    <string name="setup_previous_settings_description">Settings of previous WiFi Router are found. You can choose to apply them to this WiFi Router.</string>
+    <string name="setup_previous_settings_title">Apply Saved WiFi Settings</string>
+    <string name="setup_previous_settings_description">Saved settings of your WiFi Router are found. You can apply them to this WiFi Router.</string>
     <string name="setup_previous_settings_sub_title">Apply WiFi settings of</string>
     <string name="setup_previous_settings_check_description">Save WiFi setting</string>
     <string name="setup_previous_settings_details"><u>Details</u></string>
@@ -72,7 +72,7 @@
     <string name="setup_previous_settings_details_password_title">Password</string>
     <string name="setup_previous_settings_details_devices_title">LOCAL DEVICE NAMES</string>
 
-    <string name="setup_apply_previous_settings_title">Applying Saved/Save Settings</string>
+    <string name="setup_apply_previous_settings_title">Applying Saved Settings</string>
     <string name="setup_apply_previous_settings_description">Please wait.\nThis may take a few seconds.</string>
 
     <string name="setup_apply_reconnect_previous_settings_title">Re-Connecting to WiFi Router Using New WiFi Name and Password</string>
@@ -97,7 +97,7 @@
     <string name="cloud_login_no_ssl_error">SSL error occurred. Would you like to proceed?</string>
 
     <string name="connect_to_cloud_title">Connect to the Cloud</string>
-    <string name="connect_to_cloud_description">A Cloud account allows you to manage your WiFi Router anywhere.</string>
+    <string name="connect_to_cloud_description">Your WiFi Router is already connected to the cloud. please login to your cloud account.</string>
 
     <string name="finalizing_network_title">Finalizing Your Home Network</string>
     <string name="finalizing_network_description">Please wait.\nThis may take a few seconds.</string>
@@ -273,7 +273,7 @@
 
     <string name="settings_title">Settings</string>
     <string name="settings_notification">Notification</string>
-    <string name="settings_preserve_settings">Saved/Save WiFi Settings</string>
+    <string name="settings_preserve_settings">Save WiFi Settings</string>
     <string name="settings_troubleshooting">Troubleshooting</string>
     <string name="settings_hint">Preserved WiFi settings can be applied to a WiFi Router during its setup.</string>
     <string name="settings_cloud_account">Cloud Account</string>
@@ -343,7 +343,7 @@
     <string name="message_dialog_warning">Warning</string>
     <string name="message_dialog_delete_lower_case">Delete</string>
     <string name="message_dialog_delete">DELETE</string>
-    <string name="message_dialog_turn_off">TURN OFF</string>
+    <string name="message_dialog_turn_off">Turn Off</string>
     <string name="message_dialog_applying">Applying...</string>
     <string name="message_dialog_add">ADD</string>
     <string name="message_dialog_not_connect">Cannot Connect</string>
@@ -358,8 +358,8 @@
 
     <string name="remove_site_dialog_title">Remove \'%s\' from the Cloud</string>
     <string name="remove_site_dialog_description">You will need to set up the WiFi Router again to bind it back to the cloud.</string>
-    <string name="remove_site_dialog_description_self">You will need to set up the WiFi Router again to bind it back to the cloud.\n\nYou will be logged out after removing it.</string>
-    <string name="remove_site_dialog_preserved_setting_description">Keep its preserved WiFi settings for later setup</string>
+    <string name="remove_site_dialog_description_self">You are managing this WiFi Router, so you will be logged out after removing it.\n\nSet it up again can bind it back to the cloud.</string>
+    <string name="remove_site_dialog_preserved_setting_description">Keep its saved WiFi settings for later setup</string>
     <string name="remove_site_dialog_remove">Remove</string>
     <string name="remove_site_dialog_cancel">Cancel</string>
     <string name="remove_site_dialog_remove_description">Remove \'%s\' and logging out...</string>

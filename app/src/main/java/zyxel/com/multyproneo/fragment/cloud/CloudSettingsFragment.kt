@@ -83,15 +83,11 @@ class CloudSettingsFragment : Fragment()
 
                 if(preserveSettingsEnable)
                 {
-                    /*val strBuilder = SpannableStringBuilder(getString(R.string.settings_preserve_settings_alert_msg))
-                    strBuilder.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 36, 41, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    settings_app_version_value_text.text = strBuilder*/
-
                     MessageDialog(
                             activity!!,
                             getString(R.string.settings_preserve_settings_alert_title),
                             getString(R.string.settings_preserve_settings_alert_msg),
-                            arrayOf(getString(R.string.message_dialog_turn_off), getString(R.string.message_dialog_cancel)),
+                            arrayOf(getString(R.string.message_dialog_turn_off), getString(R.string.remove_site_dialog_cancel)),
                             AppConfig.DialogAction.ACT_NONE
                     ).show()
                 }

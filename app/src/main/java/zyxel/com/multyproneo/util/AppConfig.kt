@@ -109,7 +109,7 @@ object AppConfig
     const val WiFiSettingTime = 30
     const val rebootTime = 20
     const val waitForLoginTime = 3
-    const val waitForGetIOTCLoginStatus = 3
+    const val waitForGetIOTCLoginStatusTime = 3
 
     //Add Mesh
     const val WPSStatusUpdateTime = 5

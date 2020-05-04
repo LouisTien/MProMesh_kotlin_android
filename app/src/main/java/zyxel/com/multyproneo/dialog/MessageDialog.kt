@@ -3,6 +3,8 @@ package zyxel.com.multyproneo.dialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
 import android.view.View
 import kotlinx.android.synthetic.main.dialog_message.*
 import zyxel.com.multyproneo.R
@@ -34,7 +36,20 @@ class MessageDialog(context: Context, private var title: String, var description
         else
             msg_alert_title.text = title
 
-        msg_alert_description.text = description
+        val strBuilder = SpannableStringBuilder(description)
+        if(description == context.getString(R.string.settings_login_cloud_msg))
+        {
+            strBuilder.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 41, 48, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            msg_alert_description.text = strBuilder
+        }
+        else if(description == context.getString(R.string.settings_preserve_settings_alert_msg))
+        {
+            strBuilder.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 36, 42, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            msg_alert_description.text = strBuilder
+        }
+        else
+            msg_alert_description.text = description
+
         msg_alert_positive.text = btnTexts[0]
 
         if(btnTexts.size >= 2)

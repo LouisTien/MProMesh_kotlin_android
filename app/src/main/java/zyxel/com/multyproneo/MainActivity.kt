@@ -1943,10 +1943,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                 }
                 LogUtil.d(TAG,"paramsArray:$paramsArray")
 
-                val base64Decoded = Base64.encodeToString(paramsArray.toString().toByteArray(), Base64.DEFAULT)
-                LogUtil.d(TAG,"base64Decoded:$base64Decoded")
+                val base64Encoded = Base64.encodeToString(paramsArray.toString().toByteArray(), Base64.DEFAULT)
+                LogUtil.d(TAG,"base64Encoded:$base64Encoded")
 
-                mappingSyncNoti(base64Decoded)
+                mappingSyncNoti(base64Encoded)
             }
             else
             {

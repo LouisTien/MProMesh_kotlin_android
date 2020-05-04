@@ -71,7 +71,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
             override fun onFinish() = getWanInfoTask()
         }
 
-        countDownTimerIOTCStatus = object : CountDownTimer((AppConfig.waitForGetIOTCLoginStatus * 1000).toLong(), 1000)
+        countDownTimerIOTCStatus = object : CountDownTimer((AppConfig.waitForGetIOTCLoginStatusTime * 1000).toLong(), 1000)
         {
             override fun onTick(millisUntilFinished: Long) {}
             override fun onFinish() = getIOTCLoginStatus()
@@ -86,13 +86,18 @@ class SetupFinalizingYourHomeNetwork : Fragment()
 
         Thread.sleep(2000)
 
-        if(needLoginWhenFinal)
-        {
-            if(AppConfig.SNLogin) SNlogin() else login()
-            countDownTimerWanInfo.start()
-        }
-        else
+        if(AppConfig.SNLogin) //ConnectToCloudFragment already SNlogin
             getWanInfoTask()
+        else
+        {
+            if(needLoginWhenFinal)
+            {
+                login()
+                countDownTimerWanInfo.start()
+            }
+            else
+                getWanInfoTask()
+        }
     }
 
     override fun onResume()
@@ -122,42 +127,6 @@ class SetupFinalizingYourHomeNetwork : Fragment()
         params.put("password", GlobalData.getCurrentGatewayInfo().Password)
         LogUtil.d(TAG,"login param:$params")
         AccountApi.Login()
-                .setRequestPageName(TAG)
-                .setParams(params)
-                .setIsUsingInCloudFlow(true)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"loginInfo:$loginInfo")
-                            GlobalData.sessionKey = loginInfo.sessionkey
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-                        }
-                    }
-                }).execute()
-    }
-
-    private fun SNlogin()
-    {
-        LogUtil.d(TAG,"SNlogin()")
-
-        val iv = CryptTool.getRandomString(16)
-        val encryptedSN = CryptTool.EncryptAES(
-                iv.toByteArray(charset("UTF-8")),
-                CryptTool.KeyAESDefault.toByteArray(charset("UTF-8")),
-                GlobalData.getCurrentGatewayInfo().SerialNumber.toByteArray(charset("UTF-8")))
-
-        val params = JSONObject()
-        params.put("serialnumber", encryptedSN)
-        params.put("iv", iv)
-        LogUtil.d(TAG,"login param:$params")
-        AccountApi.SNLogin()
                 .setRequestPageName(TAG)
                 .setParams(params)
                 .setIsUsingInCloudFlow(true)
