@@ -239,6 +239,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
         val params = JSONObject()
         params.put("Enable", true)
         params.put("GenCredential", true)
+        params.put("PushNotification", true)
         LogUtil.d(TAG,"startRDTServer param:$params")
 
         GatewayApi.ControlCloudAgent()
@@ -455,7 +456,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
         body["uid"] = GlobalData.currentUID
         body["udid"] = phoneUdid
         body["format"] = AppConfig.NOTI_FORMAT
-        body["interval"] = 3
+        body["interval"] = AppConfig.NOTI_INTERVAL
 
         NotificationApi.Common(activity!!)
                 .setRequestPageName(TAG)

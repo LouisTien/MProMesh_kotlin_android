@@ -86,6 +86,7 @@ object AppConfig
     //Notification
     const val NOTI_BUNDLE_ID = "zyxel.com.multyproneo"
     const val NOTI_FORMAT = "e2Rldl9uYW1lfSB7ZXZlbnRfdHlwZX0=" //{dev_name} {event_type}
+    const val NOTI_INTERVAL = 3
 
     //Database
     const val DATABASE_NAME = "mpromesh.db"

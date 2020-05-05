@@ -1939,6 +1939,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                 {
                     val params = JSONObject()
                     params.put("uid", item.uid)
+                    params.put("interval", AppConfig.NOTI_INTERVAL)
+                    params.put("format", AppConfig.NOTI_FORMAT)
                     paramsArray.put(params)
                 }
                 LogUtil.d(TAG,"paramsArray:$paramsArray")
