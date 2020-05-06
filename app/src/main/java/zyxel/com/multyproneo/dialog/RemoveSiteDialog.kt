@@ -51,7 +51,7 @@ class RemoveSiteDialog
             {
                 when(page)
                 {
-                    AppConfig.RemoveSitePage.RM_SITE_PAGE_CLOUD_ACCOUNT -> GlobalBus.publish(CloudAccountEvent.ConfirmSiteDelete(info, preserved_set))
+                    AppConfig.RemoveSitePage.RM_SITE_PAGE_CLOUD_ACCOUNT -> GlobalBus.publish(CloudAccountEvent.ConfirmSiteDelete(info, preserved_set, isSelf))
                     AppConfig.RemoveSitePage.RM_SITE_PAGE_CLOUD_GATEWAY_LIST -> GlobalBus.publish(GatewayListEvent.ConfirmDeviceDelete(info, preserved_set))
                 }
                 dismiss()

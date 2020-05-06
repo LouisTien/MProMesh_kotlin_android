@@ -78,7 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/color_0073ff"
+            android:textColor="@color/color_003eab"
             android:textSize="@dimen/layout_size_15dp_in_1080"
             android:text="@string/settings_cloud_account_router_action_edit"
             android:layout_marginTop="@dimen/layout_size_25dp_in_1080"

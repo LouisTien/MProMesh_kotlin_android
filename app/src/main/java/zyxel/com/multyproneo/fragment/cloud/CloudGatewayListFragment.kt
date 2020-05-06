@@ -1,5 +1,6 @@
 package zyxel.com.multyproneo.fragment.cloud
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_cloud_gateway_list.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.support.v4.runOnUiThread
+import org.jetbrains.anko.textColor
 import org.jetbrains.anko.uiThread
 import org.json.JSONException
 import org.json.JSONObject
@@ -119,9 +121,12 @@ class CloudGatewayListFragment : Fragment()
 
             cloud_gateway_edit_text ->
             {
-                autoLogin = false
-                deleteMode = !deleteMode
-                updateUI()
+                if(gatewayListInfo.data.isNotEmpty())
+                {
+                    autoLogin = false
+                    deleteMode = !deleteMode
+                    updateUI()
+                }
             }
         }
     }
@@ -152,15 +157,26 @@ class CloudGatewayListFragment : Fragment()
             }
 
             if(gatewayListInfo.data.isEmpty())
+            {
+                cloud_gateway_edit_text.textColor = activity!!.resources.getColor(R.color.color_a3a3a3)
                 cloud_gateway_choose_text.text = getString(R.string.cloud_gateway_list_no_choose)
+            }
             else
+            {
+                cloud_gateway_edit_text.textColor = activity!!.resources.getColor(R.color.color_575757)
                 cloud_gateway_choose_text.text = getString(R.string.cloud_gateway_list_choose)
+            }
 
-            cloud_gateway_edit_text.text =
-                    if(deleteMode)
-                        getString(R.string.settings_cloud_account_router_action_done)
-                    else
-                        getString(R.string.settings_cloud_account_router_action_edit)
+            if(deleteMode)
+            {
+                cloud_gateway_edit_text.text = getString(R.string.settings_cloud_account_router_action_done)
+                cloud_gateway_edit_text.typeface = Typeface.DEFAULT_BOLD
+            }
+            else
+            {
+                cloud_gateway_edit_text.text = getString(R.string.settings_cloud_account_router_action_edit)
+                cloud_gateway_edit_text.typeface = Typeface.DEFAULT
+            }
 
             if(autoLogin && gatewayListInfo.data.size == 1)
             {

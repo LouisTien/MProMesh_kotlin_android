@@ -1,5 +1,6 @@
 package zyxel.com.multyproneo.fragment.cloud
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -68,10 +69,14 @@ class CloudSettingsCloudAccountDetailFragment : Fragment()
         confirmSiteDeleteDisposable = GlobalBus.listen(CloudAccountEvent.ConfirmSiteDelete::class.java).subscribe{
             LogUtil.d(TAG,"ConfirmSiteDelete info:${it.info}")
             LogUtil.d(TAG,"ConfirmSiteDelete backup :${it.backup}")
+            LogUtil.d(TAG,"ConfirmSiteDelete isSelf :${it.isSelf}")
             delInfo = it.info
             keepBackup = it.backup
             doAsync{
-                GlobalBus.publish(MainEvent.ShowHintLoading(getString(R.string.remove_site_dialog_remove_description, delInfo.displayName)))
+                if(it.isSelf)
+                    GlobalBus.publish(MainEvent.ShowHintLoading(getString(R.string.remove_site_dialog_remove_self_description, delInfo.displayName)))
+                else
+                    GlobalBus.publish(MainEvent.ShowHintLoading(getString(R.string.remove_site_dialog_remove_description, delInfo.displayName)))
                 Thread.sleep(2000)
                 uiThread{ deleteDevice() }
             }
@@ -130,11 +135,17 @@ class CloudSettingsCloudAccountDetailFragment : Fragment()
         runOnUiThread{
             settings_cloud_account_detail_value_text.text = GlobalData.currentEmail
             settings_cloud_account_detail_router_list.adapter = CloudAccountWiFiRouterItemAdapter(moveSelfSiteToFirst(GlobalData.cloudGatewayListInfo), deleteMode)
-            settings_cloud_account_detail_router_list_action_text.text =
-                    if(deleteMode)
-                        getString(R.string.settings_cloud_account_router_action_done)
-                    else
-                        getString(R.string.settings_cloud_account_router_action_edit)
+
+            if(deleteMode)
+            {
+                settings_cloud_account_detail_router_list_action_text.text = getString(R.string.settings_cloud_account_router_action_done)
+                settings_cloud_account_detail_router_list_action_text.typeface = Typeface.DEFAULT_BOLD
+            }
+            else
+            {
+                settings_cloud_account_detail_router_list_action_text.text = getString(R.string.settings_cloud_account_router_action_edit)
+                settings_cloud_account_detail_router_list_action_text.typeface = Typeface.DEFAULT
+            }
         }
     }
 

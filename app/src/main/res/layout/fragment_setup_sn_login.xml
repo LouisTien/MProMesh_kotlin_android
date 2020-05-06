@@ -88,8 +88,8 @@
                 android:id="@+id/setup_sn_login_label_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/img_adminlable"
-                android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
+                android:src="@drawable/img_serialnumber"
+                android:layout_marginTop="@dimen/layout_size_82dp_in_1080"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/setup_sn_login_msg_area_relative"/>
 

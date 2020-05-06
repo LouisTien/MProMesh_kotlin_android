@@ -18,6 +18,7 @@
         android:textSize="@dimen/layout_size_18dp_in_1080"
         android:textColor="@color/color_ffffff"
         android:text="@string/remove_site_dialog_remove_description"
+        android:gravity="center"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
         android:layout_below="@+id/loadingProBar"
         android:layout_centerHorizontal="true"/>

@@ -287,7 +287,7 @@
     <string name="settings_preserve_settings_alert_title">Deleting WiFi Setting Backup</string>
     <string name="settings_preserve_settings_alert_msg">Turning off Save WiFi Settings will DELETE the setting backup. MPro Mesh app will not be able to restore the WiFi settings to your WiFi Router during reinstallation.</string>
     <string name="settings_login_cloud_title">Log In Cloud</string>
-    <string name="settings_login_cloud_msg">Log in to a different cloud account will REMOVE this WiFi Router from the original one.</string>
+    <string name="settings_login_cloud_msg">Logging in to a different cloud account will REMOVE this WiFi Router from the original one.</string>
     <string name="settings_troubleshooting_internet_title">I cannot access the Internet</string>
     <string name="settings_troubleshooting_ethernet_title">I cannot connect to the Internet using an Ethernet connection</string>
     <string name="settings_troubleshooting_qrcode_title">Unable to join WiFi using QR Code</string>
@@ -362,7 +362,8 @@
     <string name="remove_site_dialog_preserved_setting_description">Keep its saved WiFi settings for later setup</string>
     <string name="remove_site_dialog_remove">Remove</string>
     <string name="remove_site_dialog_cancel">Cancel</string>
-    <string name="remove_site_dialog_remove_description">Remove \'%s\' and logging out...</string>
+    <string name="remove_site_dialog_remove_self_description">\n\nRemove \'%s\'\nand logging out...</string>
+    <string name="remove_site_dialog_remove_description">\n\nRemove \'%s\'\nand please wait some minutes...</string>
 
     <string name="qrcode_dialog_wifi_msg">Connect to WiFi by scanning the QR code.</string>
     <string name="qrcode_dialog_guest_wifi_msg">Guests can connect to Guest WiFi by scanning the QR code.</string>

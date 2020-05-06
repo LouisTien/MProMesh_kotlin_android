@@ -18,6 +18,8 @@ import zyxel.com.multyproneo.util.AppConfig
 class MessageDialog(context: Context, private var title: String, var description: String, private var btnTexts: Array<String>, var action: AppConfig.DialogAction) : Dialog(context)
 {
     private var alwaysBlock = false
+    private val REMOVESTR = "REMOVE"
+    private val DELETESTR = "DELETE"
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -39,12 +41,16 @@ class MessageDialog(context: Context, private var title: String, var description
         val strBuilder = SpannableStringBuilder(description)
         if(description == context.getString(R.string.settings_login_cloud_msg))
         {
-            strBuilder.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 41, 48, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            val startIndex = if(description.indexOf("$REMOVESTR") < 0) 0 else description.indexOf("$REMOVESTR")
+            val endIndex = if(startIndex == 0) 0 else (startIndex + REMOVESTR.length + 1)
+            strBuilder.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             msg_alert_description.text = strBuilder
         }
         else if(description == context.getString(R.string.settings_preserve_settings_alert_msg))
         {
-            strBuilder.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 36, 42, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            val startIndex = if(description.indexOf("$DELETESTR") < 0) 0 else description.indexOf("$DELETESTR")
+            val endIndex = if(startIndex == 0) 0 else (startIndex + DELETESTR.length + 1)
+            strBuilder.setSpan(android.text.style.StyleSpan(android.graphics.Typeface.BOLD), startIndex, endIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
             msg_alert_description.text = strBuilder
         }
         else
