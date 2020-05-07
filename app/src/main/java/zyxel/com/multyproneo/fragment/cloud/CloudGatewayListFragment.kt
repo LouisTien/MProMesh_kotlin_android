@@ -103,14 +103,14 @@ class CloudGatewayListFragment : Fragment()
     override fun onPause()
     {
         super.onPause()
-        if(!deviceSelectedDisposable.isDisposed) deviceSelectedDisposable.dispose()
-        if(!deviceDeleteDisposable.isDisposed) deviceDeleteDisposable.dispose()
-        if(!confirmSiteDeleteDisposable.isDisposed) confirmSiteDeleteDisposable.dispose()
     }
 
     override fun onDestroyView()
     {
         super.onDestroyView()
+        if(!deviceSelectedDisposable.isDisposed) deviceSelectedDisposable.dispose()
+        if(!deviceDeleteDisposable.isDisposed) deviceDeleteDisposable.dispose()
+        if(!confirmSiteDeleteDisposable.isDisposed) confirmSiteDeleteDisposable.dispose()
     }
 
     private val clickListener = View.OnClickListener { view ->

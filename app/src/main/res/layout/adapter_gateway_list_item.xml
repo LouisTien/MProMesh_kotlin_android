@@ -4,16 +4,14 @@
     android:id="@+id/gateway_model_frame"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/card_bg1">
+    android:background="@drawable/op_card_bg">
 
     <ImageView
         android:id="@+id/gateway_delete_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/layout_size_8dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
         android:layout_centerVertical="true"
-        android:src="@drawable/icon_remove"
+        android:src="@drawable/icon_remove50"
         android:visibility="gone"/>
 
     <ImageView
@@ -22,7 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/device_wap4825"/>
+        android:src="@drawable/device_wap4825"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/gateway_model_name_text"
@@ -41,6 +40,7 @@
         android:layout_height="@dimen/layout_size_25dp_in_1080"
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"/>
+        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:visibility="gone"/>
 
 </FrameLayout>

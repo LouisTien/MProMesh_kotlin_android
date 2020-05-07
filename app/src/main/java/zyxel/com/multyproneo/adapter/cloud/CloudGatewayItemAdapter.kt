@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.adapter_gateway_list_item.view.*
+import org.jetbrains.anko.backgroundResource
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GatewayListEvent
 import zyxel.com.multyproneo.event.GlobalBus
@@ -33,16 +34,24 @@ class CloudGatewayItemAdapter(private val gatewayListInfo: TUTKAllDeviceInfo, pr
             itemView.gateway_model_name_text.text = gatewayInfo.displayName
 
             if(deleteMode)
+            {
+                itemView.gateway_model_frame.backgroundResource = R.drawable.op_card_bg1
                 itemView.gateway_delete_image.visibility = View.VISIBLE
+            }
             else
+            {
+                itemView.gateway_model_frame.backgroundResource = R.drawable.op_card_bg
                 itemView.gateway_delete_image.visibility = View.GONE
+            }
 
             itemView.gateway_model_frame.setOnClickListener{
-                GlobalBus.publish(GatewayListEvent.OnDeviceSelected(position))
+                if(!deleteMode)
+                    GlobalBus.publish(GatewayListEvent.OnDeviceSelected(position))
             }
 
             itemView.gateway_delete_image.setOnClickListener{
-                GlobalBus.publish(GatewayListEvent.OnDeviceDelete(position))
+                if(deleteMode)
+                    GlobalBus.publish(GatewayListEvent.OnDeviceDelete(position))
             }
         }
     }
