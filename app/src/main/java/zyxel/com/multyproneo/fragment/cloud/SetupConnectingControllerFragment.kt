@@ -176,7 +176,7 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
 
     private fun startFindDevice()
     {
-        retryTimes = 6
+        retryTimes = 0
         runSearchTask()
     }
 
