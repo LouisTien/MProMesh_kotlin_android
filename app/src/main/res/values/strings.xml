@@ -60,7 +60,7 @@
     <string name="setup_name_controller_description">Name your WiFi Router after its location.</string>
     <string name="setup_name_controller_location">Location</string>
 
-    <string name="setup_previous_settings_title">Apply Saved WiFi Settings</string>
+    <string name="setup_previous_settings_title">Apply Saved Settings</string>
     <string name="setup_previous_settings_description">Saved settings of your WiFi Router are found. You can apply them to this WiFi Router.</string>
     <string name="setup_previous_settings_sub_title">Apply WiFi settings of</string>
     <string name="setup_previous_settings_check_description">Save WiFi setting</string>
@@ -164,7 +164,7 @@
     <string name="home_mesh">MESH:</string>
     <string name="home_mesh_up">Up</string>
     <string name="home_mesh_down">Down</string>
-    <string name="home_device_gateway">Gateway</string>
+    <string name="home_device_gateway">WiFi Router</string>
     <string name="home_device_ap">Access Point</string>
     <string name="home_device_rp">Repeater</string>
     <string name="home_mesh_devices">Mesh Devices</string>
@@ -301,8 +301,8 @@
 
     <string name="mesh_title">What scenario you need?</string>
     <string name="mesh_tip"><u>See Tips</u></string>
-    <string name="mesh_with_wireless">With Wirelessly</string>
-    <string name="mesh_with_wire">With Wired Cable</string>
+    <string name="mesh_with_wireless">Use WiFi</string>
+    <string name="mesh_with_wire">Use Ethernet Cable</string>
     <string name="mesh_tip_title">Tips</string>
     <string name="mesh_tip_msg_topic">The ideal position for extender.</string>
     <string name="mesh_tip_msg_position">Place in the open, elevated. On the self or top of a table.</string>

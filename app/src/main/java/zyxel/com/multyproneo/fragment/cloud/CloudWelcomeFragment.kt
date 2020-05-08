@@ -113,7 +113,10 @@ class CloudWelcomeFragment : Fragment()
                 if(oldDBExist)
                     GlobalBus.publish(MainEvent.SwitchToFrag(FindingDeviceFragment()))
                 else if(newDBExist)
+                {
+                    GlobalBus.publish(MainEvent.SyncNoti())
                     GlobalBus.publish(MainEvent.RefreshToken(false))
+                }
                 else
                 {
                     val firstTimeUse by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_SETUP_FIRST_TIME_KEY, true)

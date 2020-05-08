@@ -44,4 +44,5 @@ class MainEvent
     class ShowToast(var msg: String, var requestCtxName: String)
     class GetCloudInfo()
     class RefreshToken(var isInSetupFlow: Boolean)
+    class SyncNoti()
 }

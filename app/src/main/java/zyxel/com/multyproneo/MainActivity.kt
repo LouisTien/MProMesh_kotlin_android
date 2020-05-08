@@ -87,6 +87,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var showToastDisposable: Disposable
     private lateinit var getCloudInfoDisposable: Disposable
     private lateinit var refreshTokenDisposable: Disposable
+    private lateinit var syncNotiDisposable: Disposable
     private lateinit var loadingDlg: Dialog
     private lateinit var loadingHintDlg: Dialog
     private lateinit var errorMsgDlg: MessageDialog
@@ -500,6 +501,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         getCloudInfoDisposable = GlobalBus.listen(MainEvent.GetCloudInfo::class.java).subscribe{ getUserInfo() }
 
         refreshTokenDisposable = GlobalBus.listen(MainEvent.RefreshToken::class.java).subscribe{ refreshToken(it.isInSetupFlow) }
+
+        syncNotiDisposable = GlobalBus.listen(MainEvent.SyncNoti::class.java).subscribe{ registerNoti() }
     }
 
     private fun disposeEvent()
@@ -541,6 +544,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!showToastDisposable.isDisposed) showToastDisposable.dispose()
         if(!getCloudInfoDisposable.isDisposed) getCloudInfoDisposable.dispose()
         if(!refreshTokenDisposable.isDisposed) refreshTokenDisposable.dispose()
+        if(!syncNotiDisposable.isDisposed) syncNotiDisposable.dispose()
     }
 
     private fun switchToFragContainer(fragment: Fragment)
@@ -1809,7 +1813,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                 GlobalData.tokenType = tokenInfo.token_type
                                 LogUtil.d(TAG, "refreshToken:$refreshToken")
                                 LogUtil.d(TAG, "accessToken:$accessToken")
-                                registerNoti()
+                                getUserInfo()
                             }
                             catch(e: JSONException)
                             {
@@ -2012,7 +2016,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                     override fun onSuccess(responseStr: String)
                     {
                         LogUtil.d(TAG,"NotificationApi Map Sync:$responseStr")
-                        getUserInfo()
                     }
                 }).execute()
     }

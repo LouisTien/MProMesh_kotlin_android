@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_connect_to_cloud.*
 import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.support.v4.runOnUiThread
@@ -17,6 +18,7 @@ import zyxel.com.multyproneo.api.AccountApi
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.GatewayApi
 import zyxel.com.multyproneo.dialog.MessageDialog
+import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.LoginInfo
@@ -32,6 +34,7 @@ class ConnectToCloudFragment : Fragment()
     private lateinit var cloudAgentInfo: CloudAgentInfo
     private lateinit var loginInfo: LoginInfo
     private lateinit var countDownTimerIOTCStatus: CountDownTimer
+    private lateinit var msgDialogResponse: Disposable
     private var isInSetupFlow = true
     private var needLoginWhenFinal = false
 
@@ -56,12 +59,21 @@ class ConnectToCloudFragment : Fragment()
             override fun onFinish() = getIOTCLoginStatus()
         }
 
+        msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{ gotoCloudLogin() }
+
         connect_to_cloud_continue_image.onClick{
-            val bundle = Bundle().apply{
-                putBoolean("isInSetupFlow", isInSetupFlow)
-                putBoolean("needLoginWhenFinal", needLoginWhenFinal)
+            if(cloudAgentInfo.Object.Status.contains("success", ignoreCase = true))
+            {
+                MessageDialog(
+                        activity!!,
+                        getString(R.string.settings_login_cloud_title),
+                        getString(R.string.settings_login_cloud_msg),
+                        arrayOf(getString(R.string.setup_connect_controller_format_error_dialog_confirm)),
+                        AppConfig.DialogAction.ACT_NONE
+                ).show()
             }
-            GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment().apply{ arguments = bundle }))
+            else
+                gotoCloudLogin()
         }
 
         GlobalBus.publish(MainEvent.ShowLoading())
@@ -100,6 +112,34 @@ class ConnectToCloudFragment : Fragment()
     {
         super.onDestroyView()
         countDownTimerIOTCStatus.cancel()
+        if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
+    }
+
+    private fun updateUI()
+    {
+        if(GlobalData.currentFrag != TAG) return
+
+        if(!isVisible) return
+
+        LogUtil.d(TAG, "updateUI()")
+
+        runOnUiThread{
+            if(cloudAgentInfo.Object.Status.contains("success", ignoreCase = true))
+                connect_to_cloud_continue_image.setImageResource(R.drawable.btn_login_on)
+            else
+                connect_to_cloud_continue_image.setImageResource(R.drawable.btn_continue)
+
+            connect_to_cloud_continue_image.visibility = View.VISIBLE
+        }
+    }
+
+    private fun gotoCloudLogin()
+    {
+        val bundle = Bundle().apply{
+            putBoolean("isInSetupFlow", isInSetupFlow)
+            putBoolean("needLoginWhenFinal", needLoginWhenFinal)
+        }
+        GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment().apply{ arguments = bundle }))
     }
 
     private fun getIOTCLoginStatus()
@@ -119,19 +159,7 @@ class ConnectToCloudFragment : Fragment()
                         {
                             cloudAgentInfo = Gson().fromJson(responseStr, CloudAgentInfo::class.javaObjectType)
                             LogUtil.d(TAG,"getIOTCLoginStatus:$cloudAgentInfo")
-
-                            if(cloudAgentInfo.Object.Status.contains("success", ignoreCase = true))
-                            {
-                                runOnUiThread{
-                                    MessageDialog(
-                                            activity!!,
-                                            getString(R.string.settings_login_cloud_title),
-                                            getString(R.string.settings_login_cloud_msg),
-                                            arrayOf(getString(R.string.setup_connect_controller_format_error_dialog_confirm)),
-                                            AppConfig.DialogAction.ACT_NONE
-                                    ).show()
-                                }
-                            }
+                            updateUI()
                         }
                         catch(e: JSONException)
                         {
