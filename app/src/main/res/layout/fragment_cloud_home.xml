@@ -35,7 +35,17 @@
                 android:textSize="@dimen/text_size_36sp_in_1080"
                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
                 android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-                android:text="@string/home_title"/>
+                android:text="@string/home_title"
+                android:visibility="invisible"/>
+
+            <ImageView
+                android:id="@+id/cloud_home_title_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                android:src="@drawable/metronet_logo"
+                android:visibility="invisible"/>
 
         </RelativeLayout>
 

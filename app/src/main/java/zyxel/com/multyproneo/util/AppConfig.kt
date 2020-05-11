@@ -44,6 +44,7 @@ object AppConfig
     const val API_CLOUD_AGENT = "/TR181/Value/Device.X_ZYXEL_TUTK_CloudAgent."
     const val API_WIFI_SETTING_INFO = "/TR181/Value/Device.WiFi.?first_level_only=false"
     const val API_MESH_INFO = "/TR181/Value/Device.X_ZYXEL_EXT.EasyMesh."
+    const val API_CUSTOMER_INFO = "/TR181/Value/Device.X_ZYXEL_OneConnect."
     const val API_WIFI_24G_INFO = "/TR181/Value/Device.WiFi.SSID.1."
     const val API_WIFI_24G_PWD = "/TR181/Value/Device.WiFi.AccessPoint.1.Security."
     const val API_WIFI_5G_INFO = "/TR181/Value/Device.WiFi.SSID.5."

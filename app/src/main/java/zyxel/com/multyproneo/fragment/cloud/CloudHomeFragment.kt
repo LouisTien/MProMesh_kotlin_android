@@ -162,6 +162,57 @@ class CloudHomeFragment : Fragment()
         LogUtil.d(TAG, "updateUI()")
 
         runOnUiThread{
+
+            cloud_home_title_text.visibility = View.INVISIBLE
+            cloud_home_title_image.visibility = View.INVISIBLE
+            with(GlobalData.customerLogo)
+            {
+                when
+                {
+                    equals("HTC", ignoreCase = true) ->
+                    {
+                        cloud_home_title_image.setImageResource(R.drawable.htc_logo)
+                        cloud_home_title_image.visibility = View.VISIBLE
+                    }
+
+                    equals("METRONET", ignoreCase = true) ->
+                    {
+                        cloud_home_title_image.setImageResource(R.drawable.metronet_logo)
+                        cloud_home_title_image.visibility = View.VISIBLE
+                    }
+
+                    equals("CCI", ignoreCase = true) ->
+                    {
+                        cloud_home_title_image.setImageResource(R.drawable.cci_logo)
+                        cloud_home_title_image.visibility = View.VISIBLE
+                    }
+
+                    equals("CBT", ignoreCase = true) ->
+                    {
+                        cloud_home_title_image.setImageResource(R.drawable.cbt_logo)
+                        cloud_home_title_image.visibility = View.VISIBLE
+                    }
+
+                    equals("EPB", ignoreCase = true) ->
+                    {
+                        cloud_home_title_image.setImageResource(R.drawable.cpb_logo)
+                        cloud_home_title_image.visibility = View.VISIBLE
+                    }
+
+                    equals("GOLDENWEST", ignoreCase = true) ->
+                    {
+                        cloud_home_title_image.setImageResource(R.drawable.golden_west_logo)
+                        cloud_home_title_image.visibility = View.VISIBLE
+                    }
+
+                    else ->
+                    {
+                        cloud_home_title_text.visibility = View.VISIBLE
+                        cloud_home_title_image.visibility = View.INVISIBLE
+                    }
+                }
+            }
+
             cloud_home_mesh_device_list_swipe.setRefreshing(false)
             cloud_home_wifi_router_name_text.text = GlobalData.getCurrentGatewayInfo().UserDefineName
             cloud_home_connect_device_count_text.text = GlobalData.getActivatedDeviceCount().toString()

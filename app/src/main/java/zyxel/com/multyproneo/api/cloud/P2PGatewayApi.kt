@@ -69,6 +69,19 @@ object P2PGatewayApi
         }
     }
 
+    class GetCustomerInfo : TUTKP2PCommander()
+    {
+        override fun requestURL(): String
+        {
+            return "{\"URI\":\"${AppConfig.API_CUSTOMER_INFO}\"}"
+        }
+
+        override fun method(): AppConfig.TUTKP2PMethod
+        {
+            return AppConfig.TUTKP2PMethod.MTD_GET
+        }
+    }
+
     class GetHostNameReplaceInfo : TUTKP2PCommander()
     {
         override fun requestURL(): String

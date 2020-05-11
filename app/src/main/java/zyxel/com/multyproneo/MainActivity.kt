@@ -106,6 +106,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var tokenInfo: TUTKTokenInfo
     private lateinit var gateDetailInfo: GatewayDetailInfo
     private lateinit var ipInterfaceInfo: IPInterfaceInfo
+    private lateinit var customerInfo: CustomerInfo
     private lateinit var db: DatabaseCloudUtil
     private var deviceTimer = Timer()
     private var screenTimer = Timer()
@@ -1320,6 +1321,32 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                     break
                                 }
                             }
+                            getCustomerInfoTask()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            hideLoading()
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun getCustomerInfoTask()
+    {
+        LogUtil.d(TAG,"getCustomerInfoTask()")
+        P2PGatewayApi.GetCustomerInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: TUTKP2PResponseCallback()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            customerInfo = Gson().fromJson(responseStr, CustomerInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"customerInfo:$customerInfo")
+                            GlobalData.customerLogo = customerInfo.Object.X_ZYXEL_APP_Customer
                             getCloudChangeIconNameInfoTask(AppConfig.LoadingStyle.STY_NONE)
                         }
                         catch(e: JSONException)
