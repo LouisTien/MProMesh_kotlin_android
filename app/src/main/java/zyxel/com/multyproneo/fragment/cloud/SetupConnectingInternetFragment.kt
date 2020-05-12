@@ -52,7 +52,7 @@ class SetupConnectingInternetFragment : Fragment()
                 if(hasPreviousSettings)
                     GlobalBus.publish(MainEvent.SwitchToFrag(SetupApplyPreviousSettingsFragment()))
                 else
-                    GlobalBus.publish(MainEvent.SwitchToFrag(ConnectToCloudFragment()))
+                    GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment()))
             }
             else
             {
@@ -162,7 +162,7 @@ class SetupConnectingInternetFragment : Fragment()
                         try
                         {
                             cloudAgentInfo = Gson().fromJson(responseStr, CloudAgentInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"getUID:$cloudAgentInfo")
+                            LogUtil.d(TAG,"cloudAgentInfo:$cloudAgentInfo")
 
                             if(cloudAgentInfo.Object.TUTK_UID.isNotEmpty()
                                 && cloudAgentInfo.Object.TUTK_UID != "N/A"
@@ -171,6 +171,7 @@ class SetupConnectingInternetFragment : Fragment()
                             {
                                 hasUID = true
                                 GlobalData.currentUID = cloudAgentInfo.Object.TUTK_UID
+                                GlobalData.registeredCloud = cloudAgentInfo.Object.Status.contains("success", ignoreCase = true)
                             }
 
                             startGetPreviousSettingsTask()
@@ -199,7 +200,7 @@ class SetupConnectingInternetFragment : Fragment()
                     if(hasPreviousSettings)
                         GlobalBus.publish(MainEvent.SwitchToFrag(SetupApplyPreviousSettingsFragment()))
                     else
-                        GlobalBus.publish(MainEvent.SwitchToFrag(ConnectToCloudFragment()))
+                        GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment()))
                 }
                 else
                 {

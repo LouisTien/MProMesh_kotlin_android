@@ -199,7 +199,7 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
                         putBoolean("needLoginWhenFinal", needLoginWhenFinal)
                     }
 
-                    GlobalBus.publish(MainEvent.SwitchToFrag(ConnectToCloudFragment().apply{ arguments = bundle }))
+                    GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment().apply{ arguments = bundle }))
                 }
 
                 false ->

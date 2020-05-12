@@ -5,7 +5,7 @@ import okhttp3.*
 import org.json.JSONObject
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.fragment.cloud.ConnectToCloudFragment
+import zyxel.com.multyproneo.fragment.cloud.CloudLoginFragment
 import zyxel.com.multyproneo.fragment.cloud.SetupConnectTroubleshootingFragment
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.LogUtil
@@ -53,7 +53,7 @@ abstract class TUTKCommander
                     val bundle = Bundle().apply{
                         putBoolean("isInSetupFlow", false)
                     }
-                    GlobalBus.publish(MainEvent.SwitchToFrag(ConnectToCloudFragment().apply{ arguments = bundle }))
+                    GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment().apply{ arguments = bundle }))
                 }
                 else -> { gotoTroubleShooting() }
             }

@@ -4,12 +4,14 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.net.http.SslError
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_cloud_login.*
 import org.jetbrains.anko.support.v4.alert
 import org.json.JSONException
@@ -18,6 +20,8 @@ import zyxel.com.multyproneo.BuildConfig
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.cloud.TUTKCommander
 import zyxel.com.multyproneo.api.cloud.AMDMApi
+import zyxel.com.multyproneo.dialog.MessageDialog
+import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.cloud.*
@@ -30,15 +34,14 @@ import java.util.HashMap
 class CloudLoginFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
-    private val CODE_TOKEN_PARAM_PRO = "&code="
-    private val CODE_TOKEN_PARAM_BETA = "?code="
-    private val CODE_TOKEN_PARAM_SEC_BETA = "&state="
     private lateinit var tokenInfo: TUTKTokenInfo
     private lateinit var userInfo: TUTKUserInfo
     private lateinit var specificDeviceInfo: TUTKSpecificDeviceInfo
     private lateinit var addDeviceInfo: TUTKAddDeviceInfo
     private lateinit var updateDeviceInfo: TUTKUpdateDeviceInfo
-    private var isInSetupFlow = false
+    private lateinit var msgDialogResponse: Disposable
+    private lateinit var countDownTimerLoading: CountDownTimer
+    private var isInSetupFlow = true
     private var needLoginWhenFinal = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -52,11 +55,55 @@ class CloudLoginFragment : Fragment()
 
         with(arguments)
         {
-            this?.getBoolean("isInSetupFlow", false)?.let{ isInSetupFlow = it }
+            this?.getBoolean("isInSetupFlow", true)?.let{ isInSetupFlow = it }
             this?.getBoolean("needLoginWhenFinal", false)?.let{ needLoginWhenFinal = it }
         }
 
+        countDownTimerLoading = object : CountDownTimer((AppConfig.waitForCloudLoginTime * 1000).toLong(), 1000)
+        {
+            override fun onTick(millisUntilFinished: Long) {}
+            override fun onFinish() = updateUI()
+        }
+
+        msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{ updateUI() }
+
+        cloud_login_relative.visibility = View.INVISIBLE
+
         initWebView()
+
+        when(isInSetupFlow)
+        {
+            true ->
+            {
+                when(GlobalData.registeredCloud)
+                {
+                    true ->
+                    {
+                        GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
+
+                        MessageDialog(
+                                activity!!,
+                                getString(R.string.settings_login_cloud_title),
+                                getString(R.string.settings_login_cloud_msg),
+                                arrayOf(getString(R.string.setup_connect_controller_format_error_dialog_confirm)),
+                                AppConfig.DialogAction.ACT_NONE
+                        ).show()
+                    }
+
+                    false ->
+                    {
+                        GlobalBus.publish(MainEvent.ShowLoading())
+                        countDownTimerLoading.start()
+                    }
+                }
+            }
+
+            false ->
+            {
+                GlobalBus.publish(MainEvent.ShowLoading())
+                countDownTimerLoading.start()
+            }
+        }
     }
 
     override fun onResume()
@@ -73,23 +120,52 @@ class CloudLoginFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+        countDownTimerLoading.cancel()
+        if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
+    }
+
+    private fun updateUI()
+    {
+        when(isInSetupFlow)
+        {
+            true ->
+            {
+                cloud_login_title_text.text = getString(R.string.cloud_login_connect_title)
+
+                when(GlobalData.registeredCloud)
+                {
+                    true -> cloud_login_description_text.text = getString(R.string.cloud_login_connect_description_registered)
+                    false -> cloud_login_description_text.text = getString(R.string.cloud_login_connect_description)
+                }
+            }
+
+            false ->
+            {
+                cloud_login_title_text.text = getString(R.string.cloud_login_login_title)
+                cloud_login_description_text.text = getString(R.string.cloud_login_login_description)
+            }
+        }
+
+        cloud_login_relative.visibility = View.VISIBLE
+
+        GlobalBus.publish(MainEvent.HideLoading())
     }
 
     private fun initWebView()
     {
-        cloudLoginWebView.webViewClient = LoginWebViewClient()
-        cloudLoginWebView.settings.setAppCacheEnabled(false)
-        cloudLoginWebView.settings.cacheMode = WebSettings.LOAD_NO_CACHE
-        cloudLoginWebView.settings.javaScriptEnabled = true
-        cloudLoginWebView.settings.useWideViewPort = true
-        cloudLoginWebView.settings.setSupportZoom(false)
-        cloudLoginWebView.settings.javaScriptCanOpenWindowsAutomatically = false
-        cloudLoginWebView.settings.saveFormData = false
+        cloud_login_WebView.webViewClient = LoginWebViewClient()
+        cloud_login_WebView.settings.setAppCacheEnabled(false)
+        cloud_login_WebView.settings.cacheMode = WebSettings.LOAD_NO_CACHE
+        cloud_login_WebView.settings.javaScriptEnabled = true
+        cloud_login_WebView.settings.useWideViewPort = true
+        cloud_login_WebView.settings.setSupportZoom(false)
+        cloud_login_WebView.settings.javaScriptCanOpenWindowsAutomatically = false
+        cloud_login_WebView.settings.saveFormData = false
         //https://am1.tutk.com/auth/authorize/?response_type=code&state=1234&client_id=vXudLCmYSwonVSetUPZrfiVDOjL5kmv2NQaUDmRG&client_secret=8Xj9bgS9IY7JspwEttChbyoHAEJrp05E6oGW6kqx4OsrITwYFxUae5x4wloWPYYoGC8XdQZoVlKm0clXdeyjgLpBkO08rt0yINEUZC35tkqjwR2oVMD3uCiOr9Z5rboz
-        cloudLoginWebView.loadUrl("${BuildConfig.TUTK_AM_SITE}/auth/authorize/?response_type=code&state=${BuildConfig.TUTK_AM_STATE}&client_id=${BuildConfig.TUTK_AM_CLIENT_ID}&client_secret=${BuildConfig.TUTK_AM_CLIENT_SECRET}")
-        //cloudLoginWebView.addJavascriptInterface(this, "onSubmitListener")
-        cloudLoginWebView.clearCache(true)
-        cloudLoginWebView.clearHistory()
+        cloud_login_WebView.loadUrl("${BuildConfig.TUTK_AM_SITE}/auth/authorize/?response_type=code&state=${BuildConfig.TUTK_AM_STATE}&client_id=${BuildConfig.TUTK_AM_CLIENT_ID}&client_secret=${BuildConfig.TUTK_AM_CLIENT_SECRET}")
+        //cloud_login_WebView.addJavascriptInterface(this, "onSubmitListener")
+        cloud_login_WebView.clearCache(true)
+        cloud_login_WebView.clearHistory()
         CookieManager.getInstance().removeAllCookies(null)
     }
 
@@ -99,7 +175,7 @@ class CloudLoginFragment : Fragment()
         {
             super.onPageStarted(view, url, favicon)
             LogUtil.d(TAG, "onPageStarted : $url")
-            GlobalBus.publish(MainEvent.ShowLoading())
+            //GlobalBus.publish(MainEvent.ShowLoading())
         }
 
         override fun onPageFinished(view: WebView?, url: String?)
@@ -178,7 +254,7 @@ class CloudLoginFragment : Fragment()
         {
             super.onReceivedError(view, errorCode, description, failingUrl)
             LogUtil.e(TAG, "onReceivedError -> errorCode : $errorCode, failingUrl : $failingUrl")
-            GlobalBus.publish(MainEvent.HideLoading())
+            //GlobalBus.publish(MainEvent.HideLoading())
             GlobalBus.publish(MainEvent.ShowToast(getString(R.string.cloud_login_no_internet), TAG))
         }
 
@@ -186,7 +262,7 @@ class CloudLoginFragment : Fragment()
         {
             super.onReceivedError(view, request, error)
             LogUtil.e(TAG, "onReceivedError -> error : $error, request : $request")
-            GlobalBus.publish(MainEvent.HideLoading())
+            //GlobalBus.publish(MainEvent.HideLoading())
             GlobalBus.publish(MainEvent.ShowToast(getString(R.string.cloud_login_no_internet), TAG))
         }
 
@@ -194,7 +270,7 @@ class CloudLoginFragment : Fragment()
         {
             super.onReceivedSslError(view, handler, error)
             LogUtil.e(TAG, "onReceivedSslError -> error : $error")
-            GlobalBus.publish(MainEvent.HideLoading())
+            //GlobalBus.publish(MainEvent.HideLoading())
             alert(getString(R.string.cloud_login_no_ssl_error))
             {
                 positiveButton("continue") { handler!!.proceed()}

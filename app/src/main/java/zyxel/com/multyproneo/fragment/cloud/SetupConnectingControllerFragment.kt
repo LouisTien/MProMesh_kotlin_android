@@ -48,6 +48,8 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
     {
         super.onViewCreated(view, savedInstanceState)
 
+        GlobalData.registeredCloud = false
+
         with(arguments)
         {
             this?.getBoolean("needConnectFlow", false)?.let{ needConnectFlow = it }

@@ -93,6 +93,11 @@
     <string name="setup_connect_troubleshooting_cannot_connect_cloud_description1">Make sure your mobile device is connected to the Internet. Check to see whether your cellular data is enabled and working.</string>
     <string name="setup_connect_troubleshooting_cannot_connect_cloud_description2">Or you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.</string>
 
+    <string name="cloud_login_connect_title">Connect to the Cloud</string>
+    <string name="cloud_login_connect_description">A cloud account allows you to manage your WiFi Router anywhere.</string>
+    <string name="cloud_login_connect_description_registered">Your WiFi Router is already connected to the cloud, please log in.</string>
+    <string name="cloud_login_login_title">Log In the Cloud</string>
+    <string name="cloud_login_login_description">Log in the cloud to access your WiFi Router.</string>
     <string name="cloud_login_no_internet">Unable to connect to the server. Please check your network access.</string>
     <string name="cloud_login_no_ssl_error">SSL error occurred. Would you like to proceed?</string>
 
@@ -286,8 +291,8 @@
     <string name="settings_cloud_account_router_list_hint">This WiFi Router</string>
     <string name="settings_preserve_settings_alert_title">Deleting WiFi Setting Backup</string>
     <string name="settings_preserve_settings_alert_msg">Turning off Save WiFi Settings will DELETE the setting backup. MPro Mesh app will not be able to restore the WiFi settings to your WiFi Router during reinstallation.</string>
-    <string name="settings_login_cloud_title">Log In Cloud</string>
-    <string name="settings_login_cloud_msg">Logging in to a different cloud account will REMOVE this WiFi Router from the original one.</string>
+    <string name="settings_login_cloud_title">Log In with Correct Account</string>
+    <string name="settings_login_cloud_msg">This WiFi Router is connected to the cloud, please log in with the correct account. Logging in to another account will REMOVE the WiFi Router from the original one.</string>
     <string name="settings_troubleshooting_internet_title">I cannot access the Internet</string>
     <string name="settings_troubleshooting_ethernet_title">I cannot connect to the Internet using an Ethernet connection</string>
     <string name="settings_troubleshooting_qrcode_title">Unable to join WiFi using QR Code</string>

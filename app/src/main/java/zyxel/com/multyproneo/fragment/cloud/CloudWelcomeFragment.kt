@@ -46,6 +46,8 @@ class CloudWelcomeFragment : Fragment()
             startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
         }
 
+        GlobalData.registeredCloud = false
+
         /*if(!isNetworkAvailable())
         {
             MessageDialog(

@@ -1811,7 +1811,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             val bundle = Bundle().apply{
                 putBoolean("isInSetupFlow", isInSetupFlow)
             }
-            switchToFragContainer(ConnectToCloudFragment().apply{ arguments = bundle })
+            switchToFragContainer(CloudLoginFragment().apply{ arguments = bundle })
         }
         else
         {

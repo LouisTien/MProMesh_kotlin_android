@@ -30,6 +30,7 @@ object GlobalData
     var notiUid = ""
     var notiMac = ""
     var customerLogo = ""
+    var registeredCloud = false
 
     //TUTK
     var tokenType = "Bearer"
