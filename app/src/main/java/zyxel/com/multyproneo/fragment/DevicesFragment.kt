@@ -124,6 +124,7 @@ class DevicesFragment : Fragment()
                 devices_guest_devices_sort_image.setImageResource(if(GlobalData.guestDevAscendingOrder) R.drawable.device_sorting_1 else R.drawable.device_sorting_2)
                 GlobalData.sortGuestDeviceList()
                 devices_guest_devices_list.adapter = HomeGuestEndDeviceItemAdapter(activity!!, GlobalData.guestEndDeviceList)
+                devices_guest_devices_area_linear.visibility = View.VISIBLE
             }
             else
                 devices_guest_devices_area_linear.visibility = View.GONE

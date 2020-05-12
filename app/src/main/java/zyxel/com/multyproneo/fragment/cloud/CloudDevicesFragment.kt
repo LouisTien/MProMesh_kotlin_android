@@ -46,6 +46,9 @@ class CloudDevicesFragment : Fragment()
             GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoForDevicePageTask(AppConfig.LoadingStyle.STY_ONLY_BG))
         }
 
+        devices_home_link_quality_title_text.visibility = View.INVISIBLE
+        devices_guest_link_quality_title_text.visibility = View.INVISIBLE
+
         setClickListener()
 
         GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoForDevicePageTask(AppConfig.LoadingStyle.STY_NORMAL))
