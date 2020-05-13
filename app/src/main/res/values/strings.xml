@@ -102,7 +102,7 @@
     <string name="cloud_login_no_ssl_error">SSL error occurred. Would you like to proceed?</string>
 
     <string name="connect_to_cloud_title">Connect to the Cloud</string>
-    <string name="connect_to_cloud_description">Your WiFi Router is already connected to the cloud. please login to your cloud account.</string>
+    <string name="connect_to_cloud_description">A cloud account allows you to manage your WiFi Router anywhere.</string>
 
     <string name="finalizing_network_title">Finalizing Your Home Network</string>
     <string name="finalizing_network_description">Please wait.\nThis may take a few seconds.</string>
