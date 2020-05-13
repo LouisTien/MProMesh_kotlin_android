@@ -42,6 +42,7 @@ class CloudLoginFragment : Fragment()
     private lateinit var msgDialogResponse: Disposable
     private var isInSetupFlow = true
     private var needLoginWhenFinal = false
+    private var isDialogShowed = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -154,7 +155,7 @@ class CloudLoginFragment : Fragment()
                 {
                     true ->
                     {
-                        when(GlobalData.registeredCloud)
+                        when(GlobalData.registeredCloud && !isDialogShowed)
                         {
                             true ->
                             {
@@ -165,6 +166,8 @@ class CloudLoginFragment : Fragment()
                                         arrayOf(getString(R.string.setup_connect_controller_format_error_dialog_confirm)),
                                         AppConfig.DialogAction.ACT_NONE
                                 ).show()
+
+                                isDialogShowed = true
                             }
 
                             false -> updateUI()
