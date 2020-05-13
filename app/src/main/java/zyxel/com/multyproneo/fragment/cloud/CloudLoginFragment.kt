@@ -40,7 +40,6 @@ class CloudLoginFragment : Fragment()
     private lateinit var addDeviceInfo: TUTKAddDeviceInfo
     private lateinit var updateDeviceInfo: TUTKUpdateDeviceInfo
     private lateinit var msgDialogResponse: Disposable
-    private lateinit var countDownTimerLoading: CountDownTimer
     private var isInSetupFlow = true
     private var needLoginWhenFinal = false
 
@@ -59,51 +58,13 @@ class CloudLoginFragment : Fragment()
             this?.getBoolean("needLoginWhenFinal", false)?.let{ needLoginWhenFinal = it }
         }
 
-        countDownTimerLoading = object : CountDownTimer((AppConfig.waitForCloudLoginTime * 1000).toLong(), 1000)
-        {
-            override fun onTick(millisUntilFinished: Long) {}
-            override fun onFinish() = updateUI()
-        }
-
         msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{ updateUI() }
 
         cloud_login_relative.visibility = View.INVISIBLE
 
+        GlobalBus.publish(MainEvent.ShowLoading())
+
         initWebView()
-
-        when(isInSetupFlow)
-        {
-            true ->
-            {
-                when(GlobalData.registeredCloud)
-                {
-                    true ->
-                    {
-                        GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
-
-                        MessageDialog(
-                                activity!!,
-                                getString(R.string.settings_login_cloud_title),
-                                getString(R.string.settings_login_cloud_msg),
-                                arrayOf(getString(R.string.setup_connect_controller_format_error_dialog_confirm)),
-                                AppConfig.DialogAction.ACT_NONE
-                        ).show()
-                    }
-
-                    false ->
-                    {
-                        GlobalBus.publish(MainEvent.ShowLoading())
-                        countDownTimerLoading.start()
-                    }
-                }
-            }
-
-            false ->
-            {
-                GlobalBus.publish(MainEvent.ShowLoading())
-                countDownTimerLoading.start()
-            }
-        }
     }
 
     override fun onResume()
@@ -120,7 +81,6 @@ class CloudLoginFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
-        countDownTimerLoading.cancel()
         if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
     }
 
@@ -147,8 +107,6 @@ class CloudLoginFragment : Fragment()
         }
 
         cloud_login_relative.visibility = View.VISIBLE
-
-        GlobalBus.publish(MainEvent.HideLoading())
     }
 
     private fun initWebView()
@@ -175,7 +133,6 @@ class CloudLoginFragment : Fragment()
         {
             super.onPageStarted(view, url, favicon)
             LogUtil.d(TAG, "onPageStarted : $url")
-            //GlobalBus.publish(MainEvent.ShowLoading())
         }
 
         override fun onPageFinished(view: WebView?, url: String?)
@@ -191,7 +148,34 @@ class CloudLoginFragment : Fragment()
             LogUtil.d(TAG, "onPageFinished : $url")
             GlobalBus.publish(MainEvent.HideLoading())
 
-            if(url!!.contains("oauth/callback"))
+            if(url!!.contains("accounts/login"))
+            {
+                when(isInSetupFlow)
+                {
+                    true ->
+                    {
+                        when(GlobalData.registeredCloud)
+                        {
+                            true ->
+                            {
+                                MessageDialog(
+                                        activity!!,
+                                        getString(R.string.settings_login_cloud_title),
+                                        getString(R.string.settings_login_cloud_msg),
+                                        arrayOf(getString(R.string.setup_connect_controller_format_error_dialog_confirm)),
+                                        AppConfig.DialogAction.ACT_NONE
+                                ).show()
+                            }
+
+                            false -> updateUI()
+                        }
+                    }
+
+                    false -> updateUI()
+                }
+            }
+
+            if(url.contains("oauth/callback"))
             {
                 val codeToken = Uri.parse(url).getQueryParameter("code")
                 LogUtil.d(TAG, "get code token : $codeToken")
@@ -254,7 +238,7 @@ class CloudLoginFragment : Fragment()
         {
             super.onReceivedError(view, errorCode, description, failingUrl)
             LogUtil.e(TAG, "onReceivedError -> errorCode : $errorCode, failingUrl : $failingUrl")
-            //GlobalBus.publish(MainEvent.HideLoading())
+            GlobalBus.publish(MainEvent.HideLoading())
             GlobalBus.publish(MainEvent.ShowToast(getString(R.string.cloud_login_no_internet), TAG))
         }
 
@@ -262,7 +246,7 @@ class CloudLoginFragment : Fragment()
         {
             super.onReceivedError(view, request, error)
             LogUtil.e(TAG, "onReceivedError -> error : $error, request : $request")
-            //GlobalBus.publish(MainEvent.HideLoading())
+            GlobalBus.publish(MainEvent.HideLoading())
             GlobalBus.publish(MainEvent.ShowToast(getString(R.string.cloud_login_no_internet), TAG))
         }
 
@@ -270,7 +254,7 @@ class CloudLoginFragment : Fragment()
         {
             super.onReceivedSslError(view, handler, error)
             LogUtil.e(TAG, "onReceivedSslError -> error : $error")
-            //GlobalBus.publish(MainEvent.HideLoading())
+            GlobalBus.publish(MainEvent.HideLoading())
             alert(getString(R.string.cloud_login_no_ssl_error))
             {
                 positiveButton("continue") { handler!!.proceed()}
