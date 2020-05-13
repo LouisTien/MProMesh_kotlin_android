@@ -48,7 +48,7 @@
     <string name="setup_login_label_description">Find the default admin username and password on the label of your WiFi Router.</string>
     <string name="setup_sn_login_description">Enter the serial number to continue.</string>
     <string name="setup_sn_login_serial_number">Serial number</string>
-    <string name="setup_sn_login_label_description">Find the unique serial number of your WiFi Router on this label.</string>
+    <string name="setup_sn_login_label_description">Find the unique serial number of your WiFi Router on its label.</string>
 
     <string name="setup_change_admin_pwd_title">Change Admin Password</string>
     <string name="setup_change_admin_pwd_description">To avoid any unauthorized user accessing your password on the label of your WiFi Router, we recommend to change it.</string>
