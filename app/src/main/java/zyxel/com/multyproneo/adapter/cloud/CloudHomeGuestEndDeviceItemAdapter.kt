@@ -69,7 +69,7 @@ class CloudHomeGuestEndDeviceItemAdapter(private var activity: Activity, private
                     imageId = getSignalStatusImage(status)
                 }
                 else if(endDeviceList[position].X_ZYXEL_ConnectionType.contains("Ethernet", ignoreCase = true))
-                    imageId = R.drawable.icon_wired
+                    imageId = if(endDeviceList[position].Internet_Blocking_Enable) R.drawable.icon_block else R.drawable.icon_wired
                 else
                     imageId = R.drawable.icon_wifi_good
             }
