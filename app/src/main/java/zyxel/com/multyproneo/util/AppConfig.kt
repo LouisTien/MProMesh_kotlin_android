@@ -53,6 +53,7 @@ object AppConfig
     const val API_GUEST_WIFI_24G_PWD = "/TR181/Value/Device.WiFi.AccessPoint.2.Security."
     const val API_GUEST_WIFI_5G_INFO = "/TR181/Value/Device.WiFi.SSID.6."
     const val API_GUEST_WIFI_5G_PWD = "/TR181/Value/Device.WiFi.AccessPoint.6.Security."
+    const val API_MULTI_OBJECTS = "/TR181/Value/MultiObjects"
 
     /*//TUTK AMDM Production
     const val TUTK_AM_SITE = "https://am1.tutk.com"
@@ -137,6 +138,9 @@ object AppConfig
     //WiFi Setting name and password required length
     const val wifiNameRequiredLength = 1
     const val wifiPwdRequiredLength = 8
+
+    //Reconnect SSID retry times
+    const val waitWiFiConnectionCount = 45
 
     //Speed Test
     const val SpeedTestActive = false

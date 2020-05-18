@@ -164,4 +164,18 @@ object GatewayApi
                     .build()
         }
     }
+
+    class SetMultiObjects : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val setMultiObjectsURL = "${GlobalData.getAPIPath()}${AppConfig.API_MULTI_OBJECTS}?sessionkey=${GlobalData.sessionKey}"
+            val requestParam = RequestBody.create(JSON, getParams().toString())
+            return Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(setMultiObjectsURL)
+                    .put(requestParam)
+                    .build()
+        }
+    }
 }

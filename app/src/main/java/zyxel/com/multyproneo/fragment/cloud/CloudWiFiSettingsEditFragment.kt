@@ -15,6 +15,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.textColor
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.cloud.P2PGatewayApi
 import zyxel.com.multyproneo.api.cloud.P2PWiFiSettingApi
 import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
@@ -24,6 +25,7 @@ import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.DatabaseCloudUtil
 import zyxel.com.multyproneo.util.GlobalData
+import zyxel.com.multyproneo.util.LogUtil
 
 class CloudWiFiSettingsEditFragment : Fragment()
 {
@@ -162,9 +164,9 @@ class CloudWiFiSettingsEditFragment : Fragment()
                 pwd5g = wifi_edit_wifi_5g_password_edit.text.toString()
 
                 if(isGuestWiFiMode)
-                    setGuestWiFi24GSSIDTask()
+                    setGuestWiFiSettingTask()
                 else
-                    setWiFi24GSSIDTask()
+                    setWiFiSettingTask()
 
                 val bundle = Bundle().apply{
                     putString("Title", "")
@@ -434,7 +436,25 @@ class CloudWiFiSettingsEditFragment : Fragment()
         }
     }
 
-    private fun setWiFi24GSSIDTask()
+    private fun setWiFiSettingTask()
+    {
+        val ssidName = if(showOneSSID) name else name5g
+        val setPwd = if(showOneSSID) pwd else pwd5g
+        val params = ",\"MultiObjects\":true,\"TR181_Objects\":[{\"object_path\":\"Device.WiFi.SSID.1.\",\"SSID\":\"$ssidName\"},{\"object_path\":\"Device.WiFi.AccessPoint.1.Security.\",\"KeyPassphrase\":\"$setPwd\",\"X_ZYXEL_AutoGenPSK\":false},{\"object_path\":\"Device.WiFi.SSID.5.\",\"SSID\":\"$ssidName\"},{\"object_path\":\"Device.WiFi.AccessPoint.5.Security.\",\"KeyPassphrase\":\"$setPwd\",\"X_ZYXEL_AutoGenPSK\":false}]}"
+
+        P2PGatewayApi.SetMultiObjects()
+                .setRequestPageName(TAG)
+                .setRequestPayload(params)
+                .setResponseListener(object: TUTKP2PResponseCallback()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        saveToDB()
+                    }
+                }).execute()
+    }
+
+    /*private fun setWiFi24GSSIDTask()
     {
         val params = ",\"SSID\":\"$name\""
 
@@ -499,9 +519,27 @@ class CloudWiFiSettingsEditFragment : Fragment()
                         saveToDB()
                     }
                 }).execute()
+    }*/
+
+    private fun setGuestWiFiSettingTask()
+    {
+        val ssidName = if(showOneSSID) name else name5g
+        val setPwd = if(showOneSSID) pwd else pwd5g
+        val params = ",\"MultiObjects\":true,\"TR181_Objects\":[{\"object_path\":\"Device.WiFi.SSID.2.\",\"SSID\":\"$ssidName\"},{\"object_path\":\"Device.WiFi.AccessPoint.2.Security.\",\"KeyPassphrase\":\"$setPwd\",\"X_ZYXEL_AutoGenPSK\":false},{\"object_path\":\"Device.WiFi.SSID.6.\",\"SSID\":\"$ssidName\"},{\"object_path\":\"Device.WiFi.AccessPoint.6.Security.\",\"KeyPassphrase\":\"$setPwd\",\"X_ZYXEL_AutoGenPSK\":false}]}"
+
+        P2PGatewayApi.SetMultiObjects()
+                .setRequestPageName(TAG)
+                .setRequestPayload(params)
+                .setResponseListener(object: TUTKP2PResponseCallback()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+
+                    }
+                }).execute()
     }
 
-    private fun setGuestWiFi24GSSIDTask()
+    /*private fun setGuestWiFi24GSSIDTask()
     {
         val params = ",\"SSID\":\"$name\""
 
@@ -564,7 +602,7 @@ class CloudWiFiSettingsEditFragment : Fragment()
                     }
                 }).execute()
 
-    }
+    }*/
 
     private fun saveToDB()
     {

@@ -87,7 +87,6 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
 
     inner class WiFiConfigTask(var mWifiConfiguration: WifiConfiguration) : AsyncTask<String, Int, Boolean>()
     {
-        private val sWaitWiFiConnectionCount = 30
         private var isRunning = true
         private var connectStatus = false
         private var count = 0
@@ -240,13 +239,13 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
                 {
                     wifiManager.disconnect()
 
-                    isRunning = (count != sWaitWiFiConnectionCount)
+                    isRunning = (count != AppConfig.waitWiFiConnectionCount)
                     connectStatus = false
                 }
             }
             else
             {
-                isRunning = (count != sWaitWiFiConnectionCount)
+                isRunning = (count != AppConfig.waitWiFiConnectionCount)
                 connectStatus = false
             }
         }
