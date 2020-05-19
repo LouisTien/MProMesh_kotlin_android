@@ -315,8 +315,12 @@ class EndDeviceDetailFragment : Fragment()
             }
 
             wifiChannel = SpecialCharacterHandler.checkEmptyTextValue(if(endDeviceInfo.X_ZYXEL_Band == 2) endDeviceInfo.X_ZYXEL_Channel_5G.toString() else endDeviceInfo.X_ZYXEL_Channel_24G.toString())
-            maxSpeed = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_PhyRate.toString() + "Mbps")
             rssi = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_RSSI.toString())
+            maxSpeed =
+                    if(endDeviceInfo.X_ZYXEL_PhyRate == 0)
+                        getString(R.string.device_detail_max_speed_updating)
+                    else
+                        SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_PhyRate.toString()) + getString(R.string.device_detail_speed_test_unit)
         }
 
         end_device_detail_model_name_text.text = modelName
