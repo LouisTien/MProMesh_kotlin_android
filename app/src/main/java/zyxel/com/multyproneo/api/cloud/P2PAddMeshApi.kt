@@ -29,4 +29,17 @@ object P2PAddMeshApi
             return AppConfig.TUTKP2PMethod.MTD_GET
         }
     }
+
+    class GetL2DeviceNumber : TUTKP2PCommander()
+    {
+        override fun requestURL(): String
+        {
+            return "{\"URI\":\"${AppConfig.API_MESH_L2DEVICE_NUM}\"}"
+        }
+
+        override fun method(): AppConfig.TUTKP2PMethod
+        {
+            return AppConfig.TUTKP2PMethod.MTD_GET
+        }
+    }
 }

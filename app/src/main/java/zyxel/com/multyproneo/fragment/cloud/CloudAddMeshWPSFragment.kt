@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_add_mesh_wps.*
+import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.cloud.P2PAddMeshApi
 import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.GlobalData
+import zyxel.com.multyproneo.util.LogUtil
 
 class CloudAddMeshWPSFragment : Fragment()
 {
@@ -50,12 +53,12 @@ class CloudAddMeshWPSFragment : Fragment()
 
             mesh_wps_pair_button ->
             {
-                startPairingTask()
+                getL2DeviceNumberTask()
 
                 val bundle = Bundle().apply{
-                    putString("Title", "")
+                    putString("Title", getString(R.string.cloud_loading_transition_extender))
                     putString("Description", getString(R.string.loading_transition_please_wait))
-                    putString("Sec_Description", getString(R.string.loading_transition_extender))
+                    putString("Sec_Description", "")
                     putInt("LoadingSecond", AppConfig.addMeshTime)
                     putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
                     putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_MESH_FAIL)
@@ -70,6 +73,29 @@ class CloudAddMeshWPSFragment : Fragment()
     {
         mesh_wps_back_image.setOnClickListener(clickListener)
         mesh_wps_pair_button.setOnClickListener(clickListener)
+    }
+
+    private fun getL2DeviceNumberTask()
+    {
+        P2PAddMeshApi.GetL2DeviceNumber()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: TUTKP2PResponseCallback()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            GlobalData.L2DeviceNumber = data.getJSONObject("Object").getInt("X_ZYXEL_HostNumberOfL2Devices")
+                            LogUtil.d(TAG,"L2Device Number:${GlobalData.L2DeviceNumber}")
+                            startPairingTask()
+                        }
+                        catch(e: Exception)
+                        {
+                            e.printStackTrace()
+                        }
+                    }
+                }).execute()
     }
 
     private fun startPairingTask()

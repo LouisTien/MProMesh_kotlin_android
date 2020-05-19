@@ -30,6 +30,7 @@ object AppConfig
     const val API_SNLOGOUT = "/SerialNumberLogout"
     const val API_CLOUD_AUTH = "/CloudAuth"
     const val API_MESH = "/TR181/Value/Device.WiFi.AccessPoint.5.WPS."
+    const val API_MESH_L2DEVICE_NUM = "/TR181/Value/Device.Hosts."
     const val API_DEVICE_HOST_INFO = "/TR181/Value/Device.Hosts.Host."
     const val API_CHANGE_ICON_NAME_INFO = "/TR181/Value/Device.X_ZYXEL_Change_Icon_Name."
     const val API_SYSTEM_INFO = "/TR181/Value/Device.X_ZYXEL_System_Info."
@@ -116,6 +117,7 @@ object AppConfig
 
     //Add Mesh
     const val WPSStatusUpdateTime = 5
+    const val WPSSCheckL2DeviceUpdateTime = 5
     const val addMeshTime = 180
 
     //Keep screen on

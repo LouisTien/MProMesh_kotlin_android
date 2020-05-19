@@ -1,7 +1,9 @@
 package zyxel.com.multyproneo.fragment.cloud
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,8 @@ import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.fragment.AddMeshFailFragment
 import zyxel.com.multyproneo.fragment.AddMeshSuccessFragment
 import zyxel.com.multyproneo.util.AppConfig
+
+
 
 class CloudLoadingTransitionFragment : Fragment()
 {
@@ -103,6 +107,17 @@ class CloudLoadingTransitionFragment : Fragment()
         {
             loading_msg_title_text.text = title
             loading_msg_title_text.visibility = View.VISIBLE
+
+            if(title == getString(R.string.cloud_loading_transition_extender))
+            {
+                loading_msg_title_text.setTypeface(null, Typeface.NORMAL)
+                loading_msg_title_text.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.layout_size_22dp_in_1080))
+            }
+            else
+            {
+                loading_msg_title_text.setTypeface(null, Typeface.BOLD)
+                loading_msg_title_text.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.layout_size_30dp_in_1080))
+            }
         }
         else
             loading_msg_title_text.visibility = View.INVISIBLE
@@ -111,6 +126,11 @@ class CloudLoadingTransitionFragment : Fragment()
         {
             loading_msg_status_text.text = description
             loading_msg_status_text.visibility = View.VISIBLE
+
+            if(description == getString(R.string.loading_transition_please_wait))
+                loading_msg_status_text.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.layout_size_18dp_in_1080))
+            else
+                loading_msg_status_text.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.layout_size_20dp_in_1080))
         }
         else
             loading_msg_status_text.visibility = View.INVISIBLE
@@ -142,7 +162,7 @@ class CloudLoadingTransitionFragment : Fragment()
         {
             AppConfig.LoadingGoToPage.FRAG_SEARCH -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudWelcomeFragment()))
             AppConfig.LoadingGoToPage.FRAG_HOME -> GlobalBus.publish(MainEvent.EnterCloudHomePage())
-            AppConfig.LoadingGoToPage.FRAG_MESH_SUCCESS -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshSuccessFragment()))
+            AppConfig.LoadingGoToPage.FRAG_MESH_SUCCESS -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshApplySettings()))
             AppConfig.LoadingGoToPage.FRAG_MESH_FAIL -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFailFragment()))
         }
     }

@@ -83,6 +83,7 @@
     <string name="setup_connect_troubleshooting_cannot_connect_controller_description1">Make sure the WiFi Router is powered on and its WiFi LED already turns on.</string>
     <string name="setup_connect_troubleshooting_cannot_connect_controller_description2">Make sure you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.</string>
     <string name="setup_connect_troubleshooting_cannot_connect_controller_description3">If the default credentials were changed, please go to phone settings  and tap the name of the WiFi network that you want to join.</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description4">If you ever reset your WiFi Router, please back to previous page and follow the \"Add\" process to setup your WiFi Router again.</string>
     <string name="setup_connect_troubleshooting_no_internet_title">No Internet Connection</string>
     <string name="setup_connect_troubleshooting_no_internet_sub_title">Check the following troubleshooting guides. If you still have problems, please contact your Internet service provider.</string>
     <string name="setup_connect_troubleshooting_no_internet_description1">Check the hardware connections, and make sure the LEDs are behaving as expected.</string>
@@ -219,6 +220,7 @@
     <string name="device_detail_speed_test_result">Speed Test Result</string>
     <string name="device_detail_speed_test">Speed Test</string>
     <string name="device_detail_speed_test_unit">Mbps</string>
+    <string name="device_detail_max_speed_updating">updating</string>
     <string name="device_detail_cannot_block_yourself">You can\'t block yourself</string>
     <string name="device_detail_offline_msg">The device is offline.</string>
 
@@ -339,6 +341,28 @@
     <string name="mesh_help"><u>Need help?</u></string>
     <string name="mesh_try_again">Try Again</string>
 
+    <string name="cloud_mesh_title">Choose a Scenario</string>
+    <string name="cloud_mesh_see_tip">Tips</string>
+    <string name="cloud_mesh_extender_title">Place Your Mesh Device</string>
+    <string name="cloud_mesh_extender_description">Place your Mesh Device in a location approximately halfway to the area you want to extnd your WiFi.</string>
+    <string name="cloud_mesh_wps_title">Connect with Your Mesh Device</string>
+    <string name="cloud_mesh_wps_description">Press the physical WPS button of your Mesh Device, then tap \'Start Pairing\' below.</string>
+    <string name="cloud_mesh_apply_setting_title">Applying WiFi settings to Your Mesh Device</string>
+    <string name="cloud_mesh_apply_setting_description">Please wait.\nThis takes about two minutes.</string>
+    <string name="cloud_mesh_success_title">Succeed!</string>
+    <string name="cloud_mesh_success_description">The Mesh Device now joins your home WiFi network. It has the same WiFi name and password.</string>
+    <string name="cloud_mesh_tip_msg_topic">Placement tips for your Mesh Device</string>
+    <string name="cloud_mesh_tip_msg_position"><font color='#64BE00'>Do\n</font>An open elevated spot, like the top of a table or a self</string>
+    <string name="cloud_mesh_tip_msg_suggest"><font color='#FF2837'>Don\'t\n</font>Physical obstructions cause difficulties for the WiFi Router, the Mesh Device and any wireless device to \"see\" each other.</string>
+    <string name="cloud_mesh_fail_help">Help</string>
+    <string name="cloud_mesh_fail_quit">Quit</string>
+    <string name="cloud_mesh_fail_title">Cannot Connect with Your Mesh Device</string>
+    <string name="cloud_mesh_fail_description">Place your Mesh Device closer to the WiFi Router, then retry connecting.</string>
+    <string name="cloud_mesh_help_title">Help</string>
+    <string name="cloud_mesh_more_info_description">The LED on your Mesh Device indicates the quality of its wireless connection to the WiFi Router.</string>
+    <string name="cloud_mesh_cable_title">Use the Ethernet Cable to Connect Your Mesh Device to the WiFi Router</string>
+    <string name="cloud_mesh_cable_description">When connected, your Mesh Device will have the same WiFi name and password as your home WiFi network.</string>
+
     <string name="message_dialog_yes">YES</string>
     <string name="message_dialog_no">NO</string>
     <string name="message_dialog_ok">OK</string>
@@ -379,6 +403,7 @@
     <string name="loading_transition_take_few_minutes">Please wait.\nThis may take 3-4 minutes.</string>
     <string name="loading_transition_reboot">Rebooting...</string>
     <string name="loading_transition_extender">Waiting for your WiFi Extender to be ready...</string>
+    <string name="cloud_loading_transition_extender">Connecting with Your Mesh Device</string>
 
     <string name="speed_test_error">Something Wrong!!</string>
 

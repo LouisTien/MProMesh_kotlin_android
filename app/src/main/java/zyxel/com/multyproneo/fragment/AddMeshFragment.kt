@@ -47,16 +47,16 @@ class AddMeshFragment : Fragment()
         {
             mesh_back_image -> GlobalBus.publish(MainEvent.EnterHomePage())
 
-            mesh_wireless_enter_image -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshExtenderFragment()))
+            mesh_wireless_area_frame -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshExtenderFragment()))
 
-            mesh_wire_enter_image -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshCableInfoFragment()))
+            mesh_wire_area_frame -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshCableInfoFragment()))
         }
     }
 
     private fun setClickListener()
     {
         mesh_back_image.setOnClickListener(clickListener)
-        mesh_wireless_enter_image.setOnClickListener(clickListener)
-        mesh_wire_enter_image.setOnClickListener(clickListener)
+        mesh_wireless_area_frame.setOnClickListener(clickListener)
+        mesh_wire_area_frame.setOnClickListener(clickListener)
     }
 }

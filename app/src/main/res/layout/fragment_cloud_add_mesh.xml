@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/cloud_mesh_back_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_back"/>
+
+    <TextView
+        android:id="@+id/cloud_mesh_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_toRightOf="@+id/cloud_mesh_back_image"
+        android:layout_below="@+id/cloud_mesh_back_image"
+        android:textSize="@dimen/text_size_22sp_in_1080"
+        android:textColor="@color/color_000000"
+        android:text="@string/cloud_mesh_title"/>
+
+    <ScrollView
+        android:id="@+id/cloud_mesh_content_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_below="@+id/cloud_mesh_title_text">
+
+        <LinearLayout
+            android:id="@+id/cloud_mesh_content_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/cloud_mesh_wireless_area_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/n_card_bg2">
+
+                <TextView
+                    android:id="@+id/cloud_mesh_wireless_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
+                    android:textSize="@dimen/text_size_18sp_in_1080"
+                    android:textColor="@color/color_575757"
+                    android:textStyle="bold"
+                    android:text="@string/mesh_with_wireless"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_wireless_content_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/n_addmesh_wireless_1"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_wireless_enter_image"
+                    android:layout_width="@dimen/layout_size_30dp_in_1080"
+                    android:layout_height="@dimen/layout_size_25dp_in_1080"
+                    android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+                    android:layout_gravity="bottom|right"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/cloud_mesh_wire_area_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
+                android:layout_gravity="center"
+                android:background="@drawable/n_card_bg2">
+
+                <TextView
+                    android:id="@+id/cloud_mesh_wire_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
+                    android:textSize="@dimen/text_size_18sp_in_1080"
+                    android:textColor="@color/color_575757"
+                    android:textStyle="bold"
+                    android:text="@string/mesh_with_wire"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_wire_content_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/n_addmesh_wired_1"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_wire_enter_image"
+                    android:layout_width="@dimen/layout_size_30dp_in_1080"
+                    android:layout_height="@dimen/layout_size_25dp_in_1080"
+                    android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+                    android:layout_gravity="bottom|right"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/cloud_mesh_tip_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+                android:textSize="@dimen/text_size_16sp_in_1080"
+                android:textColor="@color/color_575757"
+                android:text="@string/mesh_tip"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

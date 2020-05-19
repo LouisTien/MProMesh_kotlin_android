@@ -91,6 +91,9 @@ class SetupConnectTroubleshootingFragment : Fragment()
 
                 setup_connect_troubleshooting_description3_linear.visibility = View.VISIBLE
                 setup_connect_troubleshooting_description3_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_controller_description3)
+
+                setup_connect_troubleshooting_description4_linear.visibility = View.VISIBLE
+                setup_connect_troubleshooting_description4_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_controller_description4)
             }
 
             AppConfig.TroubleshootingPage.PAGE_NO_INTERNET ->

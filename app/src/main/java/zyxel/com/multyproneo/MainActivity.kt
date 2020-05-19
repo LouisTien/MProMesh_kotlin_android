@@ -1114,7 +1114,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         try
                         {
                             val data = JSONObject(responseStr)
-                            var status = data.getJSONObject("Object").getString("X_ZYXEL_WPSRunningStatus")
+                            val status = data.getJSONObject("Object").getString("X_ZYXEL_WPSRunningStatus")
                             LogUtil.d(TAG,"WPS status:$status")
 
                             with(status)

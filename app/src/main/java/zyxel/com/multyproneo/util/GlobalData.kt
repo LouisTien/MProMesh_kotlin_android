@@ -31,6 +31,7 @@ object GlobalData
     var notiMac = ""
     var customerLogo = ""
     var registeredCloud = false
+    var L2DeviceNumber = 0
 
     //TUTK
     var tokenType = "Bearer"

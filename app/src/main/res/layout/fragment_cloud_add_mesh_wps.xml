@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/cloud_mesh_wps_back_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_back"/>
+
+    <RelativeLayout
+        android:id="@+id/cloud_mesh_wps_content_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_30dp_in_1080"
+        android:layout_below="@+id/cloud_mesh_wps_back_image"
+        android:layout_toRightOf="@+id/cloud_mesh_wps_back_image">
+
+        <TextView
+            android:id="@+id/cloud_mesh_wps_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_22sp_in_1080"
+            android:textColor="@color/color_000000"
+            android:text="@string/cloud_mesh_wps_title"/>
+
+        <TextView
+            android:id="@+id/cloud_mesh_wps_description_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cloud_mesh_wps_title_text"
+            android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
+            android:text="@string/cloud_mesh_wps_description"
+            android:textColor="@color/color_575757"
+            android:textSize="@dimen/text_size_18sp_in_1080"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/cloud_mesh_wps_content_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/layout_size_60dp_in_1080"
+        android:layout_below="@+id/cloud_mesh_wps_content_relative"
+        android:src="@drawable/n_addmesh_wifi2"/>
+
+    <Button
+        android:id="@+id/cloud_mesh_wps_pair_button"
+        android:layout_width="@dimen/layout_size_140dp_in_1080"
+        android:layout_height="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_style_yellow_bg"
+        android:text="@string/mesh_pair"
+        android:textAllCaps="false"
+        android:textSize="@dimen/layout_size_20dp_in_1080"/>
+
+</RelativeLayout>
