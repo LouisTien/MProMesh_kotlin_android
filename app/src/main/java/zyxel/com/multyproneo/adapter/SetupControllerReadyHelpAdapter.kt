@@ -20,11 +20,11 @@ class SetupControllerReadyHelpAdapter(private var context: Context) : PagerAdapt
         itemView.controller_ready_help_content_image.setImageResource(helpImagesRes[position])
         when(position)
         {
-            0 -> itemView.controller_ready_help_description_text.text = context.getResources().getString(R.string.setup_controller_ready_help_connect_description)
+            0 -> itemView.controller_ready_help_description_text.text = context.resources.getString(R.string.setup_controller_ready_help_connect_description)
 
-            1 -> itemView.controller_ready_help_description_text.text = context.getResources().getString(R.string.setup_controller_ready_help_power_description)
+            1 -> itemView.controller_ready_help_description_text.text = context.resources.getString(R.string.setup_controller_ready_help_power_description)
 
-            2 -> itemView.controller_ready_help_description_text.text = context.getResources().getString(R.string.setup_controller_ready_help_led_description)
+            2 -> itemView.controller_ready_help_description_text.text = context.resources.getString(R.string.setup_controller_ready_help_led_description)
 
             else -> {}
         }

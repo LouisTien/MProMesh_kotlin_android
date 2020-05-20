@@ -70,7 +70,11 @@ class CloudZYXELEndDeviceItemAdapter
 
             view.connect_status_image.setImageResource(imageId)
 
-            view.user_define_name_text.text = endDeviceList[position].getName()
+            view.user_define_name_text.text =
+                    if(endDeviceList[position].getName().contains("unknown") || endDeviceList[position].getName().contains("Unknown"))
+                        view.resources.getString(R.string.home_extender)
+                    else
+                        endDeviceList[position].getName()
 
             view.connect_status_image.setOnClickListener{
                 GlobalBus.publish(HomeEvent.MeshDevicePlacementStatus(true))
