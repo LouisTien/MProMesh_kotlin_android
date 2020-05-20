@@ -215,7 +215,9 @@ abstract class Commander
             {
                 LogUtil.e(TAG,"[onFailure]")
                 GlobalBus.publish(MainEvent.HideLoading())
-                responseListener.onConnectFail("${e.message}", getRequestPageName(), cloudUsing)
+                if(!call.request().url().toString().contains(AppConfig.API_LOGOUT)
+                    && !call.request().url().toString().contains(AppConfig.API_SNLOGOUT))
+                    responseListener.onConnectFail("${e.message}", getRequestPageName(), cloudUsing)
             }
 
             override fun onResponse(call: Call, response: Response)

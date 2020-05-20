@@ -27,6 +27,7 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.MeshInfo
 import zyxel.com.multyproneo.model.WiFiSettingInfo
+import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
@@ -199,13 +200,20 @@ class WiFiSettingsFragment : Fragment()
 
     private fun generateQRCode()
     {
+        val mWiFiName = SpecialCharacterHandler.handleSpecialCharacterForWiFiQRCode(WiFiName)
+        val mWiFiPwd = SpecialCharacterHandler.handleSpecialCharacterForWiFiQRCode(WiFiPwd)
+        val mWiFiName5g = SpecialCharacterHandler.handleSpecialCharacterForWiFiQRCode(WiFiName5g)
+        val mWiFiPwd5g = SpecialCharacterHandler.handleSpecialCharacterForWiFiQRCode(WiFiPwd5g)
+        val mGuestWiFiName = SpecialCharacterHandler.handleSpecialCharacterForWiFiQRCode(guestWiFiName)
+        val mGuestWiFiPwd = SpecialCharacterHandler.handleSpecialCharacterForWiFiQRCode(guestWiFiPwd)
+
         var WiFiInfo = ""
         if(WiFiSecurity == SECURITY_NONE || WiFiSecurity == "")
-            WiFiInfo = "WIFI:T:nopass;S:$WiFiName;;"
+            WiFiInfo = "WIFI:T:nopass;S:$mWiFiName;;"
         else if(WiFiSecurity == SECURITY_WEP128 || WiFiSecurity == SECURITY_WEP64)
-            WiFiInfo = "WIFI:T:WEP;S:$WiFiName;P:$WiFiPwd;;"
+            WiFiInfo = "WIFI:T:WEP;S:$mWiFiName;P:$mWiFiPwd;;"
         else
-            WiFiInfo = "WIFI:T:WPA2;S:$WiFiName;P:$WiFiPwd;;"
+            WiFiInfo = "WIFI:T:WPA2;S:$mWiFiName;P:$mWiFiPwd;;"
 
         val bitMatrix = QRCodeWriter().encode(WiFiInfo, BarcodeFormat.QR_CODE, QRCODE_PIXEL, QRCODE_PIXEL)
         WiFiQRCodeBitmap = Bitmap.createBitmap(QRCODE_PIXEL, QRCODE_PIXEL, Bitmap.Config.ARGB_8888)
@@ -215,11 +223,11 @@ class WiFiSettingsFragment : Fragment()
 
         var WiFiInfo5g = ""
         if(WiFiSecurity5g == SECURITY_NONE || WiFiSecurity == "")
-            WiFiInfo5g = "WIFI:T:nopass;S:$WiFiName5g;;"
+            WiFiInfo5g = "WIFI:T:nopass;S:$mWiFiName5g;;"
         else if(WiFiSecurity5g == SECURITY_WEP128 || WiFiSecurity5g == SECURITY_WEP64)
-            WiFiInfo5g = "WIFI:T:WEP;S:$WiFiName5g;P:$WiFiPwd5g;;"
+            WiFiInfo5g = "WIFI:T:WEP;S:$mWiFiName5g;P:$mWiFiPwd5g;;"
         else
-            WiFiInfo5g = "WIFI:T:WPA2;S:$WiFiName5g;P:$WiFiPwd5g;;"
+            WiFiInfo5g = "WIFI:T:WPA2;S:$mWiFiName5g;P:$mWiFiPwd5g;;"
 
         val bitMatrix5g = QRCodeWriter().encode(WiFiInfo5g, BarcodeFormat.QR_CODE, QRCODE_PIXEL, QRCODE_PIXEL)
         WiFiQRCodeBitmap5g = Bitmap.createBitmap(QRCODE_PIXEL, QRCODE_PIXEL, Bitmap.Config.ARGB_8888)
@@ -229,11 +237,11 @@ class WiFiSettingsFragment : Fragment()
 
         var guestWiFiInfo = ""
         if(guestWiFiSecurity == SECURITY_NONE || guestWiFiSecurity == "")
-            guestWiFiInfo = "WIFI:T:nopass;S:$guestWiFiName;;"
+            guestWiFiInfo = "WIFI:T:nopass;S:$mGuestWiFiName;;"
         else if(guestWiFiSecurity == SECURITY_WEP128 || guestWiFiSecurity == SECURITY_WEP64)
-            guestWiFiInfo = "WIFI:T:WEP;S:$guestWiFiName;P:$guestWiFiPwd;;"
+            guestWiFiInfo = "WIFI:T:WEP;S:$mGuestWiFiName;P:$mGuestWiFiPwd;;"
         else
-            guestWiFiInfo = "WIFI:T:WPA2;S:$guestWiFiName;P:$guestWiFiPwd;;"
+            guestWiFiInfo = "WIFI:T:WPA2;S:$mGuestWiFiName;P:$mGuestWiFiPwd;;"
 
         val bitMatrixGuest = QRCodeWriter().encode(guestWiFiInfo, BarcodeFormat.QR_CODE, QRCODE_PIXEL, QRCODE_PIXEL)
         guestWiFiQRCodeBitmap = Bitmap.createBitmap(QRCODE_PIXEL, QRCODE_PIXEL, Bitmap.Config.ARGB_8888)

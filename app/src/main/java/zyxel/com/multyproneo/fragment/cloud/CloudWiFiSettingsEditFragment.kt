@@ -438,8 +438,10 @@ class CloudWiFiSettingsEditFragment : Fragment()
 
     private fun setWiFiSettingTask()
     {
-        val ssidName = if(showOneSSID) name else name5g
-        val setPwd = if(showOneSSID) pwd else pwd5g
+        var ssidName = if(showOneSSID) name else name5g
+        var setPwd = if(showOneSSID) pwd else pwd5g
+        ssidName = SpecialCharacterHandler.handleSpecialCharacterForJSON(ssidName)
+        setPwd = SpecialCharacterHandler.handleSpecialCharacterForJSON(setPwd)
         val params = ",\"MultiObjects\":true,\"TR181_Objects\":[{\"object_path\":\"Device.WiFi.SSID.1.\",\"SSID\":\"$ssidName\"},{\"object_path\":\"Device.WiFi.AccessPoint.1.Security.\",\"KeyPassphrase\":\"$setPwd\",\"X_ZYXEL_AutoGenPSK\":false},{\"object_path\":\"Device.WiFi.SSID.5.\",\"SSID\":\"$ssidName\"},{\"object_path\":\"Device.WiFi.AccessPoint.5.Security.\",\"KeyPassphrase\":\"$setPwd\",\"X_ZYXEL_AutoGenPSK\":false}]}"
 
         P2PGatewayApi.SetMultiObjects()
@@ -523,8 +525,10 @@ class CloudWiFiSettingsEditFragment : Fragment()
 
     private fun setGuestWiFiSettingTask()
     {
-        val ssidName = if(showOneSSID) name else name5g
-        val setPwd = if(showOneSSID) pwd else pwd5g
+        var ssidName = if(showOneSSID) name else name5g
+        var setPwd = if(showOneSSID) pwd else pwd5g
+        ssidName = SpecialCharacterHandler.handleSpecialCharacterForJSON(ssidName)
+        setPwd = SpecialCharacterHandler.handleSpecialCharacterForJSON(setPwd)
         val params = ",\"MultiObjects\":true,\"TR181_Objects\":[{\"object_path\":\"Device.WiFi.SSID.2.\",\"SSID\":\"$ssidName\"},{\"object_path\":\"Device.WiFi.AccessPoint.2.Security.\",\"KeyPassphrase\":\"$setPwd\",\"X_ZYXEL_AutoGenPSK\":false},{\"object_path\":\"Device.WiFi.SSID.6.\",\"SSID\":\"$ssidName\"},{\"object_path\":\"Device.WiFi.AccessPoint.6.Security.\",\"KeyPassphrase\":\"$setPwd\",\"X_ZYXEL_AutoGenPSK\":false}]}"
 
         P2PGatewayApi.SetMultiObjects()

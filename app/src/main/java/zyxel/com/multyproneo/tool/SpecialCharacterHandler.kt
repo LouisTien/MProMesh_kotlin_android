@@ -51,4 +51,23 @@ object SpecialCharacterHandler
         if(srcStr != "" && srcStr != " ") { desStr = srcStr }
         return desStr
     }
+
+    fun handleSpecialCharacterForJSON(srcStr: String): String
+    {
+        var desStr = srcStr
+        desStr = srcStr.replace("\\", "\\\\")
+        desStr = desStr.replace("\"", "\\\"")
+        return desStr
+    }
+
+    fun handleSpecialCharacterForWiFiQRCode(srcStr: String): String
+    {
+        var desStr = srcStr
+        desStr = srcStr.replace("\\", "\\\\")
+        //desStr = desStr.replace("\"", "\\\"")
+        desStr = desStr.replace(";", "\\;")
+        desStr = desStr.replace(",", "\\,")
+        desStr = desStr.replace(":", "\\:")
+        return desStr
+    }
 }
