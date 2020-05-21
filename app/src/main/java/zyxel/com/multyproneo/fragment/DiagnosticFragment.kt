@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_diagnostic.*
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.DiagnosticEvent
 import zyxel.com.multyproneo.event.GlobalBus
+import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
 /**
@@ -20,7 +21,6 @@ class DiagnosticFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private lateinit var enterWiFiChannelChartPageDisposable: Disposable
-    private var currentFrag = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -52,6 +52,7 @@ class DiagnosticFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+        if(!enterWiFiChannelChartPageDisposable.isDisposed) enterWiFiChannelChartPageDisposable.dispose()
     }
 
     private val clickListener = View.OnClickListener{ view ->
@@ -62,14 +63,14 @@ class DiagnosticFragment : Fragment()
             diagnostic_tab_wifi_channel_text ->
             {
                 diagnostic_tab_wifi_channel_text.setBackgroundResource(R.drawable.button_style_white_bg)
-                if(currentFrag != "WiFiChannelChartFragment")
+                if(GlobalData.diagnosticCurrentFrag != "WiFiChannelChartFragment")
                     enterWiFiChannelChartPage(0)
             }
 
             diagnostic_tab_wifi_signal_text ->
             {
                 diagnostic_tab_wifi_signal_text.setBackgroundResource(R.drawable.button_style_white_bg)
-                if(currentFrag != "WiFiSignalMeterFragment")
+                if(GlobalData.diagnosticCurrentFrag != "WiFiSignalMeterFragment")
                     switchToFragContainer(WiFiSignalMeterFragment())
             }
 
@@ -101,7 +102,7 @@ class DiagnosticFragment : Fragment()
         transaction.replace(R.id.diagnostic_content_area_frame, fragment)
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         transaction.commitAllowingStateLoss()
-        currentFrag = fragment.javaClass.simpleName
-        LogUtil.d(TAG, "currentFrag:$currentFrag")
+        GlobalData.diagnosticCurrentFrag = fragment.javaClass.simpleName
+        LogUtil.d(TAG, "currentFrag:${GlobalData.diagnosticCurrentFrag}")
     }
 }

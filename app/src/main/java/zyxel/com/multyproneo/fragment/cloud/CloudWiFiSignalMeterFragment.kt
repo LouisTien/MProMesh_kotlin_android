@@ -114,7 +114,7 @@ class CloudWiFiSignalMeterFragment : Fragment()
 
     private fun setDefaultPointerStatus()
     {
-        if(!isVisible) return
+        if(!checkCurrentPage()) return
 
         runOnUiThread{
             wifi_signal_info_strength_text.text = ""
@@ -125,7 +125,7 @@ class CloudWiFiSignalMeterFragment : Fragment()
 
     private fun updateWiFiInfoUI()
     {
-        if(!isVisible) return
+        if(!checkCurrentPage()) return
 
         runOnUiThread{
             for(i in scanResultList.indices)
@@ -145,6 +145,8 @@ class CloudWiFiSignalMeterFragment : Fragment()
 
     private fun updateSignalValue(value: Float)
     {
+        if(!checkCurrentPage()) return
+
         runOnUiThread{
             wifi_signal_info_strength_text.text = value.toString()
             wifi_signal_info_strength_unit_text.visibility = View.VISIBLE
@@ -159,6 +161,14 @@ class CloudWiFiSignalMeterFragment : Fragment()
 
             animatePointer(wifi_signal_pointer_view, maxValue, minValue, newValue, startDegree, endDegree)
         }
+    }
+
+    private fun checkCurrentPage(): Boolean
+    {
+        if(GlobalData.currentFrag != "CloudDiagnosticFragment") return false
+        if(GlobalData.diagnosticCurrentFrag != "CloudWiFiSignalMeterFragment") return false
+        if(!isVisible) return false
+        return true
     }
 
     private fun animatePointer(view: View, max: Float, min: Float, value: Float, startDegree: Float, endDegree: Float)
