@@ -11,6 +11,7 @@ object GlobalData
     var cookie = ""
     var currentFrag = ""
     var currentGatewayIndex = 0
+    var diagnosticCurrentFrag = ""
     var gatewayList = mutableListOf<GatewayInfo>()
     var endDeviceList = mutableListOf<DevicesInfoObject>()
     var ZYXELEndDeviceList = mutableListOf<DevicesInfoObject>()
