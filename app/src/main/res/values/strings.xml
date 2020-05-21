@@ -170,7 +170,8 @@
     <string name="home_mesh">MESH:</string>
     <string name="home_mesh_up">Up</string>
     <string name="home_mesh_down">Down</string>
-    <string name="home_device_gateway">WiFi Router</string>
+    <string name="home_device_gateway">Gateway</string>
+    <string name="home_device_wifi_router">WiFi Router</string>
     <string name="home_device_ap">Access Point</string>
     <string name="home_device_rp">Repeater</string>
     <string name="home_mesh_devices">Mesh Devices</string>
