@@ -316,9 +316,6 @@
     <string name="mesh_tip_msg_topic">The ideal position for extender.</string>
     <string name="mesh_tip_msg_position">Place in the open, elevated. On the self or top of a table.</string>
     <string name="mesh_tip_msg_suggest">Minimize any physical obstructions so they can \"see\" each other.</string>
-    <string name="mesh_info_1">1</string>
-    <string name="mesh_info_2">2</string>
-    <string name="mesh_info_3">3</string>
     <string name="mesh_info_optional">Optional</string>
     <string name="mesh_info_hint">Tap button go to Home page and check if it was set up successfully.</string>
     <string name="mesh_info_more_info"><u>More info</u></string>
