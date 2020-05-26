@@ -10,9 +10,11 @@ import kotlinx.android.synthetic.main.fragment_devices.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.HomeGuestEndDeviceItemAdapter
+import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.DevicesEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 
 /**
@@ -22,6 +24,7 @@ class DevicesFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private lateinit var getInfoCompleteDisposable: Disposable
+    private lateinit var showTipsDisposable: Disposable
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -31,7 +34,18 @@ class DevicesFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
         getInfoCompleteDisposable = GlobalBus.listen(DevicesEvent.GetDeviceInfoComplete::class.java).subscribe{ updateUI() }
+
+        showTipsDisposable = GlobalBus.listen(DevicesEvent.ShowTips::class.java).subscribe{
+            MessageDialog(
+                    activity!!,
+                    "",
+                    getString(R.string.devices_user_tips),
+                    arrayOf(getString(R.string.message_dialog_ok)),
+                    AppConfig.DialogAction.ACT_NONE
+            ).show()
+        }
 
         devices_home_devices_list_swipe.setOnRefreshListener{
             GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
@@ -66,6 +80,7 @@ class DevicesFragment : Fragment()
     {
         super.onDestroyView()
         if(!getInfoCompleteDisposable.isDisposed) getInfoCompleteDisposable.dispose()
+        if(!showTipsDisposable.isDisposed) showTipsDisposable.dispose()
     }
 
     private val clickListener = View.OnClickListener{ view ->

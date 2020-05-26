@@ -234,6 +234,7 @@
     <string name="devices_home_devices">Home Devices</string>
     <string name="devices_guest_devices">Guest Devices</string>
     <string name="devices_link_quality">Link Quality</string>
+    <string name="devices_user_tips">Device Name will be displayed in future Firmware update</string>
 
     <string name="wifi_settings_title">WiFi Settings</string>
     <string name="wifi_settings_wifi_name">WiFi Name</string>

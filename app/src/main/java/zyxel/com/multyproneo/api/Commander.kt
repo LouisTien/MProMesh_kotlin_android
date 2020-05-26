@@ -91,12 +91,19 @@ abstract class Commander
             LogUtil.e("Commander","[onFail]msg:$msg")
             LogUtil.e("Commander","[onFail]ctxName:$ctxName")
 
+            val specialMsg =
+                    when(code)
+                    {
+                        504, 403, -3 -> "Timeout"
+                        else -> msg
+                    }
+
             if(isCloudUsing)
                 gotoTroubleShooting()
             else
             {
                 stopAllRegularTask()
-                GlobalBus.publish(MainEvent.ShowErrorMsgDialog(msg, ctxName))
+                GlobalBus.publish(MainEvent.ShowErrorMsgDialog(specialMsg, ctxName))
             }
         }
 

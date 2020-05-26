@@ -199,6 +199,17 @@ class EndDeviceDetailFragment : Fragment()
             }
 
             end_device_detail_fsecure_text -> {}
+
+            end_device_detail_user_tips_image ->
+            {
+                MessageDialog(
+                        activity!!,
+                        "",
+                        getString(R.string.devices_user_tips),
+                        arrayOf(getString(R.string.message_dialog_ok)),
+                        AppConfig.DialogAction.ACT_NONE
+                ).show()
+            }
         }
     }
 
@@ -212,6 +223,7 @@ class EndDeviceDetailFragment : Fragment()
         end_device_detail_remove_device_text.setOnClickListener(clickListener)
         end_device_detail_internet_blocking_image.setOnClickListener(clickListener)
         end_device_detail_fsecure_text.setOnClickListener(clickListener)
+        end_device_detail_user_tips_image.setOnClickListener(clickListener)
     }
 
     private fun updateUI()
@@ -409,6 +421,12 @@ class EndDeviceDetailFragment : Fragment()
                 end_device_detail_remove_device_text.visibility = View.INVISIBLE
             }
         }
+
+        if(endDeviceInfo.UserDefineName.equals("N/A", ignoreCase = true)
+            && endDeviceInfo.PhysAddress == endDeviceInfo.HostName)
+            end_device_detail_user_tips_image.visibility = View.VISIBLE
+        else
+            end_device_detail_user_tips_image.visibility = View.GONE
 
         initEndDeviceDetailModelNameEdit()
     }

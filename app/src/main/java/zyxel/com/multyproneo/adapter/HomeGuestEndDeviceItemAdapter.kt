@@ -9,6 +9,7 @@ import android.widget.BaseAdapter
 import kotlinx.android.synthetic.main.adapter_home_guest_end_device_list_item.view.*
 import org.jetbrains.anko.textColor
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.event.DevicesEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.fragment.EndDeviceDetailFragment
@@ -86,6 +87,13 @@ class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var 
             /*var modelName = SpecialCharacterHandler.checkEmptyTextValue(endDeviceList[position].UserDefineName)
             if(modelName.equals("N/A", ignoreCase = true))
                 modelName = endDeviceList[position].Name*/
+
+            if(endDeviceList[position].UserDefineName.equals("N/A", ignoreCase = true)
+                && endDeviceList[position].PhysAddress == endDeviceList[position].HostName)
+                view.user_tips_image.visibility = View.VISIBLE
+            else
+                view.user_tips_image.visibility = View.GONE
+
             var modelName = endDeviceList[position].getName()
 
             if(FeatureConfig.hostNameReplaceStatus)
@@ -105,6 +113,8 @@ class HomeGuestEndDeviceItemAdapter(private var activity: Activity, private var 
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(EndDeviceDetailFragment().apply{ arguments = bundle }))
             }
+
+            view.user_tips_image.setOnClickListener{ GlobalBus.publish(DevicesEvent.ShowTips()) }
         }
     }
 }
