@@ -280,6 +280,7 @@
     <string name="diagnostic_wifi_signal_stop">Stop</string>
     <string name="diagnostic_wifi_signal_poor">Poor</string>
     <string name="diagnostic_wifi_signal_excellent">Excellent</string>
+    <string name="diagnostic_request_gps_permission">Diagnostic function needs access to your location. Please enable GPS in your device\'s settings</string>
 
     <string name="settings_title">Settings</string>
     <string name="settings_notification">Notification</string>

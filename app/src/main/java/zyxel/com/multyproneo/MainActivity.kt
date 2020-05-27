@@ -3,7 +3,9 @@ package zyxel.com.multyproneo
 import android.Manifest
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -170,10 +172,24 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                 if((grantResults.isNotEmpty()) && (grantResults[0] == PackageManager.PERMISSION_GRANTED))
                 {
                     LogUtil.d(TAG, "Location permission granted!")
-                    if(isCloudDiagnostic)
-                        gotoCloudDiagnosticFragment()
+
+                    if(isGPSEnabled())
+                    {
+                        if(isCloudDiagnostic)
+                            gotoCloudDiagnosticFragment()
+                        else
+                            gotoDiagnosticFragment()
+                    }
                     else
-                        gotoDiagnosticFragment()
+                    {
+                        MessageDialog(
+                                this,
+                                "",
+                                getString(R.string.diagnostic_request_gps_permission),
+                                arrayOf(getString(R.string.message_dialog_ok)),
+                                AppConfig.DialogAction.ACT_GPS_PERMISSION
+                        ).show()
+                    }
                 }
                 else
                     LogUtil.d(TAG, "Location permission denied!")
@@ -234,7 +250,20 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             diagnostic_relative ->
             {
                 if(hasLocationPermission())
-                    gotoDiagnosticFragment()
+                {
+                    if(isGPSEnabled())
+                        gotoDiagnosticFragment()
+                    else
+                    {
+                        MessageDialog(
+                                this,
+                                "",
+                                getString(R.string.diagnostic_request_gps_permission),
+                                arrayOf(getString(R.string.message_dialog_ok)),
+                                AppConfig.DialogAction.ACT_GPS_PERMISSION
+                        ).show()
+                    }
+                }
                 else
                 {
                     isCloudDiagnostic = false
@@ -252,10 +281,23 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             cloud_diagnostic_relative ->
             {
                 if(hasLocationPermission())
-                    gotoCloudDiagnosticFragment()
+                {
+                    if(isGPSEnabled())
+                        gotoCloudDiagnosticFragment()
+                    else
+                    {
+                        MessageDialog(
+                                this,
+                                "",
+                                getString(R.string.diagnostic_request_gps_permission),
+                                arrayOf(getString(R.string.message_dialog_ok)),
+                                AppConfig.DialogAction.ACT_GPS_PERMISSION
+                        ).show()
+                    }
+                }
                 else
                 {
-                    isCloudDiagnostic = true
+                    isCloudDiagnostic = false
 
                     MessageDialog(
                             this,
@@ -375,6 +417,11 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private fun hasLocationPermission() =
             ContextCompat.checkSelfPermission(this.applicationContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
+    private fun isGPSEnabled(): Boolean
+    {
+        val locationManager = this.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+    }
 
     private fun listenEvent()
     {
@@ -492,6 +539,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                 AppConfig.DialogAction.ACT_RESEARCH -> gotoSearchGatewayFragment()
 
                 AppConfig.DialogAction.ACT_RESTART -> {}
+
+                AppConfig.DialogAction.ACT_GPS_PERMISSION -> startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+
+                else -> {}
             }
         }
 
