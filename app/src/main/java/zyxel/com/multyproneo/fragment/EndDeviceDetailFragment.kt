@@ -323,8 +323,19 @@ class EndDeviceDetailFragment : Fragment()
                 else -> wifiBand = "2.4G"
             }
 
-            wifiChannel = SpecialCharacterHandler.checkEmptyTextValue(if(endDeviceInfo.X_ZYXEL_Band == 2) endDeviceInfo.X_ZYXEL_Channel_5G.toString() else endDeviceInfo.X_ZYXEL_Channel_24G.toString())
-            rssi = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_RSSI.toString())
+            val channel = if(endDeviceInfo.X_ZYXEL_Band == 2) endDeviceInfo.X_ZYXEL_Channel_5G else endDeviceInfo.X_ZYXEL_Channel_24G
+            wifiChannel =
+                    if(channel == 0)
+                        getString(R.string.device_detail_max_speed_updating)
+                    else
+                        SpecialCharacterHandler.checkEmptyTextValue(channel.toString())
+
+            rssi =
+                    if(endDeviceInfo.X_ZYXEL_RSSI == 0)
+                        getString(R.string.device_detail_max_speed_updating)
+                    else
+                        SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_RSSI.toString())
+
             maxSpeed =
                     if(endDeviceInfo.X_ZYXEL_PhyRate == 0)
                         getString(R.string.device_detail_max_speed_updating)
