@@ -12,8 +12,8 @@ android {
         applicationId "zyxel.com.multyproneo"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 20200521
-        versionName "2.0.0.200521"
+        versionCode 20200529
+        versionName "2.0.0.200529"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -51,11 +51,11 @@ android {
             buildConfigField "String", "TUTK_AM_STATE", '"1234"'
             buildConfigField "String", "TUTK_API_VER", '"/hestia/api/v2"'
             buildConfigField "String", "TUTK_REALM", '"zyxel"'
-            buildConfigField "String", "TUTK_AM_SITE", '"https://am1.tutk.com"'
-            buildConfigField "String", "TUTK_AM_CLIENT_ID", '"vXudLCmYSwonVSetUPZrfiVDOjL5kmv2NQaUDmRG"'
-            buildConfigField "String", "TUTK_AM_CLIENT_SECRET", '"8Xj9bgS9IY7JspwEttChbyoHAEJrp05E6oGW6kqx4OsrITwYFxUae5x4wloWPYYoGC8XdQZoVlKm0clXdeyjgLpBkO08rt0yINEUZC35tkqjwR2oVMD3uCiOr9Z5rboz"'
-            buildConfigField "String", "TUTK_DM_SITE", '"https://hst-dm1.kalayservice.com"'
-            buildConfigField "String", "TUTK_DM_AUTHORIZATION", '"ZXoycXlNTllOQVE0aVVwSkZYM0hacGhHSVd2bnpqSUliaTVDMGVxbTpUSzRLbFZiVkgyV2hPdlpQUHhYUGpEdURVeTBocXdOVEc0NnM4bk5vSzFRWVJSYXVEUmxNZGhHVTN5c1FPSG93R1pnRVN4UW8wRGdoTFpLMXEzRll3TjFQR296TFZTWFE2RTdUVEh6a2M5bmlhdWlONTA1dngxNFpsWFJja2d5OQ=="'
+            buildConfigField "String", "TUTK_AM_SITE", '"https://us-am1-zyxel.kalayservice.com"'
+            buildConfigField "String", "TUTK_AM_CLIENT_ID", '"9KVLf6S1Rr0arRBILlJQfT5Mm5a6bSBCM4Nrtz2U"'
+            buildConfigField "String", "TUTK_AM_CLIENT_SECRET", '"xn7dBC8L6uVdxAG69wBYwgb1dTIcZkkw7viLxucBxiEfn3NWMppWHfLC4u8Z8rOBJZ5HvFiLDQPZ2rme83UVuCm8nM7iE7q7b7zs5dW0vJ6vBf4rYhPPup7rm3y1sdMB"'
+            buildConfigField "String", "TUTK_DM_SITE", '"https://us-dm2-tutk.kalayservice.com"'
+            buildConfigField "String", "TUTK_DM_AUTHORIZATION", '"OUtWTGY2UzFScjBhclJCSUxsSlFmVDVNbTVhNmJTQkNNNE5ydHoyVTp4bjdkQkM4TDZ1VmR4QUc2OXdCWXdnYjFkVEljWmtrdzd2aUx4dWNCeGlFZm4zTldNcHBXSGZMQzR1OFo4ck9CSlo1SHZGaUxEUVBaMnJtZTgzVVZ1Q204bk03aUU3cTdiN3pzNWRXMHZKNnZCZjRyWWhQUHVwN3JtM3kxc2RNQg=="'
         }
     }
 }

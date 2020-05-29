@@ -125,7 +125,7 @@ class CloudHomeFragment : Fragment()
 
             cloud_home_site_pic_image ->
             {
-                var otherMeshListInfo = TUTKAllDeviceInfo()
+                val otherMeshListInfo = TUTKAllDeviceInfo()
                 for(item in GlobalData.cloudGatewayListInfo.data)
                 {
                     if(item.udid != GlobalData.currentUID)
@@ -137,6 +137,8 @@ class CloudHomeFragment : Fragment()
             cloud_home_connect_device_frame -> GlobalBus.publish(MainEvent.EnterCloudDevicesPage())
 
             cloud_home_guest_wifi_frame -> GlobalBus.publish(MainEvent.EnterCloudWiFiSettingsPage())
+
+            cloud_home_site_refresh_image -> GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoTask(AppConfig.LoadingStyle.STY_NORMAL))
         }
     }
 
@@ -149,6 +151,7 @@ class CloudHomeFragment : Fragment()
         cloud_home_site_pic_image.setOnClickListener(clickListener)
         cloud_home_wifi_router_image.setOnClickListener(clickListener)
         cloud_home_wifi_router_area_relative.setOnClickListener(clickListener)
+        cloud_home_site_refresh_image.setOnClickListener(clickListener)
     }
 
     private fun updateUI()
@@ -223,6 +226,7 @@ class CloudHomeFragment : Fragment()
                     GlobalData.gatewayWanInfo)
             cloud_home_mesh_device_list.adapter = adapter
 
+            cloud_home_wifi_router_image.visibility = View.VISIBLE
             if(GlobalData.gatewayWanInfo.Object.Status == "Enable")
                 cloud_home_wifi_router_image.setImageResource(R.drawable.icon_device_has)
             else

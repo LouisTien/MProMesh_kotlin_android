@@ -44,7 +44,7 @@ class OtherMeshNetworksDialog(context: Context, private var siteName: String, pr
 
         other_mesh_close_image.setOnClickListener{ dismiss() }
 
-        other_mesh_add_image.setOnClickListener{
+        other_mesh_add_relative.setOnClickListener{
             dismiss()
             GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingControllerFragment()))
         }

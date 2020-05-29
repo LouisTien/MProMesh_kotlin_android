@@ -58,6 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/setup_sn_login_serial_number"
+                    android:textColor="@color/color_000000"
                     android:layout_marginTop="@dimen/layout_size_40dp_in_1080"
                     android:layout_below="@+id/setup_sn_login_description_text"/>
 
@@ -69,6 +70,7 @@
                     android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
                     android:singleLine="true"
                     android:background="@null"
+                    android:hint="S200V1234567"
                     android:drawableBottom="@drawable/edittext_style_line"
                     android:textSize="@dimen/text_size_22sp_in_1080"
                     android:layout_below="@+id/setup_sn_login_title"/>

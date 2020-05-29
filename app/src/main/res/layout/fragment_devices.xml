@@ -31,7 +31,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/icon_search" />
+                android:src="@drawable/icon_search"/>
+
+            <ImageView
+                android:id="@+id/devices_refresh_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/devices_search_image"
+                android:layout_marginTop="@dimen/layout_size_3dp_in_1080"
+                android:layout_marginRight="@dimen/layout_size_5dp_in_1080"
+                android:src="@drawable/icon_retry_s" />
 
             <TextView
                 android:id="@+id/devices_title_text"

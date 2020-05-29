@@ -26,6 +26,15 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"/>
 
+            <ImageView
+                android:id="@+id/cloud_home_site_refresh_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/cloud_home_site_pic_image"
+                android:layout_marginRight="@dimen/layout_size_15dp_in_1080"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:src="@drawable/icon_retry_b"/>
+
             <TextView
                 android:id="@+id/cloud_home_title_text"
                 android:layout_width="wrap_content"
@@ -65,7 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
             android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
-            android:src="@drawable/icon_device_has"/>
+            android:src="@drawable/icon_device_has"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/cloud_home_wifi_router_name_text"
