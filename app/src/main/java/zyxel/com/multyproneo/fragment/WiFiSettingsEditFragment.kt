@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_wifi_settings_edit.*
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.textColor
@@ -19,6 +20,8 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.AccountApi
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.WiFiSettingApi
+import zyxel.com.multyproneo.dialog.MessageDialog
+import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
@@ -33,6 +36,7 @@ class WiFiSettingsEditFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private lateinit var inputMethodManager: InputMethodManager
+    private lateinit var msgDialogResponse: Disposable
     private var name = ""
     private var pwd = ""
     private var security = ""
@@ -76,6 +80,21 @@ class WiFiSettingsEditFragment : Fragment()
             this?.getString("Security5g")?.let{ security5g = it }
         }
 
+        msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
+            setWiFi24GSSIDTask()
+
+            val bundle = Bundle().apply{
+                putString("Title", "")
+                putString("Description", resources.getString(R.string.loading_transition_please_wait))
+                putString("Sec_Description", resources.getString(R.string.loading_transition_update_wifi_settings))
+                putInt("LoadingSecond", AppConfig.WiFiSettingTime)
+                putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
+                putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_SEARCH)
+                putBoolean("ShowCountDownTimer", false)
+            }
+            GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
+        }
+
         if(isGuestWiFiMode)
         {
             showOneSSID = true
@@ -102,6 +121,8 @@ class WiFiSettingsEditFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+
+        if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
 
         if(keyboardListenersAttached)
             view?.viewTreeObserver?.removeGlobalOnLayoutListener(keyboardLayoutListener)
@@ -161,20 +182,30 @@ class WiFiSettingsEditFragment : Fragment()
                 pwd5g = wifi_edit_wifi_5g_password_edit.text.toString()
 
                 if(isGuestWiFiMode)
+                {
                     setGuestWiFi24GSSIDTask()
-                else
-                    setWiFi24GSSIDTask()
 
-                val bundle = Bundle().apply{
-                    putString("Title", "")
-                    putString("Description", resources.getString(R.string.loading_transition_please_wait))
-                    putString("Sec_Description", resources.getString(R.string.loading_transition_update_wifi_settings))
-                    putInt("LoadingSecond", AppConfig.WiFiSettingTime)
-                    putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
-                    putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_SEARCH)
-                    putBoolean("ShowCountDownTimer", false)
+                    val bundle = Bundle().apply{
+                        putString("Title", "")
+                        putString("Description", resources.getString(R.string.loading_transition_please_wait))
+                        putString("Sec_Description", resources.getString(R.string.loading_transition_update_wifi_settings))
+                        putInt("LoadingSecond", AppConfig.WiFiSettingTime)
+                        putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
+                        putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_SEARCH)
+                        putBoolean("ShowCountDownTimer", false)
+                    }
+                    GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
                 }
-                GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
+                else
+                {
+                    MessageDialog(
+                            activity!!,
+                            "",
+                            getString(R.string.wifi_settings_connect_change_tip),
+                            arrayOf(getString(R.string.message_dialog_ok_got_it)),
+                            AppConfig.DialogAction.ACT_NONE
+                    ).show()
+                }
             }
 
             wifi_edit_wifi_24g_password_show_image ->

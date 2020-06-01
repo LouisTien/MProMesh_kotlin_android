@@ -116,6 +116,7 @@
     <string name="other_mesh_setup_description">set Up New Mesh Network</string>
 
     <string name="mesh_device_status_title">Mesh Device Placement Status</string>
+    <string name="mesh_device_status_title_device">Client Device Placement Status</string>
     <string name="mesh_device_status_wire_connect">Wired connection</string>
     <string name="mesh_device_status_good">Good to go</string>
     <string name="mesh_device_status_too_close">Too close to the WiFi Router</string>
@@ -251,6 +252,7 @@
     <string name="wifi_settings_edit_wifi">WiFi</string>
     <string name="wifi_settings_qrcode_24g_tab">2.4G</string>
     <string name="wifi_settings_qrcode_5g_tab">5G</string>
+    <string name="wifi_settings_connect_change_tip">If you change the WiFi settings being connected, please reconnect to the new WiFi.</string>
 
     <string name="parental_control_schedule_time_done">Done</string>
     <string name="parental_control_format_24hr">24hr</string>
@@ -376,6 +378,7 @@
     <string name="message_dialog_turn_off">Turn Off</string>
     <string name="message_dialog_applying">Applying...</string>
     <string name="message_dialog_add">ADD</string>
+    <string name="message_dialog_ok_got_it">OK, got it</string>
     <string name="message_dialog_not_connect">Cannot Connect</string>
     <string name="message_dialog_not_connect_try_again">Please check your WiFi connection and try again later.</string>
     <string name="message_dialog_wifi_off">Turn on WiFi and connect to the WiFi of your WiFi Router.</string>

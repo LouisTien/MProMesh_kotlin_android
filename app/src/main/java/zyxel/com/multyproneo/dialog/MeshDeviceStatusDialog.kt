@@ -17,6 +17,11 @@ class MeshDeviceStatusDialog(context: Context, var isHomePage: Boolean) : Dialog
 
         if(isHomePage)
             mesh_device_status_block_relative.visibility = View.GONE
+        else
+        {
+            mesh_device_status_too_close_relative.visibility = View.GONE
+            mesh_device_status_title_text.text = context.getString(R.string.mesh_device_status_title_device)
+        }
 
         mesh_device_status_close_image.setOnClickListener{ dismiss() }
     }
