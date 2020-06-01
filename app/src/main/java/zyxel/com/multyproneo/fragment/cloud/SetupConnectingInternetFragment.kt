@@ -1,6 +1,7 @@
 package zyxel.com.multyproneo.fragment.cloud
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayInfo
+import zyxel.com.multyproneo.model.WanInfo
 import zyxel.com.multyproneo.model.cloud.CloudAgentInfo
 import zyxel.com.multyproneo.util.*
 import java.io.IOException
@@ -32,6 +34,8 @@ class SetupConnectingInternetFragment : Fragment()
     private lateinit var siteInfoList: List<DatabaseSiteInfoEntity>
     private lateinit var cloudAgentInfo: CloudAgentInfo
     private lateinit var gatewayInfo: GatewayInfo
+    private lateinit var wanInfo: WanInfo
+    private lateinit var countDownTimerWanInfo: CountDownTimer
     private var hasPreviousSettings = false
     private var hasUID = false
 
@@ -45,6 +49,12 @@ class SetupConnectingInternetFragment : Fragment()
         super.onViewCreated(view, savedInstanceState)
 
         db = DatabaseCloudUtil.getInstance(context!!)!!
+
+        countDownTimerWanInfo = object : CountDownTimer((AppConfig.waitForConnectInternetTime * 1000).toLong(), 1000)
+        {
+            override fun onTick(millisUntilFinished: Long) {}
+            override fun onFinish() = getWanInfoTask()
+        }
 
         setup_connecting_internet_next_button.onClick{
             if(hasUID)
@@ -61,12 +71,14 @@ class SetupConnectingInternetFragment : Fragment()
             }
         }
 
-        startInternetCheckTask()
+        //startInternetCheckTask()
 
         runOnUiThread{
             setup_connecting_internet_content_animation_view.setAnimation("ConnectToTheInternet_1_oldJson.json")
             setup_connecting_internet_content_animation_view.playAnimation()
         }
+
+        countDownTimerWanInfo.start()
 
         //Glide.with(activity!!).load(R.drawable.slide1).into(setup_connecting_internet_content_image)
     }
@@ -86,6 +98,7 @@ class SetupConnectingInternetFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+        countDownTimerWanInfo.cancel()
     }
 
     private fun startInternetCheckTask()
@@ -147,6 +160,52 @@ class SetupConnectingInternetFragment : Fragment()
                 }
             }
         }
+    }
+
+    private fun getWanInfoTask()
+    {
+        LogUtil.d(TAG,"getWanInfoTask()")
+        GatewayApi.GetWanInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            wanInfo = Gson().fromJson(responseStr, WanInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"wanInfo:$wanInfo")
+
+                            if(wanInfo.Object.Status == "Enable")
+                            {
+                                runOnUiThread{
+                                    setup_connecting_internet_title_text.text = getString(R.string.setup_connecting_internet_success_title)
+                                    setup_connecting_internet_description_text.text = ""
+                                    setup_connecting_internet_content_animation_view.setAnimation("ConnectToTheInternet_2_oldJson.json")
+                                    setup_connecting_internet_content_animation_view.playAnimation()
+                                }
+
+                                Thread.sleep(2500)
+
+                                startGetUIDTask()
+                            }
+                            else
+                            {
+                                val bundle = Bundle().apply{
+                                    putSerializable("pageMode", AppConfig.TroubleshootingPage.PAGE_NO_INTERNET)
+                                }
+
+                                GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectTroubleshootingFragment().apply{ arguments = bundle }))
+                            }
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
     }
 
     private fun startGetUIDTask()
