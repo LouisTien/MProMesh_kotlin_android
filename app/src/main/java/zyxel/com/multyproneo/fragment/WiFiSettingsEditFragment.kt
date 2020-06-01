@@ -81,7 +81,11 @@ class WiFiSettingsEditFragment : Fragment()
         }
 
         msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
-            setWiFi24GSSIDTask()
+            if(isGuestWiFiMode)
+                setGuestWiFi24GSSIDTask()
+            else
+                setWiFi24GSSIDTask()
+
             showLoadingTransitionPage()
         }
 
@@ -171,21 +175,13 @@ class WiFiSettingsEditFragment : Fragment()
                 name5g = wifi_edit_wifi_5g_name_edit.text.toString()
                 pwd5g = wifi_edit_wifi_5g_password_edit.text.toString()
 
-                if(isGuestWiFiMode)
-                {
-                    setGuestWiFi24GSSIDTask()
-                    showLoadingTransitionPage()
-                }
-                else
-                {
-                    MessageDialog(
-                            activity!!,
-                            "",
-                            getString(R.string.wifi_settings_connect_change_tip),
-                            arrayOf(getString(R.string.message_dialog_ok_got_it)),
-                            AppConfig.DialogAction.ACT_NONE
-                    ).show()
-                }
+                MessageDialog(
+                        activity!!,
+                        "",
+                        getString(R.string.wifi_settings_connect_change_tip),
+                        arrayOf(getString(R.string.message_dialog_ok_got_it)),
+                        AppConfig.DialogAction.ACT_NONE
+                ).show()
             }
 
             wifi_edit_wifi_24g_password_show_image ->
