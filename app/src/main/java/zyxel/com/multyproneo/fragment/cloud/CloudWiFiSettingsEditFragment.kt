@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_wifi_settings_edit.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
@@ -19,6 +20,8 @@ import zyxel.com.multyproneo.api.cloud.P2PGatewayApi
 import zyxel.com.multyproneo.api.cloud.P2PWiFiSettingApi
 import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
+import zyxel.com.multyproneo.dialog.MessageDialog
+import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
@@ -31,6 +34,7 @@ class CloudWiFiSettingsEditFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
     private lateinit var inputMethodManager: InputMethodManager
+    private lateinit var msgDialogResponse: Disposable
     private lateinit var db: DatabaseCloudUtil
     private var name = ""
     private var pwd = ""
@@ -79,6 +83,15 @@ class CloudWiFiSettingsEditFragment : Fragment()
             this?.getString("Security5g")?.let{ security5g = it }
         }
 
+        msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
+            if(isGuestWiFiMode)
+                setGuestWiFiSettingTask()
+            else
+                setWiFiSettingTask()
+
+            showLoadingTransitionPage()
+        }
+
         if(isGuestWiFiMode)
         {
             showOneSSID = true
@@ -105,6 +118,8 @@ class CloudWiFiSettingsEditFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+
+        if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
 
         if(keyboardListenersAttached)
             view?.viewTreeObserver?.removeGlobalOnLayoutListener(keyboardLayoutListener)
@@ -163,21 +178,13 @@ class CloudWiFiSettingsEditFragment : Fragment()
                 name5g = wifi_edit_wifi_5g_name_edit.text.toString()
                 pwd5g = wifi_edit_wifi_5g_password_edit.text.toString()
 
-                if(isGuestWiFiMode)
-                    setGuestWiFiSettingTask()
-                else
-                    setWiFiSettingTask()
-
-                val bundle = Bundle().apply{
-                    putString("Title", "")
-                    putString("Description", resources.getString(R.string.loading_transition_please_wait))
-                    putString("Sec_Description", resources.getString(R.string.loading_transition_update_wifi_settings))
-                    putInt("LoadingSecond", AppConfig.WiFiSettingTime)
-                    putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
-                    putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_SEARCH)
-                    putBoolean("ShowCountDownTimer", false)
-                }
-                GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoadingTransitionFragment().apply{ arguments = bundle }))
+                MessageDialog(
+                        activity!!,
+                        "",
+                        getString(R.string.wifi_settings_connect_change_tip),
+                        arrayOf(getString(R.string.message_dialog_ok_got_it)),
+                        AppConfig.DialogAction.ACT_NONE
+                ).show()
             }
 
             wifi_edit_wifi_24g_password_show_image ->
@@ -425,6 +432,20 @@ class CloudWiFiSettingsEditFragment : Fragment()
             setSaveTextStatus(true)
         else
             setSaveTextStatus(false)
+    }
+
+    private fun showLoadingTransitionPage()
+    {
+        val bundle = Bundle().apply{
+            putString("Title", "")
+            putString("Description", resources.getString(R.string.loading_transition_please_wait))
+            putString("Sec_Description", resources.getString(R.string.loading_transition_update_wifi_settings))
+            putInt("LoadingSecond", AppConfig.WiFiSettingTime)
+            putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
+            putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_SEARCH)
+            putBoolean("ShowCountDownTimer", false)
+        }
+        GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoadingTransitionFragment().apply{ arguments = bundle }))
     }
 
     private fun setSaveTextStatus(status: Boolean)
