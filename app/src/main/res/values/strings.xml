@@ -116,13 +116,13 @@
     <string name="other_mesh_setup_description">set Up New Mesh Network</string>
 
     <string name="mesh_device_status_title">Mesh Device Placement Status</string>
-    <string name="mesh_device_status_title_device">Client Device Placement Status</string>
+    <string name="mesh_device_status_title_device">Connection Status</string>
     <string name="mesh_device_status_wire_connect">Wired connection</string>
     <string name="mesh_device_status_good">Good to go</string>
     <string name="mesh_device_status_too_close">Too close to the WiFi Router</string>
     <string name="mesh_device_status_far_away">Too far away from the WiFi Router</string>
     <string name="mesh_device_status_no_connect">No connection</string>
-    <string name="mesh_device_status_block">No internet access</string>
+    <string name="mesh_device_status_block">Blocked</string>
 
     <string name="button_text_start"><u>START</u></string>
     <string name="button_text_home">Home</string>
