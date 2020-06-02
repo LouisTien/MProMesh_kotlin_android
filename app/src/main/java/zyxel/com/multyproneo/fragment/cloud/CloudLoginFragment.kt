@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.net.http.SslError
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +29,11 @@ import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 import zyxel.com.multyproneo.util.SharedPreferencesUtil
 import java.util.HashMap
+import android.content.Intent
+import android.webkit.WebView
+import android.webkit.WebChromeClient
+
+
 
 class CloudLoginFragment : Fragment()
 {
@@ -125,6 +129,19 @@ class CloudLoginFragment : Fragment()
         //cloud_login_WebView.addJavascriptInterface(this, "onSubmitListener")
         cloud_login_WebView.clearCache(true)
         cloud_login_WebView.clearHistory()
+        cloud_login_WebView.settings.setSupportMultipleWindows(true)
+        cloud_login_WebView.webChromeClient = object : WebChromeClient()
+        {
+            override fun onCreateWindow(view: WebView, dialog: Boolean, userGesture: Boolean, resultMsg: android.os.Message): Boolean
+            {
+                val result = view.hitTestResult
+                val data = result.extra
+                val context = view.context
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data))
+                context.startActivity(browserIntent)
+                return false
+            }
+        }
         CookieManager.getInstance().removeAllCookies(null)
     }
 
