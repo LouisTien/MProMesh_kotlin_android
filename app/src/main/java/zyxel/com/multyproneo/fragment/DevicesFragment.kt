@@ -105,6 +105,13 @@ class DevicesFragment : Fragment()
                 GlobalData.guestDevAscendingOrder = !GlobalData.guestDevAscendingOrder
                 updateUI()
             }
+
+            devices_refresh_image ->
+            {
+                GlobalBus.publish(MainEvent.ShowLoading())
+                GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
+                GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
+            }
         }
     }
 
@@ -114,6 +121,7 @@ class DevicesFragment : Fragment()
         devices_home_devices_sort_image.setOnClickListener(clickListener)
         devices_guest_devices_sort_image.setOnClickListener(clickListener)
         devices_home_devices_title_text.setOnClickListener(clickListener)
+        devices_refresh_image.setOnClickListener(clickListener)
     }
 
     private fun updateUI()

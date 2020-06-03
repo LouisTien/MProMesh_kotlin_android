@@ -96,6 +96,13 @@ class HomeFragment : Fragment()
                 GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
             }
 
+            home_refresh_image ->
+            {
+                GlobalBus.publish(MainEvent.ShowLoading())
+                GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
+                GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
+            }
+
             home_connect_device_frame -> GlobalBus.publish(MainEvent.EnterDevicesPage())
             home_guest_wifi_frame -> GlobalBus.publish(MainEvent.EnterWiFiSettingsPage())
             home_add_mesh_image, home_add_mesh_text -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFragment()))
@@ -110,6 +117,7 @@ class HomeFragment : Fragment()
         home_guest_wifi_frame.setOnClickListener(clickListener)
         home_add_mesh_image.setOnClickListener(clickListener)
         home_add_mesh_text.setOnClickListener(clickListener)
+        home_refresh_image.setOnClickListener(clickListener)
     }
 
     private fun updateUI()

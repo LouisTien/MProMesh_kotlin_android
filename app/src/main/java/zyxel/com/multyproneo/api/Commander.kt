@@ -94,7 +94,7 @@ abstract class Commander
             val specialMsg =
                     when(code)
                     {
-                        504, 403, -3 -> "Timeout"
+                        504, 401, 403, -3 -> "Timeout"
                         else -> msg
                     }
 

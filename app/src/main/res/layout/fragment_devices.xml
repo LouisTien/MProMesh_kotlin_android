@@ -40,7 +40,7 @@
                 android:layout_toLeftOf="@+id/devices_search_image"
                 android:layout_marginTop="@dimen/layout_size_3dp_in_1080"
                 android:layout_marginRight="@dimen/layout_size_5dp_in_1080"
-                android:src="@drawable/icon_retry_s" />
+                android:src="@drawable/icon_retry_s"/>
 
             <TextView
                 android:id="@+id/devices_title_text"
