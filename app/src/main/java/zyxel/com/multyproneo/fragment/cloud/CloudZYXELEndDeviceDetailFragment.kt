@@ -263,14 +263,15 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
         zyxel_end_device_detail_status_text.textColor = resources.getColor(if(isConnect) R.color.color_3c9f00 else R.color.color_575757)
         with(zyxel_end_device_detail_lan_ip_text)
         {
-            if(lanIP == "N/A")
+            /*if(lanIP == "N/A")
                 text = lanIP
             else
             {
                 isClickable = true
                 movementMethod = android.text.method.LinkMovementMethod.getInstance()
                 text = android.text.Html.fromHtml("<a href='http://" + lanIP + "'>" + lanIP + "</a>")
-            }
+            }*/
+            text = lanIP
         }
 
         initEndDeviceDetailModelNameEdit()
