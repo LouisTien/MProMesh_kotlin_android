@@ -119,7 +119,7 @@ object AppConfig
     //Add Mesh
     const val WPSStatusUpdateTime = 5
     const val WPSSCheckL2DeviceUpdateTime = 5
-    const val addMeshTime = 180
+    const val addMeshTime = 120
 
     //Keep screen on
     const val keepScreenTime = 300
