@@ -242,7 +242,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
                         android:layout_below="@+id/wifi_settings_guest_wifi_title_text"
-                        android:src="@drawable/switch_off"/>
+                        android:src="@drawable/switch_off_2"/>
 
                     <TextView
                         android:id="@+id/wifi_settings_guest_wifi_name_text"

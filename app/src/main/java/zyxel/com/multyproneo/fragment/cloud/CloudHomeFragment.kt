@@ -243,7 +243,7 @@ class CloudHomeFragment : Fragment()
                 else ->
                 {
                     cloud_home_guest_wifi_status_text.text = getString(R.string.home_guest_wifi_status_off)
-                    cloud_home_guest_wifi_switch.setImageResource(R.drawable.switch_off)
+                    cloud_home_guest_wifi_switch.setImageResource(R.drawable.switch_off_2)
                 }
             }
         }

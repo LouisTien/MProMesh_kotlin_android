@@ -309,7 +309,7 @@ class WiFiSettingsFragment : Fragment()
             }
             wifi_settings_guest_wifi_name_text.text = guestWiFiName
             wifi_settings_guest_wifi_password_text.text = guestWiFiPwd
-            wifi_settings_guest_wifi_switch_image.setImageResource(if(guestWiFiStatus) R.drawable.switch_on else R.drawable.switch_off)
+            wifi_settings_guest_wifi_switch_image.setImageResource(if(guestWiFiStatus) R.drawable.switch_on else R.drawable.switch_off_2)
             generateQRCode()
         }
     }

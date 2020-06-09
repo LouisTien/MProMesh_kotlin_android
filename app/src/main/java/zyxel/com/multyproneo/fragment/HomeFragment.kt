@@ -163,7 +163,7 @@ class HomeFragment : Fragment()
                 else ->
                 {
                     home_guest_wifi_status_text.text = getString(R.string.home_guest_wifi_status_off)
-                    home_guest_wifi_switch.setImageResource(R.drawable.switch_off)
+                    home_guest_wifi_switch.setImageResource(R.drawable.switch_off_2)
                 }
             }
         }

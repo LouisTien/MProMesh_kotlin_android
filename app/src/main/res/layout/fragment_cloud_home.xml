@@ -231,7 +231,7 @@
                 android:layout_marginLeft="@dimen/layout_size_35dp_in_1080"
                 android:layout_marginBottom="@dimen/layout_size_15dp_in_1080"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/switch_off"/>
+                android:src="@drawable/switch_off_2"/>
 
             <TextView
                 android:id="@+id/cloud_home_guest_wifi_text"

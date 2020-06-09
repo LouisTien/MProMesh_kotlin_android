@@ -99,7 +99,7 @@ class CloudSettingsNotificationDetailFragment : Fragment()
     private fun updateUI()
     {
         GlobalBus.publish(MainEvent.HideLoading())
-        settings_notification_detail_switch_image.setImageResource(if(notificationEnable) R.drawable.switch_on else R.drawable.switch_off)
+        settings_notification_detail_switch_image.setImageResource(if(notificationEnable) R.drawable.switch_on else R.drawable.switch_off_2)
     }
 
     private fun addToDB()
