@@ -75,10 +75,10 @@ class SetupConnectTroubleshootingFragment : Fragment()
             AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR
             ->
             {
-                if(pageMode == AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER_PREVIOUS_SET)
+                /*if(pageMode == AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER_PREVIOUS_SET)
                     setup_connect_troubleshooting_back_image.visibility = View.VISIBLE
                 else
-                    setup_connect_troubleshooting_back_image.visibility = View.INVISIBLE
+                    setup_connect_troubleshooting_back_image.visibility = View.INVISIBLE*/
 
                 setup_connect_troubleshooting_title_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_controller_title)
                 setup_connect_troubleshooting_sub_title_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_controller_sub_title)
@@ -137,12 +137,12 @@ class SetupConnectTroubleshootingFragment : Fragment()
         {
             setup_connect_troubleshooting_back_image ->
             {
-                when(pageMode)
+                /*when(pageMode)
                 {
                     AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
                     AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER_PREVIOUS_SET -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
                     else -> {}
-                }
+                }*/
             }
 
             setup_connect_troubleshooting_retry_image ->

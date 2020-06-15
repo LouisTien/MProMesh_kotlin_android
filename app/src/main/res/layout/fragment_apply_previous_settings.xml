@@ -108,23 +108,51 @@
 
     </RelativeLayout>
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/setup_previous_settings_skip_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
         android:layout_marginBottom="@dimen/layout_size_30dp_in_1080"
-        android:src="@drawable/btn_skip"/>
+        android:background="@drawable/button_style_yellow_bg">
 
-    <ImageView
+        <TextView
+            android:id="@+id/setup_previous_settings_skip_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setup_previous_settings_skip"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
+            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"/>
+
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/setup_previous_settings_apply_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_size_30dp_in_1080"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/layout_size_30dp_in_1080"
-        android:src="@drawable/btn_apply"/>
+        android:background="@drawable/button_style_yellow_bg">
+
+        <TextView
+            android:id="@+id/setup_previous_settings_apply_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setup_previous_settings_apply"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
+            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"/>
+
+    </FrameLayout>
 
 </RelativeLayout>

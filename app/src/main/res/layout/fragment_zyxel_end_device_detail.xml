@@ -474,17 +474,28 @@
 
         </ScrollView>
 
-        <Button
+        <FrameLayout
             android:id="@+id/zyxel_end_device_detail_reboot_button"
-            android:layout_width="@dimen/layout_size_70dp_in_1080"
-            android:layout_height="@dimen/layout_size_40dp_in_1080"
-            android:background="@drawable/button_style_gray_bg"
-            android:text="@string/device_detail_reboot"
-            android:textAllCaps="false"
-            android:textSize="@dimen/layout_size_18dp_in_1080"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            android:visibility="invisible"/>
+            android:background="@drawable/button_style_gray_bg"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_reboot_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/device_detail_reboot"
+                android:textColor="@color/color_000000"
+                android:textSize="@dimen/layout_size_18dp_in_1080"
+                android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+                android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
+                android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+                android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"/>
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/zyxel_end_device_detail_remove_device_text"
@@ -496,17 +507,28 @@
             android:text="@string/device_detail_remove_device"
             android:visibility="invisible"/>
 
-        <Button
+        <FrameLayout
             android:id="@+id/zyxel_end_device_detail_speed_test_button"
-            android:layout_width="@dimen/layout_size_120dp_in_1080"
-            android:layout_height="@dimen/layout_size_40dp_in_1080"
-            android:background="@drawable/button_style_gray_bg"
-            android:text="@string/device_detail_speed_test"
-            android:textAllCaps="false"
-            android:textSize="@dimen/layout_size_18dp_in_1080"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:visibility="invisible"/>
+            android:background="@drawable/button_style_gray_bg"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/zyxel_end_device_detail_speed_test_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/device_detail_speed_test"
+                android:textColor="@color/color_000000"
+                android:textSize="@dimen/layout_size_18dp_in_1080"
+                android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+                android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
+                android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+                android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"/>
+
+        </FrameLayout>
 
     </RelativeLayout>
 

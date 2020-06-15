@@ -37,6 +37,7 @@ class SetupSNLoginFragment : Fragment()
     private var keyboardListenersAttached = false
     private var serialNumberIllegalInput = false
     private var needConnectFlowForRetry = false
+    private var loginBtnEnable = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -103,64 +104,67 @@ class SetupSNLoginFragment : Fragment()
         {
             setup_sn_login_enter_button ->
             {
-                inputMethodManager.hideSoftInputFromWindow(setup_sn_login_edit.applicationWindowToken, 0)
-                val serialNumber = setup_sn_login_edit.text.toString()
-                LogUtil.d(TAG,"loginEdit:$serialNumber")
+                if(loginBtnEnable)
+                {
+                    inputMethodManager.hideSoftInputFromWindow(setup_sn_login_edit.applicationWindowToken, 0)
+                    val serialNumber = setup_sn_login_edit.text.toString()
+                    LogUtil.d(TAG,"loginEdit:$serialNumber")
 
-                GlobalBus.publish(MainEvent.ShowLoading())
+                    GlobalBus.publish(MainEvent.ShowLoading())
 
-                val iv = CryptTool.getRandomString(16)
-                val encryptedSN = CryptTool.EncryptAES(
-                        iv.toByteArray(charset("UTF-8")),
-                        CryptTool.KeyAESDefault.toByteArray(charset("UTF-8")),
-                        serialNumber.toByteArray(charset("UTF-8")))
+                    val iv = CryptTool.getRandomString(16)
+                    val encryptedSN = CryptTool.EncryptAES(
+                            iv.toByteArray(charset("UTF-8")),
+                            CryptTool.KeyAESDefault.toByteArray(charset("UTF-8")),
+                            serialNumber.toByteArray(charset("UTF-8")))
 
-                val params = JSONObject()
-                params.put("serialnumber", encryptedSN)
-                params.put("iv", iv)
-                LogUtil.d(TAG,"login param:$params")
-                AccountApi.SNLogin()
-                        .setRequestPageName(TAG)
-                        .setParams(params)
-                        .setIsUsingInCloudFlow(true)
-                        .setResponseListener(object: Commander.ResponseListener()
-                        {
-                            override fun onSuccess(responseStr: String)
+                    val params = JSONObject()
+                    params.put("serialnumber", encryptedSN)
+                    params.put("iv", iv)
+                    LogUtil.d(TAG,"login param:$params")
+                    AccountApi.SNLogin()
+                            .setRequestPageName(TAG)
+                            .setParams(params)
+                            .setIsUsingInCloudFlow(true)
+                            .setResponseListener(object: Commander.ResponseListener()
                             {
-                                try
+                                override fun onSuccess(responseStr: String)
                                 {
-                                    loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
-                                    LogUtil.d(TAG,"loginInfo:$loginInfo")
-                                    GlobalData.sessionKey = loginInfo.sessionkey
-                                    gatewayInfo.SerialNumber = serialNumber
-                                    GlobalBus.publish(MainEvent.HideLoading())
-                                    GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingInternetFragment()))
-                                }
-                                catch(e: JSONException)
-                                {
-                                    e.printStackTrace()
-                                    GlobalBus.publish(MainEvent.HideLoading())
-                                    gotoCannotConnectControllerTroubleshootingPage()
-                                }
-                            }
-
-                            override fun onFail(code: Int, msg: String, ctxName: String, isCloudUsing: Boolean)
-                            {
-                                LogUtil.e(TAG, "[onFail] code = $code")
-                                LogUtil.e(TAG, "[onFail] msg = $msg")
-                                LogUtil.e(TAG, "[onFail] ctxName = $ctxName")
-
-                                if(ctxName == TAG && code == 401)
-                                {
-                                    runOnUiThread{
-                                        setup_sn_login_error_text.text = getString(R.string.login_sn_error)
-                                        setup_sn_login_error_text.visibility = View.VISIBLE
+                                    try
+                                    {
+                                        loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
+                                        LogUtil.d(TAG,"loginInfo:$loginInfo")
+                                        GlobalData.sessionKey = loginInfo.sessionkey
+                                        gatewayInfo.SerialNumber = serialNumber
+                                        GlobalBus.publish(MainEvent.HideLoading())
+                                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingInternetFragment()))
+                                    }
+                                    catch(e: JSONException)
+                                    {
+                                        e.printStackTrace()
+                                        GlobalBus.publish(MainEvent.HideLoading())
+                                        gotoCannotConnectControllerTroubleshootingPage()
                                     }
                                 }
-                                else
-                                    gotoCannotConnectControllerTroubleshootingPage()
-                            }
-                        }).execute()
+
+                                override fun onFail(code: Int, msg: String, ctxName: String, isCloudUsing: Boolean)
+                                {
+                                    LogUtil.e(TAG, "[onFail] code = $code")
+                                    LogUtil.e(TAG, "[onFail] msg = $msg")
+                                    LogUtil.e(TAG, "[onFail] ctxName = $ctxName")
+
+                                    if(ctxName == TAG && code == 401)
+                                    {
+                                        runOnUiThread{
+                                            setup_sn_login_error_text.text = getString(R.string.login_sn_error)
+                                            setup_sn_login_error_text.visibility = View.VISIBLE
+                                        }
+                                    }
+                                    else
+                                        gotoCannotConnectControllerTroubleshootingPage()
+                                }
+                            }).execute()
+                }
             }
         }
     }
@@ -193,9 +197,17 @@ class SetupSNLoginFragment : Fragment()
         when
         {
             setup_sn_login_edit.text.length >= AppConfig.loginSerialNumberRequiredLength && !serialNumberIllegalInput
-            -> setup_sn_login_enter_button.isEnabled = true
+            ->
+            {
+                loginBtnEnable = true
+                setup_sn_login_enter_text.setTextColor(resources.getColor(R.color.color_000000))
+            }
 
-            else -> setup_sn_login_enter_button.isEnabled = false
+            else ->
+            {
+                loginBtnEnable = false
+                setup_sn_login_enter_text.setTextColor(resources.getColor(R.color.color_888888))
+            }
         }
     }
 

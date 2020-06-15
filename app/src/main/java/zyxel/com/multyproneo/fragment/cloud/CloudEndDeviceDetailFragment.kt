@@ -87,6 +87,7 @@ class CloudEndDeviceDetailFragment : Fragment()
             {
                 AppConfig.DialogAction.ACT_BLOCK_DEVICE -> {}
                 AppConfig.DialogAction.ACT_DELETE_ZYXEL_DEVICE -> {}
+                else -> {}
             }
         }
 
@@ -178,45 +179,54 @@ class CloudEndDeviceDetailFragment : Fragment()
 
             end_device_detail_block_device_image ->
             {
-                MessageDialog(
-                        activity!!,
-                        getString(R.string.message_dialog_block_title),
-                        getString(R.string.message_dialog_block_msg),
-                        arrayOf(getString(R.string.message_dialog_ok), getString(R.string.message_dialog_cancel)),
-                        AppConfig.DialogAction.ACT_BLOCK_DEVICE
-                ).show()
+                if(!isEditMode)
+                {
+                    MessageDialog(
+                            activity!!,
+                            getString(R.string.message_dialog_block_title),
+                            getString(R.string.message_dialog_block_msg),
+                            arrayOf(getString(R.string.message_dialog_ok), getString(R.string.message_dialog_cancel)),
+                            AppConfig.DialogAction.ACT_BLOCK_DEVICE
+                    ).show()
+                }
             }
 
             /*end_device_detail_profile_image -> {}
 
             end_device_detail_remove_device_text ->
             {
-                MessageDialog(
-                        activity!!,
-                        "",
-                        getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.getName() + " ?",
-                        arrayOf(getString(R.string.message_dialog_delete), getString(R.string.message_dialog_cancel)),
-                        AppConfig.DialogAction.ACT_DELETE_DEVICE
-                ).show()
+                if(!isEditMode)
+                {
+                    MessageDialog(
+                            activity!!,
+                            "",
+                            getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.getName() + " ?",
+                            arrayOf(getString(R.string.message_dialog_delete), getString(R.string.message_dialog_cancel)),
+                            AppConfig.DialogAction.ACT_DELETE_DEVICE
+                    ).show()
+                }
             }*/
 
             end_device_detail_internet_blocking_image ->
             {
-                val wifiManager = activity!!.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
-                val ipAddress = formatIpAddress(wifiManager.connectionInfo.ipAddress)
+                if(!isEditMode)
+                {
+                    val wifiManager = activity!!.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
+                    val ipAddress = formatIpAddress(wifiManager.connectionInfo.ipAddress)
 
-                if(ipAddress == endDeviceInfo.IPAddress)
-                {
-                    alert(getString(R.string.device_detail_cannot_block_yourself))
+                    if(ipAddress == endDeviceInfo.IPAddress)
                     {
-                        positiveButton("OK") {}
-                    }.show()
-                }
-                else
-                {
-                    isBlocked = !isBlocked
-                    endDeviceInfo.Internet_Blocking_Enable = isBlocked
-                    setDeviceInfoTask()
+                        alert(getString(R.string.device_detail_cannot_block_yourself))
+                        {
+                            positiveButton("OK") {}
+                        }.show()
+                    }
+                    else
+                    {
+                        isBlocked = !isBlocked
+                        endDeviceInfo.Internet_Blocking_Enable = isBlocked
+                        setDeviceInfoTask()
+                    }
                 }
             }
 

@@ -41,6 +41,7 @@ class SetupLoginFragment : Fragment()
     private var userNameIllegalInput = false
     private var passwordIllegalInput = false
     private var needConnectFlowForRetry = false
+    private var loginBtnEnable = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -118,62 +119,65 @@ class SetupLoginFragment : Fragment()
 
             setup_login_enter_button ->
             {
-                inputMethodManager.hideSoftInputFromWindow(setup_login_username_edit.applicationWindowToken, 0)
-                inputMethodManager.hideSoftInputFromWindow(setup_login_password_edit.applicationWindowToken, 0)
-                val password = setup_login_password_edit.text.toString()
-                val userName = setup_login_username_edit.text.toString()
-                LogUtil.d(TAG,"loginPasswordEdit:$password")
-                LogUtil.d(TAG,"loginUsernameEdit:$userName")
+                if(loginBtnEnable)
+                {
+                    inputMethodManager.hideSoftInputFromWindow(setup_login_username_edit.applicationWindowToken, 0)
+                    inputMethodManager.hideSoftInputFromWindow(setup_login_password_edit.applicationWindowToken, 0)
+                    val password = setup_login_password_edit.text.toString()
+                    val userName = setup_login_username_edit.text.toString()
+                    LogUtil.d(TAG,"loginPasswordEdit:$password")
+                    LogUtil.d(TAG,"loginUsernameEdit:$userName")
 
-                GlobalBus.publish(MainEvent.ShowLoading())
+                    GlobalBus.publish(MainEvent.ShowLoading())
 
-                val params = JSONObject()
-                params.put("username", userName)
-                params.put("password", password)
-                LogUtil.d(TAG,"login param:$params")
-                AccountApi.Login()
-                        .setRequestPageName(TAG)
-                        .setParams(params)
-                        .setIsUsingInCloudFlow(true)
-                        .setResponseListener(object: Commander.ResponseListener()
-                        {
-                            override fun onSuccess(responseStr: String)
+                    val params = JSONObject()
+                    params.put("username", userName)
+                    params.put("password", password)
+                    LogUtil.d(TAG,"login param:$params")
+                    AccountApi.Login()
+                            .setRequestPageName(TAG)
+                            .setParams(params)
+                            .setIsUsingInCloudFlow(true)
+                            .setResponseListener(object: Commander.ResponseListener()
                             {
-                                try
+                                override fun onSuccess(responseStr: String)
                                 {
-                                    loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
-                                    LogUtil.d(TAG,"loginInfo:$loginInfo")
-                                    GlobalData.sessionKey = loginInfo.sessionkey
-                                    gatewayInfo.Password = password
-                                    gatewayInfo.UserName = userName
-                                    GlobalBus.publish(MainEvent.HideLoading())
-                                    GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingInternetFragment()))
-                                }
-                                catch(e: JSONException)
-                                {
-                                    e.printStackTrace()
-                                    GlobalBus.publish(MainEvent.HideLoading())
-                                    gotoCannotConnectControllerTroubleshootingPage()
-                                }
-                            }
-
-                            override fun onFail(code: Int, msg: String, ctxName: String, isCloudUsing: Boolean)
-                            {
-                                LogUtil.e(TAG, "[onFail] code = $code")
-                                LogUtil.e(TAG, "[onFail] msg = $msg")
-                                LogUtil.e(TAG, "[onFail] ctxName = $ctxName")
-
-                                if(ctxName == TAG && code == 401)
-                                {
-                                    runOnUiThread{
-                                        setup_login_password_error_text.text = getString(R.string.login_error)
-                                        setup_login_password_error_text.visibility = View.VISIBLE
+                                    try
+                                    {
+                                        loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
+                                        LogUtil.d(TAG,"loginInfo:$loginInfo")
+                                        GlobalData.sessionKey = loginInfo.sessionkey
+                                        gatewayInfo.Password = password
+                                        gatewayInfo.UserName = userName
+                                        GlobalBus.publish(MainEvent.HideLoading())
+                                        GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingInternetFragment()))
+                                    }
+                                    catch(e: JSONException)
+                                    {
+                                        e.printStackTrace()
+                                        GlobalBus.publish(MainEvent.HideLoading())
+                                        gotoCannotConnectControllerTroubleshootingPage()
                                     }
                                 }
-                                else
-                                    gotoCannotConnectControllerTroubleshootingPage()
-                            }
-                        }).execute()
+
+                                override fun onFail(code: Int, msg: String, ctxName: String, isCloudUsing: Boolean)
+                                {
+                                    LogUtil.e(TAG, "[onFail] code = $code")
+                                    LogUtil.e(TAG, "[onFail] msg = $msg")
+                                    LogUtil.e(TAG, "[onFail] ctxName = $ctxName")
+
+                                    if(ctxName == TAG && code == 401)
+                                    {
+                                        runOnUiThread{
+                                            setup_login_password_error_text.text = getString(R.string.login_error)
+                                            setup_login_password_error_text.visibility = View.VISIBLE
+                                        }
+                                    }
+                                    else
+                                        gotoCannotConnectControllerTroubleshootingPage()
+                                }
+                            }).execute()
+                }
             }
         }
     }
@@ -222,9 +226,17 @@ class SetupLoginFragment : Fragment()
                     && setup_login_password_edit.text.length >= AppConfig.loginPwdRequiredLength
                     && !userNameIllegalInput
                     && !passwordIllegalInput
-            -> setup_login_enter_button.isEnabled = true
+            ->
+            {
+                loginBtnEnable = true
+                setup_login_enter_text.setTextColor(resources.getColor(R.color.color_000000))
+            }
 
-            else -> setup_login_enter_button.isEnabled = false
+            else ->
+            {
+                loginBtnEnable = false
+                setup_login_enter_text.setTextColor(resources.getColor(R.color.color_888888))
+            }
         }
     }
 

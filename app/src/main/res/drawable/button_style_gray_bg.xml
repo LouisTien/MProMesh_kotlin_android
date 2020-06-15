@@ -6,6 +6,6 @@
     <item
         android:height="@dimen/layout_size_20dp_in_1080"
         android:gravity="bottom"
-        android:left="@dimen/layout_size_16dp_in_1080"
+        android:left="@dimen/layout_size_25dp_in_1080"
         android:drawable="@color/color_dcdcdc"/>
 </layer-list>

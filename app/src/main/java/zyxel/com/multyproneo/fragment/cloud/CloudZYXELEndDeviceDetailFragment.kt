@@ -95,6 +95,8 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
                 }
 
                 AppConfig.DialogAction.ACT_DELETE_DEVICE -> {}
+
+                else -> {}
             }
         }
 
@@ -184,24 +186,30 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
 
             zyxel_end_device_detail_reboot_button ->
             {
-                MessageDialog(
-                        activity!!,
-                        getString(R.string.message_dialog_reboot_reminder_title),
-                        getString(R.string.message_dialog_reboot_reminder),
-                        arrayOf(getString(R.string.message_dialog_restart), getString(R.string.message_dialog_cancel)),
-                        AppConfig.DialogAction.ACT_REBOOT
-                ).show()
+                if(!isEditMode)
+                {
+                    MessageDialog(
+                            activity!!,
+                            getString(R.string.message_dialog_reboot_reminder_title),
+                            getString(R.string.message_dialog_reboot_reminder),
+                            arrayOf(getString(R.string.message_dialog_restart), getString(R.string.message_dialog_cancel)),
+                            AppConfig.DialogAction.ACT_REBOOT
+                    ).show()
+                }
             }
 
             /*zyxel_end_device_detail_remove_device_text ->
             {
-                MessageDialog(
-                        activity!!,
-                        "",
-                        getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.getName() + " ?",
-                        arrayOf(getString(R.string.message_dialog_delete), getString(R.string.message_dialog_cancel)),
-                        AppConfig.DialogAction.ACT_DELETE_ZYXEL_DEVICE
-                ).show()
+                if(!isEditMode)
+                {
+                    MessageDialog(
+                            activity!!,
+                            "",
+                            getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.getName() + " ?",
+                            arrayOf(getString(R.string.message_dialog_delete), getString(R.string.message_dialog_cancel)),
+                            AppConfig.DialogAction.ACT_DELETE_ZYXEL_DEVICE
+                    ).show()
+                }
             }*/
 
             //zyxel_end_device_detail_speed_test_button -> startSpeedTestTask()

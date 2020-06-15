@@ -7,6 +7,7 @@
     <string name="welcome_my_home_network_description">Secure access to gateway settings and all connected mobile devices, computers, and NAS.</string>
     <string name="welcome_guest_wifi_access_description">Give your house guests basic Internet access to common web, email or online games.</string>
     <string name="welcome_auto_configuration_description">Allow the device to automatically update the wireless settings on the Zyxel APs or wireless repeaters in its network.</string>
+    <string name="welcome_start">Start</string>
 
     <string name="setup_first_time_using_description1">Simple controls for home network</string>
     <string name="setup_first_time_using_description2">Easily expand WiFi coverage by adding extenders</string>
@@ -71,6 +72,8 @@
     <string name="setup_previous_settings_details_network_name_title">Network name</string>
     <string name="setup_previous_settings_details_password_title">Password</string>
     <string name="setup_previous_settings_details_devices_title">LOCAL DEVICE NAMES</string>
+    <string name="setup_previous_settings_apply">Apply</string>
+    <string name="setup_previous_settings_skip">Skip</string>
 
     <string name="setup_apply_previous_settings_title">Applying Saved Settings</string>
     <string name="setup_apply_previous_settings_description">Please wait.\nThis may take a few seconds.</string>
@@ -147,6 +150,7 @@
 
     <string name="gateway_list_title">Device Found</string>
     <string name="gateway_list_choose">Choose a device to login</string>
+    <string name="gateway_list_add">Add</string>
 
     <string name="cloud_gateway_list_title">Your WiFi Router</string>
     <string name="cloud_gateway_list_choose">Choose one to manage.</string>
@@ -343,6 +347,7 @@
     <string name="mesh_fail_description2">Plug WiFi Extender in new location, tap \"Try Again\" button to continue.</string>
     <string name="mesh_help"><u>Need help?</u></string>
     <string name="mesh_try_again">Try Again</string>
+    <string name="mesh_retry">Retry</string>
 
     <string name="cloud_mesh_title">Choose a Scenario</string>
     <string name="cloud_mesh_see_tip">Tips</string>

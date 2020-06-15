@@ -90,16 +90,27 @@
 
     </RelativeLayout>
 
-    <Button
+    <FrameLayout
         android:id="@+id/mesh_fail_try_again_button"
-        android:layout_width="@dimen/layout_size_110dp_in_1080"
-        android:layout_height="@dimen/layout_size_36dp_in_1080"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/button_style_yellow_bg"
-        android:text="@string/mesh_try_again"
-        android:textAllCaps="false"
-        android:textSize="@dimen/layout_size_20dp_in_1080"/>
+        android:background="@drawable/button_style_yellow_bg">
+
+        <TextView
+            android:id="@+id/mesh_fail_try_again_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mesh_try_again"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
+            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"/>
+
+    </FrameLayout>
 
 </RelativeLayout>

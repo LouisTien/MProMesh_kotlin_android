@@ -78,6 +78,7 @@ class EndDeviceDetailFragment : Fragment()
             {
                 AppConfig.DialogAction.ACT_BLOCK_DEVICE -> {}
                 AppConfig.DialogAction.ACT_DELETE_ZYXEL_DEVICE -> {}
+                else -> {}
             }
         }
 
@@ -169,46 +170,58 @@ class EndDeviceDetailFragment : Fragment()
 
             end_device_detail_block_device_image ->
             {
-                MessageDialog(
-                        activity!!,
-                        getString(R.string.message_dialog_block_title),
-                        getString(R.string.message_dialog_block_msg),
-                        arrayOf(getString(R.string.message_dialog_ok), getString(R.string.message_dialog_cancel)),
-                        AppConfig.DialogAction.ACT_BLOCK_DEVICE
-                ).show()
+                if(!isEditMode)
+                {
+                    MessageDialog(
+                            activity!!,
+                            getString(R.string.message_dialog_block_title),
+                            getString(R.string.message_dialog_block_msg),
+                            arrayOf(getString(R.string.message_dialog_ok), getString(R.string.message_dialog_cancel)),
+                            AppConfig.DialogAction.ACT_BLOCK_DEVICE
+                    ).show()
+                }
             }
 
             end_device_detail_profile_image -> {}
 
             end_device_detail_remove_device_text ->
             {
-                MessageDialog(
-                        activity!!,
-                        "",
-                        getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.getName() + " ?",
-                        arrayOf(getString(R.string.message_dialog_delete), getString(R.string.message_dialog_cancel)),
-                        AppConfig.DialogAction.ACT_DELETE_DEVICE
-                ).show()
+                if(!isEditMode)
+                {
+                    MessageDialog(
+                            activity!!,
+                            "",
+                            getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.getName() + " ?",
+                            arrayOf(getString(R.string.message_dialog_delete), getString(R.string.message_dialog_cancel)),
+                            AppConfig.DialogAction.ACT_DELETE_DEVICE
+                    ).show()
+                }
             }
 
             end_device_detail_internet_blocking_image ->
             {
-                isBlocked = !isBlocked
-                endDeviceInfo.Internet_Blocking_Enable = isBlocked
-                setDeviceInfoTask()
+                if(!isEditMode)
+                {
+                    isBlocked = !isBlocked
+                    endDeviceInfo.Internet_Blocking_Enable = isBlocked
+                    setDeviceInfoTask()
+                }
             }
 
             end_device_detail_fsecure_text -> {}
 
             end_device_detail_user_tips_image ->
             {
-                MessageDialog(
-                        activity!!,
-                        "",
-                        getString(R.string.devices_user_tips),
-                        arrayOf(getString(R.string.message_dialog_ok)),
-                        AppConfig.DialogAction.ACT_NONE
-                ).show()
+                if(!isEditMode)
+                {
+                    MessageDialog(
+                            activity!!,
+                            "",
+                            getString(R.string.devices_user_tips),
+                            arrayOf(getString(R.string.message_dialog_ok)),
+                            AppConfig.DialogAction.ACT_NONE
+                    ).show()
+                }
             }
         }
     }
