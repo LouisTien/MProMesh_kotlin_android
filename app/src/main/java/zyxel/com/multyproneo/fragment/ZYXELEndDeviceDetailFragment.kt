@@ -103,8 +103,6 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                     }
                 }
 
-                AppConfig.DialogAction.ACT_DELETE_DEVICE -> {}
-
                 else -> {}
             }
         }
@@ -207,20 +205,6 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                 }
             }
 
-            zyxel_end_device_detail_remove_device_text ->
-            {
-                if(!isEditMode)
-                {
-                    MessageDialog(
-                            activity!!,
-                            "",
-                            getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.getName() + " ?",
-                            arrayOf(getString(R.string.message_dialog_delete), getString(R.string.message_dialog_cancel)),
-                            AppConfig.DialogAction.ACT_DELETE_ZYXEL_DEVICE
-                    ).show()
-                }
-            }
-
             zyxel_end_device_detail_speed_test_button ->
             {
                 if(!isEditMode)
@@ -235,7 +219,6 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         zyxel_end_device_detail_confirm_image.setOnClickListener(clickListener)
         zyxel_end_device_detail_edit_image.setOnClickListener(clickListener)
         zyxel_end_device_detail_reboot_button.setOnClickListener(clickListener)
-        zyxel_end_device_detail_remove_device_text.setOnClickListener(clickListener)
         zyxel_end_device_detail_speed_test_button.setOnClickListener(clickListener)
     }
 
@@ -321,7 +304,6 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         setContentLinearListVisibility(true)
         zyxel_end_device_detail_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_reboot_button.visibility = View.VISIBLE
-        //zyxel_end_device_detail_remove_device_text.visibility = if(isConnect) View.INVISIBLE else View.VISIBLE
         zyxel_end_device_detail_speed_test_linear.visibility = View.GONE
         zyxel_end_device_detail_speed_test_button.visibility = if(AppConfig.SpeedTestActive) View.VISIBLE else View.INVISIBLE
     }
@@ -345,7 +327,6 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         zyxel_end_device_detail_wan_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_lan_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_reboot_button.visibility = if(isConnect) View.VISIBLE else View.INVISIBLE
-        //zyxel_end_device_detail_remove_device_text.visibility = if(isConnect) View.INVISIBLE else View.VISIBLE
         zyxel_end_device_detail_speed_test_linear.visibility = View.GONE
         zyxel_end_device_detail_speed_test_button.visibility = View.INVISIBLE
     }
@@ -359,9 +340,9 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                 zyxel_end_device_detail_model_name_edit.setText(modelName)
                 zyxel_end_device_detail_model_name_relative.visibility = View.GONE
                 zyxel_end_device_detail_model_name_edit_relative.visibility = View.VISIBLE
-                zyxel_end_device_detail_content_area_relative.alpha = 0.6.toFloat()
+                zyxel_end_device_detail_content_area_relative.alpha = 0.3.toFloat()
                 zyxel_end_device_detail_reboot_button.isEnabled = false
-                zyxel_end_device_detail_remove_device_text.isEnabled = false
+                zyxel_end_device_detail_lan_ip_text.isEnabled = false
             }
 
             false ->
@@ -370,7 +351,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                 zyxel_end_device_detail_model_name_edit_relative.visibility = View.GONE
                 zyxel_end_device_detail_content_area_relative.alpha = 1.toFloat()
                 zyxel_end_device_detail_reboot_button.isEnabled = true
-                zyxel_end_device_detail_remove_device_text.isEnabled = true
+                zyxel_end_device_detail_lan_ip_text.isEnabled = true
             }
         }
     }

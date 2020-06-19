@@ -32,7 +32,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_36sp_in_1080"
-                android:text="@string/diagnostic_title"/>
+                android:text="@string/common_diagnostic"/>
 
         </RelativeLayout>
 

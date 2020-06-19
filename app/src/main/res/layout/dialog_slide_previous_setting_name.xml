@@ -19,7 +19,7 @@
             android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
             android:textColor="@color/color_0073ff"
             android:textSize="@dimen/text_size_14sp_in_1080"
-            android:text="@string/setup_previous_settings_name_dialog_done"/>
+            android:text="@string/common_done"/>
 
     </RelativeLayout>
 

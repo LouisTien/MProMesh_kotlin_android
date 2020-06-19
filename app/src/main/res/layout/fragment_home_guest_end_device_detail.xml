@@ -227,92 +227,6 @@
                     android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
                     android:layout_below="@+id/end_device_detail_internet_info_title_linear"/>
 
-                <LinearLayout
-                    android:id="@+id/end_device_detail_profile_area_linear"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_below="@+id/end_device_detail_content_line_image"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/end_device_detail_internet_access_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/color_888888"
-                        android:textSize="@dimen/text_size_18sp_in_1080"
-                        android:text="@string/device_detail_internet_access"
-                        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"/>
-
-                    <RelativeLayout
-                        android:id="@+id/end_device_detail_block_device_relative"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                        android:layout_below="@+id/end_device_detail_internet_access_text">
-
-                        <TextView
-                            android:id="@+id/end_device_detail_block_device_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/color_575757"
-                            android:textSize="@dimen/text_size_18sp_in_1080"
-                            android:text="@string/device_detail_block_device"/>
-
-                        <ImageView
-                            android:id="@+id/end_device_detail_block_device_image"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:src="@drawable/switch_off_2"/>
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/end_device_detail_profile_relative"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                        android:layout_below="@+id/end_device_detail_block_device_relative">
-
-                        <TextView
-                            android:id="@+id/end_device_detail_profile_title_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/color_575757"
-                            android:textSize="@dimen/text_size_18sp_in_1080"
-                            android:text="@string/device_detail_profile"/>
-
-                        <TextView
-                            android:id="@+id/end_device_detail_profile_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
-                            android:layout_toLeftOf="@+id/end_device_detail_profile_image"
-                            android:textColor="@color/color_000000"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/text_size_18sp_in_1080"
-                            tools:text="Steve"/>
-
-                        <ImageView
-                            android:id="@+id/end_device_detail_profile_image"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:src="@drawable/icon_detail"/>
-
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:id="@+id/end_device_detail_content_line_sec_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/bar1"
-                        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                        android:layout_below="@+id/end_device_detail_profile_relative"/>
-
-                </LinearLayout>
-
                 <RelativeLayout
                     android:id="@+id/end_device_detail_internet_blocking_area_relative"
                     android:layout_width="match_parent"
@@ -336,16 +250,6 @@
                         android:layout_alignParentRight="true"
                         android:src="@drawable/switch_off_2"/>
 
-                    <TextView
-                        android:id="@+id/end_device_detail_fsecure_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size_18sp_in_1080"
-                        android:textColor="@color/color_575757"
-                        android:layout_alignParentRight="true"
-                        android:text="@string/device_detail_f_secure"
-                        android:visibility="gone"/>
-
                     <ImageView
                         android:id="@+id/end_device_detail_internet_blocking_line_image"
                         android:layout_width="wrap_content"
@@ -353,6 +257,25 @@
                         android:src="@drawable/bar1"
                         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
                         android:layout_below="@+id/end_device_detail_internet_blocking_image"/>
+
+                    <TextView
+                        android:id="@+id/end_device_detail_fsecure_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_18sp_in_1080"
+                        android:textColor="@color/color_575757"
+                        android:layout_alignParentRight="true"
+                        android:text="F-Secure"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/end_device_detail_fsecure_line_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/bar1"
+                        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                        android:layout_below="@+id/end_device_detail_fsecure_text"
+                        android:visibility="gone"/>
 
                 </RelativeLayout>
 
@@ -579,35 +502,6 @@
                         tools:text="Apple"/>
 
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/end_device_detail_remove_device_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:textSize="@dimen/layout_size_18dp_in_1080"
-                    android:text="@string/device_detail_remove_device"
-                    android:visibility="invisible"/>
-
-                <!--<SlidingDrawer
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_alignParentBottom="true"
-                    android:handle="@+id/handle"
-                    android:content="@+id/content">
-
-                    <Button
-                        android:id="@+id/handle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <View
-                        android:id="@+id/content"
-                        android:background="#ac2d9a"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"/>
-
-                </SlidingDrawer>-->
 
             </RelativeLayout>
 

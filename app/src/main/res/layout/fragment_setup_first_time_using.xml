@@ -119,7 +119,7 @@
             android:id="@+id/setup_first_time_start_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/welcome_start"
+            android:text="@string/common_start"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/layout_size_20dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"

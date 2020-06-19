@@ -497,16 +497,6 @@
 
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/zyxel_end_device_detail_remove_device_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:textSize="@dimen/layout_size_18dp_in_1080"
-            android:text="@string/device_detail_remove_device"
-            android:visibility="invisible"/>
-
         <FrameLayout
             android:id="@+id/zyxel_end_device_detail_speed_test_button"
             android:layout_width="wrap_content"

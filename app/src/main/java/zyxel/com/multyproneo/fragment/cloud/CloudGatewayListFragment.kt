@@ -169,7 +169,7 @@ class CloudGatewayListFragment : Fragment()
 
             if(deleteMode)
             {
-                cloud_gateway_edit_text.text = getString(R.string.settings_cloud_account_router_action_done)
+                cloud_gateway_edit_text.text = getString(R.string.common_done)
                 cloud_gateway_edit_text.typeface = Typeface.DEFAULT_BOLD
             }
             else

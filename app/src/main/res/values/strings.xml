@@ -1,37 +1,20 @@
 <resources>
     <string name="app_name">MPro Mesh</string>
 
-    <string name="welcome_my_home_network_title">My Home Network</string>
-    <string name="welcome_guest_wifi_access_title">Guest WiFi Access</string>
-    <string name="welcome_auto_configuration_title">Auto-configuration</string>
-    <string name="welcome_my_home_network_description">Secure access to gateway settings and all connected mobile devices, computers, and NAS.</string>
-    <string name="welcome_guest_wifi_access_description">Give your house guests basic Internet access to common web, email or online games.</string>
-    <string name="welcome_auto_configuration_description">Allow the device to automatically update the wireless settings on the Zyxel APs or wireless repeaters in its network.</string>
-    <string name="welcome_start">Start</string>
+    <string name="common_start">Start</string>
+    <string name="common_home">Home</string>
+    <string name="common_devices">Devices</string>
+    <string name="common_diagnostic">Diagnostic</string>
+    <string name="common_account">Account</string>
+    <string name="common_settings">Settings</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_done">Done</string>
 
     <string name="setup_first_time_using_description1">Simple controls for home network</string>
     <string name="setup_first_time_using_description2">Easily expand WiFi coverage by adding extenders</string>
     <string name="setup_first_time_using_description3">Enable / Disable guest WiFi</string>
 
-    <string name="setup_controller_ready_title">Get Your WiFi Router Ready</string>
-    <string name="setup_controller_ready_description">Connect the WiFi Router to your modem and power it on.</string>
-    <string name="setup_controller_ready_help_connect_description">Connect the WiFi Router to your modem with the Ethernet cable.</string>
-    <string name="setup_controller_ready_help_power_description">Plug the WiFI Router into power.</string>
-    <string name="setup_controller_ready_help_led_description">Wait till the WiFi LED turns on.</string>
-
-    <string name="setup_connect_controller_title">Connect to WiFi Router</string>
-    <string name="setup_connect_controller_description">Connect to the WiFi of the WiFi Router that you want to set up.</string>
-    <string name="setup_connect_controller_help">If the WiFi Router has a QR code on its label, you can scan the QR code to get its WiFi and admin\'s credentials.</string>
-    <string name="setup_connect_controller_setting_dialog">Go to WiFi Settings of your mobile device and type WiFi name and password to connect.</string>
-    <string name="setup_connect_controller_setting_dialog_confirm">Settings</string>
-    <string name="setup_connect_controller_setting_dialog_cancel">Cancel</string>
-    <string name="setup_connect_controller_format_error_dialog_title">Problem with the QR Code</string>
-    <string name="setup_connect_controller_format_error_dialog_description">Scan the QR code on the label of your WiFi Router. If there is no QR code, please choose \'Manual\' in the previous step.</string>
     <string name="setup_connect_controller_format_error_dialog_confirm">Got it</string>
-    <string name="setup_connect_controller_scan_ok_dialog_description">Is「MPro Mesh」want to join</string>
-    <string name="setup_connect_controller_scan_ok_dialog_confirm">Join</string>
-    <string name="setup_connect_controller_next">Connected, Next</string>
-    <string name="setup_connect_controller_scan_description">Scan the QR code on the label of your WiFi Router to get its WiFi and admin\'s credentials and connect automatically.</string>
 
     <string name="setup_connecting_controller_title">Connecting to WiFi Router</string>
     <string name="setup_connecting_controller_description">Please wait.\nThis may take a few seconds.</string>
@@ -44,29 +27,15 @@
     <string name="setup_login_description">Enter username and password to continue.</string>
     <string name="setup_login_username">Username</string>
     <string name="setup_login_password">Password</string>
-    <string name="setup_login_help_title">Find the default admin username and password on the label of your WiFi Router.</string>
-    <string name="setup_login_help_description">If the default admin credentials were changed, enter new username and password to log in.</string>
     <string name="setup_login_label_description">Find the default admin username and password on the label of your WiFi Router.</string>
     <string name="setup_sn_login_description">Enter the serial number to continue.</string>
     <string name="setup_sn_login_serial_number">Serial number</string>
     <string name="setup_sn_login_label_description">Find the unique serial number of your WiFi Router on its label.</string>
 
-    <string name="setup_change_admin_pwd_title">Change Admin Password</string>
-    <string name="setup_change_admin_pwd_description">To avoid any unauthorized user accessing your password on the label of your WiFi Router, we recommend to change it.</string>
-    <string name="setup_change_admin_pwd_new_password">New Password</string>
-    <string name="setup_change_admin_pwd_confirm_new_password">Confirm New Password</string>
-    <string name="setup_change_admin_pwd_not_match_error_msg">Password and confirm password does not match</string>
-
-    <string name="setup_name_controller_title">Name Your WiFi Router</string>
-    <string name="setup_name_controller_description">Name your WiFi Router after its location.</string>
-    <string name="setup_name_controller_location">Location</string>
-
     <string name="setup_previous_settings_title">Apply Saved Settings</string>
     <string name="setup_previous_settings_description">Saved settings of your WiFi Router are found. You can apply them to this WiFi Router.</string>
     <string name="setup_previous_settings_sub_title">Apply WiFi settings of</string>
-    <string name="setup_previous_settings_check_description">Save WiFi setting</string>
     <string name="setup_previous_settings_details"><u>Details</u></string>
-    <string name="setup_previous_settings_name_dialog_done">Done</string>
     <string name="setup_previous_settings_details_title">WiFi Settings of</string>
     <string name="setup_previous_settings_details_wifi_title">WIFI NAME &amp; PASSWORD</string>
     <string name="setup_previous_settings_details_network_name_title">Network name</string>
@@ -105,9 +74,6 @@
     <string name="cloud_login_no_internet">Unable to connect to the server. Please check your network access.</string>
     <string name="cloud_login_no_ssl_error">SSL error occurred. Would you like to proceed?</string>
 
-    <string name="connect_to_cloud_title">Connect to the Cloud</string>
-    <string name="connect_to_cloud_description">A cloud account allows you to manage your WiFi Router anywhere.</string>
-
     <string name="finalizing_network_title">Finalizing Your Home Network</string>
     <string name="finalizing_network_description">Please wait.\nThis may take a few seconds.</string>
 
@@ -127,21 +93,9 @@
     <string name="mesh_device_status_no_connect">No connection</string>
     <string name="mesh_device_status_block">Blocked</string>
 
-    <string name="button_text_start"><u>START</u></string>
-    <string name="button_text_home">Home</string>
-    <string name="button_text_devices">Devices</string>
-    <string name="button_text_parental">Parental</string>
     <string name="button_text_wifi">WiFi</string>
-    <string name="button_text_diagnostic">Diagnostic</string>
-    <string name="button_text_account">Account</string>
-    <string name="button_text_settings">Settings</string>
 
-    <string name="menu_text_diagnostic">Diagnostic</string>
     <string name="menu_text_add_mesh">Add Mesh</string>
-    <string name="menu_text_help">Help</string>
-    <string name="menu_text_about">About</string>
-    <string name="menu_text_logout">Logout</string>
-    <string name="menu_text_app_version">App Version</string>
 
     <string name="find_device_title">Oops!</string>
     <string name="find_device_status_description">Please wait.\nThis may take a few seconds.</string>
@@ -164,7 +118,6 @@
     <string name="login_sn_error">Serial number error</string>
     <string name="login_no_support_character">Special characters are not supported</string>
 
-    <string name="home_title">Home</string>
     <string name="home_internet_status">Internet Status:</string>
     <string name="home_connected_devices">Connected\nDevices</string>
     <string name="home_guest_wifi">Guest\nWiFi</string>
@@ -203,7 +156,6 @@
     <string name="device_detail_mac_address">MAC Address</string>
     <string name="device_detail_fw_version">Firmware Version</string>
     <string name="device_detail_reboot">Reboot</string>
-    <string name="device_detail_remove_device"><u>Remove this device</u></string>
     <string name="device_detail_connecting">Connected</string>
     <string name="device_detail_disconnect">Disconnect</string>
     <string name="device_detail_blocked">Blocked</string>
@@ -211,9 +163,6 @@
     <string name="device_detail_wireless">Wireless</string>
     <string name="device_detail_title">Device Detail</string>
     <string name="device_detail_device_name">Device Name</string>
-    <string name="device_detail_internet_access">Internet Access</string>
-    <string name="device_detail_block_device">Block Device</string>
-    <string name="device_detail_profile">Profile</string>
     <string name="device_detail_last_seen">Last Seen</string>
     <string name="device_detail_connect_to">Connect To</string>
     <string name="device_detail_wifi_band">WiFi Band</string>
@@ -230,10 +179,8 @@
     <string name="device_detail_max_speed_updating">updating</string>
     <string name="device_detail_cannot_block_yourself">You can\'t block yourself</string>
     <string name="device_detail_offline_msg">The device is offline.</string>
+    <string name="device_detail_f_secure_msg">You have signed up for Home IoT Security that includes Parental Control with Content Filtering.\nDownload Use F-Secure Sense App for Parental Control and other security features</string>
 
-    <string name="device_search_cancel">Cancel</string>
-
-    <string name="devices_title">Devices</string>
     <string name="devices_activated">active /</string>
     <string name="devices_total">total</string>
     <string name="devices_home_devices">Home Devices</string>
@@ -252,24 +199,12 @@
     <string name="wifi_settings_guest_wifi_name">Guest WiFi Name</string>
     <string name="wifi_settings_guest_wifi_password">Guest WiFi Password</string>
     <string name="wifi_settings_edit_save">Save</string>
-    <string name="wifi_settings_edit_cancel">Cancel</string>
-    <string name="wifi_settings_edit_wifi">WiFi</string>
-    <string name="wifi_settings_qrcode_24g_tab">2.4G</string>
-    <string name="wifi_settings_qrcode_5g_tab">5G</string>
     <string name="wifi_settings_connect_change_tip">If you change the WiFi settings being connected, please reconnect to the new WiFi.</string>
 
-    <string name="parental_control_schedule_time_done">Done</string>
-    <string name="parental_control_format_24hr">24hr</string>
-    <string name="parental_control_format_12hr">12hr</string>
-    <string name="parental_control_result_time_start">Start</string>
-    <string name="parental_control_result_time_end">End</string>
-
-    <string name="account_title">Account</string>
     <string name="account_app_version">App Version</string>
     <string name="account_privacy_policy">Privacy Policy</string>
     <string name="account_logout">Logout</string>
 
-    <string name="diagnostic_title">Diagnostic</string>
     <string name="diagnostic_tab_wifi_channel">WiFi Channel Chart</string>
     <string name="diagnostic_tab_wifi_signal">WiFi Signal Meter</string>
     <string name="diagnostic_channel_chart">Channel Chart</string>
@@ -282,13 +217,11 @@
     <string name="diagnostic_wifi_signal_wifi_signal_strength">WiFi Signal Strength</string>
     <string name="diagnostic_wifi_signal_wifi_band">WiFi Band</string>
     <string name="diagnostic_wifi_signal_connect_to">Connected to</string>
-    <string name="diagnostic_wifi_signal_start">Start</string>
     <string name="diagnostic_wifi_signal_stop">Stop</string>
     <string name="diagnostic_wifi_signal_poor">Poor</string>
     <string name="diagnostic_wifi_signal_excellent">Excellent</string>
     <string name="diagnostic_request_gps_permission">Diagnostic function needs access to your location. Please enable GPS in your device\'s settings</string>
 
-    <string name="settings_title">Settings</string>
     <string name="settings_notification">Notification</string>
     <string name="settings_preserve_settings">Save WiFi Settings</string>
     <string name="settings_troubleshooting">Troubleshooting</string>
@@ -299,7 +232,6 @@
     <string name="settings_notification_sub_title">New Connected Device</string>
     <string name="settings_cloud_account_router_list_title">YOUR WIFI ROUTER</string>
     <string name="settings_cloud_account_router_action_edit">Edit</string>
-    <string name="settings_cloud_account_router_action_done">Done</string>
     <string name="settings_cloud_account_router_list_hint">This WiFi Router</string>
     <string name="settings_preserve_settings_alert_title">Deleting WiFi Setting Backup</string>
     <string name="settings_preserve_settings_alert_msg">Turning off Save WiFi Settings will DELETE the setting backup. MPro Mesh app will not be able to restore the WiFi settings to your WiFi Router during reinstallation.</string>
@@ -326,8 +258,6 @@
     <string name="mesh_tip_msg_suggest">Minimize any physical obstructions so they can \"see\" each other.</string>
     <string name="mesh_info_optional">Optional</string>
     <string name="mesh_info_hint">Tap button go to Home page and check if it was set up successfully.</string>
-    <string name="mesh_info_more_info"><u>More info</u></string>
-    <string name="mesh_info_go_home">Go To \"Home\"</string>
     <string name="mesh_more_info_title">You may need to know</string>
     <string name="mesh_more_info_description">LED indicates the wireless quality of Zyxel products, it may be vary from different extenders.</string>
     <string name="mesh_more_info_example">Example: WX3310</string>
@@ -341,7 +271,6 @@
     <string name="mesh_pair">Start Pairing</string>
     <string name="mesh_success_title">Success!</string>
     <string name="mesh_success_description">The WiFi Extender is added to your home WiFi network. And it has the same WiFi name and password.</string>
-    <string name="mesh_done">Done</string>
     <string name="mesh_fail_title">No connection</string>
     <string name="mesh_fail_description">Unplug the WiFi Extender move it closer to the gateway.</string>
     <string name="mesh_fail_description2">Plug WiFi Extender in new location, tap \"Try Again\" button to continue.</string>
@@ -376,22 +305,12 @@
     <string name="message_dialog_ok">OK</string>
     <string name="message_dialog_cancel">CANCEL</string>
     <string name="message_dialog_restart">RESTART</string>
-    <string name="message_dialog_start">START</string>
-    <string name="message_dialog_warning">Warning</string>
-    <string name="message_dialog_delete_lower_case">Delete</string>
-    <string name="message_dialog_delete">DELETE</string>
     <string name="message_dialog_turn_off">Turn Off</string>
-    <string name="message_dialog_applying">Applying...</string>
-    <string name="message_dialog_add">ADD</string>
     <string name="message_dialog_ok_got_it">OK, got it</string>
     <string name="message_dialog_not_connect">Cannot Connect</string>
     <string name="message_dialog_not_connect_try_again">Please check your WiFi connection and try again later.</string>
-    <string name="message_dialog_wifi_off">Turn on WiFi and connect to the WiFi of your WiFi Router.</string>
     <string name="message_dialog_reboot_reminder_title">Would you like to restart your device?</string>
     <string name="message_dialog_reboot_reminder">It will take a few minutes to reconnect to your Device.</string>
-    <string name="message_dialog_block_title">Block \"...\" from the Internet?</string>
-    <string name="message_dialog_block_msg">The devices assigned to \"Steve\" profile will be blocked from the Internet until 9am, tomorrow.</string>
-    <string name="message_dialog_block_always">Always block</string>
     <string name="message_dialog_check_lougot">Are you sure to logout this app?</string>
 
     <string name="remove_site_dialog_title">Remove \'%s\' from the Cloud</string>
@@ -405,7 +324,6 @@
 
     <string name="qrcode_dialog_wifi_msg">Connect to WiFi by scanning the QR code.</string>
     <string name="qrcode_dialog_guest_wifi_msg">Guests can connect to Guest WiFi by scanning the QR code.</string>
-    <string name="qrcode_dialog_done">Done</string>
 
     <string name="loading_transition_please_wait">Please wait.</string>
     <string name="loading_transition_update_wifi_settings">Updating WiFi Settings...</string>

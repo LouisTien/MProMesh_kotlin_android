@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_add_mesh_wps.*
+import kotlinx.android.synthetic.main.fragment_cloud_add_mesh_wps.*
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.cloud.P2PAddMeshApi
@@ -22,7 +22,7 @@ class CloudAddMeshWPSFragment : Fragment()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        return inflater.inflate(R.layout.fragment_add_mesh_wps, container, false)
+        return inflater.inflate(R.layout.fragment_cloud_add_mesh_wps, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
@@ -49,9 +49,9 @@ class CloudAddMeshWPSFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            mesh_wps_back_image -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshExtenderFragment()))
+            cloud_mesh_wps_back_image -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshExtenderFragment()))
 
-            mesh_wps_pair_button ->
+            cloud_mesh_wps_pair_button ->
             {
                 getL2DeviceNumberTask()
 
@@ -71,8 +71,8 @@ class CloudAddMeshWPSFragment : Fragment()
 
     private fun setClickListener()
     {
-        mesh_wps_back_image.setOnClickListener(clickListener)
-        mesh_wps_pair_button.setOnClickListener(clickListener)
+        cloud_mesh_wps_back_image.setOnClickListener(clickListener)
+        cloud_mesh_wps_pair_button.setOnClickListener(clickListener)
     }
 
     private fun getL2DeviceNumberTask()

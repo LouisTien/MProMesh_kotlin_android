@@ -79,8 +79,6 @@ class SetupConnectingInternetFragment : Fragment()
         }
 
         countDownTimerWanInfo.start()
-
-        //Glide.with(activity!!).load(R.drawable.slide1).into(setup_connecting_internet_content_image)
     }
 
     override fun onResume()

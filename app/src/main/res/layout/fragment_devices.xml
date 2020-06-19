@@ -51,7 +51,7 @@
                 android:textSize="@dimen/text_size_36sp_in_1080"
                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
                 android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-                android:text="@string/devices_title"/>
+                android:text="@string/common_devices"/>
 
         </RelativeLayout>
 

@@ -81,7 +81,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var enterCloudHomePageDisposable: Disposable
     private lateinit var enterCloudDevicesPageDisposable: Disposable
     private lateinit var enterCloudWiFiSettingsPageDisposable: Disposable
-    private lateinit var enterCloudDiagnosticPageDisposable: Disposable
     private lateinit var enterCloudSettingsPageDisposable: Disposable
     private lateinit var enterSearchGatewayPageDisposable: Disposable
     private lateinit var msgDialogResponseDisposable: Disposable
@@ -114,7 +113,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private var screenTimer = Timer()
     private var getWPSStatusTimer = Timer()
     private var getCloudWPSStatusTimer = Timer()
-    private var isCloudDiagnostic = false
     private var cloudDeviceFragTrigger = false
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -174,12 +172,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                     LogUtil.d(TAG, "Location permission granted!")
 
                     if(isGPSEnabled())
-                    {
-                        if(isCloudDiagnostic)
-                            gotoCloudDiagnosticFragment()
-                        else
-                            gotoDiagnosticFragment()
-                    }
+                        gotoDiagnosticFragment()
                     else
                     {
                         MessageDialog(
@@ -266,39 +259,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                 }
                 else
                 {
-                    isCloudDiagnostic = false
-
-                    MessageDialog(
-                            this,
-                            "",
-                            getString(R.string.diagnostic_request_location_permission),
-                            arrayOf(getString(R.string.message_dialog_ok)),
-                            AppConfig.DialogAction.ACT_LOCATION_PERMISSION
-                    ).show()
-                }
-            }
-
-            cloud_diagnostic_relative ->
-            {
-                if(hasLocationPermission())
-                {
-                    if(isGPSEnabled())
-                        gotoCloudDiagnosticFragment()
-                    else
-                    {
-                        MessageDialog(
-                                this,
-                                "",
-                                getString(R.string.diagnostic_request_gps_permission),
-                                arrayOf(getString(R.string.message_dialog_ok)),
-                                AppConfig.DialogAction.ACT_GPS_PERMISSION
-                        ).show()
-                    }
-                }
-                else
-                {
-                    isCloudDiagnostic = false
-
                     MessageDialog(
                             this,
                             "",
@@ -319,7 +279,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     {
         home_relative.setOnClickListener(clickListener)
         devices_relative.setOnClickListener(clickListener)
-        parental_relative.setOnClickListener(clickListener)
         wifi_relative.setOnClickListener(clickListener)
         diagnostic_relative.setOnClickListener(clickListener)
         account_relative.setOnClickListener(clickListener)
@@ -327,7 +286,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         cloud_home_relative.setOnClickListener(clickListener)
         cloud_devices_relative.setOnClickListener(clickListener)
         cloud_wifi_relative.setOnClickListener(clickListener)
-        cloud_diagnostic_relative.setOnClickListener(clickListener)
         cloud_settings_relative.setOnClickListener(clickListener)
     }
 
@@ -336,30 +294,24 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         runOnUiThread{
             home_image.isSelected = false
             devices_image.isSelected = false
-            parental_image.isSelected = false
             wifi_image.isSelected = false
             diagnostic_image.isSelected = false
             account_image.isSelected = false
 
             home_text.isSelected = false
             devices_text.isSelected = false
-            parental_text.isSelected = false
             wifi_text.isSelected = false
             diagnostic_text.isSelected = false
             account_text.isSelected = false
 
             cloud_home_image.isSelected = false
             cloud_devices_image.isSelected = false
-            cloud_parental_image.isSelected = false
             cloud_wifi_image.isSelected = false
-            cloud_diagnostic_image.isSelected = false
             cloud_settings_image.isSelected = false
 
             cloud_home_text.isSelected = false
             cloud_devices_text.isSelected = false
-            cloud_parental_text.isSelected = false
             cloud_wifi_text.isSelected = false
-            cloud_diagnostic_text.isSelected = false
             cloud_settings_text.isSelected = false
         }
     }
@@ -503,8 +455,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         enterCloudWiFiSettingsPageDisposable = GlobalBus.listen(MainEvent.EnterCloudWiFiSettingsPage::class.java).subscribe{ gotoCloudWiFiFragment() }
 
-        enterCloudDiagnosticPageDisposable = GlobalBus.listen(MainEvent.EnterCloudDiagnosticPage::class.java).subscribe{ gotoCloudDiagnosticFragment() }
-
         enterCloudSettingsPageDisposable = GlobalBus.listen(MainEvent.EnterCloudSettingsPage::class.java).subscribe{ gotoCloudSettingsFragment() }
 
         enterSearchGatewayPageDisposable = GlobalBus.listen(MainEvent.EnterSearchGatewayPage::class.java).subscribe{ gotoSearchGatewayFragment() }
@@ -537,8 +487,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                 }
 
                 AppConfig.DialogAction.ACT_RESEARCH -> gotoSearchGatewayFragment()
-
-                AppConfig.DialogAction.ACT_RESTART -> {}
 
                 AppConfig.DialogAction.ACT_GPS_PERMISSION -> startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
 
@@ -588,7 +536,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!enterCloudHomePageDisposable.isDisposed) enterCloudHomePageDisposable.dispose()
         if(!enterCloudDevicesPageDisposable.isDisposed) enterCloudDevicesPageDisposable.dispose()
         if(!enterCloudWiFiSettingsPageDisposable.isDisposed) enterCloudWiFiSettingsPageDisposable.dispose()
-        if(!enterCloudDiagnosticPageDisposable.isDisposed) enterCloudDiagnosticPageDisposable.dispose()
         if(!enterCloudSettingsPageDisposable.isDisposed) enterCloudSettingsPageDisposable.dispose()
         if(!enterSearchGatewayPageDisposable.isDisposed) enterSearchGatewayPageDisposable.dispose()
         if(!msgDialogResponseDisposable.isDisposed) msgDialogResponseDisposable.dispose()
@@ -650,8 +597,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
     private fun gotoDiagnosticFragment()
     {
-        isCloudDiagnostic = false
-
         disSelectToolBarIcons()
 
         runOnUiThread{
@@ -715,21 +660,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             switchToFragContainer(CloudWiFiSettingsFragment())
     }
 
-    private fun gotoCloudDiagnosticFragment()
-    {
-        isCloudDiagnostic = true
-
-        disSelectToolBarIcons()
-
-        runOnUiThread{
-            cloud_diagnostic_image.isSelected = true
-            cloud_diagnostic_text.isSelected = true
-        }
-
-        if(GlobalData.currentFrag != "CloudDiagnosticFragment")
-            switchToFragContainer(CloudDiagnosticFragment())
-    }
-
     private fun gotoCloudSettingsFragment()
     {
         disSelectToolBarIcons()
@@ -783,11 +713,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private fun showErrorMsgDialog(msg: String, requestCtxName: String)
     {
         setErrorMsgDialog(msg, AppConfig.DialogAction.ACT_RESEARCH)
-    }
-
-    private fun showErrorMsgDialogCloud(msg: String, requestCtxName: String)
-    {
-        setErrorMsgDialog(msg, AppConfig.DialogAction.ACT_RESTART)
     }
 
     private fun setErrorMsgDialog(msg: String, act: AppConfig.DialogAction)

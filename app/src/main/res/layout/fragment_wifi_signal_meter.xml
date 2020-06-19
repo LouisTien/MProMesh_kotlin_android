@@ -195,7 +195,7 @@
                         android:id="@+id/wifi_signal_start_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/diagnostic_wifi_signal_start"
+                        android:text="@string/common_start"
                         android:textColor="@color/color_000000"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:layout_marginTop="@dimen/layout_size_5dp_in_1080"

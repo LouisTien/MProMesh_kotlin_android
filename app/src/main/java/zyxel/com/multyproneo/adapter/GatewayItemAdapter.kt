@@ -32,19 +32,6 @@ class GatewayItemAdapter(private val gatewayList: MutableList<GatewayInfo>) : Re
     {
         fun bind(gatewayInfo: GatewayInfo, position: Int)
         {
-            /*itemView.gateway_model_name_text.text = gatewayInfo.userDefineName
-
-            with(gatewayInfo.modelName)
-            {
-                when
-                {
-                    contains("WAP6804") -> itemView.gateway_model_image.setImageResource(R.drawable.device_wap6804)
-                    contains("WAP4927") -> itemView.gateway_model_image.setImageResource(R.drawable.device_wap4927)
-                    contains("WAP4825") -> itemView.gateway_model_image.setImageResource(R.drawable.device_wap4825)
-                    else -> itemView.gateway_model_image.setImageResource(R.drawable.device_wap4825)
-                }
-            }*/
-
             itemView.gateway_model_name_text.text = gatewayInfo.ModelName
 
             with(gatewayInfo.DeviceMode)

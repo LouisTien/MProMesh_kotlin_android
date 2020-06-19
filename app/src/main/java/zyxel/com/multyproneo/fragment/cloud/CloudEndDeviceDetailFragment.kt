@@ -6,16 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_home_guest_end_device_detail.*
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
-import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.textColor
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.cloud.P2PDevicesApi
 import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.dialog.MessageDialog
-import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.DevicesInfoObject
@@ -24,7 +21,7 @@ import zyxel.com.multyproneo.util.*
 import android.text.format.Formatter.formatIpAddress
 import android.content.Context.WIFI_SERVICE
 import android.net.wifi.WifiManager
-import android.text.format.Formatter
+import android.text.Html
 import androidx.fragment.app.Fragment
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.support.v4.alert
@@ -36,8 +33,6 @@ import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 class CloudEndDeviceDetailFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
-    private lateinit var msgDialogResponse: Disposable
-    //private lateinit var getInfoCompleteDisposable: Disposable
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var endDeviceInfo: DevicesInfoObject
     private lateinit var db: DatabaseCloudUtil
@@ -82,38 +77,7 @@ class CloudEndDeviceDetailFragment : Fragment()
 
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
-            when(it.action)
-            {
-                AppConfig.DialogAction.ACT_BLOCK_DEVICE -> {}
-                AppConfig.DialogAction.ACT_DELETE_ZYXEL_DEVICE -> {}
-                else -> {}
-            }
-        }
-
-        /*getInfoCompleteDisposable = GlobalBus.listen(DevicesDetailEvent.GetDeviceInfoComplete::class.java).subscribe{
-            isEditMode = false
-
-            runOnUiThread{
-                if(isVisible)
-                {
-                    end_device_detail_model_name_text.text = editDeviceName
-                    end_device_detail_model_name_edit.setText(editDeviceName)
-                    setEditModeUI()
-
-                    for(item in GlobalData.endDeviceList)
-                    {
-                        if(item.PhysAddress == endDeviceInfo.PhysAddress)
-                        {
-                            endDeviceInfo = item
-                            break
-                        }
-                    }
-
-                    updateUI()
-                }
-            }
-        }*/
+        end_device_detail_fsecure_text.text = Html.fromHtml("<u>"+"F-Secure"+"</u>")
 
         setClickListener()
     }
@@ -133,8 +97,6 @@ class CloudEndDeviceDetailFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
-        if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
-        //if(!getInfoCompleteDisposable.isDisposed) getInfoCompleteDisposable.dispose()
     }
 
     private val clickListener = View.OnClickListener{ view ->
@@ -177,36 +139,6 @@ class CloudEndDeviceDetailFragment : Fragment()
                 setEditModeUI()
             }
 
-            end_device_detail_block_device_image ->
-            {
-                if(!isEditMode)
-                {
-                    MessageDialog(
-                            activity!!,
-                            getString(R.string.message_dialog_block_title),
-                            getString(R.string.message_dialog_block_msg),
-                            arrayOf(getString(R.string.message_dialog_ok), getString(R.string.message_dialog_cancel)),
-                            AppConfig.DialogAction.ACT_BLOCK_DEVICE
-                    ).show()
-                }
-            }
-
-            /*end_device_detail_profile_image -> {}
-
-            end_device_detail_remove_device_text ->
-            {
-                if(!isEditMode)
-                {
-                    MessageDialog(
-                            activity!!,
-                            "",
-                            getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.getName() + " ?",
-                            arrayOf(getString(R.string.message_dialog_delete), getString(R.string.message_dialog_cancel)),
-                            AppConfig.DialogAction.ACT_DELETE_DEVICE
-                    ).show()
-                }
-            }*/
-
             end_device_detail_internet_blocking_image ->
             {
                 if(!isEditMode)
@@ -230,7 +162,19 @@ class CloudEndDeviceDetailFragment : Fragment()
                 }
             }
 
-            //end_device_detail_fsecure_text -> {}
+            end_device_detail_fsecure_text ->
+            {
+                if(!isEditMode)
+                {
+                    MessageDialog(
+                            activity!!,
+                            "",
+                            getString(R.string.device_detail_f_secure_msg),
+                            arrayOf(getString(R.string.message_dialog_ok)),
+                            AppConfig.DialogAction.ACT_NONE
+                    ).show()
+                }
+            }
         }
     }
 
@@ -239,11 +183,8 @@ class CloudEndDeviceDetailFragment : Fragment()
         end_device_detail_back_image.setOnClickListener(clickListener)
         end_device_detail_confirm_image.setOnClickListener(clickListener)
         end_device_detail_edit_image.setOnClickListener(clickListener)
-        end_device_detail_block_device_image.setOnClickListener(clickListener)
-        //end_device_detail_profile_image.setOnClickListener(clickListener)
-        //end_device_detail_remove_device_text.setOnClickListener(clickListener)
         end_device_detail_internet_blocking_image.setOnClickListener(clickListener)
-        //end_device_detail_fsecure_text.setOnClickListener(clickListener)
+        end_device_detail_fsecure_text.setOnClickListener(clickListener)
     }
 
     private fun updateUI()
@@ -405,19 +346,23 @@ class CloudEndDeviceDetailFragment : Fragment()
                     true ->
                     {
                         end_device_detail_internet_blocking_title_text.text = getString(R.string.device_detail_parental_control)
-                        end_device_detail_internet_blocking_image.visibility = View.INVISIBLE
+                        end_device_detail_internet_blocking_image.visibility = View.GONE
+                        end_device_detail_internet_blocking_line_image.visibility = View.GONE
                         end_device_detail_fsecure_text.visibility = View.VISIBLE
+                        end_device_detail_fsecure_line_image.visibility = View.VISIBLE
                     }
 
                     false ->
                     {
                         end_device_detail_internet_blocking_title_text.text = getString(R.string.device_detail_internet_blocking)
-                        end_device_detail_fsecure_text.visibility = View.GONE
                         end_device_detail_internet_blocking_image.visibility = View.VISIBLE
+                        end_device_detail_internet_blocking_line_image.visibility = View.VISIBLE
+                        end_device_detail_fsecure_text.visibility = View.GONE
+                        end_device_detail_fsecure_line_image.visibility = View.GONE
                     }
                 }
+
                 end_device_detail_internet_blocking_image.setImageResource(if(isBlocked) R.drawable.switch_on else R.drawable.switch_off_2)
-                end_device_detail_remove_device_text.visibility = View.INVISIBLE
 
                 if(connectType == getString(R.string.device_detail_wired))
                 {
@@ -449,7 +394,6 @@ class CloudEndDeviceDetailFragment : Fragment()
                 end_device_detail_max_speed_linear.visibility = View.GONE
                 end_device_detail_rssi_linear.visibility = View.GONE
                 end_device_detail_internet_blocking_area_relative.visibility = View.GONE
-                end_device_detail_remove_device_text.visibility = View.INVISIBLE
             }
         }
 
@@ -468,9 +412,6 @@ class CloudEndDeviceDetailFragment : Fragment()
                 end_device_detail_model_name_relative.visibility = View.GONE
                 end_device_detail_model_name_edit_relative.visibility = View.VISIBLE
                 end_device_detail_content_area_relative.alpha = 0.6.toFloat()
-                end_device_detail_block_device_image.isEnabled = false
-                end_device_detail_profile_image.isEnabled = false
-                end_device_detail_remove_device_text.isEnabled = false
             }
 
             false ->
@@ -478,9 +419,6 @@ class CloudEndDeviceDetailFragment : Fragment()
                 end_device_detail_model_name_relative.visibility = View.VISIBLE
                 end_device_detail_model_name_edit_relative.visibility = View.GONE
                 end_device_detail_content_area_relative.alpha = 1.toFloat()
-                end_device_detail_block_device_image.isEnabled = true
-                end_device_detail_profile_image.isEnabled = true
-                end_device_detail_remove_device_text.isEnabled = true
             }
         }
     }

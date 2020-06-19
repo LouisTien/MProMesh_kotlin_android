@@ -2,6 +2,7 @@ package zyxel.com.multyproneo.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +20,6 @@ import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.DevicesApi
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.DevicesDetailEvent
-import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.DevicesInfoObject
@@ -33,7 +33,6 @@ import zyxel.com.multyproneo.util.*
 class EndDeviceDetailFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
-    private lateinit var msgDialogResponse: Disposable
     private lateinit var getInfoCompleteDisposable: Disposable
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var endDeviceInfo: DevicesInfoObject
@@ -73,15 +72,6 @@ class EndDeviceDetailFragment : Fragment()
 
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
-            when(it.action)
-            {
-                AppConfig.DialogAction.ACT_BLOCK_DEVICE -> {}
-                AppConfig.DialogAction.ACT_DELETE_ZYXEL_DEVICE -> {}
-                else -> {}
-            }
-        }
-
         getInfoCompleteDisposable = GlobalBus.listen(DevicesDetailEvent.GetDeviceInfoComplete::class.java).subscribe{
             isEditMode = false
 
@@ -106,6 +96,8 @@ class EndDeviceDetailFragment : Fragment()
             }
         }
 
+        end_device_detail_fsecure_text.text = Html.fromHtml("<u>"+"F-Secure"+"</u>")
+
         setClickListener()
     }
 
@@ -124,7 +116,6 @@ class EndDeviceDetailFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
-        if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
         if(!getInfoCompleteDisposable.isDisposed) getInfoCompleteDisposable.dispose()
     }
 
@@ -168,36 +159,6 @@ class EndDeviceDetailFragment : Fragment()
                 setEditModeUI()
             }
 
-            end_device_detail_block_device_image ->
-            {
-                if(!isEditMode)
-                {
-                    MessageDialog(
-                            activity!!,
-                            getString(R.string.message_dialog_block_title),
-                            getString(R.string.message_dialog_block_msg),
-                            arrayOf(getString(R.string.message_dialog_ok), getString(R.string.message_dialog_cancel)),
-                            AppConfig.DialogAction.ACT_BLOCK_DEVICE
-                    ).show()
-                }
-            }
-
-            end_device_detail_profile_image -> {}
-
-            end_device_detail_remove_device_text ->
-            {
-                if(!isEditMode)
-                {
-                    MessageDialog(
-                            activity!!,
-                            "",
-                            getString(R.string.message_dialog_delete_lower_case) + " " + endDeviceInfo.getName() + " ?",
-                            arrayOf(getString(R.string.message_dialog_delete), getString(R.string.message_dialog_cancel)),
-                            AppConfig.DialogAction.ACT_DELETE_DEVICE
-                    ).show()
-                }
-            }
-
             end_device_detail_internet_blocking_image ->
             {
                 if(!isEditMode)
@@ -208,7 +169,19 @@ class EndDeviceDetailFragment : Fragment()
                 }
             }
 
-            end_device_detail_fsecure_text -> {}
+            end_device_detail_fsecure_text ->
+            {
+                if(!isEditMode)
+                {
+                    MessageDialog(
+                            activity!!,
+                            "",
+                            getString(R.string.device_detail_f_secure_msg),
+                            arrayOf(getString(R.string.message_dialog_ok)),
+                            AppConfig.DialogAction.ACT_NONE
+                    ).show()
+                }
+            }
 
             end_device_detail_user_tips_image ->
             {
@@ -231,9 +204,6 @@ class EndDeviceDetailFragment : Fragment()
         end_device_detail_back_image.setOnClickListener(clickListener)
         end_device_detail_confirm_image.setOnClickListener(clickListener)
         end_device_detail_edit_image.setOnClickListener(clickListener)
-        end_device_detail_block_device_image.setOnClickListener(clickListener)
-        end_device_detail_profile_image.setOnClickListener(clickListener)
-        end_device_detail_remove_device_text.setOnClickListener(clickListener)
         end_device_detail_internet_blocking_image.setOnClickListener(clickListener)
         end_device_detail_fsecure_text.setOnClickListener(clickListener)
         end_device_detail_user_tips_image.setOnClickListener(clickListener)
@@ -398,19 +368,23 @@ class EndDeviceDetailFragment : Fragment()
                     true ->
                     {
                         end_device_detail_internet_blocking_title_text.text = getString(R.string.device_detail_parental_control)
-                        end_device_detail_internet_blocking_image.visibility = View.INVISIBLE
+                        end_device_detail_internet_blocking_image.visibility = View.GONE
+                        end_device_detail_internet_blocking_line_image.visibility = View.GONE
                         end_device_detail_fsecure_text.visibility = View.VISIBLE
+                        end_device_detail_fsecure_line_image.visibility = View.VISIBLE
                     }
 
                     false ->
                     {
                         end_device_detail_internet_blocking_title_text.text = getString(R.string.device_detail_internet_blocking)
-                        end_device_detail_fsecure_text.visibility = View.GONE
                         end_device_detail_internet_blocking_image.visibility = View.VISIBLE
+                        end_device_detail_internet_blocking_line_image.visibility = View.VISIBLE
+                        end_device_detail_fsecure_text.visibility = View.GONE
+                        end_device_detail_fsecure_line_image.visibility = View.GONE
                     }
                 }
+
                 end_device_detail_internet_blocking_image.setImageResource(if(isBlocked) R.drawable.switch_on else R.drawable.switch_off_2)
-                end_device_detail_remove_device_text.visibility = View.INVISIBLE
 
                 if(connectType == getString(R.string.device_detail_wired))
                 {
@@ -442,7 +416,6 @@ class EndDeviceDetailFragment : Fragment()
                 end_device_detail_max_speed_linear.visibility = View.GONE
                 end_device_detail_rssi_linear.visibility = View.GONE
                 end_device_detail_internet_blocking_area_relative.visibility = View.GONE
-                end_device_detail_remove_device_text.visibility = View.INVISIBLE
             }
         }
 
@@ -467,9 +440,6 @@ class EndDeviceDetailFragment : Fragment()
                 end_device_detail_model_name_relative.visibility = View.GONE
                 end_device_detail_model_name_edit_relative.visibility = View.VISIBLE
                 end_device_detail_content_area_relative.alpha = 0.6.toFloat()
-                end_device_detail_block_device_image.isEnabled = false
-                end_device_detail_profile_image.isEnabled = false
-                end_device_detail_remove_device_text.isEnabled = false
             }
 
             false ->
@@ -477,9 +447,6 @@ class EndDeviceDetailFragment : Fragment()
                 end_device_detail_model_name_relative.visibility = View.VISIBLE
                 end_device_detail_model_name_edit_relative.visibility = View.GONE
                 end_device_detail_content_area_relative.alpha = 1.toFloat()
-                end_device_detail_block_device_image.isEnabled = true
-                end_device_detail_profile_image.isEnabled = true
-                end_device_detail_remove_device_text.isEnabled = true
             }
         }
     }

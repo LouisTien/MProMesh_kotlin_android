@@ -138,7 +138,7 @@ class CloudSettingsCloudAccountDetailFragment : Fragment()
 
             if(deleteMode)
             {
-                settings_cloud_account_detail_router_list_action_text.text = getString(R.string.settings_cloud_account_router_action_done)
+                settings_cloud_account_detail_router_list_action_text.text = getString(R.string.common_done)
                 settings_cloud_account_detail_router_list_action_text.typeface = Typeface.DEFAULT_BOLD
             }
             else

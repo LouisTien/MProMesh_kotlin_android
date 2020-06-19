@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:textColor="@color/color_000000"
-                android:text="@string/wifi_settings_qrcode_24g_tab"
+                android:text="2.4G"
                 android:layout_gravity="center"/>
 
             <ImageView
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:textColor="@color/color_000000"
-                android:text="@string/wifi_settings_qrcode_5g_tab"
+                android:text="5G"
                 android:layout_gravity="center"/>
 
             <ImageView
@@ -90,6 +90,6 @@
         android:textSize="@dimen/text_size_20sp_in_1080"
         android:textStyle="bold"
         android:textColor="@color/color_575757"
-        android:text="@string/qrcode_dialog_done"/>
+        android:text="@string/common_done"/>
 
 </LinearLayout>

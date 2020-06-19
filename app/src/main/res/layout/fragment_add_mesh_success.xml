@@ -74,7 +74,7 @@
             android:id="@+id/mesh_success_done_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mesh_done"
+            android:text="@string/common_done"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/layout_size_20dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"

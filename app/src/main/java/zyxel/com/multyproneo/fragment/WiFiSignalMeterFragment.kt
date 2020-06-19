@@ -67,7 +67,7 @@ class WiFiSignalMeterFragment : Fragment()
         wifiManager.startScan()
 
         wifi_signal_start_button.setOnClickListener{
-            if(wifi_signal_start_text.text == resources.getString(R.string.diagnostic_wifi_signal_start))
+            if(wifi_signal_start_text.text == resources.getString(R.string.common_start))
             {
                 wifi_signal_start_text.text = resources.getString(R.string.diagnostic_wifi_signal_stop)
                 wifi_signal_info_strength_text.text = ""
@@ -75,7 +75,7 @@ class WiFiSignalMeterFragment : Fragment()
             }
             else
             {
-                wifi_signal_start_text.text = resources.getString(R.string.diagnostic_wifi_signal_start)
+                wifi_signal_start_text.text = resources.getString(R.string.common_start)
                 stopRegularUpdateRssi()
             }
         }

@@ -19,7 +19,6 @@ import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.AccountApi
 import zyxel.com.multyproneo.api.Commander
-import zyxel.com.multyproneo.dialog.SetupLoginHelpDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.GatewayInfo
@@ -108,8 +107,6 @@ class SetupLoginFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            setup_login_help_image -> SetupLoginHelpDialog(activity!!).show()
-
             setup_login_password_show_image ->
             {
                 setup_login_password_edit.transformationMethod = if(showPassword) PasswordTransformationMethod() else null
@@ -191,7 +188,6 @@ class SetupLoginFragment : Fragment()
 
     private fun setClickListener()
     {
-        setup_login_help_image.setOnClickListener(clickListener)
         setup_login_password_show_image.setOnClickListener(clickListener)
         setup_login_enter_button.setOnClickListener(clickListener)
     }

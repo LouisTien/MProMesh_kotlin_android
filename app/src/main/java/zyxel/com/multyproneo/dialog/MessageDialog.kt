@@ -17,7 +17,6 @@ import zyxel.com.multyproneo.util.AppConfig
  */
 class MessageDialog(context: Context, private var title: String, var description: String, private var btnTexts: Array<String>, var action: AppConfig.DialogAction) : Dialog(context)
 {
-    private var alwaysBlock = false
     private val REMOVESTR = "REMOVE"
     private val DELETESTR = "DELETE"
 
@@ -65,11 +64,6 @@ class MessageDialog(context: Context, private var title: String, var description
         }
         else
             msg_alert_cancel.visibility = View.GONE
-
-        if(action == AppConfig.DialogAction.ACT_BLOCK_DEVICE)
-            block_check_linear.visibility = View.VISIBLE
-        else
-            block_check_linear.visibility = View.GONE
     }
 
     private val clickListener = View.OnClickListener{ view ->
@@ -77,7 +71,7 @@ class MessageDialog(context: Context, private var title: String, var description
         {
             msg_alert_positive ->
             {
-                GlobalBus.publish(DialogEvent.OnPositiveBtn(action, alwaysBlock))
+                GlobalBus.publish(DialogEvent.OnPositiveBtn(action))
                 dismiss()
             }
 
@@ -86,15 +80,6 @@ class MessageDialog(context: Context, private var title: String, var description
                 GlobalBus.publish(DialogEvent.OnCancelBtn(action))
                 dismiss()
             }
-
-            block_check_image ->
-            {
-                alwaysBlock = !alwaysBlock
-                if(alwaysBlock)
-                    block_check_image.setImageResource(R.drawable.checkbox_check)
-                else
-                    block_check_image.setImageResource(R.drawable.checkbox_uncheck)
-            }
         }
     }
 
@@ -102,6 +87,5 @@ class MessageDialog(context: Context, private var title: String, var description
     {
         msg_alert_positive.setOnClickListener(clickListener)
         msg_alert_cancel.setOnClickListener(clickListener)
-        block_check_image.setOnClickListener(clickListener)
     }
 }

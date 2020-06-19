@@ -8,7 +8,7 @@ import zyxel.com.multyproneo.util.AppConfig
  */
 class DialogEvent
 {
-    class OnPositiveBtn(var action: AppConfig.DialogAction = AppConfig.DialogAction.ACT_NONE, var block: Boolean = false)
+    class OnPositiveBtn(var action: AppConfig.DialogAction = AppConfig.DialogAction.ACT_NONE)
     class OnCancelBtn(var action: AppConfig.DialogAction = AppConfig.DialogAction.ACT_NONE)
     class OnSlideListSelect(var data: DatabaseSiteInfoEntity)
     class OnOtherSiteSelect(var uid: String, var credential: String)

@@ -32,33 +32,6 @@
         android:textColor="@color/color_000000"
         android:textSize="@dimen/text_size_18sp_in_1080" />
 
-    <LinearLayout
-        android:id="@+id/block_check_linear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-        android:visibility="invisible">
-
-        <ImageView
-            android:id="@+id/block_check_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/checkbox_uncheck"/>
-
-        <TextView
-            android:id="@+id/block_check_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
-            android:textColor="@color/color_000000"
-            android:textSize="@dimen/text_size_20sp_in_1080"
-            android:text="@string/message_dialog_block_always"/>
-
-    </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

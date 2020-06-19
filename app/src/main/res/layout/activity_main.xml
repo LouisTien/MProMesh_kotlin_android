@@ -48,7 +48,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
                     android:textColor="@drawable/toolbar_btn_text"
-                    android:text="@string/button_text_home"/>
+                    android:text="@string/common_home"/>
 
             </RelativeLayout>
 
@@ -74,34 +74,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
                     android:textColor="@drawable/toolbar_btn_text"
-                    android:text="@string/button_text_devices"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/parental_relative"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/parental_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/toolbar_parental_btn"/>
-
-                <TextView
-                    android:id="@+id/parental_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/parental_image"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
-                    android:textColor="@drawable/toolbar_btn_text"
-                    android:text="@string/button_text_parental"/>
+                    android:text="@string/common_devices"/>
 
             </RelativeLayout>
 
@@ -153,7 +126,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
                     android:textColor="@drawable/toolbar_btn_text"
-                    android:text="@string/button_text_diagnostic"/>
+                    android:text="@string/common_diagnostic"/>
 
             </RelativeLayout>
 
@@ -179,7 +152,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
                     android:textColor="@drawable/toolbar_btn_text"
-                    android:text="@string/button_text_account"/>
+                    android:text="@string/common_account"/>
 
             </RelativeLayout>
 
@@ -214,7 +187,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
                     android:textColor="@drawable/toolbar_btn_text"
-                    android:text="@string/button_text_home"/>
+                    android:text="@string/common_home"/>
 
             </RelativeLayout>
 
@@ -240,34 +213,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
                     android:textColor="@drawable/toolbar_btn_text"
-                    android:text="@string/button_text_devices"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/cloud_parental_relative"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/cloud_parental_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/toolbar_parental_btn"/>
-
-                <TextView
-                    android:id="@+id/cloud_parental_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/cloud_parental_image"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
-                    android:textColor="@drawable/toolbar_btn_text"
-                    android:text="@string/button_text_parental"/>
+                    android:text="@string/common_devices"/>
 
             </RelativeLayout>
 
@@ -298,33 +244,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/cloud_diagnostic_relative"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/cloud_diagnostic_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/toolbar_diagnostic_btn"/>
-
-                <TextView
-                    android:id="@+id/cloud_diagnostic_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/cloud_diagnostic_image"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
-                    android:textColor="@drawable/toolbar_btn_text"
-                    android:text="@string/button_text_diagnostic"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
                 android:id="@+id/cloud_settings_relative"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -346,7 +265,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
                     android:textColor="@drawable/toolbar_btn_text"
-                    android:text="@string/button_text_settings"/>
+                    android:text="@string/common_settings"/>
 
             </RelativeLayout>
 

@@ -44,15 +44,6 @@
 
     </RelativeLayout>
 
-    <!--<ImageView
-        android:id="@+id/setup_reconnect_apply_previous_settings_content_image"
-        android:layout_width="@dimen/layout_size_300dp_in_1080"
-        android:layout_height="@dimen/layout_size_201dp_in_1080"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/layout_size_94dp_in_1080"
-        android:layout_below="@+id/setup_reconnect_apply_previous_settings_content_relative"
-        android:src="@drawable/gif_connectiongtomeshcontroller_01"/>-->
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/setup_reconnect_apply_previous_settings_content_animation_view"
         android:layout_width="@dimen/layout_size_300dp_in_1080"

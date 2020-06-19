@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_setup_connect_troubleshooting.*
 import zyxel.com.multyproneo.R
-import zyxel.com.multyproneo.api.cloud.TUTKP2PBaseApi
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.AppConfig
@@ -75,11 +74,6 @@ class SetupConnectTroubleshootingFragment : Fragment()
             AppConfig.TroubleshootingPage.PAGE_CLOUD_API_ERROR
             ->
             {
-                /*if(pageMode == AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER_PREVIOUS_SET)
-                    setup_connect_troubleshooting_back_image.visibility = View.VISIBLE
-                else
-                    setup_connect_troubleshooting_back_image.visibility = View.INVISIBLE*/
-
                 setup_connect_troubleshooting_title_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_controller_title)
                 setup_connect_troubleshooting_sub_title_text.text = getString(R.string.setup_connect_troubleshooting_cannot_connect_controller_sub_title)
 
@@ -135,16 +129,6 @@ class SetupConnectTroubleshootingFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            setup_connect_troubleshooting_back_image ->
-            {
-                /*when(pageMode)
-                {
-                    AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
-                    AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER_PREVIOUS_SET -> GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectControllerFragment()))
-                    else -> {}
-                }*/
-            }
-
             setup_connect_troubleshooting_retry_image ->
             {
                 when(pageMode)
@@ -187,7 +171,6 @@ class SetupConnectTroubleshootingFragment : Fragment()
 
     private fun setClickListener()
     {
-        setup_connect_troubleshooting_back_image.setOnClickListener(clickListener)
         setup_connect_troubleshooting_retry_image.setOnClickListener(clickListener)
     }
 }

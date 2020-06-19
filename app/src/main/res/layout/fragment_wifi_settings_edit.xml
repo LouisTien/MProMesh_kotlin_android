@@ -19,7 +19,7 @@
             android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_575757"
-            android:text="@string/wifi_settings_edit_cancel"/>
+            android:text="@string/common_cancel"/>
 
         <TextView
             android:id="@+id/wifi_edit_title_text"
@@ -44,33 +44,6 @@
             android:text="@string/wifi_settings_edit_save"/>
 
     </RelativeLayout>
-
-    <!--<RelativeLayout
-        android:id="@+id/wifi_edit_switch_area_relative"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
-        android:layout_below="@+id/wifi_edit_title_area_relative">
-
-        <TextView
-            android:id="@+id/wifi_edit_wifi_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_20sp_in_1080"
-            android:textColor="@color/color_575757"
-            android:text="@string/wifi_settings_edit_wifi"/>
-
-        <ImageView
-            android:id="@+id/wifi_edit_wifi_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/switch_off_2"/>
-
-    </RelativeLayout>-->
 
     <RelativeLayout
         android:id="@+id/wifi_edit_wifi_24g_name_area_relative"

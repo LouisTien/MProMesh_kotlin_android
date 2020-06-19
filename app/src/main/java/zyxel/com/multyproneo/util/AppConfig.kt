@@ -56,26 +56,6 @@ object AppConfig
     const val API_GUEST_WIFI_5G_PWD = "/TR181/Value/Device.WiFi.AccessPoint.6.Security."
     const val API_MULTI_OBJECTS = "/TR181/Value/MultiObjects"
 
-    /*//TUTK AMDM Production
-    const val TUTK_AM_SITE = "https://am1.tutk.com"
-    const val TUTK_AM_STATE = "1234"
-    const val TUTK_AM_CLIENT_ID = "vXudLCmYSwonVSetUPZrfiVDOjL5kmv2NQaUDmRG"
-    const val TUTK_AM_CLIENT_SECRET = "8Xj9bgS9IY7JspwEttChbyoHAEJrp05E6oGW6kqx4OsrITwYFxUae5x4wloWPYYoGC8XdQZoVlKm0clXdeyjgLpBkO08rt0yINEUZC35tkqjwR2oVMD3uCiOr9Z5rboz"
-    const val TUTK_DM_SITE = "https://hst-dm1.kalayservice.com"
-    const val TUTK_API_VER = "/hestia/api/v2"
-    const val TUTK_REALM = "zyxel"
-    const val TUTK_DM_AUTHORIZATION = "ZXoycXlNTllOQVE0aVVwSkZYM0hacGhHSVd2bnpqSUliaTVDMGVxbTpUSzRLbFZiVkgyV2hPdlpQUHhYUGpEdURVeTBocXdOVEc0NnM4bk5vSzFRWVJSYXVEUmxNZGhHVTN5c1FPSG93R1pnRVN4UW8wRGdoTFpLMXEzRll3TjFQR296TFZTWFE2RTdUVEh6a2M5bmlhdWlONTA1dngxNFpsWFJja2d5OQ=="*/
-
-    /*//TUTK AMDM Beta Test
-    const val TUTK_AM_SITE = "https://test-us-am1-zyxel.kalayservice.com"
-    const val TUTK_AM_STATE = "1234"
-    const val TUTK_AM_CLIENT_ID = "xyGkoKRo2pISjxYkPJG92we0BKeijNQheMiGQp4w"
-    const val TUTK_AM_CLIENT_SECRET = "btneGK2Owtue1LQLoqaPpY1oxMiWHZDZ5eXyFoihI8NWnJtUEllMU5OWSnzJZNVOgGRykhqE4x2EgIsaVvNvBGOieYAPa7OPGIVTqlmlvdVdaZ8xKSRHGYMXSsIJSatX"
-    const val TUTK_DM_SITE = "https://test-us-dm1-tutk.kalayservice.com"
-    const val TUTK_API_VER = "/hestia/api/v2"
-    const val TUTK_REALM = "zyxel"
-    const val TUTK_DM_AUTHORIZATION = "eHlHa29LUm8ycElTanhZa1BKRzkyd2UwQktlaWpOUWhlTWlHUXA0dzpidG5lR0syT3d0dWUxTFFMb3FhUHBZMW94TWlXSFpEWjVlWHlGb2loSThOV25KdFVFbGxNVTVPV1NuekpaTlZPZ0dSeWtocUU0eDJFZ0lzYVZ2TnZCR09pZVlBUGE3T1BHSVZUcWxtbHZkVmRhWjh4S1NSSEdZTVhTc0lKU2F0WA=="*/
-
     //TUTK P2P
     const val TUTK_MAXSIZE_RECVBUF = 102400
     const val TUTK_STATUS_INIT_SEARCH_DEV = 10
@@ -99,7 +79,6 @@ object AppConfig
 
     //SharedPreferences
     const val SHAREDPREF_NAME = "name_device_setting"
-    const val SHAREDPREF_FIRST_TIME_KEY = "key_first_time_use"
     const val SHAREDPREF_SETUP_FIRST_TIME_KEY = "setup_key_first_time_use"
     const val SHAREDPREF_TUTK_REFRESH_TOKEN_KEY = "TUTK_refresh_token"
     const val SHAREDPREF_TUTK_ACCESS_TOKEN_KEY = "TUTK_access_token"
@@ -154,14 +133,6 @@ object AppConfig
     //SN Login
     const val SNLogin = true
 
-    //Location name list
-    val locationNamesArray = arrayOf(
-            "Attic", "Basement", "Children's Room", "Den",
-            "Dining Room", "First Floor", "Foyer", "Kitchen",
-            "Laundry", "Loft", "Lounge", "Master Room", "Office",
-            "Playroom", "Reception Room"
-    )
-
     enum class LoadingAnimation
     {
         ANIM_REBOOT,
@@ -181,18 +152,10 @@ object AppConfig
     {
         ACT_NONE,
         ACT_REBOOT,
-        ACT_DELETE_DEVICE,
-        ACT_BLOCK_DEVICE,
-        ACT_DELETE_ZYXEL_DEVICE,
         ACT_LOCATION_PERMISSION,
         ACT_GPS_PERMISSION,
         ACT_LOGOUT,
-        ACT_RESEARCH,
-        ACT_GOTO_SETTING,
-        ACT_QRCODE_SCAN_HELP,
-        ACT_QRCODE_SCAN_ERROR,
-        ACT_QRCODE_SCAN_OK,
-        ACT_RESTART
+        ACT_RESEARCH
     }
 
     enum class HTTPErrorAction

@@ -14,7 +14,6 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.cloud.TUTKP2PBaseApi
-import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
@@ -47,19 +46,6 @@ class CloudWelcomeFragment : Fragment()
         }
 
         GlobalData.registeredCloud = false
-
-        /*if(!isNetworkAvailable())
-        {
-            MessageDialog(
-                    activity!!,
-                    "",
-                    getString(R.string.message_dialog_wifi_off),
-                    arrayOf(getString(R.string.message_dialog_ok)),
-                    AppConfig.DialogAction.ACT_NONE
-            ).show()
-        }
-        else
-            Handler().postDelayed({ decideFlow() }, AppConfig.WELCOME_DISPLAY_TIME_IN_MILLISECONDS)*/
 
         doAsync{
             TUTKP2PBaseApi.stopSession()
