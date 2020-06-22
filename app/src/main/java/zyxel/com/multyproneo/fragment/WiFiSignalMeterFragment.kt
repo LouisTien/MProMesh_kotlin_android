@@ -27,6 +27,7 @@ import zyxel.com.multyproneo.api.GatewayApi
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.DevicesInfo
+import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 import java.net.NetworkInterface
@@ -239,7 +240,6 @@ class WiFiSignalMeterFragment : Fragment()
     private fun getConnectedWiFiInfoTask()
     {
         LogUtil.d(TAG,"getConnectedWiFiInfoTask()")
-        var neighborMAC = ""
         var devicesInfo: DevicesInfo
         val connManager = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
@@ -267,15 +267,36 @@ class WiFiSignalMeterFragment : Fragment()
 
                                     if( (devicesInfo.Object[i].PhysAddress == getMobileDeviceMacAddress()) && (devicesInfo.Object[i].X_ZYXEL_Neighbor != "") )
                                     {
-                                        neighborMAC = devicesInfo.Object[i].X_ZYXEL_Neighbor
                                         mobileDeviceIndex = i + 1
 
                                         for(itemX in devicesInfo.Object)
                                         {
-                                            if( (itemX.X_ZYXEL_CapabilityType == "L2Device") && (itemX.PhysAddress == neighborMAC) )
+                                            if((itemX.X_ZYXEL_CapabilityType == "L2Device"))
                                             {
-                                                connectedModel = itemX.getName()
-                                                LogUtil.d(TAG, "mobile device connected to $connectedModel")
+                                                //if mac = 00:11:22:33:44:50, check the mac 00:11:22:33:44:5 to compare for work around of FW bug#130534
+
+                                                var neighborSubMAC = ""
+                                                var deviceSubMAC = ""
+
+                                                if(devicesInfo.Object[i].X_ZYXEL_Neighbor.contains(":")
+                                                    && ( (devicesInfo.Object[i].X_ZYXEL_Neighbor.lastIndexOf(":") + 2) == (devicesInfo.Object[i].X_ZYXEL_Neighbor.length - 1)) )
+                                                {
+                                                    neighborSubMAC = devicesInfo.Object[i].X_ZYXEL_Neighbor.substring(0, devicesInfo.Object[i].X_ZYXEL_Neighbor.lastIndexOf(":") + 2)
+                                                    LogUtil.d(TAG,"neighborSubMAC:$neighborSubMAC")
+                                                }
+
+                                                if(itemX.PhysAddress.contains(":")
+                                                    && ( (itemX.PhysAddress.lastIndexOf(":") + 2) == (itemX.PhysAddress.length - 1)) )
+                                                {
+                                                    deviceSubMAC = itemX.PhysAddress.substring(0, itemX.PhysAddress.lastIndexOf(":") + 2)
+                                                    LogUtil.d(TAG,"deviceSubMAC:$deviceSubMAC")
+                                                }
+
+                                                if(neighborSubMAC != "" && deviceSubMAC != "")
+                                                {
+                                                    if(neighborSubMAC.equals(deviceSubMAC, ignoreCase = true))
+                                                        connectedModel = SpecialCharacterHandler.checkEmptyTextValue(itemX.getName())
+                                                }
                                             }
                                         }
                                     }
