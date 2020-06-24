@@ -28,6 +28,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/layout_size_48dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_15dp_in_1080"
         android:layout_gravity="center|bottom"
         android:singleLine="true"
         android:ellipsize="end"

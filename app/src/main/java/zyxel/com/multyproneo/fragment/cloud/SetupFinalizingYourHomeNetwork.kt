@@ -68,7 +68,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
         countDownTimerWanInfo = object : CountDownTimer((AppConfig.waitForLoginTime * 1000).toLong(), 1000)
         {
             override fun onTick(millisUntilFinished: Long) {}
-            override fun onFinish() = getWanInfoTask()
+            override fun onFinish() = getSystemInfoTask()
         }
 
         countDownTimerIOTCStatus = object : CountDownTimer((AppConfig.waitForGetIOTCLoginStatusTime * 1000).toLong(), 1000)
@@ -99,7 +99,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                 countDownTimerWanInfo.start()
             }
 
-            false -> getWanInfoTask()
+            false -> getSystemInfoTask()
         }
     }
 
@@ -182,6 +182,33 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                         catch(e: JSONException)
                         {
                             e.printStackTrace()
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun getSystemInfoTask()
+    {
+        LogUtil.d(TAG,"getSystemInfoTask()")
+        GatewayApi.GetSystemInfo()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            val data = JSONObject(responseStr)
+                            var name = data.getJSONObject("Object").getString("HostName")
+                            LogUtil.d(TAG,"HostName:$name")
+                            GlobalData.getCurrentGatewayInfo().UserDefineName = name
+                            getWanInfoTask()
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            GlobalBus.publish(MainEvent.HideLoading())
                         }
                     }
                 }).execute()
@@ -351,9 +378,13 @@ class SetupFinalizingYourHomeNetwork : Fragment()
         val params = JSONObject()
         params.put("udid", GlobalData.currentUID)
         params.put("fwVer", GlobalData.getCurrentGatewayInfo().SoftwareVersion)
-        params.put("displayName", GlobalData.getCurrentGatewayInfo().ModelName)
+        //params.put("displayName", GlobalData.getCurrentGatewayInfo().ModelName)
+        params.put("displayName", GlobalData.getCurrentGatewayInfo().UserDefineName)
         params.put("credential", GlobalData.currentCredential)
         LogUtil.d(TAG,"addDevice param:$params")
+
+        LogUtil.e(TAG,"UserDefineName:${GlobalData.getCurrentGatewayInfo().UserDefineName}")
+        LogUtil.e(TAG,"ModelName:${GlobalData.getCurrentGatewayInfo().ModelName}")
 
         AMDMApi.AddDevice()
                 .setRequestPageName(TAG)

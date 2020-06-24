@@ -8,7 +8,7 @@ data class TUTKUpdateDeviceInfo
 data class UpdateDeviceInfo
 (
     val _id: String = "N/A",
-    val account_id: Long = 0,
+    val account_id: String = "N/A",
     val created: String = "N/A",
     val credential: String = "N/A",
     val displayName: String = "N/A",

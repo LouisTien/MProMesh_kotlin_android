@@ -7,26 +7,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import com.google.gson.Gson
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_zyxel_end_device_detail.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.jetbrains.anko.textColor
+import org.json.JSONException
+import org.json.JSONObject
 import zyxel.com.multyproneo.R
-import zyxel.com.multyproneo.api.cloud.P2PDevicesApi
-import zyxel.com.multyproneo.api.cloud.P2PGatewayApi
-import zyxel.com.multyproneo.api.cloud.TUTKP2PBaseApi
-import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
+import zyxel.com.multyproneo.api.cloud.*
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.model.GatewayInfo
 import zyxel.com.multyproneo.model.WanInfo
+import zyxel.com.multyproneo.model.cloud.TUTKUpdateDeviceInfo
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
+import zyxel.com.multyproneo.util.SharedPreferencesUtil
+import java.util.HashMap
 
 class CloudZYXELEndDeviceDetailFragment : Fragment()
 {
@@ -36,6 +39,7 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
     private lateinit var deviceInfo: GatewayInfo
     private lateinit var deviceWanInfo: WanInfo
     private lateinit var endDeviceInfo: DevicesInfoObject
+    private lateinit var updateDeviceInfo: TUTKUpdateDeviceInfo
     private var isGatewayMode = false
     private var isEditMode = false
     private var isConnect = false
@@ -389,8 +393,7 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
                     {
                         try
                         {
-                            getInfoCompleteUpdateUI()
-                            GlobalBus.publish(MainEvent.HideLoading())
+                            updateDevice()
                         }
                         catch(e: Exception)
                         {
@@ -504,5 +507,44 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
                         }
                     }).execute()
         }
+    }
+
+    private fun updateDevice()
+    {
+        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+
+        val header = HashMap<String, Any>()
+        header["authorization"] = "${GlobalData.tokenType} $accessToken"
+
+        val params = JSONObject()
+        params.put("fwVer", deviceInfo.SoftwareVersion)
+        params.put("displayName", editDeviceName)
+        params.put("credential", GlobalData.currentCredential)
+        LogUtil.d(TAG,"updateDevice param:$params")
+
+        AMDMApi.UpdateDevice(GlobalData.currentUID)
+                .setRequestPageName(TAG)
+                .setHeaders(header)
+                .setParams(params)
+                .setResponseListener(object: TUTKCommander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            updateDeviceInfo = Gson().fromJson(responseStr, TUTKUpdateDeviceInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"updateDeviceInfo:$updateDeviceInfo")
+
+                            getInfoCompleteUpdateUI()
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            GlobalBus.publish(MainEvent.HideLoading())
+                        }
+                    }
+                }).execute()
     }
 }
