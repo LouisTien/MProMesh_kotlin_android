@@ -6,17 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import kotlinx.android.synthetic.main.adapter_cloud_zyxel_end_device_list_item.view.*
+import kotlinx.android.synthetic.main.adapter_cloud_home_guest_end_device_list_item.view.*
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.DevicesEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.fragment.EndDeviceDetailFragment
 import zyxel.com.multyproneo.fragment.cloud.CloudEndDeviceDetailFragment
 import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.OUIUtil
 
-class CloudHomeGuestEndDeviceItemAdapter(private var activity: Activity, private var endDeviceList: MutableList<DevicesInfoObject>) : BaseAdapter()
+class CloudHomeGuestEndDeviceItemAdapter
+(
+        private var activity: Activity,
+        private var endDeviceList: MutableList<DevicesInfoObject>,
+        private var isCloud: Boolean
+) : BaseAdapter()
 {
     override fun getCount(): Int = endDeviceList.size
 
@@ -30,7 +36,7 @@ class CloudHomeGuestEndDeviceItemAdapter(private var activity: Activity, private
         val holder: ViewHolder
         if(convertView == null)
         {
-            view = LayoutInflater.from(parent?.context).inflate(R.layout.adapter_cloud_zyxel_end_device_list_item, parent, false)
+            view = LayoutInflater.from(parent?.context).inflate(R.layout.adapter_cloud_home_guest_end_device_list_item, parent, false)
             holder = ViewHolder(view, parent!!)
             view.tag = holder
         }
@@ -76,26 +82,14 @@ class CloudHomeGuestEndDeviceItemAdapter(private var activity: Activity, private
 
             view.connect_status_image.setImageResource(imageId)
 
-            /*view.link_quality_text.textColor = parent.context.resources.getColor(
-                    with(status)
-                    {
-                        when
-                        {
-                            equals("Good", ignoreCase = true) -> R.color.color_3c9f00
-                            equals("TooClose", ignoreCase = true) || equals("Too Close", ignoreCase = true) -> R.color.color_ff6800
-                            equals("Weak", ignoreCase = true) || equals("Blocked", ignoreCase = true) -> R.color.color_d9003c
-                            else -> R.color.color_575757
-                        }
-                    }
-            )
-
-            if(!endDeviceList[position].Active)
+            if(!isCloud)
             {
-                view.user_define_name_text.textColor = parent.context.resources.getColor(R.color.color_b4b4b4)
+                if(endDeviceList[position].UserDefineName.equals("N/A", ignoreCase = true)
+                    && endDeviceList[position].PhysAddress == endDeviceList[position].HostName)
+                    view.user_tips_image.visibility = View.VISIBLE
+                else
+                    view.user_tips_image.visibility = View.GONE
             }
-            else
-                view.user_define_name_text.textColor = parent.context.resources.getColor(R.color.color_000000)
-            */
 
             var modelName = endDeviceList[position].getName()
 
@@ -111,14 +105,20 @@ class CloudHomeGuestEndDeviceItemAdapter(private var activity: Activity, private
                 GlobalBus.publish(DevicesEvent.MeshDevicePlacementStatus(false))
             }
 
-            view.zyxel_end_device_relative.setOnClickListener{
+            view.home_guest_end_device_relative.setOnClickListener{
                 val bundle = Bundle().apply{
                     putSerializable("DevicesInfo", endDeviceList[position])
                     putString("Search", "")
                     putBoolean("FromSearch", false)
                 }
-                GlobalBus.publish(MainEvent.SwitchToFrag(CloudEndDeviceDetailFragment().apply{ arguments = bundle }))
+
+                if(isCloud)
+                    GlobalBus.publish(MainEvent.SwitchToFrag(CloudEndDeviceDetailFragment().apply{ arguments = bundle }))
+                else
+                    GlobalBus.publish(MainEvent.SwitchToFrag(EndDeviceDetailFragment().apply{ arguments = bundle }))
             }
+
+            view.user_tips_image.setOnClickListener{ GlobalBus.publish(DevicesEvent.ShowTips()) }
         }
 
         private fun getSignalStatusImage(status: String): Int

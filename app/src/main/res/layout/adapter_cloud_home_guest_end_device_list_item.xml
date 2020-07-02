@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:id="@+id/zyxel_end_device_relative"
+    android:id="@+id/home_guest_end_device_relative"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/user_tips_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_size_5dp_in_1080"
+        android:layout_centerVertical="true"
+        android:src="@drawable/account_about"
+        android:visibility="gone"/>
 
     <ImageView
         android:id="@+id/connect_status_image"
@@ -12,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/user_tips_image"
         android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginLeft="@dimen/layout_size_5dp_in_1080"
         android:src="@drawable/icon_wifi_good"/>
 
     <TextView

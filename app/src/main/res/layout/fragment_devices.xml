@@ -138,17 +138,6 @@
                     android:textSize="@dimen/text_size_16sp_in_1080"
                     android:text="@string/devices_home_devices"/>
 
-                <TextView
-                    android:id="@+id/devices_home_link_quality_title_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
-                    android:textColor="@color/color_575757"
-                    android:textSize="@dimen/text_size_16sp_in_1080"
-                    android:text="@string/devices_link_quality"/>
-
             </RelativeLayout>
 
             <com.baoyz.widget.PullRefreshLayout
@@ -205,17 +194,6 @@
                     android:textColor="@color/color_575757"
                     android:textSize="@dimen/text_size_16sp_in_1080"
                     android:text="@string/devices_guest_devices"/>
-
-                <TextView
-                    android:id="@+id/devices_guest_link_quality_title_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
-                    android:textColor="@color/color_575757"
-                    android:textSize="@dimen/text_size_16sp_in_1080"
-                    android:text="@string/devices_link_quality"/>
 
             </RelativeLayout>
 

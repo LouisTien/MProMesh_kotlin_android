@@ -9,7 +9,8 @@ import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_devices.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import zyxel.com.multyproneo.R
-import zyxel.com.multyproneo.adapter.HomeGuestEndDeviceItemAdapter
+import zyxel.com.multyproneo.adapter.cloud.CloudHomeGuestEndDeviceItemAdapter
+import zyxel.com.multyproneo.dialog.MeshDeviceStatusDialog
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.DevicesEvent
 import zyxel.com.multyproneo.event.GlobalBus
@@ -23,6 +24,7 @@ import zyxel.com.multyproneo.util.GlobalData
 class DevicesFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
+    private lateinit var meshDevicePlacementStatusDisposable: Disposable
     private lateinit var getInfoCompleteDisposable: Disposable
     private lateinit var showTipsDisposable: Disposable
 
@@ -34,6 +36,10 @@ class DevicesFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        meshDevicePlacementStatusDisposable = GlobalBus.listen(DevicesEvent.MeshDevicePlacementStatus::class.java).subscribe{
+            MeshDeviceStatusDialog(activity!!, it.isHomePage).show()
+        }
 
         getInfoCompleteDisposable = GlobalBus.listen(DevicesEvent.GetDeviceInfoComplete::class.java).subscribe{ updateUI() }
 
@@ -79,6 +85,7 @@ class DevicesFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+        if(!meshDevicePlacementStatusDisposable.isDisposed) meshDevicePlacementStatusDisposable.dispose()
         if(!getInfoCompleteDisposable.isDisposed) getInfoCompleteDisposable.dispose()
         if(!showTipsDisposable.isDisposed) showTipsDisposable.dispose()
     }
@@ -140,13 +147,13 @@ class DevicesFragment : Fragment()
 
             devices_home_devices_sort_image.setImageResource(if(GlobalData.homeDevAscendingOrder) R.drawable.device_sorting_1 else R.drawable.device_sorting_2)
             GlobalData.sortHomeDeviceList()
-            devices_home_devices_list.adapter = HomeGuestEndDeviceItemAdapter(activity!!, GlobalData.homeEndDeviceList)
+            devices_home_devices_list.adapter = CloudHomeGuestEndDeviceItemAdapter(activity!!, GlobalData.homeEndDeviceList, false)
 
             if(GlobalData.guestEndDeviceList.size > 0)
             {
                 devices_guest_devices_sort_image.setImageResource(if(GlobalData.guestDevAscendingOrder) R.drawable.device_sorting_1 else R.drawable.device_sorting_2)
                 GlobalData.sortGuestDeviceList()
-                devices_guest_devices_list.adapter = HomeGuestEndDeviceItemAdapter(activity!!, GlobalData.guestEndDeviceList)
+                devices_guest_devices_list.adapter = CloudHomeGuestEndDeviceItemAdapter(activity!!, GlobalData.guestEndDeviceList, false)
                 devices_guest_devices_area_linear.visibility = View.VISIBLE
             }
             else

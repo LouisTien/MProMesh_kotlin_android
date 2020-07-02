@@ -46,9 +46,6 @@ class CloudDevicesFragment : Fragment()
             GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoForDevicePageTask(AppConfig.LoadingStyle.STY_ONLY_BG))
         }
 
-        devices_home_link_quality_title_text.visibility = View.INVISIBLE
-        devices_guest_link_quality_title_text.visibility = View.INVISIBLE
-
         setClickListener()
 
         GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoForDevicePageTask(AppConfig.LoadingStyle.STY_NORMAL))
@@ -125,13 +122,13 @@ class CloudDevicesFragment : Fragment()
 
             devices_home_devices_sort_image.setImageResource(if(GlobalData.homeDevAscendingOrder) R.drawable.device_sorting_1 else R.drawable.device_sorting_2)
             GlobalData.sortHomeDeviceList()
-            devices_home_devices_list.adapter = CloudHomeGuestEndDeviceItemAdapter(activity!!, GlobalData.homeEndDeviceList)
+            devices_home_devices_list.adapter = CloudHomeGuestEndDeviceItemAdapter(activity!!, GlobalData.homeEndDeviceList, true)
 
             if(GlobalData.guestEndDeviceList.size > 0)
             {
                 devices_guest_devices_sort_image.setImageResource(if(GlobalData.guestDevAscendingOrder) R.drawable.device_sorting_1 else R.drawable.device_sorting_2)
                 GlobalData.sortGuestDeviceList()
-                devices_guest_devices_list.adapter = CloudHomeGuestEndDeviceItemAdapter(activity!!, GlobalData.guestEndDeviceList)
+                devices_guest_devices_list.adapter = CloudHomeGuestEndDeviceItemAdapter(activity!!, GlobalData.guestEndDeviceList, true)
                 devices_guest_devices_area_linear.visibility = View.VISIBLE
             }
             else
