@@ -10,7 +10,6 @@
         android:id="@+id/connect_status_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/user_tips_image"
         android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
         android:layout_marginLeft="@dimen/layout_size_25dp_in_1080"
         android:src="@drawable/icon_wifi_good"/>
