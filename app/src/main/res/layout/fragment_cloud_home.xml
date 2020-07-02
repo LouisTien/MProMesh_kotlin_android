@@ -58,7 +58,69 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/home_title_item_area_relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/home_site_refresh_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/layout_size_15dp_in_1080"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:src="@drawable/icon_retry_b"/>
+
+            <TextView
+                android:id="@+id/home_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/color_000000"
+                android:textSize="@dimen/text_size_36sp_in_1080"
+                android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                android:text="@string/common_home"/>
+
+        </RelativeLayout>
+
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/home_mesh_status_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+        android:layout_below="@+id/cloud_home_title_area_linear"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/home_mesh_status_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_575757"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:layout_alignParentLeft="true"
+            android:text="@string/home_mesh"/>
+
+        <TextView
+            android:id="@+id/home_mesh_status_content_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_575757"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:layout_toRightOf="@+id/home_mesh_status_text"
+            android:layout_marginLeft="@dimen/layout_size_5dp_in_1080"
+            tools:text="@string/home_mesh_up"/>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/cloud_home_wifi_router_area_relative"
@@ -66,7 +128,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-        android:layout_below="@+id/cloud_home_title_area_linear">
+        android:layout_below="@+id/home_mesh_status_area_relative">
 
         <ImageView
             android:id="@+id/cloud_home_wifi_router_image"

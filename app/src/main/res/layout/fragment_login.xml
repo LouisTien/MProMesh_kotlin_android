@@ -48,6 +48,7 @@
             android:hint="@string/login_username_hint"
             android:background="@color/color_ffffff"
             android:textSize="@dimen/text_size_22sp_in_1080"
+            android:text="admin"
             android:layout_marginTop="@dimen/layout_size_40dp_in_1080"
             android:layout_below="@+id/login_description_text"/>
 

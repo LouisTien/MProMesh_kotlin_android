@@ -749,7 +749,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
     private fun startGetAllNeedDeviceInfoTask()
     {
-        if(GlobalData.ZYXELEndDeviceList.isEmpty())
+        if(!GlobalData.alreadyGetGatewayInfoLocalBase)
             GlobalBus.publish(MainEvent.ShowLoading())
 
         getSystemInfoTask()
@@ -835,7 +835,9 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             val newZYXELEndDeviceList = mutableListOf<DevicesInfoObject>()
                             val newGuestEndDeviceList = mutableListOf<DevicesInfoObject>()
 
-                            newZYXELEndDeviceList.add(
+                            GlobalData.alreadyGetGatewayInfoLocalBase = true
+
+                            /*newZYXELEndDeviceList.add(
                                     DevicesInfoObject
                                     (
                                             Active = true,
@@ -847,7 +849,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                             X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
                                             X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion
                                     )
-                            )
+                            )*/
 
                             var index = 1
                             for(item in devicesInfo.Object)

@@ -95,8 +95,6 @@
 
     <string name="button_text_wifi">WiFi</string>
 
-    <string name="menu_text_add_mesh">Add Mesh</string>
-
     <string name="find_device_title">Oops!</string>
     <string name="find_device_status_description">Please wait.\nThis may take a few seconds.</string>
     <string name="find_device_working_description">Looking for your devices...</string>
@@ -118,13 +116,10 @@
     <string name="login_sn_error">Serial number error</string>
     <string name="login_no_support_character">Special characters are not supported</string>
 
-    <string name="home_internet_status">Internet Status:</string>
     <string name="home_connected_devices">Connected\nDevices</string>
     <string name="home_guest_wifi">Guest\nWiFi</string>
     <string name="home_guest_wifi_status_on">ON</string>
     <string name="home_guest_wifi_status_off">OFF</string>
-    <string name="home_online">Online</string>
-    <string name="home_offline">Offline</string>
     <string name="home_mesh">MESH:</string>
     <string name="home_mesh_up">Up</string>
     <string name="home_mesh_down">Down</string>
@@ -134,16 +129,6 @@
     <string name="home_device_rp">Repeater</string>
     <string name="home_mesh_devices">Mesh Devices</string>
     <string name="home_extender">Extender</string>
-
-    <string name="internet_status_dialog_good">Good</string>
-    <string name="internet_status_dialog_weak">Weak</string>
-    <string name="internet_status_dialog_too_close">Too Close</string>
-    <string name="internet_status_dialog_na">N/A (Disconnect)</string>
-    <string name="internet_status_dialog_good_description">All set, enjoy it.</string>
-    <string name="internet_status_dialog_weak_description">Move the extender closer to the gateway.</string>
-    <string name="internet_status_dialog_too_close_description">The extender is too close to the gateway, please find another location farer from the gateway.</string>
-    <string name="internet_status_dialog_na_description">Make sure the extender is located and the power is on.</string>
-    <string name="internet_status_dialog_close">Close</string>
 
     <string name="device_detail_detail">Detail</string>
     <string name="device_detail_model_name">Model Name</string>
@@ -186,7 +171,7 @@
     <string name="devices_home_devices">Home Devices</string>
     <string name="devices_guest_devices">Guest Devices</string>
     <string name="devices_link_quality">Link Quality</string>
-    <string name="devices_user_tips">Device Name will be displayed in future firmware update</string>
+    <string name="devices_user_tips">Device Name will be displayed in future App update</string>
 
     <string name="wifi_settings_title">WiFi Settings</string>
     <string name="wifi_settings_wifi_name">WiFi Name</string>
@@ -267,7 +252,7 @@
     <string name="mesh_extender_description">Tap button \"Next\" and press WPS button on extender to process pairing.</string>
     <string name="mesh_next">Next</string>
     <string name="mesh_wps_title">Press WPS button</string>
-    <string name="mesh_wps_description">Tap <b>\"Start Pairing\"</b> button and then pressing <b>WPS</b> physical button of your WiFi Extender.</string>
+    <string name="mesh_wps_description">Press the <b>WPS</b> button on the WiFi Extender/Mesh Device once and release it, then tap below <b>\"Start Pairing\"</b> button.</string>
     <string name="mesh_pair">Start Pairing</string>
     <string name="mesh_success_title">Success!</string>
     <string name="mesh_success_description">The WiFi Extender is added to your home WiFi network. And it has the same WiFi name and password.</string>
@@ -283,7 +268,6 @@
     <string name="cloud_mesh_extender_title">Place Your Mesh Device</string>
     <string name="cloud_mesh_extender_description">Place your Mesh Device in a location approximately halfway to the area you want to extnd your WiFi.</string>
     <string name="cloud_mesh_wps_title">Connect with Your Mesh Device</string>
-    <string name="cloud_mesh_wps_description">Press the physical WPS button of your Mesh Device, then tap \'Start Pairing\' below.</string>
     <string name="cloud_mesh_apply_setting_title">Applying WiFi settings to Your Mesh Device</string>
     <string name="cloud_mesh_apply_setting_description">Please wait.\nThis takes about two minutes.</string>
     <string name="cloud_mesh_success_title">Succeed!</string>

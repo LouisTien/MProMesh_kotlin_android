@@ -168,6 +168,7 @@ class CloudHomeFragment : Fragment()
 
             cloud_home_title_text.visibility = View.INVISIBLE
             cloud_home_title_image.visibility = View.INVISIBLE
+
             with(GlobalData.customerLogo)
             {
                 when
@@ -217,13 +218,16 @@ class CloudHomeFragment : Fragment()
             }
 
             cloud_home_mesh_device_list_swipe.setRefreshing(false)
+
             cloud_home_wifi_router_name_text.text = GlobalData.getCurrentGatewayInfo().UserDefineName
+
             cloud_home_connect_device_count_text.text = GlobalData.getActivatedDeviceCount().toString()
 
             adapter = CloudZYXELEndDeviceItemAdapter(
                     GlobalData.ZYXELEndDeviceList,
                     GlobalData.getCurrentGatewayInfo(),
-                    GlobalData.gatewayWanInfo)
+                    GlobalData.gatewayWanInfo,
+                    true)
             cloud_home_mesh_device_list.adapter = adapter
 
             cloud_home_wifi_router_image.visibility = View.VISIBLE

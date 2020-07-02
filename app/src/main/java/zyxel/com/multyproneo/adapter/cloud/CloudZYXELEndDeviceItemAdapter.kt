@@ -10,6 +10,7 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.fragment.ZYXELEndDeviceDetailFragment
 import zyxel.com.multyproneo.fragment.cloud.CloudZYXELEndDeviceDetailFragment
 import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.model.GatewayInfo
@@ -19,7 +20,8 @@ class CloudZYXELEndDeviceItemAdapter
 (
         private var endDeviceList: MutableList<DevicesInfoObject>,
         private var deviceInfo: GatewayInfo,
-        private var deviceWanInfo: WanInfo
+        private var deviceWanInfo: WanInfo,
+        private var isCloud: Boolean
 ) : BaseAdapter()
 {
     override fun getCount(): Int = endDeviceList.size
@@ -87,7 +89,11 @@ class CloudZYXELEndDeviceItemAdapter
                     putSerializable("WanInfo", deviceWanInfo)
                     putSerializable("DevicesInfo", endDeviceList[position])
                 }
-                GlobalBus.publish(MainEvent.SwitchToFrag(CloudZYXELEndDeviceDetailFragment().apply{ arguments = bundle }))
+
+                if(isCloud)
+                    GlobalBus.publish(MainEvent.SwitchToFrag(CloudZYXELEndDeviceDetailFragment().apply{ arguments = bundle }))
+                else
+                    GlobalBus.publish(MainEvent.SwitchToFrag(ZYXELEndDeviceDetailFragment().apply{ arguments = bundle }))
             }
         }
 

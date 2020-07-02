@@ -33,6 +33,7 @@ object GlobalData
     var customerLogo = ""
     var registeredCloud = false
     var L2DeviceNumber = 0
+    var alreadyGetGatewayInfoLocalBase = false
 
     //TUTK
     var tokenType = "Bearer"

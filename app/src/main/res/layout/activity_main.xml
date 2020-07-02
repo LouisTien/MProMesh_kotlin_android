@@ -108,7 +108,8 @@
                 android:id="@+id/diagnostic_relative"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/diagnostic_image"

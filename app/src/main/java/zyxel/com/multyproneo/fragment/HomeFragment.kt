@@ -6,19 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_cloud_home.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
-import zyxel.com.multyproneo.adapter.ZYXELEndDeviceItemAdapter
+import zyxel.com.multyproneo.adapter.cloud.CloudZYXELEndDeviceItemAdapter
 import zyxel.com.multyproneo.api.AccountApi
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.WiFiSettingApi
-import zyxel.com.multyproneo.dialog.InternetStatusDialog
+import zyxel.com.multyproneo.dialog.GatewayStatusDialog
+import zyxel.com.multyproneo.dialog.MeshDeviceStatusDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
@@ -29,25 +31,37 @@ import zyxel.com.multyproneo.util.LogUtil
 class HomeFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
+    private lateinit var meshDevicePlacementStatusDisposable: Disposable
     private lateinit var getInfoCompleteDisposable: Disposable
-    private lateinit var internetStatusHelper: InternetStatusDialog
-    private lateinit var adapter: ZYXELEndDeviceItemAdapter
+    private lateinit var adapter: CloudZYXELEndDeviceItemAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_cloud_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        meshDevicePlacementStatusDisposable = GlobalBus.listen(HomeEvent.MeshDevicePlacementStatus::class.java).subscribe{
+            MeshDeviceStatusDialog(activity!!, it.isHomePage).show()
+        }
+
         getInfoCompleteDisposable = GlobalBus.listen(HomeEvent.GetDeviceInfoComplete::class.java).subscribe{ updateUI() }
-        home_device_list_swipe.setOnRefreshListener{
+
+        cloud_home_mesh_device_list_swipe.setOnRefreshListener{
             GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
             GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
             GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
         }
+
         setClickListener()
+
+        cloud_home_title_item_area_relative.visibility = View.GONE
+        home_title_item_area_relative.visibility = View.VISIBLE
+        home_mesh_status_area_relative.visibility = View.VISIBLE
+
     }
 
     override fun onResume()
@@ -55,7 +69,7 @@ class HomeFragment : Fragment()
         super.onResume()
         GlobalBus.publish(MainEvent.SetHomeIconFocus())
         GlobalBus.publish(MainEvent.ShowBottomToolbar())
-        if(GlobalData.ZYXELEndDeviceList.size > 0) updateUI()
+        if(GlobalData.alreadyGetGatewayInfoLocalBase) updateUI()
         GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
     }
 
@@ -68,19 +82,36 @@ class HomeFragment : Fragment()
     override fun onDestroyView()
     {
         super.onDestroyView()
+        if(!meshDevicePlacementStatusDisposable.isDisposed) meshDevicePlacementStatusDisposable.dispose()
         if(!getInfoCompleteDisposable.isDisposed) getInfoCompleteDisposable.dispose()
     }
 
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            home_internet_status_help_image ->
+            cloud_home_wifi_router_image -> GatewayStatusDialog(activity!!).show()
+
+            cloud_home_wifi_router_area_relative ->
             {
-                internetStatusHelper = InternetStatusDialog(activity!!)
-                internetStatusHelper.show()
+                val bundle = Bundle().apply{
+                    putBoolean("GatewayMode", true)
+                    putSerializable("GatewayInfo", GlobalData.getCurrentGatewayInfo())
+                    putSerializable("WanInfo", GlobalData.gatewayWanInfo)
+                    putSerializable("DevicesInfo", DevicesInfoObject
+                    (
+                            Active = true,
+                            HostName = GlobalData.getCurrentGatewayInfo().getName(),
+                            IPAddress = GlobalData.getCurrentGatewayInfo().IP,
+                            X_ZYXEL_CapabilityType = "L2Device",
+                            X_ZYXEL_ConnectionType = "WiFi",
+                            X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
+                            X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion
+                    ))
+                }
+                GlobalBus.publish(MainEvent.SwitchToFrag(ZYXELEndDeviceDetailFragment().apply{ arguments = bundle }))
             }
 
-            home_guest_wifi_switch ->
+            cloud_home_guest_wifi_switch ->
             {
                 setGuestWiFi24GEnableTask()
 
@@ -96,28 +127,30 @@ class HomeFragment : Fragment()
                 GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
             }
 
-            home_refresh_image ->
+            home_site_refresh_image ->
             {
                 GlobalBus.publish(MainEvent.ShowLoading())
                 GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
                 GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
             }
 
-            home_connect_device_frame -> GlobalBus.publish(MainEvent.EnterDevicesPage())
-            home_guest_wifi_frame -> GlobalBus.publish(MainEvent.EnterWiFiSettingsPage())
-            home_add_mesh_image, home_add_mesh_text -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFragment()))
+            cloud_home_connect_device_frame -> GlobalBus.publish(MainEvent.EnterDevicesPage())
+
+            cloud_home_guest_wifi_frame -> GlobalBus.publish(MainEvent.EnterWiFiSettingsPage())
+
+            cloud_home_mesh_devices_add_image -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFragment()))
         }
     }
 
     private fun setClickListener()
     {
-        home_internet_status_help_image.setOnClickListener(clickListener)
-        home_guest_wifi_switch.setOnClickListener(clickListener)
-        home_connect_device_frame.setOnClickListener(clickListener)
-        home_guest_wifi_frame.setOnClickListener(clickListener)
-        home_add_mesh_image.setOnClickListener(clickListener)
-        home_add_mesh_text.setOnClickListener(clickListener)
-        home_refresh_image.setOnClickListener(clickListener)
+        cloud_home_guest_wifi_switch.setOnClickListener(clickListener)
+        cloud_home_connect_device_frame.setOnClickListener(clickListener)
+        cloud_home_guest_wifi_frame.setOnClickListener(clickListener)
+        cloud_home_mesh_devices_add_image.setOnClickListener(clickListener)
+        cloud_home_wifi_router_image.setOnClickListener(clickListener)
+        cloud_home_wifi_router_area_relative.setOnClickListener(clickListener)
+        home_site_refresh_image.setOnClickListener(clickListener)
     }
 
     private fun updateUI()
@@ -129,11 +162,14 @@ class HomeFragment : Fragment()
         LogUtil.d(TAG, "updateUI()")
 
         runOnUiThread{
+
             GlobalBus.publish(MainEvent.HideLoading())
-            home_device_list_swipe.setRefreshing(false)
+
+            cloud_home_mesh_device_list_swipe.setRefreshing(false)
+
+            cloud_home_wifi_router_name_text.text = GlobalData.getCurrentGatewayInfo().UserDefineName
 
             home_mesh_status_content_text.text = getString(R.string.home_mesh_down)
-
             for(item in GlobalData.ZYXELEndDeviceList)
             {
                 if(!item.X_ZYXEL_HostType.equals("Router", ignoreCase = true))
@@ -143,27 +179,33 @@ class HomeFragment : Fragment()
                 }
             }
 
-            home_connect_device_count_text.text = GlobalData.getActivatedDeviceCount().toString()
-            adapter = ZYXELEndDeviceItemAdapter(
+            cloud_home_connect_device_count_text.text = GlobalData.getActivatedDeviceCount().toString()
+
+            adapter = CloudZYXELEndDeviceItemAdapter(
                     GlobalData.ZYXELEndDeviceList,
                     GlobalData.getCurrentGatewayInfo(),
-                    GlobalData.gatewayWanInfo)
-            home_device_list.adapter = adapter
+                    GlobalData.gatewayWanInfo,
+                    false)
+            cloud_home_mesh_device_list.adapter = adapter
 
-            home_internet_status_content_text.text = getString(if(GlobalData.gatewayWanInfo.Object.Status == "Enable") R.string.home_online else R.string.home_offline)
+            cloud_home_wifi_router_image.visibility = View.VISIBLE
+            if(GlobalData.gatewayWanInfo.Object.Status == "Enable")
+                cloud_home_wifi_router_image.setImageResource(R.drawable.icon_device_has)
+            else
+                cloud_home_wifi_router_image.setImageResource(R.drawable.icon_device_no)
 
             when(GlobalData.guestWiFiStatus)
             {
                 true ->
                 {
-                    home_guest_wifi_status_text.text = getString(R.string.home_guest_wifi_status_on)
-                    home_guest_wifi_switch.setImageResource(R.drawable.switch_on)
+                    cloud_home_guest_wifi_status_text.text = getString(R.string.home_guest_wifi_status_on)
+                    cloud_home_guest_wifi_switch.setImageResource(R.drawable.switch_on)
                 }
 
                 else ->
                 {
-                    home_guest_wifi_status_text.text = getString(R.string.home_guest_wifi_status_off)
-                    home_guest_wifi_switch.setImageResource(R.drawable.switch_off_2)
+                    cloud_home_guest_wifi_status_text.text = getString(R.string.home_guest_wifi_status_off)
+                    cloud_home_guest_wifi_switch.setImageResource(R.drawable.switch_off_2)
                 }
             }
         }
