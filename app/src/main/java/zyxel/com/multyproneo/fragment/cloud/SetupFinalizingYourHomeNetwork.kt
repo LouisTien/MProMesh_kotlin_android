@@ -383,9 +383,6 @@ class SetupFinalizingYourHomeNetwork : Fragment()
         params.put("credential", GlobalData.currentCredential)
         LogUtil.d(TAG,"addDevice param:$params")
 
-        LogUtil.e(TAG,"UserDefineName:${GlobalData.getCurrentGatewayInfo().UserDefineName}")
-        LogUtil.e(TAG,"ModelName:${GlobalData.getCurrentGatewayInfo().ModelName}")
-
         AMDMApi.AddDevice()
                 .setRequestPageName(TAG)
                 .setHeaders(header)

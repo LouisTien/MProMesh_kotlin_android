@@ -19,5 +19,5 @@ object CommonTool
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    fun formatData(dataFormat: String, timeStamp: Long): String = if(timeStamp.toInt() == 0) "N/A" else SimpleDateFormat(dataFormat).format(Date(timeStamp * 1000))
+    fun formatData(dataFormat: String, timeStamp: Long): String = if(timeStamp.toInt() == 0) "N/A" else SimpleDateFormat(dataFormat, Locale.getDefault()).format(Date(timeStamp * 1000))
 }

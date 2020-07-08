@@ -126,6 +126,12 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         db = DatabaseCloudUtil.getInstance(this)!!
 
+        if(AppConfig.SaveLog)
+        {
+            SaveLogUtil.init()
+            SaveLogUtil.deleteOldFiles()
+        }
+
         GlobalData.notiUid = intent.getStringExtra("noti_uid")?:""
         GlobalData.notiMac = intent.getStringExtra("noti_mac")?:""
         LogUtil.d(TAG,"notiUid:${GlobalData.notiUid}")

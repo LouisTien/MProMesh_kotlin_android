@@ -11,7 +11,7 @@ data class GatewayInfo
     var UserName: String = "N/A",
     var Password: String = "N/A",
     var SerialNumber: String = "N/A",
-    var UserDefineName: String = "N/A", //as HostName when gateway
+    var UserDefineName: String = "N/A", //get from [Device.X_ZYXEL_System_Info.] when gateway
     var IP: String = "N/A",
     var MAC: String = "00:00:00:00:00",
     var ApiName: String = "N/A",

@@ -11,10 +11,12 @@ object LogUtil
     fun d(tag: String, msg: String)
     {
         if(BuildConfig.DEBUG) Log.d(tag, msg)
+        if(AppConfig.SaveLog) SaveLogUtil.writeLog(tag, msg)
     }
 
     fun e(tag: String, msg: String)
     {
         if(BuildConfig.DEBUG) Log.e(tag, msg)
+        if(AppConfig.SaveLog) SaveLogUtil.writeLog(tag, msg)
     }
 }

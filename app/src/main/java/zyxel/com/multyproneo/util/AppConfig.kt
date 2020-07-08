@@ -133,6 +133,12 @@ object AppConfig
     //SN Login
     const val SNLogin = true
 
+    //Save Log
+    const val SaveLog = true
+    const val DelDayBefore = 7
+    const val PASSWORD_FOR_ZIP_FILE = "12345678"
+    const val FEEDBACK_MAIL = "louis.tien@zyxel.com.tw"
+
     enum class LoadingAnimation
     {
         ANIM_REBOOT,
