@@ -1,8 +1,6 @@
 package zyxel.com.multyproneo.tool
 
-import zyxel.com.multyproneo.util.AppConfig
 import java.lang.Character
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 /**

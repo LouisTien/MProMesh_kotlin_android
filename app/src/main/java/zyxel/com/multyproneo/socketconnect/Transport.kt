@@ -18,7 +18,7 @@ class Transport(private val packetreceiver: PacketReceiver)
     {
         override fun run()
         {
-            var dp = DatagramPacket(data, data.size, broadip, broadcastPort)
+            val dp = DatagramPacket(data, data.size, broadip, broadcastPort)
             try
             {
                 packetreceiver.sendUDPPacket(dp)

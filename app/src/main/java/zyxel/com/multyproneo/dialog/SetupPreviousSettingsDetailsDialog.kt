@@ -37,12 +37,12 @@ class SetupPreviousSettingsDetailsDialog(context: Context, private var mac: Stri
             siteInfo = db.getSiteInfoDao().queryByMac(mac)
             clientList = db.getClientListDao().queryByMac(mac)
 
-            var nameList: ArrayList<String> = ArrayList()
+            val nameList: ArrayList<String> = ArrayList()
             for(item in clientList)
                 nameList.add(item.deviceName)
 
             uiThread{
-                var adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, nameList)
+                val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, nameList)
                 previous_settings_details_devices_list.adapter = adapter
 
                 previous_settings_details_title_value_text.text = " '${siteInfo.siteName}'"

@@ -128,6 +128,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         if(AppConfig.SaveLog)
         {
+            SaveLogUtil.filePath = this.getExternalFilesDir(null)
             SaveLogUtil.init()
             SaveLogUtil.deleteOldFiles()
         }
@@ -191,7 +192,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                     }
                 }
                 else
-                    LogUtil.d(TAG, "Location permission denied!")
+                    LogUtil.e(TAG, "Location permission denied!")
             }
         }
     }
@@ -210,8 +211,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     {
         CryptTool.IvAES = CryptTool.getRandomString(16)
         CryptTool.KeyAES = CryptTool.getRandomString(16)
-        LogUtil.d(TAG,"IvAES:${CryptTool.IvAES}")
-        LogUtil.d(TAG,"KeyAES:${CryptTool.KeyAES}")
+        LogUtil.pd(TAG,"IvAES:${CryptTool.IvAES}")
+        LogUtil.pd(TAG,"KeyAES:${CryptTool.KeyAES}")
     }
 
     private fun initSpeedTestTimer()
@@ -781,7 +782,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         try
                         {
                             val data = JSONObject(responseStr)
-                            var name = data.getJSONObject("Object").getString("HostName")
+                            val name = data.getJSONObject("Object").getString("HostName")
                             LogUtil.d(TAG,"HostName:$name")
                             GlobalData.getCurrentGatewayInfo().UserDefineName = name
                             getChangeIconNameInfoTask()
@@ -1053,7 +1054,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         try
                         {
                             val data = JSONObject(responseStr)
-                            var status = data.getJSONObject("Object").getString("X_ZYXEL_WPSRunningStatus")
+                            val status = data.getJSONObject("Object").getString("X_ZYXEL_WPSRunningStatus")
                             LogUtil.d(TAG,"WPS status:$status")
 
                             with(status)
@@ -1142,18 +1143,18 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                         try
                         {
                             val data = JSONObject(responseStr)
-                            var uploadResult = data.getJSONObject("Object").getString("UploadSpeedResult")
-                            var downloadResult = data.getJSONObject("Object").getString("DownloadSpeedResult")
-                            var status = data.getJSONObject("Object").getString("Status")
+                            val uploadResult = data.getJSONObject("Object").getString("UploadSpeedResult")
+                            val downloadResult = data.getJSONObject("Object").getString("DownloadSpeedResult")
+                            val status = data.getJSONObject("Object").getString("Status")
                             LogUtil.d(TAG,"SpeedTest uploadResult:$uploadResult")
                             LogUtil.d(TAG,"SpeedTest downloadResult:$downloadResult")
                             LogUtil.d(TAG,"SpeedTest status:$status")
 
                             if(AppConfig.SpeedTestActive && AppConfig.SpeedTestActiveDebug)
                             {
-                                var start = data.getJSONObject("Object").getString("Start")
-                                var serverIP = data.getJSONObject("Object").getString("ServerIP")
-                                var CPE_WANname = data.getJSONObject("Object").getString("CPE_WANname")
+                                val start = data.getJSONObject("Object").getString("Start")
+                                val serverIP = data.getJSONObject("Object").getString("ServerIP")
+                                val CPE_WANname = data.getJSONObject("Object").getString("CPE_WANname")
                                 LogUtil.d(TAG,"SpeedTest start:$start")
                                 LogUtil.d(TAG,"SpeedTest serverIP:$serverIP")
                                 LogUtil.d(TAG,"SpeedTest CPE_WANname:$CPE_WANname")
@@ -1742,7 +1743,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     {
         LogUtil.d(TAG,"getAllDevice()")
 
-        var accessToken by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"

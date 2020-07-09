@@ -1,11 +1,9 @@
 package zyxel.com.multyproneo.util
 
 import android.os.Build
-import android.os.Environment
 import net.lingala.zip4j.core.ZipFile
 import net.lingala.zip4j.model.ZipParameters
 import net.lingala.zip4j.util.Zip4jConstants
-import zyxel.com.multyproneo.BuildConfig
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -13,17 +11,16 @@ import java.util.*
 
 object SaveLogUtil
 {
+    var filePath: File? = null
     private lateinit var file: File
     private lateinit var formatterDate: SimpleDateFormat
     private lateinit var formatterSec: SimpleDateFormat
-    private var filePath = ""
     private var fileName = ""
 
     fun init()
     {
         try
         {
-            filePath = "${Environment.getExternalStorageDirectory().absolutePath}/Android/data/${BuildConfig.APPLICATION_ID}/files/"
             formatterDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val curDate = Date(System.currentTimeMillis())
             fileName = formatterDate.format(curDate)

@@ -247,7 +247,7 @@ class CloudGatewayListFragment : Fragment()
     {
         LogUtil.d(TAG,"deleteDevice()")
 
-        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
@@ -317,7 +317,7 @@ class CloudGatewayListFragment : Fragment()
     {
         LogUtil.d(TAG,"getAllDevice()")
 
-        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"

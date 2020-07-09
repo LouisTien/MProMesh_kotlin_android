@@ -15,27 +15,14 @@ abstract class DatabaseCloudUtil : RoomDatabase()
 
     companion object
     {
-        private var INSTANCE: DatabaseCloudUtil? = null
-
         fun getInstance(context: Context): DatabaseCloudUtil?
         {
-            if(INSTANCE == null)
-            {
-                synchronized(DatabaseCloudUtil::class)
-                {
-                    INSTANCE = Room.databaseBuilder(
-                            context,
-                            DatabaseCloudUtil::class.java,
-                            AppConfig.DATABASE_NAME
-                    ).build()
-                }
-            }
-            return INSTANCE
+            return Room.databaseBuilder(
+                    context,
+                    DatabaseCloudUtil::class.java,
+                    AppConfig.DATABASE_NAME
+            )
+                    .build()
         }
-    }
-
-    fun destroyInstance()
-    {
-        INSTANCE = null
     }
 }

@@ -45,6 +45,7 @@ class AccountFragment : Fragment()
             when(it.action)
             {
                 AppConfig.DialogAction.ACT_LOGOUT -> setLogoutTask()
+                else -> {}
             }
         }
 

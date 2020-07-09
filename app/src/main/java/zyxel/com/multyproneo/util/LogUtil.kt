@@ -19,4 +19,9 @@ object LogUtil
         if(BuildConfig.DEBUG) Log.e(tag, msg)
         if(AppConfig.SaveLog) SaveLogUtil.writeLog(tag, msg)
     }
+
+    fun pd(tag: String, msg: String)
+    {
+        if(BuildConfig.DEBUG) Log.d(tag, msg)
+    }
 }

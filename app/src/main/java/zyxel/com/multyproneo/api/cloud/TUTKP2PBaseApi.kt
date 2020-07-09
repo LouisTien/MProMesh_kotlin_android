@@ -9,8 +9,6 @@ import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.fragment.cloud.SetupConnectTroubleshootingFragment
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.LogUtil
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
 import java.nio.charset.StandardCharsets
 
 object TUTKP2PBaseApi
@@ -37,7 +35,7 @@ object TUTKP2PBaseApi
             return ms_nIOTCInit
         }
 
-        var ret = RDTAPIs.RDT_Initialize()
+        val ret = RDTAPIs.RDT_Initialize()
         LogUtil.d(TAG, "RDT_Initialize(.)=$ret")
 
         if(ret < 0)
@@ -138,7 +136,7 @@ object TUTKP2PBaseApi
 
     fun sendData(method: AppConfig.TUTKP2PMethod, command: String)
     {
-        var cmdLength = command.toByteArray().size
+        val cmdLength = command.toByteArray().size
 
         /*
         c code header structure which FW received
@@ -151,7 +149,7 @@ object TUTKP2PBaseApi
         size : 4bytes (because of OS alignment)
          */
 
-        var sendBuf = ByteArray(AppConfig.TUTK_MAXSIZE_RECVBUF)
+        val sendBuf = ByteArray(AppConfig.TUTK_MAXSIZE_RECVBUF)
         sendBuf[0] = method.value.toByte()
         sendBuf[1] = 0x0
         sendBuf[2] = (cmdLength shr 8).toByte()
@@ -183,8 +181,8 @@ object TUTKP2PBaseApi
 
     fun receiveData()
     {
-        var headerBuf = ByteArray(AppConfig.TUTK_RECV_HEADER_LENGTH)
-        var cmdBuf = ByteArray(AppConfig.TUTK_MAXSIZE_RECVBUF)
+        val headerBuf = ByteArray(AppConfig.TUTK_RECV_HEADER_LENGTH)
+        val cmdBuf = ByteArray(AppConfig.TUTK_MAXSIZE_RECVBUF)
         var count = 0
         var nRead = -1
         var errorCode = 0
@@ -238,13 +236,13 @@ object TUTKP2PBaseApi
 
             remainLength -= nRead
 
-            var tmpBuf = ByteArray(nRead)
+            val tmpBuf = ByteArray(nRead)
             for(i in 0 until nRead)
             {
                 tmpBuf[i] = cmdBuf[i]
             }
 
-            var tmpStr = String(tmpBuf, StandardCharsets.UTF_8)
+            val tmpStr = String(tmpBuf, StandardCharsets.UTF_8)
             //LogUtil.d(TAG, "RDT_Read receive data:$tmpStr")
 
             resultStr += tmpStr

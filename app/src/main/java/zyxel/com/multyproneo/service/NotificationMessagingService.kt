@@ -70,8 +70,8 @@ class NotificationMessagingService : FirebaseMessagingService()
             while(iterator.hasNext())
             {
                 val key = iterator.next() as String
-                //LogUtil.d(TAG, "key : $key")
-                //LogUtil.d(TAG, "value : ${remoteMessageMap[key]}")
+                LogUtil.pd(TAG, "key : $key")
+                LogUtil.pd(TAG, "value : ${remoteMessageMap[key]}")
                 with(key)
                 {
                     when

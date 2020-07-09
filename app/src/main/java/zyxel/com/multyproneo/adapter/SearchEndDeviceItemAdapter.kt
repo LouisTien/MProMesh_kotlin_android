@@ -19,8 +19,8 @@ import zyxel.com.multyproneo.tool.CommonTool
  */
 class SearchEndDeviceItemAdapter(private var activity: Activity) : BaseAdapter()
 {
-    public var endDeviceList = mutableListOf<DevicesInfoObject>()
-    public var searchStr = ""
+    var endDeviceList = mutableListOf<DevicesInfoObject>()
+    var searchStr = ""
 
     override fun getCount(): Int = endDeviceList.size
 

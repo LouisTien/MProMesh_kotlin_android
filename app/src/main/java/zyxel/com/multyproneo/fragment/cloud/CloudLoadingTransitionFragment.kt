@@ -14,8 +14,6 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.LoadingTransitionEvent
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.fragment.AddMeshFailFragment
-import zyxel.com.multyproneo.fragment.AddMeshSuccessFragment
 import zyxel.com.multyproneo.util.AppConfig
 
 

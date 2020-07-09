@@ -501,7 +501,7 @@ class CloudEndDeviceDetailFragment : Fragment()
 
                 if(!inDB)
                 {
-                    var clientInfo = DatabaseClientListEntity(
+                    val clientInfo = DatabaseClientListEntity(
                             GlobalData.getCurrentGatewayInfo().MAC,
                             endDeviceInfo.PhysAddress,
                             editDeviceName

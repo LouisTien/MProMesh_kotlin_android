@@ -152,7 +152,7 @@ class CloudSettingsCloudAccountDetailFragment : Fragment()
     private fun moveSelfSiteToFirst(info: TUTKAllDeviceInfo): TUTKAllDeviceInfo
     {
         var selfIndex = 0
-        var siteListInfo = TUTKAllDeviceInfo()
+        val siteListInfo = TUTKAllDeviceInfo()
         var selfInfo = AllDeviceInfo()
         for(i in info.data.indices)
         {
@@ -175,7 +175,7 @@ class CloudSettingsCloudAccountDetailFragment : Fragment()
     {
         LogUtil.d(TAG,"deleteDevice()")
 
-        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
@@ -197,7 +197,7 @@ class CloudSettingsCloudAccountDetailFragment : Fragment()
     {
         LogUtil.d(TAG,"getAllDevice()")
 
-        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"

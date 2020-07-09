@@ -18,7 +18,6 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.service.SendMailReceiver
 import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.LogUtil
 import zyxel.com.multyproneo.util.SaveLogUtil
 import java.io.File
 import java.util.ArrayList

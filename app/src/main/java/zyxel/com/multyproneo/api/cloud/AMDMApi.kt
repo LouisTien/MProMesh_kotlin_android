@@ -4,7 +4,6 @@ import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.RequestBody
 import zyxel.com.multyproneo.BuildConfig
-import zyxel.com.multyproneo.util.AppConfig
 
 object AMDMApi
 {

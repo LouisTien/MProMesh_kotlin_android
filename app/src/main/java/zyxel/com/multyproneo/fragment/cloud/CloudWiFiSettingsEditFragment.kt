@@ -140,7 +140,6 @@ class CloudWiFiSettingsEditFragment : Fragment()
 
         if(!showOneSSID && available5g)
         {
-            val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)
             if(wifiNameEditFocus5g || wifiPwdEditFocus5g)
             {
                 val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)

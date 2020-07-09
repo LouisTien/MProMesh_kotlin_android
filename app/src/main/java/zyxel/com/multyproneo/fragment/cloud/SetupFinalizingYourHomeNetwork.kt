@@ -199,7 +199,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                         try
                         {
                             val data = JSONObject(responseStr)
-                            var name = data.getJSONObject("Object").getString("HostName")
+                            val name = data.getJSONObject("Object").getString("HostName")
                             LogUtil.d(TAG,"HostName:$name")
                             GlobalData.getCurrentGatewayInfo().UserDefineName = name
                             getWanInfoTask()

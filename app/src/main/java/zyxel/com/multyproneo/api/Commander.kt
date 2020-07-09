@@ -230,7 +230,7 @@ abstract class Commander
             override fun onResponse(call: Call, response: Response)
             {
                 LogUtil.d(TAG,"[onResponse]")
-                var responseCode = response.code()
+                val responseCode = response.code()
                 var responseStr = response.body()!!.string()
                 LogUtil.d(TAG, "onResponse code = $responseCode")
                 if(responseStr.length > 4000)

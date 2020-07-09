@@ -307,12 +307,12 @@ class CloudLoginFragment : Fragment()
                         try
                         {
                             tokenInfo = Gson().fromJson(responseStr, TUTKTokenInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"refreshTokenInfo:$tokenInfo")
+                            LogUtil.pd(TAG,"refreshTokenInfo:$tokenInfo")
                             refreshToken = tokenInfo.refresh_token
                             accessToken = tokenInfo.access_token
                             GlobalData.tokenType = tokenInfo.token_type
-                            LogUtil.d(TAG, "refreshToken:$refreshToken")
-                            LogUtil.d(TAG, "accessToken:$accessToken")
+                            LogUtil.pd(TAG, "refreshToken:$refreshToken")
+                            LogUtil.pd(TAG, "accessToken:$accessToken")
                         }
                         catch(e: JSONException)
                         {
@@ -326,7 +326,7 @@ class CloudLoginFragment : Fragment()
 
     private fun getUserInfo()
     {
-        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
@@ -359,7 +359,7 @@ class CloudLoginFragment : Fragment()
     {
         LogUtil.d(TAG,"getAllDevice()")
 
-        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
@@ -389,7 +389,7 @@ class CloudLoginFragment : Fragment()
 
     private fun getSpecificDevice()
     {
-        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
@@ -418,7 +418,7 @@ class CloudLoginFragment : Fragment()
 
     private fun addDevice()
     {
-        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
@@ -456,7 +456,7 @@ class CloudLoginFragment : Fragment()
 
     private fun updateDevice()
     {
-        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
@@ -492,7 +492,7 @@ class CloudLoginFragment : Fragment()
 
     private fun deleteDevice()
     {
-        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"

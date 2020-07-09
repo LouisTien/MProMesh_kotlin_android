@@ -157,8 +157,8 @@ abstract class TUTKCommander
             override fun onResponse(call: Call, response: Response)
             {
                 LogUtil.d(TAG,"[onResponse]")
-                var responseCode = response.code()
-                var responseStr = response.body()!!.string()
+                val responseCode = response.code()
+                val responseStr = response.body()!!.string()
                 LogUtil.d(TAG, "onResponse code = $responseCode")
                 if(responseStr.length > 4000)
                 {

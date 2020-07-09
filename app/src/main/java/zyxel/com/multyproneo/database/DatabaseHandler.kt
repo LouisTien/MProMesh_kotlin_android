@@ -177,14 +177,15 @@ class DatabaseHandler(private var activity: Activity)
                         KeyAES = secretInfoStr.substring(32, 48)
                         IvAES = secretInfoStr.substring(48, 64)
                     }
-                    LogUtil.d(TAG,"[DecryptAES]key:$KeyAES")
-                    LogUtil.d(TAG,"[DecryptAES]iv:$IvAES")
+                    LogUtil.pd(TAG,"[DecryptAES]key:$KeyAES")
+                    LogUtil.pd(TAG,"[DecryptAES]iv:$IvAES")
 
                     when(infoTag)
                     {
                         GETINFOFROMDB.INFO_PASSWORD -> retStr = gatewayInfoArrayListDB[i].Password
                         GETINFOFROMDB.INFO_USERNAME -> retStr = gatewayInfoArrayListDB[i].UserName
                         GETINFOFROMDB.INFO_USERDEFINENAME -> retStr = gatewayInfoArrayListDB[i].UserDefineName
+                        else -> {}
                     }
 
                     isExist = true
@@ -228,9 +229,9 @@ class DatabaseHandler(private var activity: Activity)
 
         getGatewayFromDB()
 
-        LogUtil.d(TAG, "input password = " + gatewayInfo.Password)
-        LogUtil.d(TAG, "input userName = " + gatewayInfo.UserName)
-        LogUtil.d(TAG, "input userDefineName = " + gatewayInfo.UserDefineName)
+        LogUtil.pd(TAG, "input password = " + gatewayInfo.Password)
+        LogUtil.pd(TAG, "input userName = " + gatewayInfo.UserName)
+        LogUtil.pd(TAG, "input userDefineName = " + gatewayInfo.UserDefineName)
 
         try
         {
