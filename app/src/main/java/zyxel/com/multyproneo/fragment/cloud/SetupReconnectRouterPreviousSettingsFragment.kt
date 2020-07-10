@@ -186,7 +186,8 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
 
             when(connectStatus)
             {
-                true -> {
+                true ->
+                {
                     runOnUiThread{
                         setup_reconnect_apply_previous_settings_content_animation_view.setAnimation("ConnectToTheInternet_2_oldJson.json")
                         setup_reconnect_apply_previous_settings_content_animation_view.playAnimation()
@@ -260,7 +261,8 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
 
             when(result)
             {
-                true -> {
+                true ->
+                {
                     runOnUiThread{
                         setup_reconnect_apply_previous_settings_content_animation_view.setAnimation("ConnectToTheInternet_2_oldJson.json")
                         setup_reconnect_apply_previous_settings_content_animation_view.playAnimation()

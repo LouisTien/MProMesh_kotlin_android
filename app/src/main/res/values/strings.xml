@@ -211,6 +211,7 @@
     <string name="settings_troubleshooting">Troubleshooting</string>
     <string name="settings_hint">Preserved WiFi settings can be applied to a WiFi Router during its setup.</string>
     <string name="settings_cloud_account">Cloud Account</string>
+    <string name="settings_issue_report">Report on Issue</string>
     <string name="settings_privacy_policy">Privacy Policy</string>
     <string name="settings_app_version">APP Version</string>
     <string name="settings_notification_sub_title">New Connected Device</string>

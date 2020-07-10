@@ -1,11 +1,14 @@
 package zyxel.com.multyproneo.fragment.cloud
 
+import android.app.PendingIntent
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import io.reactivex.disposables.Disposable
@@ -23,10 +26,9 @@ import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.WiFiSettingInfo
-import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.DatabaseCloudUtil
-import zyxel.com.multyproneo.util.GlobalData
-import zyxel.com.multyproneo.util.LogUtil
+import zyxel.com.multyproneo.service.SendMailReceiver
+import zyxel.com.multyproneo.util.*
+import java.io.File
 
 class CloudSettingsFragment : Fragment()
 {
@@ -34,6 +36,7 @@ class CloudSettingsFragment : Fragment()
     private lateinit var msgDialogResponse: Disposable
     private lateinit var db: DatabaseCloudUtil
     private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
+    private lateinit var appLogZipFile: File
     private var currentDBInfo: DatabaseSiteInfoEntity? = null
     private var preserveSettingsEnable = false
     private var WiFiName = ""
@@ -97,7 +100,12 @@ class CloudSettingsFragment : Fragment()
 
             settings_cloud_account_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsCloudAccountDetailFragment()))
 
-            //settings_privacy_policy_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsPrivacyPolicyFragment()))
+            settings_issue_report_relative ->
+            {
+                appLogZipFile = SaveLogUtil.zipFiles()
+                sendMail()
+            }
+
             settings_privacy_policy_relative -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zyxel.com/privacy_policy.shtml")))
 
             settings_troubleshooting_relative -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudSettingsTroubleshootingFragment()))
@@ -110,6 +118,7 @@ class CloudSettingsFragment : Fragment()
         settings_preserve_settings_switch_image.setOnClickListener(clickListener)
         settings_troubleshooting_relative.setOnClickListener(clickListener)
         settings_cloud_account_relative.setOnClickListener(clickListener)
+        settings_issue_report_relative.setOnClickListener(clickListener)
         settings_privacy_policy_relative.setOnClickListener(clickListener)
     }
 
@@ -200,5 +209,44 @@ class CloudSettingsFragment : Fragment()
                         }
                     }
                 }).execute()
+    }
+
+    private fun sendMail()
+    {
+        //val emailIntent = Intent(Intent.ACTION_SEND_MULTIPLE)
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        with(emailIntent)
+        {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(AppConfig.FEEDBACK_MAIL))
+            putExtra(Intent.EXTRA_SUBJECT, "MProMesh app feedback - ${GlobalData.getCurrentGatewayInfo().ModelName} ${GlobalData.getCurrentGatewayInfo().SoftwareVersion}")
+            putExtra(Intent.EXTRA_TEXT, "Please describe the issue.")
+        }
+
+        //val uris = ArrayList<Uri>()
+        val appLogZipFileUri = FileProvider.getUriForFile(context!!, "${BuildConfig.APPLICATION_ID}.fileprovider", appLogZipFile)
+        //uris.add(appLogZipFileUri)
+
+        try
+        {
+            with(emailIntent)
+            {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK
+                //putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
+                putExtra(Intent.EXTRA_STREAM, appLogZipFileUri)
+            }
+
+            val receiverIntent = Intent(context, SendMailReceiver::class.java)
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, receiverIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1)
+                context!!.startActivity(Intent.createChooser(emailIntent, "Send mail", pendingIntent.intentSender))
+            else
+                context!!.startActivity(Intent.createChooser(emailIntent, "Send mail"))
+        }
+        catch(e: Exception)
+        {
+            e.printStackTrace()
+            context!!.startActivity(Intent.createChooser(emailIntent, "Send mail"))
+        }
     }
 }

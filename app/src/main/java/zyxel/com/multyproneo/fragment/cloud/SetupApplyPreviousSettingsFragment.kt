@@ -84,21 +84,24 @@ class SetupApplyPreviousSettingsFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            setup_previous_settings_details_text -> {
+            setup_previous_settings_details_text ->
+            {
                 detailsDialog = SetupPreviousSettingsDetailsDialog(activity!!, currentEntity.mac)
                 detailsDialog.show()
             }
 
             setup_previous_settings_skip_image -> { GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoginFragment())) }
 
-            setup_previous_settings_apply_image -> {
+            setup_previous_settings_apply_image ->
+            {
                 val bundle = Bundle().apply{
                     putString("MAC", currentEntity.mac)
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(SetupApplyingPreviousSettingsFragment().apply{ arguments = bundle }))
             }
 
-            setup_previous_settings_detail_image -> {
+            setup_previous_settings_detail_image ->
+            {
                 nameSlideDialog = SetupSlidePreviousSettingsNameDialog(activity!!, siteInfoList, getIndexInSiteInfoList())
                 nameSlideDialog.show()
             }

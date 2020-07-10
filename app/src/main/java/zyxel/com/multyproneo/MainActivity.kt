@@ -1273,6 +1273,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             gateDetailInfo = Gson().fromJson(responseStr, GatewayDetailInfo::class.javaObjectType)
                             LogUtil.d(TAG,"gateDetailInfo:$gateDetailInfo")
                             GlobalData.getCurrentGatewayInfo().SoftwareVersion = gateDetailInfo.Object.SoftwareVersion
+                            GlobalData.getCurrentGatewayInfo().ModelName = gateDetailInfo.Object.ModelName
+                            GlobalData.getCurrentGatewayInfo().SerialNumber = gateDetailInfo.Object.SerialNumber
                             getCloudLanIPInfoTask()
                         }
                         catch(e: JSONException)

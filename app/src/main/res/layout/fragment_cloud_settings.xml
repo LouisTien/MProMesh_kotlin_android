@@ -183,6 +183,37 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/settings_issue_report_relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_10dp_in_1080">
+
+                <TextView
+                    android:id="@+id/settings_issue_report_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_000000"
+                    android:textSize="@dimen/layout_size_20dp_in_1080"
+                    android:text="@string/settings_issue_report"/>
+
+                <ImageView
+                    android:id="@+id/settings_issue_report_enter_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/icon_detail"/>
+
+                <ImageView
+                    android:id="@+id/settings_issue_report_line_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bar1"
+                    android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                    android:layout_below="@+id/settings_issue_report_text"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/settings_privacy_policy_relative"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
