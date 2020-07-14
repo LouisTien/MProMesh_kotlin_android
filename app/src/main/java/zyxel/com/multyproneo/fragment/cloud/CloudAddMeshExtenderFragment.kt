@@ -42,18 +42,18 @@ class CloudAddMeshExtenderFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            cloud_mesh_extender_back_image -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFragment()))
+            //cloud_mesh_extender_back_image -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFragment()))
 
             cloud_mesh_extender_tip_text -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshTipsFragment().apply{ arguments = Bundle().apply{ putString("FromFrag", "CloudAddMeshExtender") } }))
 
-            cloud_mesh_extender_next_button -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshWPSFragment()))
+            cloud_mesh_extender_done_text -> GlobalBus.publish(MainEvent.EnterCloudHomePage())
         }
     }
 
     private fun setClickListener()
     {
-        cloud_mesh_extender_back_image.setOnClickListener(clickListener)
+        //cloud_mesh_extender_back_image.setOnClickListener(clickListener)
         cloud_mesh_extender_tip_text.setOnClickListener(clickListener)
-        cloud_mesh_extender_next_button.setOnClickListener(clickListener)
+        cloud_mesh_extender_done_text.setOnClickListener(clickListener)
     }
 }

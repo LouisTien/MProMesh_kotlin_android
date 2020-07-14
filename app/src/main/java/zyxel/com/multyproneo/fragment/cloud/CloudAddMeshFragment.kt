@@ -44,7 +44,7 @@ class CloudAddMeshFragment : Fragment()
         {
             cloud_mesh_back_image -> GlobalBus.publish(MainEvent.EnterCloudHomePage())
 
-            cloud_mesh_wireless_area_frame -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshExtenderFragment()))
+            cloud_mesh_wireless_area_frame -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshWPSFragment()))
 
             cloud_mesh_wire_area_frame -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshCableInfoFragment()))
         }

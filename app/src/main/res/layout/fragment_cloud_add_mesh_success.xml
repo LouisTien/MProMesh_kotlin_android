@@ -20,7 +20,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
         android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-        android:src="@drawable/icon_close"/>
+        android:src="@drawable/icon_close"
+        android:visibility="invisible"/>
 
     <RelativeLayout
         android:id="@+id/cloud_mesh_success_content_relative"
@@ -70,10 +71,10 @@
         android:background="@drawable/button_style_yellow_bg">
 
         <TextView
-            android:id="@+id/cloud_mesh_success_done_text"
+            android:id="@+id/cloud_mesh_success_next_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/common_done"
+            android:text="@string/mesh_next"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/layout_size_20dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"

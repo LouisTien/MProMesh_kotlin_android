@@ -42,15 +42,15 @@ class CloudAddMeshSuccessFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            cloud_mesh_success_close_image -> GlobalBus.publish(MainEvent.EnterCloudHomePage())
+            //cloud_mesh_success_close_image -> GlobalBus.publish(MainEvent.EnterCloudHomePage())
 
-            cloud_mesh_success_done_button -> GlobalBus.publish(MainEvent.EnterCloudHomePage())
+            cloud_mesh_success_next_text -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshExtenderFragment()))
         }
     }
 
     private fun setClickListener()
     {
-        cloud_mesh_success_close_image.setOnClickListener(clickListener)
-        cloud_mesh_success_done_button.setOnClickListener(clickListener)
+        //cloud_mesh_success_close_image.setOnClickListener(clickListener)
+        cloud_mesh_success_next_text.setOnClickListener(clickListener)
     }
 }

@@ -266,7 +266,7 @@
     <string name="cloud_mesh_title">Choose a Scenario</string>
     <string name="cloud_mesh_see_tip">Tips</string>
     <string name="cloud_mesh_extender_title">Place Your Mesh Device</string>
-    <string name="cloud_mesh_extender_description">Place your Mesh Device in a location approximately halfway to the area you want to extnd your WiFi.</string>
+    <string name="cloud_mesh_extender_description">Move your Mesh Device to a location about halfway between your WiFi Router and the area with a poor WiFi signal.</string>
     <string name="cloud_mesh_wps_title">Connect with Your Mesh Device</string>
     <string name="cloud_mesh_apply_setting_title">Applying WiFi settings to Your Mesh Device</string>
     <string name="cloud_mesh_apply_setting_description">Please wait.\nThis takes about two minutes.</string>
@@ -278,9 +278,9 @@
     <string name="cloud_mesh_fail_help">Help</string>
     <string name="cloud_mesh_fail_quit">Quit</string>
     <string name="cloud_mesh_fail_title">Cannot Connect with Your Mesh Device</string>
-    <string name="cloud_mesh_fail_description">Place your Mesh Device closer to the WiFi Router, then retry connecting.</string>
+    <string name="cloud_mesh_fail_description">Place your Mesh Device closer to the WiFi Router (within 2 meters), then retry connecting.</string>
     <string name="cloud_mesh_help_title">Help</string>
-    <string name="cloud_mesh_more_info_description">The LED on your Mesh Device indicates the quality of its wireless connection to the WiFi Router.</string>
+    <string name="cloud_mesh_more_info_description">The Line quality LED on your Mesh Device indicates the quality of its wireless connection to the WiFi Router.</string>
     <string name="cloud_mesh_cable_title">Use the Ethernet Cable to Connect Your Mesh Device to the WiFi Router</string>
     <string name="cloud_mesh_cable_description">When connected, your Mesh Device will have the same WiFi name and password as your home WiFi network.</string>
 

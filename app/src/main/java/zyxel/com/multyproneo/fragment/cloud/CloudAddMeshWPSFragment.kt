@@ -19,6 +19,7 @@ import zyxel.com.multyproneo.util.LogUtil
 class CloudAddMeshWPSFragment : Fragment()
 {
     private val TAG = javaClass.simpleName
+    private var fromAddMeshFailPage = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -28,6 +29,12 @@ class CloudAddMeshWPSFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        with(arguments)
+        {
+            this?.getBoolean("fromAddMeshFailPage", false)?.let{ fromAddMeshFailPage = it }
+        }
+
         setClickListener()
     }
 
@@ -49,7 +56,13 @@ class CloudAddMeshWPSFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            cloud_mesh_wps_back_image -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshExtenderFragment()))
+            cloud_mesh_wps_back_image ->
+            {
+                if(fromAddMeshFailPage)
+                    GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFailFragment()))
+                else
+                    GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFragment()))
+            }
 
             cloud_mesh_wps_pair_button ->
             {
