@@ -4,17 +4,14 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import kotlinx.android.synthetic.main.fragment_wifi_settings.*
-import org.jetbrains.anko.support.v4.dip
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.json.JSONException
 import org.json.JSONObject
@@ -22,7 +19,7 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.AccountApi
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.WiFiSettingApi
-import zyxel.com.multyproneo.dialog.QRCodeDialog
+import zyxel.com.multyproneo.dialog.WiFiQRCodeDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.MeshInfo
@@ -43,6 +40,7 @@ class WiFiSettingsFragment : Fragment()
     private lateinit var WiFiQRCodeBitmap: Bitmap
     private lateinit var WiFiQRCodeBitmap5g: Bitmap
     private lateinit var guestWiFiQRCodeBitmap: Bitmap
+    private var WiFiQRCodeBitmapArray = ArrayList<Bitmap>()
     private var WiFiName = ""
     private var WiFiPwd = ""
     private var WiFiSecurity = ""
@@ -112,18 +110,11 @@ class WiFiSettingsFragment : Fragment()
                 showWiFiPed5g = !showWiFiPed5g
             }
 
-            wifi_settings_wifi_share_image ->
-            {
-                if(meshInfo.Object.Enable)
-                    QRCodeDialog(activity!!, getString(R.string.qrcode_dialog_wifi_msg), WiFiQRCodeBitmap).show()
-                else
-                    QRCodeDialog(activity!!, getString(R.string.qrcode_dialog_wifi_msg), WiFiQRCodeBitmap, WiFiQRCodeBitmap5g).show()
-            }
+            wifi_settings_wifi_share_image -> WiFiQRCodeDialog(activity!!, WiFiQRCodeBitmapArray).show()
 
             wifi_settings_wifi_edit_image ->
             {
                 val bundle = Bundle().apply{
-                    putBoolean("GuestWiFiMode", false)
                     putBoolean("ShowOneSSID", meshInfo.Object.Enable)
                     putBoolean("Available5g", !WiFiSettingInfoSet.Object.X_ZYXEL_OneSSID.Enable)
                     putString("Name", WiFiName)
@@ -132,6 +123,9 @@ class WiFiSettingsFragment : Fragment()
                     putString("Name5g", WiFiName5g)
                     putString("Password5g", WiFiPwd5g)
                     putString("Security5g", WiFiSecurity5g)
+                    putString("NameGuest", guestWiFiName)
+                    putString("PasswordGuest", guestWiFiPwd)
+                    putString("SecurityGuest", guestWiFiSecurity)
                 }
                 GlobalBus.publish(MainEvent.SwitchToFrag(WiFiSettingsEditFragment().apply{ arguments = bundle }))
             }
@@ -141,19 +135,6 @@ class WiFiSettingsFragment : Fragment()
                 wifi_settings_guest_wifi_password_text.transformationMethod = if(showGuestWiFiPed) PasswordTransformationMethod() else null
                 wifi_settings_guest_wifi_password_show_image.setImageDrawable(resources.getDrawable(if(showGuestWiFiPed) R.drawable.icon_hide else R.drawable.icon_show))
                 showGuestWiFiPed = !showGuestWiFiPed
-            }
-
-            wifi_settings_guest_wifi_share_image -> QRCodeDialog(activity!!, getString(R.string.qrcode_dialog_guest_wifi_msg), guestWiFiQRCodeBitmap).show()
-
-            wifi_settings_guest_wifi_edit_image ->
-            {
-                val bundle = Bundle().apply{
-                    putBoolean("GuestWiFiMode", true)
-                    putString("Name", guestWiFiName)
-                    putString("Password", guestWiFiPwd)
-                    putString("Security", guestWiFiSecurity)
-                }
-                GlobalBus.publish(MainEvent.SwitchToFrag(WiFiSettingsEditFragment().apply{ arguments = bundle }))
             }
 
             wifi_settings_guest_wifi_switch_image ->
@@ -193,8 +174,6 @@ class WiFiSettingsFragment : Fragment()
         wifi_settings_wifi_share_image.setOnClickListener(clickListener)
         wifi_settings_wifi_edit_image.setOnClickListener(clickListener)
         wifi_settings_guest_wifi_password_show_image.setOnClickListener(clickListener)
-        wifi_settings_guest_wifi_share_image.setOnClickListener(clickListener)
-        wifi_settings_guest_wifi_edit_image.setOnClickListener(clickListener)
         wifi_settings_guest_wifi_switch_image.setOnClickListener(clickListener)
     }
 
@@ -249,6 +228,10 @@ class WiFiSettingsFragment : Fragment()
             for(j in 0 until QRCODE_PIXEL)
                 guestWiFiQRCodeBitmap.setPixel(i, j, if(bitMatrixGuest.get(i, j)) Color.BLACK else Color.WHITE)
 
+        WiFiQRCodeBitmapArray.clear()
+        WiFiQRCodeBitmapArray.add(WiFiQRCodeBitmap)
+        if(!meshInfo.Object.Enable) WiFiQRCodeBitmapArray.add(WiFiQRCodeBitmap5g)
+        WiFiQRCodeBitmapArray.add(guestWiFiQRCodeBitmap)
     }
 
     private fun updateUI()
@@ -262,40 +245,13 @@ class WiFiSettingsFragment : Fragment()
 
             if(meshInfo.Object.Enable)
             {
-                val lp_share = FrameLayout.LayoutParams(wifi_settings_wifi_share_image.layoutParams).apply{
-                    gravity = Gravity.BOTTOM or Gravity.LEFT
-                    setMargins(dip(20), 0, 0, dip(20))
-                }
-                wifi_settings_wifi_share_image.layoutParams = lp_share
-
-                val lp_edit = FrameLayout.LayoutParams(wifi_settings_wifi_edit_image.layoutParams).apply{
-                    gravity = Gravity.BOTTOM or Gravity.RIGHT
-                    setMargins(0, 0, dip(20), dip(20))
-                }
-                wifi_settings_wifi_edit_image.layoutParams = lp_edit
-
-                wifi_settings_wifi_area_frame.setBackgroundResource(R.drawable.card_wifibg)
-                wifi_settings_wifi_5g_area_relative.visibility = View.GONE
-                wifi_settings_wifi_24g_name_title_text.text = getString(R.string.wifi_settings_wifi_name)
-                wifi_settings_wifi_24g_password_title_text.text = getString(R.string.wifi_settings_wifi_password)
+                wifi_settings_wifi_5g_relative.visibility = View.GONE
+                wifi_settings_24g_title_text.text = getString(R.string.common_home)
                 wifi_settings_wifi_24g_name_text.text = WiFiName
                 wifi_settings_wifi_24g_password_text.text = WiFiPwd
             }
             else
             {
-                val lp_share = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT).apply{
-                    gravity = Gravity.BOTTOM or Gravity.LEFT
-                    setMargins(dip(17), 0, 0, dip(20))
-                }
-                wifi_settings_wifi_share_image.layoutParams = lp_share
-
-                val lp_edit = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT).apply{
-                    gravity = Gravity.BOTTOM or Gravity.RIGHT
-                    setMargins(0, 0, dip(17), dip(20))
-                }
-                wifi_settings_wifi_edit_image.layoutParams = lp_edit
-
-                wifi_settings_wifi_area_frame.setBackgroundResource(R.drawable.card_wifibg_2)
                 wifi_settings_wifi_24g_name_text.text = WiFiName
                 wifi_settings_wifi_24g_password_text.text = WiFiPwd
                 wifi_settings_wifi_5g_name_text.text = WiFiName5g
@@ -303,7 +259,7 @@ class WiFiSettingsFragment : Fragment()
 
                 if(WiFiSettingInfoSet.Object.X_ZYXEL_OneSSID.Enable)
                 {
-                    wifi_settings_wifi_5g_area_relative.animate().alpha(0.4f)
+                    wifi_settings_wifi_5g_relative.animate().alpha(0.4f)
                     wifi_settings_wifi_5g_password_show_image.isEnabled = false
                 }
             }

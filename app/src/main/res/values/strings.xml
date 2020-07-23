@@ -172,18 +172,14 @@
     <string name="devices_guest_devices">Guest Devices</string>
     <string name="devices_user_tips">Device Name will be displayed in future App update</string>
 
-    <string name="wifi_settings_title">WiFi Settings</string>
-    <string name="wifi_settings_wifi_name">WiFi Name</string>
-    <string name="wifi_settings_wifi_password">WiFi Password</string>
-    <string name="wifi_settings_wifi_name_24g">2.4G WiFi Name</string>
-    <string name="wifi_settings_wifi_password_24g">2.4G WiFi Password</string>
-    <string name="wifi_settings_wifi_name_5g">5G WiFi Name</string>
-    <string name="wifi_settings_wifi_password_5g">5G WiFi Password</string>
-    <string name="wifi_settings_guest_wifi">Guest WiFi</string>
-    <string name="wifi_settings_guest_wifi_name">Guest WiFi Name</string>
-    <string name="wifi_settings_guest_wifi_password">Guest WiFi Password</string>
-    <string name="wifi_settings_edit_save">Save</string>
+    <string name="wifi_settings_title">WiFi</string>
+    <string name="wifi_settings_wifi_name">Name</string>
+    <string name="wifi_settings_wifi_password">Password</string>
+    <string name="wifi_settings_wifi_name_24g">Home 2.4G</string>
+    <string name="wifi_settings_wifi_name_5g">Home 5G</string>
+    <string name="wifi_settings_guest_wifi">Guest</string>
     <string name="wifi_settings_connect_change_tip">If you change the WiFi settings being connected, please reconnect to the new WiFi.</string>
+    <string name="wifi_edit_title">Edit WiFi</string>
 
     <string name="account_app_version">App Version</string>
     <string name="account_privacy_policy">Privacy Policy</string>
@@ -253,6 +249,7 @@
     <string name="mesh_next">Next</string>
     <string name="mesh_wps_title">Press WPS button</string>
     <string name="mesh_wps_description">Press the <b>WPS</b> button on the WiFi Extender/Mesh Device once and release it, then tap below <b>\"Start Pairing\"</b> button.</string>
+    <string name="mesh_wps_description_cloud">Place your Mesh Device next to WiFi Router (within 2 meters). Press the physical <b>WPS</b> button of your Mesh Device, then tap <b>\"Start Pairing\"</b> below.</string>
     <string name="mesh_pair">Start Pairing</string>
     <string name="mesh_success_title">Success!</string>
     <string name="mesh_success_description">The WiFi Extender is added to your home WiFi network. And it has the same WiFi name and password.</string>
@@ -306,7 +303,7 @@
     <string name="remove_site_dialog_remove_self_description">\n\nRemove \'%s\'\nand logging out...</string>
     <string name="remove_site_dialog_remove_description">\n\nRemove \'%s\'\nand please wait some minutes...</string>
 
-    <string name="qrcode_dialog_wifi_msg">Connect to WiFi by scanning the QR code.</string>
+    <string name="qrcode_dialog_wifi_msg">Scan the QR code to connect to the WiFi.</string>
     <string name="qrcode_dialog_guest_wifi_msg">Guests can connect to Guest WiFi by scanning the QR code.</string>
 
     <string name="loading_transition_please_wait">Please wait.</string>

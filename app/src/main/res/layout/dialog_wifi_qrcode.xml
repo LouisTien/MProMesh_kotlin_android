@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/layout_size_305dp_in_1080"
+    android:layout_height="@dimen/layout_size_390dp_in_1080">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/wifi_qrcode_pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </androidx.viewpager.widget.ViewPager>
+
+    <com.chahinem.pageindicator.PageIndicator
+        android:id="@+id/wifi_qrcode_pager_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/wifi_qrcode_positive_text"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/wifi_qrcode_positive_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginRight="@dimen/layout_size_25dp_in_1080"
+        android:textSize="@dimen/text_size_20sp_in_1080"
+        android:textStyle="bold"
+        android:textColor="@color/color_575757"
+        android:text="@string/common_done"/>
+
+</RelativeLayout>

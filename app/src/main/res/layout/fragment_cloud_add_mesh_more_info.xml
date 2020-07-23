@@ -97,16 +97,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                android:src="@drawable/bar1"
-                android:visibility="gone"/>
+                android:src="@drawable/bar1"/>
 
             <ImageView
                 android:id="@+id/mesh_help_blink_red_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                android:src="@drawable/nled4"
-                android:visibility="gone"/>
+                android:src="@drawable/nled4"/>
 
         </LinearLayout>
 
