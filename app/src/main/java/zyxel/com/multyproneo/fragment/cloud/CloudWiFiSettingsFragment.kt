@@ -228,7 +228,7 @@ class CloudWiFiSettingsFragment : Fragment()
         WiFiQRCodeBitmapArray.clear()
         WiFiQRCodeBitmapArray.add(WiFiQRCodeBitmap)
         if(!meshInfo.Object.Enable) WiFiQRCodeBitmapArray.add(WiFiQRCodeBitmap5g)
-        WiFiQRCodeBitmapArray.add(guestWiFiQRCodeBitmap)
+        if(guestWiFiStatus) WiFiQRCodeBitmapArray.add(guestWiFiQRCodeBitmap)
     }
 
     private fun updateUI()
@@ -256,13 +256,20 @@ class CloudWiFiSettingsFragment : Fragment()
 
                 if(WiFiSettingInfoSet.Object.X_ZYXEL_OneSSID.Enable)
                 {
-                    wifi_settings_wifi_5g_relative.animate().alpha(0.4f)
+                    wifi_settings_wifi_5g_area_relative.animate().alpha(0.4f)
                     wifi_settings_wifi_5g_password_show_image.isEnabled = false
                 }
             }
             wifi_settings_guest_wifi_name_text.text = guestWiFiName
             wifi_settings_guest_wifi_password_text.text = guestWiFiPwd
             wifi_settings_guest_wifi_switch_image.setImageResource(if(guestWiFiStatus) R.drawable.switch_on else R.drawable.switch_off_2)
+
+            if(!guestWiFiStatus)
+            {
+                wifi_settings_guest_wifi_area_relative.animate().alpha(0.4f)
+                wifi_settings_guest_wifi_password_show_image.isEnabled = false
+            }
+
             generateQRCode()
         }
     }

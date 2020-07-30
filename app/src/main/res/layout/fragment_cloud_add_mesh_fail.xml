@@ -23,7 +23,8 @@
         android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
         android:textSize="@dimen/text_size_18sp_in_1080"
         android:textColor="@color/color_575757"
-        android:text="@string/cloud_mesh_fail_help"/>
+        android:text="@string/cloud_mesh_fail_help"
+        android:visibility="invisible"/>
 
     <RelativeLayout
         android:id="@+id/cloud_mesh_fail_content_relative"

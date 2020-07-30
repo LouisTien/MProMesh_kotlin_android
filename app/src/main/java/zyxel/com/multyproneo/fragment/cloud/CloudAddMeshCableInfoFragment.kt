@@ -44,7 +44,7 @@ class CloudAddMeshCableInfoFragment : Fragment()
         {
             cloud_mesh_cable_back_image -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFragment()))
 
-            cloud_mesh_cable_tip_text -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshTipsFragment().apply{ arguments = Bundle().apply{ putString("FromFrag", "CloudAddMeshCableInfo") } }))
+            cloud_mesh_cable_tip_text -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshEthernetTipsFragment()))
 
             cloud_mesh_cable_done_button -> GlobalBus.publish(MainEvent.EnterCloudHomePage())
         }

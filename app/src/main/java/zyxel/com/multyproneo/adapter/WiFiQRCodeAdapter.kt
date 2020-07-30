@@ -20,9 +20,9 @@ class WiFiQRCodeAdapter(private var context: Context, private var bmpArrayList: 
         itemView.wifi_qrcode_content_image.setImageBitmap(bmpArrayList[position])
         when(position)
         {
-            0 -> itemView.wifi_qrcode_title_text.text = context.getString(if(bmpArrayList.size >= 3) R.string.wifi_settings_wifi_name_24g else R.string.common_home)
-            1 -> itemView.wifi_qrcode_title_text.text = context.getString(if(bmpArrayList.size >= 3) R.string.wifi_settings_wifi_name_5g else R.string.wifi_settings_guest_wifi)
-            2 -> itemView.wifi_qrcode_title_text.text = context.getString(R.string.wifi_settings_guest_wifi)
+            0 -> itemView.wifi_qrcode_title_text.text = context.getString(if(bmpArrayList.size >= 3) R.string.wifi_settings_wifi_name_24g_qrcode else R.string.wifi_settings_wifi_name_qrcode)
+            1 -> itemView.wifi_qrcode_title_text.text = context.getString(if(bmpArrayList.size >= 3) R.string.wifi_settings_wifi_name_5g_qrcode else R.string.wifi_settings_guest_wifi_qrcode)
+            2 -> itemView.wifi_qrcode_title_text.text = context.getString(R.string.wifi_settings_guest_wifi_qrcode)
             else -> {}
         }
         container.addView(itemView)

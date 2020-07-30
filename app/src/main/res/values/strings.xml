@@ -178,6 +178,11 @@
     <string name="wifi_settings_wifi_name_24g">Home 2.4G</string>
     <string name="wifi_settings_wifi_name_5g">Home 5G</string>
     <string name="wifi_settings_guest_wifi">Guest</string>
+    <string name="wifi_settings_wifi_name_qrcode">Share Home WiFi</string>
+    <string name="wifi_settings_wifi_name_24g_qrcode">Share Home 2.4G WiFi</string>
+    <string name="wifi_settings_wifi_name_5g_qrcode">Share Home 5G WiFi</string>
+    <string name="wifi_settings_guest_wifi_qrcode">Share Guest WiFi</string>
+
     <string name="wifi_settings_connect_change_tip">If you change the WiFi settings being connected, please reconnect to the new WiFi.</string>
     <string name="wifi_edit_title">Edit WiFi</string>
 
@@ -269,7 +274,9 @@
     <string name="cloud_mesh_apply_setting_description">Please wait.\nThis takes about two minutes.</string>
     <string name="cloud_mesh_success_title">Succeed!</string>
     <string name="cloud_mesh_success_description">The Mesh Device now joins your home WiFi network. It has the same WiFi name and password.</string>
-    <string name="cloud_mesh_tip_msg_topic">Placement tips for your Mesh Device</string>
+    <string name="cloud_mesh_tip_find_location_title">Find Optimal Location</string>
+    <string name="cloud_mesh_tip_link_quality_title">Check Link Quality</string>
+    <string name="cloud_mesh_tip_msg_location"><font color='#64BE00'>Do\n</font>Placement at a location about halfway between your WiFi Router and the area with a poor WiFi signal gets better WiFi coverage.</string>
     <string name="cloud_mesh_tip_msg_position"><font color='#64BE00'>Do\n</font>An open elevated spot, like the top of a table or a self</string>
     <string name="cloud_mesh_tip_msg_suggest"><font color='#FF2837'>Don\'t\n</font>Physical obstructions cause difficulties for the WiFi Router, the Mesh Device and any wireless device to \"see\" each other.</string>
     <string name="cloud_mesh_fail_help">Help</string>
@@ -277,7 +284,8 @@
     <string name="cloud_mesh_fail_title">Cannot Connect with Your Mesh Device</string>
     <string name="cloud_mesh_fail_description">Place your Mesh Device closer to the WiFi Router (within 2 meters), then retry connecting.</string>
     <string name="cloud_mesh_help_title">Help</string>
-    <string name="cloud_mesh_more_info_description">The Line quality LED on your Mesh Device indicates the quality of its wireless connection to the WiFi Router.</string>
+    <string name="cloud_mesh_more_info_description">Check the Link Quality LED for the wireless connection status of your Mesh Device to the WiFi Router.</string>
+    <string name="cloud_mesh_more_info_ethernet_description">Check the Link Quality LED for the connection status of your Mesh Device to the WiFi Router.</string>
     <string name="cloud_mesh_cable_title">Use the Ethernet Cable to Connect Your Mesh Device to the WiFi Router</string>
     <string name="cloud_mesh_cable_description">When connected, your Mesh Device will have the same WiFi name and password as your home WiFi network.</string>
 

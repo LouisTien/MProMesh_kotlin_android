@@ -219,6 +219,7 @@ class CloudSettingsFragment : Fragment()
         {
             type = "text/plain"
             putExtra(Intent.EXTRA_EMAIL, arrayOf(AppConfig.FEEDBACK_MAIL))
+            putExtra(Intent.EXTRA_CC, arrayOf(AppConfig.FEEDBACK_MAIL_CC))
             putExtra(Intent.EXTRA_SUBJECT, "MProMesh app v${BuildConfig.VERSION_NAME} feedback - ${GlobalData.getCurrentGatewayInfo().ModelName} ${GlobalData.getCurrentGatewayInfo().SoftwareVersion}")
             putExtra(Intent.EXTRA_TEXT, "Please describe the issue.")
         }

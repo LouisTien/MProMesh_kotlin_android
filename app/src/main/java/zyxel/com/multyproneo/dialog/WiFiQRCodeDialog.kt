@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.View
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.dialog_wifi_qrcode.*
 import zyxel.com.multyproneo.R
@@ -35,6 +36,7 @@ class WiFiQRCodeDialog(context: Context, private var bmpArrayList: ArrayList<Bit
             }
 
         })
+        if(bmpArrayList.size == 1) wifi_qrcode_pager_indicator.visibility = View.INVISIBLE
         wifi_qrcode_pager_indicator.attachTo(wifi_qrcode_pager)
         wifi_qrcode_positive_text.setOnClickListener{ dismiss() }
     }

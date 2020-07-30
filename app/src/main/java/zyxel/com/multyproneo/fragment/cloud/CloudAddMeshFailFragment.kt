@@ -54,7 +54,7 @@ class CloudAddMeshFailFragment : Fragment()
                 GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshWPSFragment().apply{ arguments = bundle }))
             }
 
-            cloud_mesh_fail_help_text -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshHelpFragment()))
+            cloud_mesh_fail_help_text -> {}
         }
     }
 

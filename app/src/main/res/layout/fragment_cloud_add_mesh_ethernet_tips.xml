@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/cloud_mesh_ethernet_tip_title_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_size_60dp_in_1080"
+        android:background="@drawable/actionbar_detail_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/cloud_mesh_ethernet_tip_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:textColor="@color/color_575757"
+            android:textStyle="bold"
+            android:text="@string/mesh_tip_title"/>
+
+        <ImageView
+            android:id="@+id/cloud_mesh_ethernet_tip_cancel_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_close"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/cloud_mesh_tip_content_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_below="@+id/cloud_mesh_ethernet_tip_title_area_relative">
+
+        <LinearLayout
+            android:id="@+id/cloud_mesh_ethernet_tip_content_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/cloud_mesh_ethernet_tip_FOL_title_relative"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_size_30dp_in_1080"
+                android:background="@color/color_888888">
+
+                <TextView
+                    android:id="@+id/cloud_mesh_ethernet_tip_FOL_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/text_size_18sp_in_1080"
+                    android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+                    android:text="@string/cloud_mesh_tip_find_location_title"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_ethernet_tip_FOL_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+                    android:src="@drawable/icon_detail"/>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/layout_size_2dp_in_1080"
+                android:visibility="invisible"/>
+
+            <LinearLayout
+                android:id="@+id/cloud_mesh_ethernet_tip_FOL_content_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
+                android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_ethernet_tip_msg_location_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                    android:src="@drawable/n_addmesh_location1"/>
+
+                <TextView
+                    android:id="@+id/cloud_mesh_ethernet_tip_msg_location_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+                    android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
+                    android:textColor="@color/color_000000"
+                    android:textSize="@dimen/layout_size_14dp_in_1080"
+                    android:textStyle="italic"
+                    android:text="@string/cloud_mesh_tip_msg_location"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_ethernet_tip_msg_position_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                    android:src="@drawable/n_addmesh_location1"/>
+
+                <TextView
+                    android:id="@+id/cloud_mesh_ethernet_tip_msg_position_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+                    android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
+                    android:textColor="@color/color_000000"
+                    android:textSize="@dimen/layout_size_14dp_in_1080"
+                    android:textStyle="italic"
+                    android:text="@string/cloud_mesh_tip_msg_position"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_ethernet_tip_msg_suggest_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_30dp_in_1080"
+                    android:src="@drawable/n_addmesh_location2"/>
+
+                <TextView
+                    android:id="@+id/cloud_mesh_ethernet_tip_msg_suggest_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+                    android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
+                    android:textColor="@color/color_000000"
+                    android:textSize="@dimen/layout_size_14dp_in_1080"
+                    android:textStyle="italic"
+                    android:text="@string/cloud_mesh_tip_msg_suggest"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/cloud_mesh_ethernet_tip_CLQ_title_relative"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_size_30dp_in_1080"
+                android:background="@color/color_888888">
+
+                <TextView
+                    android:id="@+id/cloud_mesh_ethernet_tip_CLQ_title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/text_size_18sp_in_1080"
+                    android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+                    android:text="@string/cloud_mesh_tip_link_quality_title"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_ethernet_tip_CLQ_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+                    android:src="@drawable/icon_detail"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/cloud_mesh_ethernet_tip_CLQ_content_linear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
+                android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/cloud_mesh_ethernet_tip_msg_topic_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_18dp_in_1080"
+                    android:textColor="@color/color_575757"
+                    android:textSize="@dimen/text_size_18sp_in_1080"
+                    android:text="@string/cloud_mesh_more_info_ethernet_description"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_ethernet_tip_green_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_30dp_in_1080"
+                    android:src="@drawable/nled1"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_ethernet_tip_green_bar_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                    android:src="@drawable/bar1"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_ethernet_tip_amber_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                    android:src="@drawable/nled2"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_ethernet_tip_amber_bar_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                    android:src="@drawable/bar1"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_ethernet_tip_red_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                    android:src="@drawable/nled3"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_ethernet_tip_red_bar_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                    android:src="@drawable/bar1"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/cloud_mesh_ethernet_tip_blink_red_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                    android:src="@drawable/nled4"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

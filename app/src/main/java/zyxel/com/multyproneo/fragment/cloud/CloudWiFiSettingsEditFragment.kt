@@ -99,6 +99,8 @@ class CloudWiFiSettingsEditFragment : Fragment()
 
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
+        setSaveTextStatus(false)
+
         setClickListener()
     }
 
@@ -542,7 +544,14 @@ class CloudWiFiSettingsEditFragment : Fragment()
             && (wifi_edit_guest_wifi_name_edit.text.length >= AppConfig.wifiNameRequiredLength)
             && (wifi_edit_guest_wifi_password_edit.text.length >= AppConfig.wifiPwdRequiredLength)
             && !wifiNameIllegalInputGuest
-            && !wifiPwdIllegalInputGuest )
+            && !wifiPwdIllegalInputGuest
+            && (wifi_edit_wifi_24g_name_edit.text.toString() != name
+                    || wifi_edit_wifi_24g_password_edit.text.toString() != pwd
+                    || wifi_edit_wifi_5g_name_edit.text.toString() != name5g
+                    || wifi_edit_wifi_5g_password_edit.text.toString() != pwd5g
+                    || wifi_edit_guest_wifi_name_edit.text.toString() != nameGuest
+                    || wifi_edit_guest_wifi_password_edit.text.toString() != pwdGuest)
+            )
             setSaveTextStatus(true)
         else
             setSaveTextStatus(false)

@@ -44,7 +44,7 @@ class CloudAddMeshExtenderFragment : Fragment()
         {
             //cloud_mesh_extender_back_image -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFragment()))
 
-            cloud_mesh_extender_tip_text -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshTipsFragment().apply{ arguments = Bundle().apply{ putString("FromFrag", "CloudAddMeshExtender") } }))
+            cloud_mesh_extender_tip_text -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshWiFiTipsFragment()))
 
             cloud_mesh_extender_done_text -> GlobalBus.publish(MainEvent.EnterCloudHomePage())
         }

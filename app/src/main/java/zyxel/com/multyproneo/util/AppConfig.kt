@@ -59,7 +59,7 @@ object AppConfig
     //TUTK P2P
     const val TUTK_MAXSIZE_RECVBUF = 102400
     const val TUTK_STATUS_INIT_SEARCH_DEV = 10
-    const val TUTK_RDT_WAIT_TIMEMS = 30000
+    const val TUTK_RDT_WAIT_TIMEMS = 10000
     const val TUTK_RDT_RECV_TIMEOUT_TIMES = 30
     const val TUTK_RECV_HEADER_LENGTH = 4
 
@@ -137,7 +137,8 @@ object AppConfig
     const val SaveLog = true
     const val DelDayBefore = 7
     const val PASSWORD_FOR_ZIP_FILE = "12345678"
-    const val FEEDBACK_MAIL = "louis.tien@zyxel.com.tw"
+    const val FEEDBACK_MAIL = "app_support@zyxel.com.tw"
+    const val FEEDBACK_MAIL_CC = "louis.tien@zyxel.com.tw"
 
     enum class LoadingAnimation
     {
