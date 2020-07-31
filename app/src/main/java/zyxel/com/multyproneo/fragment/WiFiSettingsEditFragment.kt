@@ -101,6 +101,8 @@ class WiFiSettingsEditFragment : Fragment()
 
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
+        setSaveTextStatus(false)
+
         setClickListener()
     }
 
