@@ -93,13 +93,13 @@ class CloudAddMeshEthernetTipsFragment : Fragment()
 
     private fun FOL_area_status(show: Boolean)
     {
-        cloud_mesh_ethernet_tip_FOL_image.setImageResource(if(show) R.drawable.icon_back else R.drawable.icon_detail)
+        cloud_mesh_ethernet_tip_FOL_image.setImageResource(if(show) R.drawable.icon_expand_close else R.drawable.icon_expand_open)
         cloud_mesh_ethernet_tip_FOL_content_linear.visibility = if(show) View.VISIBLE else View.GONE
     }
 
     private fun CLQ_area_status(show: Boolean)
     {
-        cloud_mesh_ethernet_tip_CLQ_image.setImageResource(if(show) R.drawable.icon_back else R.drawable.icon_detail)
+        cloud_mesh_ethernet_tip_CLQ_image.setImageResource(if(show) R.drawable.icon_expand_close else R.drawable.icon_expand_open)
         cloud_mesh_ethernet_tip_CLQ_content_linear.visibility = if(show) View.VISIBLE else View.GONE
     }
 }

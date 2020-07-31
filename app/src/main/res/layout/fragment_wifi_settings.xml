@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/wifi_settings_wifi_edit_image"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
             android:src="@drawable/icon_wifishare"/>
 
     </RelativeLayout>

@@ -67,7 +67,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-                    android:src="@drawable/icon_detail"/>
+                    android:src="@drawable/icon_expand_open"/>
 
             </RelativeLayout>
 
@@ -147,7 +147,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-                    android:src="@drawable/icon_detail"/>
+                    android:src="@drawable/icon_expand_open"/>
 
             </RelativeLayout>
 

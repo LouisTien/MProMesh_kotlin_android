@@ -67,7 +67,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-                    android:src="@drawable/icon_detail"/>
+                    android:src="@drawable/icon_expand_open"/>
 
             </RelativeLayout>
 
@@ -91,7 +91,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-                    android:src="@drawable/n_addmesh_location1"/>
+                    android:src="@drawable/n_addmesh_location3"/>
 
                 <TextView
                     android:id="@+id/cloud_mesh_ethernet_tip_msg_location_text"
@@ -165,7 +165,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-                    android:src="@drawable/icon_detail"/>
+                    android:src="@drawable/icon_expand_open"/>
 
             </RelativeLayout>
 
@@ -193,7 +193,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_size_30dp_in_1080"
-                    android:src="@drawable/nled1"/>
+                    android:src="@drawable/led5"/>
 
                 <ImageView
                     android:id="@+id/cloud_mesh_ethernet_tip_green_bar_image"
@@ -207,7 +207,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                    android:src="@drawable/nled2"/>
+                    android:src="@drawable/led6"/>
 
                 <ImageView
                     android:id="@+id/cloud_mesh_ethernet_tip_amber_bar_image"

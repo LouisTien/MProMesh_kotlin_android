@@ -104,14 +104,15 @@
     <RelativeLayout
         android:id="@+id/devices_content_area_relative"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/devices_title_area_linear">
 
         <LinearLayout
             android:id="@+id/devices_home_devices_area_linear"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/layout_size_300dp_in_1080"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_above="@+id/devices_guest_devices_area_linear">
 
             <RelativeLayout
                 android:id="@+id/devices_home_devices_title_bar_relative"
@@ -143,7 +144,7 @@
             <com.baoyz.widget.PullRefreshLayout
                 android:id="@+id/devices_home_devices_list_swipe"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
                 android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
                 android:layout_below="@+id/devices_home_devices_title_bar_relative"
@@ -164,10 +165,9 @@
         <LinearLayout
             android:id="@+id/devices_guest_devices_area_linear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/layout_size_180dp_in_1080"
             android:layout_alignParentBottom="true"
             android:orientation="vertical"
-            android:layout_below="@+id/devices_home_devices_area_linear"
             android:visibility="gone">
 
             <RelativeLayout
@@ -200,7 +200,7 @@
             <com.baoyz.widget.PullRefreshLayout
                 android:id="@+id/devices_guest_devices_list_swipe"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
                 android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
                 android:layout_below="@+id/devices_home_devices_title_bar_relative"

@@ -136,7 +136,7 @@ object AppConfig
     //Save Log
     const val SaveLog = true
     const val DelDayBefore = 7
-    const val PASSWORD_FOR_ZIP_FILE = "12345678"
+    const val PASSWORD_FOR_ZIP_FILE = "!zyxel123"
     const val FEEDBACK_MAIL = "app_support@zyxel.com.tw"
     const val FEEDBACK_MAIL_CC = "louis.tien@zyxel.com.tw"
 
