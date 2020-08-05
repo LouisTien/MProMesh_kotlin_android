@@ -12,6 +12,7 @@ import java.util.*
 object SaveLogUtil
 {
     var filePath: File? = null
+    var fileFWLog: File? = null
     private lateinit var file: File
     private lateinit var formatterDate: SimpleDateFormat
     private lateinit var formatterSec: SimpleDateFormat
@@ -81,7 +82,11 @@ object SaveLogUtil
 
     fun zipFiles(): File
     {
-        val zipFile = ZipFile("${filePath}MProMeshLogFile.zip")
+        val logFile = File(filePath?.parent, AppConfig.APP_LOG_NAME)
+        if(logFile.exists())
+            logFile.delete()
+
+        val zipFile = ZipFile("${filePath?.parent}/${AppConfig.APP_LOG_NAME}")
 
         try
         {
@@ -91,10 +96,11 @@ object SaveLogUtil
 
             File(path).walkTopDown().forEach{
                 if(it.isFile && it.name.endsWith(suffix))
-                {
                     filesToAdd.add(it)
-                }
             }
+
+            if(GlobalData.logFileDeliver && fileFWLog != null)
+                filesToAdd.add(fileFWLog!!)
 
             val parameters = ZipParameters()
             with(parameters)
@@ -116,4 +122,14 @@ object SaveLogUtil
 
         return zipFile.file
     }
+
+    fun createFWLogFile()
+    {
+        fileFWLog = File(filePath?.parent, AppConfig.FW_LOG_NAME) // /storage/emulated/0/Android/data/zyxel.com.multyproneo/files/recv_syslog.tar.gz
+        removeFWLogFile()
+    }
+
+    fun removeFWLogFile() = fileFWLog?.delete()
+
+    fun writeToFWLogFile(array: ByteArray) = fileFWLog?.appendBytes(array)
 }

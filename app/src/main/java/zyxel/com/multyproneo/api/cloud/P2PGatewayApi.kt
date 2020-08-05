@@ -172,4 +172,17 @@ object P2PGatewayApi
             return AppConfig.TUTKP2PMethod.MTD_PUT
         }
     }
+
+    class GetFWLogFile : TUTKP2PCommander()
+    {
+        override fun requestURL(): String
+        {
+            return "{\"URI\":\"${AppConfig.API_SYS_LOG}\"}"
+        }
+
+        override fun method(): AppConfig.TUTKP2PMethod
+        {
+            return AppConfig.TUTKP2PMethod.MTD_GET
+        }
+    }
 }

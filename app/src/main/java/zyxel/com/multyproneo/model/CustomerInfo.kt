@@ -10,5 +10,6 @@ data class CustomerInfo
 data class CustomerInfoObject
 (
     val Enable: Boolean = false,
-    val X_ZYXEL_APP_Customer: String = ""
+    val X_ZYXEL_APP_Customer: String = "",
+    val LogFileDeliver: Boolean = false
 )

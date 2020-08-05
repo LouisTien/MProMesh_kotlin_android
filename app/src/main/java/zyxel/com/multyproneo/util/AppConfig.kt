@@ -29,6 +29,8 @@ object AppConfig
     const val API_SNLOGIN = "/SerialNumberLogin"
     const val API_SNLOGOUT = "/SerialNumberLogout"
     const val API_CLOUD_AUTH = "/CloudAuth"
+    const val API_SYS_LOG = "/syslog_dl"
+    const val API_REBOOT = "/Reboot"
     const val API_MESH = "/TR181/Value/Device.WiFi.AccessPoint.5.WPS."
     const val API_MESH_L2DEVICE_NUM = "/TR181/Value/Device.Hosts."
     const val API_DEVICE_HOST_INFO = "/TR181/Value/Device.Hosts.Host."
@@ -39,7 +41,6 @@ object AppConfig
     const val API_IP_INTERFACE_INFO = "/TR181/Value/Device.IP.Interface.?first_level_only=false"
     const val API_FSECURE_INFO = "/TR181/Value/Device.X_ZYXEL_License."
     const val API_HOST_NAME_REPLACE_INFO = "/TR181/Value/Device.X_ZYXEL_EXT.HostNameReplace."
-    const val API_REBOOT = "/Reboot"
     const val API_SPEED_TEST_INFO = "/TR181/Value/Device.X_ZYXEL_EXT.SpeedTestInfo."
     const val API_INTERNET_BLOCKING_INFO = "/TR181/Value/Device.X_ZYXEL_EXT.InternetBlocking."
     const val API_CLOUD_AGENT = "/TR181/Value/Device.X_ZYXEL_TUTK_CloudAgent."
@@ -58,10 +59,12 @@ object AppConfig
 
     //TUTK P2P
     const val TUTK_MAXSIZE_RECVBUF = 102400
+    const val TUTK_MAXSIZE_RECVBUF_FOR_FW_LOG_FILE = 307200
     const val TUTK_STATUS_INIT_SEARCH_DEV = 10
     const val TUTK_RDT_WAIT_TIMEMS = 10000
     const val TUTK_RDT_RECV_TIMEOUT_TIMES = 30
-    const val TUTK_RECV_HEADER_LENGTH = 4
+    const val TUTK_RDT_RECV_TIMEOUT_TIMES_FW_LOG = 100
+    const val TUTK_RECV_HEADER_LENGTH = 8
 
     //TUTK Notification
     const val TUTK_NOTI_KPNS = "http://push.iotcplatform.com/tpns"
@@ -139,6 +142,8 @@ object AppConfig
     const val PASSWORD_FOR_ZIP_FILE = "!zyxel123"
     const val FEEDBACK_MAIL = "app_support@zyxel.com.tw"
     const val FEEDBACK_MAIL_CC = "louis.tien@zyxel.com.tw"
+    const val APP_LOG_NAME = "MProMeshLogFile.zip"
+    const val FW_LOG_NAME = "recv_syslog.tar.gz"
 
     enum class LoadingAnimation
     {

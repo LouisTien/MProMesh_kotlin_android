@@ -31,6 +31,7 @@ object GlobalData
     var notiUid = ""
     var notiMac = ""
     var customerLogo = ""
+    var logFileDeliver = false
     var registeredCloud = false
     var L2DeviceNumber = 0
     var alreadyGetGatewayInfoLocalBase = false

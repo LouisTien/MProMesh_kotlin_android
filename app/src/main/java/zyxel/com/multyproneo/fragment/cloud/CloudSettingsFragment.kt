@@ -18,6 +18,7 @@ import org.jetbrains.anko.uiThread
 import org.json.JSONException
 import zyxel.com.multyproneo.BuildConfig
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.cloud.P2PGatewayApi
 import zyxel.com.multyproneo.api.cloud.P2PWiFiSettingApi
 import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
@@ -102,8 +103,13 @@ class CloudSettingsFragment : Fragment()
 
             settings_issue_report_relative ->
             {
-                appLogZipFile = SaveLogUtil.zipFiles()
-                sendMail()
+                if(GlobalData.logFileDeliver)
+                {
+                    GlobalBus.publish(MainEvent.ShowLoading())
+                    getFWLogFile()
+                }
+                else
+                    zipLogAndSend()
             }
 
             settings_privacy_policy_relative -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zyxel.com/privacy_policy.shtml")))
@@ -213,27 +219,23 @@ class CloudSettingsFragment : Fragment()
 
     private fun sendMail()
     {
-        //val emailIntent = Intent(Intent.ACTION_SEND_MULTIPLE)
         val emailIntent = Intent(Intent.ACTION_SEND)
         with(emailIntent)
         {
             type = "text/plain"
             putExtra(Intent.EXTRA_EMAIL, arrayOf(AppConfig.FEEDBACK_MAIL))
-            putExtra(Intent.EXTRA_CC, arrayOf(AppConfig.FEEDBACK_MAIL_CC))
+            //putExtra(Intent.EXTRA_CC, arrayOf(AppConfig.FEEDBACK_MAIL_CC))
             putExtra(Intent.EXTRA_SUBJECT, "MProMesh app v${BuildConfig.VERSION_NAME} feedback - ${GlobalData.getCurrentGatewayInfo().ModelName} ${GlobalData.getCurrentGatewayInfo().SoftwareVersion}")
             putExtra(Intent.EXTRA_TEXT, "Please describe the issue.")
         }
 
-        //val uris = ArrayList<Uri>()
         val appLogZipFileUri = FileProvider.getUriForFile(context!!, "${BuildConfig.APPLICATION_ID}.fileprovider", appLogZipFile)
-        //uris.add(appLogZipFileUri)
 
         try
         {
             with(emailIntent)
             {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK
-                //putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
                 putExtra(Intent.EXTRA_STREAM, appLogZipFileUri)
             }
 
@@ -249,5 +251,65 @@ class CloudSettingsFragment : Fragment()
             e.printStackTrace()
             context!!.startActivity(Intent.createChooser(emailIntent, "Send mail"))
         }
+    }
+
+    /*private fun sendMailIncludeFWLog()
+    {
+        val emailIntent = Intent(Intent.ACTION_SEND_MULTIPLE)
+        with(emailIntent)
+        {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(AppConfig.FEEDBACK_MAIL))
+            //putExtra(Intent.EXTRA_CC, arrayOf(AppConfig.FEEDBACK_MAIL_CC))
+            putExtra(Intent.EXTRA_SUBJECT, "MProMesh app v${BuildConfig.VERSION_NAME} feedback - ${GlobalData.getCurrentGatewayInfo().ModelName} ${GlobalData.getCurrentGatewayInfo().SoftwareVersion}")
+            putExtra(Intent.EXTRA_TEXT, "Please describe the issue.")
+        }
+
+        val uris = ArrayList<Uri>()
+        val appLogZipFileUri = FileProvider.getUriForFile(context!!, "${BuildConfig.APPLICATION_ID}.fileprovider", appLogZipFile)
+        val appFWLogFileUri = FileProvider.getUriForFile(context!!, "${BuildConfig.APPLICATION_ID}.fileprovider", SaveLogUtil.fileFWLog)
+        uris.add(appLogZipFileUri)
+        uris.add(appFWLogFileUri)
+
+        try
+        {
+            with(emailIntent)
+            {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK
+                putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
+            }
+
+            val receiverIntent = Intent(context, SendMailReceiver::class.java)
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, receiverIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1)
+                context!!.startActivity(Intent.createChooser(emailIntent, "Send mail", pendingIntent.intentSender))
+            else
+                context!!.startActivity(Intent.createChooser(emailIntent, "Send mail"))
+        }
+        catch(e: Exception)
+        {
+            e.printStackTrace()
+            context!!.startActivity(Intent.createChooser(emailIntent, "Send mail"))
+        }
+    }*/
+
+    private fun getFWLogFile()
+    {
+        P2PGatewayApi.GetFWLogFile()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: TUTKP2PResponseCallback()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        GlobalBus.publish(MainEvent.HideLoading())
+                        zipLogAndSend()
+                    }
+                }).execute()
+    }
+
+    private fun zipLogAndSend()
+    {
+        appLogZipFile = SaveLogUtil.zipFiles()
+        sendMail()
     }
 }

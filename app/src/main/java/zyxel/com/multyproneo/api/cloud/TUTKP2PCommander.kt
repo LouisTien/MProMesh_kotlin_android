@@ -44,7 +44,10 @@ abstract class TUTKP2PCommander
     {
         doAsync{
             TUTKP2PBaseApi.sendData(method(), requestURL())
-            TUTKP2PBaseApi.receiveData()
+            if(requestURL() == "{\"URI\":\"${AppConfig.API_SYS_LOG}\"}")
+                TUTKP2PBaseApi.receiveDataForFWLogFile()
+            else
+                TUTKP2PBaseApi.receiveData()
         }
 
         return this

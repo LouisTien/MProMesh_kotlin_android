@@ -1334,6 +1334,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             customerInfo = Gson().fromJson(responseStr, CustomerInfo::class.javaObjectType)
                             LogUtil.d(TAG,"customerInfo:$customerInfo")
                             GlobalData.customerLogo = customerInfo.Object.X_ZYXEL_APP_Customer
+                            GlobalData.logFileDeliver = customerInfo.Object.LogFileDeliver
                             getCloudChangeIconNameInfoTask(AppConfig.LoadingStyle.STY_NONE)
                         }
                         catch(e: JSONException)

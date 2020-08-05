@@ -9,6 +9,7 @@ import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.fragment.cloud.SetupConnectTroubleshootingFragment
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.LogUtil
+import zyxel.com.multyproneo.util.SaveLogUtil
 import java.nio.charset.StandardCharsets
 
 object TUTKP2PBaseApi
@@ -139,26 +140,61 @@ object TUTKP2PBaseApi
         val cmdLength = command.toByteArray().size
 
         /*
+        int littleToBig(int i)
+        {
+            int b0,b1,b2,b3;
+
+            b0 = (i&0x000000ff)>>0;
+            b1 = (i&0x0000ff00)>>8;
+            b2 = (i&0x00ff0000)>>16;
+            b3 = (i&0xff000000)>>24;
+
+            return ((b0<<24)|(b1<<16)|(b2<<8)|(b3<<0));
+        }
+         */
+
+        /*
         c code header structure which FW received
 
         struct cloud_req_header {
-            uint8_t method;
-            int16_t length;
+            uint8_t method; //1byte
+            int16_t length; //2bytes
         };
 
         size : 4bytes (because of OS alignment)
          */
 
-        val sendBuf = ByteArray(AppConfig.TUTK_MAXSIZE_RECVBUF)
+        /*val sendBuf = ByteArray(AppConfig.TUTK_MAXSIZE_RECVBUF)
         sendBuf[0] = method.value.toByte()
         sendBuf[1] = 0x0
         sendBuf[2] = (cmdLength shr 8).toByte()
-        sendBuf[3] = cmdLength.toByte()
+        sendBuf[3] = cmdLength.toByte()*/
+
+        /*
+        c code header structure which FW received
+
+        struct cloud_req_header {
+            uint8_t method; //1byte
+            int32_t length; //4bytes
+        };
+
+        size : 8bytes (because of OS alignment)
+         */
+
+        val sendBuf = ByteArray(AppConfig.TUTK_MAXSIZE_RECVBUF)
+        sendBuf[0] = method.value.toByte()
+        sendBuf[1] = 0x0
+        sendBuf[2] = 0x0
+        sendBuf[3] = 0x0
+        sendBuf[4] = (cmdLength shr 24).toByte()
+        sendBuf[5] = (cmdLength shr 16).toByte()
+        sendBuf[6] = (cmdLength shr 8).toByte()
+        sendBuf[7] = cmdLength.toByte()
 
         for(i in 0 until command.toByteArray().size)
         {
-            sendBuf[4+i] = command.toByteArray()[i]
-            //LogUtil.d(TAG,"sendBuf[${4+i}]:${sendBuf[4+i].toChar()}")
+            sendBuf[8+i] = command.toByteArray()[i]
+            //LogUtil.d(TAG,"sendBuf[${8+i}]:${sendBuf[8+i].toChar()}")
         }
 
         var nWrite = -1
@@ -204,14 +240,30 @@ object TUTKP2PBaseApi
         c code header structure which FW received
 
         struct cloud_resp_header {
-            uint8_t error;
-            int16_t length;
+            uint8_t error; //1byte
+            int16_t length; //2bytes
         };
 
         size : 4bytes (because of OS alignment)
         */
-        errorCode = headerBuf[0].toInt()
+        /*errorCode = headerBuf[0].toInt()
         payloadLength = (headerBuf[3].toInt() and 0xFF) + (headerBuf[2].toInt() and 0xFF shl 8)
+        LogUtil.d(TAG, "Receive header errorCode:$errorCode")
+        LogUtil.d(TAG, "Receive header payloadLength:$payloadLength")*/
+
+        /*
+        c code header structure which FW received
+
+        struct cloud_resp_header {
+            uint8_t error; //1byte
+            int32_t length; //4bytes
+        };
+
+        size : 8bytes (because of OS alignment)
+        */
+
+        errorCode = headerBuf[0].toInt()
+        payloadLength = (headerBuf[7].toInt() and 0xFF) + (headerBuf[6].toInt() and 0xFF shl 8) + (headerBuf[5].toInt() and 0xFF shl 16) + (headerBuf[4].toInt() and 0xFF shl 32)
         LogUtil.d(TAG, "Receive header errorCode:$errorCode")
         LogUtil.d(TAG, "Receive header payloadLength:$payloadLength")
 
@@ -272,6 +324,87 @@ object TUTKP2PBaseApi
             count++
 
             if(count >= AppConfig.TUTK_RDT_RECV_TIMEOUT_TIMES)
+                gotoTroubleShooting()
+        }
+    }
+
+    fun receiveDataForFWLogFile()
+    {
+        val headerBuf = ByteArray(AppConfig.TUTK_RECV_HEADER_LENGTH)
+        val cmdBuf = ByteArray(AppConfig.TUTK_MAXSIZE_RECVBUF_FOR_FW_LOG_FILE)
+        var count = 0
+        var nRead = -1
+        var errorCode = 0
+        var payloadLength = 0
+
+        nRead = RDTAPIs.RDT_Read(mRDT_ID, headerBuf, AppConfig.TUTK_RECV_HEADER_LENGTH, AppConfig.TUTK_RDT_WAIT_TIMEMS)
+        LogUtil.d(TAG, "RDT_Read header, nRead:$nRead")
+
+        if(nRead < 0)
+        {
+            LogUtil.e(TAG, "RDT_Read header error:$nRead")
+            destroyRDT_ID()
+            gotoTroubleShooting()
+            return
+        }
+
+        /*
+        c code header structure which FW received
+
+        struct cloud_resp_header {
+            uint8_t error; //1byte
+            int32_t length; //4bytes
+        };
+
+        size : 8bytes (because of OS alignment)
+        */
+
+        errorCode = headerBuf[0].toInt()
+        payloadLength = (headerBuf[7].toInt() and 0xFF) + (headerBuf[6].toInt() and 0xFF shl 8) + (headerBuf[5].toInt() and 0xFF shl 16) + (headerBuf[4].toInt() and 0xFF shl 32)
+        LogUtil.d(TAG, "Receive header errorCode:$errorCode")
+        LogUtil.d(TAG, "Receive header payloadLength:$payloadLength")
+
+        SaveLogUtil.createFWLogFile()
+
+        var remainLength = payloadLength
+        while(count < AppConfig.TUTK_RDT_RECV_TIMEOUT_TIMES_FW_LOG)
+        {
+            for(i in 0 until cmdBuf.size)
+            {
+                cmdBuf[i] = 0
+            }
+
+            nRead = RDTAPIs.RDT_Read(mRDT_ID, cmdBuf, remainLength, AppConfig.TUTK_RDT_WAIT_TIMEMS)
+            LogUtil.d(TAG, "RDT_Read, nRead:$nRead")
+
+            if(nRead < 0)
+            {
+                LogUtil.e(TAG, "RDT_Read error:$nRead")
+                destroyRDT_ID()
+                gotoTroubleShooting()
+                return
+            }
+
+            remainLength -= nRead
+
+            val tmpBuf = ByteArray(nRead)
+            for(i in 0 until nRead)
+            {
+                tmpBuf[i] = cmdBuf[i]
+            }
+
+            SaveLogUtil.writeToFWLogFile(tmpBuf)
+
+            if(remainLength == 0 || remainLength < 0)
+            {
+                LogUtil.d(TAG, "receiveData End")
+                responseCallback.onSuccess("")
+                return
+            }
+
+            count++
+
+            if(count >= AppConfig.TUTK_RDT_RECV_TIMEOUT_TIMES_FW_LOG)
                 gotoTroubleShooting()
         }
     }
