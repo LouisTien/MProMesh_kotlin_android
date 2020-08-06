@@ -235,16 +235,32 @@ class CloudEndDeviceDetailFragment : Fragment()
 
                     //if mac = 00:11:22:33:44:50, check the mac 00:11:22:33:44:5 to compare for work around of FW bug#117125
 
+                    /*
+                    對只差最後一碼的4台extender來說, mac address分配如下:
+                    11:22:33:44:55:60 ~ 11:22:33:44:55:63
+                    11:22:33:44:55:64 ~ 11:22:33:44:55:67
+                    11:22:33:44:55:68 ~ 11:22:33:44:55:6b
+                    11:22:33:44:55:6c ~ 11:22:33:44:55:6f
+
+                    故找尋時, 除了先比前面一不一樣外(app已支援), 若都相同的話, 再比最後一碼.
+                    0~3是同一台, 4~7是同一台, 8~b是同一台, c~f是同一台.
+                    可以完全解掉問題.
+                     */
+
                     for(item in GlobalData.ZYXELEndDeviceList)
                     {
                         var neighborSubMAC = ""
+                        var lastNeighborSubMAC = ""
                         var deviceSubMAC = ""
+                        var lastDeviceSubMAC = ""
 
                         if(endDeviceInfo.X_ZYXEL_Neighbor.contains(":")
                             && ( (endDeviceInfo.X_ZYXEL_Neighbor.lastIndexOf(":") + 2) == (endDeviceInfo.X_ZYXEL_Neighbor.length - 1)) )
                         {
                             neighborSubMAC = endDeviceInfo.X_ZYXEL_Neighbor.substring(0, endDeviceInfo.X_ZYXEL_Neighbor.lastIndexOf(":") + 2)
                             LogUtil.d(TAG,"neighborSubMAC:$neighborSubMAC")
+                            lastNeighborSubMAC = endDeviceInfo.X_ZYXEL_Neighbor.substring(endDeviceInfo.X_ZYXEL_Neighbor.lastIndexOf(":") + 2, endDeviceInfo.X_ZYXEL_Neighbor.length)
+                            LogUtil.d(TAG,"lastNeighborSubMAC:$lastNeighborSubMAC")
                         }
 
                         if(item.PhysAddress.contains(":")
@@ -252,12 +268,22 @@ class CloudEndDeviceDetailFragment : Fragment()
                         {
                             deviceSubMAC = item.PhysAddress.substring(0, item.PhysAddress.lastIndexOf(":") + 2)
                             LogUtil.d(TAG,"deviceSubMAC:$deviceSubMAC")
+                            lastDeviceSubMAC = item.PhysAddress.substring(item.PhysAddress.lastIndexOf(":") + 2, item.PhysAddress.length)
+                            LogUtil.d(TAG,"lastDeviceSubMAC:$lastDeviceSubMAC")
                         }
 
                         if(neighborSubMAC != "" && deviceSubMAC != "")
                         {
                             if(neighborSubMAC.equals(deviceSubMAC, ignoreCase = true))
-                                connectTo = SpecialCharacterHandler.checkEmptyTextValue(item.getName())
+                            {
+                                val lastNeighborSubMACValue = Integer.decode("0x$lastNeighborSubMAC")
+                                val lastDeviceSubMACValue = Integer.decode("0x$lastDeviceSubMAC")
+                                LogUtil.d(TAG,"lastNeighborSubMACValue:$lastNeighborSubMACValue")
+                                LogUtil.d(TAG,"lastDeviceSubMACValue:$lastDeviceSubMACValue")
+
+                                if(checkIsConnectToTheSameL2Device(lastNeighborSubMACValue, lastDeviceSubMACValue))
+                                    connectTo = SpecialCharacterHandler.checkEmptyTextValue(item.getName())
+                            }
                         }
                     }
                 }
@@ -398,6 +424,26 @@ class CloudEndDeviceDetailFragment : Fragment()
         }
 
         initEndDeviceDetailModelNameEdit()
+    }
+
+    private fun checkIsConnectToTheSameL2Device(macF: Int, macS: Int): Boolean
+    {
+        /*
+        0~3是同一台, 4~7是同一台, 8~b是同一台, c~f是同一台.
+         */
+        if((macF in 0..3) && (macS in 0..3))
+            return true
+
+        if((macF in 4..7) && (macS in 4..7))
+            return true
+
+        if((macF in 8..11) && (macS in 8..11))
+            return true
+
+        if((macF in 12..15) && (macS in 12..15))
+            return true
+
+        return false
     }
 
     private fun setEditModeUI()
