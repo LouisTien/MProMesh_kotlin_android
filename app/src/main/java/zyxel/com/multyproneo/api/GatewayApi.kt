@@ -17,7 +17,7 @@ object GatewayApi
     {
         override fun composeRequest(): Request
         {
-            val setChangeGatewayNameInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_SYSTEM_INFO}?sessionkey=${GlobalData.sessionKey}"
+            val setChangeGatewayNameInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_SYSTEM_INFO}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -79,7 +79,7 @@ object GatewayApi
     {
         override fun composeRequest(): Request
         {
-            val rebootURL = "${GlobalData.getAPIPath()}${AppConfig.API_REBOOT}?sessionkey=${GlobalData.sessionKey}"
+            val rebootURL = "${GlobalData.getAPIPath()}${AppConfig.API_REBOOT}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -105,7 +105,7 @@ object GatewayApi
     {
         override fun composeRequest(): Request
         {
-            val startSpeedTestURL = "${GlobalData.getAPIPath()}${AppConfig.API_SPEED_TEST_INFO}?sessionkey=${GlobalData.sessionKey}"
+            val startSpeedTestURL = "${GlobalData.getAPIPath()}${AppConfig.API_SPEED_TEST_INFO}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -155,7 +155,7 @@ object GatewayApi
     {
         override fun composeRequest(): Request
         {
-            val controlURL = "${GlobalData.getAPIPath()}${AppConfig.API_CLOUD_AGENT}?sessionkey=${GlobalData.sessionKey}"
+            val controlURL = "${GlobalData.getAPIPath()}${AppConfig.API_CLOUD_AGENT}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -169,7 +169,7 @@ object GatewayApi
     {
         override fun composeRequest(): Request
         {
-            val setMultiObjectsURL = "${GlobalData.getAPIPath()}${AppConfig.API_MULTI_OBJECTS}?sessionkey=${GlobalData.sessionKey}"
+            val setMultiObjectsURL = "${GlobalData.getAPIPath()}${AppConfig.API_MULTI_OBJECTS}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)

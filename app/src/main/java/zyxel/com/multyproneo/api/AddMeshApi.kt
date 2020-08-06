@@ -17,7 +17,7 @@ object AddMeshApi
     {
         override fun composeRequest(): Request
         {
-            val startPairingURL = "${GlobalData.getAPIPath()}${AppConfig.API_MESH}?sessionkey=${GlobalData.sessionKey}"
+            val startPairingURL = "${GlobalData.getAPIPath()}${AppConfig.API_MESH}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)

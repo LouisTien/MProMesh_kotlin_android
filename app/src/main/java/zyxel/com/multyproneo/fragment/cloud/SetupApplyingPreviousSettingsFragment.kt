@@ -120,7 +120,7 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
                         {
                             val data = JSONObject(responseStr)
                             val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.sessionKey = sessionkey
+                            GlobalData.loginInfo.sessionkey = sessionkey
                             setWiFiSettingTask()
                         }
                         catch(e: JSONException)
@@ -175,7 +175,7 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
                         {
                             WiFiSettingInfo = Gson().fromJson(responseStr, WiFiSettingMultiObjInfo::class.javaObjectType)
                             LogUtil.d(TAG,"WiFiSettingInfo:$WiFiSettingInfo")
-                            GlobalData.sessionKey = WiFiSettingInfo.sessionkey
+                            GlobalData.loginInfo.sessionkey = WiFiSettingInfo.sessionkey
                         }
                         catch(e: JSONException)
                         {
@@ -205,7 +205,7 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
                         {
                             val data = JSONObject(responseStr)
                             val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.sessionKey = sessionkey
+                            GlobalData.loginInfo.sessionkey = sessionkey
                         }
                         catch(e: JSONException)
                         {
@@ -237,7 +237,7 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
                         {
                             val data = JSONObject(responseStr)
                             val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.sessionKey = sessionkey
+                            GlobalData.loginInfo.sessionkey = sessionkey
                         }
                         catch(e: JSONException)
                         {
@@ -267,7 +267,7 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
                         {
                             val data = JSONObject(responseStr)
                             val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.sessionKey = sessionkey
+                            GlobalData.loginInfo.sessionkey = sessionkey
                         }
                         catch(e: JSONException)
                         {
@@ -299,7 +299,7 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
                         {
                             val data = JSONObject(responseStr)
                             val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.sessionKey = sessionkey
+                            GlobalData.loginInfo.sessionkey = sessionkey
                         }
                         catch(e: JSONException)
                         {

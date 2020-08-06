@@ -42,7 +42,7 @@ object DevicesApi
     {
         override fun composeRequest(): Request
         {
-            val setChangeIconNameInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_CHANGE_ICON_NAME_INFO}?sessionkey=${GlobalData.sessionKey}"
+            val setChangeIconNameInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_CHANGE_ICON_NAME_INFO}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -56,7 +56,7 @@ object DevicesApi
     {
         override fun composeRequest(): Request
         {
-            val setChangeIconNameInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_CHANGE_ICON_NAME_INFO}$index.?sessionkey=${GlobalData.sessionKey}"
+            val setChangeIconNameInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_CHANGE_ICON_NAME_INFO}$index.?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -70,7 +70,7 @@ object DevicesApi
     {
         override fun composeRequest(): Request
         {
-            val rebootURL = "${GlobalData.getAPIPath()}${AppConfig.API_DEVICE_HOST_INFO}$index.X_ZYXEL_EXT.?sessionkey=${GlobalData.sessionKey}"
+            val rebootURL = "${GlobalData.getAPIPath()}${AppConfig.API_DEVICE_HOST_INFO}$index.X_ZYXEL_EXT.?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(DevicesApi.JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)

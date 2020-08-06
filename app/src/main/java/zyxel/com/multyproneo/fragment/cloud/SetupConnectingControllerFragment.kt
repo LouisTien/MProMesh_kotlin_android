@@ -33,7 +33,6 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
 {
     private val TAG = javaClass.simpleName
     private lateinit var findingDeviceInfo: GatewayInfo
-    private lateinit var loginInfo: LoginInfo
     private var gatewayList = mutableListOf<GatewayInfo>()
     private val responseListener = this
     private var retryTimes = 0
@@ -209,9 +208,8 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
                         {
                             try
                             {
-                                loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
-                                LogUtil.d(TAG,"loginInfo:$loginInfo")
-                                GlobalData.sessionKey = loginInfo.sessionkey
+                                GlobalData.loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
+                                LogUtil.d(TAG,"loginInfo:${GlobalData.loginInfo}")
                                 GlobalData.gatewayList[0].UserName = GlobalData.scanAccount
                                 GlobalData.gatewayList[0].Password = GlobalData.scanAccountPWD
                                 GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingInternetFragment()))

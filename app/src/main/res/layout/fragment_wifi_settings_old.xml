@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/wifi_settings_title_area_linear"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_size_90dp_in_1080"
+        android:orientation="horizontal"
+        android:background="@drawable/actionbar_homewifi_bg">
+
+        <ImageView
+            android:id="@+id/menu_navigation_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+            android:src="@drawable/icon_menu"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/wifi_settings_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_36sp_in_1080"
+            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:layout_gravity="center_vertical"
+            android:text="@string/wifi_settings_title_2"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/wifi_settings_wifi_area_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/wifi_settings_wifi_area_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/wifi_settings_wifi_area_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_wifibg_2">
+
+                <RelativeLayout
+                    android:id="@+id/wifi_settings_wifi_area_relative"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_35dp_in_1080"
+                    android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
+                    android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+                    android:layout_marginBottom="@dimen/layout_size_48dp_in_1080"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/wifi_settings_wifi_title_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_size_20sp_in_1080"
+                        android:textColor="@color/color_575757"
+                        android:text="@string/button_text_wifi"/>
+
+                    <RelativeLayout
+                        android:id="@+id/wifi_settings_wifi_24g_area_relative"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/wifi_settings_wifi_title_text">
+
+                        <TextView
+                            android:id="@+id/wifi_settings_wifi_24g_name_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:textSize="@dimen/text_size_18sp_in_1080"
+                            android:textColor="@color/color_000000"
+                            tools:text="ADHBU"/>
+
+                        <TextView
+                            android:id="@+id/wifi_settings_wifi_24g_name_title_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/wifi_settings_wifi_24g_name_text"
+                            android:textSize="@dimen/text_size_14sp_in_1080"
+                            android:textColor="@color/color_575757"
+                            android:text="@string/wifi_settings_wifi_name_24g_2"/>
+
+                        <TextView
+                            android:id="@+id/wifi_settings_wifi_24g_password_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                            android:layout_below="@+id/wifi_settings_wifi_24g_name_title_text"
+                            android:inputType="textPassword"
+                            android:textSize="@dimen/text_size_18sp_in_1080"
+                            android:textColor="@color/color_000000"
+                            tools:text="12345678"/>
+
+                        <ImageView
+                            android:id="@+id/wifi_settings_wifi_24g_password_show_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                            android:layout_marginLeft="@dimen/layout_size_5dp_in_1080"
+                            android:layout_toRightOf="@+id/wifi_settings_wifi_24g_password_text"
+                            android:layout_below="@+id/wifi_settings_wifi_24g_name_title_text"
+                            android:src="@drawable/icon_hide"/>
+
+                        <TextView
+                            android:id="@+id/wifi_settings_wifi_24g_password_title_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/wifi_settings_wifi_24g_password_text"
+                            android:textSize="@dimen/text_size_14sp_in_1080"
+                            android:textColor="@color/color_575757"
+                            android:text="@string/wifi_settings_wifi_password_24g_2"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/wifi_settings_wifi_5g_area_relative"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/layout_size_40dp_in_1080"
+                        android:layout_below="@+id/wifi_settings_wifi_24g_area_relative">
+
+                        <TextView
+                            android:id="@+id/wifi_settings_wifi_5g_name_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:textSize="@dimen/text_size_18sp_in_1080"
+                            android:textColor="@color/color_000000"
+                            tools:text="ADHBU.speed"/>
+
+                        <TextView
+                            android:id="@+id/wifi_settings_wifi_5g_name_title_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/wifi_settings_wifi_5g_name_text"
+                            android:textSize="@dimen/text_size_14sp_in_1080"
+                            android:textColor="@color/color_575757"
+                            android:text="@string/wifi_settings_wifi_name_5g_2"/>
+
+                        <TextView
+                            android:id="@+id/wifi_settings_wifi_5g_password_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                            android:layout_below="@+id/wifi_settings_wifi_5g_name_title_text"
+                            android:inputType="textPassword"
+                            android:textSize="@dimen/text_size_18sp_in_1080"
+                            android:textColor="@color/color_000000"
+                            tools:text="12345678"/>
+
+                        <ImageView
+                            android:id="@+id/wifi_settings_wifi_5g_password_show_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                            android:layout_marginLeft="@dimen/layout_size_5dp_in_1080"
+                            android:layout_toRightOf="@+id/wifi_settings_wifi_5g_password_text"
+                            android:layout_below="@+id/wifi_settings_wifi_5g_name_title_text"
+                            android:src="@drawable/icon_hide"/>
+
+                        <TextView
+                            android:id="@+id/wifi_settings_wifi_5g_password_title_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/wifi_settings_wifi_5g_password_text"
+                            android:textSize="@dimen/text_size_14sp_in_1080"
+                            android:textColor="@color/color_575757"
+                            android:text="@string/wifi_settings_wifi_password_5g_2"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/wifi_settings_wifi_share_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+                    android:src="@drawable/icon_wifishare_old"/>
+
+                <ImageView
+                    android:id="@+id/wifi_settings_wifi_edit_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+                    android:src="@drawable/icon_wifiedit_old"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/wifi_settings_guest_wifi_area_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/card_guestwifibg">
+
+                <RelativeLayout
+                    android:id="@+id/wifi_settings_guest_wifi_area_relative"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
+                    android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
+                    android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+                    android:layout_marginBottom="@dimen/layout_size_48dp_in_1080"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/wifi_settings_guest_wifi_title_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+                        android:text="@string/wifi_settings_guest_wifi_2"
+                        android:textColor="@color/color_575757"
+                        android:textSize="@dimen/text_size_20sp_in_1080" />
+
+                    <ImageView
+                        android:id="@+id/wifi_settings_guest_wifi_switch_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+                        android:layout_below="@+id/wifi_settings_guest_wifi_title_text"
+                        android:src="@drawable/switch_off_2"/>
+
+                    <TextView
+                        android:id="@+id/wifi_settings_guest_wifi_name_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                        android:layout_below="@+id/wifi_settings_guest_wifi_switch_image"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/text_size_18sp_in_1080"
+                        android:textColor="@color/color_000000"
+                        tools:text="Guest WiFi"/>
+
+                    <TextView
+                        android:id="@+id/wifi_settings_guest_wifi_name_title_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/wifi_settings_guest_wifi_name_text"
+                        android:textSize="@dimen/text_size_14sp_in_1080"
+                        android:textColor="@color/color_575757"
+                        android:text="@string/wifi_settings_guest_wifi_name"/>
+
+                    <TextView
+                        android:id="@+id/wifi_settings_guest_wifi_password_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                        android:layout_below="@+id/wifi_settings_guest_wifi_name_title_text"
+                        android:inputType="textPassword"
+                        android:textSize="@dimen/text_size_18sp_in_1080"
+                        android:textColor="@color/color_000000"
+                        tools:text="12345678"/>
+
+                    <ImageView
+                        android:id="@+id/wifi_settings_guest_wifi_password_show_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                        android:layout_marginLeft="@dimen/layout_size_5dp_in_1080"
+                        android:layout_toRightOf="@+id/wifi_settings_guest_wifi_password_text"
+                        android:layout_below="@+id/wifi_settings_guest_wifi_name_title_text"
+                        android:src="@drawable/icon_hide"/>
+
+                    <TextView
+                        android:id="@+id/wifi_settings_guest_wifi_password_title_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/wifi_settings_guest_wifi_password_text"
+                        android:textSize="@dimen/text_size_14sp_in_1080"
+                        android:textColor="@color/color_575757"
+                        android:text="@string/wifi_settings_guest_wifi_password"/>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/wifi_settings_guest_wifi_share_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+                    android:src="@drawable/icon_wifishare_old"/>
+
+                <ImageView
+                    android:id="@+id/wifi_settings_guest_wifi_edit_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+                    android:src="@drawable/icon_wifiedit_old"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -37,7 +37,6 @@ class LoginFragment : Fragment()
     private val TAG = javaClass.simpleName
     private lateinit var gatewayInfo: GatewayInfo
     private lateinit var inputMethodManager: InputMethodManager
-    private lateinit var loginInfo: LoginInfo
     private var gatewayIndex = 0
     private var keyboardListenersAttached = false
     private var showPassword = false
@@ -162,9 +161,8 @@ class LoginFragment : Fragment()
                                 {
                                     try
                                     {
-                                        loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
-                                        LogUtil.d(TAG,"loginInfo:$loginInfo")
-                                        GlobalData.sessionKey = loginInfo.sessionkey
+                                        GlobalData.loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
+                                        LogUtil.d(TAG,"loginInfo:${GlobalData.loginInfo}")
                                         gatewayInfo.Password = password
                                         gatewayInfo.UserName = userName
                                         DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfo)

@@ -40,7 +40,6 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
     private lateinit var cloudAgentInfo: CloudAgentInfo
     private lateinit var userInfo: TUTKUserInfo
-    private lateinit var loginInfo: LoginInfo
     private lateinit var db: DatabaseCloudUtil
     private lateinit var countDownTimerWanInfo: CountDownTimer
     private lateinit var countDownTimerIOTCStatus: CountDownTimer
@@ -139,9 +138,8 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                     {
                         try
                         {
-                            loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"loginInfo:$loginInfo")
-                            GlobalData.sessionKey = loginInfo.sessionkey
+                            GlobalData.loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"loginInfo:${GlobalData.loginInfo}")
                         }
                         catch(e: JSONException)
                         {
@@ -175,9 +173,8 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                     {
                         try
                         {
-                            loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"loginInfo:$loginInfo")
-                            GlobalData.sessionKey = loginInfo.sessionkey
+                            GlobalData.loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"loginInfo:${GlobalData.loginInfo}")
                         }
                         catch(e: JSONException)
                         {
@@ -318,7 +315,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
                     {
                         cloudAgentInfo = Gson().fromJson(responseStr, CloudAgentInfo::class.javaObjectType)
                         LogUtil.d(TAG,"startRDTServer:$cloudAgentInfo")
-                        GlobalData.sessionKey = cloudAgentInfo.sessionkey
+                        GlobalData.loginInfo.sessionkey = cloudAgentInfo.sessionkey
                         GlobalData.currentCredential = cloudAgentInfo.Object.Credential
                         countDownTimerIOTCStatus.start()
                     }

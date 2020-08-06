@@ -41,7 +41,7 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
-            val setWiFi24GInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_WIFI_24G_INFO}?sessionkey=${GlobalData.sessionKey}"
+            val setWiFi24GInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_WIFI_24G_INFO}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -55,7 +55,7 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
-            val setWiFi24GPwdURL = "${GlobalData.getAPIPath()}${AppConfig.API_WIFI_24G_PWD}?sessionkey=${GlobalData.sessionKey}"
+            val setWiFi24GPwdURL = "${GlobalData.getAPIPath()}${AppConfig.API_WIFI_24G_PWD}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -69,7 +69,7 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
-            val setWiFi5GInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_WIFI_5G_INFO}?sessionkey=${GlobalData.sessionKey}"
+            val setWiFi5GInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_WIFI_5G_INFO}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -83,7 +83,7 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
-            val setWiFi5GPwdURL = "${GlobalData.getAPIPath()}${AppConfig.API_WIFI_5G_PWD}?sessionkey=${GlobalData.sessionKey}"
+            val setWiFi5GPwdURL = "${GlobalData.getAPIPath()}${AppConfig.API_WIFI_5G_PWD}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -97,7 +97,7 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
-            val setGuestWiFi24GInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_GUEST_WIFI_24G_INFO}?sessionkey=${GlobalData.sessionKey}"
+            val setGuestWiFi24GInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_GUEST_WIFI_24G_INFO}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -111,7 +111,7 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
-            val setGuestWiFi24GPwdURL = "${GlobalData.getAPIPath()}${AppConfig.API_GUEST_WIFI_24G_PWD}?sessionkey=${GlobalData.sessionKey}"
+            val setGuestWiFi24GPwdURL = "${GlobalData.getAPIPath()}${AppConfig.API_GUEST_WIFI_24G_PWD}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -125,7 +125,7 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
-            val setGuestWiFi5GInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_GUEST_WIFI_5G_INFO}?sessionkey=${GlobalData.sessionKey}"
+            val setGuestWiFi5GInfoURL = "${GlobalData.getAPIPath()}${AppConfig.API_GUEST_WIFI_5G_INFO}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -139,7 +139,7 @@ object WiFiSettingApi
     {
         override fun composeRequest(): Request
         {
-            val setGuestWiFi5GPwdURL = "${GlobalData.getAPIPath()}${AppConfig.API_GUEST_WIFI_5G_PWD}?sessionkey=${GlobalData.sessionKey}"
+            val setGuestWiFi5GPwdURL = "${GlobalData.getAPIPath()}${AppConfig.API_GUEST_WIFI_5G_PWD}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)

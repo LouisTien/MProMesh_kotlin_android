@@ -132,9 +132,8 @@ class SetupSNLoginFragment : Fragment()
                                 {
                                     try
                                     {
-                                        loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
-                                        LogUtil.d(TAG,"loginInfo:$loginInfo")
-                                        GlobalData.sessionKey = loginInfo.sessionkey
+                                        GlobalData.loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
+                                        LogUtil.d(TAG,"loginInfo:${GlobalData.loginInfo}")
                                         gatewayInfo.SerialNumber = serialNumber
                                         GlobalBus.publish(MainEvent.HideLoading())
                                         GlobalBus.publish(MainEvent.SwitchToFrag(SetupConnectingInternetFragment()))

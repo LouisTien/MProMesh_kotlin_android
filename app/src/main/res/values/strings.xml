@@ -173,6 +173,7 @@
     <string name="devices_user_tips">Device Name will be displayed in future App update</string>
 
     <string name="wifi_settings_title">WiFi</string>
+    <string name="wifi_settings_title_2">WiFi Settings</string>
     <string name="wifi_settings_wifi_name">Name</string>
     <string name="wifi_settings_wifi_password">Password</string>
     <string name="wifi_settings_wifi_name_24g">Home 2.4G</string>
@@ -182,7 +183,16 @@
     <string name="wifi_settings_wifi_name_24g_qrcode">Share Home 2.4G WiFi</string>
     <string name="wifi_settings_wifi_name_5g_qrcode">Share Home 5G WiFi</string>
     <string name="wifi_settings_guest_wifi_qrcode">Share Guest WiFi</string>
-
+    <string name="wifi_settings_wifi_name_2">WiFi Name</string>
+    <string name="wifi_settings_wifi_password_2">WiFi Password</string>
+    <string name="wifi_settings_wifi_name_24g_2">2.4G WiFi Name</string>
+    <string name="wifi_settings_wifi_password_24g_2">2.4G WiFi Password</string>
+    <string name="wifi_settings_wifi_name_5g_2">5G WiFi Name</string>
+    <string name="wifi_settings_wifi_password_5g_2">5G WiFi Password</string>
+    <string name="wifi_settings_guest_wifi_2">Guest WiFi</string>
+    <string name="wifi_settings_guest_wifi_name">Guest WiFi Name</string>
+    <string name="wifi_settings_guest_wifi_password">Guest WiFi Password</string>
+    <string name="wifi_settings_edit_save">Save</string>
     <string name="wifi_settings_connect_change_tip">If you change the WiFi settings being connected, please reconnect to the new WiFi.</string>
     <string name="wifi_edit_title">Edit WiFi</string>
 

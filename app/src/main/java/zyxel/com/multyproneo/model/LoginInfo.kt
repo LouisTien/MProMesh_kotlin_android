@@ -7,5 +7,5 @@ data class LoginInfo
 (
     val MethodList: List<String> = listOf(String()),
     val oper_status: String = "N/A",
-    val sessionkey: String = "N/A"
+    var sessionkey: String = "N/A"
 )

@@ -96,7 +96,7 @@ class AddMeshWPSFragment : Fragment()
                         {
                             val data = JSONObject(responseStr)
                             val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.sessionKey = sessionkey
+                            GlobalData.loginInfo.sessionkey = sessionkey
                             GlobalBus.publish(MainEvent.StartGetWPSStatusTask())
                         }
                         catch(e: JSONException)

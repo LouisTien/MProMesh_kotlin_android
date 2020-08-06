@@ -26,7 +26,7 @@ class OnClearFromRecentService : Service()
         //super.onTaskRemoved(rootIntent)
         LogUtil.d(TAG, "onTaskRemoved")
 
-        if(GlobalData.sessionKey != "")
+        if(GlobalData.loginInfo.sessionkey != "")
         {
             val params = JSONObject()
             AccountApi.Logout()

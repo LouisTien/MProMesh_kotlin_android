@@ -32,7 +32,6 @@ class GatewayListFragment : Fragment()
     private val TAG = javaClass.simpleName
     private lateinit var deviceSelectedDisposable: Disposable
     private lateinit var gatewayInfoMutableList: MutableList<GatewayInfo>
-    private lateinit var loginInfo: LoginInfo
     private var autoLogin = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -121,9 +120,8 @@ class GatewayListFragment : Fragment()
                         {
                             try
                             {
-                                loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
-                                LogUtil.d(TAG,"loginInfo:$loginInfo")
-                                GlobalData.sessionKey = loginInfo.sessionkey
+                                GlobalData.loginInfo = Gson().fromJson(responseStr, LoginInfo::class.javaObjectType)
+                                LogUtil.d(TAG,"loginInfo:${GlobalData.loginInfo}")
                                 gatewayInfoMutableList[index].Password = password!!
                                 gatewayInfoMutableList[index].UserName = userName!!
                                 DatabaseUtil.getInstance(activity!!)?.updateInformationToDB(gatewayInfoMutableList[index])

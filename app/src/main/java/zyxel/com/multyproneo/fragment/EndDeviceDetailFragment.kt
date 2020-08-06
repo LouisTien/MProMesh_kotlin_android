@@ -588,7 +588,7 @@ class EndDeviceDetailFragment : Fragment()
                             {
                                 val data = JSONObject(responseStr)
                                 val sessionkey = data.get("sessionkey").toString()
-                                GlobalData.sessionKey = sessionkey
+                                GlobalData.loginInfo.sessionkey = sessionkey
                                 GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
                             }
                             catch(e: JSONException)
@@ -612,7 +612,7 @@ class EndDeviceDetailFragment : Fragment()
                             {
                                 val data = JSONObject(responseStr)
                                 val sessionkey = data.get("sessionkey").toString()
-                                GlobalData.sessionKey = sessionkey
+                                GlobalData.loginInfo.sessionkey = sessionkey
                                 GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
                             }
                             catch(e: JSONException)

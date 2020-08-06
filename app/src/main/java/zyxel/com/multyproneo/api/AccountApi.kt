@@ -31,7 +31,7 @@ object AccountApi
     {
         override fun composeRequest(): Request
         {
-            val logoutURL = "${GlobalData.getAPIPath()}${AppConfig.API_LOGOUT}?sessionkey=${GlobalData.sessionKey}"
+            val logoutURL = "${GlobalData.getAPIPath()}${AppConfig.API_LOGOUT}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)
@@ -58,7 +58,7 @@ object AccountApi
     {
         override fun composeRequest(): Request
         {
-            val logoutURL = "${GlobalData.getAPIPath()}${AppConfig.API_SNLOGOUT}?sessionkey=${GlobalData.sessionKey}"
+            val logoutURL = "${GlobalData.getAPIPath()}${AppConfig.API_SNLOGOUT}?sessionkey=${GlobalData.loginInfo.sessionkey}"
             val requestParam = RequestBody.create(JSON, getParams().toString())
             return Request.Builder()
                     .addHeader("Cookie", GlobalData.cookie)

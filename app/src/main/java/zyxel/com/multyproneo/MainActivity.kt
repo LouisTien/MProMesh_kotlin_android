@@ -598,8 +598,16 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             wifi_text.isSelected = true
         }
 
-        if(GlobalData.currentFrag != "WiFiSettingsFragment")
-            switchToFragContainer(WiFiSettingsFragment())
+        if(GlobalData.isSupportMultiObjects())
+        {
+            if(GlobalData.currentFrag != "WiFiSettingsFragment")
+                switchToFragContainer(WiFiSettingsFragment())
+        }
+        else
+        {
+            if(GlobalData.currentFrag != "WiFiSettingsOldFragment")
+                switchToFragContainer(WiFiSettingsOldFragment())
+        }
     }
 
     private fun gotoDiagnosticFragment()

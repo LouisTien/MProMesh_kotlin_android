@@ -8,7 +8,6 @@ import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
  */
 object GlobalData
 {
-    var sessionKey = ""
     var cookie = ""
     var currentFrag = ""
     var currentGatewayIndex = 0
@@ -35,6 +34,7 @@ object GlobalData
     var registeredCloud = false
     var L2DeviceNumber = 0
     var alreadyGetGatewayInfoLocalBase = false
+    var loginInfo = LoginInfo()
 
     //TUTK
     var tokenType = "Bearer"
@@ -93,5 +93,16 @@ object GlobalData
     {
         guestDevAscendingOrder = false
         guestEndDeviceList.sortByDescending{ it.getName().toUpperCase() }
+    }
+
+    fun isSupportMultiObjects(): Boolean
+    {
+        for(i in loginInfo.MethodList)
+        {
+            if(i.contains("MultiObjects"))
+                return true
+        }
+
+        return false
     }
 }

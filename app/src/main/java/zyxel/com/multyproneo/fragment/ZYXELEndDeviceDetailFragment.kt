@@ -444,7 +444,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                         {
                             val data = JSONObject(responseStr)
                             val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.sessionKey = sessionkey
+                            GlobalData.loginInfo.sessionkey = sessionkey
                             GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
                         }
                         catch(e: JSONException)
@@ -490,7 +490,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                             {
                                 val data = JSONObject(responseStr)
                                 val sessionkey = data.get("sessionkey").toString()
-                                GlobalData.sessionKey = sessionkey
+                                GlobalData.loginInfo.sessionkey = sessionkey
                                 GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
                             }
                             catch(e: JSONException)
@@ -514,7 +514,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                             {
                                 val data = JSONObject(responseStr)
                                 val sessionkey = data.get("sessionkey").toString()
-                                GlobalData.sessionKey = sessionkey
+                                GlobalData.loginInfo.sessionkey = sessionkey
                                 GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
                             }
                             catch(e: JSONException)
@@ -559,7 +559,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                         {
                             val data = JSONObject(responseStr)
                             val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.sessionKey = sessionkey
+                            GlobalData.loginInfo.sessionkey = sessionkey
                             GlobalBus.publish(MainEvent.EnterHomePage())
                         }
                     }).execute()
@@ -608,7 +608,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                         {
                             val data = JSONObject(responseStr)
                             val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.sessionKey = sessionkey
+                            GlobalData.loginInfo.sessionkey = sessionkey
                             GlobalBus.publish(MainEvent.StartGetSpeedTestStatusTask())
                         }
                         catch(e: JSONException)

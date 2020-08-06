@@ -228,7 +228,7 @@ class HomeFragment : Fragment()
                         {
                             val data = JSONObject(responseStr)
                             val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.sessionKey = sessionkey
+                            GlobalData.loginInfo.sessionkey = sessionkey
                         }
                         catch(e: JSONException)
                         {
@@ -257,7 +257,7 @@ class HomeFragment : Fragment()
                         {
                             val data = JSONObject(responseStr)
                             val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.sessionKey = sessionkey
+                            GlobalData.loginInfo.sessionkey = sessionkey
                         }
                         catch(e: JSONException)
                         {
