@@ -43,11 +43,16 @@ abstract class TUTKP2PCommander
     fun execute(): TUTKP2PCommander
     {
         doAsync{
-            TUTKP2PBaseApi.sendData(method(), requestURL())
             if(requestURL() == "{\"URI\":\"${AppConfig.API_SYS_LOG}\"}")
+            {
+                TUTKP2PBaseApi.sendDataForFWLogFile(method(), requestURL())
                 TUTKP2PBaseApi.receiveDataForFWLogFile()
+            }
             else
+            {
+                TUTKP2PBaseApi.sendData(method(), requestURL())
                 TUTKP2PBaseApi.receiveData()
+            }
         }
 
         return this

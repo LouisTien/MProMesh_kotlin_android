@@ -64,7 +64,8 @@ object AppConfig
     const val TUTK_RDT_WAIT_TIMEMS = 10000
     const val TUTK_RDT_RECV_TIMEOUT_TIMES = 30
     const val TUTK_RDT_RECV_TIMEOUT_TIMES_FW_LOG = 100
-    const val TUTK_RECV_HEADER_LENGTH = 8
+    const val TUTK_RECV_HEADER_LENGTH = 4
+    const val TUTK_RECV_HEADER_LENGTH_FW_LOG = 8
 
     //TUTK Notification
     const val TUTK_NOTI_KPNS = "http://push.iotcplatform.com/tpns"
