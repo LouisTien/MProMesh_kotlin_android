@@ -180,7 +180,7 @@ object TUTKP2PBaseApi
         }
     }
 
-    fun sendDataForFWLogFile(method: AppConfig.TUTKP2PMethod, command: String)
+    fun sendDataForHeaderLength4Bytes(method: AppConfig.TUTKP2PMethod, command: String)
     {
         val cmdLength = command.toByteArray().size
 
@@ -342,14 +342,14 @@ object TUTKP2PBaseApi
 
     fun receiveDataForFWLogFile()
     {
-        val headerBuf = ByteArray(AppConfig.TUTK_RECV_HEADER_LENGTH_FW_LOG)
-        val cmdBuf = ByteArray(AppConfig.TUTK_MAXSIZE_RECVBUF_FOR_FW_LOG_FILE)
+        val headerBuf = ByteArray(AppConfig.TUTK_RECV_HEADER_LENGTH)
+        val cmdBuf = ByteArray(AppConfig.TUTK_MAXSIZE_RECVBUF)
         var count = 0
         var nRead = -1
         var errorCode = 0
         var payloadLength = 0
 
-        nRead = RDTAPIs.RDT_Read(mRDT_ID, headerBuf, AppConfig.TUTK_RECV_HEADER_LENGTH_FW_LOG, AppConfig.TUTK_RDT_WAIT_TIMEMS)
+        nRead = RDTAPIs.RDT_Read(mRDT_ID, headerBuf, AppConfig.TUTK_RECV_HEADER_LENGTH, AppConfig.TUTK_RDT_WAIT_TIMEMS)
         LogUtil.d(TAG, "RDT_Read header, nRead:$nRead")
 
         if(nRead < 0)
@@ -371,8 +371,23 @@ object TUTKP2PBaseApi
         size : 8bytes (because of OS alignment)
         */
 
-        errorCode = headerBuf[0].toInt()
+        /*errorCode = headerBuf[0].toInt()
         payloadLength = (headerBuf[7].toInt() and 0xFF) + (headerBuf[6].toInt() and 0xFF shl 8) + (headerBuf[5].toInt() and 0xFF shl 16) + (headerBuf[4].toInt() and 0xFF shl 32)
+        LogUtil.d(TAG, "Receive header errorCode:$errorCode")
+        LogUtil.d(TAG, "Receive header payloadLength:$payloadLength")*/
+
+        /*
+        c code header structure which FW received
+
+        struct cloud_resp_header {
+            uint8_t error; //1byte
+            int16_t length; //2bytes
+        };
+
+        size : 4bytes (because of OS alignment)
+        */
+        errorCode = headerBuf[0].toInt()
+        payloadLength = (headerBuf[3].toInt() and 0xFF) + (headerBuf[2].toInt() and 0xFF shl 8)
         LogUtil.d(TAG, "Receive header errorCode:$errorCode")
         LogUtil.d(TAG, "Receive header payloadLength:$payloadLength")
 

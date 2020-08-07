@@ -63,7 +63,7 @@ object AppConfig
     const val TUTK_STATUS_INIT_SEARCH_DEV = 10
     const val TUTK_RDT_WAIT_TIMEMS = 10000
     const val TUTK_RDT_RECV_TIMEOUT_TIMES = 30
-    const val TUTK_RDT_RECV_TIMEOUT_TIMES_FW_LOG = 100
+    const val TUTK_RDT_RECV_TIMEOUT_TIMES_FW_LOG = 50
     const val TUTK_RECV_HEADER_LENGTH = 4
     const val TUTK_RECV_HEADER_LENGTH_FW_LOG = 8
 
