@@ -18,6 +18,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.api.cloud.*
+import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.model.DevicesInfoObject
@@ -25,10 +26,7 @@ import zyxel.com.multyproneo.model.GatewayInfo
 import zyxel.com.multyproneo.model.WanInfo
 import zyxel.com.multyproneo.model.cloud.TUTKUpdateDeviceInfo
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
-import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.GlobalData
-import zyxel.com.multyproneo.util.LogUtil
-import zyxel.com.multyproneo.util.SharedPreferencesUtil
+import zyxel.com.multyproneo.util.*
 import java.util.HashMap
 
 class CloudZYXELEndDeviceDetailFragment : Fragment()
@@ -40,6 +38,7 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
     private lateinit var deviceWanInfo: WanInfo
     private lateinit var endDeviceInfo: DevicesInfoObject
     private lateinit var updateDeviceInfo: TUTKUpdateDeviceInfo
+    private lateinit var db: DatabaseCloudUtil
     private var isGatewayMode = false
     private var isEditMode = false
     private var isConnect = false
@@ -54,6 +53,7 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
     private var fwVer = "N/A"
     private var ip = "N/A"
     private var editDeviceName = "N/A"
+    private var currentSiteInfo: DatabaseSiteInfoEntity? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -99,6 +99,8 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
                 else -> {}
             }
         }
+
+        db = DatabaseCloudUtil.getInstance(activity!!)!!
 
         setClickListener()
     }
@@ -511,7 +513,7 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
 
     private fun updateDevice()
     {
-        var accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
+        val accessToken by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_TUTK_ACCESS_TOKEN_KEY, "")
 
         val header = HashMap<String, Any>()
         header["authorization"] = "${GlobalData.tokenType} $accessToken"
@@ -535,7 +537,9 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
                             updateDeviceInfo = Gson().fromJson(responseStr, TUTKUpdateDeviceInfo::class.javaObjectType)
                             LogUtil.d(TAG,"updateDeviceInfo:$updateDeviceInfo")
 
+                            saveToDB()
                             getInfoCompleteUpdateUI()
+
                             GlobalBus.publish(MainEvent.HideLoading())
                         }
                         catch(e: JSONException)
@@ -546,5 +550,17 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
                         }
                     }
                 }).execute()
+    }
+
+    private fun saveToDB()
+    {
+        doAsync{
+            currentSiteInfo = db.getSiteInfoDao().queryByMac(GlobalData.getCurrentGatewayInfo().MAC)
+            if(currentSiteInfo != null)
+            {
+                currentSiteInfo!!.siteName = editDeviceName
+                db.getSiteInfoDao().update(currentSiteInfo!!)
+            }
+        }
     }
 }

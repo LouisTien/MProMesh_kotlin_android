@@ -534,10 +534,10 @@ class CloudEndDeviceDetailFragment : Fragment()
             if(preserveSettingsEnable && (currentSiteInfo != null))
             {
                 var inDB = false
-                currentClientListInfo = db.getClientListDao().queryByMac(endDeviceInfo.PhysAddress)
+                currentClientListInfo = db.getClientListDao().queryByMac(GlobalData.getCurrentGatewayInfo().MAC)
                 for(item in currentClientListInfo)
                 {
-                    if(item.mac == currentSiteInfo!!.mac)
+                    if(item.deviceMac == endDeviceInfo.PhysAddress)
                     {
                         inDB = true
                         item.deviceName = editDeviceName
