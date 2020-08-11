@@ -263,8 +263,8 @@
     <string name="mesh_extender_description">Tap button \"Next\" and press WPS button on extender to process pairing.</string>
     <string name="mesh_next">Next</string>
     <string name="mesh_wps_title">Press WPS button</string>
-    <string name="mesh_wps_description">Press the <b>WPS</b> button on the WiFi Extender/Mesh Device once and release it, then tap below <b>\"Start Pairing\"</b> button.</string>
-    <string name="mesh_wps_description_cloud">Place your Mesh Device next to WiFi Router (within 2 meters). Press the physical <b>WPS</b> button of your Mesh Device, then tap <b>\"Start Pairing\"</b> below.</string>
+    <string name="mesh_wps_description">Press the WPS button on the WiFi Extender/Mesh Device once and release it, then tap below \'Start Pairing\' button.</string>
+    <string name="mesh_wps_description_cloud">Place your Mesh Device next to WiFi Router (within 2 meters). Press the physical WPS button of your Mesh Device, then tap \'Start Pairing\' below.</string>
     <string name="mesh_pair">Start Pairing</string>
     <string name="mesh_success_title">Success!</string>
     <string name="mesh_success_description">The WiFi Extender is added to your home WiFi network. And it has the same WiFi name and password.</string>
@@ -277,7 +277,7 @@
 
     <string name="cloud_mesh_title">Choose a Scenario</string>
     <string name="cloud_mesh_see_tip">Tips</string>
-    <string name="cloud_mesh_extender_title">Place Your Mesh Device</string>
+    <string name="cloud_mesh_extender_title">Relocate Your Mesh Device</string>
     <string name="cloud_mesh_extender_description">Move your Mesh Device to a location about halfway between your WiFi Router and the area with a poor WiFi signal.</string>
     <string name="cloud_mesh_wps_title">Connect with Your Mesh Device</string>
     <string name="cloud_mesh_apply_setting_title">Applying WiFi settings to Your Mesh Device</string>
@@ -287,7 +287,7 @@
     <string name="cloud_mesh_tip_find_location_title">Find Optimal Location</string>
     <string name="cloud_mesh_tip_link_quality_title">Check Link Quality</string>
     <string name="cloud_mesh_tip_msg_location"><font color='#64BE00'>Do\n</font>Placement at a location about halfway between your WiFi Router and the area with a poor WiFi signal gets better WiFi coverage.</string>
-    <string name="cloud_mesh_tip_msg_position"><font color='#64BE00'>Do\n</font>An open elevated spot, like the top of a table or a self</string>
+    <string name="cloud_mesh_tip_msg_position"><font color='#64BE00'>Do\n</font>An open elevated spot, like the top of a table or a shelf.</string>
     <string name="cloud_mesh_tip_msg_suggest"><font color='#FF2837'>Don\'t\n</font>Physical obstructions cause difficulties for the WiFi Router, the Mesh Device and any wireless device to \"see\" each other.</string>
     <string name="cloud_mesh_fail_help">Help</string>
     <string name="cloud_mesh_fail_quit">Quit</string>

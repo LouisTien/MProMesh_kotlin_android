@@ -74,9 +74,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-                        android:textColor="@color/color_575757"
-                        android:textSize="@dimen/text_size_16sp_in_1080"
+                        android:layout_marginLeft="@dimen/layout_size_25dp_in_1080"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_18sp_in_1080"
                         android:text="@string/wifi_settings_wifi_name_24g"/>
 
                 </RelativeLayout>
@@ -87,8 +87,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
                     android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
-                    android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-                    android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
+                    android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
                     android:layout_below="@+id/wifi_edit_24g_title_area_relative">
 
                     <TextView
@@ -210,9 +210,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-                        android:textColor="@color/color_575757"
-                        android:textSize="@dimen/text_size_16sp_in_1080"
+                        android:layout_marginLeft="@dimen/layout_size_25dp_in_1080"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_18sp_in_1080"
                         android:text="@string/wifi_settings_wifi_name_5g"/>
 
                 </RelativeLayout>
@@ -223,8 +223,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
                     android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
-                    android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-                    android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
+                    android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
                     android:layout_below="@+id/wifi_edit_5g_title_area_relative">
 
                     <TextView
@@ -346,9 +346,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-                        android:textColor="@color/color_575757"
-                        android:textSize="@dimen/text_size_16sp_in_1080"
+                        android:layout_marginLeft="@dimen/layout_size_25dp_in_1080"
+                        android:textColor="@color/color_000000"
+                        android:textSize="@dimen/text_size_18sp_in_1080"
                         android:text="@string/wifi_settings_guest_wifi"/>
 
                 </RelativeLayout>
@@ -358,8 +358,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                    android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-                    android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
+                    android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
                     android:layout_below="@+id/wifi_edit_guest_title_area_relative">
 
                     <TextView

@@ -48,13 +48,8 @@
             <RelativeLayout
                 android:id="@+id/cloud_mesh_wifi_tip_FOL_title_relative"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/layout_size_40dp_in_1080">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:alpha="0.2"
-                    android:background="@color/color_575757"/>
+                android:layout_height="@dimen/layout_size_44dp_in_1080"
+                android:background="@drawable/expandtip_bg">
 
                 <TextView
                     android:id="@+id/cloud_mesh_wifi_tip_FOL_title_text"
@@ -79,7 +74,7 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/layout_size_2dp_in_1080"
+                android:layout_height="@dimen/layout_size_4dp_in_1080"
                 android:visibility="invisible"/>
 
             <LinearLayout
@@ -134,13 +129,8 @@
             <RelativeLayout
                 android:id="@+id/cloud_mesh_wifi_tip_CLQ_title_relative"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/layout_size_40dp_in_1080">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:alpha="0.2"
-                    android:background="@color/color_575757"/>
+                android:layout_height="@dimen/layout_size_44dp_in_1080"
+                android:background="@drawable/expandtip_bg">
 
                 <TextView
                     android:id="@+id/cloud_mesh_wifi_tip_CLQ_title_text"
