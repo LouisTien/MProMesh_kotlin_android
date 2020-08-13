@@ -228,27 +228,43 @@
                     android:layout_below="@+id/end_device_detail_internet_info_title_linear"/>
 
                 <RelativeLayout
-                    android:id="@+id/end_device_detail_internet_blocking_area_relative"
+                    android:id="@+id/end_device_detail_ib_pt_area_relative"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
                     android:layout_below="@+id/end_device_detail_content_line_image">
 
-                    <TextView
-                        android:id="@+id/end_device_detail_internet_blocking_title_text"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/end_device_detail_internet_blocking_area_linear"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size_18sp_in_1080"
-                        android:textColor="@color/color_575757"
-                        android:text="@string/device_detail_internet_blocking"/>
+                        android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/end_device_detail_internet_blocking_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/switch_off_2"/>
+                        <TextView
+                            android:id="@+id/end_device_detail_internet_blocking_title_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/text_size_18sp_in_1080"
+                            android:textColor="@color/color_575757"
+                            android:text="@string/device_detail_internet_blocking"/>
+
+                        <LinearLayout
+                            android:id="@+id/end_device_detail_internet_blocking_image_linear"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/end_device_detail_internet_blocking_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/switch_off_2"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                     <ImageView
                         android:id="@+id/end_device_detail_internet_blocking_line_image"
@@ -256,25 +272,42 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/bar1"
                         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                        android:layout_below="@+id/end_device_detail_internet_blocking_image"/>
+                        android:layout_below="@+id/end_device_detail_internet_blocking_area_linear"/>
 
-                    <TextView
-                        android:id="@+id/end_device_detail_fsecure_text"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/end_device_detail_parental_control_area_linear"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size_18sp_in_1080"
-                        android:textColor="@color/color_575757"
-                        android:layout_alignParentRight="true"
-                        android:text="F-Secure"
-                        android:visibility="gone"/>
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/end_device_detail_parental_control_title_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/text_size_18sp_in_1080"
+                            android:textColor="@color/color_575757"
+                            android:text="@string/device_detail_parental_control"/>
+
+                        <TextView
+                            android:id="@+id/end_device_detail_fsecure_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/text_size_18sp_in_1080"
+                            android:textColor="@color/color_575757"
+                            android:text="F-Secure"/>
+
+                    </LinearLayout>
 
                     <ImageView
-                        android:id="@+id/end_device_detail_fsecure_line_image"
+                        android:id="@+id/end_device_detail_parental_control_line_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/bar1"
                         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                        android:layout_below="@+id/end_device_detail_fsecure_text"
+                        android:layout_below="@+id/end_device_detail_parental_control_area_linear"
                         android:visibility="gone"/>
 
                 </RelativeLayout>
@@ -285,7 +318,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                    android:layout_below="@+id/end_device_detail_internet_blocking_area_relative">
+                    android:layout_below="@+id/end_device_detail_ib_pt_area_relative">
 
                     <TextView
                         android:id="@+id/end_device_detail_connect_to_title_text"

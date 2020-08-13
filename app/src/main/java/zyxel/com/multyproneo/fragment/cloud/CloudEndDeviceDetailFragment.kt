@@ -363,28 +363,26 @@ class CloudEndDeviceDetailFragment : Fragment()
 
                 when(FeatureConfig.internetBlockingStatus)
                 {
-                    true -> end_device_detail_internet_blocking_area_relative.visibility = View.VISIBLE
-                    false -> end_device_detail_internet_blocking_area_relative.visibility = View.GONE
+                    true -> end_device_detail_ib_pt_area_relative.visibility = View.VISIBLE
+                    false -> end_device_detail_ib_pt_area_relative.visibility = View.GONE
                 }
 
                 when(FeatureConfig.FSecureStatus)
                 {
                     true ->
                     {
-                        end_device_detail_internet_blocking_title_text.text = getString(R.string.device_detail_parental_control)
-                        end_device_detail_internet_blocking_image.visibility = View.GONE
+                        end_device_detail_internet_blocking_area_linear.visibility = View.GONE
                         end_device_detail_internet_blocking_line_image.visibility = View.GONE
-                        end_device_detail_fsecure_text.visibility = View.VISIBLE
-                        end_device_detail_fsecure_line_image.visibility = View.VISIBLE
+                        end_device_detail_parental_control_area_linear.visibility = View.VISIBLE
+                        end_device_detail_parental_control_line_image.visibility = View.VISIBLE
                     }
 
                     false ->
                     {
-                        end_device_detail_internet_blocking_title_text.text = getString(R.string.device_detail_internet_blocking)
-                        end_device_detail_internet_blocking_image.visibility = View.VISIBLE
+                        end_device_detail_internet_blocking_area_linear.visibility = View.VISIBLE
                         end_device_detail_internet_blocking_line_image.visibility = View.VISIBLE
-                        end_device_detail_fsecure_text.visibility = View.GONE
-                        end_device_detail_fsecure_line_image.visibility = View.GONE
+                        end_device_detail_parental_control_area_linear.visibility = View.GONE
+                        end_device_detail_parental_control_line_image.visibility = View.GONE
                     }
                 }
 
@@ -419,7 +417,7 @@ class CloudEndDeviceDetailFragment : Fragment()
                 end_device_detail_wifi_channel_linear.visibility = View.GONE
                 end_device_detail_max_speed_linear.visibility = View.GONE
                 end_device_detail_rssi_linear.visibility = View.GONE
-                end_device_detail_internet_blocking_area_relative.visibility = View.GONE
+                end_device_detail_ib_pt_area_relative.visibility = View.GONE
             }
         }
 
