@@ -86,7 +86,11 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
 
             uiThread{
                 countDownTimer.start()
-                setLocalDeviceNames()
+
+                if(clientList.isEmpty())
+                    setWiFiSettingTask()
+                else
+                    setLocalDeviceNames()
             }
         }
     }
