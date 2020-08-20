@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 import kotlinx.android.synthetic.main.adapter_wifi_qrcode_item.view.*
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.util.GlobalData
 
 class WiFiQRCodeAdapter(private var context: Context, private var bmpArrayList: ArrayList<Bitmap>) : PagerAdapter()
 {
@@ -20,8 +21,8 @@ class WiFiQRCodeAdapter(private var context: Context, private var bmpArrayList: 
         itemView.wifi_qrcode_content_image.setImageBitmap(bmpArrayList[position])
         when(position)
         {
-            0 -> itemView.wifi_qrcode_title_text.text = context.getString(if(bmpArrayList.size >= 3) R.string.wifi_settings_wifi_name_24g_qrcode else R.string.wifi_settings_wifi_name_qrcode)
-            1 -> itemView.wifi_qrcode_title_text.text = context.getString(if(bmpArrayList.size >= 3) R.string.wifi_settings_wifi_name_5g_qrcode else R.string.wifi_settings_guest_wifi_qrcode)
+            0 -> itemView.wifi_qrcode_title_text.text = context.getString(if(bmpArrayList.size == 1 || (bmpArrayList.size == 2 && GlobalData.guestWiFiStatus)) R.string.wifi_settings_wifi_name_qrcode else R.string.wifi_settings_wifi_name_24g_qrcode)
+            1 -> itemView.wifi_qrcode_title_text.text = context.getString(if(bmpArrayList.size == 2 && GlobalData.guestWiFiStatus) R.string.wifi_settings_guest_wifi_qrcode else R.string.wifi_settings_wifi_name_5g_qrcode)
             2 -> itemView.wifi_qrcode_title_text.text = context.getString(R.string.wifi_settings_guest_wifi_qrcode)
             else -> {}
         }
