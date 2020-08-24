@@ -543,7 +543,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
             val siteInfo = DatabaseSiteInfoEntity(
                     GlobalData.getCurrentGatewayInfo().MAC,
                     GlobalData.currentUID,
-                    GlobalData.getCurrentGatewayInfo().ModelName,
+                    GlobalData.getCurrentGatewayInfo().UserDefineName,
                     "N/A",
                     WiFiName,
                     WiFiPwd,
