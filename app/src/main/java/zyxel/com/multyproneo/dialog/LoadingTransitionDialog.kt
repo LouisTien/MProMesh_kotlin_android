@@ -36,7 +36,7 @@ class LoadingTransitionDialog
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_loading_transition)
         setCancelable(true)
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
+        window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
         initUI()
     }
 

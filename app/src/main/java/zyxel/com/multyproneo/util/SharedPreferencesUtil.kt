@@ -18,7 +18,7 @@ class SharedPreferencesUtil<T>(val context: Context, val name: String, val defau
 
     private fun <T> findPreference(name: String, default: T) : T = with(prefs)
     {
-        val res: Any = when(default)
+        val res: Any? = when(default)
         {
             is Long -> getLong(name, default)
             is String -> getString(name, default)
