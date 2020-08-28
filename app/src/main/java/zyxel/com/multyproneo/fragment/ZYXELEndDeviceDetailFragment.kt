@@ -230,18 +230,16 @@ class ZYXELEndDeviceDetailFragment : Fragment()
 
         setConnectTypeTextListVisibility(isConnect)
 
-        connectType = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_ConnectionType)
-        if(connectType.contains("WiFi", ignoreCase = true) or connectType.contains("Wi-Fi", ignoreCase = true))
-            connectType = getString(R.string.device_detail_wireless)
-        else
-            connectType = getString(R.string.device_detail_wired)
-
-        if(isGatewayMode)
-        {
-            if(isConnect)
-                connectType = getString(R.string.device_detail_wired)
+        if(isGatewayMode) {
+            val connectMode = deviceWanInfo.Object.Mode
+            connectType = getString(if(connectMode.toLowerCase() == "repeater") R.string.device_detail_wireless else R.string.device_detail_wired)
+        }
+        else {
+            connectType = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_ConnectionType)
+            if(connectType.contains("WiFi", ignoreCase = true) or connectType.contains("Wi-Fi", ignoreCase = true))
+                connectType = getString(R.string.device_detail_wireless)
             else
-                connectType = ""
+                connectType = getString(R.string.device_detail_wired)
         }
 
         modelName = SpecialCharacterHandler.checkEmptyTextValue(if(isGatewayMode) deviceInfo.getName() else endDeviceInfo.getName())

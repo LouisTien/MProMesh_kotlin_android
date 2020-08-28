@@ -20,5 +20,6 @@ data class WanInfoObject
     val PhyRate: Int = 0,
     val RxRate: Int = 0,
     val Status: String = "N/A",
-    val TxRate: Int = 0
+    val TxRate: Int = 0,
+    val Mode: String = "N/A"
 ) : Serializable
