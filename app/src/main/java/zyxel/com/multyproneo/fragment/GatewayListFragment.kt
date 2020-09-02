@@ -92,6 +92,7 @@ class GatewayListFragment : Fragment()
 
     private fun OnDeviceSelected(index: Int)
     {
+        GlobalData.alreadyGetGatewayInfoLocalBase = false
         GlobalData.currentGatewayIndex = index
         val userName = DatabaseUtil.getInstance(activity!!)?.getDeviceUserNameFromDB(gatewayInfoMutableList[index].MAC)
         val password = DatabaseUtil.getInstance(activity!!)?.getDevicePasswordFromDB(gatewayInfoMutableList[index].MAC)
