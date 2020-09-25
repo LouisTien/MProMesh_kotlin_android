@@ -30,7 +30,7 @@
     <string name="setup_login_label_description">Find the default admin username and password on the label of your WiFi Router.</string>
     <string name="setup_sn_login_description">Enter the serial number to continue.</string>
     <string name="setup_sn_login_serial_number">Serial number</string>
-    <string name="setup_sn_login_label_description">Find the unique serial number of your WiFi Router on its label.</string>
+    <string name="setup_sn_login_label_description">Unique Serial Number can be found on the back label. It starts with \"S\"</string>
 
     <string name="setup_previous_settings_title">Apply Saved Settings</string>
     <string name="setup_previous_settings_description">Saved settings of your WiFi Router are found. You can apply them to this WiFi Router.</string>
@@ -89,9 +89,9 @@
     <string name="mesh_device_status_wire_connect">Wired connection</string>
     <string name="mesh_device_status_good">Good to go</string>
     <string name="mesh_device_status_too_close">Too close to the WiFi Router</string>
-    <string name="mesh_device_status_far_away">Too far away from the WiFi Router</string>
+    <string name="mesh_device_status_far_away">Weak WiFi</string>
     <string name="mesh_device_status_no_connect">No connection</string>
-    <string name="mesh_device_status_block">Blocked</string>
+    <string name="mesh_device_status_block">Internet Paused</string>
 
     <string name="button_text_wifi">WiFi</string>
 
@@ -143,7 +143,7 @@
     <string name="device_detail_reboot">Reboot</string>
     <string name="device_detail_connecting">Connected</string>
     <string name="device_detail_disconnect">Disconnect</string>
-    <string name="device_detail_blocked">Blocked</string>
+    <string name="device_detail_blocked">Paused</string>
     <string name="device_detail_wired">Wired</string>
     <string name="device_detail_wireless">Wireless</string>
     <string name="device_detail_title">Device Detail</string>
@@ -155,7 +155,7 @@
     <string name="device_detail_max_speed">Max Speed</string>
     <string name="device_detail_rssi">RSSI (Client to AP)</string>
     <string name="device_detail_manufacturer">Manufacturer</string>
-    <string name="device_detail_internet_blocking">Internet Blocking</string>
+    <string name="device_detail_internet_blocking">Pause Internet</string>
     <string name="device_detail_parental_control">Parental Control</string>
     <string name="device_detail_f_secure"><u>F-Secure</u></string>
     <string name="device_detail_speed_test_result">Speed Test Result</string>
