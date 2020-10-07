@@ -137,6 +137,23 @@ class DevicesFragment : Fragment()
 
         if(!isVisible) return
 
+        var showUserTip = false
+        for(i in GlobalData.homeEndDeviceList.indices) {
+            if(GlobalData.homeEndDeviceList[i].UserDefineName.equals("N/A", ignoreCase = true)
+                    && GlobalData.homeEndDeviceList[i].PhysAddress == GlobalData.homeEndDeviceList[i].HostName) {
+                showUserTip = true
+            }
+        }
+
+        if(GlobalData.guestEndDeviceList.size > 0) {
+            for(i in GlobalData.guestEndDeviceList.indices) {
+                if(GlobalData.guestEndDeviceList[i].UserDefineName.equals("N/A", ignoreCase = true)
+                        && GlobalData.guestEndDeviceList[i].PhysAddress == GlobalData.guestEndDeviceList[i].HostName) {
+                    showUserTip = true
+                }
+            }
+        }
+
         runOnUiThread{
             GlobalBus.publish(MainEvent.HideLoading())
             devices_home_devices_list_swipe.setRefreshing(false)
@@ -147,13 +164,13 @@ class DevicesFragment : Fragment()
 
             devices_home_devices_sort_image.setImageResource(if(GlobalData.homeDevAscendingOrder) R.drawable.device_sorting_1 else R.drawable.device_sorting_2)
             GlobalData.sortHomeDeviceList()
-            devices_home_devices_list.adapter = CloudHomeGuestEndDeviceItemAdapter(activity!!, GlobalData.homeEndDeviceList, false)
+            devices_home_devices_list.adapter = CloudHomeGuestEndDeviceItemAdapter(activity!!, GlobalData.homeEndDeviceList, false, showUserTip)
 
             if(GlobalData.guestEndDeviceList.size > 0)
             {
                 devices_guest_devices_sort_image.setImageResource(if(GlobalData.guestDevAscendingOrder) R.drawable.device_sorting_1 else R.drawable.device_sorting_2)
                 GlobalData.sortGuestDeviceList()
-                devices_guest_devices_list.adapter = CloudHomeGuestEndDeviceItemAdapter(activity!!, GlobalData.guestEndDeviceList, false)
+                devices_guest_devices_list.adapter = CloudHomeGuestEndDeviceItemAdapter(activity!!, GlobalData.guestEndDeviceList, false, showUserTip)
                 devices_guest_devices_area_linear.visibility = View.VISIBLE
             }
             else

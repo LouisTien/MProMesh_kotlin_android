@@ -21,7 +21,8 @@ class CloudHomeGuestEndDeviceItemAdapter
 (
         private var activity: Activity,
         private var endDeviceList: MutableList<DevicesInfoObject>,
-        private var isCloud: Boolean
+        private var isCloud: Boolean,
+        private var showUserTip: Boolean = false
 ) : BaseAdapter()
 {
     override fun getCount(): Int = endDeviceList.size
@@ -87,6 +88,8 @@ class CloudHomeGuestEndDeviceItemAdapter
                 if(endDeviceList[position].UserDefineName.equals("N/A", ignoreCase = true)
                     && endDeviceList[position].PhysAddress == endDeviceList[position].HostName)
                     view.user_tips_image.visibility = View.VISIBLE
+                else if(showUserTip)
+                    view.user_tips_image.visibility = View.INVISIBLE
                 else
                     view.user_tips_image.visibility = View.GONE
             }
