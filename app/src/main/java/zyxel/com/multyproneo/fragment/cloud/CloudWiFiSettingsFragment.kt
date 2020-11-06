@@ -243,7 +243,7 @@ class CloudWiFiSettingsFragment : Fragment()
             if(meshInfo.Object.Enable)
             {
                 wifi_settings_wifi_5g_relative.visibility = View.GONE
-                wifi_settings_24g_title_text.text = getString(R.string.wifi_settings_title)
+                wifi_settings_24g_title_text.text = getString(R.string.common_home)
                 wifi_settings_wifi_24g_name_text.text = WiFiName
                 wifi_settings_wifi_24g_password_text.text = WiFiPwd
             }

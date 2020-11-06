@@ -20,7 +20,7 @@
                 android:id="@+id/diagnostic_back_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
                 android:src="@drawable/icon_back"
                 android:visibility="gone"/>
 
@@ -28,10 +28,12 @@
                 android:id="@+id/diagnostic_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
                 android:textStyle="bold"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_36sp_in_1080"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="@string/common_diagnostic"/>
 
         </RelativeLayout>
@@ -40,8 +42,8 @@
             android:id="@+id/diagnostic_tab_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
-            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
             android:layout_gravity="bottom"
             android:orientation="horizontal">
@@ -55,6 +57,8 @@
                 android:textSize="@dimen/text_size_18sp_in_1080"
                 android:textColor="@color/color_575757"
                 android:textStyle="bold"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="@string/diagnostic_tab_wifi_channel"/>
 
             <TextView
@@ -66,6 +70,8 @@
                 android:textSize="@dimen/text_size_18sp_in_1080"
                 android:textColor="@color/color_575757"
                 android:textStyle="bold"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="@string/diagnostic_tab_wifi_signal"/>
 
         </LinearLayout>

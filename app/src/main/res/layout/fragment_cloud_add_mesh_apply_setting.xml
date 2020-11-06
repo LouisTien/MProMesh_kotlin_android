@@ -9,7 +9,7 @@
         android:id="@+id/cloud_loading_retry_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
         android:src="@drawable/icon_retry"
         android:visibility="invisible"/>
@@ -18,16 +18,18 @@
         android:id="@+id/cloud_loading_msg_area_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/layout_size_30dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_30dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
         android:layout_below="@+id/cloud_loading_retry_image">
 
         <TextView
             android:id="@+id/cloud_loading_msg_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/layout_size_22dp_in_1080"
+            android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_000000"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/cloud_mesh_apply_setting_title"/>
 
         <TextView
@@ -35,9 +37,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-            android:textSize="@dimen/layout_size_18dp_in_1080"
+            android:textSize="@dimen/text_size_18sp_in_1080"
             android:textColor="@color/color_575757"
             android:text="@string/cloud_mesh_apply_setting_description"
+            android:ellipsize="end"
+            android:maxLines="3"
             android:layout_below="@+id/cloud_loading_msg_title_text"/>
 
     </RelativeLayout>

@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
             android:src="@drawable/icon_search"/>
 
         <RelativeLayout
@@ -25,12 +25,12 @@
             android:layout_height="match_parent"
             android:background="@drawable/corner_shape"
             android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
-            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
-            android:layout_toRightOf="@+id/devices_search_image"
-            android:layout_toLeftOf="@+id/devices_search_cancel_text">
+            android:layout_toEndOf="@+id/devices_search_image"
+            android:layout_toStartOf="@+id/devices_search_cancel_text">
 
             <EditText
                 android:id="@+id/devices_search_input_edit"
@@ -38,9 +38,9 @@
                 android:layout_height="match_parent"
                 android:singleLine="true"
                 android:background="@android:color/transparent"
-                android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
-                android:layout_marginRight="@dimen/layout_size_5dp_in_1080"
-                android:layout_toLeftOf="@+id/devices_search_clear_image"
+                android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_5dp_in_1080"
+                android:layout_toStartOf="@+id/devices_search_clear_image"
                 android:textColor="@color/color_000000"
                 tools:text="Steve"/>
 
@@ -48,9 +48,9 @@
                 android:id="@+id/devices_search_clear_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
                 android:src="@drawable/icon_clearsearch"/>
 
         </RelativeLayout>
@@ -59,11 +59,14 @@
             android:id="@+id/devices_search_cancel_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
             android:textSize="@dimen/text_size_18sp_in_1080"
             android:textColor="@color/color_575757"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_90dp_in_1080"
             android:text="@string/common_cancel"/>
 
     </RelativeLayout>
@@ -72,8 +75,8 @@
         android:id="@+id/devices_search_devices_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
         android:listSelector="@android:color/transparent"
         android:layout_below="@+id/devices_search_title_area_relative">
 

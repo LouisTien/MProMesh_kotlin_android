@@ -70,7 +70,7 @@ class SetupPreviousSettingsDetailsDialog(context: Context, private var mac: Stri
                 val adapter = ArrayAdapter(context, android.R.layout.simple_list_item_1, nameList)
                 previous_settings_details_devices_list.adapter = adapter
 
-                previous_settings_details_title_value_text.text = " '${siteInfo.siteName}'"
+                previous_settings_details_title_text.text = context.getString(R.string.setup_previous_settings_details_title, siteInfo.siteName)
                 previous_settings_details_wifi_network_name_value_text.text = siteInfo.wifiSSID
                 previous_settings_details_wifi_password_value_text.text = siteInfo.wifiPWD
             }

@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
         android:src="@drawable/icon_back"
         android:visibility="invisible"/>
 
@@ -17,9 +17,9 @@
         android:id="@+id/mesh_fail_close_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
         android:src="@drawable/icon_close"/>
 
     <RelativeLayout
@@ -27,9 +27,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_30dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_30dp_in_1080"
         android:layout_below="@+id/mesh_fail_back_image"
-        android:layout_toRightOf="@+id/mesh_fail_back_image">
+        android:layout_toEndOf="@+id/mesh_fail_back_image">
 
         <TextView
             android:id="@+id/mesh_fail_title_text"
@@ -37,6 +37,8 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_000000"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="@string/mesh_fail_title"/>
 
         <TextView
@@ -47,7 +49,9 @@
             android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
             android:text="@string/mesh_fail_description"
             android:textColor="@color/color_575757"
-            android:textSize="@dimen/text_size_18sp_in_1080"/>
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="2"/>
 
     </RelativeLayout>
 
@@ -65,9 +69,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_30dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_30dp_in_1080"
         android:layout_below="@+id/mesh_fail_content_image"
-        android:layout_toRightOf="@+id/mesh_fail_back_image">
+        android:layout_toEndOf="@+id/mesh_fail_back_image">
 
         <TextView
             android:id="@+id/mesh_fail_description2_text"
@@ -76,17 +80,22 @@
             android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
             android:text="@string/mesh_fail_description2"
             android:textColor="@color/color_000000"
-            android:textSize="@dimen/text_size_18sp_in_1080"/>
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="2"/>
 
         <TextView
             android:id="@+id/mesh_fail_help_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
+            android:maxWidth="@dimen/layout_size_150dp_in_1080"
             android:layout_below="@+id/mesh_fail_description2_text"
             android:text="@string/mesh_help"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/text_size_18sp_in_1080"/>
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"/>
 
     </RelativeLayout>
 
@@ -105,11 +114,14 @@
             android:layout_height="wrap_content"
             android:text="@string/mesh_try_again"
             android:textColor="@color/color_000000"
-            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_150dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
-            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
-            android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"/>
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_15dp_in_1080"/>
 
     </FrameLayout>
 

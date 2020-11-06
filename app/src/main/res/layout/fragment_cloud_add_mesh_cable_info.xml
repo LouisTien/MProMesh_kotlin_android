@@ -9,18 +9,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
         android:src="@drawable/icon_back"/>
 
     <TextView
         android:id="@+id/cloud_mesh_cable_tip_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/layout_size_24dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_50dp_in_1080"
         android:textSize="@dimen/text_size_18sp_in_1080"
         android:textColor="@color/color_575757"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:maxWidth="@dimen/layout_size_90dp_in_1080"
         android:text="@string/cloud_mesh_see_tip"/>
 
     <RelativeLayout
@@ -28,9 +32,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_30dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_30dp_in_1080"
         android:layout_below="@+id/cloud_mesh_cable_back_image"
-        android:layout_toRightOf="@+id/cloud_mesh_cable_back_image">
+        android:layout_toEndOf="@+id/cloud_mesh_cable_back_image">
 
         <TextView
             android:id="@+id/cloud_mesh_cable_title_text"
@@ -38,6 +42,8 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_000000"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/cloud_mesh_cable_title"/>
 
         <TextView
@@ -48,6 +54,8 @@
             android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
             android:text="@string/cloud_mesh_cable_description"
             android:textColor="@color/color_575757"
+            android:ellipsize="end"
+            android:maxLines="3"
             android:textSize="@dimen/text_size_18sp_in_1080"/>
 
     </RelativeLayout>
@@ -76,11 +84,14 @@
             android:layout_height="wrap_content"
             android:text="@string/common_done"
             android:textColor="@color/color_000000"
-            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_150dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
-            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
-            android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"/>
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_15dp_in_1080"/>
 
     </FrameLayout>
 

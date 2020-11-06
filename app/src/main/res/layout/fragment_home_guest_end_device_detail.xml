@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
             android:src="@drawable/icon_back"/>
 
         <TextView
@@ -24,8 +24,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/layout_size_105dp_in_1080"
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_575757"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="@string/device_detail_title"/>
 
     </RelativeLayout>
@@ -48,8 +51,8 @@
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
                 android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080">
+                android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_20dp_in_1080">
 
                 <RelativeLayout
                     android:id="@+id/end_device_detail_model_name_edit_relative"
@@ -62,14 +65,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_888888"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/device_detail_device_name"/>
 
                     <EditText
                         android:id="@+id/end_device_detail_model_name_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_toLeftOf="@+id/end_device_detail_confirm_image"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@+id/end_device_detail_confirm_image"
                         android:layout_below="@+id/end_device_detail_model_name_edit_title_text"
                         android:maxLength="20"
                         android:singleLine="true"
@@ -83,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/end_device_detail_model_name_edit_title_text"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:src="@drawable/icon_done"/>
 
                     <ImageView
@@ -99,6 +104,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/end_device_detail_edit_line_image"
                         android:textColor="@color/color_ff2837"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:visibility="invisible"
                         tools:text="@string/login_no_support_character"/>
 
@@ -121,15 +128,14 @@
                             android:id="@+id/end_device_detail_user_tips_image"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/layout_size_5dp_in_1080"
+                            android:layout_marginEnd="@dimen/layout_size_5dp_in_1080"
                             android:src="@drawable/account_about"
                             android:visibility="gone"/>
 
                         <TextView
                             android:id="@+id/end_device_detail_model_name_text"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:singleLine="true"
                             android:ellipsize="end"
                             android:textSize="@dimen/text_size_22sp_in_1080"
@@ -140,7 +146,7 @@
                             android:id="@+id/end_device_detail_edit_image"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"
+                            android:layout_marginStart="@dimen/layout_size_15dp_in_1080"
                             android:src="@drawable/icon_edit"/>
 
                     </LinearLayout>
@@ -151,6 +157,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/end_device_detail_model_name_value_linear"
                         android:textColor="@color/color_888888"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/device_detail_device_name"/>
 
                 </RelativeLayout>
@@ -161,10 +169,9 @@
                 android:id="@+id/end_device_detail_content_area_relative"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
-                android:layout_below="@+id/end_device_detail_model_name_area_linear">
+                android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginBottom="@dimen/layout_size_20dp_in_1080">
 
                 <LinearLayout
                     android:id="@+id/end_device_detail_internet_info_linear"
@@ -174,22 +181,26 @@
 
                     <TextView
                         android:id="@+id/end_device_detail_status_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_3c9f00"
                         android:textStyle="bold"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         tools:text="Connecting"/>
 
                     <TextView
                         android:id="@+id/end_device_detail_connect_type_dhcp_time_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_000000"
                         android:textStyle="bold"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         tools:text="Wireless"/>
 
                 </LinearLayout>
@@ -203,18 +214,22 @@
 
                     <TextView
                         android:id="@+id/end_device_detail_status_title_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textColor="@color/color_888888"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/device_detail_status"/>
 
                     <TextView
                         android:id="@+id/end_device_detail_connect_type_dhcp_time_title_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textColor="@color/color_888888"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/device_detail_connect_type"/>
 
                 </LinearLayout>
@@ -242,16 +257,18 @@
 
                         <TextView
                             android:id="@+id/end_device_detail_internet_blocking_title_text"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:textSize="@dimen/text_size_18sp_in_1080"
                             android:textColor="@color/color_575757"
+                            android:ellipsize="end"
+                            android:singleLine="true"
                             android:text="@string/device_detail_internet_blocking"/>
 
                         <LinearLayout
                             android:id="@+id/end_device_detail_internet_blocking_image_linear"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:layout_weight="1">
@@ -288,6 +305,8 @@
                             android:layout_weight="1"
                             android:textSize="@dimen/text_size_18sp_in_1080"
                             android:textColor="@color/color_575757"
+                            android:ellipsize="end"
+                            android:singleLine="true"
                             android:text="@string/device_detail_parental_control"/>
 
                         <TextView
@@ -297,6 +316,8 @@
                             android:layout_weight="1"
                             android:textSize="@dimen/text_size_18sp_in_1080"
                             android:textColor="@color/color_575757"
+                            android:ellipsize="end"
+                            android:singleLine="true"
                             android:text="F-Secure"/>
 
                     </LinearLayout>
@@ -322,20 +343,24 @@
 
                     <TextView
                         android:id="@+id/end_device_detail_connect_to_title_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/device_detail_connect_to"/>
 
                     <TextView
                         android:id="@+id/end_device_detail_connect_to_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_575757"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         tools:text="WAP6804-RP"/>
 
                 </LinearLayout>
@@ -350,16 +375,18 @@
 
                     <TextView
                         android:id="@+id/end_device_detail_wifi_band_title_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/device_detail_wifi_band"/>
 
                     <TextView
                         android:id="@+id/end_device_detail_wifi_band_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
@@ -378,16 +405,18 @@
 
                     <TextView
                         android:id="@+id/end_device_detail_wifi_channel_title_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/device_detail_wifi_channel"/>
 
                     <TextView
                         android:id="@+id/end_device_detail_wifi_channel_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
@@ -406,16 +435,18 @@
 
                     <TextView
                         android:id="@+id/end_device_detail_ip_title_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/device_detail_ip_address"/>
 
                     <TextView
                         android:id="@+id/end_device_detail_ip_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
@@ -434,16 +465,18 @@
 
                     <TextView
                         android:id="@+id/end_device_detail_mac_title_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/device_detail_mac_address"/>
 
                     <TextView
                         android:id="@+id/end_device_detail_mac_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
@@ -462,20 +495,24 @@
 
                     <TextView
                         android:id="@+id/end_device_detail_max_speed_title_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/device_detail_max_speed"/>
 
                     <TextView
                         android:id="@+id/end_device_detail_max_speed_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_575757"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         tools:text="122 Mbps"/>
 
                 </LinearLayout>
@@ -490,16 +527,18 @@
 
                     <TextView
                         android:id="@+id/end_device_detail_rssi_title_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/device_detail_rssi"/>
 
                     <TextView
                         android:id="@+id/end_device_detail_rssi_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
@@ -518,20 +557,24 @@
 
                     <TextView
                         android:id="@+id/end_device_detail_manufacturer_title_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:text="@string/device_detail_manufacturer"/>
 
                     <TextView
                         android:id="@+id/end_device_detail_manufacturer_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_575757"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         tools:text="Apple"/>
 
                 </LinearLayout>

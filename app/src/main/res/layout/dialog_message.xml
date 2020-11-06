@@ -10,24 +10,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-        android:layout_gravity="center"
-        android:gravity="left"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+        android:layout_gravity="start"
+        android:gravity="start"
         android:text="Title"
         android:textStyle="bold"
         android:textColor="@color/color_000000"
-        android:textSize="@dimen/text_size_20sp_in_1080"/>
+        android:textSize="@dimen/text_size_20sp_in_1080"
+        android:ellipsize="end"
+        android:maxLines="2"/>
 
     <TextView
         android:id="@+id/msg_alert_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-        android:layout_gravity="center"
-        android:gravity="left"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+        android:layout_gravity="start"
+        android:gravity="start"
         android:text="Description"
         android:textColor="@color/color_000000"
         android:textSize="@dimen/text_size_18sp_in_1080" />
@@ -42,24 +44,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/layout_size_15dp_in_1080"
-            android:layout_marginRight="@dimen/layout_size_16dp_in_1080"
-            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/layout_size_16dp_in_1080"
+            android:layout_alignParentEnd="true"
             android:text="OK"
             android:textStyle="bold"
             android:textColor="@color/color_575757"
-            android:textSize="@dimen/text_size_16sp_in_1080"/>
+            android:textSize="@dimen/text_size_16sp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_105dp_in_1080"/>
 
         <TextView
             android:id="@+id/msg_alert_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/layout_size_15dp_in_1080"
-            android:layout_marginLeft="@dimen/layout_size_16dp_in_1080"
-            android:layout_toLeftOf="@+id/msg_alert_positive"
+            android:layout_marginStart="@dimen/layout_size_16dp_in_1080"
+            android:layout_toStartOf="@+id/msg_alert_positive"
             android:text="Cancel"
             android:textStyle="bold"
             android:textColor="@color/color_575757"
-            android:textSize="@dimen/text_size_16sp_in_1080"/>
+            android:textSize="@dimen/text_size_16sp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_105dp_in_1080"/>
 
     </RelativeLayout>
 

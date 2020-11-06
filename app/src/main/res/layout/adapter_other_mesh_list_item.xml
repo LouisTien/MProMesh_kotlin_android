@@ -18,11 +18,13 @@
         android:id="@+id/other_mesh_list_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-        android:layout_toRightOf="@+id/other_mesh_list_item_image"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+        android:layout_toEndOf="@+id/other_mesh_list_item_image"
         android:layout_centerVertical="true"
         android:textColor="@color/color_000000"
         android:textSize="@dimen/text_size_18sp_in_1080"
+        android:ellipsize="end"
+        android:singleLine="true"
         tools:text="My House"/>
 
 </RelativeLayout>

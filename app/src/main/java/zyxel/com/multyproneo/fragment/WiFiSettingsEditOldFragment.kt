@@ -225,8 +225,8 @@ class WiFiSettingsEditOldFragment : Fragment()
 
         if(showOneSSID)
         {
-            wifi_edit_wifi_24g_name_text.text = getString(R.string.wifi_settings_wifi_name)
-            wifi_edit_wifi_24g_password_text.text = getString(R.string.wifi_settings_wifi_password)
+            wifi_edit_wifi_24g_name_text.text = getString(R.string.wifi_settings_wifi_name_2)
+            wifi_edit_wifi_24g_password_text.text = getString(R.string.wifi_settings_wifi_password_2)
             wifi_edit_wifi_5g_name_area_relative.visibility = View.GONE
             wifi_edit_wifi_5g_password_area_relative.visibility = View.GONE
         }

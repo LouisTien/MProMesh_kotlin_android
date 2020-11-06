@@ -17,6 +17,8 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_000000"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="@string/cloud_login_connect_title"/>
 
         <TextView
@@ -27,6 +29,8 @@
             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
             android:text="@string/cloud_login_connect_description"
             android:textColor="@color/color_575757"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:textSize="@dimen/text_size_18sp_in_1080"/>
 
     </RelativeLayout>

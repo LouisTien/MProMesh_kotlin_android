@@ -19,6 +19,9 @@
             android:textSize="@dimen/text_size_18sp_in_1080"
             android:textColor="@color/color_575757"
             android:textStyle="bold"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_150dp_in_1080"
             android:text="@string/mesh_tip_title"/>
 
         <ImageView
@@ -26,8 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-            android:layout_alignParentRight="true"
+            android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+            android:layout_alignParentEnd="true"
             android:src="@drawable/icon_close"/>
 
     </RelativeLayout>
@@ -58,7 +61,10 @@
                     android:layout_centerVertical="true"
                     android:textSize="@dimen/text_size_18sp_in_1080"
                     android:textColor="@color/color_000000"
-                    android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:layout_marginStart="@dimen/layout_size_40dp_in_1080"
+                    android:layout_marginEnd="@dimen/layout_size_50dp_in_1080"
                     android:text="@string/cloud_mesh_tip_find_location_title"/>
 
                 <ImageView
@@ -66,8 +72,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
                     android:src="@drawable/icon_expand_open"/>
 
             </RelativeLayout>
@@ -82,8 +88,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_40dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_40dp_in_1080"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -99,9 +105,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
-                    android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
+                    android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
                     android:textColor="@color/color_000000"
-                    android:textSize="@dimen/layout_size_14dp_in_1080"
+                    android:textSize="@dimen/text_size_14sp_in_1080"
                     android:textStyle="italic"
                     android:text="@string/cloud_mesh_tip_msg_position"/>
 
@@ -118,9 +124,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
                     android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
-                    android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
+                    android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
                     android:textColor="@color/color_000000"
-                    android:textSize="@dimen/layout_size_14dp_in_1080"
+                    android:textSize="@dimen/text_size_14sp_in_1080"
                     android:textStyle="italic"
                     android:text="@string/cloud_mesh_tip_msg_suggest"/>
 
@@ -139,7 +145,10 @@
                     android:layout_centerVertical="true"
                     android:textSize="@dimen/text_size_18sp_in_1080"
                     android:textColor="@color/color_000000"
-                    android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:layout_marginStart="@dimen/layout_size_40dp_in_1080"
+                    android:layout_marginEnd="@dimen/layout_size_50dp_in_1080"
                     android:text="@string/cloud_mesh_tip_link_quality_title"/>
 
                 <ImageView
@@ -147,8 +156,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
                     android:src="@drawable/icon_expand_open"/>
 
             </RelativeLayout>
@@ -158,8 +167,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_40dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_40dp_in_1080"
                 android:orientation="vertical"
                 android:visibility="gone">
 

@@ -36,7 +36,7 @@
     <string name="setup_previous_settings_description">Saved settings of your WiFi Router are found. You can apply them to this WiFi Router.</string>
     <string name="setup_previous_settings_sub_title">Apply WiFi settings of</string>
     <string name="setup_previous_settings_details"><u>Details</u></string>
-    <string name="setup_previous_settings_details_title">WiFi Settings of</string>
+    <string name="setup_previous_settings_details_title">WiFi Settings of  \'%s\'</string>
     <string name="setup_previous_settings_details_wifi_title">WIFI NAME &amp; PASSWORD</string>
     <string name="setup_previous_settings_details_network_name_title">Network name</string>
     <string name="setup_previous_settings_details_password_title">Password</string>

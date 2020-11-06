@@ -8,8 +8,8 @@
         android:id="@+id/wifi_channel_tab_linear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
         android:orientation="horizontal">
 
         <TextView
@@ -17,21 +17,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/color_575757"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_150dp_in_1080"
             android:text="@string/diagnostic_channel_chart"/>
 
         <TextView
             android:id="@+id/wifi_channel_tab_24g_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
             android:textColor="@color/color_575757"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_60dp_in_1080"
             android:text="@string/diagnostic_wifi_channels_24g"/>
 
         <TextView
             android:id="@+id/wifi_channel_tab_slash_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
             android:textColor="@color/color_575757"
             android:text="/"/>
 
@@ -39,8 +45,11 @@
             android:id="@+id/wifi_channel_tab_5g_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
             android:textColor="@color/color_575757"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_60dp_in_1080"
             android:text="@string/diagnostic_wifi_channels_5g"/>
 
     </LinearLayout>
@@ -52,6 +61,9 @@
         android:gravity="bottom"
         android:layout_centerVertical="true"
         android:textColor="@color/color_888888"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:maxWidth="@dimen/layout_size_205dp_in_1080"
         android:text="@string/diagnostic_signal_strength"/>
 
     <LinearLayout
@@ -69,7 +81,7 @@
             android:layout_weight="1"
             android:text="-30"
             android:textColor="@color/color_575757"
-            android:textSize="@dimen/layout_size_16dp_in_1080"/>
+            android:textSize="@dimen/text_size_16sp_in_1080"/>
 
         <TextView
             android:id="@+id/wifi_channel_strength_40db_text"
@@ -78,7 +90,7 @@
             android:layout_weight="1"
             android:text="-40"
             android:textColor="@color/color_575757"
-            android:textSize="@dimen/layout_size_16dp_in_1080"/>
+            android:textSize="@dimen/text_size_16sp_in_1080"/>
 
         <TextView
             android:id="@+id/wifi_channel_strength_50db_text"
@@ -87,7 +99,7 @@
             android:layout_weight="1"
             android:text="-50"
             android:textColor="@color/color_575757"
-            android:textSize="@dimen/layout_size_16dp_in_1080"/>
+            android:textSize="@dimen/text_size_16sp_in_1080"/>
 
         <TextView
             android:id="@+id/wifi_channel_strength_60db_text"
@@ -96,7 +108,7 @@
             android:layout_weight="1"
             android:text="-60"
             android:textColor="@color/color_575757"
-            android:textSize="@dimen/layout_size_16dp_in_1080"/>
+            android:textSize="@dimen/text_size_16sp_in_1080"/>
 
         <TextView
             android:id="@+id/wifi_channel_strength_70db_text"
@@ -105,7 +117,7 @@
             android:layout_weight="1"
             android:text="-70"
             android:textColor="@color/color_575757"
-            android:textSize="@dimen/layout_size_16dp_in_1080"/>
+            android:textSize="@dimen/text_size_16sp_in_1080"/>
 
         <TextView
             android:id="@+id/wifi_channel_strength_80db_text"
@@ -114,7 +126,7 @@
             android:layout_weight="1"
             android:text="-80"
             android:textColor="@color/color_575757"
-            android:textSize="@dimen/layout_size_16dp_in_1080"/>
+            android:textSize="@dimen/text_size_16sp_in_1080"/>
 
         <TextView
             android:id="@+id/wifi_channel_strength_90db_text"
@@ -123,7 +135,7 @@
             android:layout_weight="1"
             android:text="-90"
             android:textColor="@color/color_575757"
-            android:textSize="@dimen/layout_size_16dp_in_1080"/>
+            android:textSize="@dimen/text_size_16sp_in_1080"/>
 
     </LinearLayout>
 
@@ -134,7 +146,7 @@
         android:fadeScrollbars="false"
         android:scrollbars="none"
         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-        android:layout_toRightOf="@+id/wifi_channel_strength_number_linear"
+        android:layout_toEndOf="@+id/wifi_channel_strength_number_linear"
         android:layout_below="@+id/wifi_channel_tab_linear"
         android:layout_above="@+id/wifi_channel_signal_bottom_title_text"
         android:orientation="vertical">
@@ -152,7 +164,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-        android:layout_toRightOf="@+id/wifi_channel_strength_number_linear"
+        android:layout_toEndOf="@+id/wifi_channel_strength_number_linear"
         android:layout_below="@+id/wifi_channel_tab_linear"
         android:layout_above="@+id/wifi_channel_signal_bottom_title_text"
         android:orientation="vertical">
@@ -165,8 +177,12 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/layout_size_90dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_90dp_in_1080"
         android:text="@string/diagnostic_wifi_channels"
         android:textSize="@dimen/text_size_16sp_in_1080"
-        android:textColor="@color/color_888888"/>
+        android:textColor="@color/color_888888"
+        android:ellipsize="end"
+        android:singleLine="true" />
 
 </RelativeLayout>

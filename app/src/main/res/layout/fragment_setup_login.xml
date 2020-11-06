@@ -8,9 +8,9 @@
         android:id="@+id/setup_login_help_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
         android:src="@drawable/icon_note"
         android:visibility="invisible"/>
 
@@ -33,15 +33,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_40dp_in_1080">
+                android:layout_marginEnd="@dimen/layout_size_40dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_40dp_in_1080">
 
                 <TextView
                     android:id="@+id/setup_login_title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/layout_size_22dp_in_1080"
+                    android:textSize="@dimen/text_size_22sp_in_1080"
                     android:textColor="@color/color_000000"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:text="@string/setup_login_title"/>
 
                 <TextView
@@ -49,7 +51,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-                    android:textSize="@dimen/layout_size_18dp_in_1080"
+                    android:textSize="@dimen/text_size_18sp_in_1080"
+                    android:ellipsize="end"
+                    android:maxLines="2"
                     android:text="@string/setup_login_description"
                     android:layout_below="@+id/setup_login_title_text"/>
 
@@ -58,6 +62,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/setup_login_username"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:layout_marginTop="@dimen/layout_size_40dp_in_1080"
                     android:layout_below="@+id/setup_login_description_text"/>
 
@@ -76,8 +82,10 @@
                     android:id="@+id/setup_login_username_error_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/layout_size_14dp_in_1080"
+                    android:textSize="@dimen/text_size_14sp_in_1080"
                     android:textColor="@color/color_ff2837"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:text="@string/login_error"
                     android:layout_below="@+id/setup_login_username_edit"
                     android:visibility="invisible"/>
@@ -87,6 +95,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/setup_login_password"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
                     android:layout_below="@+id/setup_login_username_error_text"/>
 
@@ -107,18 +117,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/setup_login_password_edit"
-                    android:layout_alignRight="@+id/setup_login_password_edit"
+                    android:layout_alignEnd="@+id/setup_login_password_edit"
                     android:layout_alignTop="@+id/setup_login_password_edit"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:src="@drawable/icon_hide"/>
 
                 <TextView
                     android:id="@+id/setup_login_password_error_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/layout_size_14dp_in_1080"
+                    android:textSize="@dimen/text_size_14sp_in_1080"
                     android:textColor="@color/color_ff2837"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:text="@string/login_error"
                     android:layout_below="@+id/setup_login_password_edit"
                     android:visibility="invisible"/>
@@ -139,11 +151,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_82dp_in_1080"
-                android:layout_marginRight="@dimen/layout_size_82dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_82dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_82dp_in_1080"
                 android:layout_centerHorizontal="true"
-                android:textSize="@dimen/layout_size_14dp_in_1080"
+                android:textSize="@dimen/text_size_14sp_in_1080"
                 android:textColor="@color/color_000000"
+                android:ellipsize="end"
+                android:maxLines="3"
                 android:textStyle="italic"
                 android:text="@string/setup_login_label_description"
                 android:layout_below="@+id/setup_login_label_image"/>
@@ -167,11 +181,14 @@
             android:layout_height="wrap_content"
             android:text="@string/login_title"
             android:textColor="@color/color_888888"
-            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_150dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
-            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
-            android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"/>
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_15dp_in_1080"/>
 
     </FrameLayout>
 

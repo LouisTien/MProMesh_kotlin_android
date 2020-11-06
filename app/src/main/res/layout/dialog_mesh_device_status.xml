@@ -8,9 +8,9 @@
         android:id="@+id/mesh_device_status_close_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
         android:src="@drawable/icon_close"/>
 
     <TextView
@@ -18,21 +18,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_15dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
         android:layout_below="@+id/mesh_device_status_close_image"
         android:text="@string/mesh_device_status_title"
         android:textStyle="bold"
         android:textColor="@color/color_000000"
-        android:textSize="@dimen/text_size_18sp_in_1080"/>
+        android:textSize="@dimen/text_size_18sp_in_1080"
+        android:ellipsize="end"
+        android:maxLines="2"/>
 
     <RelativeLayout
         android:id="@+id/mesh_device_status_wire_connect_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_15dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
         android:layout_below="@+id/mesh_device_status_title_text">
 
         <ImageView
@@ -46,10 +48,12 @@
             android:id="@+id/mesh_device_status_wire_connect_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
-            android:layout_toRightOf="@+id/mesh_device_status_wire_connect_image"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toEndOf="@+id/mesh_device_status_wire_connect_image"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_18sp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/mesh_device_status_wire_connect"/>
 
     </RelativeLayout>
@@ -59,8 +63,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_15dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
         android:layout_below="@+id/mesh_device_status_wire_connect_relative">
 
         <ImageView
@@ -74,10 +78,12 @@
             android:id="@+id/mesh_device_status_good_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
-            android:layout_toRightOf="@+id/mesh_device_status_good_image"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toEndOf="@+id/mesh_device_status_good_image"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_18sp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/mesh_device_status_good"/>
 
     </RelativeLayout>
@@ -87,8 +93,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_15dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
         android:layout_below="@+id/mesh_device_status_good_relative">
 
         <ImageView
@@ -102,10 +108,12 @@
             android:id="@+id/mesh_device_status_too_close_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
-            android:layout_toRightOf="@+id/mesh_device_status_too_close_image"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toEndOf="@+id/mesh_device_status_too_close_image"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_18sp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/mesh_device_status_too_close"/>
 
     </RelativeLayout>
@@ -115,8 +123,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_15dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
         android:layout_below="@+id/mesh_device_status_too_close_relative">
 
         <ImageView
@@ -130,10 +138,12 @@
             android:id="@+id/mesh_device_status_far_away_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
-            android:layout_toRightOf="@+id/mesh_device_status_far_away_image"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toEndOf="@+id/mesh_device_status_far_away_image"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_18sp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/mesh_device_status_far_away"/>
 
     </RelativeLayout>
@@ -143,8 +153,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_15dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
         android:layout_below="@+id/mesh_device_status_far_away_relative">
 
         <ImageView
@@ -158,10 +168,12 @@
             android:id="@+id/mesh_device_status_no_connect_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
-            android:layout_toRightOf="@+id/mesh_device_status_no_connect_image"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toEndOf="@+id/mesh_device_status_no_connect_image"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_18sp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/mesh_device_status_no_connect"/>
 
     </RelativeLayout>
@@ -171,8 +183,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_15dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
         android:layout_below="@+id/mesh_device_status_no_connect_relative">
 
         <ImageView
@@ -186,10 +198,12 @@
             android:id="@+id/mesh_device_status_block_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"
-            android:layout_toRightOf="@+id/mesh_device_status_block_image"
+            android:layout_marginStart="@dimen/layout_size_15dp_in_1080"
+            android:layout_toEndOf="@+id/mesh_device_status_block_image"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_18sp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/mesh_device_status_block"/>
 
     </RelativeLayout>
@@ -198,9 +212,9 @@
         android:id="@+id/mesh_device_status_empty_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
         android:layout_below="@+id/mesh_device_status_block_relative"
         android:src="@drawable/icon_close"
         android:visibility="invisible"/>

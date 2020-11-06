@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
         android:src="@drawable/icon_back"/>
 
     <TextView
@@ -17,10 +17,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_60dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_60dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_60dp_in_1080"
         android:layout_below="@+id/mesh_back_image"
         android:textSize="@dimen/text_size_22sp_in_1080"
         android:textColor="@color/color_000000"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:text="@string/mesh_title"/>
 
     <ScrollView
@@ -44,9 +47,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
                 android:layout_gravity="center"
+                android:layout_marginStart="@dimen/layout_size_60dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_60dp_in_1080"
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:textColor="@color/color_575757"
                 android:textStyle="bold"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="@string/mesh_with_wireless"/>
 
             <FrameLayout
@@ -67,9 +74,9 @@
                     android:id="@+id/mesh_wireless_enter_image"
                     android:layout_width="@dimen/layout_size_30dp_in_1080"
                     android:layout_height="@dimen/layout_size_25dp_in_1080"
-                    android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
                     android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
-                    android:layout_gravity="bottom|right"/>
+                    android:layout_gravity="bottom|end"/>
 
             </FrameLayout>
 
@@ -78,10 +85,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_60dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_60dp_in_1080"
                 android:layout_gravity="center"
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:textColor="@color/color_575757"
                 android:textStyle="bold"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="@string/mesh_with_wire"/>
 
             <FrameLayout
@@ -102,9 +113,9 @@
                     android:id="@+id/mesh_wire_enter_image"
                     android:layout_width="@dimen/layout_size_30dp_in_1080"
                     android:layout_height="@dimen/layout_size_25dp_in_1080"
-                    android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
                     android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
-                    android:layout_gravity="bottom|right"/>
+                    android:layout_gravity="bottom|end"/>
 
             </FrameLayout>
 
@@ -112,12 +123,15 @@
                 android:id="@+id/mesh_tip_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
                 android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
                 android:textSize="@dimen/text_size_16sp_in_1080"
                 android:textColor="@color/color_575757"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:maxWidth="@dimen/layout_size_150dp_in_1080"
                 android:text="@string/mesh_tip"
                 android:visibility="gone"/>
 

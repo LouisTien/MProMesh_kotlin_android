@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-            android:layout_marginRight="@dimen/layout_size_10dp_in_1080">
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080">
 
             <ImageView
                 android:id="@+id/menu_navigation_image"
@@ -30,16 +30,16 @@
                 android:id="@+id/devices_search_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:src="@drawable/icon_search"/>
 
             <ImageView
                 android:id="@+id/devices_refresh_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/devices_search_image"
+                android:layout_toStartOf="@+id/devices_search_image"
                 android:layout_marginTop="@dimen/layout_size_3dp_in_1080"
-                android:layout_marginRight="@dimen/layout_size_5dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_5dp_in_1080"
                 android:src="@drawable/icon_retry_s"/>
 
             <TextView
@@ -49,8 +49,11 @@
                 android:textStyle="bold"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_36sp_in_1080"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:layout_marginEnd="@dimen/layout_size_60dp_in_1080"
                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
                 android:text="@string/common_devices"/>
 
         </RelativeLayout>
@@ -59,7 +62,7 @@
             android:id="@+id/devices_activated_area_linear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
             android:orientation="horizontal">
 
             <TextView
@@ -74,16 +77,18 @@
                 android:id="@+id/devices_activated_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_size_5dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_5dp_in_1080"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_16sp_in_1080"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="@string/devices_activated"/>
 
             <TextView
                 android:id="@+id/devices_total_value_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_size_5dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_5dp_in_1080"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 tools:text="26"/>
@@ -92,9 +97,11 @@
                 android:id="@+id/devices_total_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_size_5dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_5dp_in_1080"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_16sp_in_1080"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="@string/devices_total"/>
 
         </LinearLayout>
@@ -125,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
                     android:src="@drawable/device_sorting_1"/>
 
                 <TextView
@@ -133,10 +140,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
-                    android:layout_toRightOf="@+id/devices_home_devices_sort_image"
+                    android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+                    android:layout_toEndOf="@+id/devices_home_devices_sort_image"
                     android:textColor="@color/color_575757"
                     android:textSize="@dimen/text_size_16sp_in_1080"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:text="@string/devices_home_devices"/>
 
             </RelativeLayout>
@@ -145,8 +154,8 @@
                 android:id="@+id/devices_home_devices_list_swipe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
                 android:layout_below="@+id/devices_home_devices_title_bar_relative"
                 android:layout_above="@+id/home_extra_info_area_linear">
 
@@ -181,7 +190,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                    android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
                     android:src="@drawable/device_sorting_1"/>
 
                 <TextView
@@ -189,10 +198,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
-                    android:layout_toRightOf="@+id/devices_guest_devices_sort_image"
+                    android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+                    android:layout_toEndOf="@+id/devices_guest_devices_sort_image"
                     android:textColor="@color/color_575757"
                     android:textSize="@dimen/text_size_16sp_in_1080"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:text="@string/devices_guest_devices"/>
 
             </RelativeLayout>
@@ -201,8 +212,8 @@
                 android:id="@+id/devices_guest_devices_list_swipe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
                 android:layout_below="@+id/devices_home_devices_title_bar_relative"
                 android:layout_above="@+id/home_extra_info_area_linear">
 

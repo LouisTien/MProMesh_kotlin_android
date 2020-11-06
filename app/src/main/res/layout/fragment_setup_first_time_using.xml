@@ -45,10 +45,12 @@
                 android:id="@+id/setup_first_time_context_description1_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
                 android:text="@string/setup_first_time_using_description1"
                 android:textColor="@color/color_000000"
-                android:textSize="@dimen/text_size_16sp_in_1080"/>
+                android:textSize="@dimen/text_size_16sp_in_1080"
+                android:ellipsize="end"
+                android:maxLines="2"/>
 
         </LinearLayout>
 
@@ -71,10 +73,12 @@
                 android:id="@+id/setup_first_time_context_description2_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
                 android:text="@string/setup_first_time_using_description2"
                 android:textColor="@color/color_000000"
-                android:textSize="@dimen/text_size_16sp_in_1080"/>
+                android:textSize="@dimen/text_size_16sp_in_1080"
+                android:ellipsize="end"
+                android:maxLines="2"/>
 
         </LinearLayout>
 
@@ -97,10 +101,12 @@
                 android:id="@+id/setup_first_time_context_description3_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
                 android:text="@string/setup_first_time_using_description3"
                 android:textColor="@color/color_000000"
-                android:textSize="@dimen/text_size_16sp_in_1080"/>
+                android:textSize="@dimen/text_size_16sp_in_1080"
+                android:ellipsize="end"
+                android:maxLines="2"/>
 
         </LinearLayout>
 
@@ -121,11 +127,14 @@
             android:layout_height="wrap_content"
             android:text="@string/common_start"
             android:textColor="@color/color_000000"
-            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_150dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
-            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
-            android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"/>
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_15dp_in_1080"/>
 
     </FrameLayout>
 

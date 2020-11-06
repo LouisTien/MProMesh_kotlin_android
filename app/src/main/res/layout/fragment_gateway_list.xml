@@ -8,7 +8,7 @@
         android:id="@+id/gateway_retry_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
         android:src="@drawable/icon_retry"/>
 
@@ -16,16 +16,18 @@
         android:id="@+id/gateway_msg_area_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_40dp_in_1080"
         android:layout_below="@+id/gateway_retry_image">
 
         <TextView
             android:id="@+id/gateway_found_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/layout_size_25dp_in_1080"
+            android:textSize="@dimen/text_size_25sp_in_1080"
             android:textColor="@color/color_2d2b40"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="@string/gateway_list_title"/>
 
         <TextView
@@ -33,8 +35,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/text_size_20sp_in_1080"
             android:text="@string/gateway_list_choose"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:layout_below="@+id/gateway_found_title_text"/>
 
     </RelativeLayout>

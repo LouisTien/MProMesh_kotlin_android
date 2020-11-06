@@ -9,9 +9,9 @@
         android:id="@+id/setup_previous_settings_help_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
         android:src="@drawable/icon_note"
         android:visibility="invisible"/>
 
@@ -20,16 +20,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_40dp_in_1080"
         android:layout_below="@+id/setup_previous_settings_help_image">
 
         <TextView
             android:id="@+id/setup_previous_settings_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/layout_size_22dp_in_1080"
+            android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_000000"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="@string/setup_previous_settings_title"/>
 
         <TextView
@@ -37,7 +39,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-            android:textSize="@dimen/layout_size_18dp_in_1080"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="3"
             android:text="@string/setup_previous_settings_description"
             android:layout_below="@+id/setup_previous_settings_title_text"/>
 
@@ -48,8 +52,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_40dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_40dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_40dp_in_1080"
         android:layout_below="@+id/setup_previous_settings_msg_area_relative">
 
         <RelativeLayout
@@ -62,8 +66,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/setup_previous_settings_sub_title"
-                android:textSize="@dimen/layout_size_20dp_in_1080"
-                android:textColor="@color/color_000000"/>
+                android:textSize="@dimen/text_size_20sp_in_1080"
+                android:textColor="@color/color_000000"
+                android:ellipsize="end"
+                android:singleLine="true"/>
 
             <ImageView
                 android:id="@+id/setup_previous_settings_detail_image"
@@ -72,18 +78,20 @@
                 android:src="@drawable/icon_detail"
                 android:layout_below="@+id/setup_previous_settings_sub_title"
                 android:layout_marginTop="@dimen/layout_size_2dp_in_1080"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentEnd="true"/>
 
             <TextView
                 android:id="@+id/setup_previous_settings_name_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="My House"
-                android:textSize="@dimen/layout_size_18dp_in_1080"
+                android:textSize="@dimen/text_size_18sp_in_1080"
                 android:textColor="@color/color_888888"
-                android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
                 android:layout_below="@+id/setup_previous_settings_sub_title"
-                android:layout_toLeftOf="@+id/setup_previous_settings_detail_image"/>
+                android:layout_toStartOf="@+id/setup_previous_settings_detail_image"/>
 
             <ImageView
                 android:id="@+id/setup_previous_settings_line_image"
@@ -98,10 +106,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_below="@+id/setup_previous_settings_line_image"
                 android:textColor="@color/color_003eab"
-                android:textSize="@dimen/layout_size_18dp_in_1080"
+                android:textSize="@dimen/text_size_18sp_in_1080"
+                android:maxWidth="@dimen/layout_size_90dp_in_1080"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="@string/setup_previous_settings_details"/>
 
         </RelativeLayout>
@@ -113,8 +124,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
         android:layout_marginBottom="@dimen/layout_size_30dp_in_1080"
         android:background="@drawable/button_style_yellow_bg">
 
@@ -124,11 +135,14 @@
             android:layout_height="wrap_content"
             android:text="@string/setup_previous_settings_skip"
             android:textColor="@color/color_000000"
-            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_90dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
-            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
-            android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"/>
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_15dp_in_1080"/>
 
     </FrameLayout>
 
@@ -147,11 +161,14 @@
             android:layout_height="wrap_content"
             android:text="@string/setup_previous_settings_apply"
             android:textColor="@color/color_000000"
-            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_90dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
-            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
-            android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"/>
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_15dp_in_1080"/>
 
     </FrameLayout>
 

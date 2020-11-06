@@ -122,12 +122,15 @@
     <dimen name="text_size_12sp_in_1080">12sp</dimen>
     <dimen name="text_size_13sp_in_1080">13sp</dimen>
     <dimen name="text_size_14sp_in_1080">14sp</dimen>
+    <dimen name="text_size_15sp_in_1080">15sp</dimen>
     <dimen name="text_size_16sp_in_1080">16sp</dimen>
     <dimen name="text_size_18sp_in_1080">18sp</dimen>
     <dimen name="text_size_20sp_in_1080">20sp</dimen>
     <dimen name="text_size_22sp_in_1080">22sp</dimen>
     <dimen name="text_size_24sp_in_1080">24sp</dimen>
+    <dimen name="text_size_25sp_in_1080">25sp</dimen>
     <dimen name="text_size_26sp_in_1080">26sp</dimen>
+    <dimen name="text_size_30sp_in_1080">30sp</dimen>
     <dimen name="text_size_36sp_in_1080">36sp</dimen>
     <dimen name="text_size_48sp_in_1080">48sp</dimen>
     <dimen name="text_size_56sp_in_1080">56sp</dimen>

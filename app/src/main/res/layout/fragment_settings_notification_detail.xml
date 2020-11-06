@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
             android:src="@drawable/icon_back"/>
 
         <TextView
@@ -24,8 +24,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/layout_size_105dp_in_1080"
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_575757"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="@string/settings_notification"/>
 
     </RelativeLayout>
@@ -35,23 +38,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_25dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_25dp_in_1080"
         android:layout_below="@+id/settings_notification_detail_title_area_relative">
 
         <TextView
             android:id="@+id/settings_notification_detail_sub_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/layout_size_60dp_in_1080"
             android:textColor="@color/color_000000"
-            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="@string/settings_notification_sub_title"/>
 
         <ImageView
             android:id="@+id/settings_notification_detail_switch_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:src="@drawable/switch_off_2"/>
 
         <ImageView

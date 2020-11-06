@@ -263,35 +263,43 @@ class WiFiSettingsOldFragment : Fragment()
             if(meshInfo.Object.Enable)
             {
                 val lp_share = FrameLayout.LayoutParams(wifi_settings_wifi_share_image.layoutParams).apply{
-                    gravity = Gravity.BOTTOM or Gravity.LEFT
-                    setMargins(dip(20), 0, 0, dip(20))
+                    gravity = Gravity.BOTTOM or Gravity.START
+                    marginStart = dip(20)
+                    bottomMargin = dip(20)
+//                    setMargins(dip(20), 0, 0, dip(20))
                 }
                 wifi_settings_wifi_share_image.layoutParams = lp_share
 
                 val lp_edit = FrameLayout.LayoutParams(wifi_settings_wifi_edit_image.layoutParams).apply{
-                    gravity = Gravity.BOTTOM or Gravity.RIGHT
-                    setMargins(0, 0, dip(20), dip(20))
+                    gravity = Gravity.BOTTOM or Gravity.END
+                    marginEnd = dip(20)
+                    bottomMargin = dip(20)
+//                    setMargins(0, 0, dip(20), dip(20))
                 }
                 wifi_settings_wifi_edit_image.layoutParams = lp_edit
 
                 wifi_settings_wifi_area_frame.setBackgroundResource(R.drawable.card_wifibg)
                 wifi_settings_wifi_5g_area_relative.visibility = View.GONE
                 wifi_settings_wifi_24g_name_title_text.text = getString(R.string.wifi_settings_wifi_name_2)
-                wifi_settings_wifi_24g_password_title_text.text = getString(R.string.wifi_settings_wifi_password)
+                wifi_settings_wifi_24g_password_title_text.text = getString(R.string.wifi_settings_wifi_password_2)
                 wifi_settings_wifi_24g_name_text.text = WiFiName
                 wifi_settings_wifi_24g_password_text.text = WiFiPwd
             }
             else
             {
                 val lp_share = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT).apply{
-                    gravity = Gravity.BOTTOM or Gravity.LEFT
-                    setMargins(dip(17), 0, 0, dip(20))
+                    gravity = Gravity.BOTTOM or Gravity.START
+                    marginStart = dip(17)
+                    bottomMargin = dip(20)
+//                    setMargins(dip(17), 0, 0, dip(20))
                 }
                 wifi_settings_wifi_share_image.layoutParams = lp_share
 
                 val lp_edit = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT).apply{
-                    gravity = Gravity.BOTTOM or Gravity.RIGHT
-                    setMargins(0, 0, dip(17), dip(20))
+                    gravity = Gravity.BOTTOM or Gravity.END
+                    marginEnd = dip(17)
+                    bottomMargin = dip(20)
+//                    setMargins(0, 0, dip(17), dip(20))
                 }
                 wifi_settings_wifi_edit_image.layoutParams = lp_edit
 

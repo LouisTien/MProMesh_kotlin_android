@@ -17,21 +17,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-            android:layout_marginRight="@dimen/layout_size_10dp_in_1080">
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080">
 
             <ImageView
                 android:id="@+id/cloud_home_site_pic_image"
                 android:layout_width="@dimen/layout_size_50dp_in_1080"
                 android:layout_height="@dimen/layout_size_50dp_in_1080"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"/>
 
             <ImageView
                 android:id="@+id/cloud_home_site_refresh_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/cloud_home_site_pic_image"
-                android:layout_marginRight="@dimen/layout_size_15dp_in_1080"
+                android:layout_toStartOf="@+id/cloud_home_site_pic_image"
+                android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
                 android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
                 android:src="@drawable/icon_retry_b"/>
 
@@ -42,8 +42,13 @@
                 android:textStyle="bold"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_36sp_in_1080"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/cloud_home_site_refresh_image"
                 android:text="@string/common_home"
                 android:visibility="invisible"/>
 
@@ -52,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
                 android:src="@drawable/metronet_logo"
                 android:visibility="invisible"/>
 
@@ -63,15 +68,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
             android:visibility="gone">
 
             <ImageView
                 android:id="@+id/home_site_refresh_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/layout_size_15dp_in_1080"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
                 android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
                 android:src="@drawable/icon_retry_b"/>
 
@@ -82,8 +87,13 @@
                 android:textStyle="bold"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_36sp_in_1080"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/home_site_refresh_image"
                 android:text="@string/common_home"/>
 
         </RelativeLayout>
@@ -105,8 +115,10 @@
             android:textColor="@color/color_575757"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_20sp_in_1080"
-            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-            android:layout_alignParentLeft="true"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+            android:layout_alignParentStart="true"
             android:text="@string/home_mesh"/>
 
         <TextView
@@ -116,8 +128,10 @@
             android:textColor="@color/color_575757"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_20sp_in_1080"
-            android:layout_toRightOf="@+id/home_mesh_status_text"
-            android:layout_marginLeft="@dimen/layout_size_5dp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_toEndOf="@+id/home_mesh_status_text"
+            android:layout_marginStart="@dimen/layout_size_5dp_in_1080"
             tools:text="@string/home_mesh_up"/>
 
     </RelativeLayout>
@@ -135,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
-            android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_40dp_in_1080"
             android:src="@drawable/icon_device_has"
             android:visibility="invisible"/>
 
@@ -145,17 +159,19 @@
             android:layout_height="wrap_content"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_20sp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"
             tools:text="My House"
-            android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
-            android:layout_toRightOf="@+id/cloud_home_wifi_router_image"/>
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toEndOf="@+id/cloud_home_wifi_router_image"/>
 
         <ImageView
             android:id="@+id/cloud_home_wifi_router_detail_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
-            android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
             android:src="@drawable/icon_detail"/>
 
     </RelativeLayout>
@@ -185,18 +201,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/layout_size_40dp_in_1080"
+                    android:layout_marginStart="@dimen/layout_size_40dp_in_1080"
+                    android:layout_marginEnd="@dimen/layout_size_50dp_in_1080"
                     android:textColor="@color/color_575757"
                     android:textSize="@dimen/text_size_16sp_in_1080"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:text="@string/home_mesh_devices"/>
 
                 <ImageView
                     android:id="@+id/cloud_home_mesh_devices_add_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                    android:layout_marginRight="@dimen/layout_size_25dp_in_1080"
+                    android:layout_marginEnd="@dimen/layout_size_25dp_in_1080"
                     android:src="@drawable/icon_add"/>
 
             </RelativeLayout>
@@ -205,10 +224,8 @@
                 android:id="@+id/cloud_home_mesh_device_list_swipe"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-                android:layout_below="@+id/cloud_home_mesh_devices_title_bar_relative"
-                android:layout_above="@+id/cloud_home_extra_info_area_linear">
+                android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_20dp_in_1080">
 
                 <ListView
                     android:id="@+id/cloud_home_mesh_device_list"
@@ -229,9 +246,9 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
-        <FrameLayout
+        <RelativeLayout
             android:id="@+id/cloud_home_connect_device_frame"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
@@ -242,35 +259,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_35dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_35dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_35dp_in_1080"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_36sp_in_1080"
+                android:ellipsize="end"
+                android:singleLine="true"
                 tools:text="20"/>
 
             <TextView
                 android:id="@+id/cloud_home_connect_device_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="@dimen/layout_size_35dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_35dp_in_1080"
+                android:layout_below="@+id/cloud_home_connect_device_count_text"
+                android:layout_marginTop="@dimen/layout_size_54dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_50dp_in_1080"
                 android:textColor="@color/color_575757"
                 android:textSize="@dimen/text_size_20sp_in_1080"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@string/home_connected_devices" />
 
-            <ImageView
-                android:id="@+id/cloud_home_connect_device_enter_image"
-                android:layout_width="@dimen/layout_size_30dp_in_1080"
-                android:layout_height="@dimen/layout_size_25dp_in_1080"
-                android:layout_gravity="bottom|right"
-                android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginRight="@dimen/layout_size_20dp_in_1080"/>
+        </RelativeLayout >
 
-        </FrameLayout >
-
-        <FrameLayout
+        <RelativeLayout
             android:id="@+id/cloud_home_guest_wifi_frame"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
@@ -281,40 +296,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_35dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_35dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_35dp_in_1080"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_36sp_in_1080"
+                android:ellipsize="end"
+                android:singleLine="true"
                 tools:text="OFF"/>
 
             <ImageView
                 android:id="@+id/cloud_home_guest_wifi_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_size_35dp_in_1080"
-                android:layout_marginBottom="@dimen/layout_size_15dp_in_1080"
-                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/layout_size_35dp_in_1080"
+                android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+                android:layout_below="@+id/cloud_home_guest_wifi_status_text"
                 android:src="@drawable/switch_off_2"/>
 
             <TextView
                 android:id="@+id/cloud_home_guest_wifi_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="@dimen/layout_size_35dp_in_1080"
-                android:layout_marginLeft="@dimen/layout_size_35dp_in_1080"
+                android:layout_marginTop="@dimen/layout_size_54dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_50dp_in_1080"
+                android:layout_below="@+id/cloud_home_guest_wifi_status_text"
                 android:textColor="@color/color_575757"
                 android:textSize="@dimen/text_size_20sp_in_1080"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@string/home_guest_wifi" />
 
-            <ImageView
-                android:id="@+id/cloud_home_guest_wifi_enter_image"
-                android:layout_width="@dimen/layout_size_30dp_in_1080"
-                android:layout_height="@dimen/layout_size_25dp_in_1080"
-                android:layout_gravity="bottom|right"
-                android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
-                android:layout_marginRight="@dimen/layout_size_20dp_in_1080"/>
-
-        </FrameLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

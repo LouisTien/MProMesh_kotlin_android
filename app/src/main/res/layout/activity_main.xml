@@ -28,7 +28,7 @@
 
             <RelativeLayout
                 android:id="@+id/home_relative"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
@@ -47,6 +47,8 @@
                     android:layout_alignBottom="@+id/home_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/common_home"/>
 
@@ -54,7 +56,7 @@
 
             <RelativeLayout
                 android:id="@+id/devices_relative"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
@@ -73,6 +75,8 @@
                     android:layout_alignBottom="@+id/devices_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/common_devices"/>
 
@@ -80,7 +84,7 @@
 
             <RelativeLayout
                 android:id="@+id/wifi_relative"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
@@ -99,6 +103,8 @@
                     android:layout_alignBottom="@+id/wifi_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/button_text_wifi"/>
 
@@ -106,7 +112,7 @@
 
             <RelativeLayout
                 android:id="@+id/diagnostic_relative"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:visibility="gone">
@@ -126,6 +132,8 @@
                     android:layout_alignBottom="@+id/diagnostic_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/common_diagnostic"/>
 
@@ -133,7 +141,7 @@
 
             <RelativeLayout
                 android:id="@+id/account_relative"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
@@ -152,6 +160,8 @@
                     android:layout_alignBottom="@+id/account_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/common_account"/>
 
@@ -168,7 +178,7 @@
 
             <RelativeLayout
                 android:id="@+id/cloud_home_relative"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
@@ -187,6 +197,8 @@
                     android:layout_alignBottom="@+id/cloud_home_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/common_home"/>
 
@@ -194,7 +206,7 @@
 
             <RelativeLayout
                 android:id="@+id/cloud_devices_relative"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
@@ -213,6 +225,8 @@
                     android:layout_alignBottom="@+id/cloud_devices_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/common_devices"/>
 
@@ -220,7 +234,7 @@
 
             <RelativeLayout
                 android:id="@+id/cloud_wifi_relative"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
@@ -239,6 +253,8 @@
                     android:layout_alignBottom="@+id/cloud_wifi_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/button_text_wifi"/>
 
@@ -246,7 +262,7 @@
 
             <RelativeLayout
                 android:id="@+id/cloud_settings_relative"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
@@ -265,6 +281,8 @@
                     android:layout_alignBottom="@+id/cloud_settings_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/common_settings"/>
 

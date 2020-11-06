@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
             android:src="@drawable/icon_back"/>
 
         <TextView
@@ -24,6 +24,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/layout_size_102dp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_575757"
             android:text="@string/settings_troubleshooting"/>
@@ -64,7 +67,7 @@
                         android:id="@+id/settings_troubleshooting_detail_description1_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description1"
                         android:textColor="@color/color_000000"
                         android:textSize="@dimen/text_size_16sp_in_1080"/>
@@ -89,7 +92,7 @@
                         android:id="@+id/settings_troubleshooting_detail_description2_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description2"
                         android:textColor="@color/color_000000"
                         android:textSize="@dimen/text_size_16sp_in_1080"/>
@@ -114,7 +117,7 @@
                         android:id="@+id/settings_troubleshooting_detail_description3_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description3"
                         android:textColor="@color/color_000000"
                         android:textSize="@dimen/text_size_16sp_in_1080"/>
@@ -139,7 +142,7 @@
                         android:id="@+id/settings_troubleshooting_detail_description4_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description1"
                         android:textColor="@color/color_000000"
                         android:textSize="@dimen/text_size_16sp_in_1080"/>
@@ -164,7 +167,7 @@
                         android:id="@+id/settings_troubleshooting_detail_description5_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description1"
                         android:textColor="@color/color_000000"
                         android:textSize="@dimen/text_size_16sp_in_1080"/>

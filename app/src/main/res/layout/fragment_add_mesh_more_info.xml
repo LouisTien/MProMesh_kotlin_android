@@ -9,8 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-        android:layout_alignParentRight="true"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+        android:layout_alignParentEnd="true"
         android:src="@drawable/icon_close"/>
 
     <ScrollView
@@ -19,8 +19,8 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
         android:layout_below="@+id/mesh_help_cancel_image">
 
         <LinearLayout
@@ -35,6 +35,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:textColor="@color/color_000000"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="@string/mesh_more_info_title"/>
 
             <TextView
@@ -55,12 +57,14 @@
 
             <TextView
                 android:id="@+id/mesh_help_example_text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
-                android:layout_gravity="right"
+                android:layout_gravity="end"
                 android:textSize="@dimen/text_size_16sp_in_1080"
                 android:textColor="@color/color_575757"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:text="@string/mesh_more_info_example"/>
 
             <ImageView

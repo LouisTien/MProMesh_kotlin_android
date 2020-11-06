@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
         android:src="@drawable/icon_back"
         android:visibility="invisible"/>
 
@@ -19,8 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_38dp_in_1080"
         android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
-        android:layout_toRightOf="@+id/setup_connect_troubleshooting_back_image"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+        android:layout_toEndOf="@+id/setup_connect_troubleshooting_back_image"
         android:layout_above="@+id/setup_connect_troubleshooting_retry_image"
         android:layout_below="@+id/setup_connect_troubleshooting_back_image">
 
@@ -30,6 +30,8 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_ff2837"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_title"/>
 
         <ScrollView
@@ -51,7 +53,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_sub_title"
                     android:textColor="@color/color_575757"
-                    android:textSize="@dimen/text_size_18sp_in_1080"/>
+                    android:textSize="@dimen/text_size_18sp_in_1080"
+                    android:ellipsize="end"
+                    android:maxLines="2"/>
 
                 <LinearLayout
                     android:id="@+id/setup_connect_troubleshooting_description1_linear"
@@ -71,7 +75,7 @@
                         android:id="@+id/setup_connect_troubleshooting_description1_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description1"
                         android:textColor="@color/color_000000"
                         android:textSize="@dimen/text_size_16sp_in_1080"/>
@@ -96,7 +100,7 @@
                         android:id="@+id/setup_connect_troubleshooting_description2_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description2"
                         android:textColor="@color/color_000000"
                         android:textSize="@dimen/text_size_16sp_in_1080"/>
@@ -121,7 +125,7 @@
                         android:id="@+id/setup_connect_troubleshooting_description3_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description3"
                         android:textColor="@color/color_000000"
                         android:textSize="@dimen/text_size_16sp_in_1080"/>
@@ -146,7 +150,7 @@
                         android:id="@+id/setup_connect_troubleshooting_description4_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description1"
                         android:textColor="@color/color_000000"
                         android:textSize="@dimen/text_size_16sp_in_1080"/>
@@ -171,7 +175,7 @@
                         android:id="@+id/setup_connect_troubleshooting_description5_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/layout_size_10dp_in_1080"
+                        android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
                         android:text="@string/setup_connect_troubleshooting_cannot_connect_controller_description1"
                         android:textColor="@color/color_000000"
                         android:textSize="@dimen/text_size_16sp_in_1080"/>
@@ -199,11 +203,14 @@
             android:layout_height="wrap_content"
             android:text="@string/mesh_retry"
             android:textColor="@color/color_000000"
-            android:textSize="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_150dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
-            android:layout_marginRight="@dimen/layout_size_10dp_in_1080"
-            android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"/>
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_15dp_in_1080"/>
 
     </FrameLayout>
 

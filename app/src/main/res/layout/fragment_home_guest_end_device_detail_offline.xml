@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
             android:src="@drawable/icon_back"/>
 
         <TextView
@@ -23,8 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/layout_size_105dp_in_1080"
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_575757"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="@string/device_detail_title"/>
 
     </RelativeLayout>
@@ -34,8 +37,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
         android:textSize="@dimen/text_size_22sp_in_1080"
         android:textColor="@color/color_575757"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:text="@string/device_detail_offline_msg"/>
 
 </RelativeLayout>

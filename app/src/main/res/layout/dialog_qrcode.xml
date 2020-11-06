@@ -14,7 +14,7 @@
 
         <LinearLayout
             android:id="@+id/QRCode_dialog_title_24g_linear"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1">
@@ -38,7 +38,7 @@
 
         <LinearLayout
             android:id="@+id/QRCode_dialog_title_5g_linear"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1">
@@ -73,9 +73,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_25dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_25dp_in_1080"
         android:textSize="@dimen/text_size_18sp_in_1080"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:textColor="@color/color_000000"
         android:text="@string/qrcode_dialog_wifi_msg"/>
 
@@ -83,13 +85,16 @@
         android:id="@+id/QRCode_dialog_positive_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_marginTop="@dimen/text_size_20sp_in_1080"
         android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_220dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_25dp_in_1080"
         android:textSize="@dimen/text_size_20sp_in_1080"
         android:textStyle="bold"
         android:textColor="@color/color_575757"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:text="@string/common_done"/>
 
 </LinearLayout>

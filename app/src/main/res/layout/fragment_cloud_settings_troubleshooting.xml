@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
             android:src="@drawable/icon_back"/>
 
         <TextView
@@ -24,8 +24,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/layout_size_94dp_in_1080"
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_575757"
+            android:ellipsize="end"
+            android:singleLine="true"
             android:text="@string/settings_troubleshooting"/>
 
     </RelativeLayout>
@@ -35,8 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
         android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
         android:layout_below="@+id/settings_troubleshooting_title_area_relative">
 
@@ -44,18 +47,19 @@
             android:id="@+id/settings_troubleshooting_internet_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/settings_troubleshooting_internet_enter_image"
+            android:layout_marginEnd="@dimen/layout_size_30dp_in_1080"
             android:textColor="@color/color_000000"
-            android:textSize="@dimen/layout_size_18dp_in_1080"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/settings_troubleshooting_internet_title"/>
 
         <ImageView
             android:id="@+id/settings_troubleshooting_internet_enter_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/icon_detail"/>
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/icon_detail" />
 
     </RelativeLayout>
 
@@ -64,8 +68,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
         android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
         android:layout_below="@+id/settings_troubleshooting_internet_relative">
 
@@ -73,17 +77,18 @@
             android:id="@+id/settings_troubleshooting_ethernet_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/settings_troubleshooting_ethernet_enter_image"
+            android:layout_marginEnd="@dimen/layout_size_30dp_in_1080"
             android:textColor="@color/color_000000"
-            android:textSize="@dimen/layout_size_18dp_in_1080"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="3"
             android:text="@string/settings_troubleshooting_ethernet_title"/>
 
         <ImageView
             android:id="@+id/settings_troubleshooting_ethernet_enter_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:src="@drawable/icon_detail"/>
 
     </RelativeLayout>
@@ -93,8 +98,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
         android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
         android:layout_below="@+id/settings_troubleshooting_ethernet_relative"
         android:visibility="gone">
@@ -103,17 +108,18 @@
             android:id="@+id/settings_troubleshooting_qrcode_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/settings_troubleshooting_qrcode_enter_image"
+            android:layout_marginEnd="@dimen/layout_size_30dp_in_1080"
             android:textColor="@color/color_000000"
-            android:textSize="@dimen/layout_size_18dp_in_1080"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/settings_troubleshooting_qrcode_title"/>
 
         <ImageView
             android:id="@+id/settings_troubleshooting_qrcode_enter_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:src="@drawable/icon_detail"/>
 
     </RelativeLayout>
@@ -123,8 +129,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
         android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
         android:layout_below="@+id/settings_troubleshooting_qrcode_relative">
 
@@ -132,17 +138,18 @@
             android:id="@+id/settings_troubleshooting_wifi_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/settings_troubleshooting_wifi_enter_image"
+            android:layout_marginEnd="@dimen/layout_size_30dp_in_1080"
             android:textColor="@color/color_000000"
-            android:textSize="@dimen/layout_size_18dp_in_1080"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/settings_troubleshooting_wifi_title"/>
 
         <ImageView
             android:id="@+id/settings_troubleshooting_wifi_enter_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:src="@drawable/icon_detail"/>
 
     </RelativeLayout>

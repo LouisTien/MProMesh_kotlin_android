@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/gateway_model_frame"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -10,7 +10,6 @@
         android:id="@+id/gateway_delete_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:src="@drawable/icon_remove50"
         android:visibility="gone"/>
 
@@ -28,8 +27,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/layout_size_48dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_15dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
         android:layout_gravity="center|bottom"
         android:singleLine="true"
         android:ellipsize="end"
@@ -40,9 +39,9 @@
         android:id="@+id/gateway_model_enter_image"
         android:layout_width="@dimen/layout_size_30dp_in_1080"
         android:layout_height="@dimen/layout_size_25dp_in_1080"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
         android:visibility="gone"/>
 
 </FrameLayout>

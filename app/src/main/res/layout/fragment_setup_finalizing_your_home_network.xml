@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
         android:src="@drawable/icon_back"
         android:visibility="invisible"/>
 
@@ -19,8 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_size_35dp_in_1080"
-        android:layout_marginRight="@dimen/layout_size_30dp_in_1080"
-        android:layout_marginLeft="@dimen/layout_size_30dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_30dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
         android:layout_below="@+id/setup_finalizing_network_back_image">
 
         <TextView
@@ -29,6 +29,8 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_000000"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="@string/finalizing_network_title"/>
 
         <TextView
@@ -39,6 +41,8 @@
             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
             android:text="@string/finalizing_network_description"
             android:textColor="@color/color_575757"
+            android:ellipsize="end"
+            android:maxLines="3"
             android:textSize="@dimen/text_size_18sp_in_1080"/>
 
     </RelativeLayout>
