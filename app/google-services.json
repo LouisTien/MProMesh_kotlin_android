@@ -15,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "578617382573-vo8qt1vj1plnfs7ipj49ttfs0cc7aa77.apps.googleusercontent.com",
+          "client_id": "578617382573-6neg4p0c4m20v6s5lgngfjun3pa1c9np.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "zyxel.com.multyproneo",
+            "certificate_hash": "14c5d6545b5e51efc9312739ac4badc91967108e"
+          }
+        },
+        {
+          "client_id": "578617382573-7pum8tbfv59rd0vb8kn5rogsbpulr1fd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "zyxel.com.multyproneo",
@@ -23,11 +31,11 @@
           }
         },
         {
-          "client_id": "578617382573-6neg4p0c4m20v6s5lgngfjun3pa1c9np.apps.googleusercontent.com",
+          "client_id": "578617382573-8qpl2744hrqlvd27rgkb81dnqa3qf31i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "zyxel.com.multyproneo",
-            "certificate_hash": "14c5d6545b5e51efc9312739ac4badc91967108e"
+            "certificate_hash": "5d3edf82e64a7340c98cd6a58eff9b54ade650b7"
           }
         },
         {
@@ -54,6 +62,14 @@
             {
               "client_id": "578617382573-a8hhc8eqtloubd8qdv2ukshdd6r70979.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "578617382573-s2m2nlvsffbomju6ef2353o9he1k66fo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.zyxel.MultyProMesh",
+                "app_store_id": "1479660357"
+              }
             }
           ]
         }

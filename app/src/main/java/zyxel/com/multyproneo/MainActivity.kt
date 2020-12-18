@@ -21,10 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.crashlytics.android.Crashlytics
-import com.crashlytics.android.core.CrashlyticsCore
 import com.google.gson.Gson
-import io.fabric.sdk.android.Fabric
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
@@ -118,10 +115,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        val crashlyticsKit = Crashlytics.Builder()
-                .core(CrashlyticsCore.Builder().disabled(AppConfig.NoUploadFabric).build())
-                .build()
-        Fabric.with(this, crashlyticsKit)
         setContentView(R.layout.activity_main)
 
         db = DatabaseCloudUtil.getInstance(this)!!
