@@ -83,13 +83,13 @@ class DatabaseHandler(private var activity: Activity)
 
         for(i in gatewayInfoArrayListDB.indices)
         {
-            LogUtil.d(TAG, "gateway info on db id = ${gatewayInfoArrayListDB[i].IdInDB}")
-            LogUtil.d(TAG, "gateway info on db model = ${gatewayInfoArrayListDB[i].ModelName}")
-            LogUtil.d(TAG, "gateway info on db mac = ${gatewayInfoArrayListDB[i].MAC}")
-            LogUtil.d(TAG, "gateway info on db password = ${gatewayInfoArrayListDB[i].Password}")
-            LogUtil.d(TAG, "gateway info on db account = ${gatewayInfoArrayListDB[i].UserName}")
-            LogUtil.d(TAG, "gateway info on db userDefineName = ${gatewayInfoArrayListDB[i].UserDefineName}")
-            LogUtil.d(TAG, "gateway info on db OtherInfo = ${gatewayInfoArrayListDB[i].OtherInfo}")
+            LogUtil.pd(TAG, "gateway info on db id = ${gatewayInfoArrayListDB[i].IdInDB}")
+            LogUtil.pd(TAG, "gateway info on db model = ${gatewayInfoArrayListDB[i].ModelName}")
+            LogUtil.pd(TAG, "gateway info on db mac = ${gatewayInfoArrayListDB[i].MAC}")
+            LogUtil.pd(TAG, "gateway info on db password = ${gatewayInfoArrayListDB[i].Password}")
+            LogUtil.pd(TAG, "gateway info on db account = ${gatewayInfoArrayListDB[i].UserName}")
+            LogUtil.pd(TAG, "gateway info on db userDefineName = ${gatewayInfoArrayListDB[i].UserDefineName}")
+            LogUtil.pd(TAG, "gateway info on db OtherInfo = ${gatewayInfoArrayListDB[i].OtherInfo}")
         }
 
         return gatewayInfoArrayListDB
