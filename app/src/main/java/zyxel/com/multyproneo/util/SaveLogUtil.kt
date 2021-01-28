@@ -25,7 +25,7 @@ object SaveLogUtil
             formatterDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val curDate = Date(System.currentTimeMillis())
             fileName = formatterDate.format(curDate)
-            file = File(filePath, "$fileName.txt") // /storage/emulated/0/Android/data/zyxel.com.multyproneo/files/2020-07-06.txt
+            file = File(filePath, "$fileName.txt") // /data/user/0/zyxel.com.multyproneo/files/log/2020-07-06.txt
             val outputStream = FileOutputStream(file, true)
             formatterSec = SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault())
             val curDateStr = formatterSec.format(curDate)
@@ -65,18 +65,25 @@ object SaveLogUtil
 
     fun deleteOldFiles()
     {
-        val suffix = ".txt"
-        val path = file.parent
-        val sevenDayBefore = System.currentTimeMillis() - (AppConfig.DelDayBefore * 86400000)
+        try
+        {
+            val suffix = ".txt"
+            val path = file.parent
+            val sevenDayBefore = System.currentTimeMillis() - (AppConfig.DelDayBefore * 86400000)
 
-        File(path).walkTopDown().forEach{
-            if(it.isFile && it.name.endsWith(suffix))
-            {
-                val name = it.name.replace(suffix, "")
-                val date = formatterDate.parse(name)
-                val time = date.time
-                if(time < sevenDayBefore) it.delete()
+            File(path).walkTopDown().forEach{
+                if(it.isFile && it.name.endsWith(suffix))
+                {
+                    val name = it.name.replace(suffix, "")
+                    val date = formatterDate.parse(name)
+                    val time = date.time
+                    if(time < sevenDayBefore) it.delete()
+                }
             }
+        }
+        catch(e: Exception)
+        {
+            e.printStackTrace()
         }
     }
 
