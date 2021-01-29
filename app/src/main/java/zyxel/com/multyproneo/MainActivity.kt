@@ -122,6 +122,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         if(AppConfig.SaveLog)
         {
+            SaveLogUtil.oldFilePath = this.getExternalFilesDir(null)
+            //path:/storage/emulated/0/Android/data/zyxel.com.multyproneo/files
+            //user can find the file using file explorer
+
             val filepath = this.filesDir
                 //path:/data/user/0/zyxel.com.multyproneo/files
                 //user can not find the file using file explorer
@@ -131,10 +135,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             {
                 logDir.mkdir()
             }
-
-            //SaveLogUtil.filePath = this.getExternalFilesDir(null)
-                //path:/storage/emulated/0/Android/data/zyxel.com.multyproneo/files
-                //user can find the file using file explorer
             SaveLogUtil.filePath = logDir
             SaveLogUtil.init()
             SaveLogUtil.deleteOldFiles()

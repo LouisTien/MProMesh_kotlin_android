@@ -11,6 +11,7 @@ import java.util.*
 
 object SaveLogUtil
 {
+    var oldFilePath: File? = null
     var filePath: File? = null
     var fileFWLog: File? = null
     private lateinit var file: File
@@ -68,6 +69,16 @@ object SaveLogUtil
         try
         {
             val suffix = ".txt"
+
+            //delete old log files which user can access
+            File(oldFilePath?.parent).walkTopDown().forEach{
+                if(it.isFile && (it.name == AppConfig.APP_LOG_NAME || it.name == AppConfig.FW_LOG_NAME || it.name.endsWith(suffix)))
+                {
+                    it.delete()
+                }
+            }
+
+            //delete log files which are created seven days before
             val path = file.parent
             val sevenDayBefore = System.currentTimeMillis() - (AppConfig.DelDayBefore * 86400000)
 
