@@ -17,7 +17,7 @@ import zyxel.com.multyproneo.util.LogUtil
 
 class SetupPreviousSettingsDetailsDialog(context: Context, private var mac: String) : Dialog(context)
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "SetupPreviousSettingsDetailsDialog"
     private lateinit var db: DatabaseCloudUtil
     private lateinit var siteInfo: DatabaseSiteInfoEntity
     private var clientList: List<DatabaseClientListEntity> = ArrayList()

@@ -32,7 +32,7 @@ import zyxel.com.multyproneo.util.*
  */
 class EndDeviceDetailFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "EndDeviceDetailFragment"
     private lateinit var getInfoCompleteDisposable: Disposable
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var endDeviceInfo: DevicesInfoObject
@@ -62,6 +62,8 @@ class EndDeviceDetailFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         with(arguments)
         {

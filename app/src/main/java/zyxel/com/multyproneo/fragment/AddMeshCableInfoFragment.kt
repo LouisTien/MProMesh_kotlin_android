@@ -9,12 +9,14 @@ import kotlinx.android.synthetic.main.fragment_add_mesh_cable_info.*
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.util.GlobalData
 
 /**
  * Created by LouisTien on 2019/7/1.
  */
 class AddMeshCableInfoFragment : Fragment()
 {
+    private val TAG = "AddMeshCableInfoFragment"
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         return inflater.inflate(R.layout.fragment_add_mesh_cable_info, container, false)
@@ -23,6 +25,9 @@ class AddMeshCableInfoFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
+
         setClickListener()
     }
 

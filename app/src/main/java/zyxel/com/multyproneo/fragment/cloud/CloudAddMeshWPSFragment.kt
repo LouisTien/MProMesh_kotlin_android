@@ -18,7 +18,7 @@ import zyxel.com.multyproneo.util.LogUtil
 
 class CloudAddMeshWPSFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudAddMeshWPSFragment"
     private var fromAddMeshFailPage = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -29,6 +29,8 @@ class CloudAddMeshWPSFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         with(arguments)
         {

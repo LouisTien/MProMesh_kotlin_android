@@ -31,7 +31,7 @@ import zyxel.com.multyproneo.util.LogUtil
 
 class SetupConnectingControllerFragment : Fragment(), IResponseListener
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "SetupConnectingControllerFragment"
     private lateinit var findingDeviceInfo: GatewayInfo
     private var gatewayList = mutableListOf<GatewayInfo>()
     private val responseListener = this
@@ -47,6 +47,7 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
     {
         super.onViewCreated(view, savedInstanceState)
 
+        GlobalData.currentFrag = TAG
         GlobalData.registeredCloud = false
 
         with(arguments)

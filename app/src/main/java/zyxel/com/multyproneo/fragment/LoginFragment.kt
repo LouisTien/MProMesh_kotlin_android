@@ -34,7 +34,7 @@ import zyxel.com.multyproneo.util.LogUtil
  */
 class LoginFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "LoginFragment"
     private lateinit var gatewayInfo: GatewayInfo
     private lateinit var inputMethodManager: InputMethodManager
     private var gatewayIndex = 0
@@ -53,6 +53,8 @@ class LoginFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         with(arguments)
         {

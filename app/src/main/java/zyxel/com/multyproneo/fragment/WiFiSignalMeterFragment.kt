@@ -39,7 +39,7 @@ import kotlin.concurrent.schedule
  */
 class WiFiSignalMeterFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "WiFiSignalMeterFragment"
     private val wifiReceiver = WifiReceiver()
     private lateinit var wifiManager: WifiManager
     private lateinit var connectionInfo: WifiInfo
@@ -64,6 +64,9 @@ class WiFiSignalMeterFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.diagnosticCurrentFrag = TAG
+
         wifiManager = activity?.applicationContext?.getSystemService(Context.WIFI_SERVICE) as WifiManager
         wifiManager.startScan()
 

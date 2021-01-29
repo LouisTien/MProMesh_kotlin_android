@@ -32,7 +32,7 @@ import java.util.HashMap
 
 class CloudSettingsCloudAccountDetailFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudSettingsCloudAccountDetailFragment"
     private lateinit var db: DatabaseCloudUtil
     private lateinit var siteSelectedDisposable: Disposable
     private lateinit var siteDeleteDisposable: Disposable
@@ -52,6 +52,8 @@ class CloudSettingsCloudAccountDetailFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         db = DatabaseCloudUtil.getInstance(activity!!)!!
 

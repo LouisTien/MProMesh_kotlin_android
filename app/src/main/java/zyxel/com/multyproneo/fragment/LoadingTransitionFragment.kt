@@ -13,13 +13,14 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.LoadingTransitionEvent
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.GlobalData
 
 /**
  * Created by LouisTien on 2019/6/5.
  */
 class LoadingTransitionFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "LoadingTransitionFragment"
     private var title = ""
     private var description = ""
     private var secDescription = ""
@@ -38,6 +39,8 @@ class LoadingTransitionFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         with(arguments)
         {

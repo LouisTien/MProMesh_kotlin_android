@@ -32,7 +32,7 @@ import zyxel.com.multyproneo.util.LogUtil
  */
 class FindingDeviceFragment : Fragment(), IResponseListener
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "FindingDeviceFragment"
     private lateinit var startWiFiSettingDisposable: Disposable
     private lateinit var findingDeviceInfo: GatewayInfo
     private var gatewayList = mutableListOf<GatewayInfo>()
@@ -48,6 +48,8 @@ class FindingDeviceFragment : Fragment(), IResponseListener
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         loading_retry_image.setOnClickListener{
             retryTimes = 6

@@ -9,12 +9,14 @@ import kotlinx.android.synthetic.main.fragment_add_mesh_tips.*
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.util.GlobalData
 
 /**
  * Created by LouisTien on 2019/6/28.
  */
 class AddMeshTipsFragment : Fragment()
 {
+    private val TAG = "AddMeshTipsFragment"
     private var fromFrag = "AddMeshExtender"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -25,6 +27,8 @@ class AddMeshTipsFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         with(arguments){ this?.getString("FromFrag")?.let{ fromFrag = it } }
 

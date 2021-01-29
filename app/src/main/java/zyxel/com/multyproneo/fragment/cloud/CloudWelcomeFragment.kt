@@ -22,7 +22,7 @@ import zyxel.com.multyproneo.util.*
 
 class CloudWelcomeFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudWelcomeFragment"
     private lateinit var startWiFiSettingDisposable: Disposable
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -33,6 +33,9 @@ class CloudWelcomeFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
+
     }
 
     override fun onResume()

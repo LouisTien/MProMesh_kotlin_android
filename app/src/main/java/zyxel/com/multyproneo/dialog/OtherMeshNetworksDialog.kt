@@ -27,7 +27,7 @@ import zyxel.com.multyproneo.util.LogUtil
 
 class OtherMeshNetworksDialog(context: Context, private var siteName: String, private var gatewayListInfo: TUTKAllDeviceInfo) : Dialog(context)
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "OtherMeshNetworksDialog"
     private lateinit var siteSelectedDisposable: Disposable
 
     override fun onCreate(savedInstanceState: Bundle?)

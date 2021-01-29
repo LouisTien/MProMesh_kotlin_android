@@ -49,7 +49,7 @@ import kotlin.concurrent.schedule
 
 class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "MainActivity"
     private lateinit var switchFrgDisposable: Disposable
     private lateinit var showLoadingOnlyGrayBGDisposable: Disposable
     private lateinit var showLoadingDisposable: Disposable

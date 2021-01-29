@@ -28,7 +28,7 @@ import zyxel.com.multyproneo.util.LogUtil
 
 class SetupApplyingPreviousSettingsFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "SetupApplyingPreviousSettingsFragment"
     private var mac = ""
     private lateinit var db: DatabaseCloudUtil
     private lateinit var siteInfo: DatabaseSiteInfoEntity
@@ -44,6 +44,9 @@ class SetupApplyingPreviousSettingsFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
+
         with(arguments){ this?.getString("MAC")?.let{ mac = it } }
 
         countDownTimer = object : CountDownTimer((AppConfig.WiFiSettingTime * 1000).toLong(), 1000)

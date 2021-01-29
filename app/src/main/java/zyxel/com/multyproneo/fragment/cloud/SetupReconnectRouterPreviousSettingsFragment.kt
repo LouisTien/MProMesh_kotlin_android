@@ -19,11 +19,12 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.DatabaseCloudUtil
+import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
 class SetupReconnectRouterPreviousSettingsFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "SetupReconnectRouterPreviousSettingsFragment"
     private var mac = ""
     private var needLoginWhenFinal = false
     private lateinit var db: DatabaseCloudUtil
@@ -37,6 +38,8 @@ class SetupReconnectRouterPreviousSettingsFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         with(arguments)
         {

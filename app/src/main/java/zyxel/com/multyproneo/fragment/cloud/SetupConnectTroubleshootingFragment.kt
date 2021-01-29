@@ -14,6 +14,7 @@ import zyxel.com.multyproneo.util.GlobalData
 
 class SetupConnectTroubleshootingFragment : Fragment()
 {
+    private val TAG = "SetupConnectTroubleshootingFragment"
     private var pageMode = AppConfig.TroubleshootingPage.PAGE_CANNOT_CONNECT_CONTROLLER
     private var needConnectFlowForRetry = false
     private var mac = ""
@@ -26,6 +27,8 @@ class SetupConnectTroubleshootingFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         with(arguments)
         {

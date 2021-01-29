@@ -11,10 +11,13 @@ import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.SharedPreferencesUtil
 
 class CloudFirstTimeUsingFragment : Fragment()
 {
+    private val TAG = "CloudFirstTimeUsingFragment"
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         return inflater.inflate(R.layout.fragment_setup_first_time_using, container, false)
@@ -23,6 +26,9 @@ class CloudFirstTimeUsingFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
+
         setup_first_time_start_image.onClick{
             var firstTimeUse by SharedPreferencesUtil(activity!!, AppConfig.SHAREDPREF_SETUP_FIRST_TIME_KEY, true)
             firstTimeUse = false

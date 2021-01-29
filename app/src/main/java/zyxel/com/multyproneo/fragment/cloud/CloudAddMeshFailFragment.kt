@@ -9,10 +9,11 @@ import kotlinx.android.synthetic.main.fragment_cloud_add_mesh_fail.*
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.util.GlobalData
 
 class CloudAddMeshFailFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudAddMeshFailFragment"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -22,6 +23,9 @@ class CloudAddMeshFailFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
+
         setClickListener()
     }
 

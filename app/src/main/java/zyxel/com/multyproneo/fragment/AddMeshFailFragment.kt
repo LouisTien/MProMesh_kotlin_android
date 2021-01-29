@@ -22,7 +22,7 @@ import zyxel.com.multyproneo.util.LogUtil
  */
 class AddMeshFailFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "AddMeshFailFragment"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -32,6 +32,9 @@ class AddMeshFailFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
+
         setClickListener()
     }
 

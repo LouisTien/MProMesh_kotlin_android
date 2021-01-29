@@ -33,7 +33,7 @@ import java.util.HashMap
 
 class SetupFinalizingYourHomeNetwork : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "SetupFinalizingYourHomeNetwork"
     private lateinit var addDeviceInfo: TUTKAddDeviceInfo
     private lateinit var wanInfo: WanInfo
     private lateinit var changeIconNameInfo: ChangeIconNameInfo
@@ -58,6 +58,8 @@ class SetupFinalizingYourHomeNetwork : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         with(arguments)
         {

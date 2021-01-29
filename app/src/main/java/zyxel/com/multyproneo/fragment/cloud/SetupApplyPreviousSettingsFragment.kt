@@ -17,11 +17,12 @@ import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.DatabaseCloudUtil
+import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
 class SetupApplyPreviousSettingsFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "SetupApplyPreviousSettingsFragment"
     private lateinit var db: DatabaseCloudUtil
     private lateinit var currentEntity: DatabaseSiteInfoEntity
     private lateinit var siteInfoList: List<DatabaseSiteInfoEntity>
@@ -37,6 +38,9 @@ class SetupApplyPreviousSettingsFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
+
         setClickListener()
         db = DatabaseCloudUtil.getInstance(context!!)!!
 

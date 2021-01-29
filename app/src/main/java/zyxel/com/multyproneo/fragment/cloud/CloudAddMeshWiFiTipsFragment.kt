@@ -9,9 +9,11 @@ import kotlinx.android.synthetic.main.fragment_cloud_add_mesh_wifi_tips.*
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.util.GlobalData
 
 class CloudAddMeshWiFiTipsFragment : Fragment()
 {
+    private val TAG = "CloudAddMeshWiFiTipsFragment"
     private var FOLENable = false
     private var CLQEnable = false
 
@@ -23,6 +25,8 @@ class CloudAddMeshWiFiTipsFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         setClickListener()
     }

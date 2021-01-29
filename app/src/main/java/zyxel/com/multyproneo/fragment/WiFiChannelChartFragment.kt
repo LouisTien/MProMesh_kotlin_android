@@ -22,6 +22,7 @@ import zyxel.com.multyproneo.event.DiagnosticEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.tool.DensityPixelConverter
+import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.wifichart.Band24GChannelChart
 import zyxel.com.multyproneo.wifichart.Band5GWholeChannelChart
 import zyxel.com.multyproneo.wifichart.SSIDAnalyzerWhole
@@ -34,6 +35,7 @@ import kotlin.concurrent.schedule
  */
 class WiFiChannelChartFragment : Fragment()
 {
+    private val TAG = "WiFiChannelChartFragment"
     private lateinit var activity: Activity
     private lateinit var wifiManager: WifiManager
     private val wifiReceiver = WifiReceiver()
@@ -81,6 +83,9 @@ class WiFiChannelChartFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.diagnosticCurrentFrag = TAG
+
         with(arguments){ this?.getInt("Channel")?.let{ mWiFiStrengthIndex = it } }
         setClickListener()
         ssidAnalyzerWhole = SSIDAnalyzerWhole(height, width, activity)

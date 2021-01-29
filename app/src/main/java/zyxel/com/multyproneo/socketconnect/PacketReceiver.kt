@@ -12,7 +12,7 @@ import java.net.SocketTimeoutException
  */
 class PacketReceiver : Runnable
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "PacketReceiver"
     private var running = false
     private var serversocket: DatagramSocket? = null
     private var localport = AppConfig.SCAN_LISTENPORT

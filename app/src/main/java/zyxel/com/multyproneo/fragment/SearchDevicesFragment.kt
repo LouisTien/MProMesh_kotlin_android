@@ -20,6 +20,7 @@ import zyxel.com.multyproneo.util.GlobalData
  */
 class SearchDevicesFragment : Fragment()
 {
+    private val TAG = "SearchDevicesFragment"
     private lateinit var itemAdapter: SearchEndDeviceItemAdapter
     private lateinit var homeEndDeviceList: MutableList<DevicesInfoObject>
     private lateinit var guestEndDeviceList: MutableList<DevicesInfoObject>
@@ -34,6 +35,8 @@ class SearchDevicesFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         with(arguments){ this?.getString("Search")?.let{ searchStr = it } }
 

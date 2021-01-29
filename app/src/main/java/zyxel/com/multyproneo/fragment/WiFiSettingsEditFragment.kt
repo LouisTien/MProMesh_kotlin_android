@@ -38,7 +38,7 @@ import zyxel.com.multyproneo.util.LogUtil
  */
 class WiFiSettingsEditFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "WiFiSettingsEditFragment"
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var msgDialogResponse: Disposable
     private lateinit var WiFiSettingInfo: WiFiSettingMultiObjInfo
@@ -78,6 +78,8 @@ class WiFiSettingsEditFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         with(arguments)
         {

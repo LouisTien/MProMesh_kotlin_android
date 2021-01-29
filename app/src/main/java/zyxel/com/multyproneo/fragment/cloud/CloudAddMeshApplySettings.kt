@@ -19,7 +19,7 @@ import zyxel.com.multyproneo.util.LogUtil
 
 class CloudAddMeshApplySettings : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudAddMeshApplySettings"
     private lateinit var countDownTimerFinish: CountDownTimer
     private lateinit var countDownTimerGetL2DeviceNum: CountDownTimer
 
@@ -31,6 +31,8 @@ class CloudAddMeshApplySettings : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         countDownTimerFinish = object : CountDownTimer((AppConfig.addMeshTime * 1000).toLong(), 1000)
         {

@@ -9,9 +9,12 @@ import kotlinx.android.synthetic.main.fragment_home_guest_end_device_detail_offl
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.util.GlobalData
 
 class CloudEndDeviceDetailOfflineFragment : Fragment()
 {
+    private val TAG = "CloudEndDeviceDetailOfflineFragment"
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         return inflater.inflate(R.layout.fragment_home_guest_end_device_detail_offline, container, false)
@@ -20,6 +23,9 @@ class CloudEndDeviceDetailOfflineFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
+
         end_device_detail_back_image.setOnClickListener{ GlobalBus.publish(MainEvent.EnterCloudDevicesPage()) }
     }
 

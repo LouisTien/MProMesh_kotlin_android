@@ -9,12 +9,15 @@ import kotlinx.android.synthetic.main.fragment_add_mesh.*
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.util.GlobalData
 
 /**
  * Created by LouisTien on 2019/6/27.
  */
 class AddMeshFragment : Fragment()
 {
+    private val TAG = "AddMeshFragment"
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         return inflater.inflate(R.layout.fragment_add_mesh, container, false)
@@ -23,6 +26,9 @@ class AddMeshFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
+
         setClickListener()
     }
 

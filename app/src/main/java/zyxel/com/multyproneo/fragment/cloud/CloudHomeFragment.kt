@@ -27,7 +27,7 @@ import zyxel.com.multyproneo.util.LogUtil
 
 class CloudHomeFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudHomeFragment"
     private lateinit var adapter: CloudZYXELEndDeviceItemAdapter
     private lateinit var meshDevicePlacementStatusDisposable: Disposable
     private lateinit var getCloudInfoCompleteDisposable: Disposable
@@ -41,6 +41,7 @@ class CloudHomeFragment : Fragment()
     {
         super.onViewCreated(view, savedInstanceState)
 
+        GlobalData.currentFrag = TAG
         GlobalData.notiMac = ""
         GlobalData.notiUid = ""
 

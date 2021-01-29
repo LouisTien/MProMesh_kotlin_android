@@ -33,7 +33,7 @@ import zyxel.com.multyproneo.tool.CommonTool
 
 class CloudEndDeviceDetailFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudEndDeviceDetailFragment"
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var endDeviceInfo: DevicesInfoObject
     private lateinit var db: DatabaseCloudUtil
@@ -66,6 +66,8 @@ class CloudEndDeviceDetailFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         db = DatabaseCloudUtil.getInstance(context!!)!!
 

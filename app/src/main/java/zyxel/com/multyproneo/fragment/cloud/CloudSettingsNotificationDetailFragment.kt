@@ -25,7 +25,7 @@ import java.util.HashMap
 
 class CloudSettingsNotificationDetailFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudSettingsNotificationDetailFragment"
     private lateinit var db: DatabaseCloudUtil
     private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
     private var currentDBInfo: DatabaseSiteInfoEntity? = null
@@ -41,6 +41,9 @@ class CloudSettingsNotificationDetailFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
+
         db = DatabaseCloudUtil.getInstance(activity!!)!!
         setClickListener()
         getInfoFromDB()

@@ -32,7 +32,7 @@ import zyxel.com.multyproneo.util.LogUtil
 
 class CloudWiFiSettingsEditFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudWiFiSettingsEditFragment"
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var msgDialogResponse: Disposable
     private lateinit var db: DatabaseCloudUtil
@@ -74,6 +74,8 @@ class CloudWiFiSettingsEditFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         db = DatabaseCloudUtil.getInstance(context!!)!!
 

@@ -37,7 +37,7 @@ import android.webkit.WebChromeClient
 
 class CloudLoginFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudLoginFragment"
     private lateinit var tokenInfo: TUTKTokenInfo
     private lateinit var userInfo: TUTKUserInfo
     private lateinit var specificDeviceInfo: TUTKSpecificDeviceInfo
@@ -56,6 +56,8 @@ class CloudLoginFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         with(arguments)
         {

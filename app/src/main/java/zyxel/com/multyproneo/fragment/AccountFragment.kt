@@ -27,7 +27,7 @@ import zyxel.com.multyproneo.util.GlobalData
  */
 class AccountFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "AccountFragment"
     private lateinit var msgDialogResponse: Disposable
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -38,6 +38,8 @@ class AccountFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         account_app_version_text.text = BuildConfig.VERSION_NAME
 

@@ -15,12 +15,12 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.LoadingTransitionEvent
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.AppConfig
-
+import zyxel.com.multyproneo.util.GlobalData
 
 
 class CloudLoadingTransitionFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudLoadingTransitionFragment"
     private var title = ""
     private var description = ""
     private var secDescription = ""
@@ -39,6 +39,8 @@ class CloudLoadingTransitionFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         with(arguments)
         {

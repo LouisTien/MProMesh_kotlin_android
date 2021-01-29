@@ -36,7 +36,7 @@ import zyxel.com.multyproneo.util.LogUtil
  */
 class ZYXELEndDeviceDetailFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "ZYXELEndDeviceDetailFragment"
     private lateinit var msgDialogResponse: Disposable
     private lateinit var getInfoCompleteDisposable: Disposable
     private lateinit var getSpeedTestResultDisposable: Disposable
@@ -67,6 +67,8 @@ class ZYXELEndDeviceDetailFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         with(arguments)
         {

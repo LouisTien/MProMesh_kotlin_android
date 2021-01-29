@@ -29,7 +29,7 @@ import zyxel.com.multyproneo.util.LogUtil
  */
 class GatewayListFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "GatewayListFragment"
     private lateinit var deviceSelectedDisposable: Disposable
     private lateinit var gatewayInfoMutableList: MutableList<GatewayInfo>
     private var autoLogin = true
@@ -42,6 +42,8 @@ class GatewayListFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         with(arguments)
         {

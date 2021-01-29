@@ -22,7 +22,7 @@ import zyxel.com.multyproneo.util.LogUtil
  */
 class AddMeshWPSFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "AddMeshWPSFragment"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -32,6 +32,9 @@ class AddMeshWPSFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
+
         setClickListener()
     }
 

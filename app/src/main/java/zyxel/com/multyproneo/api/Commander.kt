@@ -24,7 +24,7 @@ import javax.net.ssl.TrustManager
  */
 abstract class Commander
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "Commander"
     /*private val client = OkHttpClient().newBuilder()
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(300, TimeUnit.SECONDS)

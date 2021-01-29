@@ -11,7 +11,7 @@ import java.util.ArrayList
  */
 class SSIDAnalyzerWhole(private val height: Int, private val width: Int, private val activity: Activity)
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "SSIDAnalyzerWhole"
     private var _24GChannelMargin = width / 18
     private var _5GChannelMargin = width / 6
     private var displayMetrics = activity.resources.displayMetrics

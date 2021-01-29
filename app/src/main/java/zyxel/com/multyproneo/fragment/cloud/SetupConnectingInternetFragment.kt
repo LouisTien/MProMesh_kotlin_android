@@ -29,7 +29,7 @@ import java.net.URL
 
 class SetupConnectingInternetFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "SetupConnectingInternetFragment"
     private lateinit var db: DatabaseCloudUtil
     private lateinit var siteInfoList: List<DatabaseSiteInfoEntity>
     private lateinit var cloudAgentInfo: CloudAgentInfo
@@ -47,6 +47,8 @@ class SetupConnectingInternetFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         db = DatabaseCloudUtil.getInstance(context!!)!!
 

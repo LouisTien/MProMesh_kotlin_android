@@ -33,7 +33,7 @@ import java.util.HashMap
 
 class CloudGatewayListFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudGatewayListFragment"
     private lateinit var db: DatabaseCloudUtil
     private lateinit var deviceSelectedDisposable: Disposable
     private lateinit var deviceDeleteDisposable: Disposable
@@ -54,6 +54,8 @@ class CloudGatewayListFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         db = DatabaseCloudUtil.getInstance(activity!!)!!
 

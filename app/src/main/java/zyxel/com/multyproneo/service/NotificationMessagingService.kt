@@ -20,7 +20,7 @@ import zyxel.com.multyproneo.util.SharedPreferencesUtil
 
 class NotificationMessagingService : FirebaseMessagingService()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "NotificationMessagingService"
     private val NOTIFICATION_CHANNEL_ID = "10001"
     private var msg: String = ""
     private var alert: String = ""

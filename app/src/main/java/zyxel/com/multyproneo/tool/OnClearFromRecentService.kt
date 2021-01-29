@@ -12,7 +12,7 @@ import zyxel.com.multyproneo.util.LogUtil
 
 class OnClearFromRecentService : Service()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "OnClearFromRecentService"
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int
     {

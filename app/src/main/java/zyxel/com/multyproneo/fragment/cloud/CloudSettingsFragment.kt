@@ -33,7 +33,7 @@ import java.io.File
 
 class CloudSettingsFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudSettingsFragment"
     private lateinit var msgDialogResponse: Disposable
     private lateinit var db: DatabaseCloudUtil
     private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
@@ -51,6 +51,8 @@ class CloudSettingsFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
             checkPreviousSetting()

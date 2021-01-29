@@ -31,7 +31,7 @@ import zyxel.com.multyproneo.util.LogUtil
 
 class CloudWiFiSettingsFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudWiFiSettingsFragment"
     private lateinit var meshInfo: MeshInfo
     private lateinit var WiFiSettingInfoSet: WiFiSettingInfo
     private lateinit var WiFiQRCodeBitmap: Bitmap
@@ -69,6 +69,9 @@ class CloudWiFiSettingsFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
+
         setClickListener()
     }
 

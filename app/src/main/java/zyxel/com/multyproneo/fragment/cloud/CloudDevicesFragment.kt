@@ -19,7 +19,7 @@ import zyxel.com.multyproneo.util.GlobalData
 
 class CloudDevicesFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CloudDevicesFragment"
     private lateinit var meshDevicePlacementStatusDisposable: Disposable
     private lateinit var getCloudInfoCompleteDisposable: Disposable
 
@@ -31,6 +31,8 @@ class CloudDevicesFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
 
         meshDevicePlacementStatusDisposable = GlobalBus.listen(DevicesEvent.MeshDevicePlacementStatus::class.java).subscribe{
             MeshDeviceStatusDialog(activity!!, it.isHomePage).show()

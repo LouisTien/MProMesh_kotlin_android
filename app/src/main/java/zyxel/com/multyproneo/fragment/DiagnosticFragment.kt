@@ -19,7 +19,7 @@ import zyxel.com.multyproneo.util.LogUtil
  */
 class DiagnosticFragment : Fragment()
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "DiagnosticFragment"
     private lateinit var enterWiFiChannelChartPageDisposable: Disposable
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -30,6 +30,9 @@ class DiagnosticFragment : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
+
+        GlobalData.currentFrag = TAG
+
         setClickListener()
         enterWiFiChannelChartPageDisposable = GlobalBus.listen(DiagnosticEvent.EnterWiFiChannelChartPage::class.java).subscribe{
             enterWiFiChannelChartPage(it.channel)
