@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets
 
 object TUTKP2PBaseApi
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "TUTKP2PBaseApi"
     private var ms_nIOTCInit = IOTCAPIs.IOTC_ER_TIMEOUT
     private var m_strUID = ""
     private var m_bHasClientConn = false

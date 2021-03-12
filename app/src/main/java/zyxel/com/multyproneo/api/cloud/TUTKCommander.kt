@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
 
 abstract class TUTKCommander
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "TUTKCommander"
     private var headers = Headers.Builder()
     private var formBody = FormBody.Builder()
     private lateinit var responseListener: ResponseListener

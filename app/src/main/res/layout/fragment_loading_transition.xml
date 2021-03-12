@@ -31,35 +31,59 @@
             android:textColor="@color/color_000000"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="@string/find_device_title"/>
+            android:text=""/>
 
         <TextView
             android:id="@+id/loading_msg_status_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/loading_msg_title_text"
             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_575757"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@string/find_device_status_description"
-            android:layout_below="@+id/loading_msg_title_text"/>
+            android:text="@string/loading_transition_please_wait" />
 
         <TextView
             android:id="@+id/loading_msg_working_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/loading_msg_status_text"
             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_575757"
             android:ellipsize="end"
-            android:singleLine="true"
-            android:text="@string/find_device_working_description"
-            android:layout_below="@+id/loading_msg_status_text"/>
+            android:maxLines="2"
+            android:text="@string/loading_transition_extender" />
 
     </RelativeLayout>
 
-    <com.airbnb.lottie.LottieAnimationView
+    <ImageView
+        android:id="@+id/loading_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/layout_size_86dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_57dp_in_1080"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/waiting_1to2min_img"/>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:id="@+id/loading_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_size_12dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_49dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_49dp_in_1080"
+        android:layout_below="@+id/loading_image_view"
+        android:indeterminate="true"
+        android:indeterminateBehavior="repeat"
+        android:indeterminateDrawable="@drawable/progress_style_orange"
+        android:indeterminateDuration="1500"/>
+
+    <!--com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loading_animation_view"
         android:layout_width="@dimen/layout_size_300dp_in_1080"
         android:layout_height="@dimen/layout_size_250dp_in_1080"
@@ -69,19 +93,18 @@
         android:scaleType="centerCrop"
         android:layout_gravity="center"
         app:lottie_imageAssetsFolder="images"
-        app:lottie_loop="true"/>
+        app:lottie_loop="true"/-->
 
     <TextView
         android:id="@+id/loading_countdown_time_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_below="@+id/loading_animation_view"
+        android:layout_marginTop="@dimen/layout_size_27dp_in_1080"
+        android:layout_below="@+id/loading_image_view"
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/text_size_20sp_in_1080"
         android:textColor="@color/color_575757"
-        android:textStyle="bold"
-        android:text="00:00"
-        android:visibility="gone"/>
+        android:text="02:00"
+        android:visibility="visible"/>
 
 </RelativeLayout>

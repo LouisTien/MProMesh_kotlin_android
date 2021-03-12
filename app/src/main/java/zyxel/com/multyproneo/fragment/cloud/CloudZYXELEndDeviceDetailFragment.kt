@@ -21,6 +21,7 @@ import zyxel.com.multyproneo.api.cloud.*
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
+import zyxel.com.multyproneo.fragment.LoadingTransitionProgressFragment
 import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.model.GatewayInfo
 import zyxel.com.multyproneo.model.WanInfo
@@ -86,15 +87,12 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
                     if(isGatewayMode)
                     {
                         val bundle = Bundle().apply{
-                            putString("Title", "")
-                            putString("Description", resources.getString(R.string.loading_transition_take_few_minutes))
-                            putString("Sec_Description", resources.getString(R.string.loading_transition_reboot))
+                            putString("Title", getString(R.string.loading_transition_reboot))
                             putInt("LoadingSecond", AppConfig.rebootTime)
-                            putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
                             putSerializable("DesPage", if(isGatewayMode) AppConfig.LoadingGoToPage.FRAG_SEARCH else AppConfig.LoadingGoToPage.FRAG_HOME)
-                            putBoolean("ShowCountDownTimer", false)
+                            putBoolean("IsCloud", true)
                         }
-                        GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoadingTransitionFragment().apply{ arguments = bundle }))
+                        GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionProgressFragment().apply{ arguments = bundle }))
                     }
                 }
 

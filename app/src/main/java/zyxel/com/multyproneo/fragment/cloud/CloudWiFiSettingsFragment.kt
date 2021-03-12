@@ -22,6 +22,7 @@ import zyxel.com.multyproneo.api.cloud.TUTKP2PResponseCallback
 import zyxel.com.multyproneo.dialog.WiFiQRCodeDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.fragment.LoadingTransitionProgressFragment
 import zyxel.com.multyproneo.model.MeshInfo
 import zyxel.com.multyproneo.model.WiFiSettingInfo
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
@@ -144,15 +145,12 @@ class CloudWiFiSettingsFragment : Fragment()
                 setGuestWiFi24GEnableTask()
 
                 val bundle = Bundle().apply{
-                    putString("Title", "")
-                    putString("Description", getString(R.string.loading_transition_please_wait))
-                    putString("Sec_Description", getString(R.string.loading_transition_update_wifi_settings))
+                    putString("Title", getString(R.string.loading_transition_update_wifi_settings))
                     putInt("LoadingSecond", AppConfig.WiFiSettingTime)
-                    putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
                     putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_SEARCH)
-                    putBoolean("ShowCountDownTimer", false)
+                    putBoolean("IsCloud", true)
                 }
-                GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoadingTransitionFragment().apply{ arguments = bundle }))
+                GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionProgressFragment().apply{ arguments = bundle }))
 
                 /*LoadingTransitionDialog(
                         context!!,

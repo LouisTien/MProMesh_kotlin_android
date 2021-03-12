@@ -62,7 +62,6 @@ class HomeFragment : Fragment()
 
         cloud_home_title_item_area_relative.visibility = View.GONE
         home_title_item_area_relative.visibility = View.VISIBLE
-        home_mesh_status_area_relative.visibility = View.VISIBLE
 
     }
 
@@ -118,15 +117,12 @@ class HomeFragment : Fragment()
                 setGuestWiFi24GEnableTask()
 
                 val bundle = Bundle().apply{
-                    putString("Title", "")
-                    putString("Description", getString(R.string.loading_transition_please_wait))
-                    putString("Sec_Description", getString(R.string.loading_transition_update_wifi_settings))
+                    putString("Title", getString(R.string.loading_transition_update_wifi_settings))
                     putInt("LoadingSecond", AppConfig.WiFiSettingTime)
-                    putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
                     putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_SEARCH)
-                    putBoolean("ShowCountDownTimer", false)
+                    putBoolean("IsCloud", false)
                 }
-                GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
+                GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionProgressFragment().apply{ arguments = bundle }))
             }
 
             home_site_refresh_image ->
@@ -207,6 +203,8 @@ class HomeFragment : Fragment()
                     cloud_home_guest_wifi_switch.setImageResource(R.drawable.switch_off_2)
                 }
             }
+
+            home_mesh_status_area_relative.visibility = if(GlobalData.showMeshStatus) View.VISIBLE else View.GONE
         }
     }
 

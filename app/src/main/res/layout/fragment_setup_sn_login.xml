@@ -137,16 +137,16 @@
             android:id="@+id/setup_sn_login_enter_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/login_title"
-            android:textColor="@color/color_888888"
-            android:textSize="@dimen/text_size_20sp_in_1080"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:maxWidth="@dimen/layout_size_150dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_15dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
             android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
-            android:layout_marginStart="@dimen/layout_size_15dp_in_1080"/>
+            android:maxWidth="@dimen/layout_size_150dp_in_1080"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/color_888888"
+            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:text="@string/login_sn_title" />
 
     </FrameLayout>
 

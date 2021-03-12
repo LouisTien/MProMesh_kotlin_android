@@ -12,7 +12,7 @@ import java.util.*
  */
 object CommonTool
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "CommonTool"
     fun hideKeyboard(activity: Activity)
     {
         val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager

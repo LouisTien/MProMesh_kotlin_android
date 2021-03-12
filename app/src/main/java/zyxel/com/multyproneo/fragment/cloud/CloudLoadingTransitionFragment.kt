@@ -78,7 +78,7 @@ class CloudLoadingTransitionFragment : Fragment()
         }
 
         initUI()
-        loading_animation_view.playAnimation()
+//        loading_animation_view.playAnimation()
         //Handler().postDelayed({ finishAction() }, (loadingSecond * 1000).toLong())
         countDownTimer.start()
     }
@@ -146,12 +146,12 @@ class CloudLoadingTransitionFragment : Fragment()
         loading_countdown_time_text.visibility = if(showCountDownTimer) View.VISIBLE else View.GONE
 
         //loading_animation_view.enableMergePathsForKitKatAndAbove(true)
-        when(anim)
-        {
-            AppConfig.LoadingAnimation.ANIM_REBOOT -> loading_animation_view.setAnimation("rebooting.json")
-            AppConfig.LoadingAnimation.ANIM_SEARCH -> loading_animation_view.setAnimation("searching.json")
-            AppConfig.LoadingAnimation.ANIM_NOFOUND -> loading_animation_view.setAnimation("nofound.json")
-        }
+//        when(anim)
+//        {
+//            AppConfig.LoadingAnimation.ANIM_REBOOT -> loading_animation_view.setAnimation("rebooting.json")
+//            AppConfig.LoadingAnimation.ANIM_SEARCH -> loading_animation_view.setAnimation("searching.json")
+//            AppConfig.LoadingAnimation.ANIM_NOFOUND -> loading_animation_view.setAnimation("nofound.json")
+//        }
     }
 
     private fun finishAction()

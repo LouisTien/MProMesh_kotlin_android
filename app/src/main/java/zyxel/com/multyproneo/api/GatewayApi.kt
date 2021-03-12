@@ -139,6 +139,18 @@ object GatewayApi
         }
     }
 
+    class GetAPPUICustom : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val getAPPUICustomURL = "${GlobalData.getAPIPath()}${AppConfig.API_APP_UI_CUSTOM}"
+            return Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(getAPPUICustomURL)
+                    .build()
+        }
+    }
+
     class GetCloudAgentInfo : Commander()
     {
         override fun composeRequest(): Request

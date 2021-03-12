@@ -16,7 +16,7 @@ import java.util.ArrayList
  */
 class DatabaseHandler(private var activity: Activity)
 {
-    private val TAG = javaClass.simpleName
+    private val TAG = "DatabaseHandler"
     private lateinit var dbhelper: DatabaseHelper
     private lateinit var cursor: Cursor
     private var gatewayInfoArrayListDB = arrayListOf<GatewayInfo>()

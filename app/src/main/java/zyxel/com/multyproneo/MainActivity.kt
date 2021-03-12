@@ -97,6 +97,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var fSecureInfo: FSecureInfo
     private lateinit var hostNameReplaceInfo: HostNameReplaceInfo
     private lateinit var internetBlockingInfo: InternetBlockingInfo
+    private lateinit var appUICustomInfo: AppUICustomInfo
     private lateinit var progressBar: ProgressBar
     private lateinit var progressBarHint: ProgressBar
     private lateinit var progressHintText: TextView
@@ -1045,6 +1046,37 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             internetBlockingInfo = Gson().fromJson(responseStr, InternetBlockingInfo::class.javaObjectType)
                             LogUtil.d(TAG,"internetBlockingInfo:$internetBlockingInfo")
                             FeatureConfig.internetBlockingStatus = internetBlockingInfo.Object.Enable
+                            if(GlobalData.isSupportAPPUICustomization())
+                                getAPPUICustomInfoTask()
+                            else{
+                                GlobalData.showMeshStatus = true
+                                stopGetAllNeedDeviceInfoTask()
+                            }
+                        }
+                        catch(e: JSONException)
+                        {
+                            e.printStackTrace()
+
+                            hideLoading()
+                        }
+                    }
+                }).execute()
+    }
+
+    private fun getAPPUICustomInfoTask()
+    {
+        LogUtil.d(TAG,"getAPPUICustomInfoTask()")
+        GatewayApi.GetAPPUICustom()
+                .setRequestPageName(TAG)
+                .setResponseListener(object: Commander.ResponseListener()
+                {
+                    override fun onSuccess(responseStr: String)
+                    {
+                        try
+                        {
+                            appUICustomInfo = Gson().fromJson(responseStr, AppUICustomInfo::class.javaObjectType)
+                            LogUtil.d(TAG,"appUICustomInfo:$appUICustomInfo")
+                            GlobalData.showMeshStatus = appUICustomInfo.APPUICustomList.Home_MESH_status
                             stopGetAllNeedDeviceInfoTask()
                         }
                         catch(e: JSONException)

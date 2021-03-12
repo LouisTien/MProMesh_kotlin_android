@@ -31,6 +31,7 @@ object AppConfig
     const val API_CLOUD_AUTH = "/CloudAuth"
     const val API_SYS_LOG = "/syslog_dl"
     const val API_REBOOT = "/Reboot"
+    const val API_APP_UI_CUSTOM = "/APPUICustomization"
     const val API_MESH = "/TR181/Value/Device.WiFi.AccessPoint.5.WPS."
     const val API_MESH_L2DEVICE_NUM = "/TR181/Value/Device.Hosts."
     const val API_DEVICE_HOST_INFO = "/TR181/Value/Device.Hosts.Host."

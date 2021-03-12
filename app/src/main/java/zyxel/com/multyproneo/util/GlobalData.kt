@@ -35,6 +35,7 @@ object GlobalData
     var L2DeviceNumber = 0
     var alreadyGetGatewayInfoLocalBase = false
     var loginInfo = LoginInfo()
+    var showMeshStatus = true
 
     //TUTK
     var tokenType = "Bearer"
@@ -100,6 +101,17 @@ object GlobalData
         for(i in loginInfo.MethodList)
         {
             if(i.contains("MultiObjects"))
+                return true
+        }
+
+        return false
+    }
+
+    fun isSupportAPPUICustomization(): Boolean
+    {
+        for(i in loginInfo.MethodList)
+        {
+            if(i.contains("APPUICustomization"))
                 return true
         }
 

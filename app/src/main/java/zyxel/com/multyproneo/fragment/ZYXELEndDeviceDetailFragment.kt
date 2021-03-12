@@ -93,15 +93,12 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                     if(isGatewayMode)
                     {
                         val bundle = Bundle().apply{
-                            putString("Title", "")
-                            putString("Description", resources.getString(R.string.loading_transition_take_few_minutes))
-                            putString("Sec_Description", resources.getString(R.string.loading_transition_reboot))
+                            putString("Title", getString(R.string.loading_transition_reboot))
                             putInt("LoadingSecond", AppConfig.rebootTime)
-                            putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
                             putSerializable("DesPage", if(isGatewayMode) AppConfig.LoadingGoToPage.FRAG_SEARCH else AppConfig.LoadingGoToPage.FRAG_HOME)
-                            putBoolean("ShowCountDownTimer", false)
+                            putBoolean("IsCloud", false)
                         }
-                        GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
+                        GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionProgressFragment().apply{ arguments = bundle }))
                     }
                 }
 

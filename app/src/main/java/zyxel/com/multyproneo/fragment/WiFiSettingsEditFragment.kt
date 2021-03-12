@@ -564,15 +564,12 @@ class WiFiSettingsEditFragment : Fragment()
     private fun showLoadingTransitionPage()
     {
         val bundle = Bundle().apply{
-            putString("Title", "")
-            putString("Description", resources.getString(R.string.loading_transition_please_wait))
-            putString("Sec_Description", resources.getString(R.string.loading_transition_update_wifi_settings))
+            putString("Title", getString(R.string.loading_transition_update_wifi_settings))
             putInt("LoadingSecond", AppConfig.WiFiSettingTime)
-            putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
             putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_SEARCH)
-            putBoolean("ShowCountDownTimer", false)
+            putBoolean("IsCloud", false)
         }
-        GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionFragment().apply{ arguments = bundle }))
+        GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionProgressFragment().apply{ arguments = bundle }))
     }
 
     private fun setSaveTextStatus(status: Boolean)

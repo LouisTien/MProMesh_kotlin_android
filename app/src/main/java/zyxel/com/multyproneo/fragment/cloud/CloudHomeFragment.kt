@@ -19,6 +19,7 @@ import zyxel.com.multyproneo.dialog.OtherMeshNetworksDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.fragment.LoadingTransitionProgressFragment
 import zyxel.com.multyproneo.model.*
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
 import zyxel.com.multyproneo.util.AppConfig
@@ -111,15 +112,12 @@ class CloudHomeFragment : Fragment()
                 setGuestWiFi24GEnableTask()
 
                 val bundle = Bundle().apply{
-                    putString("Title", "")
-                    putString("Description", getString(R.string.loading_transition_please_wait))
-                    putString("Sec_Description", getString(R.string.loading_transition_update_wifi_settings))
+                    putString("Title", getString(R.string.loading_transition_update_wifi_settings))
                     putInt("LoadingSecond", AppConfig.WiFiSettingTime)
-                    putSerializable("Anim", AppConfig.LoadingAnimation.ANIM_REBOOT)
                     putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_SEARCH)
-                    putBoolean("ShowCountDownTimer", false)
+                    putBoolean("IsCloud", true)
                 }
-                GlobalBus.publish(MainEvent.SwitchToFrag(CloudLoadingTransitionFragment().apply{ arguments = bundle }))
+                GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionProgressFragment().apply{ arguments = bundle }))
             }
 
             cloud_home_mesh_devices_add_image -> GlobalBus.publish(MainEvent.SwitchToFrag(CloudAddMeshFragment()))

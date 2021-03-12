@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.fragment_loading_transition.*
+import kotlinx.android.synthetic.main.fragment_loading_transition_img.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import org.json.JSONException
 import zyxel.com.multyproneo.R
@@ -42,7 +42,7 @@ class FindingDeviceFragment : Fragment(), IResponseListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        return inflater.inflate(R.layout.fragment_loading_transition, container, false)
+        return inflater.inflate(R.layout.fragment_loading_transition_img, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
@@ -51,7 +51,7 @@ class FindingDeviceFragment : Fragment(), IResponseListener
 
         GlobalData.currentFrag = TAG
 
-        loading_retry_image.setOnClickListener{
+        loading_retry_button.setOnClickListener{
             retryTimes = 6
             startFindDevice()
         }
@@ -175,8 +175,6 @@ class FindingDeviceFragment : Fragment(), IResponseListener
                 if(isVisible)
                 {
                     runOnUiThread{
-                        loading_animation_view.setAnimation("nofound.json")
-                        loading_animation_view.playAnimation()
                         setNotFindDeviceUI()
                     }
                 }
@@ -193,23 +191,24 @@ class FindingDeviceFragment : Fragment(), IResponseListener
 
     private fun setFindDeviceUI()
     {
-        loading_retry_image.visibility = View.INVISIBLE
-        loading_msg_title_text.visibility = View.INVISIBLE
-        loading_msg_working_text.visibility = View.VISIBLE
+        loading_retry_button.visibility = View.INVISIBLE
+        loading_msg_title_loading.visibility = View.VISIBLE
+        loading_msg_title_text.text = getString(R.string.find_device_working_description)
         loading_msg_status_text.text = getString(R.string.find_device_status_description)
+        loading_image_view.setImageResource(R.drawable.find_device_img)
     }
 
     private fun setNotFindDeviceUI()
     {
-        loading_retry_image.visibility = View.VISIBLE
-        loading_msg_title_text.visibility = View.VISIBLE
-        loading_msg_working_text.visibility = View.INVISIBLE
-        loading_msg_status_text.text = getString(R.string.find_device_no_result_description)
+        loading_retry_button.visibility = View.VISIBLE
+        loading_msg_title_loading.visibility = View.GONE
+        loading_msg_title_text.text = getString(R.string.find_device_no_working_description)
+        loading_msg_status_text.text = getString(R.string.find_device_no_status_description)
+        loading_image_view.setImageResource(R.drawable.no_device_img)
     }
 
     private fun startFindDevice()
     {
-        setFindDeviceUI()
         runSearchTask()
     }
 
@@ -218,8 +217,7 @@ class FindingDeviceFragment : Fragment(), IResponseListener
         if(!isResumed) return
 
         runOnUiThread{
-            loading_animation_view.setAnimation("searching.json")
-            loading_animation_view.playAnimation()
+            setFindDeviceUI()
         }
 
         retryTimes++

@@ -30,6 +30,10 @@
         <item name="colorAccent">#64be00</item>
     </style>
 
+    <style name="loadingProBar_gray">
+        <item name="colorAccent">#575757</item>
+    </style>
+
     <style name="slideDialogAnimation">
         <item name="android:windowEnterAnimation">@anim/slide_up_dialog</item>
         <item name="android:windowExitAnimation">@anim/slide_down_dialog</item>

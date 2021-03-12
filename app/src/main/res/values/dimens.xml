@@ -25,6 +25,7 @@
     <dimen name="layout_size_23dp_in_1080">23dp</dimen>
     <dimen name="layout_size_24dp_in_1080">24dp</dimen>
     <dimen name="layout_size_25dp_in_1080">25dp</dimen>
+    <dimen name="layout_size_27dp_in_1080">27dp</dimen>
     <dimen name="layout_size_28dp_in_1080">28dp</dimen>
     <dimen name="layout_size_29dp_in_1080">29dp</dimen>
     <dimen name="layout_size_30dp_in_1080">30dp</dimen>
@@ -124,9 +125,11 @@
     <dimen name="text_size_14sp_in_1080">14sp</dimen>
     <dimen name="text_size_15sp_in_1080">15sp</dimen>
     <dimen name="text_size_16sp_in_1080">16sp</dimen>
+    <dimen name="text_size_17sp_in_1080">17sp</dimen>
     <dimen name="text_size_18sp_in_1080">18sp</dimen>
     <dimen name="text_size_20sp_in_1080">20sp</dimen>
     <dimen name="text_size_22sp_in_1080">22sp</dimen>
+    <dimen name="text_size_23sp_in_1080">23sp</dimen>
     <dimen name="text_size_24sp_in_1080">24sp</dimen>
     <dimen name="text_size_25sp_in_1080">25sp</dimen>
     <dimen name="text_size_26sp_in_1080">26sp</dimen>

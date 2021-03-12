@@ -12,8 +12,8 @@ android {
         applicationId "zyxel.com.multyproneo"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 20200902
-        versionName "2.1.0.200902"
+        versionCode 20210311
+        versionName "2.2.0.210311"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -85,7 +85,7 @@ dependencies {
     //noinspection GradleCompatible
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-    implementation 'com.airbnb.android:lottie:2.6.0'
+    implementation 'com.airbnb.android:lottie:3.4.0'
     implementation 'com.google.zxing:core:3.2.0'
     //Rx Dependencies
     implementation 'io.reactivex.rxjava2:rxjava:2.1.16'

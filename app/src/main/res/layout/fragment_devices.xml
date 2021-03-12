@@ -85,6 +85,15 @@
                 android:text="@string/devices_activated"/>
 
             <TextView
+                android:id="@+id/devices_activated_symbol_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/layout_size_5dp_in_1080"
+                android:textColor="@color/color_000000"
+                android:textSize="@dimen/text_size_16sp_in_1080"
+                android:text="/"/>
+
+            <TextView
                 android:id="@+id/devices_total_value_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
