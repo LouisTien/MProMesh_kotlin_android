@@ -237,7 +237,7 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
 
     private fun setGatewayModeUI()
     {
-        zyxel_end_device_detail_title_text.text = String.format("%s %s", getString(R.string.home_device_wifi_router), getString(R.string.device_detail_detail))
+        zyxel_end_device_detail_title_text.text = getString(R.string.device_detail_router_title)
         setContentLinearListVisibility(true)
         zyxel_end_device_detail_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_reboot_button.visibility = View.VISIBLE
@@ -246,19 +246,17 @@ class CloudZYXELEndDeviceDetailFragment : Fragment()
 
     private fun setEndDeviceModeUI()
     {
-        zyxel_end_device_detail_title_text.text = String.format("%s %s",
+        zyxel_end_device_detail_title_text.text =
                 with(endDeviceInfo.X_ZYXEL_HostType)
                 {
                     when
                     {
-                        equals("Router", ignoreCase = true) -> getString(R.string.home_device_wifi_router)
-                        equals("AccessPoint", ignoreCase = true) || equals("Access Point", ignoreCase = true) || equals("AP", ignoreCase = true) -> getString(R.string.home_device_ap)
-                        equals("Repeater", ignoreCase = true) || equals("RP", ignoreCase = true) -> getString(R.string.home_device_rp)
-                        else -> endDeviceInfo.X_ZYXEL_HostType
+                        equals("AccessPoint", ignoreCase = true) || equals("Access Point", ignoreCase = true) || equals("AP", ignoreCase = true) -> getString(R.string.device_detail_ap_title)
+                        equals("Repeater", ignoreCase = true) || equals("RP", ignoreCase = true) -> getString(R.string.device_detail_rp_title)
+                        else -> String.format("%s %s", endDeviceInfo.X_ZYXEL_HostType, getString(R.string.device_detail_detail))
                     }
-                },
-                getString(R.string.device_detail_detail)
-        )
+                }
+
         setContentLinearListVisibility(true)
         zyxel_end_device_detail_wan_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_lan_ip_linear.visibility = View.GONE

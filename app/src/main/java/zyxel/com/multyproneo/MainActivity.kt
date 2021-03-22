@@ -740,8 +740,13 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
     private fun setErrorMsgDialog(msg: String, act: AppConfig.DialogAction)
     {
+        val msgString = when (msg) {
+            "Timeout" -> getString(R.string.commander_error_timeout)
+            "Server is disconnect." -> getString(R.string.commander_error_disconnect)
+            else -> msg
+        }
         runOnUiThread{
-            errorMsgDlg.description = msg
+            errorMsgDlg.description = msgString
             errorMsgDlg.action = act
             if(!errorMsgDlg.isShowing)
                 errorMsgDlg.show()

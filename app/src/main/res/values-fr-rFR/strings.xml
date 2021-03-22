@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <!---MPro Mesh-->
+    <string name="app_name">MPro Mesh</string>
+    <!---Start-->
+    <string name="common_start">Début</string>
+    <!---Home-->
+    <string name="common_home">Accueil</string>
+    <!---Devices-->
+    <string name="common_devices">Appareils</string>
+    <!---Diagnostics-->
+    <string name="common_diagnostic">Diagnostiques</string>
+    <!---Account-->
+    <string name="common_account">Compte</string>
+    <!---Settings-->
+    <string name="common_settings">Réglages</string>
+    <!---Cancel-->
+    <string name="common_cancel">Annuler</string>
+    <!---Done-->
+    <string name="common_done">Terminé</string>
+    <!---Simple controls for home network-->
+    <string name="setup_first_time_using_description1">Commandes simples pour le réseau domestique</string>
+    <!---Add extenders to easily expand WiFi coverage-->
+    <string name="setup_first_time_using_description2">Ajouter des extenseurs pour étendre facilement la couverture WiFi</string>
+    <!---Enable / Disable guest WiFi-->
+    <string name="setup_first_time_using_description3">Activer / désactiver le WiFi invité</string>
+    <!---Got it-->
+    <string name="setup_connect_controller_format_error_dialog_confirm">Compris</string>
+    <!---Connecting to the WiFi Router-->
+    <string name="setup_connecting_controller_title">Connexion au routeur WiFi</string>
+    <!---Please wait.\nThis may take a few seconds.-->
+    <string name="setup_connecting_controller_description">Veuillez patienter.\nCela peut prendre quelques secondes.</string>
+    <!---Connecting to the Internet...-->
+    <string name="setup_connecting_internet_title">Connexion à Internet...</string>
+    <!---Successfully connected to the Internet!-->
+    <string name="setup_connecting_internet_success_title">Connexion à Internet réussie !</string>
+    <!---Log into the WiFi Router-->
+    <string name="setup_login_title">Connectez-vous au routeur WiFi</string>
+    <!---Enter username and password to continue.-->
+    <string name="setup_login_description">Entrer le nom d\'utilisateur et le mot de passe pour continuer.</string>
+    <!---Username-->
+    <string name="setup_login_username">Nom d\'utilisateur</string>
+    <!---Password-->
+    <string name="setup_login_password">Mot de passe</string>
+    <!---Find the default admin username and password of your MPro Mesh Router/ Extender on the label.-->
+    <string name="setup_login_label_description">Trouvez le nom d\'utilisateur et le mot de passe administrateur par défaut de votre Routeur / Extenseur MPro Mesh sur l\'étiquette.</string>
+    <!---Enter the serial number to continue.-->
+    <string name="setup_sn_login_description">Entrer le numéro de série pour continuer.</string>
+    <!---Serial number-->
+    <string name="setup_sn_login_serial_number">Numéro de série</string>
+    <!---The unique serial number can be found on the back label. It starts with \"S\"-->
+    <string name="setup_sn_login_label_description">Le numéro de série unique se trouve sur l\'étiquette arrière. Il commence par « S »</string>
+    <!---There are previously saved settings of the WiFi router you\'ve managed before. You can apply them to the WiFi router you are managing now.-->
+    <string name="setup_previous_settings_description">Il existe des paramètres précédemment enregistrés pour le routeur WiFi que vous avez géré auparavant. Vous pouvez les appliquer au routeur WiFi que vous gérez actuellement. </string>
+    <!---Apply WiFi settings to-->
+    <string name="setup_previous_settings_sub_title">Appliquer les paramètres WiFi à</string>
+    <!---Network name-->
+    <string name="setup_previous_settings_details_network_name_title">Nom du réseau</string>
+    <!---Password-->
+    <string name="setup_previous_settings_details_password_title">Mot de passe</string>
+    <!---LOCAL DEVICE NAMES-->
+    <string name="setup_previous_settings_details_devices_title">Noms des appareils locaux</string>
+    <!---Apply-->
+    <string name="setup_previous_settings_apply">Appliquer</string>
+    <!---Skip-->
+    <string name="setup_previous_settings_skip">Sauter</string>
+    <!---Re-Connecting to WiFi Router Using New WiFi Name and Password-->
+    <string name="setup_apply_reconnect_previous_settings_title">Reconnexion au routeur WiFi à l\'aide des nouveaux nom et mot de passe WiFi</string>
+    <!---Cannot Connect to the WiFi Router-->
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_title">Impossible de se connecter au routeur WiFi</string>
+    <!---Check the following:-->
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_sub_title">Vérifiez les points suivants :</string>
+    <!---Make sure the WiFi Router is turned on and its WiFi LED is steady on.-->
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description1">Assurez-vous que le routeur WiFi est allumé et que son voyant WiFi est allumé en continu.</string>
+    <!---Make sure you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is on and that Airplane Mode is off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.-->
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description2">Assurez-vous que vous n\'avez pas accidentellement désactivé le WiFi de votre téléphone. Allez dans les paramètres du téléphone et assurez-vous que le WiFi est activé et que le mode Avion est désactivé. Le mode Avion désactive vos radios WiFi, donc s\'il est activé, vous ne pourrez pas vous connecter.</string>
+    <!---If the default credentials were changed, please go to phone settings  and tap the name of the WiFi network that you want to join.-->
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description3">Si les informations d\'identification par défaut ont été modifiées, allez dans les paramètres du téléphone et appuyez sur le nom du réseau WiFi que vous souhaitez rejoindre.</string>
+    <!---If you reset your WiFi Router, please go back to previous page and follow the \"Add\" process to set up your WiFi Router again.-->
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description4">Si vous avez réinitialisé votre routeur WiFi, veuillez retourner à la page précédente et suivre le processus « Ajouter » pour configurer à nouveau votre routeur WiFi.</string>
+    <!---No Internet Connection-->
+    <string name="setup_connect_troubleshooting_no_internet_title">Pas de connexion Internet</string>
+    <!---Check the following troubleshooting guide. If you still have problems, please contact your Internet service provider.-->
+    <string name="setup_connect_troubleshooting_no_internet_sub_title">Consultez le guide de dépannage suivant. Si les problèmes persistent, veuillez contacter l\'assistance clientèle.</string>
+    <!---Check the hardware connections, and make sure the LEDs are behaving as expected.-->
+    <string name="setup_connect_troubleshooting_no_internet_description1">Vérifiez les connexions matérielles et assurez-vous que les voyants LED se comportent comme prévu.</string>
+    <!---Make sure you entered your ISP account information correctly in the GUI (Network Setting > Broadband) screen. These fields are case-sensitive, so make sure [Caps Lock] is not on.-->
+    <string name="setup_connect_troubleshooting_no_internet_description2">Assurez-vous d\'avoir correctement saisi les informations de votre compte FAI dans l\'écran GUI (Network Setting (Paramètres réseau) &gt; Broadband (Haut débit)). Ces champs sont sensibles à la casse, assurez-vous donc que [Verr Maj] n\'est pas activé.</string>
+    <!---Disconnect all the cables from your device and reconnect them.-->
+    <string name="setup_connect_troubleshooting_no_internet_description3">Débranchez tous les câbles de votre appareil et rebranchez-les.</string>
+    <!---If the problem continues, contact your ISP.-->
+    <string name="setup_connect_troubleshooting_no_internet_description4">Si le problème persiste, contactez votre FAI.</string>
+    <!---Cannot Connect to the Cloud-->
+    <string name="setup_connect_troubleshooting_cannot_connect_cloud_title">Impossible de se connecter au cloud</string>
+    <!---Make sure your mobile device is connected to the Internet. Check to see whether your cellular data is enabled and working.-->
+    <string name="setup_connect_troubleshooting_cannot_connect_cloud_description1">Assurez-vous que votre appareil mobile est connecté à Internet. Vérifiez si vos données de téléphonie mobile sont activées et fonctionnent.</string>
+    <!---A cloud account allows you to manage your WiFi Router from anywhere.-->
+    <string name="cloud_login_connect_description">Un compte cloud vous permet de gérer votre routeur WiFi de n\'importe où.</string>
+    <!---Your WiFi Router is already connected to the cloud, please log in.-->
+    <string name="cloud_login_connect_description_registered">Votre routeur WiFi est déjà connecté au cloud, veuillez vous connecter.</string>
+    <!---Log into the Cloud-->
+    <string name="cloud_login_login_title">Connectez-vous au cloud</string>
+    <!---Log into the cloud to access your WiFi Router.-->
+    <string name="cloud_login_login_description">Connectez-vous au cloud pour accéder à votre routeur WiFi.</string>
+    <!---Unable to connect to the server. Please check your network access.-->
+    <string name="cloud_login_no_internet">Impossible de se connecter au serveur. Vérifiez votre accès au réseau.</string>
+    <!---SSL error occurred. Would you like to proceed?-->
+    <string name="cloud_login_no_ssl_error">Une erreur SSL s\'est produite. Voulez-vous continuer ?</string>
+    <!---Internet Status-->
+    <string name="gateway_status_title">État de l\'Internet</string>
+    <!---Has Internet Connection-->
+    <string name="gateway_status_has_internet">Connexion Internet disponible</string>
+    <!---No Internet Connection-->
+    <string name="gateway_status_no_internet">Pas de connexion Internet</string>
+    <!---Other Mesh Networks-->
+    <string name="other_mesh_title">Autres réseaux Mesh</string>
+    <!---Set up a new Mesh network-->
+    <string name="other_mesh_setup_description">Configurer un nouveau réseau Mesh</string>
+    <!---Mesh Device Placement Status-->
+    <string name="mesh_device_status_title">État du placement des appareils Mesh</string>
+    <!---Connection Status-->
+    <string name="mesh_device_status_title_device">État de la connexion</string>
+    <!---Wired connection-->
+    <string name="mesh_device_status_wire_connect">Connexion filaire</string>
+    <!---Good to go-->
+    <string name="mesh_device_status_good">Bon fonctionnement</string>
+    <!---Too close to the WiFi Router-->
+    <string name="mesh_device_status_too_close">Trop proche du routeur WiFi</string>
+    <!---Weak WiFi-->
+    <string name="mesh_device_status_far_away">WiFi faible</string>
+    <!---No connection-->
+    <string name="mesh_device_status_no_connect">Pas de connexion</string>
+    <!---Internet Paused-->
+    <string name="mesh_device_status_block">Internet en pause</string>
+    <!---WiFi-->
+    <string name="button_text_wifi">WiFi</string>
+    <!---Oops!-->
+    <string name="find_device_title">Oups !</string>
+    <!---Please wait. This may take a few seconds.-->
+    <string name="find_device_status_description">Veuillez patienter. Cela peut prendre quelques secondes.</string>
+    <!---Cannot find your device.\nPlease click the Retry button to start again.-->
+    <string name="find_device_no_result_description">Impossible de trouver votre appareil.\nVeuillez cliquer sur le bouton Retry (Réessayer) pour recommencer.</string>
+    <!---Please click the Retry button to start again.-->
+    <string name="find_device_no_status_description">Veuillez cliquer sur le bouton Retry (Réessayer) pour recommencer.</string>
+    <!---Cannot Find Your Device.-->
+    <string name="find_device_no_working_description">Impossible de trouver votre appareil.</string>
+    <!---Device Found-->
+    <string name="gateway_list_title">Appareil trouvé</string>
+    <!---Choose a device to log in-->
+    <string name="gateway_list_choose">Choisissez un appareil pour vous connecter</string>
+    <!---Add-->
+    <string name="gateway_list_add">Ajouter</string>
+    <!---Your WiFi Router-->
+    <string name="cloud_gateway_list_title">Votre routeur WiFi</string>
+    <!---No WiFi Router yet.-->
+    <string name="cloud_gateway_list_no_choose">Pas encore de routeur WiFi.</string>
+    <!---Login-->
+    <string name="login_title">Ouvrir une session</string>
+    <!---Enter Username and Password-->
+    <string name="login_description">Entrer le nom d\'utilisateur et le mot de passe</string>
+    <!---Enter Username-->
+    <string name="login_username_hint">Entrer le nom d\'utilisateur</string>
+    <!---Enter Password-->
+    <string name="login_password_hint">Entrer le mot de passe</string>
+    <!---Username or Password error-->
+    <string name="login_error">Erreur de nom d\'utilisateur ou de mot de passe</string>
+    <!---Serial number error-->
+    <string name="login_sn_error">Erreur de numéro de série</string>
+    <!---Special characters are not supported-->
+    <string name="login_no_support_character">Les caractères spéciaux sont interdits</string>
+    <!---Connected\nDevices-->
+    <string name="home_connected_devices">Appareils\nconnectés</string>
+    <!---Guest\nWiFi-->
+    <string name="home_guest_wifi">WiFi\nInvité</string>
+    <!---ON-->
+    <string name="home_guest_wifi_status_on">Activé</string>
+    <!---OFF-->
+    <string name="home_guest_wifi_status_off">Désactivé</string>
+    <!---MESH-->
+    <string name="home_mesh">MESH</string>
+    <!---Up-->
+    <string name="home_mesh_up">Haut</string>
+    <!---Down-->
+    <string name="home_mesh_down">Bas</string>
+    <!---Gateway-->
+    <string name="home_device_gateway">Passerelle</string>
+    <!---WiFi Router-->
+    <string name="home_device_wifi_router">Routeur WiFi</string>
+    <!---Access Point-->
+    <string name="home_device_ap">Point d\'accès</string>
+    <!---Repeater-->
+    <string name="home_device_rp">Répéteur</string>
+    <!---Mesh Devices-->
+    <string name="home_mesh_devices">Appareils Mesh</string>
+    <!---Extender-->
+    <string name="home_extender">Extenseur</string>
+    <!---Model Name-->
+    <string name="device_detail_model_name">Nom du modèle</string>
+    <!---Status-->
+    <string name="device_detail_status">État</string>
+    <!---Connection Type-->
+    <string name="device_detail_connect_type">Type de connexion</string>
+    <!---WAN IP-->
+    <string name="device_detail_wan_ip">IP WAN</string>
+    <!---DNS IP-->
+    <string name="device_detail_dns_ip">IP du DNS</string>
+    <!---LAN IP-->
+    <string name="device_detail_lan_ip">IP du LAN</string>
+    <!---IP Address-->
+    <string name="device_detail_ip_address">Adresse IP</string>
+    <!---MAC Address-->
+    <string name="device_detail_mac_address">Adresse MAC</string>
+    <!---Firmware Version-->
+    <string name="device_detail_fw_version">Version du microprogramme</string>
+    <!---Reboot-->
+    <string name="device_detail_reboot">Redémarrer</string>
+    <!---Connected-->
+    <string name="device_detail_connecting">Connecté</string>
+    <!---Disconnect-->
+    <string name="device_detail_disconnect">Déconnecter</string>
+    <!---Paused-->
+    <string name="device_detail_blocked">Interruption</string>
+    <!---Wired-->
+    <string name="device_detail_wired">Filaire</string>
+    <!---Wireless-->
+    <string name="device_detail_wireless">Sans fil</string>
+    <!---Device Detail-->
+    <string name="device_detail_title">Détail de l\'appareil</string>
+    <!---Device Name-->
+    <string name="device_detail_device_name">Nom de l\'appareil</string>
+    <!---Last Seen-->
+    <string name="device_detail_last_seen">Dernier vu</string>
+    <!---Connect To-->
+    <string name="device_detail_connect_to">Connexion à</string>
+    <!---WiFi Band-->
+    <string name="device_detail_wifi_band">Bande WiFi</string>
+    <!---WiFi Channel-->
+    <string name="device_detail_wifi_channel">Canal WiFi</string>
+    <!---Max Speed-->
+    <string name="device_detail_max_speed">Vitesse maximale</string>
+    <!---RSSI (Client to AP)-->
+    <string name="device_detail_rssi">RSSI (Client vers AP)</string>
+    <!---Manufacturer-->
+    <string name="device_detail_manufacturer">Fabricant</string>
+    <!---Pause Internet-->
+    <string name="device_detail_internet_blocking">Mettre Internet en pause</string>
+    <!---Parental Control-->
+    <string name="device_detail_parental_control">Contrôle parental</string>
+    <!---Speed Test Result-->
+    <string name="device_detail_speed_test_result">Résultat du test de vitesse</string>
+    <!---Speed Test-->
+    <string name="device_detail_speed_test">Test de vitesse</string>
+    <!---Mbps-->
+    <string name="device_detail_speed_test_unit">Mbps</string>
+    <!---updating-->
+    <string name="device_detail_max_speed_updating">mise à jour</string>
+    <!---Make sure not to block your own devices from accessing the WiFi.-->
+    <string name="device_detail_cannot_block_yourself">Veillez à ne pas bloquer l\'accès WiFi de vos propres appareils.</string>
+    <!---The device is offline.-->
+    <string name="device_detail_offline_msg">L\'appareil est hors ligne.</string>
+    <!---You have signed up for Home IoT Security that includes Parental Control with Content Filtering.\nDownload Use F-Secure Sense App for Parental Control and other security features.-->
+    <string name="device_detail_f_secure_msg">Vous vous êtes inscrit à Home IoT Security qui inclut le contrôle parental avec filtrage de contenu.\nTéléchargez l\'application F-Secure Sense pour le contrôle parental et d\'autres fonctions de sécurité.</string>
+    <!---active-->
+    <string name="devices_activated">actif</string>
+    <!---total-->
+    <string name="devices_total">Total</string>
+    <!---Home Devices-->
+    <string name="devices_home_devices">Appareils domestiques</string>
+    <!---Guest Devices-->
+    <string name="devices_guest_devices">Appareils invités</string>
+    <!---Device name will be displayed in a future App update-->
+    <string name="devices_user_tips">Le nom de l\'appareil sera affiché dans une prochaine mise à jour de l\'application</string>
+    <!---WiFi-->
+    <string name="wifi_settings_title">WiFi</string>
+    <!---WiFi Settings-->
+    <string name="wifi_settings_title_2">Paramètres WiFi</string>
+    <!---Name-->
+    <string name="wifi_settings_wifi_name">Nom</string>
+    <!---Password-->
+    <string name="wifi_settings_wifi_password">Mot de passe</string>
+    <!---Home 2.4G-->
+    <string name="wifi_settings_wifi_name_24g">2,4G domestique</string>
+    <!---Home 5G-->
+    <string name="wifi_settings_wifi_name_5g">5G domestique</string>
+    <!---Guest-->
+    <string name="wifi_settings_guest_wifi">Invité</string>
+    <!---Share Home WiFi-->
+    <string name="wifi_settings_wifi_name_qrcode">Partager le WiFi domestique</string>
+    <!---Share Home 2.4G WiFi-->
+    <string name="wifi_settings_wifi_name_24g_qrcode">Partager 2,4G WiFi domestique</string>
+    <!---Share Home 5G WiFi-->
+    <string name="wifi_settings_wifi_name_5g_qrcode">Partager 5G WiFi domestique</string>
+    <!---Share Guest WiFi-->
+    <string name="wifi_settings_guest_wifi_qrcode">Partager WiFi invité</string>
+    <!---WiFi Name-->
+    <string name="wifi_settings_wifi_name_2">Nom WiFi</string>
+    <!---WiFi Password-->
+    <string name="wifi_settings_wifi_password_2">Mot de passe WiFi</string>
+    <!---2.4G WiFi Name-->
+    <string name="wifi_settings_wifi_name_24g_2">Nom WiFi 2,4G</string>
+    <!---2.4G WiFi Password-->
+    <string name="wifi_settings_wifi_password_24g_2">Mot de passe WiFi 2,4G</string>
+    <!---5G WiFi Name-->
+    <string name="wifi_settings_wifi_name_5g_2">Nom WiFi 5G</string>
+    <!---5G WiFi Password-->
+    <string name="wifi_settings_wifi_password_5g_2">Mot de passe WiFi 5G</string>
+    <!---Guest WiFi-->
+    <string name="wifi_settings_guest_wifi_2">WiFi invité</string>
+    <!---Guest WiFi Name-->
+    <string name="wifi_settings_guest_wifi_name">Nom WiFi invité</string>
+    <!---Guest WiFi Password-->
+    <string name="wifi_settings_guest_wifi_password">Mot de passe WiFi invité</string>
+    <!---Save-->
+    <string name="wifi_settings_edit_save">Enregistrer</string>
+    <!---If you change the WiFi settings being connected, please reconnect to the new WiFi.-->
+    <string name="wifi_settings_connect_change_tip">Si vous modifiez les paramètres WiFi en cours de connexion, veuillez vous reconnecter au nouveau WiFi.</string>
+    <!---Edit WiFi-->
+    <string name="wifi_edit_title">Modifier le WiFi</string>
+    <!---App Version-->
+    <string name="account_app_version">Version de l\'application</string>
+    <!---Privacy Policy-->
+    <string name="account_privacy_policy">Politique de confidentialité</string>
+    <!---Logout-->
+    <string name="account_logout">Fermer la session</string>
+    <!---WiFi Channel Chart-->
+    <string name="diagnostic_tab_wifi_channel">Tableau des canaux WiFi</string>
+    <!---WiFi Signal Meter-->
+    <string name="diagnostic_tab_wifi_signal">Indicateur de signal WiFi</string>
+    <!---Channel Chart-->
+    <string name="diagnostic_channel_chart">Tableau des canaux</string>
+    <!---Signal Strength [dBm]-->
+    <string name="diagnostic_signal_strength">Force du signal [dBm]</string>
+    <!---WiFi Channels-->
+    <string name="diagnostic_wifi_channels">Canaux WiFi</string>
+    <!---2.4GHz-->
+    <string name="diagnostic_wifi_channels_24g">2,4 GHz</string>
+    <!---5GHz-->
+    <string name="diagnostic_wifi_channels_5g">5 GHz</string>
+    <!---Diagnostic function needs access to your location. Please turn on Location Services in your device\'s settings-->
+    <string name="diagnostic_request_location_permission">La fonction de diagnostic doit avoir accès à votre emplacement. Veuillez activer les services de localisation dans les paramètres de votre appareil</string>
+    <!---WiFi Name-->
+    <string name="diagnostic_wifi_signal_wifi_name">Nom WiFi</string>
+    <!---WiFi Signal Strength-->
+    <string name="diagnostic_wifi_signal_wifi_signal_strength">Force du signal WiFi</string>
+    <!---WiFi Band-->
+    <string name="diagnostic_wifi_signal_wifi_band">Bande WiFi</string>
+    <!---Connected to-->
+    <string name="diagnostic_wifi_signal_connect_to">Connecté à</string>
+    <!---Stop-->
+    <string name="diagnostic_wifi_signal_stop">Arrêter</string>
+    <!---Poor-->
+    <string name="diagnostic_wifi_signal_poor">Mauvais</string>
+    <!---Excellent-->
+    <string name="diagnostic_wifi_signal_excellent">Excellent</string>
+    <!---Diagnostic function needs access to your location. Please enable GPS in your device\'s settings-->
+    <string name="diagnostic_request_gps_permission">La fonction de diagnostic doit avoir accès à votre emplacement. Veuillez activer la fonction GPS dans les paramètres de votre appareil</string>
+    <!---Notification-->
+    <string name="settings_notification">Notification</string>
+    <!---Save WiFi Settings-->
+    <string name="settings_preserve_settings">Enregistrer les paramètres WiFi</string>
+    <!---Troubleshooting-->
+    <string name="settings_troubleshooting">Dépannage</string>
+    <!---Previously saved WiFi settings can be applied to a WiFi Router during its setup.-->
+    <string name="settings_hint">Les paramètres WiFi précédemment enregistrés peuvent être appliqués à un routeur WiFi lors de sa configuration.</string>
+    <!---Cloud Account-->
+    <string name="settings_cloud_account">Compte cloud</string>
+    <!---Report an Issue-->
+    <string name="settings_issue_report">Signaler un problème</string>
+    <!---Privacy Policy-->
+    <string name="settings_privacy_policy">Politique de confidentialité</string>
+    <!---APP Version-->
+    <string name="settings_app_version">Version de l\'application</string>
+    <!---New Connected Device-->
+    <string name="settings_notification_sub_title">Nouvel appareil connecté</string>
+    <!---YOUR WIFI ROUTER-->
+    <string name="settings_cloud_account_router_list_title">Votre routeur WiFi</string>
+    <!---Edit-->
+    <string name="settings_cloud_account_router_action_edit">Editer</string>
+    <!---This WiFi Router-->
+    <string name="settings_cloud_account_router_list_hint">Ce routeur WiFi</string>
+    <!---Deleting WiFi Backup Settings-->
+    <string name="settings_preserve_settings_alert_title">Suppression des paramètres de sauvegarde WiFi</string>
+    <!---Turning off Save WiFi Settings will delete the backup settings. MPro Mesh app will not be able to restore the WiFi settings to your WiFi Router during reinstallation.-->
+    <string name="settings_preserve_settings_alert_msg">La désactivation de la fonction Sauvegarder les paramètres WiFi supprime les paramètres de sauvegarde. L\'application MPro Mesh ne pourra pas restaurer les paramètres WiFi de votre routeur WiFi pendant la réinstallation.</string>
+    <!---This WiFi Router is connected to the cloud. Please log in with the correct account. Logging in with another account will REMOVE the WiFi Router from the original one.-->
+    <string name="settings_login_cloud_msg">Ce routeur WiFi est connecté au cloud. Veuillez vous connecter avec le bon compte. La connexion avec un autre compte SUPPRIMERA le routeur WiFi de celui d\'origine.</string>
+    <!---I cannot access the Internet-->
+    <string name="settings_troubleshooting_internet_title">Impossible d\'accéder à Internet</string>
+    <!---I cannot connect to the Internet using an Ethernet connection-->
+    <string name="settings_troubleshooting_ethernet_title">Impossible de se connecter à internet via une connexion Ethernet</string>
+    <!---Unable to join WiFi using the QR Code-->
+    <string name="settings_troubleshooting_qrcode_title">Impossible de se connecter au WiFi à l\'aide du code QR</string>
+    <!---Unable to connect to the WiFi network-->
+    <string name="settings_troubleshooting_wifi_title">Impossible de se connecter au réseau WiFi</string>
+    <!---Make sure you have the Ethernet WAN port connected to a MODEM or Router.-->
+    <string name="settings_troubleshooting_no_ethernet_description1">Assurez-vous que le port WAN Ethernet est connecté à un modem ou un routeur.</string>
+    <!---Make sure you configured a proper Ethernet WAN interface in the GUI (Network Setting > Broadband) screen with the Internet account information provided by your ISP and that the Internet is enabled.-->
+    <string name="settings_troubleshooting_no_ethernet_description2">Assurez-vous que vous avez configuré une interface WAN Ethernet appropriée dans l\'écran GUI (Paramètres réseau &gt; Haut débit) avec les informations de compte Internet fournies par votre FAI et que l\'Internet est activé.</string>
+    <!---Check that the WAN interface you are connected to is in the same interface group as the Ethernet connection in the GUI(Network Setting > Interface Group).-->
+    <string name="settings_troubleshooting_no_ethernet_description3">Vérifiez que l\'interface WAN à laquelle vous êtes connecté se trouve dans le même groupe d\'interfaces que la connexion Ethernet dans le GUI (Network Setting (Paramètres réseau) &gt; Interface Group (Groupe d\'interfaces)).</string>
+    <!---If you set up a WAN connection using bridging service, make sure you turn off the DHCP feature in the GUI (Network Setting > Home Networking > LAN Setup) screen to have the clients get WAN IP address directly from your ISP\’s DHCP server.-->
+    <string name="settings_troubleshooting_no_ethernet_description4">Si vous établissez une connexion WAN en utilisant un service de passerelle, assurez-vous de désactiver la fonction DHCP dans l\'écran GUI (Network Setting (Paramètres réseau) &gt; Home Networking (Réseau domestique) &gt; LAN Setup (Configuration LAN)) pour que les clients obtiennent l\'adresse IP WAN directement du serveur DHCP de votre FAI.</string>
+    <!---Make sure that your router is on and you\'re within range.-->
+    <string name="settings_troubleshooting_qrcode_error_description1">Assurez-vous que votre routeur est allumé et que vous êtes à portée.</string>
+    <!---Turn up your phone\'s brightness to the highest setting. Place the QR Code directly in front of the camera lens. Slowly move your device back approximately 6\'\' away from the lens.-->
+    <string name="settings_troubleshooting_qrcode_error_description2">Réglez la luminosité de votre téléphone sur le niveau le plus élevé. Placez le code QR directement devant l\'objectif de la caméra. Éloignez lentement votre appareil d\'environ 6 pieds (1,8 m) de l\'objectif.</string>
+    <!---What scenario do you need?-->
+    <string name="mesh_title">Quel est le scénario dont vous avez besoin ?</string>
+    <!---Use WiFi-->
+    <string name="mesh_with_wireless">Utiliser le WiFi</string>
+    <!---Use Ethernet Cable-->
+    <string name="mesh_with_wire">Utiliser un câble Ethernet</string>
+    <!---Tips-->
+    <string name="mesh_tip_title">Conseils</string>
+    <!---The ideal position for the extender.-->
+    <string name="mesh_tip_msg_topic">La position idéale pour l\'extenseur.</string>
+    <!---Place in an open, elevated location, such as on a shelf or on top of a table.-->
+    <string name="mesh_tip_msg_position">Le placer dans un endroit ouvert et surélevé, par exemple sur une étagère ou sur une table.</string>
+    <!---Minimize any physical obstructions between the controller and the extender.-->
+    <string name="mesh_tip_msg_suggest">Réduisez au minimum les obstacles physiques entre le contrôleur et l\'extenseur.</string>
+    <!---Optional-->
+    <string name="mesh_info_optional">Facultatif</string>
+    <!---Tap Home to check if the controller was set up successfully.-->
+    <string name="mesh_info_hint">Appuyez sur Home (Accueil) pour vérifier si le contrôleur a été configuré avec succès.</string>
+    <!---You may need to know-->
+    <string name="mesh_more_info_title">Vous devrez peut-être savoir </string>
+    <!---The Link LED indicates the WiFi quality of Zyxel products. It may be vary among different extenders.-->
+    <string name="mesh_more_info_description">La LED Link (Liaison) indique la qualité WiFi des produits Zyxel. Elle peut varier selon les extenseurs.</string>
+    <!---Example: WX3310-->
+    <string name="mesh_more_info_example">Exemple : WX3310</string>
+    <!---WPS may be enabled in different ways in different extenders.-->
+    <string name="mesh_more_info_hint">WPS peut être activé de différentes manières dans différents extenseurs.</string>
+    <!---See Tips-->
+    <string name="mesh_see_tip">Voir Conseils</string>
+    <!---Tap \"Next\" and press WPS on the extender to process pairing.-->
+    <string name="mesh_extender_description">Appuyez sur « Next » et appuyez sur WPS sur l\'extenseur pour procéder à l\'association.</string>
+    <!---Next-->
+    <string name="mesh_next">Next (Suivant)</string>
+    <!---Press WPS-->
+    <string name="mesh_wps_title">Appuyez sur WPS </string>
+    <!---Press the WPS button on the WiFi Extender/Mesh Device once and release it, then tap below the \'Start Pairing\' button.-->
+    <string name="mesh_wps_description">Appuyez une fois sur le bouton WPS de l\'extenseur / Appareil Mesh WiFi et relâchez-le, puis appuyez en dessous du bouton « Start Pairing (Démarrer l\'association) ».</string>
+    <!---Place your Mesh Device next to the WiFi Router (within 2 meters). Press the physical WPS button of your Mesh Device, then tap \'Start Pairing\' below.-->
+    <string name="mesh_wps_description_cloud">Placez votre appareil Mesh à côté du routeur WiFi (à moins de 2 mètres). Appuyez sur le bouton WPS physique de votre appareil Mesh, puis appuyez sur « Start Pairing (Démarrer l\'association) » ci-dessous.</string>
+    <!---Start Pairing-->
+    <string name="mesh_pair">Démarrer l\'association</string>
+    <!---Success!-->
+    <string name="mesh_success_title">Réussi !</string>
+    <!---The WiFi Extender is added to your home WiFi network with the same WiFi name and password.-->
+    <string name="mesh_success_description">L\'extenseur WiFi est ajouté à votre réseau WiFi domestique avec le même nom et le même mot de passe WiFi.</string>
+    <!---No connection-->
+    <string name="mesh_fail_title">Pas de connexion</string>
+    <!---Unplug the WiFi extender and move it closer to the gateway.-->
+    <string name="mesh_fail_description">Débranchez l\'extenseur WiFi et rapprochez-le de la passerelle.</string>
+    <!---Plug the WiFi extender in a new location, tap \"Try Again\" button to continue.-->
+    <string name="mesh_fail_description2">Branchez l\'extenseur WiFi dans un nouvel emplacement, appuyez sur le bouton « Try Again (Réessayer) » pour continuer.</string>
+    <!---Try Again-->
+    <string name="mesh_try_again">Réessayer</string>
+    <!---Retry-->
+    <string name="mesh_retry">Réessayer</string>
+    <!---Choose a Scenario-->
+    <string name="cloud_mesh_title">Choisissez un scénario</string>
+    <!---Tips-->
+    <string name="cloud_mesh_see_tip">Conseils</string>
+    <!---Relocate Your Mesh Device-->
+    <string name="cloud_mesh_extender_title">Déplacez votre appareil Mesh</string>
+    <!---Move your Mesh device to a location about halfway between your WiFi Router and the area with a poor WiFi signal.-->
+    <string name="cloud_mesh_extender_description">Déplacez votre appareil Mesh à un endroit situé à peu près à mi-chemin entre votre routeur WiFi et la zone où le signal WiFi est faible.</string>
+    <!---Connect with Your Mesh Device-->
+    <string name="cloud_mesh_wps_title">Connectez-vous avec votre appareil Mesh</string>
+    <!---Applying WiFi settings to Your Mesh Device-->
+    <string name="cloud_mesh_apply_setting_title">Application des paramètres WiFi à votre appareil Mesh</string>
+    <!---Please wait.\nThis takes about two minutes.-->
+    <string name="cloud_mesh_apply_setting_description">Veuillez patienter.\nCela prend environ deux minutes.</string>
+    <!---Success!-->
+    <string name="cloud_mesh_success_title">Réussi !</string>
+    <!---The Mesh device has now joined your home WiFi network with the same WiFi name and password.-->
+    <string name="cloud_mesh_success_description">L\'appareil Mesh a maintenant rejoint votre réseau WiFi domestique avec le même nom et mot de passe WiFi.</string>
+    <!---Find Optimal Location-->
+    <string name="cloud_mesh_tip_find_location_title">Trouver l\'emplacement optimal</string>
+    <!---Check Link Quality-->
+    <string name="cloud_mesh_tip_link_quality_title">Vérifier la qualité des liens</string>
+    <!---Do-->
+    <string name="cloud_mesh_tip_msg_do">À faire</string>
+    <!---Don\'t-->
+    <string name="cloud_mesh_tip_msg_dont">Ne pas faire</string>
+    <!---Place at a location about halfway between your WiFi Router and the area with a poor WiFi signal.-->
+    <string name="cloud_mesh_tip_msg_location">Placer à un endroit situé à peu près à mi-chemin entre votre routeur WiFi et la zone où le WiFi est faible.</string>
+    <!---An open elevated spot, like the top of a table or a shelf.-->
+    <string name="cloud_mesh_tip_msg_position">Un endroit surélevé ouvert, tel que sur une table ou une étagère.</string>
+    <!---Physical obstructions cause difficulties for the WiFi Router, the Mesh Device and any wireless device to communicate with each other.-->
+    <string name="cloud_mesh_tip_msg_suggest">Les obstructions physiques entraînent des difficultés pour le routeur WiFi, l\'appareil Mesh et tout périphérique sans fil à communiquer entre eux.</string>
+    <!---Help-->
+    <string name="cloud_mesh_fail_help">Aide</string>
+    <!---Quit-->
+    <string name="cloud_mesh_fail_quit">Quitter</string>
+    <!---Cannot Connect with Your Mesh Device-->
+    <string name="cloud_mesh_fail_title">Impossible de se connecter avec votre appareil Mesh</string>
+    <!---Place your Mesh Device closer to the WiFi Router (within 2 meters), then retry connecting.-->
+    <string name="cloud_mesh_fail_description">Placez votre appareil Mesh près du routeur WiFi (à moins de 2 mètres), puis réessayez de vous connecter.</string>
+    <!---Check the Link Quality LED for the wireless connection status of your Mesh Device to the WiFi Router.-->
+    <string name="cloud_mesh_more_info_description">Vérifiez le voyant de qualité de liaison pour connaître l\'état de la connexion sans fil de votre appareil Mesh au routeur WiFi.</string>
+    <!---Check the Link Quality LED for the connection status of your Mesh Device to the WiFi Router.-->
+    <string name="cloud_mesh_more_info_ethernet_description">Vérifiez le voyant de qualité de liaison pour connaître l\'état de la connexion de votre appareil Mesh au routeur WiFi.</string>
+    <!---Use the Ethernet Cable to Connect Your Mesh Device to the WiFi Router-->
+    <string name="cloud_mesh_cable_title">Utilisez le câble Ethernet pour connecter votre appareil Mesh au routeur WiFi</string>
+    <!---When connected, your Mesh device will have the same WiFi name and password as your home WiFi network.-->
+    <string name="cloud_mesh_cable_description">Une fois connecté, votre appareil Mesh aura le même nom et mot de passe WiFi que votre réseau WiFi domestique.</string>
+    <!---YES-->
+    <string name="message_dialog_yes">Oui</string>
+    <!---NO-->
+    <string name="message_dialog_no">Non</string>
+    <!---OK-->
+    <string name="message_dialog_ok">OK</string>
+    <!---CANCEL-->
+    <string name="message_dialog_cancel">Annuler</string>
+    <!---RESTART-->
+    <string name="message_dialog_restart">Redémarrer</string>
+    <!---Cannot Connect-->
+    <string name="message_dialog_not_connect">Impossible de se connecter</string>
+    <!---Please check your WiFi connection and try again later.-->
+    <string name="message_dialog_not_connect_try_again">Veuillez vérifier votre connexion WiFi et réessayez plus tard.</string>
+    <!---Would you like to restart your device?-->
+    <string name="message_dialog_reboot_reminder_title">Voulez-vous redémarrer votre appareil ?</string>
+    <!---It will take a few minutes to reconnect to your Device.-->
+    <string name="message_dialog_reboot_reminder">La reconnexion à votre appareil prendra quelques minutes.</string>
+    <!---Are you sure you want to log out of this app?-->
+    <string name="message_dialog_check_lougot">Voulez-vous vraiment vous déconnecter de cette application ?</string>
+    <!---Remove \'%s\' from the Cloud-->
+    <string name="remove_site_dialog_title">Retirer \'%s\' du cloud</string>
+    <!---You will need to set up the WiFi Router again to bind it back to the cloud.-->
+    <string name="remove_site_dialog_description">Vous devrez à nouveau configurer le routeur WiFi pour le relier au cloud.</string>
+    <!---You are managing this WiFi Router, so you will be logged out after removing it.\n\nSet it up again to bind it back to the cloud.-->
+    <string name="remove_site_dialog_description_self">Vous gérez ce routeur WiFi, vous serez donc déconnecté après l\'avoir supprimé.\n\nConfigurer-le à nouveau pour le lier à nouveau au cloud.</string>
+    <!---Keep its saved WiFi settings for later setup-->
+    <string name="remove_site_dialog_preserved_setting_description">Conservez ses paramètres WiFi enregistrés pour une configuration ultérieure</string>
+    <!---Remove-->
+    <string name="remove_site_dialog_remove">Retirer</string>
+    <!---Cancel-->
+    <string name="remove_site_dialog_cancel">Annuler</string>
+    <!---Scan the QR code to connect to the WiFi.-->
+    <string name="qrcode_dialog_wifi_msg">Scannez le code QR pour vous connecter au WiFi.</string>
+    <!---Guests can connect to Guest WiFi by scanning the QR code.-->
+    <string name="qrcode_dialog_guest_wifi_msg">Les invités peuvent se connecter au WiFi invité en scannant le code QR.</string>
+    <!---Please wait.-->
+    <string name="loading_transition_please_wait">Veuillez patienter.</string>
+    <!---Please wait.\nThis may take 1-2 minutes.-->
+    <string name="loading_transition_take_1_minutes">Veuillez patienter.\nCela peut prendre 1-2 minutes.</string>
+    <!---Please wait.\nThis may take 3-4 minutes.-->
+    <string name="loading_transition_take_3_minutes">Veuillez patienter.\nCela peut prendre 3-4 minutes.</string>
+    <!---Rebooting...-->
+    <string name="loading_transition_reboot">Redémarrage...</string>
+    <!---Waiting for your WiFi Extender to be ready...-->
+    <string name="loading_transition_extender">Attente que votre extenseur WiFi soit prêt...</string>
+    <!---Connecting with Your Mesh Device-->
+    <string name="cloud_loading_transition_extender">Connexion avec votre appareil Mesh</string>
+    <!---Something is wrong!!-->
+    <string name="speed_test_error">Quelque chose ne va pas !!</string>
+
+    <string name="setup_previous_settings_title">Apply Saved Settings</string>
+    <string name="setup_previous_settings_details"><u>Ayrıntılar</u></string>
+    <string name="setup_previous_settings_details_title">WiFi Settings of \'%s\'</string>
+    <string name="setup_previous_settings_details_wifi_title">WIFI NAME &amp; PASSWORD</string>
+    <string name="setup_apply_previous_settings_title">Applying Saved Settings</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_cloud_description2">Or you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.</string>
+    <string name="cloud_login_connect_title">Connect to the Cloud</string>
+    <string name="finalizing_network_title">Finalizing Your Home Network</string>
+    <string name="find_device_working_description">Looking for Your Devices...</string>
+    <string name="cloud_gateway_list_choose">Choose one to manage.</string>
+    <string name="login_sn_title">Log In</string>
+    <string name="device_detail_detail">Detail</string>
+    <string name="device_detail_f_secure"><u>F-Secure</u></string>
+    <string name="device_detail_gateway_title">Gateway Detail</string>
+    <string name="device_detail_ap_title">Access Point Detail</string>
+    <string name="device_detail_rp_title">Repeater Detail</string>
+    <string name="device_detail_router_title">WiFi Router Detail</string>
+    <string name="settings_login_cloud_title">Log In with Correct Account</string>
+    <string name="mesh_tip"><u>Voir Conseils</u></string>
+    <string name="mesh_extender_title">Place WiFi Extender</string>
+    <string name="mesh_help"><u>Besoin d\'aide ?</u></string>
+    <string name="message_dialog_turn_off">Turn Off</string>
+    <string name="message_dialog_ok_got_it">OK, got it</string>
+    <string name="remove_site_dialog_remove_self_description">\n\nRemoving \'%s\'\nand logging out...</string>
+    <string name="remove_site_dialog_remove_description">\n\nRemoving \'%s\'\nand please wait some minutes...</string>
+    <string name="loading_transition_update_wifi_settings">WiFi Setting Updating</string>
+    <string name="commander_error_timeout">Timeout</string>
+    <string name="commander_error_disconnect">Server is disconnect.</string>
+
+
+
+    <!---French: 28 strings not found.
+    Apply Saved Settings
+    WiFi Settings of \'%s\'
+    WIFI NAME & PASSWORD
+    Applying Saved Settings
+    Or you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.
+    Connect to the Cloud
+    Finalizing Your Home Network
+    Looking for Your Devices...
+    Choose one to manage.
+    Log In
+    Detail
+    Gateway Detail
+    Access Point Detail
+    Repeater Detail
+    WiFi Router Detail
+    Log In with Correct Account
+    Place WiFi Extender
+    Turn Off
+    OK, got it
+    \n\nRemoving \'%s\'\nand logging out...
+    \n\nRemoving \'%s\'\nand please wait some minutes...
+    WiFi Setting Updating
+    Timeout
+    Server is disconnect.
+    -->
+</resources>

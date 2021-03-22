@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/setup_connecting_internet_title_text"
             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-            android:text="@string/setup_connecting_internet_description"
+            android:text="@string/setup_connecting_controller_description"
             android:textColor="@color/color_575757"
             android:ellipsize="end"
             android:maxLines="3"

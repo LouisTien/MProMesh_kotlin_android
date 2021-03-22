@@ -101,10 +101,20 @@
                     android:src="@drawable/n_addmesh_location3"/>
 
                 <TextView
-                    android:id="@+id/cloud_mesh_ethernet_tip_msg_location_text"
+                    android:id="@+id/cloud_mesh_ethernet_tip_msg_location_do_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+                    android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
+                    android:textColor="@color/color_64be00"
+                    android:textSize="@dimen/text_size_14sp_in_1080"
+                    android:textStyle="italic"
+                    android:text="@string/cloud_mesh_tip_msg_do"/>
+
+                <TextView
+                    android:id="@+id/cloud_mesh_ethernet_tip_msg_location_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/text_size_14sp_in_1080"
@@ -119,10 +129,20 @@
                     android:src="@drawable/n_addmesh_location1"/>
 
                 <TextView
-                    android:id="@+id/cloud_mesh_ethernet_tip_msg_position_text"
+                    android:id="@+id/cloud_mesh_ethernet_tip_msg_position_do_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+                    android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
+                    android:textColor="@color/color_64be00"
+                    android:textSize="@dimen/text_size_14sp_in_1080"
+                    android:textStyle="italic"
+                    android:text="@string/cloud_mesh_tip_msg_do"/>
+
+                <TextView
+                    android:id="@+id/cloud_mesh_ethernet_tip_msg_position_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/text_size_14sp_in_1080"
@@ -137,11 +157,21 @@
                     android:src="@drawable/n_addmesh_location2"/>
 
                 <TextView
+                    android:id="@+id/cloud_mesh_ethernet_tip_msg_suggest_dont_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+                    android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
+                    android:textColor="@color/color_ff2837"
+                    android:textSize="@dimen/text_size_14sp_in_1080"
+                    android:textStyle="italic"
+                    android:text="@string/cloud_mesh_tip_msg_dont"/>
+
+                <TextView
                     android:id="@+id/cloud_mesh_ethernet_tip_msg_suggest_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
-                    android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
                     android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/text_size_14sp_in_1080"

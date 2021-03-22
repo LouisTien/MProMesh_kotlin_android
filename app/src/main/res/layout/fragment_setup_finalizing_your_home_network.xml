@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/setup_finalizing_network_title_text"
             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-            android:text="@string/finalizing_network_description"
+            android:text="@string/setup_connecting_controller_description"
             android:textColor="@color/color_575757"
             android:ellipsize="end"
             android:maxLines="3"

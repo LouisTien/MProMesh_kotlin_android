@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <!---MPro Mesh-->
+    <string name="app_name">MProMesh</string>
+    <!---Start-->
+    <string name="common_start">Başlangıç</string>
+    <!---Home-->
+    <string name="common_home">Ev</string>
+    <!---Devices-->
+    <string name="common_devices">Cihazlar</string>
+    <!---Diagnostics-->
+    <string name="common_diagnostic">Tanılama</string>
+    <!---Account-->
+    <string name="common_account">Hesap</string>
+    <!---Settings-->
+    <string name="common_settings">Ayarlar</string>
+    <!---Cancel-->
+    <string name="common_cancel">Vazgeç</string>
+    <!---Done-->
+    <string name="common_done">Tamam</string>
+    <!---Simple controls for home network-->
+    <string name="setup_first_time_using_description1">Ev ağı için basit kontroller</string>
+    <!---Add extenders to easily expand WiFi coverage-->
+    <string name="setup_first_time_using_description2">WiFi kapsama alanını kolayca artırmak için genişletici takın</string>
+    <!---Enable / Disable guest WiFi-->
+    <string name="setup_first_time_using_description3">Misafir WiFi Etkinleştir / Devre Dışı Bırak</string>
+    <!---Got it-->
+    <string name="setup_connect_controller_format_error_dialog_confirm">Anladım</string>
+    <!---Connecting to the WiFi Router-->
+    <string name="setup_connecting_controller_title">WiFi yönlendiriciye bağlanma</string>
+    <!---Please wait.\nThis may take a few seconds.-->
+    <string name="setup_connecting_controller_description">Lütfen bekleyin.\nBu işlem birkaç dakika sürebilir.</string>
+    <!---Connecting to the Internet...-->
+    <string name="setup_connecting_internet_title">İnternete bağlanıyor...</string>
+    <!---Successfully connected to the Internet!-->
+    <string name="setup_connecting_internet_success_title">İnternet bağlantısı başarılı bir şekilde gerçekleşti!</string>
+    <!---Log into the WiFi Router-->
+    <string name="setup_login_title">WiFi yönlendiriciye oturum aç</string>
+    <!---Enter username and password to continue.-->
+    <string name="setup_login_description">Devam etmek için kullanıcı adı ve şifreyi girin.</string>
+    <!---Username-->
+    <string name="setup_login_username">Kullanıcı Adı</string>
+    <!---Password-->
+    <string name="setup_login_password">Şifre</string>
+    <!---Find the default admin username and password of your MPro Mesh Router/ Extender on the label.-->
+    <string name="setup_login_label_description">MPro Mesh Yönlendirici/Genişletici cihazınızın arkasındaki etiketten varsayılan kullanıcı ismi ve şifreyi bulun.</string>
+    <!---Enter the serial number to continue.-->
+    <string name="setup_sn_login_description">Devam etmek için seri numarasını girin.</string>
+    <!---Serial number-->
+    <string name="setup_sn_login_serial_number">Seri numarası</string>
+    <!---The unique serial number can be found on the back label. It starts with \"S\"-->
+    <string name="setup_sn_login_label_description">Cihazınıza özgü seri numarası arkadaki etiketten bulunabilir. \"S\" ile başlayan giri.</string>
+    <!---There are previously saved settings of the WiFi router you\'ve managed before. You can apply them to the WiFi router you are managing now.-->
+    <string name="setup_previous_settings_description">Daha önce yönettiğiniz WiFi yönlendiricinin önceden kaydedilmiş ayarları vardır. Bunları şu anda yönetmekte olduğunuz WiFi yönlendiriciye uygulayabilirsiniz.</string>
+    <!---Apply WiFi settings to-->
+    <string name="setup_previous_settings_sub_title">WiFi ayarlarını uygula</string>
+    <!---Network name-->
+    <string name="setup_previous_settings_details_network_name_title">Ağ adı</string>
+    <!---Password-->
+    <string name="setup_previous_settings_details_password_title">Şifre</string>
+    <!---LOCAL DEVICE NAMES-->
+    <string name="setup_previous_settings_details_devices_title">Yerel Cihaz İsimleri</string>
+    <!---Apply-->
+    <string name="setup_previous_settings_apply">Uygula</string>
+    <!---Skip-->
+    <string name="setup_previous_settings_skip">Atla</string>
+    <!---Re-Connecting to WiFi Router Using New WiFi Name and Password-->
+    <string name="setup_apply_reconnect_previous_settings_title">Yeni WiFi adı ve şifresini kullanan WiFi yönlendiriciye tekrar bağlanıyor</string>
+    <!---Cannot Connect to the WiFi Router-->
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_title">WiFi yönlendiriciye bağlanılamıyor</string>
+    <!---Check the following:-->
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_sub_title">Aşağıdakileri kontrol ediniz.</string>
+    <!---Make sure the WiFi Router is turned on and its WiFi LED is steady on.-->
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description1">WiFi yönlendiricinizin açık olduğundan ve WiFi LED ışığınızın açık olduğundan emin olun.</string>
+    <!---Make sure you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is on and that Airplane Mode is off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.-->
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description2">Yanlışlıkla mobil telefonunuzun WiFi özelliğini kapatmadığınızdan ve uçak modunda olmadığından emin olun. Uçak modu, cihazınızın WiFi sinyallerini kapatır, bu yüzden uçak modu açıksa, bağlanamayacaksınız.</string>
+    <!---If the default credentials were changed, please go to phone settings  and tap the name of the WiFi network that you want to join.-->
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description3">Eğer varsayılan bilgileriniz değişti ise, lütfen telefon ayarlarına gidin ve katılmak istediğiniz WiFi ağına bağlanın.</string>
+    <!---If you reset your WiFi Router, please go back to previous page and follow the \"Add\" process to set up your WiFi Router again.-->
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_description4">Eğer WiFi yönlendiricinizi fabrika ayarlarına alırsanız, WiFi yönlendiricinizi tekrar ayarlamak için bir önceki sayfaya gidip \"Ekle\" işlemini yapınız.</string>
+    <!---No Internet Connection-->
+    <string name="setup_connect_troubleshooting_no_internet_title">İnternet bağlantısı yok.</string>
+    <!---Check the following troubleshooting guide. If you still have problems, please contact your Internet service provider.-->
+    <string name="setup_connect_troubleshooting_no_internet_sub_title">Sorun giderme kılavuzunu gözden geçirin. Problem hala devam ediyorsa, ISP\'niz ile iletişime geçin.</string>
+    <!---Check the hardware connections, and make sure the LEDs are behaving as expected.-->
+    <string name="setup_connect_troubleshooting_no_internet_description1">Donanım bağlantılarınızı kontrol edin ve LED ışıklarının beklendiği gibi yandığından emin olun.</string>
+    <!---Make sure you entered your ISP account information correctly in the GUI (Network Setting > Broadband) screen. These fields are case-sensitive, so make sure [Caps Lock] is not on.-->
+    <string name="setup_connect_troubleshooting_no_internet_description2">ISP\'nizin size verdiği bilgilerin doğruluğundan (Ağ Ayarları&gt; Genişbant) emin olunuz. Bu bölümler harfe duyarlıdır, bu yüzden [Caps Lock] tuşunun basılı olmadığından emin olunuz. </string>
+    <!---Disconnect all the cables from your device and reconnect them.-->
+    <string name="setup_connect_troubleshooting_no_internet_description3">Cihazınızdan tüm kabloları sökün ve tekrar bağlayın.</string>
+    <!---If the problem continues, contact your ISP.-->
+    <string name="setup_connect_troubleshooting_no_internet_description4">Problem devam ediyorsa, ISP\'niz ile iletişime geçin.</string>
+    <!---Cannot Connect to the Cloud-->
+    <string name="setup_connect_troubleshooting_cannot_connect_cloud_title">Buluta bağlanamıyor.</string>
+    <!---Make sure your mobile device is connected to the Internet. Check to see whether your cellular data is enabled and working.-->
+    <string name="setup_connect_troubleshooting_cannot_connect_cloud_description1">Mobil cihazınızın internete bağlı olduğundan emin olun. Hücresel veri akışınızın etkin ve çalışıyor durumda olmasından emin olun.</string>
+    <!---A cloud account allows you to manage your WiFi Router from anywhere.-->
+    <string name="cloud_login_connect_description">Bulut hesabı sizin WiFi yönlendiricinize herhangi bir yerden bağlanmasına olanak tanır.</string>
+    <!---Your WiFi Router is already connected to the cloud, please log in.-->
+    <string name="cloud_login_connect_description_registered">WiFi yönlendiriciniz buluta bağlıdır. Oturum aç.</string>
+    <!---Log into the Cloud-->
+    <string name="cloud_login_login_title">Buluta oturum açın.</string>
+    <!---Log into the cloud to access your WiFi Router.-->
+    <string name="cloud_login_login_description">WiFi yönlendiricinize erişim için buluta oturum açın.</string>
+    <!---Unable to connect to the server. Please check your network access.-->
+    <string name="cloud_login_no_internet">Sunucuya bağlanılamıyor. Lütfen ağa erişiminizi kontrol edin.</string>
+    <!---SSL error occurred. Would you like to proceed?-->
+    <string name="cloud_login_no_ssl_error">SSL hatası oluştu. Devam etmek ister misiniz?</string>
+    <!---Internet Status-->
+    <string name="gateway_status_title">İnternet durumu</string>
+    <!---Has Internet Connection-->
+    <string name="gateway_status_has_internet">İnternet bağlantısına sahip</string>
+    <!---No Internet Connection-->
+    <string name="gateway_status_no_internet">İnternet bağlantısı yok.</string>
+    <!---Other Mesh Networks-->
+    <string name="other_mesh_title">Diğer Mesh Ağlar</string>
+    <!---Set up a new Mesh network-->
+    <string name="other_mesh_setup_description">Yeni bir Mesh ağ kur</string>
+    <!---Mesh Device Placement Status-->
+    <string name="mesh_device_status_title">Mesh cihaz yerleştirme durumu</string>
+    <!---Connection Status-->
+    <string name="mesh_device_status_title_device">Bağlantı durumu</string>
+    <!---Wired connection-->
+    <string name="mesh_device_status_wire_connect">Kablolu ağ</string>
+    <!---Good to go-->
+    <string name="mesh_device_status_good">Hazır</string>
+    <!---Too close to the WiFi Router-->
+    <string name="mesh_device_status_too_close">WiFi yönlendiriciye çok yakın.</string>
+    <!---Weak WiFi-->
+    <string name="mesh_device_status_far_away">Zayıf WiFi</string>
+    <!---No connection-->
+    <string name="mesh_device_status_no_connect">Bağlantı yok</string>
+    <!---Internet Paused-->
+    <string name="mesh_device_status_block">İnternet durduruldu</string>
+    <!---WiFi-->
+    <string name="button_text_wifi">WiFi</string>
+    <!---Oops!-->
+    <string name="find_device_title">Amanın!</string>
+    <!---Please wait. This may take a few seconds.-->
+    <string name="find_device_status_description">Lütfen bekleyin. Bu işlem birkaç dakika sürebilir.</string>
+    <!---Cannot find your device.\nPlease click the Retry button to start again.-->
+    <string name="find_device_no_result_description">Cihazınız bulunamadı.\nLütfen tekrar aramak için Yeniden Dene butonuna basınız.</string>
+    <!---Please click the Retry button to start again.-->
+    <string name="find_device_no_status_description">Lütfen tekrar aramak için Yeniden Dene butonuna basınız.</string>
+    <!---Cannot Find Your Device.-->
+    <string name="find_device_no_working_description">Cihazınız bulunamadı.</string>
+    <!---Device Found-->
+    <string name="gateway_list_title">Cihaz bulundu</string>
+    <!---Choose a device to log in-->
+    <string name="gateway_list_choose">Oturum açmak için bir cihaz seçin</string>
+    <!---Add-->
+    <string name="gateway_list_add">Ekle</string>
+    <!---Your WiFi Router-->
+    <string name="cloud_gateway_list_title">WiFi yönlendiriciniz</string>
+    <!---No WiFi Router yet.-->
+    <string name="cloud_gateway_list_no_choose">Heniz WiFi yönlendirici yok.</string>
+    <!---Login-->
+    <string name="login_title">Oturum açmak için bir cihaz seçin</string>
+    <!---Enter Username and Password-->
+    <string name="login_description">Kullanıcı adı ve şifre girin</string>
+    <!---Enter Username-->
+    <string name="login_username_hint">Kullanıcı adı girin</string>
+    <!---Enter Password-->
+    <string name="login_password_hint">Şifre girin</string>
+    <!---Username or Password error-->
+    <string name="login_error">Kullanıcı adı veya şifre hatası</string>
+    <!---Serial number error-->
+    <string name="login_sn_error">Seri numarası hatası</string>
+    <!---Special characters are not supported-->
+    <string name="login_no_support_character">Özel karakterler desteklenmez</string>
+    <!---Connected\nDevices-->
+    <string name="home_connected_devices">Bağlı\nCihazlar</string>
+    <!---Guest\nWiFi-->
+    <string name="home_guest_wifi">Misafir\nCihazları</string>
+    <!---ON-->
+    <string name="home_guest_wifi_status_on">Açık</string>
+    <!---OFF-->
+    <string name="home_guest_wifi_status_off">Kapalı</string>
+    <!---MESH-->
+    <string name="home_mesh">MESH</string>
+    <!---Up-->
+    <string name="home_mesh_up">Yukarı</string>
+    <!---Down-->
+    <string name="home_mesh_down">Aşağı</string>
+    <!---Gateway-->
+    <string name="home_device_gateway">Ağ Geçidi</string>
+    <!---WiFi Router-->
+    <string name="home_device_wifi_router">WiFi yönlendiricisi</string>
+    <!---Access Point-->
+    <string name="home_device_ap">Erişim Noktası</string>
+    <!---Repeater-->
+    <string name="home_device_rp">Tekrarlayıcı</string>
+    <!---Mesh Devices-->
+    <string name="home_mesh_devices">Mesh Cihazları</string>
+    <!---Extender-->
+    <string name="home_extender">Genişletici</string>
+    <!---Model Name-->
+    <string name="device_detail_model_name">Model Adı</string>
+    <!---Status-->
+    <string name="device_detail_status">Durum</string>
+    <!---Connection Type-->
+    <string name="device_detail_connect_type">Bağlantı Tipi</string>
+    <!---WAN IP-->
+    <string name="device_detail_wan_ip">WAN IP</string>
+    <!---DNS IP-->
+    <string name="device_detail_dns_ip">DNS IP</string>
+    <!---LAN IP-->
+    <string name="device_detail_lan_ip">LAN IP</string>
+    <!---IP Address-->
+    <string name="device_detail_ip_address">IP adresi</string>
+    <!---MAC Address-->
+    <string name="device_detail_mac_address">MAC Adresi</string>
+    <!---Firmware Version-->
+    <string name="device_detail_fw_version">Yazılım Versiyonu</string>
+    <!---Reboot-->
+    <string name="device_detail_reboot">Yeniden Başlat</string>
+    <!---Connected-->
+    <string name="device_detail_connecting">Bağlı\nCihazlar</string>
+    <!---Disconnect-->
+    <string name="device_detail_disconnect">Bağlantıyı Kes</string>
+    <!---Paused-->
+    <string name="device_detail_blocked">Durdurulmuş</string>
+    <!---Wired-->
+    <string name="device_detail_wired">Kablolu</string>
+    <!---Wireless-->
+    <string name="device_detail_wireless">Kablosuz</string>
+    <!---Device Detail-->
+    <string name="device_detail_title">Cihaz Ayrıntıları</string>
+    <!---Device Name-->
+    <string name="device_detail_device_name">Cihaz İsmi</string>
+    <!---Last Seen-->
+    <string name="device_detail_last_seen">Son Görülme</string>
+    <!---Connect To-->
+    <string name="device_detail_connect_to">Şuna Bağlı</string>
+    <!---WiFi Band-->
+    <string name="device_detail_wifi_band">WiFi bandı</string>
+    <!---WiFi Channel-->
+    <string name="device_detail_wifi_channel">WiFi kanalı</string>
+    <!---Max Speed-->
+    <string name="device_detail_max_speed">En fazla hız</string>
+    <!---RSSI (Client to AP)-->
+    <string name="device_detail_rssi">RSSI (Cihazdan Erişim Noktasına)</string>
+    <!---Manufacturer-->
+    <string name="device_detail_manufacturer">Üretici Firma</string>
+    <!---Pause Internet-->
+    <string name="device_detail_internet_blocking">İnterneti Durdur</string>
+    <!---Parental Control-->
+    <string name="device_detail_parental_control">Ebeveyn Denetimi</string>
+    <!---Speed Test Result-->
+    <string name="device_detail_speed_test_result">Hız Testi Sonucu</string>
+    <!---Speed Test-->
+    <string name="device_detail_speed_test">Hız Testi</string>
+    <!---Mbps-->
+    <string name="device_detail_speed_test_unit">Mb/sn</string>
+    <!---updating-->
+    <string name="device_detail_max_speed_updating">güncelleniyor</string>
+    <!---Make sure not to block your own devices from accessing the WiFi.-->
+    <string name="device_detail_cannot_block_yourself">Cihazlarınızın WiFi erişimini engellemediğinize emin olun.</string>
+    <!---The device is offline.-->
+    <string name="device_detail_offline_msg">Cihaz şu anda çevrimdışı.</string>
+    <!---You have signed up for Home IoT Security that includes Parental Control with Content Filtering.\nDownload Use F-Secure Sense App for Parental Control and other security features.-->
+    <string name="device_detail_f_secure_msg">İçerik Filtreleme ile Ebeveyn Kontrolü içeren Ev IoT Güvenliği\'ne kaydoldunuz. Ebeveyn Denetimi ve diğer güvenlik özellikleri için F-Secure Sense Uygulamasını indirin.</string>
+    <!---active-->
+    <string name="devices_activated">Aktif</string>
+    <!---total-->
+    <string name="devices_total">Toplam</string>
+    <!---Home Devices-->
+    <string name="devices_home_devices">Ev Cihazları</string>
+    <!---Guest Devices-->
+    <string name="devices_guest_devices">Misafir Cihazları</string>
+    <!---Device name will be displayed in a future App update-->
+    <string name="devices_user_tips">Cihaz ismi yeni bir uygulama güncellemesinden sonra görüntülenecektir</string>
+    <!---WiFi-->
+    <string name="wifi_settings_title">WiFi</string>
+    <!---WiFi Settings-->
+    <string name="wifi_settings_title_2">WiFi ayarları</string>
+    <!---Name-->
+    <string name="wifi_settings_wifi_name">Ad</string>
+    <!---Password-->
+    <string name="wifi_settings_wifi_password">Şifre</string>
+    <!---Home 2.4G-->
+    <string name="wifi_settings_wifi_name_24g">Ev 2.4G</string>
+    <!---Home 5G-->
+    <string name="wifi_settings_wifi_name_5g">Ev 5G</string>
+    <!---Guest-->
+    <string name="wifi_settings_guest_wifi">Misafir</string>
+    <!---Share Home WiFi-->
+    <string name="wifi_settings_wifi_name_qrcode">Ev ağını paylaş</string>
+    <!---Share Home 2.4G WiFi-->
+    <string name="wifi_settings_wifi_name_24g_qrcode">2.4G Ev ağını paylaş</string>
+    <!---Share Home 5G WiFi-->
+    <string name="wifi_settings_wifi_name_5g_qrcode">5G Ev ağını paylaş</string>
+    <!---Share Guest WiFi-->
+    <string name="wifi_settings_guest_wifi_qrcode">Misafir ağını paylaş</string>
+    <!---WiFi Name-->
+    <string name="wifi_settings_wifi_name_2">WiFi adı</string>
+    <!---WiFi Password-->
+    <string name="wifi_settings_wifi_password_2">WiFi şifresi</string>
+    <!---2.4G WiFi Name-->
+    <string name="wifi_settings_wifi_name_24g_2">2.4G WiFi adı</string>
+    <!---2.4G WiFi Password-->
+    <string name="wifi_settings_wifi_password_24g_2">2.4G WiFi şifresi</string>
+    <!---5G WiFi Name-->
+    <string name="wifi_settings_wifi_name_5g_2">5G WiFi adı</string>
+    <!---5G WiFi Password-->
+    <string name="wifi_settings_wifi_password_5g_2">5G WiFi şifresi</string>
+    <!---Guest WiFi-->
+    <string name="wifi_settings_guest_wifi_2">Misafir WiFi</string>
+    <!---Guest WiFi Name-->
+    <string name="wifi_settings_guest_wifi_name">WiFi adı</string>
+    <!---Guest WiFi Password-->
+    <string name="wifi_settings_guest_wifi_password">WiFi şifresi</string>
+    <!---Save-->
+    <string name="wifi_settings_edit_save">Kaydet</string>
+    <!---If you change the WiFi settings being connected, please reconnect to the new WiFi.-->
+    <string name="wifi_settings_connect_change_tip">Bağlanmakta olan WiFi ayarlarını değiştirirseniz, lütfen yeni WiFi\'ye yeniden bağlanın.</string>
+    <!---Edit WiFi-->
+    <string name="wifi_edit_title">WiFiDüzenle</string>
+    <!---App Version-->
+    <string name="account_app_version">Uygulama Versiyonu</string>
+    <!---Privacy Policy-->
+    <string name="account_privacy_policy">Gizlilik Politikası</string>
+    <!---Logout-->
+    <string name="account_logout">Çıkış</string>
+    <!---WiFi Channel Chart-->
+    <string name="diagnostic_tab_wifi_channel">WiFi Kanal Grafiği</string>
+    <!---WiFi Signal Meter-->
+    <string name="diagnostic_tab_wifi_signal">WiFi Sinyalmetre</string>
+    <!---Channel Chart-->
+    <string name="diagnostic_channel_chart">Kanal Grafiği</string>
+    <!---Signal Strength [dBm]-->
+    <string name="diagnostic_signal_strength">Sinyal Gücü [dBm]</string>
+    <!---WiFi Channels-->
+    <string name="diagnostic_wifi_channels">WiFi kanalları</string>
+    <!---2.4GHz-->
+    <string name="diagnostic_wifi_channels_24g">2.4GHz</string>
+    <!---5GHz-->
+    <string name="diagnostic_wifi_channels_5g">5GHz</string>
+    <!---Diagnostic function needs access to your location. Please turn on Location Services in your device\'s settings-->
+    <string name="diagnostic_request_location_permission">Tanılama fonksiyonu konumunuza ihtiyaç duyar. Lütfen cihazınızın ayarlarından Konum Servislerini açın.</string>
+    <!---WiFi Name-->
+    <string name="diagnostic_wifi_signal_wifi_name">WiFi adı</string>
+    <!---WiFi Signal Strength-->
+    <string name="diagnostic_wifi_signal_wifi_signal_strength">WiFi Sinyal Gücü</string>
+    <!---WiFi Band-->
+    <string name="diagnostic_wifi_signal_wifi_band">WiFi bandı</string>
+    <!---Connected to-->
+    <string name="diagnostic_wifi_signal_connect_to">Şuna Bağlı</string>
+    <!---Stop-->
+    <string name="diagnostic_wifi_signal_stop">Dur</string>
+    <!---Poor-->
+    <string name="diagnostic_wifi_signal_poor">Zayıf</string>
+    <!---Excellent-->
+    <string name="diagnostic_wifi_signal_excellent">Çok Güçlü</string>
+    <!---Diagnostic function needs access to your location. Please enable GPS in your device\'s settings-->
+    <string name="diagnostic_request_gps_permission">Tanılama fonksiyonu konumunuza ihtiyaç duyar. Lütfen cihazınızın ayarlarından GPS özelliğini açın.</string>
+    <!---Notification-->
+    <string name="settings_notification">Bildirim</string>
+    <!---Save WiFi Settings-->
+    <string name="settings_preserve_settings">WiFi ayarlarını kaydet</string>
+    <!---Troubleshooting-->
+    <string name="settings_troubleshooting">Sorun çözme</string>
+    <!---Previously saved WiFi settings can be applied to a WiFi Router during its setup.-->
+    <string name="settings_hint">Daha önce kaydedilmiş olan WiFi ayarları, kurulum sırasındaki WiFi yönlendiriciye kurulabilir.</string>
+    <!---Cloud Account-->
+    <string name="settings_cloud_account">Bulur hesabı</string>
+    <!---Report an Issue-->
+    <string name="settings_issue_report">Problem bildir</string>
+    <!---Privacy Policy-->
+    <string name="settings_privacy_policy">Gizlilik Politikası</string>
+    <!---APP Version-->
+    <string name="settings_app_version">Uygulama Versiyonu</string>
+    <!---New Connected Device-->
+    <string name="settings_notification_sub_title">Yeni bağlanmış cihaz</string>
+    <!---YOUR WIFI ROUTER-->
+    <string name="settings_cloud_account_router_list_title">WiFi yönlendiriciniz</string>
+    <!---Edit-->
+    <string name="settings_cloud_account_router_action_edit">Düzenle</string>
+    <!---This WiFi Router-->
+    <string name="settings_cloud_account_router_list_hint">Bu WiFi yönlendiricisi</string>
+    <!---Deleting WiFi Backup Settings-->
+    <string name="settings_preserve_settings_alert_title">WiFi Yedek ayarları siliyor</string>
+    <!---Turning off Save WiFi Settings will delete the backup settings. MPro Mesh app will not be able to restore the WiFi settings to your WiFi Router during reinstallation.-->
+    <string name="settings_preserve_settings_alert_msg">WiFi Ayarlarını Kaydet seçeneğinin kapatılması yedekleme ayarlarını silecektir. MPro Mesh uygulaması, yeniden yükleme sırasında WiFi ayarlarını WiFi Yönlendiricinize geri yükleyemez.</string>
+    <!---This WiFi Router is connected to the cloud. Please log in with the correct account. Logging in with another account will REMOVE the WiFi Router from the original one.-->
+    <string name="settings_login_cloud_msg">Bu WiFi Yönlendirici buluta bağlıdır. Lütfen doğru hesapla giriş yapın. Başka bir hesapla oturum açmak, WiFi Yönlendiriciyi orijinal yönlendiriciden KALDIRIR.</string>
+    <!---I cannot access the Internet-->
+    <string name="settings_troubleshooting_internet_title">İnternete bağlanamıyorum</string>
+    <!---I cannot connect to the Internet using an Ethernet connection-->
+    <string name="settings_troubleshooting_ethernet_title">Ethernet bağlantısı yaparak internete bağlanamıyorum</string>
+    <!---Unable to join WiFi using the QR Code-->
+    <string name="settings_troubleshooting_qrcode_title">QR kodu kullanarak WiFi ağına giriş yapamıyorum</string>
+    <!---Unable to connect to the WiFi network-->
+    <string name="settings_troubleshooting_wifi_title">WiFi ağına bağlanamıyorum</string>
+    <!---Make sure you have the Ethernet WAN port connected to a MODEM or Router.-->
+    <string name="settings_troubleshooting_no_ethernet_description1">Modem veya yönlendiricinize Ethernet WAN portunun bağlı olduğuna emin olun.</string>
+    <!---Make sure you configured a proper Ethernet WAN interface in the GUI (Network Setting > Broadband) screen with the Internet account information provided by your ISP and that the Internet is enabled.-->
+    <string name="settings_troubleshooting_no_ethernet_description2">ISP\'nizin vermiş olduğu bilgiler ile Ethernet WAN (Ağ Ayarları &gt; Genişbant) ayarlarınızın düzgün yapılandırıldığından ve Internetin aktif olduğundan emin olun.</string>
+    <!---Check that the WAN interface you are connected to is in the same interface group as the Ethernet connection in the GUI(Network Setting > Interface Group).-->
+    <string name="settings_troubleshooting_no_ethernet_description3">Bağlı olduğunuz WAN arayüzünün, web arayüzündeki Ethernet bağlantısı ile aynı arayüz grubunda olup olmadığını kontrol edin. (Ağ Ayarları &gt; Arayüz Grupları)</string>
+    <!---If you set up a WAN connection using bridging service, make sure you turn off the DHCP feature in the GUI (Network Setting > Home Networking > LAN Setup) screen to have the clients get WAN IP address directly from your ISP\’s DHCP server.-->
+    <string name="settings_troubleshooting_no_ethernet_description4">Eğer köprü modunu kullanarak bir WAN bağlantısı oluşturursanız, bağlanacak cihazların ISP\'nizin DHCP server\'ından gelen WAN IP\'lerini almamaları için DHCP özelliğini (Ağ Ayarları &gt; Ev Ağı &gt; LAN Kurulumu ) kapattığınızdan emin olun.</string>
+    <!---Make sure that your router is on and you\'re within range.-->
+    <string name="settings_troubleshooting_qrcode_error_description1">Yönlendiricinizin açık ve sizin de yakın konumda olduğunuzdan emin olun.</string>
+    <!---Turn up your phone\'s brightness to the highest setting. Place the QR Code directly in front of the camera lens. Slowly move your device back approximately 6\'\' away from the lens.-->
+    <string name="settings_troubleshooting_qrcode_error_description2">Telefonunuzun parlaklık ayarlarını en üst seviyeye getirin. QR kodu tam kamera lensinin önüne getiriniz. QR kod ile telefon arasında yaklaşık 15 cm bırakınız.</string>
+    <!---What scenario do you need?-->
+    <string name="mesh_title">Hangi senaryoya ihtiyacınız var?</string>
+    <!---Use WiFi-->
+    <string name="mesh_with_wireless">WiFi ağını kullan</string>
+    <!---Use Ethernet Cable-->
+    <string name="mesh_with_wire">Ethernet kablosunu kullan</string>
+    <!---Tips-->
+    <string name="mesh_tip_title">İpuçları</string>
+    <!---The ideal position for the extender.-->
+    <string name="mesh_tip_msg_topic">Genişletici için ideal pozisyon. </string>
+    <!---Place in an open, elevated location, such as on a shelf or on top of a table.-->
+    <string name="mesh_tip_msg_position">Açık ve yüksek bir yere konumlandırın. Örneğin; bir raf veya masanın üstü gibi...</string>
+    <!---Minimize any physical obstructions between the controller and the extender.-->
+    <string name="mesh_tip_msg_suggest">Denetleyici ve genişletici arasındaki fiziksel engelleri en aza indirin.</string>
+    <!---Optional-->
+    <string name="mesh_info_optional">İsteğe Bağlı</string>
+    <!---Tap Home to check if the controller was set up successfully.-->
+    <string name="mesh_info_hint">Denetleyici başarılı bir şekilde kurulduysa Eve tıklayın.</string>
+    <!---You may need to know-->
+    <string name="mesh_more_info_title">Bilmeniz gerekebilir.</string>
+    <!---The Link LED indicates the WiFi quality of Zyxel products. It may be vary among different extenders.-->
+    <string name="mesh_more_info_description">Bağlantı LED ışığı, Zyxel ürünlerinin WiFi kalitesini gösterir. Farklı genişleticiler arasında değişebilir. </string>
+    <!---Example: WX3310-->
+    <string name="mesh_more_info_example">Örnek: WX3310</string>
+    <!---WPS may be enabled in different ways in different extenders.-->
+    <string name="mesh_more_info_hint">WPS, farklı genişleticilerde farklı şekillerde etkinleştirilebilir.</string>
+    <!---See Tips-->
+    <string name="mesh_see_tip">İpuçlarını görün</string>
+    <!---Tap \"Next\" and press WPS on the extender to process pairing.-->
+    <string name="mesh_extender_description">Eşleştirmeyi işlemek için \ "İleri \" ye dokunun ve genişletici üzerindeki WPS'ye basın.</string>
+    <!---Next-->
+    <string name="mesh_next">Sonraki</string>
+    <!---Press WPS-->
+    <string name="mesh_wps_title">WPS bas</string>
+    <!---Press the WPS button on the WiFi Extender/Mesh Device once and release it, then tap below the \'Start Pairing\' button.-->
+    <string name="mesh_wps_description">WiFi Extender / Mesh Device üzerindeki WPS düğmesine bir kez basın ve bırakın, ardından \'Eşlemeye Başla\'ya dokunun.</string>
+    <!---Place your Mesh Device next to the WiFi Router (within 2 meters). Press the physical WPS button of your Mesh Device, then tap \'Start Pairing\' below.-->
+    <string name="mesh_wps_description_cloud">Mesh cihazını, WiFi yönlendiricinizin yakınına (2 metre) koyun. Mesh cihazınızdaki fiziksel WPS butonuna tıklayın, sonra \'Eşlemeye Başla\'ya dokunun.</string>
+    <!---Start Pairing-->
+    <string name="mesh_pair">Eşlemeye Başla</string>
+    <!---Success!-->
+    <string name="mesh_success_title">Başarılı!</string>
+    <!---The WiFi Extender is added to your home WiFi network with the same WiFi name and password.-->
+    <string name="mesh_success_description">WiFi genişletici, ev WiFi ağınıza aynı WiFi ismi ve şifresi ile eklendi</string>
+    <!---No connection-->
+    <string name="mesh_fail_title">Bağlantı yok</string>
+    <!---Unplug the WiFi extender and move it closer to the gateway.-->
+    <string name="mesh_fail_description">WiFi genişleticiyi çıkarın ve ağ geçidine yaklaştırın.</string>
+    <!---Plug the WiFi extender in a new location, tap \"Try Again\" button to continue.-->
+    <string name="mesh_fail_description2">WiFi genişleticiyi yeni bir konuma takın, devam etmek için \ "Tekrar Dene \" düğmesine dokunun.</string>
+    <!---Try Again-->
+    <string name="mesh_try_again">Tekrar deneyin</string>
+    <!---Retry-->
+    <string name="mesh_retry">Tekrar deneyin</string>
+    <!---Choose a Scenario-->
+    <string name="cloud_mesh_title">Bir senaryo seçin</string>
+    <!---Tips-->
+    <string name="cloud_mesh_see_tip">İpuçları</string>
+    <!---Relocate Your Mesh Device-->
+    <string name="cloud_mesh_extender_title">Mesh cihazınızı tekrar yerleştirin.</string>
+    <!---Move your Mesh device to a location about halfway between your WiFi Router and the area with a poor WiFi signal.-->
+    <string name="cloud_mesh_extender_description">Mesh cihazınızı, WiFi Yönlendiriciniz ile zayıf WiFi sinyali olan alan arasında yaklaşık ortadaki bir konuma taşıyın.</string>
+    <!---Connect with Your Mesh Device-->
+    <string name="cloud_mesh_wps_title">Mesh cihazınıza bağlanın.</string>
+    <!---Applying WiFi settings to Your Mesh Device-->
+    <string name="cloud_mesh_apply_setting_title">Mesh cihazınızın WiFi ayarları yapılandırılıyor.</string>
+    <!---Please wait.\nThis takes about two minutes.-->
+    <string name="cloud_mesh_apply_setting_description">Lütfen bekleyin.\n Bu işlem iki dakika kadar sürebilir.</string>
+    <!---Success!-->
+    <string name="cloud_mesh_success_title">Başarılı!</string>
+    <!---The Mesh device has now joined your home WiFi network with the same WiFi name and password.-->
+    <string name="cloud_mesh_success_description">Mesh cihazı Ev WiFi ağınıza aynı WiFi ismi ve şifresi ile başarılı bir şekilde eklendi.</string>
+    <!---Find Optimal Location-->
+    <string name="cloud_mesh_tip_find_location_title">En uygun konumu bulun.</string>
+    <!---Check Link Quality-->
+    <string name="cloud_mesh_tip_link_quality_title">Bağlantı kalitesini kontrol edin</string>
+    <!---Do-->
+    <string name="cloud_mesh_tip_msg_do">Do</string>
+    <!---Don\'t-->
+    <string name="cloud_mesh_tip_msg_dont">Don\'t</string>
+    <!---Place at a location about halfway between your WiFi Router and the area with a poor WiFi signal.-->
+    <string name="cloud_mesh_tip_msg_location">WiFi yönlendiriciniz ile zayıf WiFi sinyali olan arasında yaklaşık ortada olan bir mesafeye yerleştirin.</string>
+    <!---An open elevated spot, like the top of a table or a shelf.-->
+    <string name="cloud_mesh_tip_msg_position">Açık ve yüksek bir yere konumlandırın. Örneğin; bir raf veya masanın üstü gibi...</string>
+    <!---Physical obstructions cause difficulties for the WiFi Router, the Mesh Device and any wireless device to communicate with each other.-->
+    <string name="cloud_mesh_tip_msg_suggest">Fiziksel engeller, WiFi yönlendirici, Mesh cihazı ve herhangi bir kablosuz cihazın birbirleriyle iletişim kurmasında zorluklara neden olur.</string>
+    <!---Help-->
+    <string name="cloud_mesh_fail_help">Yardım</string>
+    <!---Quit-->
+    <string name="cloud_mesh_fail_quit">Çıkış</string>
+    <!---Cannot Connect with Your Mesh Device-->
+    <string name="cloud_mesh_fail_title">Mesh Cihazınıza bağlanamıyor</string>
+    <!---Place your Mesh Device closer to the WiFi Router (within 2 meters), then retry connecting.-->
+    <string name="cloud_mesh_fail_description">Lütden Mesh cihazınızı WiFi yönlendiricisine yakın bir yerde konumlandırın. (2 metre), ve tekrar bağlanmayı deneyin.</string>
+    <!---Check the Link Quality LED for the wireless connection status of your Mesh Device to the WiFi Router.-->
+    <string name="cloud_mesh_more_info_description">Mesh cihazınızın WiFi yönlendiricisine olan kablosuz bağlantı durumu için Link Kalite Led ışığını kontrol ediniz</string>
+    <!---Check the Link Quality LED for the connection status of your Mesh Device to the WiFi Router.-->
+    <string name="cloud_mesh_more_info_ethernet_description">Mesh cihazınızın WiFi yönlendiricisine olan bağlantı durumu için Link Kalite Led ışığını kontrol ediniz</string>
+    <!---Use the Ethernet Cable to Connect Your Mesh Device to the WiFi Router-->
+    <string name="cloud_mesh_cable_title">Mesh cihazınızı WiFi yönlendiricinize bağlamak için Ethernet kablosunu kullanın.</string>
+    <!---When connected, your Mesh device will have the same WiFi name and password as your home WiFi network.-->
+    <string name="cloud_mesh_cable_description">Bağlandığınız zaman Mesh cihazınız ev WiFi ağınızdaki gibi aynı WiFi ismi ve şifresini alacaktır.</string>
+    <!---YES-->
+    <string name="message_dialog_yes">Evet</string>
+    <!---NO-->
+    <string name="message_dialog_no">Hayır</string>
+    <!---OK-->
+    <string name="message_dialog_ok">Tamam</string>
+    <!---CANCEL-->
+    <string name="message_dialog_cancel">Vazgeç</string>
+    <!---RESTART-->
+    <string name="message_dialog_restart">Tekrar başlat</string>
+    <!---Cannot Connect-->
+    <string name="message_dialog_not_connect">Bağlanamıyor</string>
+    <!---Please check your WiFi connection and try again later.-->
+    <string name="message_dialog_not_connect_try_again">WiFi bağlantınızı  kontrol edip tekrar deneyiniz</string>
+    <!---Would you like to restart your device?-->
+    <string name="message_dialog_reboot_reminder_title">Cihazınızı tekrar başlatmak ister misiniz?</string>
+    <!---It will take a few minutes to reconnect to your Device.-->
+    <string name="message_dialog_reboot_reminder">Cihaza tekrar bağlanmanız birkaç dakika sürecektir.</string>
+    <!---Are you sure you want to log out of this app?-->
+    <string name="message_dialog_check_lougot">Bu uygulamadan çıkış yapmak istiyor musunuz?</string>
+    <!---Remove \'%s\' from the Cloud-->
+    <string name="remove_site_dialog_title">Buluttan \'%s\'  çıkartınız</string>
+    <!---You will need to set up the WiFi Router again to bind it back to the cloud.-->
+    <string name="remove_site_dialog_description">Bulute tekrar bağlamak için WiFi yönlendiricinizi tekrar kurmanız gerkemektedir.</string>
+    <!---You are managing this WiFi Router, so you will be logged out after removing it.\n\nSet it up again to bind it back to the cloud.-->
+    <string name="remove_site_dialog_description_self">Bu WiFi yönlendiriciyi yönetiyorsunuz, bu yüzden bunu sildikten sonra oturumunuz kapatılacaktır.\n\nBuluta tekrar bağlamanız için ayarlarını yapmanız gerekmektedir.</string>
+    <!---Keep its saved WiFi settings for later setup-->
+    <string name="remove_site_dialog_preserved_setting_description">WiFi ayarlarını daha sonraki kurulumlar için saklayın</string>
+    <!---Remove-->
+    <string name="remove_site_dialog_remove">Sil</string>
+    <!---Cancel-->
+    <string name="remove_site_dialog_cancel">Vazgeç</string>
+    <!---Scan the QR code to connect to the WiFi.-->
+    <string name="qrcode_dialog_wifi_msg">WiFi ağına bağlanmak için QR kodunu tarayın</string>
+    <!---Guests can connect to Guest WiFi by scanning the QR code.-->
+    <string name="qrcode_dialog_guest_wifi_msg">Misafirler</string>
+    <!---Please wait.-->
+    <string name="loading_transition_please_wait">Lütfen bekleyin.</string>
+    <!---Please wait.\nThis may take 1-2 minutes.-->
+    <string name="loading_transition_take_1_minutes">Lütfen bekleyin.\nBu işlem 1-2 dakika sürebilir.</string>
+    <!---Please wait.\nThis may take 3-4 minutes.-->
+    <string name="loading_transition_take_3_minutes">Lütfen bekleyin.\nBu işlem 3-4 dakika sürebilir.</string>
+    <!---Rebooting...-->
+    <string name="loading_transition_reboot">Tekrar başlatılıyor.</string>
+    <!---Waiting for your WiFi Extender to be ready...-->
+    <string name="loading_transition_extender">WiFi genişleticinizin hazır olması bekleniyor...</string>
+    <!---Connecting with Your Mesh Device-->
+    <string name="cloud_loading_transition_extender">Mesh Cihazınıza bağlanılıyor</string>
+    <!---Something is wrong!!-->
+    <string name="speed_test_error">Birşeyler ters gitti!!</string>
+
+    <string name="setup_previous_settings_title">Apply Saved Settings</string>
+    <string name="setup_previous_settings_details"><u>Details</u></string>
+    <string name="setup_previous_settings_details_title">WiFi Settings of \'%s\'</string>
+    <string name="setup_previous_settings_details_wifi_title">WIFI NAME &amp; PASSWORD</string>
+    <string name="setup_apply_previous_settings_title">Applying Saved Settings</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_cloud_description2">Or you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.</string>
+    <string name="cloud_login_connect_title">Connect to the Cloud</string>
+    <string name="finalizing_network_title">Finalizing Your Home Network</string>
+    <string name="find_device_working_description">Looking for Your Devices...</string>
+    <string name="cloud_gateway_list_choose">Choose one to manage.</string>
+    <string name="login_sn_title">Log In</string>
+    <string name="device_detail_detail">Detail</string>
+    <string name="device_detail_f_secure"><u>F-Secure</u></string>
+    <string name="device_detail_gateway_title">Gateway Detail</string>
+    <string name="device_detail_ap_title">Access Point Detail</string>
+    <string name="device_detail_rp_title">Repeater Detail</string>
+    <string name="device_detail_router_title">WiFi Router Detail</string>
+    <string name="settings_login_cloud_title">Log In with Correct Account</string>
+    <string name="mesh_tip"><u>İpuçlarını görün</u></string>
+    <string name="mesh_extender_title">Place WiFi Extender</string>
+    <string name="mesh_help"><u>Yardıma ihtiyacınız mı var?</u></string>
+    <string name="message_dialog_turn_off">Turn Off</string>
+    <string name="message_dialog_ok_got_it">OK, got it</string>
+    <string name="remove_site_dialog_remove_self_description">\n\nRemoving \'%s\'\nand logging out...</string>
+    <string name="remove_site_dialog_remove_description">\n\nRemoving \'%s\'\nand please wait some minutes...</string>
+    <string name="loading_transition_update_wifi_settings">WiFi Setting Updating</string>
+    <string name="commander_error_timeout">Timeout</string>
+    <string name="commander_error_disconnect">Server is disconnect.</string>
+
+
+
+    <!---TR: 28 strings not found.
+    Apply Saved Settings
+    WiFi Settings of \'%s\'
+    WIFI NAME & PASSWORD
+    Applying Saved Settings
+    Or you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.
+    Connect to the Cloud
+    Finalizing Your Home Network
+    Looking for Your Devices...
+    Choose one to manage.
+    Log In
+    Detail
+    Gateway Detail
+    Access Point Detail
+    Repeater Detail
+    WiFi Router Detail
+    Log In with Correct Account
+    Place WiFi Extender
+    Turn Off
+    OK, got it
+    \n\nRemoving \'%s\'\nand logging out...
+    \n\nRemoving \'%s\'\nand please wait some minutes...
+    WiFi Setting Updating
+    Timeout
+    Server is disconnect.
+    -->
+</resources>

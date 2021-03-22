@@ -142,7 +142,7 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
                     }
                 }
 
-                if(!exist)
+                if(!exist && findingDeviceInfo.ApiName == "ZYXEL RESTful API")
                     gatewayList.add(findingDeviceInfo)
             }
             catch(e: JSONException)
