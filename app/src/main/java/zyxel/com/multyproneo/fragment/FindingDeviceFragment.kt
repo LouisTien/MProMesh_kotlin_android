@@ -148,7 +148,7 @@ class FindingDeviceFragment : Fragment(), IResponseListener
                     }
                 }
 
-                if(!exist)
+                if(!exist && findingDeviceInfo.ApiName == "ZYXEL RESTful API")
                     gatewayList.add(findingDeviceInfo)
             }
             catch(e: JSONException)
@@ -186,7 +186,7 @@ class FindingDeviceFragment : Fragment(), IResponseListener
     {
         val connectivityManager = activity!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         val wifiNetInfo = connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-        return wifiNetInfo.isAvailable && wifiNetInfo.isConnected
+        return wifiNetInfo!!.isAvailable && wifiNetInfo.isConnected
     }
 
     private fun setFindDeviceUI()

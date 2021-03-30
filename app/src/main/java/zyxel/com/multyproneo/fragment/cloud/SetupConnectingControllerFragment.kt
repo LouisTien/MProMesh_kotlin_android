@@ -372,7 +372,7 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
             val wifiManager = activity!!.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
             LogUtil.d(TAG, "extra = " + ConnectivityManager.EXTRA_NO_CONNECTIVITY)
             val mWifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-            LogUtil.d(TAG, "network info connected = ${mWifi.isConnected}")
+            LogUtil.d(TAG, "network info connected = ${mWifi!!.isConnected}")
 
             if(mWifi.isConnected)
             {

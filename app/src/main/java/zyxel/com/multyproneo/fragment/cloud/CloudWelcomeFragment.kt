@@ -72,7 +72,7 @@ class CloudWelcomeFragment : Fragment()
     {
         val connectivityManager = activity!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         val wifiNetInfo = connectivityManager!!.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-        return wifiNetInfo.isAvailable && wifiNetInfo.isConnected
+        return wifiNetInfo!!.isAvailable && wifiNetInfo.isConnected
     }
 
     private fun decideFlow()

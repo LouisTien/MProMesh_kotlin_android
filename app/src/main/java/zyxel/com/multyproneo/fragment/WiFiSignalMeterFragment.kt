@@ -246,7 +246,7 @@ class WiFiSignalMeterFragment : Fragment()
         var devicesInfo: DevicesInfo
         val connManager = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-        if(networkInfo.isConnected)
+        if(networkInfo!!.isConnected)
         {
             val wifiManager = activity?.applicationContext?.getSystemService(Context.WIFI_SERVICE) as WifiManager
             connectionInfo = wifiManager.connectionInfo
