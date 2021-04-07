@@ -189,7 +189,7 @@
                         android:textStyle="bold"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        tools:text="Connecting"/>
+                        tools:text="@string/device_detail_connecting"/>
 
                     <TextView
                         android:id="@+id/end_device_detail_connect_type_dhcp_time_text"
@@ -201,7 +201,7 @@
                         android:textStyle="bold"
                         android:ellipsize="end"
                         android:singleLine="true"
-                        tools:text="Wireless"/>
+                        tools:text="@string/device_detail_wireless"/>
 
                 </LinearLayout>
 
@@ -391,7 +391,7 @@
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_575757"
-                        tools:text="2.4G"/>
+                        tools:text="2.4GHz"/>
 
                 </LinearLayout>
 

@@ -84,7 +84,7 @@
             android:textSize="@dimen/text_size_18sp_in_1080"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@string/gateway_status_no_internet"/>
+            android:text="@string/setup_connect_troubleshooting_no_internet_title"/>
 
     </RelativeLayout>
 

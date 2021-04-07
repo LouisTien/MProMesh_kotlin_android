@@ -109,8 +109,6 @@
     <string name="gateway_status_title">État de l\'Internet</string>
     <!---Has Internet Connection-->
     <string name="gateway_status_has_internet">Connexion Internet disponible</string>
-    <!---No Internet Connection-->
-    <string name="gateway_status_no_internet">Pas de connexion Internet</string>
     <!---Other Mesh Networks-->
     <string name="other_mesh_title">Autres réseaux Mesh</string>
     <!---Set up a new Mesh network-->
@@ -168,7 +166,7 @@
     <!---Special characters are not supported-->
     <string name="login_no_support_character">Les caractères spéciaux sont interdits</string>
     <!---Connected\nDevices-->
-    <string name="home_connected_devices">Appareils\nconnectés</string>
+    <string name="home_connected_devices">Appareils\tconnectés</string>
     <!---Guest\nWiFi-->
     <string name="home_guest_wifi">WiFi\nInvité</string>
     <!---ON-->
@@ -277,32 +275,32 @@
     <string name="wifi_settings_wifi_name">Nom</string>
     <!---Password-->
     <string name="wifi_settings_wifi_password">Mot de passe</string>
-    <!---Home 2.4G-->
-    <string name="wifi_settings_wifi_name_24g">2,4G domestique</string>
-    <!---Home 5G-->
-    <string name="wifi_settings_wifi_name_5g">5G domestique</string>
+    <!---Home 2.4GHz-->
+    <string name="wifi_settings_wifi_name_24g">2,4GHz domestique</string>
+    <!---Home 5GHz-->
+    <string name="wifi_settings_wifi_name_5g">5GHz domestique</string>
     <!---Guest-->
     <string name="wifi_settings_guest_wifi">Invité</string>
     <!---Share Home WiFi-->
     <string name="wifi_settings_wifi_name_qrcode">Partager le WiFi domestique</string>
-    <!---Share Home 2.4G WiFi-->
-    <string name="wifi_settings_wifi_name_24g_qrcode">Partager 2,4G WiFi domestique</string>
-    <!---Share Home 5G WiFi-->
-    <string name="wifi_settings_wifi_name_5g_qrcode">Partager 5G WiFi domestique</string>
+    <!---Share Home 2.4GHz WiFi-->
+    <string name="wifi_settings_wifi_name_24g_qrcode">Partager 2,4GHz WiFi domestique</string>
+    <!---Share Home 5GHz WiFi-->
+    <string name="wifi_settings_wifi_name_5g_qrcode">Partager 5GHz WiFi domestique</string>
     <!---Share Guest WiFi-->
     <string name="wifi_settings_guest_wifi_qrcode">Partager WiFi invité</string>
     <!---WiFi Name-->
     <string name="wifi_settings_wifi_name_2">Nom WiFi</string>
     <!---WiFi Password-->
     <string name="wifi_settings_wifi_password_2">Mot de passe WiFi</string>
-    <!---2.4G WiFi Name-->
-    <string name="wifi_settings_wifi_name_24g_2">Nom WiFi 2,4G</string>
-    <!---2.4G WiFi Password-->
-    <string name="wifi_settings_wifi_password_24g_2">Mot de passe WiFi 2,4G</string>
-    <!---5G WiFi Name-->
-    <string name="wifi_settings_wifi_name_5g_2">Nom WiFi 5G</string>
-    <!---5G WiFi Password-->
-    <string name="wifi_settings_wifi_password_5g_2">Mot de passe WiFi 5G</string>
+    <!---2.4GHz WiFi Name-->
+    <string name="wifi_settings_wifi_name_24g_2">Nom WiFi 2,4GHz</string>
+    <!---2.4GHz WiFi Password-->
+    <string name="wifi_settings_wifi_password_24g_2">Mot de passe WiFi 2,4GHz</string>
+    <!---5GHz WiFi Name-->
+    <string name="wifi_settings_wifi_name_5g_2">Nom WiFi 5GHz</string>
+    <!---5GHz WiFi Password-->
+    <string name="wifi_settings_wifi_password_5g_2">Mot de passe WiFi 5GHz</string>
     <!---Guest WiFi-->
     <string name="wifi_settings_guest_wifi_2">WiFi invité</string>
     <!---Guest WiFi Name-->

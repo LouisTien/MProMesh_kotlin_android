@@ -57,16 +57,12 @@
     <string name="setup_previous_settings_details_network_name_title">Имя сети</string>
     <!---Password-->
     <string name="setup_previous_settings_details_password_title">Пароль</string>
-    <!---LOCAL DEVICE NAMES-->
-    <string name="setup_previous_settings_details_devices_title">Локальные имена устройств</string>
     <!---Apply-->
     <string name="setup_previous_settings_apply">Применить</string>
     <!---Skip-->
     <string name="setup_previous_settings_skip">Пропустить</string>
     <!---Re-Connecting to WiFi Router Using New WiFi Name and Password-->
     <string name="setup_apply_reconnect_previous_settings_title">Повторное подключение к маршрутизатору WiFi с использованием нового имени и пароля WiFi</string>
-    <!---Cannot Connect to the WiFi Router-->
-    <string name="setup_connect_troubleshooting_cannot_connect_controller_title">Не удается подключиться к WiFi роутеру</string>
     <!---Check the following:-->
     <string name="setup_connect_troubleshooting_cannot_connect_controller_sub_title">Проверьте следующее:</string>
     <!---Make sure the WiFi Router is turned on and its WiFi LED is steady on.-->
@@ -77,8 +73,6 @@
     <string name="setup_connect_troubleshooting_cannot_connect_controller_description3">Если учетные данные по умолчанию были изменены, перейдите в настройки телефона и коснитесь имени сети WiFi, к которой вы хотите присоединиться.</string>
     <!---If you reset your WiFi Router, please go back to previous page and follow the \"Add\" process to set up your WiFi Router again.-->
     <string name="setup_connect_troubleshooting_cannot_connect_controller_description4">Если вы перезагрузили свой WiFi-маршрутизатор, вернитесь на предыдущую страницу и заново выполните процесс «Добавить», чтобы снова настроить WiFi-маршрутизатор.</string>
-    <!---No Internet Connection-->
-    <string name="setup_connect_troubleshooting_no_internet_title">Подключение к Интернету отсутствует</string>
     <!---Check the following troubleshooting guide. If you still have problems, please contact your Internet service provider.-->
     <string name="setup_connect_troubleshooting_no_internet_sub_title">Пожалуйста следуйте пунктам руководства по устранению неполадок. Если у вас все еще останутся проблемы, обратитесь к своему интернет-провайдеру.</string>
     <!---Check the hardware connections, and make sure the LEDs are behaving as expected.-->
@@ -109,16 +103,8 @@
     <string name="gateway_status_title">Статус подключения к сети Интернет</string>
     <!---Has Internet Connection-->
     <string name="gateway_status_has_internet">Есть подключение к сети Интернет</string>
-    <!---No Internet Connection-->
-    <string name="gateway_status_no_internet">Подключение к Интернету отсутствует</string>
-    <!---Other Mesh Networks-->
-    <string name="other_mesh_title">Другие Mesh-сети</string>
     <!---Set up a new Mesh network-->
     <string name="other_mesh_setup_description">Настройте новую Mesh-сеть</string>
-    <!---Mesh Device Placement Status-->
-    <string name="mesh_device_status_title">Статус установки Mesh устройства</string>
-    <!---Connection Status-->
-    <string name="mesh_device_status_title_device">Статус подключения</string>
     <!---Wired connection-->
     <string name="mesh_device_status_wire_connect">Проводное соединение</string>
     <!---Good to go-->
@@ -138,13 +124,9 @@
     <!---Please wait. This may take a few seconds.-->
     <string name="find_device_status_description">Пожалуйста подождите. Это может занять несколько секунд.</string>
     <!---Cannot find your device.\nPlease click the Retry button to start again.-->
-    <string name="find_device_no_result_description">Не удается найти ваше устройство. \ nПожалуйста, нажмите кнопку «Повторить», чтобы начать поиск снова.</string>
+    <string name="find_device_no_result_description">Не удается найти ваше устройство.\nПожалуйста, нажмите кнопку «Повторить», чтобы начать поиск снова.</string>
     <!---Please click the Retry button to start again.-->
     <string name="find_device_no_status_description">Пожалуйста, нажмите кнопку «Повторить», чтобы начать поиск снова.</string>
-    <!---Cannot Find Your Device.-->
-    <string name="find_device_no_working_description">Не удается найти ваше устройство.</string>
-    <!---Device Found-->
-    <string name="gateway_list_title">Устройство найдено</string>
     <!---Choose a device to log in-->
     <string name="gateway_list_choose">Выберите устройство для входа</string>
     <!---Add-->
@@ -168,13 +150,9 @@
     <!---Special characters are not supported-->
     <string name="login_no_support_character">Специальные символы не поддерживаются</string>
     <!---Connected\nDevices-->
-    <string name="home_connected_devices">Подключено \ nУстройств</string>
+    <string name="home_connected_devices">Подключено\tУстройств</string>
     <!---Guest\nWiFi-->
-    <string name="home_guest_wifi">Гостевой \nWiFi</string>
-    <!---ON-->
-    <string name="home_guest_wifi_status_on">Включено</string>
-    <!---OFF-->
-    <string name="home_guest_wifi_status_off">Выключено</string>
+    <string name="home_guest_wifi">Гостевой\tWiFi</string>
     <!---MESH-->
     <string name="home_mesh">MESH</string>
     <!---Up-->
@@ -258,11 +236,9 @@
     <!---The device is offline.-->
     <string name="device_detail_offline_msg">Устройство не в сети.</string>
     <!---You have signed up for Home IoT Security that includes Parental Control with Content Filtering.\nDownload Use F-Secure Sense App for Parental Control and other security features.-->
-    <string name="device_detail_f_secure_msg">Вы подписались на Home IoT Security, которая включает родительский контроль с фильтрацией контента. \n Загрузите приложение F-Secure Sense для родительского контроля и других функций безопасности.</string>
+    <string name="device_detail_f_secure_msg">Вы подписались на Home IoT Security, которая включает родительский контроль с фильтрацией контента.\nЗагрузите приложение F-Secure Sense для родительского контроля и других функций безопасности.</string>
     <!---active-->
     <string name="devices_activated">активный</string>
-    <!---total-->
-    <string name="devices_total">Всего</string>
     <!---Home Devices-->
     <string name="devices_home_devices">Домашние устройства</string>
     <!---Guest Devices-->
@@ -277,17 +253,17 @@
     <string name="wifi_settings_wifi_name">Имя</string>
     <!---Password-->
     <string name="wifi_settings_wifi_password">Пароль</string>
-    <!---Home 2.4G-->
+    <!---Home 2.4GHz-->
     <string name="wifi_settings_wifi_name_24g">Домашняя сеть 2.4ГГц</string>
-    <!---Home 5G-->
+    <!---Home 5GHz-->
     <string name="wifi_settings_wifi_name_5g">Домашняя сеть 5ГГц</string>
     <!---Guest-->
     <string name="wifi_settings_guest_wifi">Гостевая сеть </string>
     <!---Share Home WiFi-->
     <string name="wifi_settings_wifi_name_qrcode">Поделиться домашней сетью Wi-Fi</string>
-    <!---Share Home 2.4G WiFi-->
+    <!---Share Home 2.4GHz WiFi-->
     <string name="wifi_settings_wifi_name_24g_qrcode">Поделиться домашней сетью Wi-Fi 2.4ГГц</string>
-    <!---Share Home 5G WiFi-->
+    <!---Share Home 5GHz WiFi-->
     <string name="wifi_settings_wifi_name_5g_qrcode">Поделиться домашней сетью Wi-Fi 5ГГц</string>
     <!---Share Guest WiFi-->
     <string name="wifi_settings_guest_wifi_qrcode">Поделиться гостевым WiFi</string>
@@ -295,14 +271,14 @@
     <string name="wifi_settings_wifi_name_2">Имя WiFi</string>
     <!---WiFi Password-->
     <string name="wifi_settings_wifi_password_2">Пароль WiFi</string>
-    <!---2.4G WiFi Name-->
+    <!---2.4GHz WiFi Name-->
     <string name="wifi_settings_wifi_name_24g_2">Имя сетм Wi-Fi 2.4ГГц</string>
-    <!---2.4G WiFi Password-->
-    <string name="wifi_settings_wifi_password_24g_2">Пароль 2.4G WiFi</string>
-    <!---5G WiFi Name-->
+    <!---2.4GHz WiFi Password-->
+    <string name="wifi_settings_wifi_password_24g_2">Пароль 2.4ГГц WiFi</string>
+    <!---5GHz WiFi Name-->
     <string name="wifi_settings_wifi_name_5g_2">Имя сетм WiFi 5ГГц</string>
-    <!---5G WiFi Password-->
-    <string name="wifi_settings_wifi_password_5g_2">Пароль 5G WiFi</string>
+    <!---5GHz WiFi Password-->
+    <string name="wifi_settings_wifi_password_5g_2">Пароль 5ГГц WiFi</string>
     <!---Guest WiFi-->
     <string name="wifi_settings_guest_wifi_2">Гостевая сеть WiFi</string>
     <!---Guest WiFi Name-->
@@ -332,9 +308,9 @@
     <!---WiFi Channels-->
     <string name="diagnostic_wifi_channels">Каналы WiFi</string>
     <!---2.4GHz-->
-    <string name="diagnostic_wifi_channels_24g">2,4 ГГц</string>
+    <string name="diagnostic_wifi_channels_24g">2.4ГГц</string>
     <!---5GHz-->
-    <string name="diagnostic_wifi_channels_5g">5 ГГц</string>
+    <string name="diagnostic_wifi_channels_5g">5ГГц</string>
     <!---Diagnostic function needs access to your location. Please turn on Location Services in your device\'s settings-->
     <string name="diagnostic_request_location_permission">Функция диагностики требует доступа к вашему местоположению. Включите службы геолокации в настройках вашего устройства.</string>
     <!---WiFi Name-->
@@ -355,24 +331,14 @@
     <string name="diagnostic_request_gps_permission">Функция диагностики требует доступа к вашему местоположению. Пожалуйста, включите GPS в настройках вашего устройства</string>
     <!---Notification-->
     <string name="settings_notification">Уведомление</string>
-    <!---Save WiFi Settings-->
-    <string name="settings_preserve_settings">Сохранить настройки WiFi</string>
     <!---Troubleshooting-->
     <string name="settings_troubleshooting">Поиск проблемы</string>
     <!---Previously saved WiFi settings can be applied to a WiFi Router during its setup.-->
     <string name="settings_hint">Ранее сохраненные настройки WiFi можно применить к WiFi-роутеру во время его настройки.</string>
-    <!---Cloud Account-->
-    <string name="settings_cloud_account">Аккаунт Облачной системы управления</string>
-    <!---Report an Issue-->
-    <string name="settings_issue_report">Сообщить о проблеме</string>
     <!---Privacy Policy-->
     <string name="settings_privacy_policy">Политика конфиденциальности</string>
     <!---APP Version-->
     <string name="settings_app_version">Версия приложения</string>
-    <!---New Connected Device-->
-    <string name="settings_notification_sub_title">Новое подключенное устройство</string>
-    <!---YOUR WIFI ROUTER-->
-    <string name="settings_cloud_account_router_list_title">Ваш WiFi-роутер</string>
     <!---Edit-->
     <string name="settings_cloud_account_router_action_edit">Редактировать</string>
     <!---This WiFi Router-->
@@ -407,8 +373,6 @@
     <string name="mesh_title">Какой сценарий вам нужен?</string>
     <!---Use WiFi-->
     <string name="mesh_with_wireless">Использовать Wi-Fi</string>
-    <!---Use Ethernet Cable-->
-    <string name="mesh_with_wire">Использовать кабель Ethernet</string>
     <!---Tips-->
     <string name="mesh_tip_title">Подсказки</string>
     <!---The ideal position for the extender.-->
@@ -453,16 +417,10 @@
     <string name="mesh_fail_description">Отключите расширитель WiFi и переместите его ближе к шлюзу.</string>
     <!---Plug the WiFi extender in a new location, tap \"Try Again\" button to continue.-->
     <string name="mesh_fail_description2">Подключите повторитель Wi-Fi в новом месте, нажмите кнопку «Попробовать еще раз», чтобы продолжить.</string>
-    <!---Try Again-->
-    <string name="mesh_try_again">Попробуйте снова</string>
     <!---Retry-->
     <string name="mesh_retry">Повторить</string>
-    <!---Choose a Scenario-->
-    <string name="cloud_mesh_title">Выберите сценарий</string>
     <!---Tips-->
     <string name="cloud_mesh_see_tip">Подсказки</string>
-    <!---Relocate Your Mesh Device-->
-    <string name="cloud_mesh_extender_title">Переместите ваше устройство Mesh</string>
     <!---Move your Mesh device to a location about halfway between your WiFi Router and the area with a poor WiFi signal.-->
     <string name="cloud_mesh_extender_description">Разместите устройство Mesh примерно на полпути между маршрутизатором WiFi и зоной со слабым сигналом WiFi.</string>
     <!---Connect with Your Mesh Device-->
@@ -470,7 +428,7 @@
     <!---Applying WiFi settings to Your Mesh Device-->
     <string name="cloud_mesh_apply_setting_title">Применение настроек Wi-Fi к вашему устройству Mesh</string>
     <!---Please wait.\nThis takes about two minutes.-->
-    <string name="cloud_mesh_apply_setting_description">Подождите. \nЭто займет около двух минут.</string>
+    <string name="cloud_mesh_apply_setting_description">Подождите.\nЭто займет около двух минут.</string>
     <!---Success!-->
     <string name="cloud_mesh_success_title">Успешно!</string>
     <!---The Mesh device has now joined your home WiFi network with the same WiFi name and password.-->
@@ -511,12 +469,6 @@
     <string name="message_dialog_no">Нет</string>
     <!---OK-->
     <string name="message_dialog_ok">Хорошо</string>
-    <!---CANCEL-->
-    <string name="message_dialog_cancel">Отмена</string>
-    <!---RESTART-->
-    <string name="message_dialog_restart">Рестарт</string>
-    <!---Cannot Connect-->
-    <string name="message_dialog_not_connect">Невозможно подключиться</string>
     <!---Please check your WiFi connection and try again later.-->
     <string name="message_dialog_not_connect_try_again">Пожалуйста, проверьте соединение Wi-Fi и повторите попытку позже.</string>
     <!---Would you like to restart your device?-->
@@ -526,11 +478,11 @@
     <!---Are you sure you want to log out of this app?-->
     <string name="message_dialog_check_lougot">Вы уверены, что хотите выйти из этого приложения?</string>
     <!---Remove \'%s\' from the Cloud-->
-    <string name="remove_site_dialog_title">Удалить \'%s \' из Облака</string>
+    <string name="remove_site_dialog_title">Удалить \'%s\' из Облака</string>
     <!---You will need to set up the WiFi Router again to bind it back to the cloud.-->
     <string name="remove_site_dialog_description">Вам нужно будет снова настроить WiFi-маршрутизатор, чтобы привязать его к Облачной системе управления.</string>
     <!---You are managing this WiFi Router, so you will be logged out after removing it.\n\nSet it up again to bind it back to the cloud.-->
-    <string name="remove_site_dialog_description_self">Вы управляете этим WiFi-маршрутизатором, поэтому вы выйдете из системы после его удаления. \n\nНастройте его снова, чтобы привязать его к Облаку.</string>
+    <string name="remove_site_dialog_description_self">Вы управляете этим WiFi-маршрутизатором, поэтому вы выйдете из системы после его удаления.\n\nНастройте его снова, чтобы привязать его к Облаку.</string>
     <!---Keep its saved WiFi settings for later setup-->
     <string name="remove_site_dialog_preserved_setting_description">Сохраните настройки Wi-Fi для дальнейшей настройки</string>
     <!---Remove-->
@@ -544,9 +496,9 @@
     <!---Please wait.-->
     <string name="loading_transition_please_wait">Пожалуйста, подождите.</string>
     <!---Please wait.\nThis may take 1-2 minutes.-->
-    <string name="loading_transition_take_1_minutes">Подождите. \nЭто может занять 1-2 минуты.</string>
+    <string name="loading_transition_take_1_minutes">Подождите.\nЭто может занять 1-2 минуты.</string>
     <!---Please wait.\nThis may take 3-4 minutes.-->
-    <string name="loading_transition_take_3_minutes">Подождите. \nЭто может занять 3-4 минуты.</string>
+    <string name="loading_transition_take_3_minutes">Подождите.\nЭто может занять 3-4 минуты.</string>
     <!---Rebooting...-->
     <string name="loading_transition_reboot">Перезагрузка ...</string>
     <!---Waiting for your WiFi Extender to be ready...-->
@@ -556,61 +508,103 @@
     <!---Something is wrong!!-->
     <string name="speed_test_error">Что-то не так!!</string>
 
-    <string name="setup_previous_settings_title">Apply Saved Settings</string>
     <string name="setup_previous_settings_details"><u>Детали</u></string>
-    <string name="setup_previous_settings_details_title">WiFi Settings of \'%s\'</string>
-    <string name="setup_previous_settings_details_wifi_title">WIFI NAME &amp; PASSWORD</string>
-    <string name="setup_apply_previous_settings_title">Applying Saved Settings</string>
-    <string name="setup_connect_troubleshooting_cannot_connect_cloud_description2">Or you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.</string>
-    <string name="cloud_login_connect_title">Connect to the Cloud</string>
-    <string name="finalizing_network_title">Finalizing Your Home Network</string>
-    <string name="find_device_working_description">Looking for Your Devices...</string>
-    <string name="cloud_gateway_list_choose">Choose one to manage.</string>
-    <string name="login_sn_title">Log In</string>
-    <string name="device_detail_detail">Detail</string>
     <string name="device_detail_f_secure"><u>F-Secure</u></string>
-    <string name="device_detail_gateway_title">Gateway Detail</string>
-    <string name="device_detail_ap_title">Access Point Detail</string>
-    <string name="device_detail_rp_title">Repeater Detail</string>
-    <string name="device_detail_router_title">WiFi Router Detail</string>
-    <string name="settings_login_cloud_title">Log In with Correct Account</string>
     <string name="mesh_tip"><u>См. Советы</u></string>
-    <string name="mesh_extender_title">Place WiFi Extender</string>
     <string name="mesh_help"><u>Нужна помощь?</u></string>
-    <string name="message_dialog_turn_off">Turn Off</string>
-    <string name="message_dialog_ok_got_it">OK, got it</string>
-    <string name="remove_site_dialog_remove_self_description">\n\nRemoving \'%s\'\nand logging out...</string>
-    <string name="remove_site_dialog_remove_description">\n\nRemoving \'%s\'\nand please wait some minutes...</string>
-    <string name="loading_transition_update_wifi_settings">WiFi Setting Updating</string>
-    <string name="commander_error_timeout">Timeout</string>
-    <string name="commander_error_disconnect">Server is disconnect.</string>
 
-
-
-    <!---RU: 28 strings not found.
-    Apply Saved Settings
-    WiFi Settings of \'%s\'
-    WIFI NAME & PASSWORD
-    Applying Saved Settings
-    Or you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.
-    Connect to the Cloud
-    Finalizing Your Home Network
-    Looking for Your Devices...
-    Choose one to manage.
-    Log In
-    Detail
-    Gateway Detail
-    Access Point Detail
-    Repeater Detail
-    WiFi Router Detail
-    Log In with Correct Account
-    Place WiFi Extender
-    Turn Off
-    OK, got it
-    \n\nRemoving \'%s\'\nand logging out...
-    \n\nRemoving \'%s\'\nand please wait some minutes...
-    WiFi Setting Updating
-    Timeout
-    Server is disconnect.
-    -->
+    <!---Choose one controller to manage-->
+    <string name="cloud_gateway_list_choose">Выберите один контроллер для управления</string>
+    <!---Connect to the Cloud-->
+    <string name="cloud_login_connect_title">Подключиться к Облаку</string>
+    <!---Relocate Your Mesh Device-->
+    <string name="cloud_mesh_extender_title">Переместите Ваше MESH Устройство</string>
+    <!---Choose a Scenario-->
+    <string name="cloud_mesh_title">Выберите Сценарий</string>
+    <!---Server is disconnected-->
+    <string name="commander_error_disconnect">Сооединение с сервером разорвано</string>
+    <!---Timeout-->
+    <string name="commander_error_timeout">Таймаут</string>
+    <!---Access Point Detail-->
+    <string name="device_detail_ap_title">Подробная Информация о Точке Доступа</string>
+    <!---%s Detail-->
+    <string name="device_detail_detail">Подробная Информация о %s</string>
+    <!---Gateway Detail-->
+    <string name="device_detail_gateway_title">Подробная Информация о Шлюзе</string>
+    <!---WiFi Router Detail-->
+    <string name="device_detail_router_title">Подробная Информация о WiFi Роутере</string>
+    <!---Repeater Detail-->
+    <string name="device_detail_rp_title">Подробная Информация о Репитере</string>
+    <!---total-->
+    <string name="devices_total">итого</string>
+    <!---Finish setting Your Home Network-->
+    <string name="finalizing_network_title">Закончить настройки Вашей Домашней Сети</string>
+    <!---Cannot Find Your Device.-->
+    <string name="find_device_no_working_description">Невозможно Найти Ваше Устройство</string>
+    <!---Looking for Your Devices...-->
+    <string name="find_device_working_description">Ищем ваши устройства ...</string>
+    <!---Device Found-->
+    <string name="gateway_list_title">Устройство Найдено</string>
+    <!---OFF-->
+    <string name="home_guest_wifi_status_off">Выключено</string>
+    <!---ON-->
+    <string name="home_guest_wifi_status_on">Включено</string>
+    <!---WiFi Settings Updating-->
+    <string name="loading_transition_update_wifi_settings">Обновляем Настройки WiFi</string>
+    <!---Log In-->
+    <string name="login_sn_title">Авторизация</string>
+    <!---Mesh Device Placement Status-->
+    <string name="mesh_device_status_title">Статус Размещения MESH Устройства</string>
+    <!---Connection Status-->
+    <string name="mesh_device_status_title_device">Статус Подключения</string>
+    <!---Place the WiFi extender-->
+    <string name="mesh_extender_title">Разместите репитер WiFi </string>
+    <!---Try Again-->
+    <string name="mesh_try_again">Попробуйте Еще Раз</string>
+    <!---Use Ethernet Cable-->
+    <string name="mesh_with_wire">Используте Ethernet кабель</string>
+    <!---CANCEL-->
+    <string name="message_dialog_cancel">ОТМЕНИТЬ</string>
+    <!---Cannot Connect-->
+    <string name="message_dialog_not_connect">Невозможно Соединиться</string>
+    <!---OK-->
+    <string name="message_dialog_ok_got_it">Хорошо</string>
+    <!---RESTART-->
+    <string name="message_dialog_restart">РЕСТАРТ</string>
+    <!---Turn off-->
+    <string name="message_dialog_turn_off">Выключить</string>
+    <!---Other Mesh Networks-->
+    <string name="other_mesh_title">Другие MESH сети</string>
+    <!---\n\nRemove \'%s\'\nand please wait some minutes...-->
+    <string name="remove_site_dialog_remove_description">\n\nУдаляем \'%s\',\nпожалуйста, подождите несколько минут ...</string>
+    <!---\n\nRemove \'%s\'\nand logging out...-->
+    <string name="remove_site_dialog_remove_self_description">\n\nУдаляем \'%s\'\nи выходим из системы ...</string>
+    <!---Cloud Account-->
+    <string name="settings_cloud_account">Учетная Запись Облака </string>
+    <!---YOUR WIFI ROUTER-->
+    <string name="settings_cloud_account_router_list_title">ВАШ WIFI РОУТЕР</string>
+    <!---Report an Issue-->
+    <string name="settings_issue_report">Сообщить о Проблеме</string>
+    <!---Log In with Correct Account-->
+    <string name="settings_login_cloud_title">Войти с Правильной Учетной Записью</string>
+    <!---New Connected Device-->
+    <string name="settings_notification_sub_title">Новое Подключенное Устройство</string>
+    <!---Save WiFi Settings-->
+    <string name="settings_preserve_settings">Сохранить Настройки WiFi</string>
+    <!---Applying Settings-->
+    <string name="setup_apply_previous_settings_title">Настройки Применяются</string>
+    <!---Or you have accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.-->
+    <string name="setup_connect_troubleshooting_cannot_connect_cloud_description2">Или вы случайно отключили Wi-Fi на телефоне. Зайдите в настройки телефона и убедитесь, что Wi-Fi включен, а режим полета выключен. В режиме полета ваши радиомодули Wi-Fi отключаются, поэтому, если он включен, вы не сможете подключиться.</string>
+    <!---Cannot Connect to the WiFi Router-->
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_title">Невозможно Соединиться с WiFi Роутером</string>
+    <!---No Internet Connection-->
+    <string name="setup_connect_troubleshooting_no_internet_title">Нет Доступа в Интернет</string>
+    <!---LOCAL DEVICE NAMES-->
+    <string name="setup_previous_settings_details_devices_title">ИМЕНА ЛОКАЛЬНЫХ УСТРОЙСТВ</string>
+    <!---WiFi Settings of \'%s\'-->
+    <string name="setup_previous_settings_details_title">Настройки WiFi \'%s\'</string>
+    <!---WIFI NAME & PASSWORD-->
+    <string name="setup_previous_settings_details_wifi_title">ИМЯ СЕТИ WIFI И ПАРОЛЬ</string>
+    <!---Apply Settings-->
+    <string name="setup_previous_settings_title">Применить Настройки</string>
 </resources>

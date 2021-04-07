@@ -261,9 +261,9 @@ class CloudEndDeviceDetailFragment : Fragment()
         {
             when(endDeviceInfo.X_ZYXEL_Band)
             {
-                2 -> wifiBand = "5G"
-                3 -> wifiBand = "2.4G/5G"
-                else -> wifiBand = "2.4G"
+                2 -> wifiBand = "5GHz"
+                3 -> wifiBand = "2.4GHz/5GHz"
+                else -> wifiBand = "2.4GHz"
             }
 
             val channel = if(endDeviceInfo.X_ZYXEL_Band == 2) endDeviceInfo.X_ZYXEL_Channel_5G else endDeviceInfo.X_ZYXEL_Channel_24G

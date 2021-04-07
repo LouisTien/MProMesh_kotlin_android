@@ -29,7 +29,7 @@
             android:textSize="@dimen/text_size_25sp_in_1080"
             android:textColor="@color/color_2d2b40"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:text="@string/login_title"/>
 
         <TextView

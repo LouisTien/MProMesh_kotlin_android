@@ -57,16 +57,12 @@
     <string name="setup_previous_settings_details_network_name_title">Netwerknaam</string>
     <!---Password-->
     <string name="setup_previous_settings_details_password_title">Wachtwoord</string>
-    <!---LOCAL DEVICE NAMES-->
-    <string name="setup_previous_settings_details_devices_title">Namen lokale apparaten</string>
     <!---Apply-->
     <string name="setup_previous_settings_apply">Toepassen</string>
     <!---Skip-->
     <string name="setup_previous_settings_skip">Overslaan</string>
     <!---Re-Connecting to WiFi Router Using New WiFi Name and Password-->
     <string name="setup_apply_reconnect_previous_settings_title">Opnieuw verbinden met WiFi-router met nieuwe WiFi-naam en wachtwoord</string>
-    <!---Cannot Connect to the WiFi Router-->
-    <string name="setup_connect_troubleshooting_cannot_connect_controller_title">Kan niet verbinden met de WiFi-router</string>
     <!---Check the following:-->
     <string name="setup_connect_troubleshooting_cannot_connect_controller_sub_title">Controleer het volgende:</string>
     <!---Make sure the WiFi Router is turned on and its WiFi LED is steady on.-->
@@ -77,8 +73,6 @@
     <string name="setup_connect_troubleshooting_cannot_connect_controller_description3">Als de standaard referenties worden veranderd, ga dan naar de telefooninstellingen en klik op de naam van het WiFi-netwerk waartoe je toegang wilt.</string>
     <!---If you reset your WiFi Router, please go back to previous page and follow the \"Add\" process to set up your WiFi Router again.-->
     <string name="setup_connect_troubleshooting_cannot_connect_controller_description4">Als je jouw WiFi-router reset, ga dan naar de vorige pagina en volg \"Voeg toe\" om jouw WiFi-router opnieuw in te stellen.</string>
-    <!---No Internet Connection-->
-    <string name="setup_connect_troubleshooting_no_internet_title">Geen internetverbinding</string>
     <!---Check the following troubleshooting guide. If you still have problems, please contact your Internet service provider.-->
     <string name="setup_connect_troubleshooting_no_internet_sub_title">Raadpleeg de volgende gids voor probleemoplossing. Als je nog steeds problemen ondervindt, neem dan contact op met jouw internet service provider.</string>
     <!---Check the hardware connections, and make sure the LEDs are behaving as expected.-->
@@ -109,16 +103,8 @@
     <string name="gateway_status_title">Internet-status</string>
     <!---Has Internet Connection-->
     <string name="gateway_status_has_internet">Heeft internetverbinding</string>
-    <!---No Internet Connection-->
-    <string name="gateway_status_no_internet">Geen internetverbinding</string>
-    <!---Other Mesh Networks-->
-    <string name="other_mesh_title">Andere Mesh netwerken</string>
     <!---Set up a new Mesh network-->
     <string name="other_mesh_setup_description">Stel een nieuw Mesh netwerk in</string>
-    <!---Mesh Device Placement Status-->
-    <string name="mesh_device_status_title">Plaatsingsstatus Mesh apparaat</string>
-    <!---Connection Status-->
-    <string name="mesh_device_status_title_device">Verbindingsstatus</string>
     <!---Wired connection-->
     <string name="mesh_device_status_wire_connect">Bedraadde verbinding</string>
     <!---Good to go-->
@@ -141,10 +127,6 @@
     <string name="find_device_no_result_description">Kan jouw apparaat niet vinden.\nKlik op Retry (Opnieuw proberen) toets om opnieuw op te starten.</string>
     <!---Please click the Retry button to start again.-->
     <string name="find_device_no_status_description">Klik op Retry (Opnieuw proberen) toets om opnieuw op te starten.</string>
-    <!---Cannot Find Your Device.-->
-    <string name="find_device_no_working_description">Kan jouw apparaat niet vinden.</string>
-    <!---Device Found-->
-    <string name="gateway_list_title">Apparaat gevonden</string>
     <!---Choose a device to log in-->
     <string name="gateway_list_choose">Kies een apparaat om op in te loggen</string>
     <!---Add-->
@@ -168,13 +150,9 @@
     <!---Special characters are not supported-->
     <string name="login_no_support_character">Speciale tekens worden niet ondersteund</string>
     <!---Connected\nDevices-->
-    <string name="home_connected_devices">Verbonden\nApparaten</string>
+    <string name="home_connected_devices">Verbonden\tApparaten</string>
     <!---Guest\nWiFi-->
     <string name="home_guest_wifi">Gast\nWiFi</string>
-    <!---ON-->
-    <string name="home_guest_wifi_status_on">Aan</string>
-    <!---OFF-->
-    <string name="home_guest_wifi_status_off">Uit</string>
     <!---MESH-->
     <string name="home_mesh">MESH</string>
     <!---Up-->
@@ -261,8 +239,6 @@
     <string name="device_detail_f_secure_msg">Je hebt je aangemeld voor Home IoT Security waaronder ouderlijk toezicht en het filteren van inhoud vallen.\nDownload Use F-Secure Sense App voor ouderlijk toezicht en andere veiligheidsfuncties.</string>
     <!---active-->
     <string name="devices_activated">actief</string>
-    <!---total-->
-    <string name="devices_total">Totaal</string>
     <!---Home Devices-->
     <string name="devices_home_devices">Apparaten verbonden met Thuis</string>
     <!---Guest Devices-->
@@ -277,17 +253,17 @@
     <string name="wifi_settings_wifi_name">Naam</string>
     <!---Password-->
     <string name="wifi_settings_wifi_password">Wachtwoord</string>
-    <!---Home 2.4G-->
+    <!---Home 2.4GHz-->
     <string name="wifi_settings_wifi_name_24g">Thuis 2.4Ghz</string>
-    <!---Home 5G-->
+    <!---Home 5GHz-->
     <string name="wifi_settings_wifi_name_5g">Thuis 5Ghz</string>
     <!---Guest-->
     <string name="wifi_settings_guest_wifi">Gast</string>
     <!---Share Home WiFi-->
     <string name="wifi_settings_wifi_name_qrcode">Deel Thuis WiFi</string>
-    <!---Share Home 2.4G WiFi-->
+    <!---Share Home 2.4GHz WiFi-->
     <string name="wifi_settings_wifi_name_24g_qrcode">Deel Thuis 2.4Ghz WiFi</string>
-    <!---Share Home 5G WiFi-->
+    <!---Share Home 5GHz WiFi-->
     <string name="wifi_settings_wifi_name_5g_qrcode">Deel Thuis 5Ghz WiFi</string>
     <!---Share Guest WiFi-->
     <string name="wifi_settings_guest_wifi_qrcode">Deel gast WiFi</string>
@@ -295,13 +271,13 @@
     <string name="wifi_settings_wifi_name_2">WiFi-naam</string>
     <!---WiFi Password-->
     <string name="wifi_settings_wifi_password_2">WiFi-wachtwoord</string>
-    <!---2.4G WiFi Name-->
+    <!---2.4GHz WiFi Name-->
     <string name="wifi_settings_wifi_name_24g_2">2.4Ghz WiFi-naam</string>
-    <!---2.4G WiFi Password-->
+    <!---2.4GHz WiFi Password-->
     <string name="wifi_settings_wifi_password_24g_2">2.4Ghz WiFi-wachtwoord</string>
-    <!---5G WiFi Name-->
+    <!---5GHz WiFi Name-->
     <string name="wifi_settings_wifi_name_5g_2">5Ghz WiFi-naam</string>
-    <!---5G WiFi Password-->
+    <!---5GHz WiFi Password-->
     <string name="wifi_settings_wifi_password_5g_2">5Ghz WiFi-wachtwoord</string>
     <!---Guest WiFi-->
     <string name="wifi_settings_guest_wifi_2">Gast WiFi</string>
@@ -355,24 +331,14 @@
     <string name="diagnostic_request_gps_permission">Diagnostische functie heeft toegang nodig tot jouw locatie. Schakel GPS in bij de instellingen van jouw apparaat</string>
     <!---Notification-->
     <string name="settings_notification">Notificatie</string>
-    <!---Save WiFi Settings-->
-    <string name="settings_preserve_settings">Sla WiFi-instellingen op</string>
     <!---Troubleshooting-->
     <string name="settings_troubleshooting">Problemen oplossen</string>
     <!---Previously saved WiFi settings can be applied to a WiFi Router during its setup.-->
     <string name="settings_hint">Eerder opgeslagen WiFi-instellingen kunnen worden toegepast op een WiFi-router tijdens het opstarten.</string>
-    <!---Cloud Account-->
-    <string name="settings_cloud_account">Cloud account</string>
-    <!---Report an Issue-->
-    <string name="settings_issue_report">Meld een probleem</string>
     <!---Privacy Policy-->
     <string name="settings_privacy_policy">Privacy-beleid</string>
     <!---APP Version-->
     <string name="settings_app_version">App-versie</string>
-    <!---New Connected Device-->
-    <string name="settings_notification_sub_title">Nieuw verbonden apparaat</string>
-    <!---YOUR WIFI ROUTER-->
-    <string name="settings_cloud_account_router_list_title">Jouw WiFi-router</string>
     <!---Edit-->
     <string name="settings_cloud_account_router_action_edit">Bewerken</string>
     <!---This WiFi Router-->
@@ -407,8 +373,6 @@
     <string name="mesh_title">Welk scenario heb je nodig?</string>
     <!---Use WiFi-->
     <string name="mesh_with_wireless">Gebruik WiFi</string>
-    <!---Use Ethernet Cable-->
-    <string name="mesh_with_wire">Gebruik ethernetkabel</string>
     <!---Tips-->
     <string name="mesh_tip_title">Tips</string>
     <!---The ideal position for the extender.-->
@@ -453,16 +417,10 @@
     <string name="mesh_fail_description">Ontkoppel de WiFi-extender en beweeg deze dichter naar de gateway.</string>
     <!---Plug the WiFi extender in a new location, tap \"Try Again\" button to continue.-->
     <string name="mesh_fail_description2">Plug de WiFi-extender in een nieuwe locatie, klik op de \"Try Again (Probeer opnieuw)\" toets om verder te gaan.</string>
-    <!---Try Again-->
-    <string name="mesh_try_again">Probeer het opnieuw</string>
     <!---Retry-->
     <string name="mesh_retry">Opnieuw proberen</string>
-    <!---Choose a Scenario-->
-    <string name="cloud_mesh_title">Kies een scenario</string>
     <!---Tips-->
     <string name="cloud_mesh_see_tip">Tips</string>
-    <!---Relocate Your Mesh Device-->
-    <string name="cloud_mesh_extender_title">Verplaats jouw Mesh apparaat</string>
     <!---Move your Mesh device to a location about halfway between your WiFi Router and the area with a poor WiFi signal.-->
     <string name="cloud_mesh_extender_description">Verplaats jouw Mesh apparaat naar een plek halverwege jouw WiFi-router en het gebied met een zwakke WiFi-signaalsterkte.</string>
     <!---Connect with Your Mesh Device-->
@@ -511,12 +469,6 @@
     <string name="message_dialog_no">Nee</string>
     <!---OK-->
     <string name="message_dialog_ok">OK</string>
-    <!---CANCEL-->
-    <string name="message_dialog_cancel">Annuleren</string>
-    <!---RESTART-->
-    <string name="message_dialog_restart">Herstart</string>
-    <!---Cannot Connect-->
-    <string name="message_dialog_not_connect">Kan niet verbinden</string>
     <!---Please check your WiFi connection and try again later.-->
     <string name="message_dialog_not_connect_try_again">Controleer aub jouw WiFi-verbinding en probeer het later opnieuw.</string>
     <!---Would you like to restart your device?-->
@@ -556,61 +508,103 @@
     <!---Something is wrong!!-->
     <string name="speed_test_error">Iets gaat er mis!!</string>
 
-    <string name="setup_previous_settings_title">Apply Saved Settings</string>
     <string name="setup_previous_settings_details"><u>Details</u></string>
-    <string name="setup_previous_settings_details_title">WiFi Settings of \'%s\'</string>
-    <string name="setup_previous_settings_details_wifi_title">WIFI NAME &amp; PASSWORD</string>
-    <string name="setup_apply_previous_settings_title">Applying Saved Settings</string>
-    <string name="setup_connect_troubleshooting_cannot_connect_cloud_description2">Or you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.</string>
-    <string name="cloud_login_connect_title">Connect to the Cloud</string>
-    <string name="finalizing_network_title">Finalizing Your Home Network</string>
-    <string name="find_device_working_description">Looking for Your Devices...</string>
-    <string name="cloud_gateway_list_choose">Choose one to manage.</string>
-    <string name="login_sn_title">Log In</string>
-    <string name="device_detail_detail">Detail</string>
     <string name="device_detail_f_secure"><u>F-Secure</u></string>
-    <string name="device_detail_gateway_title">Gateway Detail</string>
-    <string name="device_detail_ap_title">Access Point Detail</string>
-    <string name="device_detail_rp_title">Repeater Detail</string>
-    <string name="device_detail_router_title">WiFi Router Detail</string>
-    <string name="settings_login_cloud_title">Log In with Correct Account</string>
     <string name="mesh_tip"><u>Zie Tips</u></string>
-    <string name="mesh_extender_title">Place WiFi Extender</string>
     <string name="mesh_help"><u>Hulp nodig?</u></string>
-    <string name="message_dialog_turn_off">Turn Off</string>
-    <string name="message_dialog_ok_got_it">OK, got it</string>
-    <string name="remove_site_dialog_remove_self_description">\n\nRemoving \'%s\'\nand logging out...</string>
-    <string name="remove_site_dialog_remove_description">\n\nRemoving \'%s\'\nand please wait some minutes...</string>
-    <string name="loading_transition_update_wifi_settings">WiFi Setting Updating</string>
-    <string name="commander_error_timeout">Timeout</string>
-    <string name="commander_error_disconnect">Server is disconnect.</string>
 
-
-
-    <!---Dutch: 28 strings not found.
-    Apply Saved Settings
-    WiFi Settings of \'%s\'
-    WIFI NAME & PASSWORD
-    Applying Saved Settings
-    Or you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.
-    Connect to the Cloud
-    Finalizing Your Home Network
-    Looking for Your Devices...
-    Choose one to manage.
-    Log In
-    Detail
-    Gateway Detail
-    Access Point Detail
-    Repeater Detail
-    WiFi Router Detail
-    Log In with Correct Account
-    Place WiFi Extender
-    Turn Off
-    OK, got it
-    \n\nRemoving \'%s\'\nand logging out...
-    \n\nRemoving \'%s\'\nand please wait some minutes...
-    WiFi Setting Updating
-    Timeout
-    Server is disconnect.
-    -->
+    <!---Choose one controller to manage-->
+    <string name="cloud_gateway_list_choose">Kies een controller om te beheren</string>
+    <!---Connect to the Cloud-->
+    <string name="cloud_login_connect_title">Verbinden met de Cloud</string>
+    <!---Relocate Your Mesh Device-->
+    <string name="cloud_mesh_extender_title">Plaats je wifi punt op en andere locatie in huis</string>
+    <!---Choose a Scenario-->
+    <string name="cloud_mesh_title">Kies een scenario</string>
+    <!---Server is disconnected-->
+    <string name="commander_error_disconnect">Verbinding met de server verbroken</string>
+    <!---Timeout-->
+    <string name="commander_error_timeout">Time-out</string>
+    <!---Access Point Detail-->
+    <string name="device_detail_ap_title">Wifi Punt Detail</string>
+    <!---%s Detail-->
+    <string name="device_detail_detail">%s detail</string>
+    <!---Gateway Detail-->
+    <string name="device_detail_gateway_title">Router details </string>
+    <!---WiFi Router Detail-->
+    <string name="device_detail_router_title">Wifi router details</string>
+    <!---Repeater Detail-->
+    <string name="device_detail_rp_title">Wifi punt detail</string>
+    <!---total-->
+    <string name="devices_total">Totaal</string>
+    <!---Finish setting Your Home Network-->
+    <string name="finalizing_network_title">Voltooi het instellen van uw thuisnetwerk</string>
+    <!---Cannot Find Your Device.-->
+    <string name="find_device_no_working_description">Apparaat niet gevonden</string>
+    <!---Looking for Your Devices...-->
+    <string name="find_device_working_description">Zoekt jouw apparaten...</string>
+    <!---Device Found-->
+    <string name="gateway_list_title">Apparaat gevonden</string>
+    <!---OFF-->
+    <string name="home_guest_wifi_status_off">Uit</string>
+    <!---ON-->
+    <string name="home_guest_wifi_status_on">Aan</string>
+    <!---WiFi Settings Updating-->
+    <string name="loading_transition_update_wifi_settings">Wifi instellingen updaten…</string>
+    <!---Log In-->
+    <string name="login_sn_title">Inloggen</string>
+    <!---Mesh Device Placement Status-->
+    <string name="mesh_device_status_title">Wifi punt </string>
+    <!---Connection Status-->
+    <string name="mesh_device_status_title_device">Verbinding status</string>
+    <!---Place the WiFi extender-->
+    <string name="mesh_extender_title">Plaats je wifi punt</string>
+    <!---Try Again-->
+    <string name="mesh_try_again">Probeer opnieuw</string>
+    <!---Use Ethernet Cable-->
+    <string name="mesh_with_wire">Gebruik een internet (UTP) kabel</string>
+    <!---CANCEL-->
+    <string name="message_dialog_cancel">Annuleren</string>
+    <!---Cannot Connect-->
+    <string name="message_dialog_not_connect">Geen verbinding mogelijk</string>
+    <!---OK-->
+    <string name="message_dialog_ok_got_it">Ok</string>
+    <!---RESTART-->
+    <string name="message_dialog_restart">Herstart</string>
+    <!---Turn off-->
+    <string name="message_dialog_turn_off">Uitzetten</string>
+    <!---Other Mesh Networks-->
+    <string name="other_mesh_title">Andere Mesh Wifi netwerken</string>
+    <!---\n\nRemove \'%s\'\nand please wait some minutes...-->
+    <string name="remove_site_dialog_remove_description">\n\nVerwijder \'%s\'\nen een paar minuten geduld aub...</string>
+    <!---\n\nRemove \'%s\'\nand logging out...-->
+    <string name="remove_site_dialog_remove_self_description">\n\nVerwijder \'%s\'\nen bezig met afmelden...</string>
+    <!---Cloud Account-->
+    <string name="settings_cloud_account">Cloud Account</string>
+    <!---YOUR WIFI ROUTER-->
+    <string name="settings_cloud_account_router_list_title">Je wifi router</string>
+    <!---Report an Issue-->
+    <string name="settings_issue_report">Reporteer een probleen</string>
+    <!---Log In with Correct Account-->
+    <string name="settings_login_cloud_title">Log in met het juiste account</string>
+    <!---New Connected Device-->
+    <string name="settings_notification_sub_title">Nieuwe verbonden Apparaat</string>
+    <!---Save WiFi Settings-->
+    <string name="settings_preserve_settings">Wifi instellingen opslaan</string>
+    <!---Applying Settings-->
+    <string name="setup_apply_previous_settings_title">Instellingen toepassen</string>
+    <!---Or you have accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.-->
+    <string name="setup_connect_troubleshooting_cannot_connect_cloud_description2">Of je hebt per ongeluk de wifi van je telefoon uitgeschakeld. Ga naar de telefooninstellingen en zorg ervoor dat wifi is ingeschakeld en dat de vliegtuigmodus is uitgeschakeld.</string>
+    <!---Cannot Connect to the WiFi Router-->
+    <string name="setup_connect_troubleshooting_cannot_connect_controller_title">Geen verbinding met Router mogelijk</string>
+    <!---No Internet Connection-->
+    <string name="setup_connect_troubleshooting_no_internet_title">Geen internet verbinding</string>
+    <!---LOCAL DEVICE NAMES-->
+    <string name="setup_previous_settings_details_devices_title">Client apparaatnaam</string>
+    <!---WiFi Settings of \'%s\'-->
+    <string name="setup_previous_settings_details_title">Wifi instellingen van \'%s\'</string>
+    <!---WIFI NAME & PASSWORD-->
+    <string name="setup_previous_settings_details_wifi_title">Wifi naam &amp; wachtwoord</string>
+    <!---Apply Settings-->
+    <string name="setup_previous_settings_title">Opslaan</string>
 </resources>
