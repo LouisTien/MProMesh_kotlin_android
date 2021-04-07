@@ -41,7 +41,7 @@
             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
             android:textSize="@dimen/text_size_18sp_in_1080"
             android:ellipsize="end"
-            android:maxLines="3"
+            android:maxLines="4"
             android:text="@string/setup_previous_settings_description"
             android:layout_below="@+id/setup_previous_settings_title_text"/>
 

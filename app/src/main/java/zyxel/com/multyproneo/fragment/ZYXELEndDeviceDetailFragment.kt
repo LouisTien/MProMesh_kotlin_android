@@ -314,7 +314,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                     {
                         equals("AccessPoint", ignoreCase = true) || equals("Access Point", ignoreCase = true) || equals("AP", ignoreCase = true) -> getString(R.string.device_detail_ap_title)
                         equals("Repeater", ignoreCase = true) || equals("RP", ignoreCase = true) -> getString(R.string.device_detail_rp_title)
-                        else -> String.format("%s %s", endDeviceInfo.X_ZYXEL_HostType, getString(R.string.device_detail_detail))
+                        else -> String.format(getString(R.string.device_detail_detail), endDeviceInfo.X_ZYXEL_HostType)
                     }
                 }
 

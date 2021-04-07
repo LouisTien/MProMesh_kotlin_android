@@ -31,7 +31,7 @@
     <string name="setup_sn_login_serial_number">Serial number</string>
     <string name="setup_sn_login_label_description">The unique serial number can be found on the back label. It starts with \"S\"</string>
 
-    <string name="setup_previous_settings_title">Apply Saved Settings</string>
+    <string name="setup_previous_settings_title">Apply Settings</string>
     <string name="setup_previous_settings_description">There are previously saved settings of the WiFi router you\'ve managed before. You can apply them to the WiFi router you are managing now.</string>
     <string name="setup_previous_settings_sub_title">Apply WiFi settings to</string>
     <string name="setup_previous_settings_details"><u>Details</u></string>
@@ -43,7 +43,7 @@
     <string name="setup_previous_settings_apply">Apply</string>
     <string name="setup_previous_settings_skip">Skip</string>
 
-    <string name="setup_apply_previous_settings_title">Applying Saved Settings</string>
+    <string name="setup_apply_previous_settings_title">Applying Settings</string>
 
     <string name="setup_apply_reconnect_previous_settings_title">Re-Connecting to WiFi Router Using New WiFi Name and Password</string>
 
@@ -71,11 +71,10 @@
     <string name="cloud_login_no_internet">Unable to connect to the server. Please check your network access.</string>
     <string name="cloud_login_no_ssl_error">SSL error occurred. Would you like to proceed?</string>
 
-    <string name="finalizing_network_title">Finalizing Your Home Network</string>
+    <string name="finalizing_network_title">Finish setting Your Home Network</string>
 
     <string name="gateway_status_title">Internet Status</string>
     <string name="gateway_status_has_internet">Has Internet Connection</string>
-    <string name="gateway_status_no_internet">No Internet Connection</string>
 
     <string name="other_mesh_title">Other Mesh Networks</string>
     <string name="other_mesh_setup_description">Set up a new Mesh network</string>
@@ -103,7 +102,7 @@
     <string name="gateway_list_add">Add</string>
 
     <string name="cloud_gateway_list_title">Your WiFi Router</string>
-    <string name="cloud_gateway_list_choose">Choose one to manage.</string>
+    <string name="cloud_gateway_list_choose">Choose one controller to manage</string>
     <string name="cloud_gateway_list_no_choose">No WiFi Router yet.</string>
 
     <string name="login_title">Login</string>
@@ -115,7 +114,7 @@
     <string name="login_sn_error">Serial number error</string>
     <string name="login_no_support_character">Special characters are not supported</string>
 
-    <string name="home_connected_devices">Connected\nDevices</string>
+    <string name="home_connected_devices">Connected\tDevices</string>
     <string name="home_guest_wifi">Guest\nWiFi</string>
     <string name="home_guest_wifi_status_on">ON</string>
     <string name="home_guest_wifi_status_off">OFF</string>
@@ -129,7 +128,7 @@
     <string name="home_mesh_devices">Mesh Devices</string>
     <string name="home_extender">Extender</string>
 
-    <string name="device_detail_detail">Detail</string>
+    <string name="device_detail_detail">%s Detail</string>
     <string name="device_detail_model_name">Model Name</string>
     <string name="device_detail_status">Status</string>
     <string name="device_detail_connect_type">Connection Type</string>
@@ -179,24 +178,24 @@
     <string name="wifi_settings_title_2">WiFi Settings</string>
     <string name="wifi_settings_wifi_name">Name</string>
     <string name="wifi_settings_wifi_password">Password</string>
-    <string name="wifi_settings_wifi_name_24g">Home 2.4G</string>
-    <string name="wifi_settings_wifi_name_5g">Home 5G</string>
+    <string name="wifi_settings_wifi_name_24g">Home 2.4GHz</string>
+    <string name="wifi_settings_wifi_name_5g">Home 5GHz</string>
     <string name="wifi_settings_guest_wifi">Guest</string>
     <string name="wifi_settings_wifi_name_qrcode">Share Home WiFi</string>
-    <string name="wifi_settings_wifi_name_24g_qrcode">Share Home 2.4G WiFi</string>
-    <string name="wifi_settings_wifi_name_5g_qrcode">Share Home 5G WiFi</string>
+    <string name="wifi_settings_wifi_name_24g_qrcode">Share Home 2.4GHz WiFi</string>
+    <string name="wifi_settings_wifi_name_5g_qrcode">Share Home 5GHz WiFi</string>
     <string name="wifi_settings_guest_wifi_qrcode">Share Guest WiFi</string>
     <string name="wifi_settings_wifi_name_2">WiFi Name</string>
     <string name="wifi_settings_wifi_password_2">WiFi Password</string>
-    <string name="wifi_settings_wifi_name_24g_2">2.4G WiFi Name</string>
-    <string name="wifi_settings_wifi_password_24g_2">2.4G WiFi Password</string>
-    <string name="wifi_settings_wifi_name_5g_2">5G WiFi Name</string>
-    <string name="wifi_settings_wifi_password_5g_2">5G WiFi Password</string>
+    <string name="wifi_settings_wifi_name_24g_2">2.4GHz WiFi Name</string>
+    <string name="wifi_settings_wifi_password_24g_2">2.4GHz WiFi Password</string>
+    <string name="wifi_settings_wifi_name_5g_2">5GHz WiFi Name</string>
+    <string name="wifi_settings_wifi_password_5g_2">5GHz WiFi Password</string>
     <string name="wifi_settings_guest_wifi_2">Guest WiFi</string>
     <string name="wifi_settings_guest_wifi_name">Guest WiFi Name</string>
     <string name="wifi_settings_guest_wifi_password">Guest WiFi Password</string>
     <string name="wifi_settings_edit_save">Save</string>
-    <string name="wifi_settings_connect_change_tip">If you change the WiFi settings being connected, please reconnect to the new WiFi.</string>
+    <string name="wifi_settings_connect_change_tip">If you change the WiFi settings while connected, please reconnect to the new WiFi.</string>
     <string name="wifi_edit_title">Edit WiFi</string>
 
     <string name="account_app_version">App Version</string>
@@ -241,7 +240,7 @@
     <string name="settings_troubleshooting_qrcode_title">Unable to join WiFi using the QR Code</string>
     <string name="settings_troubleshooting_wifi_title">Unable to connect to the WiFi network</string>
     <string name="settings_troubleshooting_no_ethernet_description1">Make sure you have the Ethernet WAN port connected to a MODEM or Router.</string>
-    <string name="settings_troubleshooting_no_ethernet_description2">Make sure you configured a proper Ethernet WAN interface in the GUI (Network Setting > Broadband) screen with the Internet account information provided by your ISP and that the Internet is enabled.</string>
+    <string name="settings_troubleshooting_no_ethernet_description2">Make sure you configured the proper Ethernet WAN interface in the GUI (Network Setting > Broadband) screen with the Internet account information provided by your ISP and that the Internet is enabled.</string>
     <string name="settings_troubleshooting_no_ethernet_description3">Check that the WAN interface you are connected to is in the same interface group as the Ethernet connection in the GUI(Network Setting > Interface Group).</string>
     <string name="settings_troubleshooting_no_ethernet_description4">If you set up a WAN connection using bridging service, make sure you turn off the DHCP feature in the GUI (Network Setting > Home Networking > LAN Setup) screen to have the clients get WAN IP address directly from your ISP\’s DHCP server.</string>
     <string name="settings_troubleshooting_qrcode_error_description1">Make sure that your router is on and you\'re within range.</string>
@@ -258,11 +257,11 @@
     <string name="mesh_info_optional">Optional</string>
     <string name="mesh_info_hint">Tap Home to check if the controller was set up successfully.</string>
     <string name="mesh_more_info_title">You may need to know</string>
-    <string name="mesh_more_info_description">The Link LED indicates the WiFi quality of Zyxel products. It may be vary among different extenders.</string>
+    <string name="mesh_more_info_description">The Link LED indicates the WiFi signal quality of Zyxel products. It may vary among different extenders.</string>
     <string name="mesh_more_info_example">Example: WX3310</string>
     <string name="mesh_more_info_hint">WPS may be enabled in different ways in different extenders.</string>
     <string name="mesh_see_tip">See Tips</string>
-    <string name="mesh_extender_title">Place WiFi Extender</string>
+    <string name="mesh_extender_title">Place the WiFi extender</string>
     <string name="mesh_extender_description">Tap \"Next\" and press WPS on the extender to process pairing.</string>
     <string name="mesh_next">Next</string>
     <string name="mesh_wps_title">Press WPS</string>
@@ -308,8 +307,8 @@
     <string name="message_dialog_ok">OK</string>
     <string name="message_dialog_cancel">CANCEL</string>
     <string name="message_dialog_restart">RESTART</string>
-    <string name="message_dialog_turn_off">Turn Off</string>
-    <string name="message_dialog_ok_got_it">OK, got it</string>
+    <string name="message_dialog_turn_off">Turn off</string>
+    <string name="message_dialog_ok_got_it">OK</string>
     <string name="message_dialog_not_connect">Cannot Connect</string>
     <string name="message_dialog_not_connect_try_again">Please check your WiFi connection and try again later.</string>
     <string name="message_dialog_reboot_reminder_title">Would you like to restart your device?</string>
@@ -319,17 +318,17 @@
     <string name="remove_site_dialog_title">Remove \'%s\' from the Cloud</string>
     <string name="remove_site_dialog_description">You will need to set up the WiFi Router again to bind it back to the cloud.</string>
     <string name="remove_site_dialog_description_self">You are managing this WiFi Router, so you will be logged out after removing it.\n\nSet it up again to bind it back to the cloud.</string>
-    <string name="remove_site_dialog_preserved_setting_description">Keep its saved WiFi settings for later setup</string>
+    <string name="remove_site_dialog_preserved_setting_description">Keep saved WiFi settings for later setup</string>
     <string name="remove_site_dialog_remove">Remove</string>
     <string name="remove_site_dialog_cancel">Cancel</string>
-    <string name="remove_site_dialog_remove_self_description">\n\nRemoving \'%s\'\nand logging out...</string>
-    <string name="remove_site_dialog_remove_description">\n\nRemoving \'%s\'\nand please wait some minutes...</string>
+    <string name="remove_site_dialog_remove_self_description">\n\nRemove \'%s\'\nand logging out...</string>
+    <string name="remove_site_dialog_remove_description">\n\nRemove \'%s\'\nand please wait some minutes...</string>
 
     <string name="qrcode_dialog_wifi_msg">Scan the QR code to connect to the WiFi.</string>
     <string name="qrcode_dialog_guest_wifi_msg">Guests can connect to Guest WiFi by scanning the QR code.</string>
 
     <string name="loading_transition_please_wait">Please wait.</string>
-    <string name="loading_transition_update_wifi_settings">WiFi Setting Updating</string>
+    <string name="loading_transition_update_wifi_settings">WiFi Settings Updating</string>
     <string name="loading_transition_take_1_minutes">Please wait.\nThis may take 1-2 minutes.</string>
     <string name="loading_transition_take_3_minutes">Please wait.\nThis may take 3-4 minutes.</string>
     <string name="loading_transition_reboot">Rebooting...</string>
@@ -338,6 +337,6 @@
 
     <string name="speed_test_error">Something is wrong!!</string>
     <string name="commander_error_timeout">Timeout</string>
-    <string name="commander_error_disconnect">Server is disconnect.</string>
+    <string name="commander_error_disconnect">Server is disconnected</string>
 
 </resources>

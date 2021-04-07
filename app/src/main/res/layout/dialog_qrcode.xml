@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:textColor="@color/color_000000"
-                android:text="2.4G"
+                android:text="2.4GHz"
                 android:layout_gravity="center"/>
 
             <ImageView
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:textColor="@color/color_000000"
-                android:text="5G"
+                android:text="5GHz"
                 android:layout_gravity="center"/>
 
             <ImageView

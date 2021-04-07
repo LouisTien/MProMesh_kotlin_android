@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/loading_msg_title_text"
-            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_575757"
             android:ellipsize="end"
@@ -50,13 +50,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/loading_msg_status_text"
-            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-            android:textSize="@dimen/text_size_20sp_in_1080"
+            android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
+            android:textSize="@dimen/text_size_18sp_in_1080"
             android:textColor="@color/color_575757"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="@string/loading_transition_extender" />
-
     </RelativeLayout>
 
     <ImageView

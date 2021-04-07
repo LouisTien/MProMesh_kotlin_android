@@ -77,12 +77,11 @@
             android:id="@+id/mesh_fail_description2_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
             android:text="@string/mesh_fail_description2"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_18sp_in_1080"
             android:ellipsize="end"
-            android:maxLines="2"/>
+            android:maxLines="3"/>
 
         <TextView
             android:id="@+id/mesh_fail_help_text"
