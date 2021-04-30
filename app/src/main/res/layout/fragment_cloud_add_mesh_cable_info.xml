@@ -43,7 +43,7 @@
             android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_000000"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="3"
             android:text="@string/cloud_mesh_cable_title"/>
 
         <TextView
@@ -52,11 +52,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/cloud_mesh_cable_title_text"
             android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
-            android:text="@string/cloud_mesh_cable_description"
+            android:textSize="@dimen/text_size_18sp_in_1080"
             android:textColor="@color/color_575757"
             android:ellipsize="end"
-            android:maxLines="3"
-            android:textSize="@dimen/text_size_18sp_in_1080"/>
+            android:maxLines="4"
+            android:text="@string/cloud_mesh_cable_description" />
 
     </RelativeLayout>
 

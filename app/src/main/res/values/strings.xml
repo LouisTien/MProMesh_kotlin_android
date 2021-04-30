@@ -61,7 +61,7 @@
     <string name="setup_connect_troubleshooting_no_internet_description4">If the problem continues, contact your ISP.</string>
     <string name="setup_connect_troubleshooting_cannot_connect_cloud_title">Cannot Connect to the Cloud</string>
     <string name="setup_connect_troubleshooting_cannot_connect_cloud_description1">Make sure your mobile device is connected to the Internet. Check to see whether your cellular data is enabled and working.</string>
-    <string name="setup_connect_troubleshooting_cannot_connect_cloud_description2">Or you haven\’t accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.</string>
+    <string name="setup_connect_troubleshooting_cannot_connect_cloud_description2">Or you have accidentally turned your phone WiFi off. Go to phone settings and make sure that WiFi is toggled on and that Airplane Mode is toggled off. Airplane Mode shuts off your WiFi radios, so if it\’s on, then you won\’t be able to connect.</string>
 
     <string name="cloud_login_connect_title">Connect to the Cloud</string>
     <string name="cloud_login_connect_description">A cloud account allows you to manage your WiFi Router from anywhere.</string>

@@ -57,7 +57,7 @@
             android:textColor="@color/color_575757"
             android:textSize="@dimen/text_size_18sp_in_1080"
             android:ellipsize="end"
-            android:maxLines="3"/>
+            android:maxLines="4"/>
 
     </RelativeLayout>
 

@@ -409,6 +409,7 @@
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_575757"
+                        android:singleLine="true"
                         tools:text="V1.00(ABKJ.1)B1"/>
 
                 </LinearLayout>
