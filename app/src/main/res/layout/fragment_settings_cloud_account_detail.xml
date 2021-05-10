@@ -28,7 +28,7 @@
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_575757"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:text="@string/settings_cloud_account"/>
 
     </RelativeLayout>
@@ -46,8 +46,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_20sp_in_1080"
-            android:ellipsize="end"
-            android:singleLine="true"
             android:text="@string/settings_cloud_account"/>
 
         <TextView
@@ -74,8 +72,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/color_575757"
             android:textSize="@dimen/text_size_12sp_in_1080"
-            android:ellipsize="end"
-            android:singleLine="true"
             android:text="@string/settings_cloud_account_router_list_title"
             android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
             android:layout_marginEnd="@dimen/layout_size_150dp_in_1080"
@@ -88,9 +84,7 @@
             android:layout_alignParentEnd="true"
             android:textColor="@color/color_003eab"
             android:textSize="@dimen/text_size_15sp_in_1080"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:maxWidth="@dimen/layout_size_90dp_in_1080"
+            android:maxWidth="@dimen/layout_size_130dp_in_1080"
             android:text="@string/settings_cloud_account_router_action_edit"
             android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
             android:layout_below="@+id/settings_cloud_account_detail_line_image"/>

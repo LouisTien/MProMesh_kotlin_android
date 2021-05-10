@@ -150,9 +150,9 @@
     <!---Special characters are not supported-->
     <string name="login_no_support_character">Caracteres especiais não são permitidos.</string>
     <!---Connected\nDevices-->
-    <string name="home_connected_devices">Dispositivos\tLigados</string>
+    <string name="home_connected_devices">Dispositivos Ligados</string>
     <!---Guest\nWiFi-->
-    <string name="home_guest_wifi">WiFi para\tVisitantes </string>
+    <string name="home_guest_wifi">WiFi para Visitantes </string>
     <!---MESH-->
     <string name="home_mesh">MESH</string>
     <!---Up-->

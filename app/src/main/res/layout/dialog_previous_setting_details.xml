@@ -31,8 +31,6 @@
             android:textColor="@color/color_000000"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_18sp_in_1080"
-            android:ellipsize="end"
-            android:maxLines="2"
             android:text="@string/setup_previous_settings_details_title"/>
 
         <TextView
@@ -41,8 +39,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/color_575757"
             android:textSize="@dimen/text_size_12sp_in_1080"
-            android:ellipsize="end"
-            android:singleLine="true"
             android:layout_marginTop="@dimen/layout_size_30dp_in_1080"
             android:layout_below="@+id/previous_settings_details_title_text"
             android:text="@string/setup_previous_settings_details_wifi_title"/>
@@ -77,8 +73,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_888888"
                         android:textSize="@dimen/text_size_18sp_in_1080"
-                        android:ellipsize="end"
-                        android:maxLines="2"
                         android:text="@string/setup_previous_settings_details_network_name_title"/>
 
                 </RelativeLayout>
@@ -96,8 +90,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_888888"
                         android:textSize="@dimen/text_size_15sp_in_1080"
-                        android:ellipsize="end"
-                        android:maxLines="2"
                         tools:text="ZYXEL000000"/>
 
                 </RelativeLayout>
@@ -126,11 +118,9 @@
                         android:id="@+id/previous_settings_details_wifi_password_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/setup_previous_settings_details_password_title"
                         android:textColor="@color/color_888888"
-                        android:textSize="@dimen/text_size_18sp_in_1080"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:text="@string/setup_previous_settings_details_password_title"/>
+                        android:textSize="@dimen/text_size_18sp_in_1080" />
 
                 </RelativeLayout>
 
@@ -161,8 +151,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/color_575757"
             android:textSize="@dimen/text_size_12sp_in_1080"
-            android:ellipsize="end"
-            android:singleLine="true"
             android:layout_marginTop="@dimen/layout_size_30dp_in_1080"
             android:layout_below="@+id/previous_settings_details_wifi_content_relative"
             android:text="@string/setup_previous_settings_details_devices_title"/>

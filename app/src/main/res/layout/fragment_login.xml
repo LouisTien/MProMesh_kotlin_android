@@ -40,7 +40,7 @@
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:text="@string/login_description"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="3"
             android:layout_below="@+id/login_title_text"/>
 
         <EditText
@@ -127,9 +127,12 @@
             android:text="@string/login_title"
             android:textColor="@color/color_888888"
             android:textSize="@dimen/text_size_20sp_in_1080"
-            android:ellipsize="end"
+            android:ellipsize="marquee"
             android:singleLine="true"
-            android:maxWidth="@dimen/layout_size_90dp_in_1080"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:maxWidth="@dimen/layout_size_105dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
             android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"

@@ -35,8 +35,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:textColor="@color/color_000000"
-                android:ellipsize="end"
-                android:singleLine="true"
                 android:text="@string/mesh_more_info_title"/>
 
             <TextView
@@ -63,8 +61,6 @@
                 android:layout_gravity="end"
                 android:textSize="@dimen/text_size_16sp_in_1080"
                 android:textColor="@color/color_575757"
-                android:ellipsize="end"
-                android:singleLine="true"
                 android:text="@string/mesh_more_info_example"/>
 
             <ImageView

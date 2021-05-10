@@ -19,8 +19,6 @@
             android:textStyle="bold"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_36sp_in_1080"
-            android:ellipsize="end"
-            android:singleLine="true"
             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
             android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
             android:text="@string/common_account"/>
@@ -54,8 +52,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_20sp_in_1080"
-                android:ellipsize="end"
-                android:singleLine="true"
                 android:text="@string/account_app_version"
                 android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
                 android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
@@ -68,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_20sp_in_1080"
-                tools:text="V2.23.22"
+                tools:text="2.2.0.210323"
                 android:layout_alignParentEnd="true"/>
 
         </RelativeLayout>
@@ -100,8 +96,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_20sp_in_1080"
-                android:ellipsize="end"
-                android:singleLine="true"
                 android:text="@string/account_privacy_policy"
                 android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
                 android:layout_toEndOf="@+id/account_privacy_policy_image"/>
@@ -133,7 +127,7 @@
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:maxWidth="@dimen/layout_size_150dp_in_1080"
+                android:maxWidth="@dimen/layout_size_205dp_in_1080"
                 android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
                 android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
                 android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"

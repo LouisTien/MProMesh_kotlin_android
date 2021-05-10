@@ -29,7 +29,7 @@
             android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_000000"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="3"
             android:text="@string/cloud_mesh_apply_setting_title"/>
 
         <TextView
@@ -50,7 +50,7 @@
         android:id="@+id/cloud_loading_animation_view"
         android:layout_width="@dimen/layout_size_300dp_in_1080"
         android:layout_height="@dimen/layout_size_250dp_in_1080"
-        android:layout_marginTop="@dimen/layout_size_60dp_in_1080"
+        android:layout_marginTop="@dimen/layout_size_40dp_in_1080"
         android:layout_below="@+id/cloud_loading_msg_area_relative"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"

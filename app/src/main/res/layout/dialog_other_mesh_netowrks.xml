@@ -38,8 +38,6 @@
             android:layout_centerVertical="true"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_18sp_in_1080"
-            android:ellipsize="end"
-            android:singleLine="true"
             tools:text="My House"/>
 
     </RelativeLayout>
@@ -68,9 +66,7 @@
             android:layout_height="wrap_content"
             android:text="@string/other_mesh_title"
             android:textColor="@color/color_000000"
-            android:textSize="@dimen/text_size_18sp_in_1080"
-            android:ellipsize="end"
-            android:singleLine="true"/>
+            android:textSize="@dimen/text_size_18sp_in_1080" />
 
         <ListView
             android:id="@+id/other_mesh_content_list"
@@ -107,8 +103,6 @@
             android:layout_centerVertical="true"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_18sp_in_1080"
-            android:ellipsize="end"
-            android:maxLines="2"
             android:text="@string/other_mesh_setup_description"/>
 
     </RelativeLayout>

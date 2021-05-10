@@ -42,8 +42,6 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_000000"
-            android:ellipsize="end"
-            android:singleLine="true"
             android:text="@string/loading_transition_reboot"/>
 
         <TextView
@@ -54,8 +52,6 @@
             android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
             android:textSize="@dimen/text_size_15sp_in_1080"
             android:textColor="@color/color_575757"
-            android:ellipsize="end"
-            android:maxLines="2"
             android:text="@string/loading_transition_take_3_minutes" />
 
     </RelativeLayout>

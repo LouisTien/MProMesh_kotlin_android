@@ -23,8 +23,6 @@
         android:layout_centerVertical="true"
         android:textColor="@color/color_000000"
         android:textSize="@dimen/text_size_18sp_in_1080"
-        android:ellipsize="end"
-        android:singleLine="true"
         tools:text="My House"/>
 
 </RelativeLayout>

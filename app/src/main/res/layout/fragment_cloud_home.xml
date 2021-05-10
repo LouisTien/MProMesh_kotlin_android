@@ -172,9 +172,10 @@
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             tools:text="My House"
             android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toStartOf="@+id/cloud_home_wifi_router_detail_image"
             android:layout_toEndOf="@+id/cloud_home_wifi_router_image"/>
 
         <ImageView
@@ -218,7 +219,7 @@
                     android:textColor="@color/color_575757"
                     android:textSize="@dimen/text_size_16sp_in_1080"
                     android:ellipsize="end"
-                    android:singleLine="true"
+                    android:maxLines="2"
                     android:text="@string/home_mesh_devices"/>
 
                 <ImageView
@@ -274,7 +275,7 @@
                 android:layout_marginStart="@dimen/layout_size_35dp_in_1080"
                 android:layout_marginEnd="@dimen/layout_size_35dp_in_1080"
                 android:textColor="@color/color_000000"
-                android:textSize="@dimen/text_size_36sp_in_1080"
+                android:textSize="@dimen/text_size_32sp_in_1080"
                 android:ellipsize="end"
                 android:singleLine="true"
                 tools:text="20"/>
@@ -290,7 +291,7 @@
                 android:textColor="@color/color_575757"
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:text="@string/home_connected_devices" />
 
         </RelativeLayout >
@@ -311,10 +312,13 @@
                 android:layout_marginStart="@dimen/layout_size_35dp_in_1080"
                 android:layout_marginEnd="@dimen/layout_size_35dp_in_1080"
                 android:textColor="@color/color_000000"
-                android:textSize="@dimen/text_size_36sp_in_1080"
-                android:ellipsize="end"
+                android:textSize="@dimen/text_size_32sp_in_1080"
+                android:ellipsize="marquee"
                 android:singleLine="true"
-                tools:text="OFF"/>
+                android:marqueeRepeatLimit="marquee_forever"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:text="@string/home_guest_wifi_status_off"/>
 
             <ImageView
                 android:id="@+id/cloud_home_guest_wifi_switch"
@@ -336,7 +340,7 @@
                 android:textColor="@color/color_575757"
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:text="@string/home_guest_wifi" />
 
         </RelativeLayout>

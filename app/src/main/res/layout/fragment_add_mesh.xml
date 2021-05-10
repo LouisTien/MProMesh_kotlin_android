@@ -22,8 +22,6 @@
         android:layout_below="@+id/mesh_back_image"
         android:textSize="@dimen/text_size_22sp_in_1080"
         android:textColor="@color/color_000000"
-        android:ellipsize="end"
-        android:maxLines="2"
         android:text="@string/mesh_title"/>
 
     <ScrollView
@@ -52,8 +50,6 @@
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:textColor="@color/color_575757"
                 android:textStyle="bold"
-                android:ellipsize="end"
-                android:singleLine="true"
                 android:text="@string/mesh_with_wireless"/>
 
             <FrameLayout
@@ -91,8 +87,6 @@
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:textColor="@color/color_575757"
                 android:textStyle="bold"
-                android:ellipsize="end"
-                android:singleLine="true"
                 android:text="@string/mesh_with_wire"/>
 
             <FrameLayout
@@ -133,7 +127,7 @@
                 android:singleLine="true"
                 android:maxWidth="@dimen/layout_size_150dp_in_1080"
                 android:text="@string/mesh_tip"
-                android:visibility="gone"/>
+                android:visibility="invisible"/>
 
         </LinearLayout>
 

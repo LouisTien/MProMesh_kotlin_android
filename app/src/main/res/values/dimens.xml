@@ -133,7 +133,9 @@
     <dimen name="text_size_24sp_in_1080">24sp</dimen>
     <dimen name="text_size_25sp_in_1080">25sp</dimen>
     <dimen name="text_size_26sp_in_1080">26sp</dimen>
+    <dimen name="text_size_28sp_in_1080">28sp</dimen>
     <dimen name="text_size_30sp_in_1080">30sp</dimen>
+    <dimen name="text_size_32sp_in_1080">32sp</dimen>
     <dimen name="text_size_36sp_in_1080">36sp</dimen>
     <dimen name="text_size_48sp_in_1080">48sp</dimen>
     <dimen name="text_size_56sp_in_1080">56sp</dimen>

@@ -158,7 +158,7 @@
     <!---Special characters are not supported-->
     <string name="login_no_support_character">Les caractères spéciaux sont interdits</string>
     <!---Connected\nDevices-->
-    <string name="home_connected_devices">Appareils\tconnectés</string>
+    <string name="home_connected_devices">Appareils connectés</string>
     <!---Guest\nWiFi-->
     <string name="home_guest_wifi">WiFi\nInvité</string>
     <!---ON-->

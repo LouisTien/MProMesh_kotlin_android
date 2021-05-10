@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        android:layout_marginTop="@dimen/layout_size_201dp_in_1080"
+        android:layout_marginTop="@dimen/layout_size_130dp_in_1080"
         android:src="@drawable/find_device_img" />
 
     <RelativeLayout
@@ -46,7 +46,7 @@
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:textColor="@color/color_000000"
                 android:ellipsize="end"
-                android:singleLine="true"
+                android:maxLines="2"
                 android:text="@string/find_device_working_description" />
         </LinearLayout>
 
@@ -59,7 +59,7 @@
             android:textSize="@dimen/text_size_15sp_in_1080"
             android:textColor="@color/color_575757"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="3"
             android:text="@string/find_device_status_description"/>
 
     </RelativeLayout>
@@ -83,7 +83,7 @@
             android:textSize="@dimen/text_size_24sp_in_1080"
             android:ellipsize="end"
             android:singleLine="true"
-            android:maxWidth="@dimen/layout_size_150dp_in_1080"
+            android:maxWidth="@dimen/layout_size_205dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
             android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"

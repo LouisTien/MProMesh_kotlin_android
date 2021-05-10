@@ -31,7 +31,7 @@
             android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_000000"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:text="@string/setup_previous_settings_title"/>
 
         <TextView
@@ -39,9 +39,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:textSize="@dimen/text_size_17sp_in_1080"
             android:ellipsize="end"
-            android:maxLines="5"
+            android:maxLines="9"
             android:text="@string/setup_previous_settings_description"
             android:layout_below="@+id/setup_previous_settings_title_text"/>
 
@@ -51,7 +51,7 @@
         android:id="@+id/setup_previous_settings_content_area_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/layout_size_40dp_in_1080"
+        android:layout_marginTop="@dimen/layout_size_37dp_in_1080"
         android:layout_marginEnd="@dimen/layout_size_40dp_in_1080"
         android:layout_marginStart="@dimen/layout_size_40dp_in_1080"
         android:layout_below="@+id/setup_previous_settings_msg_area_relative">
@@ -69,7 +69,7 @@
                 android:textSize="@dimen/text_size_20sp_in_1080"
                 android:textColor="@color/color_000000"
                 android:ellipsize="end"
-                android:singleLine="true"/>
+                android:maxLines="2"/>
 
             <ImageView
                 android:id="@+id/setup_previous_settings_detail_image"
@@ -110,7 +110,7 @@
                 android:layout_below="@+id/setup_previous_settings_line_image"
                 android:textColor="@color/color_003eab"
                 android:textSize="@dimen/text_size_18sp_in_1080"
-                android:maxWidth="@dimen/layout_size_90dp_in_1080"
+                android:maxWidth="@dimen/layout_size_105dp_in_1080"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:text="@string/setup_previous_settings_details"/>

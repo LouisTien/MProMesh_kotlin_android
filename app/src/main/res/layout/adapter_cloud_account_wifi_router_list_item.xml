@@ -49,8 +49,6 @@
             android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
             android:textColor="@color/color_888888"
             android:textSize="@dimen/text_size_12sp_in_1080"
-            android:ellipsize="end"
-            android:singleLine="true"
             android:text="@string/settings_cloud_account_router_list_hint"
             android:visibility="gone"/>
 

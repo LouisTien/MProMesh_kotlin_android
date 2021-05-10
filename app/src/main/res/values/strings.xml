@@ -114,7 +114,7 @@
     <string name="login_sn_error">Serial number error</string>
     <string name="login_no_support_character">Special characters are not supported</string>
 
-    <string name="home_connected_devices">Connected\tDevices</string>
+    <string name="home_connected_devices">Connected Devices</string>
     <string name="home_guest_wifi">Guest\nWiFi</string>
     <string name="home_guest_wifi_status_on">ON</string>
     <string name="home_guest_wifi_status_off">OFF</string>

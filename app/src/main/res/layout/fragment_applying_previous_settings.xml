@@ -31,7 +31,7 @@
             android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_000000"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:text="@string/setup_apply_previous_settings_title"/>
 
         <TextView
@@ -44,7 +44,7 @@
             android:textColor="@color/color_575757"
             android:textSize="@dimen/text_size_18sp_in_1080"
             android:ellipsize="end"
-            android:maxLines="2"/>
+            android:maxLines="4"/>
 
     </RelativeLayout>
 
@@ -53,7 +53,7 @@
         android:layout_width="@dimen/layout_size_300dp_in_1080"
         android:layout_height="@dimen/layout_size_201dp_in_1080"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/layout_size_94dp_in_1080"
+        android:layout_marginTop="@dimen/layout_size_60dp_in_1080"
         android:layout_below="@+id/setup_apply_previous_settings_content_relative"
         android:scaleType="centerCrop"
         android:layout_gravity="center"

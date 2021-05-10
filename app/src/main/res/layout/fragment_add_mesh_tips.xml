@@ -35,8 +35,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_20sp_in_1080"
-                android:ellipsize="end"
-                android:singleLine="true"
                 android:text="@string/mesh_tip_title"/>
 
             <TextView
@@ -46,8 +44,6 @@
                 android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
                 android:textColor="@color/color_575757"
                 android:textSize="@dimen/text_size_18sp_in_1080"
-                android:ellipsize="end"
-                android:maxLines="2"
                 android:text="@string/mesh_tip_msg_topic"/>
 
             <TextView
@@ -57,9 +53,7 @@
                 android:layout_marginTop="@dimen/layout_size_30dp_in_1080"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_18sp_in_1080"
-                android:text="@string/mesh_tip_msg_position"
-                android:ellipsize="end"
-                android:maxLines="3"/>
+                android:text="@string/mesh_tip_msg_position" />
 
             <ImageView
                 android:id="@+id/mesh_tip_msg_position_image"
@@ -75,8 +69,6 @@
                 android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_18sp_in_1080"
-                android:ellipsize="end"
-                android:maxLines="3"
                 android:text="@string/mesh_tip_msg_suggest"/>
 
             <ImageView

@@ -22,7 +22,7 @@
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_575757"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:maxWidth="@dimen/layout_size_82dp_in_1080"
             android:text="@string/common_cancel"/>
 
@@ -35,8 +35,8 @@
             android:textColor="@color/color_575757"
             android:textStyle="bold"
             android:ellipsize="end"
-            android:singleLine="true"
-            android:maxWidth="@dimen/layout_size_130dp_in_1080"
+            android:maxLines="2"
+            android:maxWidth="@dimen/layout_size_150dp_in_1080"
             android:text="@string/wifi_edit_title"/>
 
         <TextView
@@ -50,7 +50,7 @@
             android:textColor="@color/color_575757"
             android:textStyle="bold"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:maxWidth="@dimen/layout_size_82dp_in_1080"
             android:text="@string/common_done"/>
 
@@ -87,8 +87,6 @@
                         android:layout_marginEnd="@dimen/layout_size_78dp_in_1080"
                         android:textColor="@color/color_000000"
                         android:textSize="@dimen/text_size_18sp_in_1080"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/wifi_settings_wifi_name_24g"/>
 
                 </RelativeLayout>
@@ -109,8 +107,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_575757"
                         android:textSize="@dimen/text_size_14sp_in_1080"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/wifi_settings_wifi_name"/>
 
                     <EditText
@@ -140,7 +136,7 @@
                         android:textColor="@color/color_ff2837"
                         android:visibility="invisible"
                         android:ellipsize="end"
-                        android:singleLine="true"
+                        android:maxLines="2"
                         tools:text="@string/login_no_support_character"/>
 
                     <RelativeLayout
@@ -163,8 +159,6 @@
                                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
                                 android:textColor="@color/color_575757"
                                 android:textSize="@dimen/text_size_14sp_in_1080"
-                                android:ellipsize="end"
-                                android:singleLine="true"
                                 android:text="@string/wifi_settings_wifi_password"/>
 
                             <EditText
@@ -205,7 +199,7 @@
                             android:textColor="@color/color_ff2837"
                             android:visibility="invisible"
                             android:ellipsize="end"
-                            android:singleLine="true"
+                            android:maxLines="2"
                             tools:text="@string/login_no_support_character"/>
 
                     </RelativeLayout>
@@ -234,8 +228,6 @@
                         android:layout_marginEnd="@dimen/layout_size_78dp_in_1080"
                         android:textColor="@color/color_000000"
                         android:textSize="@dimen/text_size_18sp_in_1080"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/wifi_settings_wifi_name_5g"/>
 
                 </RelativeLayout>
@@ -256,8 +248,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_575757"
                         android:textSize="@dimen/text_size_14sp_in_1080"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/wifi_settings_wifi_name"/>
 
                     <EditText
@@ -286,7 +276,7 @@
                         android:layout_below="@+id/wifi_edit_wifi_5g_name_edit_line_image"
                         android:textColor="@color/color_ff2837"
                         android:ellipsize="end"
-                        android:singleLine="true"
+                        android:maxLines="2"
                         android:visibility="invisible"
                         tools:text="@string/login_no_support_character"/>
 
@@ -310,8 +300,6 @@
                                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
                                 android:textColor="@color/color_575757"
                                 android:textSize="@dimen/text_size_14sp_in_1080"
-                                android:ellipsize="end"
-                                android:singleLine="true"
                                 android:text="@string/wifi_settings_wifi_password"/>
 
                             <EditText
@@ -351,7 +339,7 @@
                             android:layout_below="@+id/wifi_edit_wifi_5g_password_edit_line_image"
                             android:textColor="@color/color_ff2837"
                             android:ellipsize="end"
-                            android:singleLine="true"
+                            android:maxLines="2"
                             android:visibility="invisible"
                             tools:text="@string/login_no_support_character"/>
 
@@ -381,8 +369,6 @@
                         android:layout_marginEnd="@dimen/layout_size_78dp_in_1080"
                         android:textColor="@color/color_000000"
                         android:textSize="@dimen/text_size_18sp_in_1080"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/wifi_settings_guest_wifi"/>
 
                 </RelativeLayout>
@@ -402,8 +388,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/color_575757"
                         android:textSize="@dimen/text_size_14sp_in_1080"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/wifi_settings_wifi_name"/>
 
                     <EditText
@@ -432,7 +416,7 @@
                         android:layout_below="@+id/wifi_edit_guest_wifi_name_edit_line_image"
                         android:textColor="@color/color_ff2837"
                         android:ellipsize="end"
-                        android:singleLine="true"
+                        android:maxLines="2"
                         android:visibility="invisible"
                         tools:text="@string/login_no_support_character"/>
 
@@ -456,8 +440,6 @@
                                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
                                 android:textColor="@color/color_575757"
                                 android:textSize="@dimen/text_size_14sp_in_1080"
-                                android:ellipsize="end"
-                                android:singleLine="true"
                                 android:text="@string/wifi_settings_wifi_password"/>
 
                             <EditText
@@ -497,7 +479,7 @@
                             android:layout_below="@+id/wifi_edit_guest_wifi_password_edit_line_image"
                             android:textColor="@color/color_ff2837"
                             android:ellipsize="end"
-                            android:singleLine="true"
+                            android:maxLines="2"
                             android:visibility="invisible"
                             tools:text="@string/login_no_support_character"/>
 

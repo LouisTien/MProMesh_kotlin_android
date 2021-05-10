@@ -30,7 +30,7 @@
             android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_000000"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="3"
             android:text="@string/finalizing_network_title"/>
 
         <TextView
@@ -42,7 +42,7 @@
             android:text="@string/setup_connecting_controller_description"
             android:textColor="@color/color_575757"
             android:ellipsize="end"
-            android:maxLines="3"
+            android:maxLines="4"
             android:textSize="@dimen/text_size_18sp_in_1080"/>
 
     </RelativeLayout>

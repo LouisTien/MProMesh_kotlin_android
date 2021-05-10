@@ -22,8 +22,6 @@
         android:layout_below="@+id/cloud_mesh_back_image"
         android:textSize="@dimen/text_size_22sp_in_1080"
         android:textColor="@color/color_000000"
-        android:ellipsize="end"
-        android:singleLine="true"
         android:text="@string/cloud_mesh_title"/>
 
     <ScrollView
@@ -57,8 +55,6 @@
                     android:textSize="@dimen/text_size_18sp_in_1080"
                     android:textColor="@color/color_575757"
                     android:textStyle="bold"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     android:text="@string/mesh_with_wireless"/>
 
                 <ImageView
@@ -96,8 +92,6 @@
                     android:textSize="@dimen/text_size_18sp_in_1080"
                     android:textColor="@color/color_575757"
                     android:textStyle="bold"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     android:text="@string/mesh_with_wire"/>
 
                 <ImageView

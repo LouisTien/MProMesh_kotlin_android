@@ -28,7 +28,7 @@
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_575757"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:text="@string/settings_notification"/>
 
     </RelativeLayout>
@@ -49,8 +49,6 @@
             android:layout_marginEnd="@dimen/layout_size_60dp_in_1080"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_20sp_in_1080"
-            android:ellipsize="end"
-            android:singleLine="true"
             android:text="@string/settings_notification_sub_title"/>
 
         <ImageView

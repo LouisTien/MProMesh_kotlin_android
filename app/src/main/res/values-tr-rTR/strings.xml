@@ -150,9 +150,9 @@
     <!---Special characters are not supported-->
     <string name="login_no_support_character">Özel karakterler desteklenmez</string>
     <!---Connected\nDevices-->
-    <string name="home_connected_devices">Bağlı\nCihazlar</string>
+    <string name="home_connected_devices">Bağlı Cihazlar</string>
     <!---Guest\nWiFi-->
-    <string name="home_guest_wifi">Misafir\tCihazları</string>
+    <string name="home_guest_wifi">Misafir Cihazları</string>
     <!---MESH-->
     <string name="home_mesh">MESH</string>
     <!---Up-->

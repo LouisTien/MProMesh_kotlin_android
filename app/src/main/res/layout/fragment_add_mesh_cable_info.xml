@@ -18,13 +18,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginStart="@dimen/layout_size_50dp_in_1080"
         android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
         android:textSize="@dimen/text_size_20sp_in_1080"
         android:textColor="@color/color_575757"
         android:textStyle="bold"
-        android:ellipsize="end"
-        android:singleLine="true"
+        android:maxWidth="@dimen/layout_size_205dp_in_1080"
         android:text="@string/mesh_see_tip"/>
 
     <TextView
@@ -95,7 +93,7 @@
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:ellipsize="end"
             android:singleLine="true"
-            android:maxWidth="@dimen/layout_size_150dp_in_1080"
+            android:maxWidth="@dimen/layout_size_205dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
             android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"

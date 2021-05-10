@@ -150,7 +150,7 @@
     <!---Special characters are not supported-->
     <string name="login_no_support_character">Erikoismerkit eivät ole tuettuna</string>
     <!---Connected\nDevices-->
-    <string name="home_connected_devices">Yhdistetyt\tlaitteet</string>
+    <string name="home_connected_devices">Yhdistetyt laitteet</string>
     <!---Guest\nWiFi-->
     <string name="home_guest_wifi">Vierailijaverkko</string>
     <!---MESH-->

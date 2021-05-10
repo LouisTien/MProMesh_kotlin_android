@@ -148,7 +148,7 @@
     <!---Special characters are not supported-->
     <string name="login_no_support_character">I caratteri speciali non sono supportati</string>
     <!---Connected\nDevices-->
-    <string name="home_connected_devices">Dispositivi\tconnessi</string>
+    <string name="home_connected_devices">Dispositivi connessi</string>
     <!---Guest\nWiFi-->
     <string name="home_guest_wifi">WiFi\nospite</string>
     <!---MESH-->

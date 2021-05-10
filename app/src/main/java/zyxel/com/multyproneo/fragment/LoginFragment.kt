@@ -82,6 +82,7 @@ class LoginFragment : Fragment()
         gatewayIndex = GlobalData.currentGatewayIndex
         gatewayInfo = GlobalData.getCurrentGatewayInfo()
         login_title_text.text = getString(R.string.login_title) + " " + gatewayInfo.ModelName
+        login_enter_text.isSelected = true
         //login_username_edit.setText(DatabaseUtil.getInstance(activity!!)?.getDeviceUserNameFromDB(gatewayInfo.serial))
         //login_password_edit.setText(DatabaseUtil.getInstance(activity!!)?.getDevicePasswordFromDB(gatewayInfo.serial))
         attachKeyboardListeners()

@@ -47,8 +47,11 @@
                     android:layout_alignBottom="@+id/home_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
-                    android:ellipsize="end"
+                    android:ellipsize="marquee"
                     android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/common_home"/>
 
@@ -75,8 +78,11 @@
                     android:layout_alignBottom="@+id/devices_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
-                    android:ellipsize="end"
+                    android:ellipsize="marquee"
                     android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/common_devices"/>
 
@@ -103,8 +109,11 @@
                     android:layout_alignBottom="@+id/wifi_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
-                    android:ellipsize="end"
+                    android:ellipsize="marquee"
                     android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/button_text_wifi"/>
 
@@ -132,8 +141,11 @@
                     android:layout_alignBottom="@+id/diagnostic_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
-                    android:ellipsize="end"
+                    android:ellipsize="marquee"
                     android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/common_diagnostic"/>
 
@@ -160,8 +172,11 @@
                     android:layout_alignBottom="@+id/account_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
-                    android:ellipsize="end"
+                    android:ellipsize="marquee"
                     android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/common_account"/>
 
@@ -197,8 +212,11 @@
                     android:layout_alignBottom="@+id/cloud_home_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
-                    android:ellipsize="end"
+                    android:ellipsize="marquee"
                     android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/common_home"/>
 
@@ -225,8 +243,11 @@
                     android:layout_alignBottom="@+id/cloud_devices_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
-                    android:ellipsize="end"
+                    android:ellipsize="marquee"
                     android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/common_devices"/>
 
@@ -253,8 +274,11 @@
                     android:layout_alignBottom="@+id/cloud_wifi_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
-                    android:ellipsize="end"
+                    android:ellipsize="marquee"
                     android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/button_text_wifi"/>
 
@@ -281,8 +305,11 @@
                     android:layout_alignBottom="@+id/cloud_settings_image"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
-                    android:ellipsize="end"
+                    android:ellipsize="marquee"
                     android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:textColor="@drawable/toolbar_btn_text"
                     android:text="@string/common_settings"/>
 

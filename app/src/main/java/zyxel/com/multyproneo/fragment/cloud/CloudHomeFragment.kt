@@ -249,6 +249,7 @@ class CloudHomeFragment : Fragment()
                     cloud_home_guest_wifi_switch.setImageResource(R.drawable.switch_off_2)
                 }
             }
+            cloud_home_guest_wifi_status_text.isSelected = true
         }
     }
 

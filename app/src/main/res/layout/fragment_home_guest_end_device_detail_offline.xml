@@ -27,7 +27,7 @@
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_575757"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:text="@string/device_detail_title"/>
 
     </RelativeLayout>
@@ -40,8 +40,6 @@
         android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
         android:textSize="@dimen/text_size_22sp_in_1080"
         android:textColor="@color/color_575757"
-        android:ellipsize="end"
-        android:maxLines="2"
         android:text="@string/device_detail_offline_msg"/>
 
 </RelativeLayout>

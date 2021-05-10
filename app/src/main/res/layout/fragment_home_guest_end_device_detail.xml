@@ -28,7 +28,7 @@
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:textColor="@color/color_575757"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:text="@string/device_detail_title"/>
 
     </RelativeLayout>
@@ -105,7 +105,7 @@
                         android:layout_below="@+id/end_device_detail_edit_line_image"
                         android:textColor="@color/color_ff2837"
                         android:ellipsize="end"
-                        android:singleLine="true"
+                        android:maxLines="2"
                         android:visibility="invisible"
                         tools:text="@string/login_no_support_character"/>
 
@@ -187,8 +187,6 @@
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_3c9f00"
                         android:textStyle="bold"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         tools:text="@string/device_detail_connecting"/>
 
                     <TextView
@@ -199,8 +197,6 @@
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_000000"
                         android:textStyle="bold"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         tools:text="@string/device_detail_wireless"/>
 
                 </LinearLayout>
@@ -218,8 +214,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textColor="@color/color_888888"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/device_detail_status"/>
 
                     <TextView
@@ -228,8 +222,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textColor="@color/color_888888"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/device_detail_connect_type"/>
 
                 </LinearLayout>
@@ -262,8 +254,6 @@
                             android:layout_weight="1"
                             android:textSize="@dimen/text_size_18sp_in_1080"
                             android:textColor="@color/color_575757"
-                            android:ellipsize="end"
-                            android:singleLine="true"
                             android:text="@string/device_detail_internet_blocking"/>
 
                         <LinearLayout
@@ -348,8 +338,6 @@
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/device_detail_connect_to"/>
 
                     <TextView
@@ -359,7 +347,6 @@
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_575757"
-                        android:singleLine="true"
                         tools:text="WAP6804-RP"/>
 
                 </LinearLayout>
@@ -379,8 +366,6 @@
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/device_detail_wifi_band"/>
 
                     <TextView
@@ -409,8 +394,6 @@
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/device_detail_wifi_channel"/>
 
                     <TextView
@@ -439,8 +422,6 @@
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/device_detail_ip_address"/>
 
                     <TextView
@@ -469,8 +450,6 @@
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/device_detail_mac_address"/>
 
                     <TextView
@@ -499,8 +478,6 @@
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/device_detail_max_speed"/>
 
                     <TextView
@@ -530,8 +507,6 @@
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/device_detail_rssi"/>
 
                     <TextView
@@ -560,8 +535,6 @@
                         android:layout_weight="1"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_888888"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/device_detail_manufacturer"/>
 
                     <TextView

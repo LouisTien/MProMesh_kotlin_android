@@ -21,7 +21,7 @@
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_36sp_in_1080"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
             android:layout_marginEnd="@dimen/layout_size_105dp_in_1080"
             android:layout_centerVertical="true"

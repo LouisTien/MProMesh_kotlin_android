@@ -29,7 +29,7 @@
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_36sp_in_1080"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
             android:layout_gravity="center_vertical"
             android:text="@string/wifi_settings_title_2"/>
@@ -69,8 +69,6 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/text_size_20sp_in_1080"
                         android:textColor="@color/color_575757"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/button_text_wifi"/>
 
                     <RelativeLayout
@@ -84,8 +82,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-                            android:singleLine="true"
-                            android:ellipsize="end"
                             android:textSize="@dimen/text_size_18sp_in_1080"
                             android:textColor="@color/color_000000"
                             tools:text="ADHBU"/>
@@ -97,8 +93,6 @@
                             android:layout_below="@+id/wifi_settings_wifi_24g_name_text"
                             android:textSize="@dimen/text_size_14sp_in_1080"
                             android:textColor="@color/color_575757"
-                            android:ellipsize="end"
-                            android:singleLine="true"
                             android:text="@string/wifi_settings_wifi_name_24g_2"/>
 
                         <TextView
@@ -129,8 +123,6 @@
                             android:layout_below="@+id/wifi_settings_wifi_24g_password_text"
                             android:textSize="@dimen/text_size_14sp_in_1080"
                             android:textColor="@color/color_575757"
-                            android:ellipsize="end"
-                            android:singleLine="true"
                             android:text="@string/wifi_settings_wifi_password_24g_2"/>
 
                     </RelativeLayout>
@@ -147,8 +139,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-                            android:singleLine="true"
-                            android:ellipsize="end"
                             android:textSize="@dimen/text_size_18sp_in_1080"
                             android:textColor="@color/color_000000"
                             tools:text="ADHBU.speed"/>
@@ -160,8 +150,6 @@
                             android:layout_below="@+id/wifi_settings_wifi_5g_name_text"
                             android:textSize="@dimen/text_size_14sp_in_1080"
                             android:textColor="@color/color_575757"
-                            android:ellipsize="end"
-                            android:singleLine="true"
                             android:text="@string/wifi_settings_wifi_name_5g_2"/>
 
                         <TextView
@@ -192,8 +180,6 @@
                             android:layout_below="@+id/wifi_settings_wifi_5g_password_text"
                             android:textSize="@dimen/text_size_14sp_in_1080"
                             android:textColor="@color/color_575757"
-                            android:ellipsize="end"
-                            android:singleLine="true"
                             android:text="@string/wifi_settings_wifi_password_5g_2"/>
 
                     </RelativeLayout>
@@ -246,8 +232,6 @@
                         android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
                         android:text="@string/wifi_settings_guest_wifi_2"
                         android:textColor="@color/color_575757"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:textSize="@dimen/text_size_20sp_in_1080" />
 
                     <ImageView
@@ -264,8 +248,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
                         android:layout_below="@+id/wifi_settings_guest_wifi_switch_image"
-                        android:singleLine="true"
-                        android:ellipsize="end"
                         android:textSize="@dimen/text_size_18sp_in_1080"
                         android:textColor="@color/color_000000"
                         tools:text="Guest WiFi"/>
@@ -277,8 +259,6 @@
                         android:layout_below="@+id/wifi_settings_guest_wifi_name_text"
                         android:textSize="@dimen/text_size_14sp_in_1080"
                         android:textColor="@color/color_575757"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/wifi_settings_guest_wifi_name"/>
 
                     <TextView
@@ -309,8 +289,6 @@
                         android:layout_below="@+id/wifi_settings_guest_wifi_password_text"
                         android:textSize="@dimen/text_size_14sp_in_1080"
                         android:textColor="@color/color_575757"
-                        android:ellipsize="end"
-                        android:singleLine="true"
                         android:text="@string/wifi_settings_guest_wifi_password"/>
 
                 </RelativeLayout>

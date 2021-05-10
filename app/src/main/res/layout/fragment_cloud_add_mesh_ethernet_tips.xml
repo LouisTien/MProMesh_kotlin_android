@@ -61,8 +61,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/layout_size_40dp_in_1080"
                     android:layout_marginEnd="@dimen/layout_size_50dp_in_1080"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     android:textSize="@dimen/text_size_18sp_in_1080"
                     android:textColor="@color/color_000000"
                     android:text="@string/cloud_mesh_tip_find_location_title"/>
@@ -193,8 +191,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/layout_size_40dp_in_1080"
                     android:layout_marginEnd="@dimen/layout_size_50dp_in_1080"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     android:textSize="@dimen/text_size_18sp_in_1080"
                     android:textColor="@color/color_000000"
                     android:text="@string/cloud_mesh_tip_link_quality_title"/>

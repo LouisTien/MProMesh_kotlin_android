@@ -150,7 +150,7 @@
     <!---Special characters are not supported-->
     <string name="login_no_support_character">Sonderzeichen werden nicht unterstützt</string>
     <!---Connected\nDevices-->
-    <string name="home_connected_devices">Verbundene\tGeräte</string>
+    <string name="home_connected_devices">Verbundene Geräte</string>
     <!---Guest\nWiFi-->
     <string name="home_guest_wifi">Gast\nWLAN</string>
     <!---MESH-->

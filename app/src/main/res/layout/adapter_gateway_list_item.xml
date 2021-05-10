@@ -32,6 +32,7 @@
         android:layout_gravity="center|bottom"
         android:singleLine="true"
         android:ellipsize="end"
+        android:maxWidth="@dimen/layout_size_120dp_in_1080"
         android:textSize="@dimen/text_size_18sp_in_1080"
         android:text="WAP4927"/>
 

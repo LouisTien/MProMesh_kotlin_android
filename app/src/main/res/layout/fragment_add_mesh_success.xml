@@ -39,7 +39,7 @@
             android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_000000"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:text="@string/mesh_success_title"/>
 
         <TextView
@@ -52,7 +52,7 @@
             android:textColor="@color/color_575757"
             android:textSize="@dimen/text_size_18sp_in_1080"
             android:ellipsize="end"
-            android:maxLines="3"/>
+            android:maxLines="6"/>
 
     </RelativeLayout>
 
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/layout_size_60dp_in_1080"
+        android:layout_marginTop="@dimen/layout_size_40dp_in_1080"
         android:layout_below="@+id/mesh_success_content_relative"
         android:src="@drawable/addmesh_wifi3"/>
 
@@ -83,7 +83,7 @@
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:ellipsize="end"
             android:singleLine="true"
-            android:maxWidth="@dimen/layout_size_150dp_in_1080"
+            android:maxWidth="@dimen/layout_size_205dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
             android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"

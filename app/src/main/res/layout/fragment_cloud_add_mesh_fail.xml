@@ -14,7 +14,7 @@
         android:textColor="@color/color_575757"
         android:ellipsize="end"
         android:singleLine="true"
-        android:maxWidth="@dimen/layout_size_90dp_in_1080"
+        android:maxWidth="@dimen/layout_size_105dp_in_1080"
         android:text="@string/cloud_mesh_fail_quit"/>
 
     <TextView
@@ -28,7 +28,7 @@
         android:textColor="@color/color_575757"
         android:ellipsize="end"
         android:singleLine="true"
-        android:maxWidth="@dimen/layout_size_90dp_in_1080"
+        android:maxWidth="@dimen/layout_size_105dp_in_1080"
         android:text="@string/cloud_mesh_fail_help"
         android:visibility="invisible"/>
 
@@ -48,7 +48,7 @@
             android:textSize="@dimen/text_size_22sp_in_1080"
             android:textColor="@color/color_ff2837"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="3"
             android:text="@string/cloud_mesh_fail_title"/>
 
         <TextView
@@ -59,9 +59,9 @@
             android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
             android:text="@string/cloud_mesh_fail_description"
             android:textColor="@color/color_575757"
-            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:textSize="@dimen/text_size_17sp_in_1080"
             android:ellipsize="end"
-            android:maxLines="3"/>
+            android:maxLines="5"/>
 
     </RelativeLayout>
 
@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/layout_size_60dp_in_1080"
+        android:layout_marginTop="@dimen/layout_size_40dp_in_1080"
         android:layout_below="@+id/cloud_mesh_fail_content_relative"
         android:src="@drawable/n_addmesh_wifi4"/>
 
@@ -92,7 +92,7 @@
             android:textSize="@dimen/text_size_20sp_in_1080"
             android:ellipsize="end"
             android:singleLine="true"
-            android:maxWidth="@dimen/layout_size_150dp_in_1080"
+            android:maxWidth="@dimen/layout_size_205dp_in_1080"
             android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
             android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"

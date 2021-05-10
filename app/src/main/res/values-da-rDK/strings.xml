@@ -150,7 +150,7 @@
     <!---Special characters are not supported-->
     <string name="login_no_support_character">Specialtegn er ikke tilladt</string>
     <!---Connected\nDevices-->
-    <string name="home_connected_devices">Tilkoblede\tEnheder</string>
+    <string name="home_connected_devices">Tilkoblede Enheder</string>
     <!---Guest\nWiFi-->
     <string name="home_guest_wifi">Gæstenetværk</string>
     <!---MESH-->

@@ -24,9 +24,7 @@
         android:text="@string/gateway_status_title"
         android:textStyle="bold"
         android:textColor="@color/color_000000"
-        android:textSize="@dimen/text_size_18sp_in_1080"
-        android:ellipsize="end"
-        android:singleLine="true"/>
+        android:textSize="@dimen/text_size_18sp_in_1080" />
 
     <RelativeLayout
         android:id="@+id/gateway_status_has_internet_relative"
@@ -52,8 +50,6 @@
             android:layout_toEndOf="@+id/gateway_status_has_internet_image"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_18sp_in_1080"
-            android:ellipsize="end"
-            android:maxLines="2"
             android:text="@string/gateway_status_has_internet"/>
 
     </RelativeLayout>
@@ -82,8 +78,6 @@
             android:layout_toEndOf="@+id/gateway_status_no_internet_image"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_18sp_in_1080"
-            android:ellipsize="end"
-            android:maxLines="2"
             android:text="@string/setup_connect_troubleshooting_no_internet_title"/>
 
     </RelativeLayout>

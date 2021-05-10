@@ -63,8 +63,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/text_size_20sp_in_1080"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     android:layout_marginEnd="@dimen/layout_size_25dp_in_1080"
                     android:text="@string/settings_notification"/>
 
@@ -98,8 +96,6 @@
                     android:layout_marginEnd="@dimen/layout_size_60dp_in_1080"
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/text_size_20sp_in_1080"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     android:text="@string/settings_preserve_settings"/>
 
                 <ImageView
@@ -132,8 +128,6 @@
                     android:layout_marginEnd="@dimen/layout_size_25dp_in_1080"
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/text_size_20sp_in_1080"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     android:text="@string/settings_troubleshooting"/>
 
                 <ImageView
@@ -160,8 +154,6 @@
                 android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
                 android:textColor="@color/color_888888"
                 android:textSize="@dimen/text_size_12sp_in_1080"
-                android:ellipsize="end"
-                android:maxLines="2"
                 android:text="@string/settings_hint"/>
 
             <RelativeLayout
@@ -177,8 +169,6 @@
                     android:layout_marginEnd="@dimen/layout_size_25dp_in_1080"
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/text_size_20sp_in_1080"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     android:text="@string/settings_cloud_account"/>
 
                 <ImageView
@@ -211,8 +201,6 @@
                     android:layout_marginEnd="@dimen/layout_size_25dp_in_1080"
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/text_size_20sp_in_1080"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     android:text="@string/settings_issue_report"/>
 
                 <ImageView
@@ -245,8 +233,6 @@
                     android:layout_marginEnd="@dimen/layout_size_25dp_in_1080"
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/text_size_20sp_in_1080"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     android:text="@string/settings_privacy_policy"/>
 
                 <ImageView
@@ -279,8 +265,6 @@
                     android:layout_marginEnd="@dimen/layout_size_130dp_in_1080"
                     android:textColor="@color/color_000000"
                     android:textSize="@dimen/text_size_20sp_in_1080"
-                    android:ellipsize="end"
-                    android:singleLine="true"
                     android:text="@string/settings_app_version"/>
 
                 <TextView
@@ -290,6 +274,7 @@
                     android:textColor="@color/color_888888"
                     android:textSize="@dimen/text_size_18sp_in_1080"
                     android:layout_alignParentEnd="true"
+                    android:maxWidth="@dimen/layout_size_105dp_in_1080"
                     tools:text="V2.23.22"/>
 
                 <ImageView
