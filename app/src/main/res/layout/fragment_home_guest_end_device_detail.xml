@@ -295,8 +295,6 @@
                             android:layout_weight="1"
                             android:textSize="@dimen/text_size_18sp_in_1080"
                             android:textColor="@color/color_575757"
-                            android:ellipsize="end"
-                            android:singleLine="true"
                             android:text="@string/device_detail_parental_control"/>
 
                         <TextView
@@ -306,8 +304,6 @@
                             android:layout_weight="1"
                             android:textSize="@dimen/text_size_18sp_in_1080"
                             android:textColor="@color/color_575757"
-                            android:ellipsize="end"
-                            android:singleLine="true"
                             android:text="F-Secure"/>
 
                     </LinearLayout>
