@@ -7,7 +7,7 @@ import android.view.View
 import kotlinx.android.synthetic.main.dialog_mesh_device_status.*
 import zyxel.com.multyproneo.R
 
-class MeshDeviceStatusDialog(context: Context, var isHomePage: Boolean) : Dialog(context)
+class MeshDeviceStatusDialog(context: Context, var isHomePage: Boolean, var isCloud: Boolean = true) : Dialog(context)
 {
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -15,8 +15,13 @@ class MeshDeviceStatusDialog(context: Context, var isHomePage: Boolean) : Dialog
         setContentView(R.layout.dialog_mesh_device_status)
         setCancelable(false)
 
-        if(isHomePage)
+        if(isHomePage) {
             mesh_device_status_block_relative.visibility = View.GONE
+            if(isCloud)
+                mesh_device_status_too_close_relative.visibility = View.VISIBLE
+            else
+                mesh_device_status_too_close_relative.visibility = View.GONE
+        }
         else
         {
             mesh_device_status_too_close_relative.visibility = View.GONE

@@ -47,7 +47,7 @@ class HomeFragment : Fragment()
         GlobalData.currentFrag = TAG
 
         meshDevicePlacementStatusDisposable = GlobalBus.listen(HomeEvent.MeshDevicePlacementStatus::class.java).subscribe{
-            MeshDeviceStatusDialog(activity!!, it.isHomePage).show()
+            MeshDeviceStatusDialog(activity!!, it.isHomePage, false).show()
         }
 
         getInfoCompleteDisposable = GlobalBus.listen(HomeEvent.GetDeviceInfoComplete::class.java).subscribe{ updateUI() }

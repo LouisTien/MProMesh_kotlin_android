@@ -92,9 +92,9 @@
     <!---Your WiFi Router is already connected to the cloud, please log in.-->
     <string name="cloud_login_connect_description_registered">Jouw WiFi-router is al verbonden met de cloud, log aub in.</string>
     <!---Log into the Cloud-->
-    <string name="cloud_login_login_title">Log in op de Cloud</string>
+    <string name="cloud_login_login_title">Log in via de Cloud</string>
     <!---Log into the cloud to access your WiFi Router.-->
-    <string name="cloud_login_login_description">Log in op de Cloud om toegang te krijgen tot jouw WiFi Router.</string>
+    <string name="cloud_login_login_description">Log in op via Cloud om toegang te krijgen tot jouw WiFi Router.</string>
     <!---Unable to connect to the server. Please check your network access.-->
     <string name="cloud_login_no_internet">Kan niet verbinden met de server. Controleer je netwerktoegang.</string>
     <!---SSL error occurred. Would you like to proceed?-->
@@ -156,9 +156,9 @@
     <!---MESH-->
     <string name="home_mesh">MESH</string>
     <!---Up-->
-    <string name="home_mesh_up">Hoger</string>
+    <string name="home_mesh_up">Online</string>
     <!---Down-->
-    <string name="home_mesh_down">Lager</string>
+    <string name="home_mesh_down">Offline</string>
     <!---Gateway-->
     <string name="home_device_gateway">Gateway</string>
     <!---WiFi Router-->
