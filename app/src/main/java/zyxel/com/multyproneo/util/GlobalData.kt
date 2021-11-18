@@ -36,6 +36,7 @@ object GlobalData
     var alreadyGetGatewayInfoLocalBase = false
     var loginInfo = LoginInfo()
     var showMeshStatus = true
+    var showAmberStatus = true
 
     //TUTK
     var tokenType = "Bearer"

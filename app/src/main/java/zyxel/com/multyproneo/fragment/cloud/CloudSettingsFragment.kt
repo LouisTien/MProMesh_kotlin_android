@@ -163,7 +163,7 @@ class CloudSettingsFragment : Fragment()
     private fun updateUI()
     {
         settings_preserve_settings_switch_image.setImageResource(if(preserveSettingsEnable) R.drawable.switch_on else R.drawable.switch_off_2)
-        settings_app_version_value_text.text = "V${BuildConfig.VERSION_NAME}"
+        settings_app_version_value_text.text = BuildConfig.VERSION_NAME
     }
 
     private fun addToDB()

@@ -1055,6 +1055,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                                 getAPPUICustomInfoTask()
                             else{
                                 GlobalData.showMeshStatus = true
+                                GlobalData.showAmberStatus = true
                                 stopGetAllNeedDeviceInfoTask()
                             }
                         }
@@ -1082,6 +1083,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                             appUICustomInfo = Gson().fromJson(responseStr, AppUICustomInfo::class.javaObjectType)
                             LogUtil.d(TAG,"appUICustomInfo:$appUICustomInfo")
                             GlobalData.showMeshStatus = appUICustomInfo.APPUICustomList.Home_MESH_status
+                            GlobalData.showAmberStatus = appUICustomInfo.APPUICustomList.Home_Amber_Show
                             stopGetAllNeedDeviceInfoTask()
                         }
                         catch(e: JSONException)
