@@ -26,7 +26,6 @@ object GlobalData
     var scanPWD = ""
     var scanAccount = ""
     var scanAccountPWD = ""
-    var scanUID = ""
     var notiUid = ""
     var notiMac = ""
     var customerLogo = ""
@@ -35,8 +34,6 @@ object GlobalData
     var L2DeviceNumber = 0
     var alreadyGetGatewayInfoLocalBase = false
     var loginInfo = LoginInfo()
-    var showMeshStatus = true
-    var showAmberStatus = true
 
     //TUTK
     var tokenType = "Bearer"

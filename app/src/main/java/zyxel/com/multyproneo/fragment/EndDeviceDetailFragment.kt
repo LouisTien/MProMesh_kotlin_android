@@ -16,10 +16,11 @@ import org.jetbrains.anko.textColor
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.ApiHandler
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.DevicesApi
 import zyxel.com.multyproneo.dialog.MessageDialog
-import zyxel.com.multyproneo.event.DevicesDetailEvent
+import zyxel.com.multyproneo.event.ApiEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.DevicesInfoObject
@@ -74,27 +75,36 @@ class EndDeviceDetailFragment : Fragment()
 
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        getInfoCompleteDisposable = GlobalBus.listen(DevicesDetailEvent.GetDeviceInfoComplete::class.java).subscribe{
+        getInfoCompleteDisposable = GlobalBus.listen(ApiEvent.ApiExecuteComplete::class.java).subscribe{
+            GlobalBus.publish(MainEvent.HideLoading())
             isEditMode = false
 
-            runOnUiThread{
-                if(isVisible)
+            when(it.event)
+            {
+                ApiHandler.API_RES_EVENT.API_RES_EVENT_END_DEVICE_EDIT ->
                 {
-                    end_device_detail_model_name_text.text = editDeviceName
-                    end_device_detail_model_name_edit.setText(editDeviceName)
-                    setEditModeUI()
-
-                    for(item in GlobalData.endDeviceList)
-                    {
-                        if(item.PhysAddress == endDeviceInfo.PhysAddress)
+                    runOnUiThread{
+                        if(isVisible)
                         {
-                            endDeviceInfo = item
-                            break
+                            end_device_detail_model_name_text.text = editDeviceName
+                            end_device_detail_model_name_edit.setText(editDeviceName)
+                            setEditModeUI()
+
+                            for(item in GlobalData.endDeviceList)
+                            {
+                                if(item.PhysAddress == endDeviceInfo.PhysAddress)
+                                {
+                                    endDeviceInfo = item
+                                    break
+                                }
+                            }
+
+                            updateUI()
                         }
                     }
-
-                    updateUI()
                 }
+
+                else -> {}
             }
         }
 
@@ -522,7 +532,7 @@ class EndDeviceDetailFragment : Fragment()
                                 val data = JSONObject(responseStr)
                                 val sessionkey = data.get("sessionkey").toString()
                                 GlobalData.loginInfo.sessionkey = sessionkey
-                                GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
+                                startGetDeviceInfo()
                             }
                             catch(e: JSONException)
                             {
@@ -546,7 +556,7 @@ class EndDeviceDetailFragment : Fragment()
                                 val data = JSONObject(responseStr)
                                 val sessionkey = data.get("sessionkey").toString()
                                 GlobalData.loginInfo.sessionkey = sessionkey
-                                GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
+                                startGetDeviceInfo()
                             }
                             catch(e: JSONException)
                             {
@@ -556,5 +566,18 @@ class EndDeviceDetailFragment : Fragment()
                         }
                     }).execute()
         }
+    }
+
+    private fun startGetDeviceInfo()
+    {
+        GlobalBus.publish(MainEvent.ShowLoading())
+        ApiHandler().execute(
+                ApiHandler.API_RES_EVENT.API_RES_EVENT_END_DEVICE_EDIT,
+                arrayListOf
+                (
+                        ApiHandler.API_REF.API_GET_CHANGE_ICON_NAME,
+                        ApiHandler.API_REF.API_GET_DEVICE_INFO
+                )
+        )
     }
 }

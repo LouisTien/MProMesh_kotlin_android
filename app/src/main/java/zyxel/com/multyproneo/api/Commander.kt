@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.google.gson.Gson
 import okhttp3.*
 import org.json.JSONObject
+import zyxel.com.multyproneo.event.ApiEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.fragment.cloud.SetupConnectTroubleshootingFragment
@@ -127,7 +128,7 @@ abstract class Commander
 
         private fun stopAllRegularTask()
         {
-            GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
+            GlobalBus.publish(ApiEvent.StopRegularTask())
             GlobalBus.publish(MainEvent.StopGetWPSStatusTask())
             GlobalBus.publish(MainEvent.StopGetSpeedTestStatusTask())
         }

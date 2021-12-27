@@ -13,17 +13,22 @@ import org.json.JSONObject
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.cloud.CloudZYXELEndDeviceItemAdapter
 import zyxel.com.multyproneo.api.AccountApi
+import zyxel.com.multyproneo.api.ApiHandler
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.WiFiSettingApi
 import zyxel.com.multyproneo.dialog.GatewayStatusDialog
 import zyxel.com.multyproneo.dialog.MeshDeviceStatusDialog
+import zyxel.com.multyproneo.event.ApiEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
+import java.util.*
+import kotlin.concurrent.schedule
 
 /**
  * Created by LouisTien on 2019/6/4.
@@ -33,7 +38,9 @@ class HomeFragment : Fragment()
     private val TAG = "HomeFragment"
     private lateinit var meshDevicePlacementStatusDisposable: Disposable
     private lateinit var getInfoCompleteDisposable: Disposable
+    private lateinit var stopRegularTaskDisposable: Disposable
     private lateinit var adapter: CloudZYXELEndDeviceItemAdapter
+    private var apiTimer = Timer()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -46,16 +53,29 @@ class HomeFragment : Fragment()
 
         GlobalData.currentFrag = TAG
 
-        meshDevicePlacementStatusDisposable = GlobalBus.listen(HomeEvent.MeshDevicePlacementStatus::class.java).subscribe{
+        meshDevicePlacementStatusDisposable = GlobalBus.listen(HomeEvent.MeshDevicePlacementStatus::class.java).subscribe {
             MeshDeviceStatusDialog(activity!!, it.isHomePage, false).show()
         }
 
-        getInfoCompleteDisposable = GlobalBus.listen(HomeEvent.GetDeviceInfoComplete::class.java).subscribe{ updateUI() }
+        getInfoCompleteDisposable = GlobalBus.listen(ApiEvent.ApiExecuteComplete::class.java).subscribe {
+            when(it.event)
+            {
+                ApiHandler.API_RES_EVENT.API_RES_EVENT_FEATURE_LIST -> executeOnceApi()
+                ApiHandler.API_RES_EVENT.API_RES_EVENT_HOME_API_ONCE -> executeRegularApi()
+                ApiHandler.API_RES_EVENT.API_RES_EVENT_HOME_API_REGULAR -> updateUI()
+                else -> { }
+            }
+        }
 
-        cloud_home_mesh_device_list_swipe.setOnRefreshListener{
+        stopRegularTaskDisposable = GlobalBus.listen(ApiEvent.StopRegularTask::class.java).subscribe{
+            GlobalBus.publish(MainEvent.HideLoading())
+            stopGetDeviceInfo()
+        }
+
+        cloud_home_mesh_device_list_swipe.setOnRefreshListener {
             GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
-            GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
-            GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
+            stopGetDeviceInfo()
+            executeRegularApi()
         }
 
         setClickListener()
@@ -70,14 +90,13 @@ class HomeFragment : Fragment()
         super.onResume()
         GlobalBus.publish(MainEvent.SetHomeIconFocus())
         GlobalBus.publish(MainEvent.ShowBottomToolbar())
-        if(GlobalData.alreadyGetGatewayInfoLocalBase) updateUI()
-        GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
+        startGetDeviceInfo()
     }
 
     override fun onPause()
     {
         super.onPause()
-        GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
+        stopGetDeviceInfo()
     }
 
     override fun onDestroyView()
@@ -85,16 +104,17 @@ class HomeFragment : Fragment()
         super.onDestroyView()
         if(!meshDevicePlacementStatusDisposable.isDisposed) meshDevicePlacementStatusDisposable.dispose()
         if(!getInfoCompleteDisposable.isDisposed) getInfoCompleteDisposable.dispose()
+        if(!stopRegularTaskDisposable.isDisposed) stopRegularTaskDisposable.dispose()
     }
 
-    private val clickListener = View.OnClickListener{ view ->
+    private val clickListener = View.OnClickListener { view ->
         when(view)
         {
             cloud_home_wifi_router_image -> GatewayStatusDialog(activity!!).show()
 
             cloud_home_wifi_router_area_relative ->
             {
-                val bundle = Bundle().apply{
+                val bundle = Bundle().apply {
                     putBoolean("GatewayMode", true)
                     putSerializable("GatewayInfo", GlobalData.getCurrentGatewayInfo())
                     putSerializable("WanInfo", GlobalData.gatewayWanInfo)
@@ -109,27 +129,27 @@ class HomeFragment : Fragment()
                             X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion
                     ))
                 }
-                GlobalBus.publish(MainEvent.SwitchToFrag(ZYXELEndDeviceDetailFragment().apply{ arguments = bundle }))
+                GlobalBus.publish(MainEvent.SwitchToFrag(ZYXELEndDeviceDetailFragment().apply { arguments = bundle }))
             }
 
             cloud_home_guest_wifi_switch ->
             {
                 setGuestWiFi24GEnableTask()
 
-                val bundle = Bundle().apply{
+                val bundle = Bundle().apply {
                     putString("Title", getString(R.string.loading_transition_update_wifi_settings))
                     putInt("LoadingSecond", AppConfig.WiFiSettingTime)
                     putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_SEARCH)
                     putBoolean("IsCloud", false)
                 }
-                GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionProgressFragment().apply{ arguments = bundle }))
+                GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionProgressFragment().apply { arguments = bundle }))
             }
 
             home_site_refresh_image ->
             {
                 GlobalBus.publish(MainEvent.ShowLoading())
-                GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
-                GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
+                stopGetDeviceInfo()
+                executeRegularApi()
             }
 
             cloud_home_connect_device_frame -> GlobalBus.publish(MainEvent.EnterDevicesPage())
@@ -159,7 +179,7 @@ class HomeFragment : Fragment()
 
         LogUtil.d(TAG, "updateUI()")
 
-        runOnUiThread{
+        runOnUiThread {
 
             GlobalBus.publish(MainEvent.HideLoading())
 
@@ -205,7 +225,11 @@ class HomeFragment : Fragment()
             }
             cloud_home_guest_wifi_status_text.isSelected = true
 
-            home_mesh_status_area_relative.visibility = if(GlobalData.showMeshStatus) View.VISIBLE else View.GONE
+            home_mesh_status_area_relative.visibility =
+                    if(FeatureConfig.FeatureInfo.APPUICustomList.Home_MESH_status)
+                        View.VISIBLE
+                    else
+                        View.GONE
         }
     }
 
@@ -213,12 +237,12 @@ class HomeFragment : Fragment()
     {
         val params = JSONObject()
         params.put("Enable", !GlobalData.guestWiFiStatus)
-        LogUtil.d(TAG,"setGuestWiFi24GEnableTask param:$params")
+        LogUtil.d(TAG, "setGuestWiFi24GEnableTask param:$params")
 
         WiFiSettingApi.SetGuestWiFi24GInfo()
                 .setRequestPageName(TAG)
                 .setParams(params)
-                .setResponseListener(object: Commander.ResponseListener()
+                .setResponseListener(object : Commander.ResponseListener()
                 {
                     override fun onSuccess(responseStr: String)
                     {
@@ -242,12 +266,12 @@ class HomeFragment : Fragment()
     {
         val params = JSONObject()
         params.put("Enable", !GlobalData.guestWiFiStatus)
-        LogUtil.d(TAG,"setGuestWiFi5GEnableTask param:$params")
+        LogUtil.d(TAG, "setGuestWiFi5GEnableTask param:$params")
 
         WiFiSettingApi.SetGuestWiFi5GInfo()
                 .setRequestPageName(TAG)
                 .setParams(params)
-                .setResponseListener(object: Commander.ResponseListener()
+                .setResponseListener(object : Commander.ResponseListener()
                 {
                     override fun onSuccess(responseStr: String)
                     {
@@ -273,12 +297,76 @@ class HomeFragment : Fragment()
         AccountApi.Logout()
                 .setRequestPageName(TAG)
                 .setParams(params)
-                .setResponseListener(object: Commander.ResponseListener()
+                .setResponseListener(object : Commander.ResponseListener()
                 {
                     override fun onSuccess(responseStr: String)
                     {
 
                     }
                 }).execute()
+    }
+
+    private fun startGetDeviceInfo()
+    {
+        if(GlobalData.alreadyGetGatewayInfoLocalBase)
+            updateUI()
+        else
+            GlobalBus.publish(MainEvent.ShowLoading())
+
+        if(GlobalData.isSupportAPPUICustomization())
+        {
+            ApiHandler().execute(
+                    ApiHandler.API_RES_EVENT.API_RES_EVENT_FEATURE_LIST,
+                    arrayListOf(ApiHandler.API_REF.API_GET_APP_UI_CUSTOM_INFO)
+            )
+        }
+        else
+            executeOnceApi()
+    }
+
+    private fun stopGetDeviceInfo()
+    {
+        apiTimer.cancel()
+    }
+
+    private fun executeOnceApi()
+    {
+        val apiList = arrayListOf<ApiHandler.API_REF>()
+
+        if(FeatureConfig.FeatureInfo.APPUICustomList.Guest_WiFi)
+            apiList.add(ApiHandler.API_REF.API_GET_GUEST_WIFI_ENABLE)
+
+        if(FeatureConfig.FeatureInfo.APPUICustomList.F_Secure)
+            apiList.add(ApiHandler.API_REF.API_GET_FSECURE_INFO)
+
+        if(FeatureConfig.FeatureInfo.APPUICustomList.Host_Name_Replace)
+            apiList.add(ApiHandler.API_REF.API_GET_HOSTNAME_REPLACE_INFO)
+
+        if(FeatureConfig.FeatureInfo.APPUICustomList.Internet_Blocking)
+            apiList.add(ApiHandler.API_REF.API_GET_INTERNET_BLOCK_INFO)
+
+        ApiHandler().execute(
+                ApiHandler.API_RES_EVENT.API_RES_EVENT_HOME_API_ONCE,
+                apiList
+        )
+    }
+
+    private fun executeRegularApi()
+    {
+        val apiList = arrayListOf(
+                ApiHandler.API_REF.API_GET_SYSTEM_INFO,
+                ApiHandler.API_REF.API_GET_CHANGE_ICON_NAME,
+                ApiHandler.API_REF.API_GET_DEVICE_INFO,
+                ApiHandler.API_REF.API_GET_WAN_INFO
+        )
+
+        apiTimer = Timer()
+        apiTimer.schedule(0, (AppConfig.endDeviceListUpdateTime * 1000).toLong())
+        {
+            ApiHandler().execute(
+                    ApiHandler.API_RES_EVENT.API_RES_EVENT_HOME_API_REGULAR,
+                    apiList
+            )
+        }
     }
 }

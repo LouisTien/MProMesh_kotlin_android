@@ -10,13 +10,18 @@ import kotlinx.android.synthetic.main.fragment_devices.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.cloud.CloudHomeGuestEndDeviceItemAdapter
+import zyxel.com.multyproneo.api.ApiHandler
 import zyxel.com.multyproneo.dialog.MeshDeviceStatusDialog
 import zyxel.com.multyproneo.dialog.MessageDialog
+import zyxel.com.multyproneo.event.ApiEvent
 import zyxel.com.multyproneo.event.DevicesEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
+import java.util.*
+import kotlin.concurrent.schedule
 
 /**
  * Created by LouisTien on 2019/6/10.
@@ -26,7 +31,9 @@ class DevicesFragment : Fragment()
     private val TAG = "DevicesFragment"
     private lateinit var meshDevicePlacementStatusDisposable: Disposable
     private lateinit var getInfoCompleteDisposable: Disposable
+    private lateinit var stopRegularTaskDisposable: Disposable
     private lateinit var showTipsDisposable: Disposable
+    private var apiTimer = Timer()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -43,7 +50,18 @@ class DevicesFragment : Fragment()
             MeshDeviceStatusDialog(activity!!, it.isHomePage, false).show()
         }
 
-        getInfoCompleteDisposable = GlobalBus.listen(DevicesEvent.GetDeviceInfoComplete::class.java).subscribe{ updateUI() }
+        getInfoCompleteDisposable = GlobalBus.listen(ApiEvent.ApiExecuteComplete::class.java).subscribe {
+            when(it.event)
+            {
+                ApiHandler.API_RES_EVENT.API_RES_EVENT_DEVICES_API_REGULAR -> updateUI()
+                else -> { }
+            }
+        }
+
+        stopRegularTaskDisposable = GlobalBus.listen(ApiEvent.StopRegularTask::class.java).subscribe{
+            GlobalBus.publish(MainEvent.HideLoading())
+            stopGetDeviceInfo()
+        }
 
         showTipsDisposable = GlobalBus.listen(DevicesEvent.ShowTips::class.java).subscribe{
             MessageDialog(
@@ -57,14 +75,14 @@ class DevicesFragment : Fragment()
 
         devices_home_devices_list_swipe.setOnRefreshListener{
             GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
-            GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
-            GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
+            stopGetDeviceInfo()
+            startGetDeviceInfo()
         }
 
         devices_guest_devices_list_swipe.setOnRefreshListener{
             GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
-            GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
-            GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
+            stopGetDeviceInfo()
+            startGetDeviceInfo()
         }
 
         setClickListener()
@@ -75,13 +93,13 @@ class DevicesFragment : Fragment()
         super.onResume()
         GlobalBus.publish(MainEvent.ShowBottomToolbar())
         updateUI()
-        GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
+        startGetDeviceInfo()
     }
 
     override fun onPause()
     {
         super.onPause()
-        GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
+        stopGetDeviceInfo()
     }
 
     override fun onDestroyView()
@@ -89,6 +107,7 @@ class DevicesFragment : Fragment()
         super.onDestroyView()
         if(!meshDevicePlacementStatusDisposable.isDisposed) meshDevicePlacementStatusDisposable.dispose()
         if(!getInfoCompleteDisposable.isDisposed) getInfoCompleteDisposable.dispose()
+        if(!stopRegularTaskDisposable.isDisposed) stopRegularTaskDisposable.dispose()
         if(!showTipsDisposable.isDisposed) showTipsDisposable.dispose()
     }
 
@@ -118,8 +137,8 @@ class DevicesFragment : Fragment()
             devices_refresh_image ->
             {
                 GlobalBus.publish(MainEvent.ShowLoading())
-                GlobalBus.publish(MainEvent.StopGetDeviceInfoTask())
-                GlobalBus.publish(MainEvent.StartGetDeviceInfoTask())
+                stopGetDeviceInfo()
+                startGetDeviceInfo()
             }
         }
     }
@@ -178,5 +197,26 @@ class DevicesFragment : Fragment()
             else
                 devices_guest_devices_area_linear.visibility = View.GONE
         }
+    }
+
+    private fun startGetDeviceInfo()
+    {
+        apiTimer = Timer()
+        apiTimer.schedule(0, (AppConfig.endDeviceListUpdateTime * 1000).toLong())
+        {
+            ApiHandler().execute(
+                    ApiHandler.API_RES_EVENT.API_RES_EVENT_DEVICES_API_REGULAR,
+                    arrayListOf
+                    (
+                            ApiHandler.API_REF.API_GET_CHANGE_ICON_NAME,
+                            ApiHandler.API_REF.API_GET_DEVICE_INFO
+                    )
+            )
+        }
+    }
+
+    private fun stopGetDeviceInfo()
+    {
+        apiTimer.cancel()
     }
 }

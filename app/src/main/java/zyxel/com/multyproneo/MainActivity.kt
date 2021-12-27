@@ -60,11 +60,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var hideBottomToolbarDisposable: Disposable
     private lateinit var setHomeIconFocusDisposable: Disposable
     private lateinit var setCloudHomeIconFocusDisposable: Disposable
-    private lateinit var startGetDeviceInfoTaskDisposable: Disposable
     private lateinit var startGetCloudDeviceInfoTaskDisposable: Disposable
     private lateinit var startGetCloudDeviceInfoForDevicePageTaskDisposable: Disposable
-    private lateinit var startGetDeviceInfoTaskOnceDisposable: Disposable
-    private lateinit var stopGetDeviceInfoTaskDisposable: Disposable
     private lateinit var startGetWPSStatusTaskDisposable: Disposable
     private lateinit var stopGetWPSStatusTaskDisposable: Disposable
     private lateinit var startCloudGetWPSStatusTaskDisposable: Disposable
@@ -96,8 +93,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var guestWiFiInfo: GuestWiFiInfo
     private lateinit var fSecureInfo: FSecureInfo
     private lateinit var hostNameReplaceInfo: HostNameReplaceInfo
-    private lateinit var internetBlockingInfo: InternetBlockingInfo
-    private lateinit var appUICustomInfo: AppUICustomInfo
     private lateinit var progressBar: ProgressBar
     private lateinit var progressBarHint: ProgressBar
     private lateinit var progressHintText: TextView
@@ -108,7 +103,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var ipInterfaceInfo: IPInterfaceInfo
     private lateinit var customerInfo: CustomerInfo
     private lateinit var db: DatabaseCloudUtil
-    private var deviceTimer = Timer()
     private var screenTimer = Timer()
     private var getWPSStatusTimer = Timer()
     private var getCloudWPSStatusTimer = Timer()
@@ -438,15 +432,6 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             }
         }
 
-        startGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StartGetDeviceInfoTask::class.java).subscribe{
-            deviceTimer = Timer()
-            deviceTimer.schedule(0, (AppConfig.endDeviceListUpdateTime * 1000).toLong()){ startGetAllNeedDeviceInfoTask() }
-        }
-
-        startGetDeviceInfoTaskOnceDisposable = GlobalBus.listen(MainEvent.StartGetDeviceInfoOnceTask::class.java).subscribe{ startGetAllNeedDeviceInfoTask() }
-
-        stopGetDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StopGetDeviceInfoTask::class.java).subscribe{ deviceTimer.cancel() }
-
         startGetCloudDeviceInfoTaskDisposable = GlobalBus.listen(MainEvent.StartGetCloudDeviceInfoTask::class.java).subscribe{ startCloudGetAllNeedDeviceInfoTask(it.style) }
 
         startGetCloudDeviceInfoForDevicePageTaskDisposable = GlobalBus.listen(MainEvent.StartGetCloudDeviceInfoForDevicePageTask::class.java).subscribe{
@@ -532,11 +517,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!hideBottomToolbarDisposable.isDisposed) hideBottomToolbarDisposable.dispose()
         if(!setHomeIconFocusDisposable.isDisposed) setHomeIconFocusDisposable.dispose()
         if(!setCloudHomeIconFocusDisposable.isDisposed) setCloudHomeIconFocusDisposable.dispose()
-        if(!startGetDeviceInfoTaskDisposable.isDisposed) startGetDeviceInfoTaskDisposable.dispose()
         if(!startGetCloudDeviceInfoTaskDisposable.isDisposed) startGetCloudDeviceInfoTaskDisposable.dispose()
         if(!startGetCloudDeviceInfoForDevicePageTaskDisposable.isDisposed) startGetCloudDeviceInfoForDevicePageTaskDisposable.dispose()
-        if(!startGetDeviceInfoTaskOnceDisposable.isDisposed) startGetDeviceInfoTaskOnceDisposable.dispose()
-        if(!stopGetDeviceInfoTaskDisposable.isDisposed) stopGetDeviceInfoTaskDisposable.dispose()
         if(!startGetWPSStatusTaskDisposable.isDisposed) startGetWPSStatusTaskDisposable.dispose()
         if(!stopGetWPSStatusTaskDisposable.isDisposed) stopGetWPSStatusTaskDisposable.dispose()
         if(!startCloudGetWPSStatusTaskDisposable.isDisposed) startGetWPSStatusTaskDisposable.dispose()
@@ -775,325 +757,12 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         getSpeedTestStatusTimer.cancel()
     }
 
-    private fun startGetAllNeedDeviceInfoTask()
-    {
-        if(!GlobalData.alreadyGetGatewayInfoLocalBase)
-            GlobalBus.publish(MainEvent.ShowLoading())
-
-        getSystemInfoTask()
-    }
-
     private fun stopGetAllNeedDeviceInfoTask()
     {
         hideLoading()
         GlobalBus.publish(HomeEvent.GetDeviceInfoComplete())
         GlobalBus.publish(DevicesEvent.GetDeviceInfoComplete())
         GlobalBus.publish(DevicesDetailEvent.GetDeviceInfoComplete())
-    }
-
-    private fun getSystemInfoTask()
-    {
-        LogUtil.d(TAG,"getSystemInfoTask()")
-        GatewayApi.GetSystemInfo()
-                .setRequestPageName(TAG)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            val data = JSONObject(responseStr)
-                            val name = data.getJSONObject("Object").getString("HostName")
-                            LogUtil.d(TAG,"HostName:$name")
-                            GlobalData.getCurrentGatewayInfo().UserDefineName = name
-                            getChangeIconNameInfoTask()
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-
-                            hideLoading()
-                        }
-                    }
-                }).execute()
-    }
-
-    private fun getChangeIconNameInfoTask()
-    {
-        LogUtil.d(TAG,"getChangeIconNameInfoTask()")
-        DevicesApi.GetChangeIconNameInfo()
-                .setRequestPageName(TAG)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            changeIconNameInfo = Gson().fromJson(responseStr, ChangeIconNameInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"changeIconNameInfo:$changeIconNameInfo")
-                            GlobalData.changeIconNameList = changeIconNameInfo.Object.toMutableList()
-                            getDeviceInfoTask()
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-
-                            hideLoading()
-                        }
-                    }
-                }).execute()
-    }
-
-    private fun getDeviceInfoTask()
-    {
-        LogUtil.d(TAG,"getDeviceInfoTask()")
-        DevicesApi.GetDevicesInfo()
-                .setRequestPageName(TAG)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            devicesInfo = Gson().fromJson(responseStr, DevicesInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"devicesInfo:$devicesInfo")
-
-                            val newEndDeviceList = mutableListOf<DevicesInfoObject>()
-                            val newHomeEndDeviceList = mutableListOf<DevicesInfoObject>()
-                            val newZYXELEndDeviceList = mutableListOf<DevicesInfoObject>()
-                            val newGuestEndDeviceList = mutableListOf<DevicesInfoObject>()
-
-                            GlobalData.alreadyGetGatewayInfoLocalBase = true
-
-                            /*newZYXELEndDeviceList.add(
-                                    DevicesInfoObject
-                                    (
-                                            Active = true,
-                                            HostName = GlobalData.getCurrentGatewayInfo().getName(),
-                                            IPAddress = GlobalData.getCurrentGatewayInfo().IP,
-                                            PhysAddress = GlobalData.getCurrentGatewayInfo().MAC,
-                                            X_ZYXEL_CapabilityType = "L2Device",
-                                            X_ZYXEL_ConnectionType = "WiFi",
-                                            X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
-                                            X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion
-                                    )
-                            )*/
-
-                            var index = 1
-                            for(item in devicesInfo.Object)
-                            {
-                                item.IndexFromFW = index
-
-                                if( (item.HostName == "N/A") || (item.HostName == "") )
-                                {
-                                    index++
-                                    continue
-                                }
-
-                                for(itemCin in GlobalData.changeIconNameList)
-                                {
-                                    if(item.PhysAddress == itemCin.MacAddress)
-                                    {
-                                        item.UserDefineName = itemCin.HostName
-                                        item.Internet_Blocking_Enable = itemCin.Internet_Blocking_Enable
-                                    }
-                                }
-
-                                if(item.X_ZYXEL_CapabilityType == "L2Device")
-                                    newZYXELEndDeviceList.add(item)
-                                else
-                                {
-                                    if(item.X_ZYXEL_Conn_Guest == 1)
-                                        newGuestEndDeviceList.add(item)
-                                    else
-                                        newHomeEndDeviceList.add(item)
-                                }
-
-                                newEndDeviceList.add(item)
-
-                                LogUtil.d(TAG,"update devicesInfo:$item")
-
-                                index++
-                            }
-
-                            GlobalData.endDeviceList = newEndDeviceList.toMutableList()
-                            GlobalData.homeEndDeviceList = newHomeEndDeviceList.toMutableList()
-                            GlobalData.ZYXELEndDeviceList = newZYXELEndDeviceList.toMutableList()
-                            GlobalData.guestEndDeviceList = newGuestEndDeviceList.toMutableList()
-
-                            getWanInfoTask()
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-
-                            hideLoading()
-                        }
-                    }
-                }).execute()
-    }
-
-    private fun getWanInfoTask()
-    {
-        LogUtil.d(TAG,"getWanInfoTask()")
-        GatewayApi.GetWanInfo()
-                .setRequestPageName(TAG)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            wanInfo = Gson().fromJson(responseStr, WanInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"wanInfo:$wanInfo")
-                            GlobalData.gatewayWanInfo = wanInfo.copy()
-                            getGuestWiFiEnableTask()
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-
-                            hideLoading()
-                        }
-                    }
-                }).execute()
-    }
-
-    private fun getGuestWiFiEnableTask()
-    {
-        LogUtil.d(TAG,"getGuestWiFiEnableTask()")
-        WiFiSettingApi.GetGuestWiFi24GInfo()
-                .setRequestPageName(TAG)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            guestWiFiInfo = Gson().fromJson(responseStr, GuestWiFiInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"guestWiFiInfo:$guestWiFiInfo")
-                            GlobalData.guestWiFiStatus = guestWiFiInfo.Object.Enable
-                            getFSecureInfoTask()
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-
-                            hideLoading()
-                        }
-                    }
-                }).execute()
-    }
-
-    private fun getFSecureInfoTask()
-    {
-        LogUtil.d(TAG,"getFSecureInfoTask()")
-        GatewayApi.GetFSecureInfo()
-                .setRequestPageName(TAG)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            fSecureInfo = Gson().fromJson(responseStr, FSecureInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"fSecureInfo:$fSecureInfo")
-                            FeatureConfig.FSecureStatus = fSecureInfo.Object.Cyber_Security_FSC
-                            getHostNameReplaceInfoTask()
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-
-                            hideLoading()
-                        }
-                    }
-                }).execute()
-    }
-
-    private fun getHostNameReplaceInfoTask()
-    {
-        LogUtil.d(TAG,"getHostNameReplaceInfoTask()")
-        GatewayApi.GetHostNameReplaceInfo()
-                .setRequestPageName(TAG)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            hostNameReplaceInfo = Gson().fromJson(responseStr, HostNameReplaceInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"hostNameReplaceInfo:$hostNameReplaceInfo")
-                            FeatureConfig.hostNameReplaceStatus = hostNameReplaceInfo.Object.Enable
-                            getInternetBlockingInfoTask()
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-
-                            hideLoading()
-                        }
-                    }
-                }).execute()
-    }
-
-    private fun getInternetBlockingInfoTask()
-    {
-        LogUtil.d(TAG,"getInternetBlockingInfoTask()")
-        GatewayApi.GetInternetBlockingInfo()
-                .setRequestPageName(TAG)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            internetBlockingInfo = Gson().fromJson(responseStr, InternetBlockingInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"internetBlockingInfo:$internetBlockingInfo")
-                            FeatureConfig.internetBlockingStatus = internetBlockingInfo.Object.Enable
-                            if(GlobalData.isSupportAPPUICustomization())
-                                getAPPUICustomInfoTask()
-                            else{
-                                GlobalData.showMeshStatus = true
-                                GlobalData.showAmberStatus = true
-                                stopGetAllNeedDeviceInfoTask()
-                            }
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-
-                            hideLoading()
-                        }
-                    }
-                }).execute()
-    }
-
-    private fun getAPPUICustomInfoTask()
-    {
-        LogUtil.d(TAG,"getAPPUICustomInfoTask()")
-        GatewayApi.GetAPPUICustom()
-                .setRequestPageName(TAG)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            appUICustomInfo = Gson().fromJson(responseStr, AppUICustomInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"appUICustomInfo:$appUICustomInfo")
-                            GlobalData.showMeshStatus = appUICustomInfo.APPUICustomList.Home_MESH_status
-                            GlobalData.showAmberStatus = appUICustomInfo.APPUICustomList.Home_Amber_Show
-                            stopGetAllNeedDeviceInfoTask()
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-
-                            hideLoading()
-                        }
-                    }
-                }).execute()
     }
 
     private fun getWPSStatusInfoTask()

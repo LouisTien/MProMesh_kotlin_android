@@ -17,6 +17,7 @@ import org.jetbrains.anko.textColor
 import org.json.JSONException
 import org.json.JSONObject
 import zyxel.com.multyproneo.R
+import zyxel.com.multyproneo.api.ApiHandler
 import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.DevicesApi
 import zyxel.com.multyproneo.api.GatewayApi
@@ -27,7 +28,6 @@ import zyxel.com.multyproneo.model.GatewayInfo
 import zyxel.com.multyproneo.model.WanInfo
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.DatabaseUtil
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
@@ -106,7 +106,8 @@ class ZYXELEndDeviceDetailFragment : Fragment()
             }
         }
 
-        getInfoCompleteDisposable = GlobalBus.listen(DevicesDetailEvent.GetDeviceInfoComplete::class.java).subscribe{
+        getInfoCompleteDisposable = GlobalBus.listen(ApiEvent.ApiExecuteComplete::class.java).subscribe{
+            GlobalBus.publish(MainEvent.HideLoading())
             isEditMode = false
 
             runOnUiThread{
@@ -116,18 +117,23 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                     zyxel_end_device_detail_model_name_edit.setText(editDeviceName)
                     setEditModeUI()
 
-                    if(isGatewayMode)
-                        deviceInfo.UserDefineName = editDeviceName
-                    else
+                    when(it.event)
                     {
-                        for(item in GlobalData.endDeviceList)
+                        ApiHandler.API_RES_EVENT.API_RES_EVENT_GATEWAY_EDIT -> deviceInfo.UserDefineName = editDeviceName
+
+                        ApiHandler.API_RES_EVENT.API_RES_EVENT_EXTENDER_EDIT ->
                         {
-                            if(item.PhysAddress == endDeviceInfo.PhysAddress)
+                            for(item in GlobalData.endDeviceList)
                             {
-                                endDeviceInfo = item
-                                break
+                                if(item.PhysAddress == endDeviceInfo.PhysAddress)
+                                {
+                                    endDeviceInfo = item
+                                    break
+                                }
                             }
                         }
+
+                        else -> {}
                     }
 
                     initUI()
@@ -440,7 +446,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                             val data = JSONObject(responseStr)
                             val sessionkey = data.get("sessionkey").toString()
                             GlobalData.loginInfo.sessionkey = sessionkey
-                            GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
+                            startGetGatewayInfo()
                         }
                         catch(e: JSONException)
                         {
@@ -486,7 +492,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                                 val data = JSONObject(responseStr)
                                 val sessionkey = data.get("sessionkey").toString()
                                 GlobalData.loginInfo.sessionkey = sessionkey
-                                GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
+                                startGetDeviceInfo()
                             }
                             catch(e: JSONException)
                             {
@@ -510,7 +516,7 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                                 val data = JSONObject(responseStr)
                                 val sessionkey = data.get("sessionkey").toString()
                                 GlobalData.loginInfo.sessionkey = sessionkey
-                                GlobalBus.publish(MainEvent.StartGetDeviceInfoOnceTask())
+                                startGetDeviceInfo()
                             }
                             catch(e: JSONException)
                             {
@@ -612,5 +618,27 @@ class ZYXELEndDeviceDetailFragment : Fragment()
                         }
                     }
                 }).execute()
+    }
+
+    private fun startGetDeviceInfo()
+    {
+        GlobalBus.publish(MainEvent.ShowLoading())
+        ApiHandler().execute(
+                ApiHandler.API_RES_EVENT.API_RES_EVENT_EXTENDER_EDIT,
+                arrayListOf
+                (
+                        ApiHandler.API_REF.API_GET_CHANGE_ICON_NAME,
+                        ApiHandler.API_REF.API_GET_DEVICE_INFO
+                )
+        )
+    }
+
+    private fun startGetGatewayInfo()
+    {
+        GlobalBus.publish(MainEvent.ShowLoading())
+        ApiHandler().execute(
+                ApiHandler.API_RES_EVENT.API_RES_EVENT_GATEWAY_EDIT,
+                arrayListOf(ApiHandler.API_REF.API_GET_SYSTEM_INFO)
+        )
     }
 }
