@@ -1,11 +1,14 @@
 package zyxel.com.multyproneo.fragment
 
+import android.app.PendingIntent
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_account.*
@@ -18,9 +21,9 @@ import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
-import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.DatabaseUtil
-import zyxel.com.multyproneo.util.GlobalData
+import zyxel.com.multyproneo.service.SendMailReceiver
+import zyxel.com.multyproneo.util.*
+import java.io.File
 
 /**
  * Created by LouisTien on 2019/6/13.
@@ -29,6 +32,7 @@ class AccountFragment : Fragment()
 {
     private val TAG = "AccountFragment"
     private lateinit var msgDialogResponse: Disposable
+    private lateinit var appLogZipFile: File
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -50,6 +54,8 @@ class AccountFragment : Fragment()
                 else -> {}
             }
         }
+
+        account_send_feedback_relative.visibility = if(BuildConfig.DEBUG) View.VISIBLE else View.GONE
 
         setClickListener()
     }
@@ -86,6 +92,8 @@ class AccountFragment : Fragment()
                         AppConfig.DialogAction.ACT_LOGOUT
                 ).show()
             }
+
+            account_send_feedback_relative -> zipLogAndSend()
         }
     }
 
@@ -93,6 +101,7 @@ class AccountFragment : Fragment()
     {
         account_privacy_policy_relative.setOnClickListener(clickListener)
         account_logout_button.setOnClickListener(clickListener)
+        account_send_feedback_relative.setOnClickListener(clickListener)
     }
 
     private fun setLogoutTask()
@@ -112,5 +121,47 @@ class AccountFragment : Fragment()
                         GlobalBus.publish(MainEvent.EnterSearchGatewayPage())
                     }
                 }).execute()
+    }
+
+    private fun zipLogAndSend()
+    {
+        appLogZipFile = SaveLogUtil.zipFiles()
+        sendMail()
+    }
+
+    private fun sendMail()
+    {
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        with(emailIntent)
+        {
+            type = "text/plain"
+            //putExtra(Intent.EXTRA_EMAIL, arrayOf(AppConfig.FEEDBACK_MAIL))
+            //putExtra(Intent.EXTRA_CC, arrayOf(AppConfig.FEEDBACK_MAIL_CC))
+            putExtra(Intent.EXTRA_SUBJECT, "MProMesh app v${BuildConfig.VERSION_NAME} feedback - ${GlobalData.getCurrentGatewayInfo().ModelName} ${GlobalData.getCurrentGatewayInfo().SoftwareVersion}")
+            putExtra(Intent.EXTRA_TEXT, "Please describe the issue.")
+        }
+
+        val appLogZipFileUri = FileProvider.getUriForFile(context!!, "${BuildConfig.APPLICATION_ID}.fileprovider", appLogZipFile)
+
+        try
+        {
+            with(emailIntent)
+            {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK
+                putExtra(Intent.EXTRA_STREAM, appLogZipFileUri)
+            }
+
+            val receiverIntent = Intent(context, SendMailReceiver::class.java)
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, receiverIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1)
+                context!!.startActivity(Intent.createChooser(emailIntent, "Send mail", pendingIntent.intentSender))
+            else
+                context!!.startActivity(Intent.createChooser(emailIntent, "Send mail"))
+        }
+        catch(e: Exception)
+        {
+            e.printStackTrace()
+            context!!.startActivity(Intent.createChooser(emailIntent, "Send mail"))
+        }
     }
 }

@@ -109,6 +109,34 @@
             android:src="@drawable/bar1"
             android:layout_below="@+id/account_privacy_policy_relative"/>
 
+        <RelativeLayout
+            android:id="@+id/account_send_feedback_relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
+            android:layout_below="@+id/account_privacy_policy_line_image"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/account_send_feedback_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/account_privacy"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/account_send_feedback_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_000000"
+                android:textSize="@dimen/text_size_20sp_in_1080"
+                android:text="Send Feedback"
+                android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+                android:layout_toEndOf="@+id/account_send_feedback_image"/>
+
+        </RelativeLayout>
+
         <FrameLayout
             android:id="@+id/account_logout_button"
             android:layout_width="wrap_content"
