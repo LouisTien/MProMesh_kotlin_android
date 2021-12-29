@@ -203,13 +203,6 @@ object AppConfig
         PAGE_DETAIL_CANNOT_CONNECT_TO_WIFI
     }
 
-    enum class LoadingStyle
-    {
-        STY_NONE,
-        STY_NORMAL,
-        STY_ONLY_BG
-    }
-
     enum class TUTKP2PMethod(val value: Int)
     {
         MTD_GET(0x1),

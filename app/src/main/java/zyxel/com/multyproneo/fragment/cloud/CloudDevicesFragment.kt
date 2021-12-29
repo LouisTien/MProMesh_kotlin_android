@@ -10,10 +10,12 @@ import kotlinx.android.synthetic.main.fragment_devices.*
 import org.jetbrains.anko.support.v4.runOnUiThread
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.cloud.CloudHomeGuestEndDeviceItemAdapter
+import zyxel.com.multyproneo.api.cloud.P2PApiHandler
 import zyxel.com.multyproneo.dialog.MeshDeviceStatusDialog
 import zyxel.com.multyproneo.event.DevicesEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.event.P2PApiEvent
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.GlobalData
 
@@ -38,19 +40,30 @@ class CloudDevicesFragment : Fragment()
             MeshDeviceStatusDialog(activity!!, it.isHomePage).show()
         }
 
-        getCloudInfoCompleteDisposable = GlobalBus.listen(DevicesEvent.GetCloudDeviceInfoComplete::class.java).subscribe{ updateUI() }
+        getCloudInfoCompleteDisposable = GlobalBus.listen(P2PApiEvent.ApiExecuteComplete::class.java).subscribe{
+            GlobalBus.publish(MainEvent.HideLoading())
+
+            when(it.event)
+            {
+                P2PApiHandler.API_RES_EVENT.API_RES_EVENT_DEVICES -> updateUI()
+                else -> {}
+            }
+        }
 
         devices_home_devices_list_swipe.setOnRefreshListener{
-            GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoForDevicePageTask(AppConfig.LoadingStyle.STY_ONLY_BG))
+            GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
+            startGetCloudDeviceInfo()
         }
 
         devices_guest_devices_list_swipe.setOnRefreshListener{
-            GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoForDevicePageTask(AppConfig.LoadingStyle.STY_ONLY_BG))
+            GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
+            startGetCloudDeviceInfo()
         }
 
         setClickListener()
 
-        GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoForDevicePageTask(AppConfig.LoadingStyle.STY_NORMAL))
+        GlobalBus.publish(MainEvent.ShowLoading())
+        startGetCloudDeviceInfo()
     }
 
     override fun onResume()
@@ -94,7 +107,11 @@ class CloudDevicesFragment : Fragment()
                 updateUI()
             }
 
-            devices_refresh_image -> GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoForDevicePageTask(AppConfig.LoadingStyle.STY_NORMAL))
+            devices_refresh_image ->
+            {
+                GlobalBus.publish(MainEvent.ShowLoading())
+                startGetCloudDeviceInfo()
+            }
         }
     }
 
@@ -136,5 +153,17 @@ class CloudDevicesFragment : Fragment()
             else
                 devices_guest_devices_area_linear.visibility = View.GONE
         }
+    }
+
+    private fun startGetCloudDeviceInfo()
+    {
+        P2PApiHandler().execute(
+                P2PApiHandler.API_RES_EVENT.API_RES_EVENT_DEVICES,
+                arrayListOf
+                (
+                        P2PApiHandler.API_REF.API_GET_CHANGE_ICON_NAME,
+                        P2PApiHandler.API_REF.API_GET_DEVICE_INFO
+                )
+        )
     }
 }

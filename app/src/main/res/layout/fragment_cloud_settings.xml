@@ -274,8 +274,8 @@
                     android:textColor="@color/color_888888"
                     android:textSize="@dimen/text_size_18sp_in_1080"
                     android:layout_alignParentEnd="true"
-                    android:maxWidth="@dimen/layout_size_105dp_in_1080"
-                    tools:text="V2.23.22"/>
+                    android:maxWidth="@dimen/layout_size_110dp_in_1080"
+                    tools:text="2.2.2.211122"/>
 
                 <ImageView
                     android:id="@+id/settings_app_version_line_image"

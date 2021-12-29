@@ -17,8 +17,6 @@ class MainEvent
     class HideBottomToolbar()
     class SetHomeIconFocus()
     class SetCloudHomeIconFocus()
-    class StartGetCloudDeviceInfoTask(var style: AppConfig.LoadingStyle)
-    class StartGetCloudDeviceInfoForDevicePageTask(var style: AppConfig.LoadingStyle)
     class StartGetWPSStatusTask()
     class StartCloudGetWPSStatusTask()
     class StopGetWPSStatusTask()

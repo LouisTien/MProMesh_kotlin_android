@@ -19,6 +19,7 @@ import zyxel.com.multyproneo.dialog.OtherMeshNetworksDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.event.P2PApiEvent
 import zyxel.com.multyproneo.fragment.LoadingTransitionProgressFragment
 import zyxel.com.multyproneo.model.*
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
@@ -47,20 +48,30 @@ class CloudHomeFragment : Fragment()
         GlobalData.notiUid = ""
 
         cloud_home_mesh_device_list_swipe.setOnRefreshListener{
-            GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoTask(AppConfig.LoadingStyle.STY_ONLY_BG))
+            GlobalBus.publish(MainEvent.ShowLoadingOnlyGrayBG())
+            startGetCloudDeviceInfo()
         }
 
         meshDevicePlacementStatusDisposable = GlobalBus.listen(HomeEvent.MeshDevicePlacementStatus::class.java).subscribe{
             MeshDeviceStatusDialog(activity!!, it.isHomePage).show()
         }
 
-        getCloudInfoCompleteDisposable = GlobalBus.listen(HomeEvent.GetCloudDeviceInfoComplete::class.java).subscribe{ updateUI() }
+        getCloudInfoCompleteDisposable = GlobalBus.listen(P2PApiEvent.ApiExecuteComplete::class.java).subscribe{
+            GlobalBus.publish(MainEvent.HideLoading())
+
+            when(it.event)
+            {
+                P2PApiHandler.API_RES_EVENT.API_RES_EVENT_HOME -> updateUI()
+                else -> {}
+            }
+        }
 
         setClickListener()
 
         Glide.with(activity!!).load(R.drawable.img_locationdefault).apply(RequestOptions.circleCropTransform()).into(cloud_home_site_pic_image)
 
-        GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoTask(AppConfig.LoadingStyle.STY_NORMAL))
+        GlobalBus.publish(MainEvent.ShowLoading())
+        startGetCloudDeviceInfo()
     }
 
     override fun onResume()
@@ -137,7 +148,11 @@ class CloudHomeFragment : Fragment()
 
             cloud_home_guest_wifi_frame -> GlobalBus.publish(MainEvent.EnterCloudWiFiSettingsPage())
 
-            cloud_home_site_refresh_image -> GlobalBus.publish(MainEvent.StartGetCloudDeviceInfoTask(AppConfig.LoadingStyle.STY_NORMAL))
+            cloud_home_site_refresh_image ->
+            {
+                GlobalBus.publish(MainEvent.ShowLoading())
+                startGetCloudDeviceInfo()
+            }
         }
     }
 
@@ -283,5 +298,25 @@ class CloudHomeFragment : Fragment()
 
                     }
                 }).execute()
+    }
+
+    private fun startGetCloudDeviceInfo()
+    {
+        P2PApiHandler().execute(
+                P2PApiHandler.API_RES_EVENT.API_RES_EVENT_HOME,
+                arrayListOf
+                (
+                        P2PApiHandler.API_REF.API_GET_SYSTEM_INFO,
+                        P2PApiHandler.API_REF.API_GET_FW_VERSION,
+                        P2PApiHandler.API_REF.API_GET_LAN_IP,
+                        P2PApiHandler.API_REF.API_GET_APP_CUSTOM_INFO,
+                        P2PApiHandler.API_REF.API_GET_CHANGE_ICON_NAME,
+                        P2PApiHandler.API_REF.API_GET_DEVICE_INFO,
+                        P2PApiHandler.API_REF.API_GET_WAN_INFO,
+                        P2PApiHandler.API_REF.API_GET_GUEST_WIFI_ENABLE,
+                        P2PApiHandler.API_REF.API_GET_FSECURE_INFO,
+                        P2PApiHandler.API_REF.API_GET_HOSTNAME_REPLACE_INFO
+                )
+        )
     }
 }
