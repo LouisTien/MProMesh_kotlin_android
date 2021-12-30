@@ -230,6 +230,12 @@ class HomeFragment : Fragment()
                         View.VISIBLE
                     else
                         View.GONE
+
+            cloud_home_guest_wifi_frame.visibility =
+                    if(FeatureConfig.FeatureInfo.APPUICustomList.Guest_WiFi)
+                        View.VISIBLE
+                    else
+                        View.INVISIBLE
         }
     }
 

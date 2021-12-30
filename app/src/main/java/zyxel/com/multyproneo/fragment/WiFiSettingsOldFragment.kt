@@ -29,6 +29,7 @@ import zyxel.com.multyproneo.model.MeshInfo
 import zyxel.com.multyproneo.model.WiFiSettingInfo
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
@@ -315,9 +316,16 @@ class WiFiSettingsOldFragment : Fragment()
                     wifi_settings_wifi_5g_password_show_image.isEnabled = false
                 }
             }
+
             wifi_settings_guest_wifi_name_text.text = guestWiFiName
             wifi_settings_guest_wifi_password_text.text = guestWiFiPwd
             wifi_settings_guest_wifi_switch_image.setImageResource(if(guestWiFiStatus) R.drawable.switch_on else R.drawable.switch_off_2)
+            wifi_settings_guest_wifi_area_frame.visibility =
+                    if(FeatureConfig.FeatureInfo.APPUICustomList.Guest_WiFi)
+                        View.VISIBLE
+                    else
+                        View.GONE
+
             generateQRCode()
         }
     }

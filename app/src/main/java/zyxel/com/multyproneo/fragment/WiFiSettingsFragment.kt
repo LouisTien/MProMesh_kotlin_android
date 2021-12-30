@@ -26,6 +26,7 @@ import zyxel.com.multyproneo.model.MeshInfo
 import zyxel.com.multyproneo.model.WiFiSettingInfo
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
@@ -231,7 +232,8 @@ class WiFiSettingsFragment : Fragment()
         WiFiQRCodeBitmapArray.clear()
         WiFiQRCodeBitmapArray.add(WiFiQRCodeBitmap)
         if(!meshInfo.Object.Enable) WiFiQRCodeBitmapArray.add(WiFiQRCodeBitmap5g)
-        if(guestWiFiStatus) WiFiQRCodeBitmapArray.add(guestWiFiQRCodeBitmap)
+        if(guestWiFiStatus && FeatureConfig.FeatureInfo.APPUICustomList.Guest_WiFi)
+            WiFiQRCodeBitmapArray.add(guestWiFiQRCodeBitmap)
     }
 
     private fun updateUI()
@@ -272,6 +274,12 @@ class WiFiSettingsFragment : Fragment()
                 wifi_settings_guest_wifi_area_relative.animate().alpha(0.4f)
                 wifi_settings_guest_wifi_password_show_image.isEnabled = false
             }
+
+            wifi_settings_guest_wifi_relative.visibility =
+                    if(FeatureConfig.FeatureInfo.APPUICustomList.Guest_WiFi)
+                        View.VISIBLE
+                    else
+                        View.GONE
 
             generateQRCode()
         }

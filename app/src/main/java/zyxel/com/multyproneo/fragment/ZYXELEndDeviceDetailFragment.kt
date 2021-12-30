@@ -28,6 +28,7 @@ import zyxel.com.multyproneo.model.GatewayInfo
 import zyxel.com.multyproneo.model.WanInfo
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
@@ -327,9 +328,21 @@ class ZYXELEndDeviceDetailFragment : Fragment()
         setContentLinearListVisibility(true)
         zyxel_end_device_detail_wan_ip_linear.visibility = View.GONE
         zyxel_end_device_detail_lan_ip_linear.visibility = View.GONE
-        zyxel_end_device_detail_reboot_button.visibility = if(isConnect) View.VISIBLE else View.INVISIBLE
+
+        zyxel_end_device_detail_reboot_button.visibility =
+                if(FeatureConfig.FeatureInfo.APPUICustomList.AP_Reboot)
+                    if(isConnect) View.VISIBLE else View.INVISIBLE
+                else
+                    View.GONE
+
         zyxel_end_device_detail_speed_test_linear.visibility = View.GONE
         zyxel_end_device_detail_speed_test_button.visibility = View.INVISIBLE
+
+        zyxel_end_device_detail_fw_linear.visibility =
+                if(FeatureConfig.FeatureInfo.APPUICustomList.AP_FW_Version)
+                    View.VISIBLE
+                else
+                    View.GONE
     }
 
     private fun setEditModeUI()

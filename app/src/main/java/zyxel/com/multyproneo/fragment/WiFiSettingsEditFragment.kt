@@ -30,6 +30,7 @@ import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.WiFiSettingMultiObjInfo
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 
@@ -277,6 +278,12 @@ class WiFiSettingsEditFragment : Fragment()
                 wifi_edit_wifi_5g_password_show_image.isEnabled = false
             }
         }
+
+        wifi_edit_guest_wifi_relative.visibility =
+                if(FeatureConfig.FeatureInfo.APPUICustomList.Guest_WiFi)
+                    View.VISIBLE
+                else
+                    View.GONE
     }
 
     private fun initWiFiNameEdit24g()
@@ -608,27 +615,30 @@ class WiFiSettingsEditFragment : Fragment()
         params5GPWD.put("X_ZYXEL_AutoGenPSK", false)
         paramsArray.put(params5GPWD)
 
-        val params24GSSIDGuest = JSONObject()
-        params24GSSIDGuest.put("object_path", "Device.WiFi.SSID.2.")
-        params24GSSIDGuest.put("SSID", nameGuest)
-        paramsArray.put(params24GSSIDGuest)
+        if(FeatureConfig.FeatureInfo.APPUICustomList.Guest_WiFi)
+        {
+            val params24GSSIDGuest = JSONObject()
+            params24GSSIDGuest.put("object_path", "Device.WiFi.SSID.2.")
+            params24GSSIDGuest.put("SSID", nameGuest)
+            paramsArray.put(params24GSSIDGuest)
 
-        val params24GPWDGuest = JSONObject()
-        params24GPWDGuest.put("object_path", "Device.WiFi.AccessPoint.2.Security.")
-        params24GPWDGuest.put("KeyPassphrase", pwdGuest)
-        params24GPWDGuest.put("X_ZYXEL_AutoGenPSK", false)
-        paramsArray.put(params24GPWDGuest)
+            val params24GPWDGuest = JSONObject()
+            params24GPWDGuest.put("object_path", "Device.WiFi.AccessPoint.2.Security.")
+            params24GPWDGuest.put("KeyPassphrase", pwdGuest)
+            params24GPWDGuest.put("X_ZYXEL_AutoGenPSK", false)
+            paramsArray.put(params24GPWDGuest)
 
-        val params5GSSIDGuest = JSONObject()
-        params5GSSIDGuest.put("object_path", "Device.WiFi.SSID.6.")
-        params5GSSIDGuest.put("SSID", nameGuest)
-        paramsArray.put(params5GSSIDGuest)
+            val params5GSSIDGuest = JSONObject()
+            params5GSSIDGuest.put("object_path", "Device.WiFi.SSID.6.")
+            params5GSSIDGuest.put("SSID", nameGuest)
+            paramsArray.put(params5GSSIDGuest)
 
-        val params5GPWDGuest = JSONObject()
-        params5GPWDGuest.put("object_path", "Device.WiFi.AccessPoint.6.Security.")
-        params5GPWDGuest.put("KeyPassphrase", pwdGuest)
-        params5GPWDGuest.put("X_ZYXEL_AutoGenPSK", false)
-        paramsArray.put(params5GPWDGuest)
+            val params5GPWDGuest = JSONObject()
+            params5GPWDGuest.put("object_path", "Device.WiFi.AccessPoint.6.Security.")
+            params5GPWDGuest.put("KeyPassphrase", pwdGuest)
+            params5GPWDGuest.put("X_ZYXEL_AutoGenPSK", false)
+            paramsArray.put(params5GPWDGuest)
+        }
 
         params.put("MultiObjects", true)
         params.put("TR181_Objects", paramsArray)

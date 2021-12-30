@@ -137,6 +137,14 @@
 
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/account_send_feedback_line_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bar1"
+            android:layout_below="@+id/account_send_feedback_relative"
+            android:visibility="gone"/>
+
         <FrameLayout
             android:id="@+id/account_logout_button"
             android:layout_width="wrap_content"

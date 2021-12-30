@@ -56,6 +56,7 @@ class AccountFragment : Fragment()
         }
 
         account_send_feedback_relative.visibility = if(BuildConfig.DEBUG) View.VISIBLE else View.GONE
+        account_send_feedback_line_image.visibility = if(BuildConfig.DEBUG) View.VISIBLE else View.GONE
 
         setClickListener()
     }
