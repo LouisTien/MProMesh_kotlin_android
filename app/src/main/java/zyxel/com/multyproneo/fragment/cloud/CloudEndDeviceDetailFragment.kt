@@ -280,7 +280,7 @@ class CloudEndDeviceDetailFragment : Fragment()
                         SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_RSSI.toString())
 
             maxSpeed =
-                    if(endDeviceInfo.X_ZYXEL_PhyRate == 0)
+                    if(endDeviceInfo.X_ZYXEL_PhyRate == 0L)
                         getString(R.string.device_detail_max_speed_updating)
                     else
                         SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_PhyRate.toString()) + getString(R.string.device_detail_speed_test_unit)

@@ -46,7 +46,7 @@ data class DevicesInfoObject
     val X_ZYXEL_DeleteLease: Boolean = false,
     val X_ZYXEL_HostType: String = "N/A",
     val X_ZYXEL_Neighbor: String = "N/A",
-    val X_ZYXEL_PhyRate: Int = 0,
+    val X_ZYXEL_PhyRate: Long = 0,
     val X_ZYXEL_RSSI: Int = 0,
     val X_ZYXEL_RSSI_STAT: String = "N/A",
     val X_ZYXEL_SNR: Int = 0,
