@@ -601,4 +601,8 @@
     <string name="commander_error_timeout">Koniec czasu</string>
     <!---Server is disconnected-->
     <string name="commander_error_disconnect">Serwer jest odłączony</string>
+    <string name="setup_previous_settings_details"><u>Szczegóły</u></string>
+    <string name="device_detail_f_secure"><u>F-Secure</u></string>
+    <string name="mesh_tip"><u>Zobacz wskazówki</u></string>
+    <string name="mesh_help"><u>Potrzebujesz pomocy?</u></string>
 </resources>
