@@ -12,7 +12,7 @@ android {
         applicationId "zyxel.com.multyproneo"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 20220119
+        versionCode 20220121
         versionName "2.2.2.220119"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -92,7 +92,8 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
     //Restful
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.13'
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.12.13'
     implementation 'com.google.code.gson:gson:2.8.4'
     //android-PullRefreshLayout
     implementation 'com.baoyz.pullrefreshlayout:library:1.2.0'
