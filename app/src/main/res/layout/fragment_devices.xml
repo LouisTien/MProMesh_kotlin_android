@@ -8,7 +8,7 @@
     <LinearLayout
         android:id="@+id/devices_title_area_linear"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_size_105dp_in_1080"
+        android:layout_height="@dimen/layout_size_120dp_in_1080"
         android:orientation="vertical"
         android:background="@drawable/actionbar_deviceparental_bg">
 

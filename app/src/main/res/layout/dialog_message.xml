@@ -50,7 +50,7 @@
             android:textSize="@dimen/text_size_16sp_in_1080"
             android:ellipsize="end"
             android:singleLine="true"
-            android:maxWidth="@dimen/layout_size_105dp_in_1080"/>
+            android:maxWidth="@dimen/layout_size_120dp_in_1080"/>
 
         <TextView
             android:id="@+id/msg_alert_cancel"
@@ -65,7 +65,7 @@
             android:textSize="@dimen/text_size_16sp_in_1080"
             android:ellipsize="end"
             android:singleLine="true"
-            android:maxWidth="@dimen/layout_size_105dp_in_1080"/>
+            android:maxWidth="@dimen/layout_size_120dp_in_1080"/>
 
     </RelativeLayout>
 

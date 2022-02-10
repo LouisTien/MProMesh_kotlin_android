@@ -382,6 +382,14 @@ class EndDeviceDetailFragment : Fragment()
                     end_device_detail_max_speed_linear.visibility = View.GONE
                     end_device_detail_rssi_linear.visibility = View.GONE
                 }
+                else
+                {
+                    end_device_detail_max_speed_linear.visibility =
+                            if(FeatureConfig.FeatureInfo.APPUICustomList.Client_Max_Speed)
+                                View.VISIBLE
+                            else
+                                View.GONE
+                }
             }
 
             false ->
@@ -413,12 +421,6 @@ class EndDeviceDetailFragment : Fragment()
             end_device_detail_user_tips_image.visibility = View.VISIBLE
         else
             end_device_detail_user_tips_image.visibility = View.GONE
-
-        end_device_detail_max_speed_linear.visibility =
-                if(FeatureConfig.FeatureInfo.APPUICustomList.Client_Max_Speed)
-                    View.VISIBLE
-                else
-                    View.GONE
 
         initEndDeviceDetailModelNameEdit()
     }
