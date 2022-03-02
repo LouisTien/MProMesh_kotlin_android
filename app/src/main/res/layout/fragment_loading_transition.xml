@@ -30,7 +30,7 @@
             android:textStyle="bold"
             android:textColor="@color/color_000000"
             android:ellipsize="end"
-            android:singleLine="true"
+            android:maxLines="2"
             android:text=""/>
 
         <TextView

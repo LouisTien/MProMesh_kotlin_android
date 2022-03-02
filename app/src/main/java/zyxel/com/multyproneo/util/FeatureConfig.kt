@@ -10,5 +10,5 @@ object FeatureConfig
     var FeatureInfo = AppUICustomInfo()
     var FSecureStatus = false
     var hostNameReplaceStatus = false
-    var internetBlockingStatus = false
+    var internetBlockingStatus = true
 }
