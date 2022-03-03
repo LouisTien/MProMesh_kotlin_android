@@ -8,7 +8,7 @@ data class AppUICustomInfo
 
 data class AppUICustomInfoObject
 (
-        val Home_MESH_status: Boolean = false,
+        val Home_MESH_status: Boolean = true,
         val Home_Amber_Show: Boolean = true,
         val Host_Name_Replace: Boolean = true,
         val F_Secure: Boolean = true,
