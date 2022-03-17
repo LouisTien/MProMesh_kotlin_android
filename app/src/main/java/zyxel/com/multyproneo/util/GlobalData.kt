@@ -2,6 +2,7 @@ package zyxel.com.multyproneo.util
 
 import zyxel.com.multyproneo.model.*
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
+import java.io.File
 
 /**
  * Created by LouisTien on 2019/5/30.
@@ -18,6 +19,8 @@ object GlobalData
     var guestEndDeviceList = mutableListOf<DevicesInfoObject>()
     var homeEndDeviceList = mutableListOf<DevicesInfoObject>()
     var changeIconNameList = mutableListOf<ChangeIconNameInfoObject>()
+    var parentalControlInfoProfileList = mutableListOf<ParentalControlInfoProfile>()
+    var parentalControlSelectedDeviceList = mutableListOf<DevicesInfoObject>()
     var gatewayWanInfo = WanInfo()
     var guestWiFiStatus = false
     var homeDevAscendingOrder = true
@@ -34,6 +37,10 @@ object GlobalData
     var L2DeviceNumber = 0
     var alreadyGetGatewayInfoLocalBase = false
     var loginInfo = LoginInfo()
+    var parentalControlMasterSwitch: Boolean = false
+    var parentalControlProfilePicDir: File? = null
+    var parentalControlProfileFirstEmptyIndex = 0
+    var gatewaySystemDate = GatewaySystemDate()
 
     //TUTK
     var tokenType = "Bearer"

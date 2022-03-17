@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f8f8f8">
+
+    <RelativeLayout
+        android:id="@+id/parental_control_device_title_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_size_50dp_in_1080"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/parental_control_device_cancel_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+            android:textSize="@dimen/text_size_17sp_in_1080"
+            android:textColor="@color/color_606060"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_82dp_in_1080"
+            android:text="@string/common_cancel"/>
+
+        <TextView
+            android:id="@+id/parental_control_device_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/text_size_17sp_in_1080"
+            android:textColor="@color/color_000000"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_201dp_in_1080"
+            android:text="@string/parental_control_add_device"/>
+
+        <TextView
+            android:id="@+id/parental_control_device_add_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+            android:alpha="0.3"
+            android:textSize="@dimen/text_size_17sp_in_1080"
+            android:textColor="@color/color_575757"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="@dimen/layout_size_82dp_in_1080"
+            android:textStyle="bold"
+            android:text="@string/gateway_list_add"/>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/parental_control_device_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/layout_size_15dp_in_1080"
+        android:listSelector="@android:color/transparent"
+        android:divider="@color/color_f8f8f8"
+        android:dividerHeight="2dp"
+        android:layout_below="@+id/parental_control_device_title_area_relative"/>
+
+</RelativeLayout>

@@ -81,6 +81,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var getCloudInfoDisposable: Disposable
     private lateinit var refreshTokenDisposable: Disposable
     private lateinit var syncNotiDisposable: Disposable
+    private lateinit var showParentalControlIconDisposable: Disposable
     private lateinit var loadingDlg: Dialog
     private lateinit var loadingHintDlg: Dialog
     private lateinit var errorMsgDlg: MessageDialog
@@ -122,6 +123,19 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             SaveLogUtil.deleteOldFiles()
         }
 
+        /*//parental control profile picture
+        val externalFilesDir = this.getExternalFilesDir(null)
+        //path:/storage/emulated/0/Android/data/zyxel.com.rover/files
+        //user can find the file using file explorer
+        GlobalData.parentalControlProfilePicDir = File(externalFilesDir, "profilePic")
+        //path:/storage/emulated/0/Android/data/zyxel.com.rover/files/profilePic
+        if(!GlobalData.parentalControlProfilePicDir?.exists()!!)
+            GlobalData.parentalControlProfilePicDir?.mkdir()*/
+
+        val profilePicDir = File(this.filesDir, "profilePic")
+        if(!profilePicDir.exists()) profilePicDir.mkdir()
+        GlobalData.parentalControlProfilePicDir = profilePicDir
+
         GlobalData.notiUid = intent.getStringExtra("noti_uid")?:""
         GlobalData.notiMac = intent.getStringExtra("noti_mac")?:""
         LogUtil.d(TAG,"notiUid:${GlobalData.notiUid}")
@@ -159,6 +173,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
     {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
         when(requestCode)
         {
             AppConfig.PERMISSION_LOCATION_REQUESTCODE ->
@@ -265,6 +281,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
                 }
             }
 
+            parental_control_relative -> gotoParentalControlFragment()
+
             account_relative -> gotoAccountFragment()
 
             cloud_settings_relative -> gotoCloudSettingsFragment()
@@ -277,6 +295,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         devices_relative.setOnClickListener(clickListener)
         wifi_relative.setOnClickListener(clickListener)
         diagnostic_relative.setOnClickListener(clickListener)
+        parental_control_relative.setOnClickListener(clickListener)
         account_relative.setOnClickListener(clickListener)
 
         cloud_home_relative.setOnClickListener(clickListener)
@@ -292,12 +311,14 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             devices_image.isSelected = false
             wifi_image.isSelected = false
             diagnostic_image.isSelected = false
+            parental_control_image.isSelected = false
             account_image.isSelected = false
 
             home_text.isSelected = false
             devices_text.isSelected = false
             wifi_text.isSelected = false
             diagnostic_text.isSelected = false
+            parental_control_text.isSelected = false
             account_text.isSelected = false
 
             cloud_home_image.isSelected = false
@@ -483,6 +504,10 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         refreshTokenDisposable = GlobalBus.listen(MainEvent.RefreshToken::class.java).subscribe{ refreshToken(it.isInSetupFlow) }
 
         syncNotiDisposable = GlobalBus.listen(MainEvent.SyncNoti::class.java).subscribe{ registerNoti() }
+
+        showParentalControlIconDisposable = GlobalBus.listen(MainEvent.ShowParentalControlIcon::class.java).subscribe{
+            runOnUiThread{parental_control_relative.visibility = View.VISIBLE}
+        }
     }
 
     private fun disposeEvent()
@@ -519,6 +544,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!getCloudInfoDisposable.isDisposed) getCloudInfoDisposable.dispose()
         if(!refreshTokenDisposable.isDisposed) refreshTokenDisposable.dispose()
         if(!syncNotiDisposable.isDisposed) syncNotiDisposable.dispose()
+        if(!showParentalControlIconDisposable.isDisposed) showParentalControlIconDisposable.dispose()
     }
 
     private fun switchToFragContainer(fragment: Fragment)
@@ -589,6 +615,19 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         if(GlobalData.currentFrag != "DiagnosticFragment")
             switchToFragContainer(DiagnosticFragment())
+    }
+
+    private fun gotoParentalControlFragment()
+    {
+        disSelectToolBarIcons()
+
+        runOnUiThread{
+            parental_control_image.isSelected = true
+            parental_control_text.isSelected = true
+        }
+
+        if(GlobalData.currentFrag != "ParentalControlFragment")
+            switchToFragContainer(ParentalControlFragment())
     }
 
     private fun gotoAccountFragment()

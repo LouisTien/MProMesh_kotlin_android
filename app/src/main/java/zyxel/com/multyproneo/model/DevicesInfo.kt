@@ -55,7 +55,11 @@ data class DevicesInfoObject
     val X_ZYXEL_WiFiStatus: Boolean = false,
     var UserDefineName: String = "N/A", //ChangeIconNameInfoObject.HostName
     var Internet_Blocking_Enable: Boolean = false, //ChangeIconNameInfoObject.Internet_Blocking_Enable
-    var IndexFromFW: Int = 0
+    var IndexFromFW: Int = 0,
+    var ParentalControlInUse: Boolean = false,
+    var ParentalControlSelect: Boolean = false,
+    var ParentalControlBlock: Boolean = false,
+    var InParentalControlProfileName: String = "N/A"
 ) : Serializable
 {
     fun getName(): String

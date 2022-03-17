@@ -2,8 +2,19 @@ package zyxel.com.multyproneo.tool
 
 import android.app.Activity
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ListAdapter
+import android.widget.ListView
+import zyxel.com.multyproneo.model.ParentalControlInfoProfile
+import zyxel.com.multyproneo.model.ParentalControlInfoSchedule
+import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
+import java.nio.channels.FileChannel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,7 +33,8 @@ object CommonTool
 
     fun formatData(dataFormat: String, timeStamp: Long): String = if(timeStamp.toInt() == 0) "N/A" else SimpleDateFormat(dataFormat, Locale.getDefault()).format(Date(timeStamp * 1000))
 
-    fun checkIsTheSameDeviceMac(macA: String, macB: String): Boolean {
+    fun checkIsTheSameDeviceMac(macA: String, macB: String): Boolean
+    {
         /*
         對只差最後一碼的4台extender來說, mac address分配如下:
         11:22:33:44:55:60 ~ 11:22:33:44:55:63
@@ -80,5 +92,130 @@ object CommonTool
             }
         }
         return false
+    }
+
+    @Throws(IOException::class)
+    fun copyFile(sourceFile: File?, destFile: File)
+    {
+        if(!destFile.parentFile?.exists()!!) destFile.parentFile?.mkdirs()
+
+        if(destFile.exists())
+        {
+            destFile.delete()
+            destFile.createNewFile()
+        }
+        else
+        {
+            destFile.createNewFile()
+        }
+
+        var source: FileChannel? = null
+        var destination: FileChannel? = null
+        try
+        {
+            source = FileInputStream(sourceFile).channel
+            destination = FileOutputStream(destFile).channel
+            destination.transferFrom(source, 0, source.size())
+        }
+        finally
+        {
+            source?.close()
+            destination?.close()
+        }
+    }
+
+    //為listview動態設定高度（有多少條目就顯示多少條目）
+    fun setListViewHeight(listView: ListView) : Int
+    {
+        //獲取listView的adapter
+        val listAdapter: ListAdapter = listView.adapter ?: return 0
+        var totalHeight = 0
+        //listAdapter.getCount()返回資料項的數目
+        var i = 0
+        val len: Int = listAdapter.count
+        while(i < len)
+        {
+            val listItem: View = listAdapter.getView(i, null, listView)
+            listItem.measure(0, 0)
+            totalHeight += listItem.measuredHeight
+            i++
+        }
+        // listView.getDividerHeight()獲取子項間分隔符佔用的高度
+        // params.height最後得到整個ListView完整顯示需要的高度
+        val params: ViewGroup.LayoutParams = listView.layoutParams
+        params.height = totalHeight + listView.dividerHeight * (listAdapter.count - 1)
+        listView.layoutParams = params
+
+        return params.height
+    }
+
+    fun getSelectDays(scheduleInfo: ParentalControlInfoSchedule) : String
+    {
+        var resStr = ""
+
+        with(scheduleInfo.GetDaysInfo())
+        {
+            when
+            {
+                sun && sat && !mon && !tue && !wed && !thu && !fri -> resStr = "Weekend"
+
+                !sun && !sat && mon && tue && wed && thu && fri -> resStr = "Weekdays"
+
+                sun && sat && mon && tue && wed && thu && fri -> resStr = "Everyday"
+
+                else ->
+                {
+                    if(mon) resStr += "Mon,"
+                    if(tue) resStr += "Tue,"
+                    if(wed) resStr += "Wed,"
+                    if(thu) resStr += "Thu,"
+                    if(fri) resStr += "Fri,"
+                    if(sat) resStr += "Sat,"
+                    if(sun) resStr += "Sun,"
+
+                    val dotIdx = resStr.lastIndexOf(",")
+                    if(dotIdx > 0) resStr = resStr.substring(0, dotIdx)
+                }
+            }
+        }
+
+        return resStr
+    }
+
+    fun checkScheduleBlock(profileInfo: ParentalControlInfoProfile) : Boolean
+    {
+        if(GlobalData.parentalControlMasterSwitch && profileInfo.Enable)
+        {
+            var weekMatch = false
+            var timeMatch = false
+            profileInfo.Schedule.forEach {
+                when(GlobalData.gatewaySystemDate.week)
+                {
+                    "Sun" -> weekMatch = it.GetDaysInfo().sun
+                    "Mon" -> weekMatch = it.GetDaysInfo().mon
+                    "Tue" -> weekMatch = it.GetDaysInfo().tue
+                    "Wed" -> weekMatch = it.GetDaysInfo().wed
+                    "Thu" -> weekMatch = it.GetDaysInfo().thu
+                    "Fri" -> weekMatch = it.GetDaysInfo().fri
+                    "Sat" -> weekMatch = it.GetDaysInfo().sat
+                }
+                val startTime = it.TimeStartHour * 60 + it.TimeStartMin
+                val stopTime = it.TimeStopHour * 60 + it.TimeStopMin
+                val nowTime = GlobalData.gatewaySystemDate.hour * 60 + GlobalData.gatewaySystemDate.min
+                if(nowTime in startTime..stopTime) timeMatch = true
+                if(weekMatch && timeMatch) return true
+            }
+
+            return false
+        }
+        else
+            return false
+    }
+
+    fun getDate(): String
+    {
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        val dt = Date()
+        return sdf.format(dt)
     }
 }

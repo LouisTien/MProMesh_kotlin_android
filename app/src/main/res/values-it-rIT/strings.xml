@@ -608,4 +608,52 @@
     <string name="setup_previous_settings_details_wifi_title">NOME E PASSWORD WIFI</string>
     <!---Apply Settings-->
     <string name="setup_previous_settings_title">Applica le impostazioni</string>
+
+    <string name="parental_control_title">Parental Control</string>
+    <string name="parental_control_no_profile_msg">Create Profile to block several devices from internet at once with customised schedule.</string>
+    <string name="parental_control_create_profile">Create Profile</string>
+    <string name="parental_control_allow_internet">Allow to Internet</string>
+    <string name="parental_control_block_internet">Block from Internet</string>
+    <string name="parental_control_schedule_off">Schedule is off</string>
+    <string name="parental_control_create">Create</string>
+    <string name="parental_control_new_profile">New Profile</string>
+    <string name="parental_control_add_photo">Add Photo</string>
+    <string name="parental_control_profile_name">Profile Name</string>
+    <string name="parental_control_schedule_blocking">Schedule Blocking</string>
+    <string name="parental_control_add_schedule">Add Schedule</string>
+    <string name="parental_control_add_device">Add Device</string>
+    <string name="parental_control_start_time">Start Time</string>
+    <string name="parental_control_end_time">End Time</string>
+    <string name="parental_control_repeat_days">Repeat Days</string>
+    <string name="parental_control_monday">Monday</string>
+    <string name="parental_control_tuesday">Tuesday</string>
+    <string name="parental_control_wednesday">Wednesday</string>
+    <string name="parental_control_thursday">Thursday</string>
+    <string name="parental_control_friday">Friday</string>
+    <string name="parental_control_saturday">Saturday</string>
+    <string name="parental_control_sunday">Sunday</string>
+    <string name="parental_control_in_use">In Use</string>
+    <string name="parental_control_add">Add(%s)</string>
+    <string name="parental_control_edit_schedule">Edit Schedule</string>
+    <string name="parental_control_delete_schedule">Delete Schedule</string>
+    <string name="parental_control_remove_device">Remove Device from Profile</string>
+    <string name="parental_control_edit_profile">Edit Profile</string>
+    <string name="parental_control_delete_profile"><u>Delete Profile</u></string>
+    <string name="parental_control_delete">Delete</string>
+    <string name="parental_control_delete_schedule_msg">This blocking schedule will be permanently deleted.</string>
+    <string name="parental_control_remove_device_detail">Remove \"%s\" From This Profile?</string>
+    <string name="parental_control_delete_device_msg">This device will be no longer affect by this profile setting &amp; schedule.</string>
+    <string name="parental_control_delete_profile_msg">This profile and all schedule will be permanently deleted.</string>
+    <string name="parental_control_delete_profile_toast">Profile \"%s\" deleted.</string>
+    <string name="parental_control_discard">Discard</string>
+    <string name="parental_control_keep_edit">Keep Editing</string>
+    <string name="parental_control_take_photo">Take Photo</string>
+    <string name="parental_control_select_photo">Select From Photos</string>
+    <string name="parental_control_delete_photo">Delete Photo</string>
+    <string name="parental_control_schedule">Schedule</string>
+
+    <string name="message_dialog_parental_control_discard_title">Discard Changes?</string>
+    <string name="message_dialog_parental_control_discard_msg">All the changes you made or imaged you uploaded will be lost.</string>
+
+    <string name="device_detail_blocke_by_schedule">Device is blocked due to the schedule in profile \"%s\".</string>
 </resources>

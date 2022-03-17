@@ -38,4 +38,5 @@ class MainEvent
     class GetCloudInfo()
     class RefreshToken(var isInSetupFlow: Boolean)
     class SyncNoti()
+    class ShowParentalControlIcon()
 }

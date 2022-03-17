@@ -252,6 +252,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:layout_gravity="center"
                             android:textSize="@dimen/text_size_18sp_in_1080"
                             android:textColor="@color/color_575757"
                             android:text="@string/device_detail_internet_blocking"/>
@@ -260,6 +261,7 @@
                             android:id="@+id/end_device_detail_internet_blocking_image_linear"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:orientation="horizontal"
                             android:layout_weight="1">
 
@@ -273,13 +275,25 @@
 
                     </LinearLayout>
 
+                    <TextView
+                        android:id="@+id/end_device_detail_block_msg_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                        android:layout_below="@+id/end_device_detail_internet_blocking_area_linear"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/text_size_15sp_in_1080"
+                        android:textColor="@color/color_606060"
+                        tools:text="Device is blocked due to the schedule in profile “Luke”."
+                        android:visibility="gone"/>
+
                     <ImageView
                         android:id="@+id/end_device_detail_internet_blocking_line_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/bar1"
                         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-                        android:layout_below="@+id/end_device_detail_internet_blocking_area_linear"/>
+                        android:layout_below="@+id/end_device_detail_block_msg_text"/>
 
                     <LinearLayout
                         android:id="@+id/end_device_detail_parental_control_area_linear"

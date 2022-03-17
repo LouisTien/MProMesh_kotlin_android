@@ -10,6 +10,12 @@ object AppConfig
 
     //Diagnostic permission request
     const val PERMISSION_LOCATION_REQUESTCODE = 1
+    const val PERMISSION_READ_STORAGE_REQUESTCODE = 2
+    const val PERMISSION_CAMERA_REQUESTCODE = 3
+
+    //Pick image
+    const val IMAGE_PICK_CODE = 1000
+    const val IMAGE_TAKE_CODE = 2000
 
     //UDP broadcast for searching devices
     const val SCAN_LISTENPORT = 6000
@@ -57,6 +63,8 @@ object AppConfig
     const val API_GUEST_WIFI_5G_INFO = "/TR181/Value/Device.WiFi.SSID.6."
     const val API_GUEST_WIFI_5G_PWD = "/TR181/Value/Device.WiFi.AccessPoint.6.Security."
     const val API_MULTI_OBJECTS = "/TR181/Value/MultiObjects"
+    const val API_PARENTAL_CONTROL = "/TR181/Value/Device.X_ZYXEL_ParentalControl."
+    const val API_FW_SYSTEM_STATE = "/TR181/Value/Device.X_ZYXEL_EXT.SystemState."
 
     //TUTK P2P
     const val TUTK_MAXSIZE_RECVBUF = 102400
@@ -88,6 +96,10 @@ object AppConfig
     const val SHAREDPREF_TUTK_REFRESH_TOKEN_KEY = "TUTK_refresh_token"
     const val SHAREDPREF_TUTK_ACCESS_TOKEN_KEY = "TUTK_access_token"
     const val SHAREDPREF_NOTIFICATION_TOKEN = "notification_token"
+
+    //Parental Control
+    const val PC_MAX_PROFILE = 12
+    const val PC_MAX_SCHEDULE = 3
 
     //Check Internet
     const val VERFY_INTERNET_DOMAIN_URL = "https://www.google.com"
@@ -169,7 +181,12 @@ object AppConfig
         ACT_LOCATION_PERMISSION,
         ACT_GPS_PERMISSION,
         ACT_LOGOUT,
-        ACT_RESEARCH
+        ACT_RESEARCH,
+        ACT_PC_SCHEDULE_DELETE,
+        ACT_PC_DEVICE_DELETE,
+        ACT_PC_PROFILE_DELETE,
+        ACT_PC_BLOCK_DEVICE,
+        ACT_PC_DISACRD_CHANGE
     }
 
     enum class HTTPErrorAction
@@ -209,5 +226,34 @@ object AppConfig
         MTD_POST(0x2),
         MTD_PUT(0x3),
         MTD_DELETE(0x4)
+    }
+
+    enum class ScheduleAction
+    {
+        ACT_ADD,
+        ACT_EDIT,
+        ACT_DELETE
+    }
+
+    enum class ProfilePhotoAction
+    {
+        PRO_PHOTO_TAKE,
+        PRO_PHOTO_SELECT,
+        PRO_PHOTO_DELETE
+    }
+
+    enum class DialogPosBtnColor
+    {
+        DPC_GRAY,
+        DPC_RED,
+        DPC_GREEN,
+        DPC_BLUE
+    }
+
+    enum class EditProfileItem
+    {
+        ED_PRO_ENABLE,
+        ED_PRO_NAME,
+        ED_PRO_DEVICE
     }
 }

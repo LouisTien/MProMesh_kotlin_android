@@ -6,9 +6,11 @@ import org.json.JSONObject
 import zyxel.com.multyproneo.event.ApiEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.model.*
+import zyxel.com.multyproneo.tool.CommonTool
 import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
+import kotlin.concurrent.thread
 
 class ApiHandler
 {
@@ -26,7 +28,10 @@ class ApiHandler
         API_RES_EVENT_DEVICES_API_REGULAR,
         API_RES_EVENT_GATEWAY_EDIT,
         API_RES_EVENT_EXTENDER_EDIT,
-        API_RES_EVENT_END_DEVICE_EDIT
+        API_RES_EVENT_END_DEVICE_EDIT,
+        API_RES_EVENT_PARENTAL_CONTROL,
+        API_RES_EVENT_PARENTAL_CONTROL_ADD_SELECT_DEVICE,
+        API_RES_EVENT_PARENTAL_CONTROL_EDIT_SELECT_DEVICE
     }
 
     enum class API_REF
@@ -39,7 +44,10 @@ class ApiHandler
         API_GET_FSECURE_INFO,
         API_GET_HOSTNAME_REPLACE_INFO,
         API_GET_INTERNET_BLOCK_INFO,
-        API_GET_APP_UI_CUSTOM_INFO
+        API_GET_APP_UI_CUSTOM_INFO,
+        API_GET_PARENTAL_CONTROL_INFO,
+        API_GET_GATEWAY_SYSTEM_DATE,
+        API_CHECK_IN_USE_SELECT_DEVICE
     }
 
     init
@@ -314,6 +322,150 @@ class ApiHandler
                             }
                         }
                     }).execute()
+        }
+
+        apiMap[API_REF.API_GET_PARENTAL_CONTROL_INFO] = {
+            LogUtil.d(TAG,"getParentalControlInfo()")
+            ParentalControlApi.GetInfo()
+                    .setRequestPageName(TAG)
+                    .setResponseListener(object: Commander.ResponseListener()
+                    {
+                        override fun onSuccess(responseStr: String)
+                        {
+                            try
+                            {
+                                GlobalData.parentalControlProfileFirstEmptyIndex = 0
+                                val parentalControlInfo = Gson().fromJson(responseStr, ParentalControlInfo::class.javaObjectType)
+
+                                GlobalData.parentalControlMasterSwitch = parentalControlInfo.Object.Enable
+
+                                val newParentalControlInfoProfileList = mutableListOf<ParentalControlInfoProfile>()
+
+                                var index = 1
+                                for(item in parentalControlInfo.Object.Profile)
+                                {
+                                    item.index = index
+
+                                    if( (item.Name == "N/A") || (item.Name == "") )
+                                    {
+                                        if(GlobalData.parentalControlProfileFirstEmptyIndex == 0)
+                                            GlobalData.parentalControlProfileFirstEmptyIndex = index
+
+                                        index++
+                                        continue
+                                    }
+
+                                    newParentalControlInfoProfileList.add(item)
+                                    index++
+                                }
+
+                                if(GlobalData.parentalControlProfileFirstEmptyIndex == 0)
+                                    GlobalData.parentalControlProfileFirstEmptyIndex = index
+
+                                GlobalData.parentalControlInfoProfileList = newParentalControlInfoProfileList.toMutableList()
+
+                                LogUtil.d(TAG, "Profile List: ${GlobalData.parentalControlInfoProfileList}")
+
+                                LogUtil.d(TAG, "=============================")
+                                for(subItem in GlobalData.parentalControlInfoProfileList)
+                                    LogUtil.d(TAG, "Profile: [${subItem.index}] ${subItem.Name}")
+                                LogUtil.d(TAG, "First Empty Profile: [${GlobalData.parentalControlProfileFirstEmptyIndex}]")
+                                LogUtil.d(TAG, "=============================")
+
+                                executeNextAPI()
+                            }
+                            catch(e: JSONException)
+                            {
+                                e.printStackTrace()
+                            }
+                        }
+                    }).execute()
+        }
+
+        apiMap[API_REF.API_GET_GATEWAY_SYSTEM_DATE] = {
+            LogUtil.d(TAG,"getGatewaySystemDate()")
+            GatewayApi.GetSystemDate()
+                    .setRequestPageName(TAG)
+                    .setResponseListener(object: Commander.ResponseListener()
+                    {
+                        override fun onSuccess(responseStr: String)
+                        {
+                            try
+                            {
+                                val data = JSONObject(responseStr)
+                                val date = data.getJSONObject("Object").getString("localTime")
+                                //Tue Jun  8 07:23:09 DST 2021
+                                LogUtil.d(TAG,"System Date:$date")
+
+                                /*var str = "Wed May  5 08:52:36 DST 2021"
+                                str = str.replace(" DST", "")
+                                val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss yyyy", Locale.ENGLISH)
+                                LogUtil.e(TAG,"date:${sdf.parse(str)}")*/
+
+                                val dateArray = date.split(" ").toTypedArray()
+                                var index = 1
+                                dateArray.forEach {
+                                    when(index)
+                                    {
+                                        1 -> GlobalData.gatewaySystemDate.week = it
+                                        2 -> GlobalData.gatewaySystemDate.month = it
+                                        3 -> GlobalData.gatewaySystemDate.day = it.toIntOrNull()?:0
+                                        4 ->
+                                        {
+                                            val timeArray = it.split(":")
+                                            if(timeArray.size >= 3)
+                                            {
+                                                GlobalData.gatewaySystemDate.hour = timeArray[0].toIntOrNull()?:0
+                                                GlobalData.gatewaySystemDate.min = timeArray[1].toIntOrNull()?:0
+                                                GlobalData.gatewaySystemDate.sec = timeArray[2].toIntOrNull()?:0
+                                            }
+                                        }
+                                    }
+                                    index += 1
+                                }
+                                LogUtil.d(TAG,"Gateway System Date:${GlobalData.gatewaySystemDate}")
+
+                                executeNextAPI()
+                            }
+                            catch(e: JSONException)
+                            {
+                                e.printStackTrace()
+                            }
+                        }
+                    }).execute()
+        }
+
+        apiMap[API_REF.API_CHECK_IN_USE_SELECT_DEVICE] = {
+            LogUtil.d(TAG,"checkInUseSelectedDevice()")
+
+            thread {
+                for(device in GlobalData.homeEndDeviceList)
+                {
+                    for(profile in GlobalData.parentalControlInfoProfileList)
+                    {
+                        for(mac in profile.GetMACAddressList())
+                        {
+                            if(device.PhysAddress == mac)
+                            {
+                                device.ParentalControlInUse = true
+                                device.InParentalControlProfileName = profile.Name
+                                device.ParentalControlBlock = CommonTool.checkScheduleBlock(profile)
+                            }
+                        }
+                    }
+                }
+
+                for(device in GlobalData.homeEndDeviceList)
+                {
+                    for(info in GlobalData.parentalControlSelectedDeviceList)
+                    {
+                        if(device.PhysAddress == info.PhysAddress)
+                            device.ParentalControlSelect = true
+                    }
+                }
+
+                executeNextAPI()
+            }
         }
     }
 

@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.view.View
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.dialog_message.*
+import org.jetbrains.anko.textColor
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
@@ -15,7 +17,15 @@ import zyxel.com.multyproneo.util.AppConfig
 /**
  * Created by LouisTien on 2019/5/28.
  */
-class MessageDialog(context: Context, private var title: String, var description: String, private var btnTexts: Array<String>, var action: AppConfig.DialogAction) : Dialog(context)
+class MessageDialog
+(
+        context: Context,
+        private var title: String,
+        var description: String,
+        private var btnTexts: Array<String>,
+        var action: AppConfig.DialogAction,
+        private var posBtnColor: AppConfig.DialogPosBtnColor = AppConfig.DialogPosBtnColor.DPC_GRAY
+) : Dialog(context)
 {
     private val REMOVESTR = "REMOVE"
     private val DELETESTR = "DELETE"
@@ -56,6 +66,15 @@ class MessageDialog(context: Context, private var title: String, var description
             msg_alert_description.text = description
 
         msg_alert_positive.text = btnTexts[0]
+
+        msg_alert_positive.textColor =
+                when(posBtnColor)
+                {
+                    AppConfig.DialogPosBtnColor.DPC_RED -> ContextCompat.getColor(context, R.color.color_c61a12)
+                    AppConfig.DialogPosBtnColor.DPC_GREEN -> ContextCompat.getColor(context, R.color.color_006e18)
+                    AppConfig.DialogPosBtnColor.DPC_BLUE -> ContextCompat.getColor(context, R.color.color_0079ff)
+                    else -> ContextCompat.getColor(context, R.color.color_575757)
+                }
 
         if(btnTexts.size >= 2)
         {

@@ -83,6 +83,16 @@
     <color name="color_64be00">#64be00</color>
     <color name="color_a3a3a3">#a3a3a3</color>
     <color name="color_bdbdc1">#bdbdc1</color>
+    <color name="color_1a1a1a">#1a1a1a</color>
+    <color name="color_f8f8f8">#f8f8f8</color>
+    <color name="color_606060">#606060</color>
+    <color name="color_0079ff">#0079ff</color>
+    <color name="color_9b9b9b">#9b9b9b</color>
+    <color name="color_c61a12">#c61a12</color>
+    <color name="color_f2f2f2">#f2f2f2</color>
+    <color name="color_ececec">#ececec</color>
+    <color name="color_006e18">#006e18</color>
+    <color name="color_939393">#939393</color>
     <color name="edittext_bg">#33000000</color>
     <color name="firmware_upgrade_result_header_bg">#1A17ffff</color>
     <color name="firmware_upgrade_result_bg">#992d2b40</color>

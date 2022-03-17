@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/parental_control_profile_list_item_relative"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/layout_size_102dp_in_1080">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/parental_control_profile_image"
+        android:layout_width="@dimen/layout_size_50dp_in_1080"
+        android:layout_height="@dimen/layout_size_50dp_in_1080"
+        android:layout_toEndOf="@+id/user_tips_image"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/default_profile_image"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/parental_control_profile_detail_image"
+        android:layout_toEndOf="@+id/parental_control_profile_image">
+
+        <TextView
+            android:id="@+id/parental_control_profile_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/text_size_17sp_in_1080"
+            android:textColor="@color/color_000000"
+            tools:text="Louis"/>
+
+        <TextView
+            android:id="@+id/parental_control_profile_status_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginBottom="@dimen/layout_size_15dp_in_1080"
+            android:layout_below="@+id/parental_control_profile_name_text"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/text_size_15sp_in_1080"
+            android:textColor="@color/color_64be00"
+            tools:text="Allow to Internet"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/parental_control_profile_detail_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/icon_next"/>
+
+</RelativeLayout>

@@ -339,6 +339,9 @@ class HomeFragment : Fragment()
     {
         val apiList = arrayListOf<ApiHandler.API_REF>()
 
+        if(FeatureConfig.FeatureInfo.APPUICustomList.Parental_Control)
+            GlobalBus.publish(MainEvent.ShowParentalControlIcon())
+
         if(FeatureConfig.FeatureInfo.APPUICustomList.Guest_WiFi)
             apiList.add(ApiHandler.API_REF.API_GET_GUEST_WIFI_ENABLE)
 

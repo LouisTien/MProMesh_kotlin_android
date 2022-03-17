@@ -201,16 +201,23 @@ class DevicesFragment : Fragment()
 
     private fun startGetDeviceInfo()
     {
+        val apiList = arrayListOf<ApiHandler.API_REF>()
+        apiList.add(ApiHandler.API_REF.API_GET_CHANGE_ICON_NAME)
+        apiList.add(ApiHandler.API_REF.API_GET_DEVICE_INFO)
+
+        if(FeatureConfig.FeatureInfo.APPUICustomList.Parental_Control)
+        {
+            apiList.add(ApiHandler.API_REF.API_GET_PARENTAL_CONTROL_INFO)
+            apiList.add(ApiHandler.API_REF.API_GET_GATEWAY_SYSTEM_DATE)
+            apiList.add(ApiHandler.API_REF.API_CHECK_IN_USE_SELECT_DEVICE)
+        }
+
         apiTimer = Timer()
         apiTimer.schedule(0, (AppConfig.endDeviceListUpdateTime * 1000).toLong())
         {
             ApiHandler().execute(
                     ApiHandler.API_RES_EVENT.API_RES_EVENT_DEVICES_API_REGULAR,
-                    arrayListOf
-                    (
-                            ApiHandler.API_REF.API_GET_CHANGE_ICON_NAME,
-                            ApiHandler.API_REF.API_GET_DEVICE_INFO
-                    )
+                    apiList
             )
         }
     }

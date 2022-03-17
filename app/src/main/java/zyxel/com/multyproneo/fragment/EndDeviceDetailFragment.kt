@@ -336,8 +336,8 @@ class EndDeviceDetailFragment : Fragment()
             {
                 with(end_device_detail_status_text)
                 {
-                    text = if(isBlocked) getString(R.string.device_detail_blocked) else getString(R.string.device_detail_connecting)
-                    textColor = if(isBlocked) resources.getColor(R.color.color_ff2837) else resources.getColor(R.color.color_3c9f00)
+                    text = if(isBlocked || endDeviceInfo.ParentalControlBlock) getString(R.string.device_detail_blocked) else getString(R.string.device_detail_connecting)
+                    textColor = if(isBlocked || endDeviceInfo.ParentalControlBlock) resources.getColor(R.color.color_ff2837) else resources.getColor(R.color.color_3c9f00)
                 }
 
                 with(end_device_detail_connect_type_dhcp_time_text)
@@ -350,7 +350,25 @@ class EndDeviceDetailFragment : Fragment()
 
                 when(FeatureConfig.internetBlockingStatus)
                 {
-                    true -> end_device_detail_ib_pt_area_relative.visibility = View.VISIBLE
+                    true ->
+                    {
+                        end_device_detail_ib_pt_area_relative.visibility = View.VISIBLE
+
+                        if(endDeviceInfo.ParentalControlBlock)
+                        {
+                            end_device_detail_block_msg_text.text = String.format(getString(R.string.device_detail_blocke_by_schedule), endDeviceInfo.InParentalControlProfileName)
+                            end_device_detail_block_msg_text.visibility = View.VISIBLE
+                            end_device_detail_internet_blocking_image.isEnabled = false
+                            end_device_detail_internet_blocking_area_linear.alpha = 0.3f
+                        }
+                        else
+                        {
+                            end_device_detail_block_msg_text.visibility = View.GONE
+                            end_device_detail_internet_blocking_image.isEnabled = true
+                            end_device_detail_internet_blocking_area_linear.alpha = 1f
+                        }
+                    }
+
                     false -> end_device_detail_ib_pt_area_relative.visibility = View.GONE
                 }
 
@@ -579,13 +597,20 @@ class EndDeviceDetailFragment : Fragment()
     private fun startGetDeviceInfo()
     {
         GlobalBus.publish(MainEvent.ShowLoading())
+        val apiList = arrayListOf<ApiHandler.API_REF>()
+        apiList.add(ApiHandler.API_REF.API_GET_CHANGE_ICON_NAME)
+        apiList.add(ApiHandler.API_REF.API_GET_DEVICE_INFO)
+
+        if(FeatureConfig.FeatureInfo.APPUICustomList.Parental_Control)
+        {
+            apiList.add(ApiHandler.API_REF.API_GET_PARENTAL_CONTROL_INFO)
+            apiList.add(ApiHandler.API_REF.API_GET_GATEWAY_SYSTEM_DATE)
+            apiList.add(ApiHandler.API_REF.API_CHECK_IN_USE_SELECT_DEVICE)
+        }
+
         ApiHandler().execute(
                 ApiHandler.API_RES_EVENT.API_RES_EVENT_END_DEVICE_EDIT,
-                arrayListOf
-                (
-                        ApiHandler.API_REF.API_GET_CHANGE_ICON_NAME,
-                        ApiHandler.API_REF.API_GET_DEVICE_INFO
-                )
+                apiList
         )
     }
 }

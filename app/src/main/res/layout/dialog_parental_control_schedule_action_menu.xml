@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/parental_control_schedule_action_name_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/layout_size_10dp_in_1080"
+        android:paddingBottom="@dimen/layout_size_10dp_in_1080">
+
+        <TextView
+            android:id="@+id/parental_control_schedule_action_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/text_size_15sp_in_1080"
+            android:textColor="@color/color_9b9b9b"
+            android:maxWidth="@dimen/layout_size_220dp_in_1080"
+            android:maxLines="2"
+            tools:text="18:00 - 22:00 Everyday"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/parental_control_schedule_action_name_line_image"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:src="@color/color_f2f2f2"
+        android:layout_below="@+id/parental_control_schedule_action_name_relative"/>
+
+    <RelativeLayout
+        android:id="@+id/parental_control_schedule_action_edit_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/layout_size_15dp_in_1080"
+        android:paddingBottom="@dimen/layout_size_15dp_in_1080"
+        android:layout_below="@+id/parental_control_schedule_action_name_line_image">
+
+        <TextView
+            android:id="@+id/parental_control_schedule_action_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/text_size_17sp_in_1080"
+            android:textColor="@color/color_606060"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:text="@string/parental_control_edit_schedule"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/parental_control_schedule_action_edit_line_image"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:src="@color/color_f2f2f2"
+        android:layout_below="@+id/parental_control_schedule_action_edit_relative"/>
+
+    <RelativeLayout
+        android:id="@+id/parental_control_schedule_action_delete_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/layout_size_15dp_in_1080"
+        android:paddingBottom="@dimen/layout_size_15dp_in_1080"
+        android:layout_below="@+id/parental_control_schedule_action_edit_line_image">
+
+        <TextView
+            android:id="@+id/parental_control_schedule_action_delete_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+            android:layout_centerHorizontal="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/text_size_17sp_in_1080"
+            android:textColor="@color/color_c61a12"
+            android:textStyle="bold"
+            android:maxLines="2"
+            android:text="@string/parental_control_delete_schedule"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/parental_control_schedule_action_delete_line_image"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:src="@color/color_f2f2f2"
+        android:layout_below="@+id/parental_control_schedule_action_delete_relative"/>
+
+    <RelativeLayout
+        android:id="@+id/parental_control_schedule_action_empty_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/layout_size_30dp_in_1080"
+        android:layout_below="@+id/parental_control_schedule_action_delete_line_image">
+
+    </RelativeLayout>
+
+</RelativeLayout>

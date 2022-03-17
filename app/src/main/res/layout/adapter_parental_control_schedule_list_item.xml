@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/parental_control_schedule_time_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/parental_control_schedule_detail_image"
+        android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/color_1a1a1a"
+        android:textSize="@dimen/text_size_17sp_in_1080"
+        tools:text="08:00 - 22:00" />
+
+    <TextView
+        android:id="@+id/parental_control_schedule_week_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/parental_control_schedule_detail_image"
+        android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
+        android:layout_below="@+id/parental_control_schedule_time_text"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textSize="@dimen/text_size_15sp_in_1080"
+        android:textColor="@color/color_606060"
+        tools:text="Everyday"/>
+
+    <ImageView
+        android:id="@+id/parental_control_schedule_detail_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/list_more_actions"/>
+
+</RelativeLayout>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/parental_control_title_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_size_90dp_in_1080"
+        android:orientation="horizontal"
+        android:background="@drawable/actionbar_homewifi_bg">
+
+        <TextView
+            android:id="@+id/parental_control_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_28sp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginEnd="@dimen/layout_size_105dp_in_1080"
+            android:layout_centerVertical="true"
+            android:text="@string/device_detail_parental_control"/>
+
+        <ImageView
+            android:id="@+id/parental_control_add_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+            android:src="@drawable/add_btn"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/parental_control_switch_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:layout_below="@+id/parental_control_title_area_relative"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/parental_control_switch_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
+            android:layout_toStartOf="@+id/parental_control_switch_image"
+            android:textSize="@dimen/text_size_17sp_in_1080"
+            android:textColor="@color/color_1a1a1a"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@string/device_detail_parental_control"/>
+
+        <ImageView
+            android:id="@+id/parental_control_switch_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/toggle_switch_on"/>
+
+        <ImageView
+            android:id="@+id/parental_control_switch_line_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_40dp_in_1080"
+            android:src="@drawable/bar1"
+            android:layout_below="@+id/parental_control_switch_image"/>
+
+    </RelativeLayout>
+
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/parental_control_profile_list_swipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+        android:layout_below="@+id/parental_control_switch_relative"
+        android:visibility="gone">
+
+        <ListView
+            android:id="@+id/parental_control_profile_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="20dp"
+            android:listSelector="@android:color/transparent"/>
+
+    </com.baoyz.widget.PullRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/parental_control_no_profile_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/parental_control_no_profile_image_relative"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/parental_control_add_profile_button">
+
+            <ImageView
+                android:id="@+id/parental_control_no_profile_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/parental_control_empty_image"/>
+
+            <TextView
+                android:id="@+id/parental_control_no_profile_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_50dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_50dp_in_1080"
+                android:textColor="@color/color_575757"
+                android:textSize="@dimen/text_size_17sp_in_1080"
+                android:ellipsize="end"
+                android:maxLines="4"
+                android:text="@string/parental_control_no_profile_msg"
+                android:layout_below="@+id/parental_control_no_profile_image"/>
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/parental_control_add_profile_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/layout_size_30dp_in_1080"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_style_yellow_bg">
+
+            <TextView
+                android:id="@+id/account_logout_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/parental_control_create_profile"
+                android:textColor="@color/color_000000"
+                android:textSize="@dimen/text_size_20sp_in_1080"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:maxWidth="@dimen/layout_size_205dp_in_1080"
+                android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+                android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
+                android:layout_marginStart="@dimen/layout_size_15dp_in_1080"/>
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

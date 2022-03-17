@@ -190,4 +190,16 @@ object GatewayApi
                     .build()
         }
     }
+
+    class GetSystemDate : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val getSystemDateURL = "${GlobalData.getAPIPath()}${AppConfig.API_FW_SYSTEM_STATE}"
+            return Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(getSystemDateURL)
+                    .build()
+        }
+    }
 }

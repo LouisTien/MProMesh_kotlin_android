@@ -152,6 +152,39 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/parental_control_relative"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/parental_control_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/toolbar_parental_control_btn"/>
+
+                <TextView
+                    android:id="@+id/parental_control_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/parental_control_image"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/layout_size_3dp_in_1080"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:textColor="@drawable/toolbar_btn_text"
+                    android:textSize="@dimen/text_size_10sp_in_1080"
+                    android:text="@string/device_detail_parental_control"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/account_relative"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

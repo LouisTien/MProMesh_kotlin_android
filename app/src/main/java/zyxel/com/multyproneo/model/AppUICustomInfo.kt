@@ -16,5 +16,6 @@ data class AppUICustomInfoObject
         val Guest_WiFi: Boolean = true,
         val Client_Max_Speed: Boolean = true,
         val AP_FW_Version: Boolean = true,
-        val AP_Reboot: Boolean = true
+        val AP_Reboot: Boolean = true,
+        val Parental_Control: Boolean = false
 )
