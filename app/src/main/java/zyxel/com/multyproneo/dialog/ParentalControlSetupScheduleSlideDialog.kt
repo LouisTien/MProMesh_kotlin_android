@@ -14,7 +14,6 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.ParentalControlEvent
 import zyxel.com.multyproneo.model.ParentalControlInfoSchedule
 import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.LogUtil
 import java.lang.String
 
 class ParentalControlSetupScheduleSlideDialog
@@ -226,7 +225,6 @@ class ParentalControlSetupScheduleSlideDialog
         start_hour.setOnValueChangedListener { _, _, newVal ->
             startHour = newVal
             checkSaveStatus()
-            LogUtil.d("PARENTAL", "newVal=$newVal startHour=$startHour")
         }
 
         start_min.setOnValueChangedListener { _, _, newVal ->
