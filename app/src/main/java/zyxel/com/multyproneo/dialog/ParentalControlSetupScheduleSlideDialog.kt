@@ -4,16 +4,18 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.widget.NumberPicker
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.dialog_parental_control_setup_schedule.*
 import org.jetbrains.anko.imageResource
-import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.ParentalControlEvent
 import zyxel.com.multyproneo.model.ParentalControlInfoSchedule
 import zyxel.com.multyproneo.util.AppConfig
+import zyxel.com.multyproneo.util.LogUtil
+import java.lang.String
 
 class ParentalControlSetupScheduleSlideDialog
 (
@@ -43,6 +45,24 @@ class ParentalControlSetupScheduleSlideDialog
 
     private fun updateUI()
     {
+        start_hour.maxValue = 23
+        start_hour.minValue = 0
+        start_min.maxValue = 59
+        start_min.minValue = 0
+        end_hour.maxValue = 24
+        end_hour.minValue = 0
+        end_min.maxValue = 59
+        end_min.minValue = 0
+
+        start_hour.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        start_hour.setFormatter { i -> String.format("%02d", i) }
+        start_min.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        start_min.setFormatter { i -> String.format("%02d", i) }
+        end_hour.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        end_hour.setFormatter { i -> String.format("%02d", i) }
+        end_min.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+        end_min.setFormatter { i -> String.format("%02d", i) }
+
         val daysInfo = scheduleInfo.GetDaysInfo()
 
         with(parental_control_setup_schedule_mon_select_image)
@@ -87,11 +107,6 @@ class ParentalControlSetupScheduleSlideDialog
             imageResource = if(daysInfo.sun) R.drawable.selected_icon else R.drawable.select_icon
         }
 
-        parental_control_setup_schedule_start_block_time_hour_edit.setText(if(scheduleInfo.TimeStartHour == 0) "00" else scheduleInfo.TimeStartHour.toString())
-        parental_control_setup_schedule_start_block_time_min_edit.setText(if(scheduleInfo.TimeStartMin == 0) "00" else scheduleInfo.TimeStartMin.toString())
-        parental_control_setup_schedule_end_block_time_hour_edit.setText(if(scheduleInfo.TimeStopHour == 0) "00" else scheduleInfo.TimeStopHour.toString())
-        parental_control_setup_schedule_end_block_time_min_edit.setText(if(scheduleInfo.TimeStopMin == 0) "00" else scheduleInfo.TimeStopMin.toString())
-
         checkSaveStatus()
     }
 
@@ -129,7 +144,6 @@ class ParentalControlSetupScheduleSlideDialog
                     tag = if(tag == 0) 1 else 0
                     imageResource = if(tag == 0) R.drawable.select_icon else R.drawable.selected_icon
                 }
-                clearTimeEditFocus()
             }
 
             parental_control_setup_schedule_tue_select_image ->
@@ -139,7 +153,6 @@ class ParentalControlSetupScheduleSlideDialog
                     tag = if(tag == 0) 1 else 0
                     imageResource = if(tag == 0) R.drawable.select_icon else R.drawable.selected_icon
                 }
-                clearTimeEditFocus()
             }
 
             parental_control_setup_schedule_wed_select_image ->
@@ -149,7 +162,6 @@ class ParentalControlSetupScheduleSlideDialog
                     tag = if(tag == 0) 1 else 0
                     imageResource = if(tag == 0) R.drawable.select_icon else R.drawable.selected_icon
                 }
-                clearTimeEditFocus()
             }
 
             parental_control_setup_schedule_thu_select_image ->
@@ -159,7 +171,6 @@ class ParentalControlSetupScheduleSlideDialog
                     tag = if(tag == 0) 1 else 0
                     imageResource = if(tag == 0) R.drawable.select_icon else R.drawable.selected_icon
                 }
-                clearTimeEditFocus()
             }
 
             parental_control_setup_schedule_fri_select_image ->
@@ -178,7 +189,6 @@ class ParentalControlSetupScheduleSlideDialog
                     tag = if(tag == 0) 1 else 0
                     imageResource = if(tag == 0) R.drawable.select_icon else R.drawable.selected_icon
                 }
-                clearTimeEditFocus()
             }
 
             parental_control_setup_schedule_sun_select_image ->
@@ -187,32 +197,6 @@ class ParentalControlSetupScheduleSlideDialog
                 {
                     tag = if(tag == 0) 1 else 0
                     imageResource = if(tag == 0) R.drawable.select_icon else R.drawable.selected_icon
-                }
-                clearTimeEditFocus()
-            }
-        }
-    }
-
-    private val focusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
-        when(view)
-        {
-            parental_control_setup_schedule_start_block_time_hour_edit,
-            parental_control_setup_schedule_start_block_time_min_edit ->
-            {
-                if(hasFocus)
-                {
-                    //parental_control_schedule_start_time_linear.backgroundResource = R.drawable.corner_shape_blue_background_stroke
-                    //parental_control_schedule_end_time_linear.backgroundResource = R.drawable.corner_shape_gray_background
-                }
-            }
-
-            parental_control_setup_schedule_end_block_time_hour_edit,
-            parental_control_setup_schedule_end_block_time_min_edit ->
-            {
-                if(hasFocus)
-                {
-                    //parental_control_schedule_start_time_linear.backgroundResource = R.drawable.corner_shape_gray_background
-                    //parental_control_schedule_end_time_linear.backgroundResource = R.drawable.corner_shape_blue_background_stroke
                 }
             }
         }
@@ -230,82 +214,40 @@ class ParentalControlSetupScheduleSlideDialog
         parental_control_setup_schedule_sat_select_image.setOnClickListener(clickListener)
         parental_control_setup_schedule_sun_select_image.setOnClickListener(clickListener)
 
-        parental_control_setup_schedule_start_block_time_hour_edit.onFocusChangeListener = focusChangeListener
-        parental_control_setup_schedule_start_block_time_min_edit.onFocusChangeListener = focusChangeListener
-        parental_control_setup_schedule_end_block_time_hour_edit.onFocusChangeListener = focusChangeListener
-        parental_control_setup_schedule_end_block_time_min_edit.onFocusChangeListener = focusChangeListener
+        start_hour.value = scheduleInfo.TimeStartHour
+        startHour = scheduleInfo.TimeStartHour
+        start_min.value = scheduleInfo.TimeStartMin
+        startMin = scheduleInfo.TimeStartMin
+        end_hour.value = scheduleInfo.TimeStopHour
+        endHour = scheduleInfo.TimeStopHour
+        end_min.value = scheduleInfo.TimeStopMin
+        endMin = scheduleInfo.TimeStopMin
 
-        parental_control_setup_schedule_start_block_time_hour_edit.textChangedListener {
-            afterTextChanged {
-                if(parental_control_setup_schedule_start_block_time_hour_edit.text.isNotEmpty())
-                {
-                    if(parental_control_setup_schedule_start_block_time_hour_edit.text.toString().toInt() > 23)
-                        parental_control_setup_schedule_start_block_time_hour_edit.setText("23")
-                }
-                checkSaveStatus()
-            }
+        start_hour.setOnValueChangedListener { _, _, newVal ->
+            startHour = newVal
+            checkSaveStatus()
+            LogUtil.d("PARENTAL", "newVal=$newVal startHour=$startHour")
         }
 
-        parental_control_setup_schedule_start_block_time_min_edit.textChangedListener {
-            afterTextChanged {
-                if(parental_control_setup_schedule_start_block_time_min_edit.text.isNotEmpty())
-                {
-                    if(parental_control_setup_schedule_start_block_time_min_edit.text.toString().toInt() > 59)
-                        parental_control_setup_schedule_start_block_time_min_edit.setText("59")
-                }
-                checkSaveStatus()
-            }
+        start_min.setOnValueChangedListener { _, _, newVal ->
+            startMin = newVal
+            checkSaveStatus()
         }
 
-        parental_control_setup_schedule_end_block_time_hour_edit.textChangedListener {
-            afterTextChanged {
-                if(parental_control_setup_schedule_end_block_time_hour_edit.text.isNotEmpty())
-                {
-                    if(parental_control_setup_schedule_end_block_time_hour_edit.text.toString().toInt() > 23)
-                        parental_control_setup_schedule_end_block_time_hour_edit.setText("23")
-                }
-                checkSaveStatus()
-            }
+        end_hour.setOnValueChangedListener { _, _, newVal ->
+            endHour = newVal
+            if(endHour == 23) end_min.value = 0
+            checkSaveStatus()
         }
 
-        parental_control_setup_schedule_end_block_time_min_edit.textChangedListener {
-            afterTextChanged {
-                if(parental_control_setup_schedule_end_block_time_min_edit.text.isNotEmpty())
-                {
-                    if(parental_control_setup_schedule_end_block_time_min_edit.text.toString().toInt() > 59)
-                        parental_control_setup_schedule_end_block_time_min_edit.setText("59")
-                }
-                checkSaveStatus()
-            }
+        end_min.setOnValueChangedListener { _, _, newVal ->
+            endMin = newVal
+            checkSaveStatus()
         }
     }
 
     private fun checkSaveStatus()
     {
-        startHour =
-                if(parental_control_setup_schedule_start_block_time_hour_edit.text.isEmpty())
-                    0
-                else
-                    parental_control_setup_schedule_start_block_time_hour_edit.text.toString().toInt()
-
-        startMin =
-                if(parental_control_setup_schedule_start_block_time_min_edit.text.isEmpty())
-                    0
-                else
-                    parental_control_setup_schedule_start_block_time_min_edit.text.toString().toInt()
-
-        endHour =
-                if(parental_control_setup_schedule_end_block_time_hour_edit.text.isEmpty())
-                    0
-                else
-                    parental_control_setup_schedule_end_block_time_hour_edit.text.toString().toInt()
-
-        endMin =
-                if(parental_control_setup_schedule_end_block_time_min_edit.text.isEmpty())
-                    0
-                else
-                    parental_control_setup_schedule_end_block_time_min_edit.text.toString().toInt()
-
         if(endHour < startHour)
         {
             parental_control_schedule_save_text.alpha = 0.3f
@@ -329,15 +271,5 @@ class ParentalControlSetupScheduleSlideDialog
                 parental_control_schedule_save_text.isEnabled = false
             }
         }
-    }
-
-    private fun clearTimeEditFocus()
-    {
-        parental_control_setup_schedule_start_block_time_hour_edit.clearFocus()
-        parental_control_setup_schedule_start_block_time_min_edit.clearFocus()
-        parental_control_setup_schedule_end_block_time_hour_edit.clearFocus()
-        parental_control_setup_schedule_end_block_time_min_edit.clearFocus()
-        //parental_control_schedule_start_time_linear.backgroundResource = R.drawable.corner_shape_gray_background
-        //parental_control_schedule_end_time_linear.backgroundResource = R.drawable.corner_shape_gray_background
     }
 }

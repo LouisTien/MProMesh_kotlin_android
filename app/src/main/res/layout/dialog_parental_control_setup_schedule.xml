@@ -111,39 +111,24 @@
                     android:layout_alignParentEnd="true"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/parental_control_setup_schedule_start_block_time_hour_edit"
+                    <NumberPicker
+                        android:id="@+id/start_hour"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="1"
-                        android:maxLength="2"
-                        android:singleLine="true"
-                        android:background="@android:color/transparent"
-                        android:textSize="@dimen/layout_size_17dp_in_1080"
-                        android:textColor="@color/color_000000"
-                        android:text="00"/>
+                        android:layout_height="@dimen/layout_size_60dp_in_1080"/>
 
                     <TextView
                         android:id="@+id/parental_control_setup_schedule_start_block_time_colon_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/layout_size_17dp_in_1080"
+                        android:layout_gravity="center"
+                        android:text=":"
                         android:textColor="@color/color_000000"
-                        android:text=":"/>
+                        android:textSize="@dimen/layout_size_17dp_in_1080" />
 
-                    <EditText
-                        android:id="@+id/parental_control_setup_schedule_start_block_time_min_edit"
+                    <NumberPicker
+                        android:id="@+id/start_min"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="time"
-                        android:ems="1"
-                        android:maxLength="2"
-                        android:singleLine="true"
-                        android:background="@android:color/transparent"
-                        android:textSize="@dimen/layout_size_17dp_in_1080"
-                        android:textColor="@color/color_000000"
-                        android:text="00"/>
+                        android:layout_height="@dimen/layout_size_60dp_in_1080"/>
 
                 </LinearLayout>
 
@@ -179,39 +164,24 @@
                     android:layout_alignParentEnd="true"
                     android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/parental_control_setup_schedule_end_block_time_hour_edit"
+                    <NumberPicker
+                        android:id="@+id/end_hour"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="1"
-                        android:maxLength="2"
-                        android:singleLine="true"
-                        android:background="@android:color/transparent"
-                        android:textSize="@dimen/layout_size_17dp_in_1080"
-                        android:textColor="@color/color_000000"
-                        android:text="00"/>
+                        android:layout_height="@dimen/layout_size_60dp_in_1080"/>
 
                     <TextView
                         android:id="@+id/parental_control_setup_schedule_end_block_time_colon_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/layout_size_17dp_in_1080"
+                        android:layout_gravity="center"
+                        android:text=":"
                         android:textColor="@color/color_000000"
-                        android:text=":"/>
+                        android:textSize="@dimen/layout_size_17dp_in_1080"/>
 
-                    <EditText
-                        android:id="@+id/parental_control_setup_schedule_end_block_time_min_edit"
+                    <NumberPicker
+                        android:id="@+id/end_min"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="time"
-                        android:ems="1"
-                        android:maxLength="2"
-                        android:singleLine="true"
-                        android:background="@android:color/transparent"
-                        android:textSize="@dimen/layout_size_17dp_in_1080"
-                        android:textColor="@color/color_000000"
-                        android:text="00"/>
+                        android:layout_height="@dimen/layout_size_60dp_in_1080"/>
 
                 </LinearLayout>
 
