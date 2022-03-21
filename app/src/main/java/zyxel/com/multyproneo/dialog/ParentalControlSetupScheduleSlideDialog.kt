@@ -62,6 +62,15 @@ class ParentalControlSetupScheduleSlideDialog
         end_min.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         end_min.setFormatter { i -> String.format("%02d", i) }
 
+        start_hour.value = scheduleInfo.TimeStartHour
+        startHour = scheduleInfo.TimeStartHour
+        start_min.value = scheduleInfo.TimeStartMin
+        startMin = scheduleInfo.TimeStartMin
+        end_hour.value = scheduleInfo.TimeStopHour
+        endHour = scheduleInfo.TimeStopHour
+        end_min.value = scheduleInfo.TimeStopMin
+        endMin = scheduleInfo.TimeStopMin
+
         val daysInfo = scheduleInfo.GetDaysInfo()
 
         with(parental_control_setup_schedule_mon_select_image)
@@ -212,15 +221,6 @@ class ParentalControlSetupScheduleSlideDialog
         parental_control_setup_schedule_fri_select_image.setOnClickListener(clickListener)
         parental_control_setup_schedule_sat_select_image.setOnClickListener(clickListener)
         parental_control_setup_schedule_sun_select_image.setOnClickListener(clickListener)
-
-        start_hour.value = scheduleInfo.TimeStartHour
-        startHour = scheduleInfo.TimeStartHour
-        start_min.value = scheduleInfo.TimeStartMin
-        startMin = scheduleInfo.TimeStartMin
-        end_hour.value = scheduleInfo.TimeStopHour
-        endHour = scheduleInfo.TimeStopHour
-        end_min.value = scheduleInfo.TimeStopMin
-        endMin = scheduleInfo.TimeStopMin
 
         start_hour.setOnValueChangedListener { _, _, newVal ->
             startHour = newVal
