@@ -1152,7 +1152,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
             else
             {
                 LogUtil.d(TAG,"no noti enable in DB!!")
-                getUserInfo()
+                //getUserInfo()
             }
         }
     }
