@@ -286,13 +286,13 @@ class ParentalControlAddProfileFragment : Fragment()
             {
                 true ->
                 {
-                    //parental_control_profile_name_edit_relative.setBackgroundResource(R.drawable.corner_shape_blue_background)
+                    parental_control_profile_name_edit_line_image.visibility = View.VISIBLE
                     parental_control_profile_name_clear_image.visibility = View.VISIBLE
                 }
 
                 false ->
                 {
-                    //parental_control_profile_name_edit_relative.setBackgroundResource(R.drawable.corner_shape_gray_background)
+                    parental_control_profile_name_edit_line_image.visibility = View.GONE
                     parental_control_profile_name_clear_image.visibility = View.GONE
                 }
             }

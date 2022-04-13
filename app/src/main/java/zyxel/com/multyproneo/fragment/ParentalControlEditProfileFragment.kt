@@ -382,13 +382,13 @@ class ParentalControlEditProfileFragment : Fragment()
             {
                 true ->
                 {
-                    //parental_control_profile_name_edit_relative.setBackgroundResource(R.drawable.corner_shape_blue_background)
+                    parental_control_profile_name_edit_line_image.visibility = View.VISIBLE
                     parental_control_profile_name_clear_image.visibility = View.VISIBLE
                 }
 
                 false ->
                 {
-                    //parental_control_profile_name_edit_relative.setBackgroundResource(R.drawable.corner_shape_gray_background)
+                    parental_control_profile_name_edit_line_image.visibility = View.GONE
                     parental_control_profile_name_clear_image.visibility = View.GONE
                 }
             }
@@ -478,7 +478,7 @@ class ParentalControlEditProfileFragment : Fragment()
                 parental_control_profile_cancel_text.visibility = View.VISIBLE
                 parental_control_profile_back_image.visibility = View.GONE
                 parental_control_profile_add_text.text = getString(R.string.wifi_settings_edit_save)
-                parental_control_profile_add_text.textColor = ContextCompat.getColor(context!!, R.color.color_006e18)
+                parental_control_profile_add_text.textColor = ContextCompat.getColor(context!!, R.color.color_575757)
                 parental_control_profile_add_text.alpha = 1f
                 parental_control_profile_title_text.text = getString(R.string.parental_control_edit_profile)
 
@@ -489,6 +489,7 @@ class ParentalControlEditProfileFragment : Fragment()
 
                 //name
                 parental_control_profile_name_relative.visibility = View.VISIBLE
+                parental_control_profile_name_line_image.visibility = View.GONE
 
                 //schedule
                 parental_control_profile_schedule_switch_relative.visibility = View.GONE

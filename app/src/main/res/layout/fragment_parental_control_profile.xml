@@ -136,17 +136,26 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
-                        android:src="@drawable/delete_input_icon"
+                        android:src="@drawable/icon_delete"
                         android:visibility="gone"/>
 
                 </RelativeLayout>
 
                 <ImageView
+                    android:id="@+id/parental_control_profile_name_edit_line_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_size_1dp_in_1080"
+                    android:background="@color/color_ffc800"
+                    android:layout_below="@+id/parental_control_profile_name_edit_relative"
+                    android:visibility="gone"/>
+
+                <ImageView
                     android:id="@+id/parental_control_profile_name_line_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
                     android:src="@drawable/bar1"
-                    android:layout_below="@+id/parental_control_profile_name_edit_relative"/>
+                    android:layout_below="@+id/parental_control_profile_name_edit_line_image"/>
 
             </RelativeLayout>
 
@@ -251,7 +260,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/bar1"
-                    android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                    android:layout_marginTop="@dimen/layout_size_15dp_in_1080"
                     android:layout_below="@+id/parental_control_profile_add_schedule_linear"/>
 
             </RelativeLayout>
