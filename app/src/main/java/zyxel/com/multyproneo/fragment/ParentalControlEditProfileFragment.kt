@@ -242,7 +242,7 @@ class ParentalControlEditProfileFragment : Fragment()
     {
         super.onResume()
         attachKeyboardListeners()
-        GlobalBus.publish(MainEvent.ShowBottomToolbar())
+        GlobalBus.publish(MainEvent.HideBottomToolbar())
     }
 
     override fun onPause()
@@ -272,24 +272,24 @@ class ParentalControlEditProfileFragment : Fragment()
     {
         override fun onGlobalLayout()
         {
-            if(isEditNamePicMode)
-            {
-                val rect = Rect()
-                view?.getWindowVisibleDisplayFrame(rect)
-                val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)
-                if(heightDiff > 500)
-                {
-                    parental_control_profile_name_edit.requestFocus()
-                    parental_control_profile_image.visibility = View.GONE
-                    parental_control_profile_add_photo_image.visibility = View.GONE
-                }
-                else
-                {
-                    parental_control_profile_name_edit.clearFocus()
-                    parental_control_profile_image.visibility = View.VISIBLE
-                    parental_control_profile_add_photo_image.visibility = View.VISIBLE
-                }
-            }
+//            if(isEditNamePicMode)
+//            {
+//                val rect = Rect()
+//                view?.getWindowVisibleDisplayFrame(rect)
+//                val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)
+//                if(heightDiff > 500)
+//                {
+//                    parental_control_profile_name_edit.requestFocus()
+//                    parental_control_profile_image.visibility = View.GONE
+//                    parental_control_profile_add_photo_image.visibility = View.GONE
+//                }
+//                else
+//                {
+//                    parental_control_profile_name_edit.clearFocus()
+//                    parental_control_profile_image.visibility = View.VISIBLE
+//                    parental_control_profile_add_photo_image.visibility = View.VISIBLE
+//                }
+//            }
         }
     }
 
@@ -500,6 +500,10 @@ class ParentalControlEditProfileFragment : Fragment()
 
                 //delete profile
                 parental_control_profile_delete_profile_frame.visibility = View.GONE
+
+                //pop up keyboard and focus on name EditText
+                parental_control_profile_name_edit.requestFocus()
+                inputMethodManager.showSoftInput(parental_control_profile_name_edit, InputMethodManager.SHOW_IMPLICIT)
             }
             else
             {

@@ -166,15 +166,16 @@ class ParentalControlAddProfileFragment : Fragment()
 
         setListener()
 
-        //parental_control_profile_name_edit.requestFocus()
-        //inputMethodManager.showSoftInput(parental_control_profile_name_edit, InputMethodManager.SHOW_IMPLICIT)
+        //pop up keyboard and focus on name EditText
+        parental_control_profile_name_edit.requestFocus()
+        inputMethodManager.showSoftInput(parental_control_profile_name_edit, InputMethodManager.SHOW_IMPLICIT)
     }
 
     override fun onResume()
     {
         super.onResume()
         attachKeyboardListeners()
-        GlobalBus.publish(MainEvent.ShowBottomToolbar())
+        GlobalBus.publish(MainEvent.HideBottomToolbar())
     }
 
     override fun onPause()
@@ -204,21 +205,21 @@ class ParentalControlAddProfileFragment : Fragment()
     {
         override fun onGlobalLayout()
         {
-            val rect = Rect()
-            view?.getWindowVisibleDisplayFrame(rect)
-            val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)
-            if(heightDiff > 500)
-            {
-                parental_control_profile_name_edit.requestFocus()
-                parental_control_profile_image.visibility = View.GONE
-                parental_control_profile_add_photo_image.visibility = View.GONE
-            }
-            else
-            {
-                parental_control_profile_name_edit.clearFocus()
-                parental_control_profile_image.visibility = View.VISIBLE
-                parental_control_profile_add_photo_image.visibility = View.VISIBLE
-            }
+//            val rect = Rect()
+//            view?.getWindowVisibleDisplayFrame(rect)
+//            val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)
+//            if(heightDiff > 500)
+//            {
+//                parental_control_profile_name_edit.requestFocus()
+//                parental_control_profile_image.visibility = View.GONE
+//                parental_control_profile_add_photo_image.visibility = View.GONE
+//            }
+//            else
+//            {
+//                parental_control_profile_name_edit.clearFocus()
+//                parental_control_profile_image.visibility = View.VISIBLE
+//                parental_control_profile_add_photo_image.visibility = View.VISIBLE
+//            }
         }
     }
 
