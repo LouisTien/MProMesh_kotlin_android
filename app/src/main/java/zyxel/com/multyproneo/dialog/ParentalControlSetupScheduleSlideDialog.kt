@@ -48,7 +48,7 @@ class ParentalControlSetupScheduleSlideDialog
         start_hour.minValue = 0
         start_min.maxValue = 59
         start_min.minValue = 0
-        end_hour.maxValue = 24
+        end_hour.maxValue = 23
         end_hour.minValue = 0
         end_min.maxValue = 59
         end_min.minValue = 0
