@@ -445,7 +445,7 @@ class ApiHandler
                     {
                         for(mac in profile.GetMACAddressList())
                         {
-                            if(device.PhysAddress == mac)
+                            if(device.PhysAddress.toLowerCase() == mac.toLowerCase())
                             {
                                 device.ParentalControlInUse = true
                                 device.InParentalControlProfileName = profile.Name
@@ -459,7 +459,7 @@ class ApiHandler
                 {
                     for(info in GlobalData.parentalControlSelectedDeviceList)
                     {
-                        if(device.PhysAddress == info.PhysAddress)
+                        if(device.PhysAddress.toLowerCase() == info.PhysAddress.toLowerCase())
                             device.ParentalControlSelect = true
                     }
                 }

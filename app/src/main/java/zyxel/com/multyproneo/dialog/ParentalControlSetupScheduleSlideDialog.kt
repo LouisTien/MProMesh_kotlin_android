@@ -14,7 +14,6 @@ import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.ParentalControlEvent
 import zyxel.com.multyproneo.model.ParentalControlInfoSchedule
 import zyxel.com.multyproneo.util.AppConfig
-import java.lang.String
 
 class ParentalControlSetupScheduleSlideDialog
 (
@@ -24,10 +23,13 @@ class ParentalControlSetupScheduleSlideDialog
         private val scheduleInfo: ParentalControlInfoSchedule = ParentalControlInfoSchedule(Days = "127")
 ) : BottomSheetDialog(context)
 {
-    var startHour = 0
-    var startMin = 0
-    var endHour = 0
-    var endMin = 0
+    private var startHour = 0
+    private var startMin = 0
+    private var endHour = 0
+    private var endMin = 0
+    private val numValues = 60 / AppConfig.NUM_PIC_INTERVAL
+    private var displayedValues = arrayOfNulls<String>(numValues)
+
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -38,6 +40,9 @@ class ParentalControlSetupScheduleSlideDialog
         window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
 
+        for(i in 0 until numValues)
+            displayedValues[i] = String.format("%02d", (i * AppConfig.NUM_PIC_INTERVAL))
+
         updateUI()
         setListener()
     }
@@ -46,30 +51,30 @@ class ParentalControlSetupScheduleSlideDialog
     {
         start_hour.maxValue = 23
         start_hour.minValue = 0
-        start_min.maxValue = 59
+        start_min.maxValue = 3
         start_min.minValue = 0
-        end_hour.maxValue = 23
+        end_hour.maxValue = 24
         end_hour.minValue = 0
-        end_min.maxValue = 59
+        end_min.maxValue = 3
         end_min.minValue = 0
 
         start_hour.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         start_hour.setFormatter { i -> String.format("%02d", i) }
         start_min.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-        start_min.setFormatter { i -> String.format("%02d", i) }
+        start_min.displayedValues = displayedValues
         end_hour.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         end_hour.setFormatter { i -> String.format("%02d", i) }
         end_min.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-        end_min.setFormatter { i -> String.format("%02d", i) }
+        end_min.displayedValues = displayedValues
 
         start_hour.value = scheduleInfo.TimeStartHour
         startHour = scheduleInfo.TimeStartHour
-        start_min.value = scheduleInfo.TimeStartMin
-        startMin = scheduleInfo.TimeStartMin
+        start_min.value = scheduleInfo.TimeStartMin / AppConfig.NUM_PIC_INTERVAL
+        startMin = (scheduleInfo.TimeStartMin / AppConfig.NUM_PIC_INTERVAL) * AppConfig.NUM_PIC_INTERVAL //for other value handle, to make the value in displayedValues array range
         end_hour.value = scheduleInfo.TimeStopHour
         endHour = scheduleInfo.TimeStopHour
-        end_min.value = scheduleInfo.TimeStopMin
-        endMin = scheduleInfo.TimeStopMin
+        end_min.value = scheduleInfo.TimeStopMin / AppConfig.NUM_PIC_INTERVAL
+        endMin = (scheduleInfo.TimeStopMin / AppConfig.NUM_PIC_INTERVAL) * AppConfig.NUM_PIC_INTERVAL
 
         val daysInfo = scheduleInfo.GetDaysInfo()
 
@@ -152,6 +157,7 @@ class ParentalControlSetupScheduleSlideDialog
                     tag = if(tag == 0) 1 else 0
                     imageResource = if(tag == 0) R.drawable.select_icon else R.drawable.selected_icon
                 }
+                checkSaveStatus()
             }
 
             parental_control_setup_schedule_tue_select_image ->
@@ -161,6 +167,7 @@ class ParentalControlSetupScheduleSlideDialog
                     tag = if(tag == 0) 1 else 0
                     imageResource = if(tag == 0) R.drawable.select_icon else R.drawable.selected_icon
                 }
+                checkSaveStatus()
             }
 
             parental_control_setup_schedule_wed_select_image ->
@@ -170,6 +177,7 @@ class ParentalControlSetupScheduleSlideDialog
                     tag = if(tag == 0) 1 else 0
                     imageResource = if(tag == 0) R.drawable.select_icon else R.drawable.selected_icon
                 }
+                checkSaveStatus()
             }
 
             parental_control_setup_schedule_thu_select_image ->
@@ -179,6 +187,7 @@ class ParentalControlSetupScheduleSlideDialog
                     tag = if(tag == 0) 1 else 0
                     imageResource = if(tag == 0) R.drawable.select_icon else R.drawable.selected_icon
                 }
+                checkSaveStatus()
             }
 
             parental_control_setup_schedule_fri_select_image ->
@@ -188,6 +197,7 @@ class ParentalControlSetupScheduleSlideDialog
                     tag = if(tag == 0) 1 else 0
                     imageResource = if(tag == 0) R.drawable.select_icon else R.drawable.selected_icon
                 }
+                checkSaveStatus()
             }
 
             parental_control_setup_schedule_sat_select_image ->
@@ -197,6 +207,7 @@ class ParentalControlSetupScheduleSlideDialog
                     tag = if(tag == 0) 1 else 0
                     imageResource = if(tag == 0) R.drawable.select_icon else R.drawable.selected_icon
                 }
+                checkSaveStatus()
             }
 
             parental_control_setup_schedule_sun_select_image ->
@@ -206,6 +217,7 @@ class ParentalControlSetupScheduleSlideDialog
                     tag = if(tag == 0) 1 else 0
                     imageResource = if(tag == 0) R.drawable.select_icon else R.drawable.selected_icon
                 }
+                checkSaveStatus()
             }
         }
     }
@@ -228,18 +240,27 @@ class ParentalControlSetupScheduleSlideDialog
         }
 
         start_min.setOnValueChangedListener { _, _, newVal ->
-            startMin = newVal
+            startMin = newVal * AppConfig.NUM_PIC_INTERVAL
             checkSaveStatus()
         }
 
         end_hour.setOnValueChangedListener { _, _, newVal ->
             endHour = newVal
-            if(endHour == 23) end_min.value = 0
+            if(endHour == 24)
+            {
+                end_min.value = 0
+                endMin = 0
+            }
             checkSaveStatus()
         }
 
         end_min.setOnValueChangedListener { _, _, newVal ->
-            endMin = newVal
+            endMin = newVal * AppConfig.NUM_PIC_INTERVAL
+            if(endHour == 24)
+            {
+                end_min.value = 0
+                endMin = 0
+            }
             checkSaveStatus()
         }
     }
@@ -247,27 +268,36 @@ class ParentalControlSetupScheduleSlideDialog
     private fun checkSaveStatus()
     {
         if(endHour < startHour)
-        {
-            parental_control_schedule_save_text.alpha = 0.3f
-            parental_control_schedule_save_text.isEnabled = false
-        }
+            disableSaveButton()
         else if(endHour > startHour)
-        {
-            parental_control_schedule_save_text.alpha = 1f
-            parental_control_schedule_save_text.isEnabled = true
-        }
+            enableSaveButton()
         else //endHour = startHour
         {
             if(endMin > startMin)
-            {
-                parental_control_schedule_save_text.alpha = 1f
-                parental_control_schedule_save_text.isEnabled = true
-            }
+                enableSaveButton()
             else
-            {
-                parental_control_schedule_save_text.alpha = 0.3f
-                parental_control_schedule_save_text.isEnabled = false
-            }
+                disableSaveButton()
         }
+
+        if(parental_control_setup_schedule_sun_select_image.tag == 0
+            && parental_control_setup_schedule_mon_select_image.tag == 0
+            && parental_control_setup_schedule_tue_select_image.tag == 0
+            && parental_control_setup_schedule_wed_select_image.tag == 0
+            && parental_control_setup_schedule_thu_select_image.tag == 0
+            && parental_control_setup_schedule_fri_select_image.tag == 0
+            && parental_control_setup_schedule_sat_select_image.tag == 0)
+            disableSaveButton()
+    }
+
+    private fun enableSaveButton()
+    {
+        parental_control_schedule_save_text.alpha = 1f
+        parental_control_schedule_save_text.isEnabled = true
+    }
+
+    private fun disableSaveButton()
+    {
+        parental_control_schedule_save_text.alpha = 0.3f
+        parental_control_schedule_save_text.isEnabled = false
     }
 }

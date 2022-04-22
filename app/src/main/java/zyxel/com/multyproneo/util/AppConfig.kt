@@ -159,6 +159,9 @@ object AppConfig
     const val APP_LOG_NAME = "MProMeshLogFile.zip"
     const val FW_LOG_NAME = "recv_syslog.tar.gz"
 
+    //Number Picker Interval
+    const val NUM_PIC_INTERVAL = 15
+
     enum class LoadingAnimation
     {
         ANIM_REBOOT,
