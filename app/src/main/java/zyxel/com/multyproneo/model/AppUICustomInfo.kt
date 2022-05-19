@@ -17,5 +17,7 @@ data class AppUICustomInfoObject
         val Client_Max_Speed: Boolean = true,
         val AP_FW_Version: Boolean = true,
         val AP_Reboot: Boolean = true,
-        val Parental_Control: Boolean = false
+        val Parental_Control: Boolean = false,
+        val Add_Mesh_WiFi: Boolean = true,
+        val GW_LAN_IP_PORT: Boolean = false
 )

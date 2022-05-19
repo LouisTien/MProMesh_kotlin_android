@@ -47,7 +47,8 @@ class ApiHandler
         API_GET_APP_UI_CUSTOM_INFO,
         API_GET_PARENTAL_CONTROL_INFO,
         API_GET_GATEWAY_SYSTEM_DATE,
-        API_CHECK_IN_USE_SELECT_DEVICE
+        API_CHECK_IN_USE_SELECT_DEVICE,
+        API_GET_REMOTE_MANAGEMENT,
     }
 
     init
@@ -466,6 +467,29 @@ class ApiHandler
 
                 executeNextAPI()
             }
+        }
+
+        apiMap[API_REF.API_GET_REMOTE_MANAGEMENT] = {
+            LogUtil.d(TAG,"getRemoteManagement()")
+            GatewayApi.GetRemoteManagement()
+                    .setRequestPageName(TAG)
+                    .setResponseListener(object: Commander.ResponseListener()
+                    {
+                        override fun onSuccess(responseStr: String)
+                        {
+                            try
+                            {
+                                val remoteManagement = Gson().fromJson(responseStr, RemoteManagement::class.javaObjectType)
+                                LogUtil.d(TAG,"remoteManagement:${remoteManagement}")
+                                FeatureConfig.remoteManagements = remoteManagement.Object
+                                executeNextAPI()
+                            }
+                            catch(e: JSONException)
+                            {
+                                e.printStackTrace()
+                            }
+                        }
+                    }).execute()
         }
     }
 

@@ -156,7 +156,14 @@ class HomeFragment : Fragment()
 
             cloud_home_guest_wifi_frame -> GlobalBus.publish(MainEvent.EnterWiFiSettingsPage())
 
-            cloud_home_mesh_devices_add_image -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFragment()))
+            cloud_home_mesh_devices_add_image ->
+            {
+                when(FeatureConfig.FeatureInfo.APPUICustomList.Add_Mesh_WiFi)
+                {
+                    false -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshCableInfoFragment()))
+                    else -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFragment()))
+                }
+            }
         }
     }
 
@@ -353,6 +360,9 @@ class HomeFragment : Fragment()
 
         if(FeatureConfig.FeatureInfo.APPUICustomList.Internet_Blocking)
             apiList.add(ApiHandler.API_REF.API_GET_INTERNET_BLOCK_INFO)
+
+        if(FeatureConfig.FeatureInfo.APPUICustomList.GW_LAN_IP_PORT)
+            apiList.add(ApiHandler.API_REF.API_GET_REMOTE_MANAGEMENT)
 
         ApiHandler().execute(
                 ApiHandler.API_RES_EVENT.API_RES_EVENT_HOME_API_ONCE,

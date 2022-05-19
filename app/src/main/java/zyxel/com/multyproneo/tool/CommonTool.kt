@@ -8,6 +8,8 @@ import android.widget.ListAdapter
 import android.widget.ListView
 import zyxel.com.multyproneo.model.ParentalControlInfoProfile
 import zyxel.com.multyproneo.model.ParentalControlInfoSchedule
+import zyxel.com.multyproneo.model.RemoteManagementObject
+import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
 import java.io.File
@@ -217,5 +219,59 @@ object CommonTool
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         val dt = Date()
         return sdf.format(dt)
+    }
+
+    fun getWebGUIip(): Triple<String, String, String>
+    {
+        /* 決定gateway detail頁面，連到GUI的IP為何?
+           Enable為true的object才要判斷 (HTTP or HTTPS一定會有一個為true，不然手機也連不進去)，
+           Mode為 LAN_ONLY (HTTP or HTTPS一定會有一個為LAN_ONLY，不然手機也連不進去)，
+           Name為HTTP or HTTPS，hyperlink為HTTPS或HTTP要參照Name欄位，
+           如HTTPS與HTTP都為LAN_ONLY，則以HTTP為主
+           符合上述條件的object，將其GUI ip + port 就是連線到GUI的IP，
+           app上面只顯示IP就好，port不用顯示 */
+
+        var protocol = "HTTP"
+        var ip = ""
+        var port = ""
+        when(FeatureConfig.FeatureInfo.APPUICustomList.GW_LAN_IP_PORT)
+        {
+            true ->
+            {
+                val remoteManagements = arrayListOf<RemoteManagementObject>()
+                for(item in FeatureConfig.remoteManagements)
+                {
+                    if(item.Enable && item.Mode.equals("LAN_ONLY", ignoreCase = false))
+                        remoteManagements.add(item)
+                }
+
+                when
+                {
+                    remoteManagements.size == 1 ->
+                    {
+                        protocol = remoteManagements[0].Name
+                        ip = remoteManagements[0].IPAddress
+                        port = remoteManagements[0].Port.toString()
+                    }
+
+                    remoteManagements.size > 1 ->
+                    {
+                        for(obj in remoteManagements)
+                        {
+                            if(obj.Name.equals("HTTP", ignoreCase = false))
+                            {
+                                protocol = obj.Name
+                                ip = obj.IPAddress
+                                port = obj.Port.toString()
+                                break
+                            }
+                        }
+                    }
+                }
+            }
+
+            false -> ip = GlobalData.getCurrentGatewayInfo().IP
+        }
+        return Triple(protocol, ip, port)
     }
 }

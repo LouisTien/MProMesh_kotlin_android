@@ -65,6 +65,7 @@ object AppConfig
     const val API_MULTI_OBJECTS = "/TR181/Value/MultiObjects"
     const val API_PARENTAL_CONTROL = "/TR181/Value/Device.X_ZYXEL_ParentalControl."
     const val API_FW_SYSTEM_STATE = "/TR181/Value/Device.X_ZYXEL_EXT.SystemState."
+    const val API_REMOTE_MANAGEMENT = "/TR181/Value/Device.X_ZYXEL_RemoteManagement.Service."
 
     //TUTK P2P
     const val TUTK_MAXSIZE_RECVBUF = 102400
@@ -98,7 +99,7 @@ object AppConfig
     const val SHAREDPREF_NOTIFICATION_TOKEN = "notification_token"
 
     //Parental Control
-    const val PC_MAX_PROFILE = 12
+    const val PC_MAX_PROFILE = 20
     const val PC_MAX_SCHEDULE = 3
 
     //Check Internet

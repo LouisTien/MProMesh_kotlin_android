@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.fragment_add_mesh_cable_info.*
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
 
 /**
@@ -50,7 +51,14 @@ class AddMeshCableInfoFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
-            mesh_cable_info_back_image -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFragment()))
+            mesh_cable_info_back_image ->
+            {
+                when(FeatureConfig.FeatureInfo.APPUICustomList.Add_Mesh_WiFi)
+                {
+                    false -> GlobalBus.publish(MainEvent.EnterHomePage())
+                    else -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFragment()))
+                }
+            }
 
             mesh_cable_info_tip_text -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshTipsFragment().apply{ arguments = Bundle().apply{ putString("FromFrag", "AddMeshCableInfo") } }))
 

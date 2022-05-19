@@ -202,4 +202,16 @@ object GatewayApi
                     .build()
         }
     }
+
+    class GetRemoteManagement : Commander()
+    {
+        override fun composeRequest(): Request
+        {
+            val getRemoteManagementURL = "${GlobalData.getAPIPath()}${AppConfig.API_REMOTE_MANAGEMENT}"
+            return Request.Builder()
+                    .addHeader("Cookie", GlobalData.cookie)
+                    .url(getRemoteManagementURL)
+                    .build()
+        }
+    }
 }
