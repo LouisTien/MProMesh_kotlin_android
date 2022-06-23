@@ -10,10 +10,10 @@ android {
 
     defaultConfig {
         applicationId "zyxel.com.multyproneo"
-        minSdkVersion 21
+        minSdkVersion 29
         targetSdkVersion 30
-        versionCode 20220422
-        versionName "2.2.2.220422"
+        versionCode 20220623
+        versionName "2.2.3.220623"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
