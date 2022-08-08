@@ -10,10 +10,10 @@ android {
 
     defaultConfig {
         applicationId "zyxel.com.multyproneo"
-//        minSdkVersion 29
+        minSdkVersion 29
         targetSdkVersion 30
-        versionCode 20220623
-        versionName "2.2.3.220623"
+        versionCode 20220812
+        versionName "2.2.3.220812"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -29,12 +29,10 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            defaultConfig.minSdkVersion 29
         }
         debug {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            defaultConfig.minSdkVersion 26
         }
     }
 
@@ -63,6 +61,21 @@ android {
             buildConfigField "String", "TUTK_AM_CLIENT_SECRET", '"xn7dBC8L6uVdxAG69wBYwgb1dTIcZkkw7viLxucBxiEfn3NWMppWHfLC4u8Z8rOBJZ5HvFiLDQPZ2rme83UVuCm8nM7iE7q7b7zs5dW0vJ6vBf4rYhPPup7rm3y1sdMB"'
             buildConfigField "String", "TUTK_DM_SITE", '"https://us-dm2-tutk.kalayservice.com"'
             buildConfigField "String", "TUTK_DM_AUTHORIZATION", '"OUtWTGY2UzFScjBhclJCSUxsSlFmVDVNbTVhNmJTQkNNNE5ydHoyVTp4bjdkQkM4TDZ1VmR4QUc2OXdCWXdnYjFkVEljWmtrdzd2aUx4dWNCeGlFZm4zTldNcHBXSGZMQzR1OFo4ck9CSlo1SHZGaUxEUVBaMnJtZTgzVVZ1Q204bk03aUU3cTdiN3pzNWRXMHZKNnZCZjRyWWhQUHVwN3JtM3kxc2RNQg=="'
+        }
+        min26 {
+            dimension 'default'
+            targetSdkVersion 30
+            minSdkVersion 26
+            buildConfigField "boolean", "TUTK_AMDM_PRODUCTION", "true"
+            buildConfigField "String", "TUTK_AM_STATE", '"1234"'
+            buildConfigField "String", "TUTK_API_VER", '"/hestia/api/v2"'
+            buildConfigField "String", "TUTK_REALM", '"zyxel"'
+            buildConfigField "String", "TUTK_AM_SITE", '"https://us-am1-zyxel.kalayservice.com"'
+            buildConfigField "String", "TUTK_AM_CLIENT_ID", '"9KVLf6S1Rr0arRBILlJQfT5Mm5a6bSBCM4Nrtz2U"'
+            buildConfigField "String", "TUTK_AM_CLIENT_SECRET", '"xn7dBC8L6uVdxAG69wBYwgb1dTIcZkkw7viLxucBxiEfn3NWMppWHfLC4u8Z8rOBJZ5HvFiLDQPZ2rme83UVuCm8nM7iE7q7b7zs5dW0vJ6vBf4rYhPPup7rm3y1sdMB"'
+            buildConfigField "String", "TUTK_DM_SITE", '"https://us-dm2-tutk.kalayservice.com"'
+            buildConfigField "String", "TUTK_DM_AUTHORIZATION", '"OUtWTGY2UzFScjBhclJCSUxsSlFmVDVNbTVhNmJTQkNNNE5ydHoyVTp4bjdkQkM4TDZ1VmR4QUc2OXdCWXdnYjFkVEljWmtrdzd2aUx4dWNCeGlFZm4zTldNcHBXSGZMQzR1OFo4ck9CSlo1SHZGaUxEUVBaMnJtZTgzVVZ1Q204bk03aUU3cTdiN3pzNWRXMHZKNnZCZjRyWWhQUHVwN3JtM3kxc2RNQg=="'
+
         }
     }
 }

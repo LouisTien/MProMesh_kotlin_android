@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "zyxel.com.multyproneo",
+  "variantName": "min26Release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "properties": [],
+      "versionCode": 20220812,
+      "versionName": "2.2.3.220812",
+      "enabled": true,
+      "outputFile": "app-min26-release.apk"
+    }
+  ]
+}
