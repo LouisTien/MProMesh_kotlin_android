@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,19 +8,19 @@
         android:id="@+id/account_title_area_linear"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_size_90dp_in_1080"
-        android:orientation="vertical"
-        android:background="@drawable/actionbar_homewifi_bg">
+        android:background="@drawable/actionbar_homewifi_bg"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/account_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+            android:text="@string/common_account"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_size_36sp_in_1080"
-            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
-            android:text="@string/common_account"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -29,14 +28,48 @@
         android:id="@+id/account_content_area_relative"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/account_title_area_linear"
         android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
-        android:layout_below="@+id/account_title_area_linear">
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080">
+
+        <RelativeLayout
+            android:id="@+id/account_help_relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+            android:layout_marginBottom="@dimen/layout_size_10dp_in_1080">
+
+            <ImageView
+                android:id="@+id/account_help_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/help_icon" />
+
+            <TextView
+                android:id="@+id/account_help_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+                android:layout_toEndOf="@+id/account_help_image"
+                android:text="@string/cloud_mesh_fail_help"
+                android:textColor="@color/color_000000"
+                android:textSize="@dimen/text_size_20sp_in_1080" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/account_help_line_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/account_help_relative"
+            android:src="@drawable/bar1" />
 
         <RelativeLayout
             android:id="@+id/account_app_version_relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/account_help_line_image"
             android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_10dp_in_1080">
 
@@ -44,28 +77,28 @@
                 android:id="@+id/account_app_version_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/account_about"/>
+                android:src="@drawable/account_about" />
 
             <TextView
                 android:id="@+id/account_app_version_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_000000"
-                android:textSize="@dimen/text_size_20sp_in_1080"
-                android:text="@string/account_app_version"
                 android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
                 android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+                android:layout_toStartOf="@+id/account_app_version_text"
                 android:layout_toEndOf="@+id/account_app_version_image"
-                android:layout_toStartOf="@+id/account_app_version_text"/>
+                android:text="@string/account_app_version"
+                android:textColor="@color/color_000000"
+                android:textSize="@dimen/text_size_20sp_in_1080" />
 
             <TextView
                 android:id="@+id/account_app_version_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:textColor="@color/color_000000"
                 android:textSize="@dimen/text_size_20sp_in_1080"
-                tools:text="2.2.0.210323"
-                android:layout_alignParentEnd="true"/>
+                tools:text="2.2.0.210323" />
 
         </RelativeLayout>
 
@@ -73,32 +106,32 @@
             android:id="@+id/account_app_version_line_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/bar1"
-            android:layout_below="@+id/account_app_version_relative"/>
+            android:layout_below="@+id/account_app_version_relative"
+            android:src="@drawable/bar1" />
 
         <RelativeLayout
             android:id="@+id/account_privacy_policy_relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/account_app_version_line_image"
             android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
-            android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
-            android:layout_below="@+id/account_app_version_line_image">
+            android:layout_marginBottom="@dimen/layout_size_10dp_in_1080">
 
             <ImageView
                 android:id="@+id/account_privacy_policy_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/account_privacy"/>
+                android:src="@drawable/account_privacy" />
 
             <TextView
                 android:id="@+id/account_privacy_policy_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_000000"
-                android:textSize="@dimen/text_size_20sp_in_1080"
-                android:text="@string/account_privacy_policy"
                 android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
-                android:layout_toEndOf="@+id/account_privacy_policy_image"/>
+                android:layout_toEndOf="@+id/account_privacy_policy_image"
+                android:text="@string/account_privacy_policy"
+                android:textColor="@color/color_000000"
+                android:textSize="@dimen/text_size_20sp_in_1080" />
 
         </RelativeLayout>
 
@@ -106,16 +139,16 @@
             android:id="@+id/account_privacy_policy_line_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/bar1"
-            android:layout_below="@+id/account_privacy_policy_relative"/>
+            android:layout_below="@+id/account_privacy_policy_relative"
+            android:src="@drawable/bar1" />
 
         <RelativeLayout
             android:id="@+id/account_send_feedback_relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/account_privacy_policy_line_image"
             android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
             android:layout_marginBottom="@dimen/layout_size_10dp_in_1080"
-            android:layout_below="@+id/account_privacy_policy_line_image"
             android:visibility="gone">
 
             <ImageView
@@ -123,17 +156,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/account_privacy"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/account_send_feedback_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/color_000000"
-                android:textSize="@dimen/text_size_20sp_in_1080"
-                android:text="Send Feedback"
                 android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
-                android:layout_toEndOf="@+id/account_send_feedback_image"/>
+                android:layout_toEndOf="@+id/account_send_feedback_image"
+                android:text="Send Feedback"
+                android:textColor="@color/color_000000"
+                android:textSize="@dimen/text_size_20sp_in_1080" />
 
         </RelativeLayout>
 
@@ -141,33 +174,33 @@
             android:id="@+id/account_send_feedback_line_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/bar1"
             android:layout_below="@+id/account_send_feedback_relative"
-            android:visibility="gone"/>
+            android:src="@drawable/bar1"
+            android:visibility="gone" />
 
         <FrameLayout
             android:id="@+id/account_logout_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/layout_size_30dp_in_1080"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/layout_size_30dp_in_1080"
             android:background="@drawable/button_style_yellow_bg">
 
             <TextView
                 android:id="@+id/account_logout_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/layout_size_15dp_in_1080"
+                android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+                android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
+                android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
+                android:ellipsize="end"
+                android:maxWidth="@dimen/layout_size_205dp_in_1080"
+                android:singleLine="true"
                 android:text="@string/account_logout"
                 android:textColor="@color/color_000000"
-                android:textSize="@dimen/text_size_20sp_in_1080"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:maxWidth="@dimen/layout_size_205dp_in_1080"
-                android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
-                android:layout_marginBottom="@dimen/layout_size_5dp_in_1080"
-                android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
-                android:layout_marginStart="@dimen/layout_size_15dp_in_1080"/>
+                android:textSize="@dimen/text_size_20sp_in_1080" />
 
         </FrameLayout>
 

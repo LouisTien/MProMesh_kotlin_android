@@ -81,6 +81,7 @@ class AccountFragment : Fragment()
     private val clickListener = View.OnClickListener{ view ->
         when(view)
         {
+            account_help_relative -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://service-provider.zyxel.com/app-help/MProMesh/index.html")))
             account_privacy_policy_relative -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.zyxel.com/privacy_policy.shtml")))
 
             account_logout_button ->
@@ -100,6 +101,7 @@ class AccountFragment : Fragment()
 
     private fun setClickListener()
     {
+        account_help_relative.setOnClickListener(clickListener)
         account_privacy_policy_relative.setOnClickListener(clickListener)
         account_logout_button.setOnClickListener(clickListener)
         account_send_feedback_relative.setOnClickListener(clickListener)

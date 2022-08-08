@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "zyxel.com.multyproneo"
-        minSdkVersion 29
+//        minSdkVersion 29
         targetSdkVersion 30
         versionCode 20220623
         versionName "2.2.3.220623"
@@ -29,10 +29,12 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            defaultConfig.minSdkVersion 29
         }
         debug {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            defaultConfig.minSdkVersion 26
         }
     }
 
