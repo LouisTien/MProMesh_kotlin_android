@@ -379,6 +379,9 @@ class HomeFragment : Fragment()
                 ApiHandler.API_REF.API_GET_WAN_INFO
         )
 
+        if(FeatureConfig.FeatureInfo.APPUICustomList.Guest_WiFi)
+            apiList.add(ApiHandler.API_REF.API_GET_GUEST_WIFI_ENABLE)
+
         apiTimer = Timer()
         apiTimer.schedule(0, (AppConfig.endDeviceListUpdateTime * 1000).toLong())
         {
