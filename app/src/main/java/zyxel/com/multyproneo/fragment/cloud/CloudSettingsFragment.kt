@@ -242,7 +242,7 @@ class CloudSettingsFragment : Fragment()
             }
 
             val receiverIntent = Intent(context, SendMailReceiver::class.java)
-            val pendingIntent = PendingIntent.getBroadcast(context, 0, receiverIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, receiverIntent, PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1)
                 context!!.startActivity(Intent.createChooser(emailIntent, "Send mail", pendingIntent.intentSender))
             else
@@ -282,7 +282,7 @@ class CloudSettingsFragment : Fragment()
             }
 
             val receiverIntent = Intent(context, SendMailReceiver::class.java)
-            val pendingIntent = PendingIntent.getBroadcast(context, 0, receiverIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, receiverIntent, PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1)
                 context!!.startActivity(Intent.createChooser(emailIntent, "Send mail", pendingIntent.intentSender))
             else

@@ -6,12 +6,12 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     defaultConfig {
-        applicationId "zyxel.com.multyproneo"
+        targetSdkVersion 31        applicationId "zyxel.com.multyproneo"
         minSdkVersion 29
-        targetSdkVersion 30
+
         versionCode 20220812
         versionName "2.2.3.220812"
         multiDexEnabled true
