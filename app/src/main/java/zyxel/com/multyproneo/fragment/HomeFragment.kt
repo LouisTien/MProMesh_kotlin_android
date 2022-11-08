@@ -352,7 +352,8 @@ class HomeFragment : Fragment()
         if(FeatureConfig.FeatureInfo.APPUICustomList.Guest_WiFi)
             apiList.add(ApiHandler.API_REF.API_GET_GUEST_WIFI_ENABLE)
 
-        if(FeatureConfig.FeatureInfo.APPUICustomList.F_Secure)
+        if(!FeatureConfig.FeatureInfo.APPUICustomList.F_Secure_New
+            && FeatureConfig.FeatureInfo.APPUICustomList.F_Secure)
             apiList.add(ApiHandler.API_REF.API_GET_FSECURE_INFO)
 
         if(FeatureConfig.FeatureInfo.APPUICustomList.Host_Name_Replace)

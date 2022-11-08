@@ -9,9 +9,9 @@ android {
     compileSdkVersion 31
 
     defaultConfig {
-        targetSdkVersion 31        applicationId "zyxel.com.multyproneo"
+        applicationId "zyxel.com.multyproneo"
+        targetSdkVersion 31
         minSdkVersion 29
-
         versionCode 20220812
         versionName "2.2.3.220812"
         multiDexEnabled true

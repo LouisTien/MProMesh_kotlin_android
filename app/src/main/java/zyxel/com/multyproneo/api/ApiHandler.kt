@@ -314,6 +314,7 @@ class ApiHandler
                             try
                             {
                                 FeatureConfig.FeatureInfo = Gson().fromJson(responseStr, AppUICustomInfo::class.javaObjectType)
+                                FeatureConfig.FSecureStatus = FeatureConfig.FeatureInfo.APPUICustomList.F_Secure_New
                                 LogUtil.d(TAG,"appUICustomInfo:${FeatureConfig.FeatureInfo}")
                                 executeNextAPI()
                             }
