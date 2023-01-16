@@ -380,6 +380,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
         //params.put("displayName", GlobalData.getCurrentGatewayInfo().ModelName)
         params.put("displayName", GlobalData.getCurrentGatewayInfo().UserDefineName)
         params.put("credential", GlobalData.currentCredential)
+        params.put("type", AppConfig.DEVICE_TYPE)
         LogUtil.d(TAG,"addDevice param:$params")
 
         AMDMApi.AddDevice()
@@ -493,6 +494,7 @@ class SetupFinalizingYourHomeNetwork : Fragment()
         body["token"] = notificationToken
         body["lang"] = "enUS"
         body["dev"] = 0
+
 
         NotificationApi.Common(activity!!)
                 .setRequestPageName(TAG)

@@ -430,6 +430,7 @@ class CloudLoginFragment : Fragment()
         params.put("fwVer", "V5.17(ABUP.0)b2_20200311")
         params.put("displayName", "EX3510-Test")
         params.put("credential", "00:00:00:00:00")
+        params.put("type", AppConfig.DEVICE_TYPE)
         LogUtil.d(TAG,"addDevice param:$params")
 
         AMDMApi.AddDevice()

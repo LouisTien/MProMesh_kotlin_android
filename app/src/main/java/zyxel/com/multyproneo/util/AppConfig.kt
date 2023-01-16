@@ -28,6 +28,7 @@ object AppConfig
     const val DEVICE_DISCOVER_REQ_APPVERSION_VALUE = "xxxxx"
     const val DEVICE_DISCOVER_REQ = 1
     const val DEVICE_DISCOVER_RESP = 2
+    const val DEVICE_TYPE = "MPro"
 
     //API Command
     const val API_LOGIN = "/UserLogin"
