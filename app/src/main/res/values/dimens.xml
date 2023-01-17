@@ -112,8 +112,10 @@
     <dimen name="layout_size_320dp_in_1080">320dp</dimen>
     <dimen name="layout_size_328dp_in_1080">328dp</dimen>
     <dimen name="layout_size_330dp_in_1080">330dp</dimen>
+    <dimen name="layout_size_350dp_in_1080">350dp</dimen>
     <dimen name="layout_size_359dp_in_1080">359dp</dimen>
     <dimen name="layout_size_390dp_in_1080">390dp</dimen>
+    <dimen name="layout_size_400dp_in_1080">400dp</dimen>
     <dimen name="layout_size_430dp_in_1080">430dp</dimen>
     <dimen name="layout_size_450dp_in_1080">450dp</dimen>
 

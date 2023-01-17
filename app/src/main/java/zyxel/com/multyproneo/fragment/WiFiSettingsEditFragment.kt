@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.dialog_randow_password.*
 import kotlinx.android.synthetic.main.fragment_wifi_settings_edit.*
 import org.jetbrains.anko.sdk27.coroutines.textChangedListener
 import org.jetbrains.anko.textColor
@@ -24,6 +25,7 @@ import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.GatewayApi
 import zyxel.com.multyproneo.api.WiFiSettingApi
 import zyxel.com.multyproneo.dialog.MessageDialog
+import zyxel.com.multyproneo.dialog.RandomPasswordDialog
 import zyxel.com.multyproneo.event.DialogEvent
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
@@ -33,15 +35,17 @@ import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
+import java.util.*
+
 
 /**
  * Created by LouisTien on 2019/6/12.
  */
-class WiFiSettingsEditFragment : Fragment()
-{
+class WiFiSettingsEditFragment : Fragment() {
     private val TAG = "WiFiSettingsEditFragment"
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var msgDialogResponse: Disposable
+    private lateinit var randomPasswordDialogResponse: Disposable
     private lateinit var WiFiSettingInfo: WiFiSettingMultiObjInfo
     private var name = ""
     private var pwd = ""
@@ -71,189 +75,259 @@ class WiFiSettingsEditFragment : Fragment()
     private var available5g = false
     private var keyboardListenersAttached = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
-    {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_wifi_settings_edit, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
-    {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         GlobalData.currentFrag = TAG
 
         with(arguments)
         {
-            this?.getBoolean("ShowOneSSID")?.let{ showOneSSID = it }
-            this?.getBoolean("Available5g")?.let{ available5g = it }
-            this?.getString("Name")?.let{ name = it }
-            this?.getString("Password")?.let{ pwd = it }
-            this?.getString("Security")?.let{ security = it }
-            this?.getString("Name5g")?.let{ name5g = it }
-            this?.getString("Password5g")?.let{ pwd5g = it }
-            this?.getString("Security5g")?.let{ security5g = it }
-            this?.getString("NameGuest")?.let{ nameGuest = it }
-            this?.getString("PasswordGuest")?.let{ pwdGuest = it }
-            this?.getString("SecurityGuest")?.let{ securityGuest = it }
+            this?.getBoolean("ShowOneSSID")?.let { showOneSSID = it }
+            this?.getBoolean("Available5g")?.let { available5g = it }
+            this?.getString("Name")?.let { name = it }
+            this?.getString("Password")?.let { pwd = it }
+            this?.getString("Security")?.let { security = it }
+            this?.getString("Name5g")?.let { name5g = it }
+            this?.getString("Password5g")?.let { pwd5g = it }
+            this?.getString("Security5g")?.let { security5g = it }
+            this?.getString("NameGuest")?.let { nameGuest = it }
+            this?.getString("PasswordGuest")?.let { pwdGuest = it }
+            this?.getString("SecurityGuest")?.let { securityGuest = it }
         }
 
-        msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe{
+        randomPasswordDialogResponse =
+            GlobalBus.listen(DialogEvent.OnCloselBtn::class.java).subscribe {
+                saveWifiInfoTask()
+            }
+
+        msgDialogResponse = GlobalBus.listen(DialogEvent.OnPositiveBtn::class.java).subscribe {
             setWiFiSettingTask()
             showLoadingTransitionPage()
         }
 
-        inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager =
+            activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         setSaveTextStatus(false)
 
         setClickListener()
     }
 
-    override fun onResume()
-    {
+    override fun onResume() {
         super.onResume()
         GlobalBus.publish(MainEvent.HideBottomToolbar())
         initUI()
     }
 
-    override fun onPause()
-    {
+    override fun onPause() {
         super.onPause()
     }
 
-    override fun onDestroyView()
-    {
+    override fun onDestroyView() {
         super.onDestroyView()
 
-        if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
+        if (!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
 
-        if(keyboardListenersAttached)
+        if (!randomPasswordDialogResponse.isDisposed) randomPasswordDialogResponse.dispose()
+
+        if (keyboardListenersAttached)
             view?.viewTreeObserver?.removeGlobalOnLayoutListener(keyboardLayoutListener)
     }
 
-    private val keyboardLayoutListener = object: ViewTreeObserver.OnGlobalLayoutListener
-    {
-        override fun onGlobalLayout()
-        {
+    private val keyboardLayoutListener = object : ViewTreeObserver.OnGlobalLayoutListener {
+        override fun onGlobalLayout() {
             checkUIByKeyboardAppear()
         }
     }
 
-    private fun checkUIByKeyboardAppear()
-    {
+    private fun checkUIByKeyboardAppear() {
         val rect = Rect()
         view?.getWindowVisibleDisplayFrame(rect)
 
-        if(!showOneSSID && available5g)
-        {
-            if(wifiNameEditFocus5g || wifiPwdEditFocus5g)
-            {
+        if (!showOneSSID && available5g) {
+            if (wifiNameEditFocus5g || wifiPwdEditFocus5g) {
                 val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)
-                if(heightDiff > 500)
+                if (heightDiff > 500)
                     wifi_edit_wifi_24g_relative.visibility = View.GONE
                 else
                     wifi_edit_wifi_24g_relative.visibility = View.VISIBLE
             }
         }
 
-        if(wifiNameEditFocusGuest || wifiPwdEditFocusGuest)
-        {
+        if (wifiNameEditFocusGuest || wifiPwdEditFocusGuest) {
             val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)
-            if(heightDiff > 500)
-            {
+            if (heightDiff > 500) {
                 wifi_edit_wifi_24g_relative.visibility = View.GONE
-                if(!showOneSSID)
+                if (!showOneSSID)
                     wifi_edit_wifi_5g_relative.visibility = View.GONE
-            }
-            else
-            {
+            } else {
                 wifi_edit_wifi_24g_relative.visibility = View.VISIBLE
-                if(!showOneSSID)
+                if (!showOneSSID)
                     wifi_edit_wifi_5g_relative.visibility = View.VISIBLE
             }
         }
     }
 
-    private val clickListener = View.OnClickListener{ view ->
-        when(view)
-        {
-            wifi_edit_cancel_text ->
-            {
+    private val clickListener = View.OnClickListener { view ->
+        when (view) {
+            wifi_edit_cancel_text -> {
                 hideAllSoftKeyboard()
                 GlobalBus.publish(MainEvent.EnterWiFiSettingsPage())
             }
 
-            wifi_edit_save_text ->
-            {
+            wifi_edit_save_text -> {
                 hideAllSoftKeyboard()
 
-                name = wifi_edit_wifi_24g_name_edit.text.toString()
-                pwd = wifi_edit_wifi_24g_password_edit.text.toString()
-                name5g = wifi_edit_wifi_5g_name_edit.text.toString()
-                pwd5g = wifi_edit_wifi_5g_password_edit.text.toString()
-                nameGuest = wifi_edit_guest_wifi_name_edit.text.toString()
-                pwdGuest = wifi_edit_guest_wifi_password_edit.text.toString()
+                if (wifi_edit_wifi_24g_password_edit.text.toString() != pwd ||
+                    wifi_edit_wifi_5g_password_edit.text.toString() != pwd5g ||
+                    wifi_edit_guest_wifi_password_edit.text.toString() != pwdGuest)
 
-                MessageDialog(
-                        activity!!,
-                        "",
-                        getString(R.string.wifi_settings_connect_change_tip),
-                        arrayOf(getString(R.string.message_dialog_ok_got_it)),
+                    RandomPasswordDialog(
+                        activity!!, wifi_edit_wifi_24g_password_edit.text.toString(),
+                        wifi_edit_wifi_5g_password_edit.text.toString(),
+                        wifi_edit_guest_wifi_password_edit.text.toString(),
+                        wifi_edit_wifi_24g_password_edit.text.toString() != pwd,
+                        wifi_edit_wifi_5g_password_edit.text.toString() != pwd5g,
+                        wifi_edit_guest_wifi_password_edit.text.toString() != pwdGuest,
+                        TAG,
                         AppConfig.DialogAction.ACT_NONE
-                ).show()
+                    ).show()
+                else {
+                    saveWifiInfoTask()
+                }
             }
 
-            wifi_edit_wifi_24g_password_show_image ->
-            {
-                wifi_edit_wifi_24g_password_edit.transformationMethod = if(showPassword) PasswordTransformationMethod() else null
-                wifi_edit_wifi_24g_password_show_image.setImageDrawable(resources.getDrawable(if(showPassword) R.drawable.icon_hide else R.drawable.icon_show))
+            wifi_edit_wifi_24g_password_show_image -> {
+                wifi_edit_wifi_24g_password_edit.transformationMethod =
+                    if (showPassword) PasswordTransformationMethod() else null
+                wifi_edit_wifi_24g_password_show_image.setImageDrawable(resources.getDrawable(if (showPassword) R.drawable.icon_hide else R.drawable.icon_show))
                 showPassword = !showPassword
             }
 
-            wifi_edit_wifi_5g_password_show_image ->
-            {
-                wifi_edit_wifi_5g_password_edit.transformationMethod = if(showPassword5g) PasswordTransformationMethod() else null
-                wifi_edit_wifi_5g_password_show_image.setImageDrawable(resources.getDrawable(if(showPassword5g) R.drawable.icon_hide else R.drawable.icon_show))
+            wifi_edit_wifi_5g_password_show_image -> {
+                wifi_edit_wifi_5g_password_edit.transformationMethod =
+                    if (showPassword5g) PasswordTransformationMethod() else null
+                wifi_edit_wifi_5g_password_show_image.setImageDrawable(resources.getDrawable(if (showPassword5g) R.drawable.icon_hide else R.drawable.icon_show))
                 showPassword5g = !showPassword5g
             }
 
-            wifi_edit_guest_wifi_password_show_image ->
-            {
-                wifi_edit_guest_wifi_password_edit.transformationMethod = if(showPasswordGuest) PasswordTransformationMethod() else null
-                wifi_edit_guest_wifi_password_show_image.setImageDrawable(resources.getDrawable(if(showPasswordGuest) R.drawable.icon_hide else R.drawable.icon_show))
+            wifi_edit_guest_wifi_password_show_image -> {
+                wifi_edit_guest_wifi_password_edit.transformationMethod =
+                    if (showPasswordGuest) PasswordTransformationMethod() else null
+                wifi_edit_guest_wifi_password_show_image.setImageDrawable(resources.getDrawable(if (showPasswordGuest) R.drawable.icon_hide else R.drawable.icon_show))
                 showPasswordGuest = !showPasswordGuest
             }
+
+            wifi_edit_wifi_24g_random_password_frame -> {
+                wifi_edit_wifi_24g_password_edit.setText(generateRandomPassword(10))
+                wifi_edit_wifi_24g_password_edit.transformationMethod = null
+                wifi_edit_wifi_24g_password_show_image.setImageDrawable(resources.getDrawable(R.drawable.icon_show))
+                showPassword = true
+
+            }
+
+            wifi_edit_wifi_5g_random_password_frame -> {
+                wifi_edit_wifi_5g_password_edit.setText(generateRandomPassword(10))
+                wifi_edit_wifi_5g_password_edit.transformationMethod = null
+                wifi_edit_wifi_5g_password_show_image.setImageDrawable(resources.getDrawable(R.drawable.icon_show))
+                showPassword5g = true
+            }
+
+            wifi_edit_wifi_guest_random_password_frame -> {
+                wifi_edit_guest_wifi_password_edit.setText(generateRandomPassword(10))
+                wifi_edit_guest_wifi_password_edit.transformationMethod = null
+                wifi_edit_guest_wifi_password_show_image.setImageDrawable(resources.getDrawable(R.drawable.icon_show))
+                showPasswordGuest = true
+            }
+
+
         }
     }
 
-    private fun hideAllSoftKeyboard()
-    {
-        inputMethodManager.hideSoftInputFromWindow(wifi_edit_wifi_24g_name_edit.applicationWindowToken, 0)
-        inputMethodManager.hideSoftInputFromWindow(wifi_edit_wifi_24g_password_edit.applicationWindowToken, 0)
-        inputMethodManager.hideSoftInputFromWindow(wifi_edit_wifi_5g_name_edit.applicationWindowToken, 0)
-        inputMethodManager.hideSoftInputFromWindow(wifi_edit_wifi_5g_password_edit.applicationWindowToken, 0)
-        inputMethodManager.hideSoftInputFromWindow(wifi_edit_guest_wifi_name_edit.applicationWindowToken, 0)
-        inputMethodManager.hideSoftInputFromWindow(wifi_edit_guest_wifi_password_edit.applicationWindowToken, 0)
+    private fun saveWifiInfoTask() {
+
+        name = wifi_edit_wifi_24g_name_edit.text.toString()
+        pwd = wifi_edit_wifi_24g_password_edit.text.toString()
+        name5g = wifi_edit_wifi_5g_name_edit.text.toString()
+        pwd5g = wifi_edit_wifi_5g_password_edit.text.toString()
+        nameGuest = wifi_edit_guest_wifi_name_edit.text.toString()
+        pwdGuest = wifi_edit_guest_wifi_password_edit.text.toString()
+
+        MessageDialog(
+            activity!!,
+            "",
+            getString(R.string.wifi_settings_connect_change_tip),
+            arrayOf(getString(R.string.message_dialog_ok_got_it)),
+            AppConfig.DialogAction.ACT_NONE
+        ).show()
     }
 
-    private fun attachKeyboardListeners()
-    {
-        if(keyboardListenersAttached) return
+    fun generateRandomPassword(length: Int): String {
+        val str = "ABCDEFGHIGKLMNOPQRSTUVWXYZ0123456789"
+        val random = Random()
+        val sf = StringBuffer()
+        for (i in 0 until length) {
+            val number = random.nextInt(36)//0~61
+            sf.append(str[number])
+        }
+        LogUtil.d(TAG, "randow password:$sf.toString()")
+        return sf.toString()
+    }
+
+    private fun hideAllSoftKeyboard() {
+        inputMethodManager.hideSoftInputFromWindow(
+            wifi_edit_wifi_24g_name_edit.applicationWindowToken,
+            0
+        )
+        inputMethodManager.hideSoftInputFromWindow(
+            wifi_edit_wifi_24g_password_edit.applicationWindowToken,
+            0
+        )
+        inputMethodManager.hideSoftInputFromWindow(
+            wifi_edit_wifi_5g_name_edit.applicationWindowToken,
+            0
+        )
+        inputMethodManager.hideSoftInputFromWindow(
+            wifi_edit_wifi_5g_password_edit.applicationWindowToken,
+            0
+        )
+        inputMethodManager.hideSoftInputFromWindow(
+            wifi_edit_guest_wifi_name_edit.applicationWindowToken,
+            0
+        )
+        inputMethodManager.hideSoftInputFromWindow(
+            wifi_edit_guest_wifi_password_edit.applicationWindowToken,
+            0
+        )
+    }
+
+    private fun attachKeyboardListeners() {
+        if (keyboardListenersAttached) return
         view?.viewTreeObserver?.addOnGlobalLayoutListener(keyboardLayoutListener)
         keyboardListenersAttached = true
     }
 
-    private fun setClickListener()
-    {
+    private fun setClickListener() {
         wifi_edit_cancel_text.setOnClickListener(clickListener)
         wifi_edit_save_text.setOnClickListener(clickListener)
         wifi_edit_wifi_24g_password_show_image.setOnClickListener(clickListener)
         wifi_edit_wifi_5g_password_show_image.setOnClickListener(clickListener)
         wifi_edit_guest_wifi_password_show_image.setOnClickListener(clickListener)
+        wifi_edit_wifi_24g_random_password_frame.setOnClickListener(clickListener)
+        wifi_edit_wifi_5g_random_password_frame.setOnClickListener(clickListener)
+        wifi_edit_wifi_guest_random_password_frame.setOnClickListener(clickListener)
+
     }
 
-    private fun initUI()
-    {
+    private fun initUI() {
         attachKeyboardListeners()
         initWiFiNameEdit24g()
         initWiFiPwdEdit24g()
@@ -262,16 +336,12 @@ class WiFiSettingsEditFragment : Fragment()
         initWiFiNameEditGuest()
         initWiFiPwdEditGuest()
 
-        if(showOneSSID)
-        {
+        if (showOneSSID) {
             wifi_edit_24g_title_text.text = getString(R.string.common_home)
             wifi_edit_wifi_5g_relative.visibility = View.GONE
             wifi_edit_wifi_5g_password_area_relative.visibility = View.GONE
-        }
-        else
-        {
-            if(!available5g)
-            {
+        } else {
+            if (!available5g) {
                 wifi_edit_wifi_5g_relative.animate().alpha(0.4f)
                 wifi_edit_wifi_5g_name_edit.isEnabled = false
                 wifi_edit_wifi_5g_password_edit.isEnabled = false
@@ -280,117 +350,103 @@ class WiFiSettingsEditFragment : Fragment()
         }
 
         wifi_edit_guest_wifi_relative.visibility =
-                if(FeatureConfig.FeatureInfo.APPUICustomList.Guest_WiFi)
-                    View.VISIBLE
-                else
-                    View.GONE
+            if (FeatureConfig.FeatureInfo.APPUICustomList.Guest_WiFi)
+                View.VISIBLE
+            else
+                View.GONE
+
     }
 
-    private fun initWiFiNameEdit24g()
-    {
+    private fun initWiFiNameEdit24g() {
         wifi_edit_wifi_24g_name_edit.setText(name)
 
-        wifi_edit_wifi_24g_name_edit.setOnFocusChangeListener{
-            _, hasFocus ->
+        wifi_edit_wifi_24g_name_edit.setOnFocusChangeListener { _, hasFocus ->
             wifiNameEditFocus = hasFocus
             checkUIByKeyboardAppear()
-            if(!wifiNameIllegalInput)
-                wifi_edit_wifi_24g_name_edit_line_image.setImageResource(if(hasFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
+            if (!wifiNameIllegalInput)
+                wifi_edit_wifi_24g_name_edit_line_image.setImageResource(if (hasFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
         }
 
-        wifi_edit_wifi_24g_name_edit.textChangedListener{
-            onTextChanged{
-                str: CharSequence?, _: Int, _: Int, _: Int ->
+        wifi_edit_wifi_24g_name_edit.textChangedListener {
+            onTextChanged { str: CharSequence?, _: Int, _: Int, _: Int ->
                 wifiNameIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
-                                    /*|| SpecialCharacterHandler.containsSpecialCharacter(str.toString())*/
-                                    || SpecialCharacterHandler.containsExcludeASCII(str.toString())
+                        /*|| SpecialCharacterHandler.containsSpecialCharacter(str.toString())*/
+                        || SpecialCharacterHandler.containsExcludeASCII(str.toString())
                 checkInputEditUI()
             }
         }
     }
 
-    private fun initWiFiPwdEdit24g()
-    {
+    private fun initWiFiPwdEdit24g() {
         wifi_edit_wifi_24g_password_edit.setText(pwd)
 
-        wifi_edit_wifi_24g_password_edit.setOnFocusChangeListener{
-            _, hasFocus ->
+        wifi_edit_wifi_24g_password_edit.setOnFocusChangeListener { _, hasFocus ->
             checkUIByKeyboardAppear()
             wifiPwdEditFocus = hasFocus
-            if(!wifiPwdIllegalInput)
-                wifi_edit_wifi_24g_password_edit_line_image.setImageResource(if(hasFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
+            if (!wifiPwdIllegalInput)
+                wifi_edit_wifi_24g_password_edit_line_image.setImageResource(if (hasFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
         }
 
-        wifi_edit_wifi_24g_password_edit.textChangedListener{
-            onTextChanged{
-                str: CharSequence?, _: Int, _: Int, _: Int ->
+        wifi_edit_wifi_24g_password_edit.textChangedListener {
+            onTextChanged { str: CharSequence?, _: Int, _: Int, _: Int ->
                 wifiPwdIllegalInput = SpecialCharacterHandler.containsEmoji(str.toString())
-                                   || SpecialCharacterHandler.containsExcludeASCII(str.toString())
+                        || SpecialCharacterHandler.containsExcludeASCII(str.toString())
                 checkInputEditUI()
             }
         }
     }
 
-    private fun initWiFiNameEdit5g()
-    {
+    private fun initWiFiNameEdit5g() {
         wifi_edit_wifi_5g_name_edit.setText(name5g)
 
-        wifi_edit_wifi_5g_name_edit.setOnFocusChangeListener{
-            _, hasFocus ->
+        wifi_edit_wifi_5g_name_edit.setOnFocusChangeListener { _, hasFocus ->
             wifiNameEditFocus5g = hasFocus
             checkUIByKeyboardAppear()
-            if(!wifiNameIllegalInput5g)
-                wifi_edit_wifi_5g_name_edit_line_image.setImageResource(if(hasFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
+            if (!wifiNameIllegalInput5g)
+                wifi_edit_wifi_5g_name_edit_line_image.setImageResource(if (hasFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
         }
 
-        wifi_edit_wifi_5g_name_edit.textChangedListener{
-            onTextChanged{
-                str: CharSequence?, _: Int, _: Int, _: Int ->
+        wifi_edit_wifi_5g_name_edit.textChangedListener {
+            onTextChanged { str: CharSequence?, _: Int, _: Int, _: Int ->
                 wifiNameIllegalInput5g = SpecialCharacterHandler.containsEmoji(str.toString())
-                                        /*|| SpecialCharacterHandler.containsSpecialCharacter(str.toString())*/
-                                        || SpecialCharacterHandler.containsExcludeASCII(str.toString())
+                        /*|| SpecialCharacterHandler.containsSpecialCharacter(str.toString())*/
+                        || SpecialCharacterHandler.containsExcludeASCII(str.toString())
                 checkInputEditUI()
             }
         }
     }
 
-    private fun initWiFiPwdEdit5g()
-    {
+    private fun initWiFiPwdEdit5g() {
         wifi_edit_wifi_5g_password_edit.setText(pwd5g)
 
-        wifi_edit_wifi_5g_password_edit.setOnFocusChangeListener{
-            _, hasFocus ->
+        wifi_edit_wifi_5g_password_edit.setOnFocusChangeListener { _, hasFocus ->
             wifiPwdEditFocus5g = hasFocus
             checkUIByKeyboardAppear()
-            if(!wifiPwdIllegalInput5g)
-                wifi_edit_wifi_5g_password_edit_line_image.setImageResource(if(hasFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
+            if (!wifiPwdIllegalInput5g)
+                wifi_edit_wifi_5g_password_edit_line_image.setImageResource(if (hasFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
         }
 
-        wifi_edit_wifi_5g_password_edit.textChangedListener{
-            onTextChanged{
-                str: CharSequence?, _: Int, _: Int, _: Int ->
+        wifi_edit_wifi_5g_password_edit.textChangedListener {
+            onTextChanged { str: CharSequence?, _: Int, _: Int, _: Int ->
                 wifiPwdIllegalInput5g = SpecialCharacterHandler.containsEmoji(str.toString())
-                                     || SpecialCharacterHandler.containsExcludeASCII(str.toString())
+                        || SpecialCharacterHandler.containsExcludeASCII(str.toString())
                 checkInputEditUI()
             }
         }
     }
 
-    private fun initWiFiNameEditGuest()
-    {
+    private fun initWiFiNameEditGuest() {
         wifi_edit_guest_wifi_name_edit.setText(nameGuest)
 
-        wifi_edit_guest_wifi_name_edit.setOnFocusChangeListener{
-            _, hasFocus ->
+        wifi_edit_guest_wifi_name_edit.setOnFocusChangeListener { _, hasFocus ->
             wifiNameEditFocusGuest = hasFocus
             checkUIByKeyboardAppear()
-            if(!wifiNameIllegalInputGuest)
-                wifi_edit_guest_wifi_name_edit_line_image.setImageResource(if(hasFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
+            if (!wifiNameIllegalInputGuest)
+                wifi_edit_guest_wifi_name_edit_line_image.setImageResource(if (hasFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
         }
 
-        wifi_edit_guest_wifi_name_edit.textChangedListener{
-            onTextChanged{
-                str: CharSequence?, _: Int, _: Int, _: Int ->
+        wifi_edit_guest_wifi_name_edit.textChangedListener {
+            onTextChanged { str: CharSequence?, _: Int, _: Int, _: Int ->
                 wifiNameIllegalInputGuest = SpecialCharacterHandler.containsEmoji(str.toString())
                         /*|| SpecialCharacterHandler.containsSpecialCharacter(str.toString())*/
                         || SpecialCharacterHandler.containsExcludeASCII(str.toString())
@@ -399,21 +455,18 @@ class WiFiSettingsEditFragment : Fragment()
         }
     }
 
-    private fun initWiFiPwdEditGuest()
-    {
+    private fun initWiFiPwdEditGuest() {
         wifi_edit_guest_wifi_password_edit.setText(pwdGuest)
 
-        wifi_edit_guest_wifi_password_edit.setOnFocusChangeListener{
-            _, hasFocus ->
+        wifi_edit_guest_wifi_password_edit.setOnFocusChangeListener { _, hasFocus ->
             checkUIByKeyboardAppear()
             wifiPwdEditFocusGuest = hasFocus
-            if(!wifiPwdIllegalInputGuest)
-                wifi_edit_guest_wifi_password_edit_line_image.setImageResource(if(hasFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
+            if (!wifiPwdIllegalInputGuest)
+                wifi_edit_guest_wifi_password_edit_line_image.setImageResource(if (hasFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
         }
 
-        wifi_edit_guest_wifi_password_edit.textChangedListener{
-            onTextChanged{
-                str: CharSequence?, _: Int, _: Int, _: Int ->
+        wifi_edit_guest_wifi_password_edit.textChangedListener {
+            onTextChanged { str: CharSequence?, _: Int, _: Int, _: Int ->
                 wifiPwdIllegalInputGuest = SpecialCharacterHandler.containsEmoji(str.toString())
                         || SpecialCharacterHandler.containsExcludeASCII(str.toString())
                 checkInputEditUI()
@@ -421,12 +474,15 @@ class WiFiSettingsEditFragment : Fragment()
         }
     }
 
-    private fun checkInputEditUI()
-    {
-        when(wifiNameIllegalInput)
-        {
-            true ->
-            {
+    private fun checkInputEditUI() {
+
+        LogUtil.d(TAG,"checkInputEditUI")
+        LogUtil.d(TAG,"checkInputEditUI")
+        LogUtil.d(TAG,"checkInputEditUI")
+
+
+        when (wifiNameIllegalInput) {
+            true -> {
                 with(wifi_edit_24g_name_error_text)
                 {
                     text = getString(R.string.login_no_support_character)
@@ -435,17 +491,14 @@ class WiFiSettingsEditFragment : Fragment()
                 wifi_edit_wifi_24g_name_edit_line_image.setImageResource(R.color.color_ff2837)
             }
 
-            false ->
-            {
+            false -> {
                 wifi_edit_24g_name_error_text.visibility = View.INVISIBLE
-                wifi_edit_wifi_24g_name_edit_line_image.setImageResource(if(wifiNameEditFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
+                wifi_edit_wifi_24g_name_edit_line_image.setImageResource(if (wifiNameEditFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
             }
         }
 
-        when(wifiPwdIllegalInput)
-        {
-            true ->
-            {
+        when (wifiPwdIllegalInput) {
+            true -> {
                 with(wifi_edit_24g_password_error_text)
                 {
                     text = getString(R.string.login_no_support_character)
@@ -454,17 +507,14 @@ class WiFiSettingsEditFragment : Fragment()
                 wifi_edit_wifi_24g_password_edit_line_image.setImageResource(R.color.color_ff2837)
             }
 
-            false ->
-            {
+            false -> {
                 wifi_edit_24g_password_error_text.visibility = View.INVISIBLE
-                wifi_edit_wifi_24g_password_edit_line_image.setImageResource(if(wifiPwdEditFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
+                wifi_edit_wifi_24g_password_edit_line_image.setImageResource(if (wifiPwdEditFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
             }
         }
 
-        when(wifiNameIllegalInput5g)
-        {
-            true ->
-            {
+        when (wifiNameIllegalInput5g) {
+            true -> {
                 with(wifi_edit_5g_name_error_text)
                 {
                     text = getString(R.string.login_no_support_character)
@@ -473,17 +523,14 @@ class WiFiSettingsEditFragment : Fragment()
                 wifi_edit_wifi_5g_name_edit_line_image.setImageResource(R.color.color_ff2837)
             }
 
-            false ->
-            {
+            false -> {
                 wifi_edit_5g_name_error_text.visibility = View.INVISIBLE
-                wifi_edit_wifi_5g_name_edit_line_image.setImageResource(if(wifiNameEditFocus5g) R.color.color_ffc800 else R.color.color_b4b4b4)
+                wifi_edit_wifi_5g_name_edit_line_image.setImageResource(if (wifiNameEditFocus5g) R.color.color_ffc800 else R.color.color_b4b4b4)
             }
         }
 
-        when(wifiPwdIllegalInput5g)
-        {
-            true ->
-            {
+        when (wifiPwdIllegalInput5g) {
+            true -> {
                 with(wifi_edit_5g_password_error_text)
                 {
                     text = getString(R.string.login_no_support_character)
@@ -492,17 +539,14 @@ class WiFiSettingsEditFragment : Fragment()
                 wifi_edit_wifi_5g_password_edit_line_image.setImageResource(R.color.color_ff2837)
             }
 
-            false ->
-            {
+            false -> {
                 wifi_edit_5g_password_error_text.visibility = View.INVISIBLE
-                wifi_edit_wifi_5g_password_edit_line_image.setImageResource(if(wifiPwdEditFocus5g) R.color.color_ffc800 else R.color.color_b4b4b4)
+                wifi_edit_wifi_5g_password_edit_line_image.setImageResource(if (wifiPwdEditFocus5g) R.color.color_ffc800 else R.color.color_b4b4b4)
             }
         }
 
-        when(wifiNameIllegalInputGuest)
-        {
-            true ->
-            {
+        when (wifiNameIllegalInputGuest) {
+            true -> {
                 with(wifi_guest_edit_name_error_text)
                 {
                     text = getString(R.string.login_no_support_character)
@@ -511,17 +555,14 @@ class WiFiSettingsEditFragment : Fragment()
                 wifi_edit_guest_wifi_name_edit_line_image.setImageResource(R.color.color_ff2837)
             }
 
-            false ->
-            {
+            false -> {
                 wifi_guest_edit_name_error_text.visibility = View.INVISIBLE
-                wifi_edit_guest_wifi_name_edit_line_image.setImageResource(if(wifiNameEditFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
+                wifi_edit_guest_wifi_name_edit_line_image.setImageResource(if (wifiNameEditFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
             }
         }
 
-        when(wifiPwdIllegalInputGuest)
-        {
-            true ->
-            {
+        when (wifiPwdIllegalInputGuest) {
+            true -> {
                 with(wifi_guest_edit_password_error_text)
                 {
                     text = getString(R.string.login_no_support_character)
@@ -530,66 +571,65 @@ class WiFiSettingsEditFragment : Fragment()
                 wifi_edit_guest_wifi_password_edit_line_image.setImageResource(R.color.color_ff2837)
             }
 
-            false ->
-            {
+            false -> {
                 wifi_guest_edit_password_error_text.visibility = View.INVISIBLE
-                wifi_edit_guest_wifi_password_edit_line_image.setImageResource(if(wifiPwdEditFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
+                wifi_edit_guest_wifi_password_edit_line_image.setImageResource(if (wifiPwdEditFocus) R.color.color_ffc800 else R.color.color_b4b4b4)
             }
         }
 
         var saveAvailable5g = true
-        if(available5g)
-        {
-            if( (wifi_edit_wifi_5g_name_edit.text.length < AppConfig.wifiNameRequiredLength)
-                    || (wifi_edit_wifi_5g_password_edit.text.length < AppConfig.wifiPwdRequiredLength)
-                    || wifiNameIllegalInput5g
-                    || wifiPwdIllegalInput5g )
+        if (available5g) {
+            if ((wifi_edit_wifi_5g_name_edit.text.length < AppConfig.wifiNameRequiredLength)
+                || (wifi_edit_wifi_5g_password_edit.text.length < AppConfig.wifiPwdRequiredLength)
+                || wifiNameIllegalInput5g
+                || wifiPwdIllegalInput5g
+            )
                 saveAvailable5g = false
         }
 
-        if( (wifi_edit_wifi_24g_name_edit.text.length >= AppConfig.wifiNameRequiredLength)
-                && (wifi_edit_wifi_24g_password_edit.text.length >= AppConfig.wifiPwdRequiredLength)
-                && !wifiNameIllegalInput
-                && !wifiPwdIllegalInput
-                && saveAvailable5g
-                && (wifi_edit_guest_wifi_name_edit.text.length >= AppConfig.wifiNameRequiredLength)
-                && (wifi_edit_guest_wifi_password_edit.text.length >= AppConfig.wifiPwdRequiredLength)
-                && !wifiNameIllegalInputGuest
-                && !wifiPwdIllegalInputGuest
-                && (wifi_edit_wifi_24g_name_edit.text.toString() != name
+        if ((wifi_edit_wifi_24g_name_edit.text.length >= AppConfig.wifiNameRequiredLength)
+            && (wifi_edit_wifi_24g_password_edit.text.length >= AppConfig.wifiPwdRequiredLength)
+            && !wifiNameIllegalInput
+            && !wifiPwdIllegalInput
+            && saveAvailable5g
+            && (wifi_edit_guest_wifi_name_edit.text.length >= AppConfig.wifiNameRequiredLength)
+            && (wifi_edit_guest_wifi_password_edit.text.length >= AppConfig.wifiPwdRequiredLength)
+            && !wifiNameIllegalInputGuest
+            && !wifiPwdIllegalInputGuest
+            && (wifi_edit_wifi_24g_name_edit.text.toString() != name
                     || wifi_edit_wifi_24g_password_edit.text.toString() != pwd
                     || wifi_edit_wifi_5g_name_edit.text.toString() != name5g
                     || wifi_edit_wifi_5g_password_edit.text.toString() != pwd5g
                     || wifi_edit_guest_wifi_name_edit.text.toString() != nameGuest
                     || wifi_edit_guest_wifi_password_edit.text.toString() != pwdGuest)
-            )
+        )
             setSaveTextStatus(true)
         else
             setSaveTextStatus(false)
     }
 
-    private fun showLoadingTransitionPage()
-    {
-        val bundle = Bundle().apply{
+    private fun showLoadingTransitionPage() {
+        val bundle = Bundle().apply {
             putString("Title", getString(R.string.loading_transition_update_wifi_settings))
             putInt("LoadingSecond", AppConfig.WiFiSettingTime)
             putSerializable("DesPage", AppConfig.LoadingGoToPage.FRAG_SEARCH)
             putBoolean("IsCloud", false)
         }
-        GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionProgressFragment().apply{ arguments = bundle }))
+        GlobalBus.publish(MainEvent.SwitchToFrag(LoadingTransitionProgressFragment().apply {
+            arguments = bundle
+        }))
     }
 
-    private fun setSaveTextStatus(status: Boolean)
-    {
+    private fun setSaveTextStatus(status: Boolean) {
         with(wifi_edit_save_text)
         {
             isEnabled = status
-            textColor = resources.getColor(if(status) R.color.color_575757 else R.color.color_b4b4b4)
+            textColor =
+                resources.getColor(if (status) R.color.color_575757 else R.color.color_b4b4b4)
         }
     }
 
-    private fun setWiFiSettingTask()
-    {
+    private fun setWiFiSettingTask() {
         val params = JSONObject()
         val paramsArray = JSONArray()
 
@@ -615,8 +655,7 @@ class WiFiSettingsEditFragment : Fragment()
         params5GPWD.put("X_ZYXEL_AutoGenPSK", false)
         paramsArray.put(params5GPWD)
 
-        if(FeatureConfig.FeatureInfo.APPUICustomList.Guest_WiFi)
-        {
+        if (FeatureConfig.FeatureInfo.APPUICustomList.Guest_WiFi) {
             val params24GSSIDGuest = JSONObject()
             params24GSSIDGuest.put("object_path", "Device.WiFi.SSID.2.")
             params24GSSIDGuest.put("SSID", nameGuest)
@@ -642,283 +681,230 @@ class WiFiSettingsEditFragment : Fragment()
 
         params.put("MultiObjects", true)
         params.put("TR181_Objects", paramsArray)
-        LogUtil.d(TAG,"setWiFISettingTask param:$params")
+        LogUtil.d(TAG, "setWiFISettingTask param:$params")
 
         GatewayApi.SetMultiObjects()
-                .setRequestPageName(TAG)
-                .setParams(params)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            WiFiSettingInfo = Gson().fromJson(responseStr, WiFiSettingMultiObjInfo::class.javaObjectType)
-                            LogUtil.d(TAG,"WiFiSettingInfo:$WiFiSettingInfo")
-                            GlobalData.loginInfo.sessionkey = WiFiSettingInfo.sessionkey
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-                        }
-
-                        setLogoutTask()
+            .setRequestPageName(TAG)
+            .setParams(params)
+            .setResponseListener(object : Commander.ResponseListener() {
+                override fun onSuccess(responseStr: String) {
+                    try {
+                        WiFiSettingInfo = Gson().fromJson(
+                            responseStr,
+                            WiFiSettingMultiObjInfo::class.javaObjectType
+                        )
+                        LogUtil.d(TAG, "WiFiSettingInfo:$WiFiSettingInfo")
+                        GlobalData.loginInfo.sessionkey = WiFiSettingInfo.sessionkey
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
                     }
-                }).execute()
+
+                    setLogoutTask()
+                }
+            }).execute()
     }
 
-    private fun setWiFi24GSSIDTask()
-    {
+    private fun setWiFi24GSSIDTask() {
         val params = JSONObject()
         params.put("SSID", name)
-        LogUtil.d(TAG,"setWiFi24GSSIDTask param:$params")
+        LogUtil.d(TAG, "setWiFi24GSSIDTask param:$params")
 
         WiFiSettingApi.SetWiFi24GInfo()
-                .setRequestPageName(TAG)
-                .setParams(params)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            val data = JSONObject(responseStr)
-                            val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.loginInfo.sessionkey = sessionkey
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-                        }
-
-                        setWiFi24GPwdTask()
+            .setRequestPageName(TAG)
+            .setParams(params)
+            .setResponseListener(object : Commander.ResponseListener() {
+                override fun onSuccess(responseStr: String) {
+                    try {
+                        val data = JSONObject(responseStr)
+                        val sessionkey = data.get("sessionkey").toString()
+                        GlobalData.loginInfo.sessionkey = sessionkey
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
                     }
-                }).execute()
+
+                    setWiFi24GPwdTask()
+                }
+            }).execute()
     }
 
-    private fun setWiFi24GPwdTask()
-    {
+    private fun setWiFi24GPwdTask() {
         val params = JSONObject()
         params.put("ModeEnabled", security)
         params.put("KeyPassphrase", pwd)
         params.put("X_ZYXEL_AutoGenPSK", false)
-        LogUtil.d(TAG,"setWiFi24GPwdTask param:$params")
+        LogUtil.d(TAG, "setWiFi24GPwdTask param:$params")
 
         WiFiSettingApi.SetWiFi24GPwd()
-                .setRequestPageName(TAG)
-                .setParams(params)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            val data = JSONObject(responseStr)
-                            val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.loginInfo.sessionkey = sessionkey
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-                        }
-
-                        setWiFi5GSSIDTask()
+            .setRequestPageName(TAG)
+            .setParams(params)
+            .setResponseListener(object : Commander.ResponseListener() {
+                override fun onSuccess(responseStr: String) {
+                    try {
+                        val data = JSONObject(responseStr)
+                        val sessionkey = data.get("sessionkey").toString()
+                        GlobalData.loginInfo.sessionkey = sessionkey
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
                     }
-                }).execute()
+
+                    setWiFi5GSSIDTask()
+                }
+            }).execute()
     }
 
-    private fun setWiFi5GSSIDTask()
-    {
+    private fun setWiFi5GSSIDTask() {
         val params = JSONObject()
-        params.put("SSID", if(showOneSSID) name else name5g)
-        LogUtil.d(TAG,"setWiFi5GSSIDTask param:$params")
+        params.put("SSID", if (showOneSSID) name else name5g)
+        LogUtil.d(TAG, "setWiFi5GSSIDTask param:$params")
 
         WiFiSettingApi.SetWiFi5GInfo()
-                .setRequestPageName(TAG)
-                .setParams(params)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            val data = JSONObject(responseStr)
-                            val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.loginInfo.sessionkey = sessionkey
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-                        }
-
-                        setWiFi5GPwdTask()
+            .setRequestPageName(TAG)
+            .setParams(params)
+            .setResponseListener(object : Commander.ResponseListener() {
+                override fun onSuccess(responseStr: String) {
+                    try {
+                        val data = JSONObject(responseStr)
+                        val sessionkey = data.get("sessionkey").toString()
+                        GlobalData.loginInfo.sessionkey = sessionkey
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
                     }
-                }).execute()
+
+                    setWiFi5GPwdTask()
+                }
+            }).execute()
     }
 
-    private fun setWiFi5GPwdTask()
-    {
+    private fun setWiFi5GPwdTask() {
         val params = JSONObject()
-        params.put("ModeEnabled", if(showOneSSID) security else security5g)
-        params.put("KeyPassphrase", if(showOneSSID) pwd else pwd5g)
+        params.put("ModeEnabled", if (showOneSSID) security else security5g)
+        params.put("KeyPassphrase", if (showOneSSID) pwd else pwd5g)
         params.put("X_ZYXEL_AutoGenPSK", false)
-        LogUtil.d(TAG,"setWiFi5GPwdTask param:$params")
+        LogUtil.d(TAG, "setWiFi5GPwdTask param:$params")
 
         WiFiSettingApi.SetWiFi5GPwd()
-                .setRequestPageName(TAG)
-                .setParams(params)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            val data = JSONObject(responseStr)
-                            val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.loginInfo.sessionkey = sessionkey
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-                        }
-
-                        setGuestWiFi24GSSIDTask()
+            .setRequestPageName(TAG)
+            .setParams(params)
+            .setResponseListener(object : Commander.ResponseListener() {
+                override fun onSuccess(responseStr: String) {
+                    try {
+                        val data = JSONObject(responseStr)
+                        val sessionkey = data.get("sessionkey").toString()
+                        GlobalData.loginInfo.sessionkey = sessionkey
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
                     }
-                }).execute()
+
+                    setGuestWiFi24GSSIDTask()
+                }
+            }).execute()
     }
 
-    private fun setGuestWiFi24GSSIDTask()
-    {
+    private fun setGuestWiFi24GSSIDTask() {
         val params = JSONObject()
         params.put("SSID", nameGuest)
-        LogUtil.d(TAG,"setGuestWiFi24GSSIDTask param:$params")
+        LogUtil.d(TAG, "setGuestWiFi24GSSIDTask param:$params")
 
         WiFiSettingApi.SetGuestWiFi24GInfo()
-                .setRequestPageName(TAG)
-                .setParams(params)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            val data = JSONObject(responseStr)
-                            val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.loginInfo.sessionkey = sessionkey
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-                        }
-
-                        setGuestWiFi24GPwdTask()
+            .setRequestPageName(TAG)
+            .setParams(params)
+            .setResponseListener(object : Commander.ResponseListener() {
+                override fun onSuccess(responseStr: String) {
+                    try {
+                        val data = JSONObject(responseStr)
+                        val sessionkey = data.get("sessionkey").toString()
+                        GlobalData.loginInfo.sessionkey = sessionkey
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
                     }
-                }).execute()
+
+                    setGuestWiFi24GPwdTask()
+                }
+            }).execute()
     }
 
-    private fun setGuestWiFi24GPwdTask()
-    {
+    private fun setGuestWiFi24GPwdTask() {
         val params = JSONObject()
         params.put("ModeEnabled", securityGuest)
         params.put("KeyPassphrase", pwdGuest)
         params.put("X_ZYXEL_AutoGenPSK", false)
-        LogUtil.d(TAG,"setGuestWiFi24GPwdTask param:$params")
+        LogUtil.d(TAG, "setGuestWiFi24GPwdTask param:$params")
 
         WiFiSettingApi.SetGuestWiFi24GPwd()
-                .setRequestPageName(TAG)
-                .setParams(params)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            val data = JSONObject(responseStr)
-                            val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.loginInfo.sessionkey = sessionkey
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-                        }
-
-                        setGuestWiFi5GSSIDTask()
+            .setRequestPageName(TAG)
+            .setParams(params)
+            .setResponseListener(object : Commander.ResponseListener() {
+                override fun onSuccess(responseStr: String) {
+                    try {
+                        val data = JSONObject(responseStr)
+                        val sessionkey = data.get("sessionkey").toString()
+                        GlobalData.loginInfo.sessionkey = sessionkey
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
                     }
-                }).execute()
+
+                    setGuestWiFi5GSSIDTask()
+                }
+            }).execute()
     }
 
-    private fun setGuestWiFi5GSSIDTask()
-    {
+    private fun setGuestWiFi5GSSIDTask() {
         val params = JSONObject()
         params.put("SSID", nameGuest)
-        LogUtil.d(TAG,"setGuestWiFi5GSSIDTask param:$params")
+        LogUtil.d(TAG, "setGuestWiFi5GSSIDTask param:$params")
 
         WiFiSettingApi.SetGuestWiFi5GInfo()
-                .setRequestPageName(TAG)
-                .setParams(params)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            val data = JSONObject(responseStr)
-                            val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.loginInfo.sessionkey = sessionkey
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-                        }
-
-                        setGuestWiFi5GPwdTask()
+            .setRequestPageName(TAG)
+            .setParams(params)
+            .setResponseListener(object : Commander.ResponseListener() {
+                override fun onSuccess(responseStr: String) {
+                    try {
+                        val data = JSONObject(responseStr)
+                        val sessionkey = data.get("sessionkey").toString()
+                        GlobalData.loginInfo.sessionkey = sessionkey
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
                     }
-                }).execute()
+
+                    setGuestWiFi5GPwdTask()
+                }
+            }).execute()
     }
 
-    private fun setGuestWiFi5GPwdTask()
-    {
+    private fun setGuestWiFi5GPwdTask() {
         val params = JSONObject()
         params.put("ModeEnabled", securityGuest)
         params.put("KeyPassphrase", pwdGuest)
         params.put("X_ZYXEL_AutoGenPSK", false)
-        LogUtil.d(TAG,"setGuestWiFi5GPwdTask param:$params")
+        LogUtil.d(TAG, "setGuestWiFi5GPwdTask param:$params")
 
         WiFiSettingApi.SetGuestWiFi5GPwd()
-                .setRequestPageName(TAG)
-                .setParams(params)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
-                        try
-                        {
-                            val data = JSONObject(responseStr)
-                            val sessionkey = data.get("sessionkey").toString()
-                            GlobalData.loginInfo.sessionkey = sessionkey
-                        }
-                        catch(e: JSONException)
-                        {
-                            e.printStackTrace()
-                        }
-
-                        setLogoutTask()
+            .setRequestPageName(TAG)
+            .setParams(params)
+            .setResponseListener(object : Commander.ResponseListener() {
+                override fun onSuccess(responseStr: String) {
+                    try {
+                        val data = JSONObject(responseStr)
+                        val sessionkey = data.get("sessionkey").toString()
+                        GlobalData.loginInfo.sessionkey = sessionkey
+                    } catch (e: JSONException) {
+                        e.printStackTrace()
                     }
-                }).execute()
+
+                    setLogoutTask()
+                }
+            }).execute()
     }
 
-    private fun setLogoutTask()
-    {
+    private fun setLogoutTask() {
         val params = JSONObject()
         AccountApi.Logout()
-                .setRequestPageName(TAG)
-                .setParams(params)
-                .setResponseListener(object: Commander.ResponseListener()
-                {
-                    override fun onSuccess(responseStr: String)
-                    {
+            .setRequestPageName(TAG)
+            .setParams(params)
+            .setResponseListener(object : Commander.ResponseListener() {
+                override fun onSuccess(responseStr: String) {
 
-                    }
-                }).execute()
+                }
+            }).execute()
     }
 }

@@ -9,6 +9,7 @@
     <string name="common_settings">Settings</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_done">Done</string>
+    <string name="common_close">Close</string>
 
     <string name="setup_first_time_using_description1">Simple controls for home network</string>
     <string name="setup_first_time_using_description2">Add extenders to easily expand WiFi coverage</string>
@@ -386,5 +387,13 @@
     <string name="message_dialog_parental_control_discard_msg">All the changes you made or imaged you uploaded will be lost.</string>
 
     <string name="device_detail_blocke_by_schedule">Device is blocked due to the schedule in profile \"%s\".</string>
+    <string name="random_password">Random Password</string>
+    <string name="random_password_title">New Password Applied</string>
+    <string name="random_password_subtitle">You must use the new password to connect the Wi-Fi.</string>
+    <string name="random_password_description">Home Password:</string>
+    <string name="random_password_24g_description">Home 2.4GHz Password:</string>
+    <string name="random_password_5g_description">Home 5GHz Password:</string>
+    <string name="random_password_guest_description">Guest Password:</string>
+    <string name="password_copied">Password Copied</string>
 
 </resources>
