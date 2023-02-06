@@ -135,6 +135,106 @@ class ApiHandler
                                                 X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion
                                         )
                                 )*/
+                                //layer 2
+                                newZYXELEndDeviceList.add(
+                                    DevicesInfoObject
+                                    (
+                                            Active = true,
+                                            HostName = "TEST-01",
+                                            IPAddress = "192.168.1.38",
+                                            PhysAddress = "f0:87:56:8c:f8:78",
+                                            X_ZYXEL_CapabilityType = "L2Device",
+                                            X_ZYXEL_ConnectionType = "WiFi",
+                                            X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
+                                            X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
+                                            X_ZYXEL_Neighbor = "gateway",
+                                            X_ZYXEL_RSSI_STAT = "Weak"
+                                    )
+                            )
+
+//                                newZYXELEndDeviceList.add(
+//                                    DevicesInfoObject
+//                                        (
+//                                        Active = true,
+//                                        HostName = "TEST-02",
+//                                        IPAddress = "192.168.1.39",
+//                                        PhysAddress = "f0:87:56:8c:f8:79",
+//                                        X_ZYXEL_CapabilityType = "L2Device",
+//                                        X_ZYXEL_ConnectionType = "WiFi",
+//                                        X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
+//                                        X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
+//                                        X_ZYXEL_Neighbor = "gateway",
+//                                        X_ZYXEL_RSSI_STAT = "Weak"
+//                                    )
+//                                )
+//
+//                                newZYXELEndDeviceList.add(
+//                                    DevicesInfoObject
+//                                        (
+//                                        Active = true,
+//                                        HostName = "TEST-03",
+//                                        IPAddress = "192.168.1.40",
+//                                        PhysAddress = "f0:87:56:8c:f8:80",
+//                                        X_ZYXEL_CapabilityType = "L2Device",
+//                                        X_ZYXEL_ConnectionType = "WiFi",
+//                                        X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
+//                                        X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
+//                                        X_ZYXEL_Neighbor = "gateway",
+//                                        X_ZYXEL_RSSI_STAT = "Close"
+//                                    )
+//                                )
+
+                                //layer 3
+                                newZYXELEndDeviceList.add(
+                                    DevicesInfoObject
+                                        (
+                                        Active = true,
+                                        HostName = "TEST-04",
+                                        IPAddress = "192.168.1.41",
+                                        PhysAddress = "f0:87:56:8c:f8:81",
+                                        X_ZYXEL_CapabilityType = "L2Device",
+                                        X_ZYXEL_ConnectionType = "WiFi",
+                                        X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
+                                        X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
+//                                        X_ZYXEL_Neighbor = "f0:87:56:8c:f8:76",
+                                        X_ZYXEL_Neighbor = "f0:87:56:8c:f8:80",
+                                        X_ZYXEL_RSSI_STAT = "Close"
+                                    )
+                                )
+
+                                newZYXELEndDeviceList.add(
+                                    DevicesInfoObject
+                                        (
+                                        Active = true,
+                                        HostName = "TEST-05",
+                                        IPAddress = "192.168.1.42",
+                                        PhysAddress = "f0:87:56:8c:f8:82",
+                                        X_ZYXEL_CapabilityType = "L2Device",
+                                        X_ZYXEL_ConnectionType = "WiFi",
+                                        X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
+                                        X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
+                                        X_ZYXEL_Neighbor = "f0:87:56:8c:f8:78",
+//                                        X_ZYXEL_Neighbor = "f0:87:56:8c:f8:80",
+                                        X_ZYXEL_RSSI_STAT = "Weak"
+                                    )
+                                )
+
+                                newZYXELEndDeviceList.add(
+                                    DevicesInfoObject
+                                        (
+                                        Active = true,
+                                        HostName = "TEST-06",
+                                        IPAddress = "192.168.1.43",
+                                        PhysAddress = "f0:87:56:8c:f8:83",
+                                        X_ZYXEL_CapabilityType = "L2Device",
+                                        X_ZYXEL_ConnectionType = "WiFi",
+                                        X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
+                                        X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
+                                        X_ZYXEL_Neighbor = "f0:87:56:8c:f8:76",
+//                                        X_ZYXEL_Neighbor = "f0:87:56:8c:f8:80",
+                                        X_ZYXEL_RSSI_STAT = "No"
+                                    )
+                                )
 
                                 var index = 1
                                 for(item in devicesInfo.Object)

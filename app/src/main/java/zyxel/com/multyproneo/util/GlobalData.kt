@@ -1,5 +1,6 @@
 package zyxel.com.multyproneo.util
 
+import zyxel.com.multyproneo.TreeNode
 import zyxel.com.multyproneo.model.*
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
 import java.io.File
@@ -18,6 +19,9 @@ object GlobalData
     var ZYXELEndDeviceList = mutableListOf<DevicesInfoObject>()
     var guestEndDeviceList = mutableListOf<DevicesInfoObject>()
     var homeEndDeviceList = mutableListOf<DevicesInfoObject>()
+    var layer2EndDeviceList = mutableListOf<TreeNode<DevicesInfoObject>>()
+    var layer3EndDeviceList = mutableListOf<TreeNode<DevicesInfoObject>>()
+    var layer4EndDeviceList = mutableListOf<TreeNode<DevicesInfoObject>>()
     var changeIconNameList = mutableListOf<ChangeIconNameInfoObject>()
     var parentalControlInfoProfileList = mutableListOf<ParentalControlInfoProfile>()
     var parentalControlSelectedDeviceList = mutableListOf<DevicesInfoObject>()
@@ -49,6 +53,33 @@ object GlobalData
     var currentDisplayName = ""
     var currentCredential = ""
     var cloudGatewayListInfo = TUTKAllDeviceInfo()
+
+    //Model
+    var AX7501_B1 = "AX7501-B1"
+    var DX3300_T1 = "DX3300-T1"
+    var DX3301_T0 = "DX3301-T0"
+    var EMG3525_T50B = "EMG3525-T50B"
+    var EMG3525_T50C = "EMG3525-T50C"
+    var EMG5523_T50B = "EMG5523-T50B"
+    var EMG5723_T50K = "EMG5723-T50K"
+    var EX3200_T0 = "EX3200-T0"
+    var EX3300_T1 = "EX3300-T1"
+    var EX3301_T0 = "EX3301-T0"
+    var EX5510_B0 = "EX5510-B0"
+    var EX5600_T0 = "EX5600-T0"
+    var EX5601_T0 = "EX5601-T0"
+    var EX7501_B0 = "EX7501-B0"
+    var PX5111_T0 = "PX5111-T0"
+    var PX5501_B1 = "PX5501-B1"
+    var VMG3625_T50B = "VMG3625-T50B"
+    var VMG3625_T50C = "VMG3625-T50C"
+    var VMG3927_T50K = "VMG3927-T50K"
+    var VMG8623_T50B = "VMG8623-T50B"
+    var VMG8825_T50K = "VMG8825-T50K"
+    var WAP6807 = "WAP6807"
+    var WX3100_T0 = "WX3100-T0"
+    var WX5600_T0 = "WX5600-T0"
+
 
     fun getCurrentGatewayInfo(): GatewayInfo = gatewayList[currentGatewayIndex]
     fun getDeviceIP(): String = getCurrentGatewayInfo().IP

@@ -152,6 +152,8 @@ class HomeFragment : Fragment()
                 executeRegularApi()
             }
 
+            home_site_topology_image -> GlobalBus.publish(MainEvent.EnterNetworkTopologyPage())
+
             cloud_home_connect_device_frame -> GlobalBus.publish(MainEvent.EnterDevicesPage())
 
             cloud_home_guest_wifi_frame -> GlobalBus.publish(MainEvent.EnterWiFiSettingsPage())
@@ -164,6 +166,7 @@ class HomeFragment : Fragment()
                     else -> GlobalBus.publish(MainEvent.SwitchToFrag(AddMeshFragment()))
                 }
             }
+
         }
     }
 
@@ -176,6 +179,7 @@ class HomeFragment : Fragment()
         cloud_home_wifi_router_image.setOnClickListener(clickListener)
         cloud_home_wifi_router_area_relative.setOnClickListener(clickListener)
         home_site_refresh_image.setOnClickListener(clickListener)
+        home_site_topology_image.setOnClickListener(clickListener)
     }
 
     private fun updateUI()

@@ -33,6 +33,7 @@ class MainEvent
     class EnterCloudWiFiSettingsPage()
     class EnterCloudSettingsPage()
     class EnterSearchGatewayPage()
+    class EnterNetworkTopologyPage()
     class ShowErrorMsgDialog(var msg: String, var requestCtxName: String)
     class ShowToast(var msg: String, var requestCtxName: String)
     class GetCloudInfo()

@@ -24,11 +24,11 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginStart="@dimen/layout_size_105dp_in_1080"
-            android:textSize="@dimen/text_size_20sp_in_1080"
-            android:textColor="@color/color_575757"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@string/device_detail_title"/>
+            android:text="@string/device_detail_title"
+            android:textColor="@color/color_575757"
+            android:textSize="@dimen/text_size_20sp_in_1080" />
 
     </RelativeLayout>
 

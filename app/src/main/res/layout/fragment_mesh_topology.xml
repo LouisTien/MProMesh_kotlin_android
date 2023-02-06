@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/mesh_topology_title_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_size_60dp_in_1080"
+        android:background="@drawable/actionbar_detail_bg">
+
+        <ImageView
+            android:id="@+id/mesh_topology_back_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            android:id="@+id/mesh_topology_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/layout_size_105dp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/mesh_topology_title"
+            android:textColor="@color/color_575757"
+            android:textSize="@dimen/text_size_20sp_in_1080" />
+
+        <ImageView
+            android:id="@+id/mesh_topology_note_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginBottom="@dimen/layout_size_20dp_in_1080"
+            android:src="@drawable/icon_note" />
+
+    </RelativeLayout>
+
+<!--    <androidx.viewpager.widget.ViewPager-->
+<!--        android:id="@+id/mesh_topology_viewpager"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="match_parent">-->
+<!--        -->
+<!--    </androidx.viewpager.widget.ViewPager>-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mesh_topology_root_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/mesh_topology_root_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mesh_topology_l2_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mesh_topology_root_area">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/mesh_topology_l2_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mesh_topology_l3_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mesh_topology_l2_area">
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--Root Example Start-->
+    <RelativeLayout
+        android:id="@+id/mesh_topology_l1_device_area_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:gravity="center_vertical"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/mesh_topology_l1_device_include"
+            layout="@layout/adapter_mesh_topology_device_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+    <!--Root Example End-->
+
+    <!--Layer 2 Example Start-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mesh_topology_example_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/mesh_topology_example_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <include
+            android:id="@+id/mesh_topology_example_left"
+            layout="@layout/adapter_mesh_topology_device_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ex5510_b0"
+            app:layout_constraintEnd_toStartOf="@+id/mesh_topology_example_guideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/mesh_topology_example_center"
+            layout="@layout/adapter_mesh_topology_device_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ex5510_b0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/mesh_topology_l2_right"
+            layout="@layout/adapter_mesh_topology_device_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ex5510_b0"
+            app:layout_constraintStart_toEndOf="@+id/mesh_topology_example_guideline"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--Layer 2 Example End-->
+
+
+    <!-- Test  UI -->
+    <RelativeLayout
+        android:id="@+id/mesh_topology_l2_area_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/mesh_topology_l2_area_linear_left"
+            layout="@layout/adapter_mesh_topology_device_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/mesh_topology_l2_device_include_center"
+            android:visibility="visible" />
+
+        <include
+            android:id="@+id/mesh_topology_l2_device_include_center"
+            layout="@layout/adapter_mesh_topology_device_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="visible" />
+
+        <include
+            android:id="@+id/mesh_topology_l2_area_right"
+            layout="@layout/adapter_mesh_topology_device_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/mesh_topology_l2_device_include_center"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/mesh_topology_l3_area_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:weightSum="1">
+
+        <include
+            android:id="@+id/aaa"
+            layout="@layout/adapter_mesh_topology_device_left"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="visible" />
+
+        <include
+            android:id="@+id/bbb"
+            layout="@layout/adapter_mesh_topology_device_center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.0"
+            android:visibility="invisible" />
+
+        <include
+            android:id="@+id/ccc"
+            layout="@layout/adapter_mesh_topology_device_right"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mesh_topology_l6_area_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/line1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/left_wired_close"
+            app:layout_constraintEnd_toStartOf="@+id/line2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/line2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/straight_wired_good"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/line3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/right_wired_close"
+            app:layout_constraintStart_toEndOf="@+id/line2"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- Test  UI -->
+
+
+</LinearLayout>

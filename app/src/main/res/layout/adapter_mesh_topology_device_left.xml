@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBegin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <ImageView
+        android:id="@+id/mesh_topology_line_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center_vertical"
+        android:src="@drawable/left_wired_good"
+        app:layout_constraintStart_toStartOf="@+id/guidelineBegin"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/mesh_topology_device_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mesh_topology_line_image"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/mesh_topology_device_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mesh_topology_line_image">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_marginStart="@dimen/layout_size_3dp_in_1080"
+            android:layout_marginTop="@dimen/layout_size_3dp_in_1080"
+            android:background="@drawable/mesh_topology_device_circle">
+
+            <TextView
+                android:id="@+id/mesh_topology_connected_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="8"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_16sp_in_1080" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/mesh_topology_device_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/layout_size_15dp_in_1080"
+            android:src="@drawable/wx3100_t0" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/mesh_topology_device_model"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mesh_topology_device_frame"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+        android:text="ax7501_b1"
+        android:textColor="@color/color_888888"
+        android:textSize="@dimen/text_size_13sp_in_1080"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mesh_topology_device_frame" />
+
+    <TextView
+        android:id="@+id/mesh_topology_device_role"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mesh_topology_device_model"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/layout_size_3dp_in_1080"
+        android:text="Controller"
+        android:textColor="@color/color_b4b4b4"
+        android:textSize="@dimen/text_size_13sp_in_1080"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mesh_topology_device_model" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

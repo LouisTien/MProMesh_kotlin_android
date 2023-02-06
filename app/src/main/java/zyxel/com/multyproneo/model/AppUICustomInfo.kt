@@ -20,7 +20,8 @@ data class AppUICustomInfoObject
         val AP_Reboot: Boolean = true,
         val Parental_Control: Boolean = false,
         val Add_Mesh_WiFi: Boolean = true,
-        val GW_LAN_IP_PORT: Boolean = false
+        val GW_LAN_IP_PORT: Boolean = false,
+        val Internet_Speed_status: Boolean = false
 )
 
 /*
@@ -43,5 +44,8 @@ data class AppUICustomInfoObject
          "Parental_Control": false  //如沒此欄位，預設值為false (Parental Control功能開啟與否)
          "Add_Mesh_WiFi": true,  //如沒此欄位，預設值為true(add mesh頁面，使用WiFi配對流程是否顯示)
          "GW_LAN_IP_PORT": false,  //如沒此欄位，預設值為false(決定會下/TR181/Value/Device.X_ZYXEL_RemoteManagement.Service.與否)
+
+   //EMG5601新增部分
+         "Internet_Speed_status": false,//如沒此欄位，預設值為false(顯示Home Page "Internet_speed" 功能)
        }
  */

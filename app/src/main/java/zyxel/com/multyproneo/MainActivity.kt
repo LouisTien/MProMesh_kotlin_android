@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var enterCloudWiFiSettingsPageDisposable: Disposable
     private lateinit var enterCloudSettingsPageDisposable: Disposable
     private lateinit var enterSearchGatewayPageDisposable: Disposable
+    private lateinit var enterNetWorkTopologyPageDisposable: Disposable
     private lateinit var msgDialogResponseDisposable: Disposable
     private lateinit var showErrorMsgDialogDisposable: Disposable
     private lateinit var showToastDisposable: Disposable
@@ -460,6 +461,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         enterSearchGatewayPageDisposable = GlobalBus.listen(MainEvent.EnterSearchGatewayPage::class.java).subscribe{ gotoSearchGatewayFragment() }
 
+        enterNetWorkTopologyPageDisposable = GlobalBus.listen(MainEvent.EnterNetworkTopologyPage::class.java).subscribe{ gotoNetworkTopologyFragment() }
+
         startGetWPSStatusTaskDisposable = GlobalBus.listen(MainEvent.StartGetWPSStatusTask::class.java).subscribe{
             getWPSStatusTimer = Timer()
             getWPSStatusTimer.schedule(0, (AppConfig.WPSStatusUpdateTime * 1000).toLong()){ getWPSStatusInfoTask() }
@@ -538,6 +541,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
         if(!enterCloudWiFiSettingsPageDisposable.isDisposed) enterCloudWiFiSettingsPageDisposable.dispose()
         if(!enterCloudSettingsPageDisposable.isDisposed) enterCloudSettingsPageDisposable.dispose()
         if(!enterSearchGatewayPageDisposable.isDisposed) enterSearchGatewayPageDisposable.dispose()
+        if(!enterNetWorkTopologyPageDisposable.isDisposed) enterNetWorkTopologyPageDisposable.dispose()
         if(!msgDialogResponseDisposable.isDisposed) msgDialogResponseDisposable.dispose()
         if(!showErrorMsgDialogDisposable.isDisposed) showErrorMsgDialogDisposable.dispose()
         if(!showToastDisposable.isDisposed) showToastDisposable.dispose()
@@ -698,6 +702,11 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private fun gotoSearchGatewayFragment()
     {
         switchToFragContainer(FindingDeviceFragment())
+    }
+
+    private fun gotoNetworkTopologyFragment()
+    {
+        switchToFragContainer(MeshTopologyFragment())
     }
 
     private fun ShowLoadingOnlyGrayBG()

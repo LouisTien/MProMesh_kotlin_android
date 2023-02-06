@@ -153,6 +153,8 @@ class CloudHomeFragment : Fragment()
                 GlobalBus.publish(MainEvent.ShowLoading())
                 startGetCloudDeviceInfo()
             }
+
+            cloud_home_site_topology_image -> GlobalBus.publish(MainEvent.EnterNetworkTopologyPage())
         }
     }
 
@@ -166,6 +168,7 @@ class CloudHomeFragment : Fragment()
         cloud_home_wifi_router_image.setOnClickListener(clickListener)
         cloud_home_wifi_router_area_relative.setOnClickListener(clickListener)
         cloud_home_site_refresh_image.setOnClickListener(clickListener)
+        cloud_home_site_topology_image.setOnClickListener(clickListener)
     }
 
     private fun updateUI()

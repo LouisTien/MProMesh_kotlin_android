@@ -24,8 +24,11 @@
         android:id="@+id/setup_first_time_context_relative"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/layout_size_30dp_in_1080"
-        android:layout_below="@+id/setup_first_time_center_line_image">
+        android:layout_below="@+id/setup_first_time_center_line_image"
+        android:layout_marginStart="@dimen/layout_size_30dp_in_1080"
+        android:layout_marginTop="@dimen/layout_size_30dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_30dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_30dp_in_1080">
 
         <LinearLayout
             android:id="@+id/setup_first_time_context_description1_linear"
@@ -39,18 +42,18 @@
                 android:layout_height="wrap_content"
                 android:text="•"
                 android:textColor="@color/color_64be00"
-                android:textSize="@dimen/text_size_20sp_in_1080"/>
+                android:textSize="@dimen/text_size_20sp_in_1080" />
 
             <TextView
                 android:id="@+id/setup_first_time_context_description1_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@string/setup_first_time_using_description1"
                 android:textColor="@color/color_000000"
-                android:textSize="@dimen/text_size_16sp_in_1080"
-                android:ellipsize="end"
-                android:maxLines="2"/>
+                android:textSize="@dimen/text_size_16sp_in_1080" />
 
         </LinearLayout>
 
@@ -58,8 +61,8 @@
             android:id="@+id/setup_first_time_context_description2_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
             android:layout_below="@+id/setup_first_time_context_description1_linear"
+            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
             android:orientation="horizontal">
 
             <TextView
@@ -67,18 +70,18 @@
                 android:layout_height="wrap_content"
                 android:text="•"
                 android:textColor="@color/color_64be00"
-                android:textSize="@dimen/text_size_20sp_in_1080"/>
+                android:textSize="@dimen/text_size_20sp_in_1080" />
 
             <TextView
                 android:id="@+id/setup_first_time_context_description2_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@string/setup_first_time_using_description2"
                 android:textColor="@color/color_000000"
-                android:textSize="@dimen/text_size_16sp_in_1080"
-                android:ellipsize="end"
-                android:maxLines="2"/>
+                android:textSize="@dimen/text_size_16sp_in_1080" />
 
         </LinearLayout>
 
@@ -86,8 +89,8 @@
             android:id="@+id/setup_first_time_context_description3_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
             android:layout_below="@+id/setup_first_time_context_description2_linear"
+            android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
             android:orientation="horizontal">
 
             <TextView
@@ -95,18 +98,18 @@
                 android:layout_height="wrap_content"
                 android:text="•"
                 android:textColor="@color/color_64be00"
-                android:textSize="@dimen/text_size_20sp_in_1080"/>
+                android:textSize="@dimen/text_size_20sp_in_1080" />
 
             <TextView
                 android:id="@+id/setup_first_time_context_description3_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@string/setup_first_time_using_description3"
                 android:textColor="@color/color_000000"
-                android:textSize="@dimen/text_size_16sp_in_1080"
-                android:ellipsize="end"
-                android:maxLines="2"/>
+                android:textSize="@dimen/text_size_16sp_in_1080" />
 
         </LinearLayout>
 
