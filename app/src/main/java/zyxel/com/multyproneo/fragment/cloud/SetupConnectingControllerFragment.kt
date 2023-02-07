@@ -412,6 +412,8 @@ class SetupConnectingControllerFragment : Fragment(), IResponseListener
                 true -> startFindDevice()
 
                 false -> gotoCannotConnectControllerTroubleshootingPage()
+
+                else ->{}
             }
 
         }

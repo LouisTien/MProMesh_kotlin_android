@@ -119,7 +119,7 @@ class CloudLoginFragment : Fragment()
     private fun initWebView()
     {
         cloud_login_WebView.webViewClient = LoginWebViewClient()
-        cloud_login_WebView.settings.setAppCacheEnabled(false)
+//        cloud_login_WebView.settings.setAppCacheEnabled(false)//Result from upgrading SDK to 33,need to fix
         cloud_login_WebView.settings.cacheMode = WebSettings.LOAD_NO_CACHE
         cloud_login_WebView.settings.javaScriptEnabled = true
         cloud_login_WebView.settings.useWideViewPort = true
