@@ -34,6 +34,7 @@ class MainEvent
     class EnterCloudSettingsPage()
     class EnterSearchGatewayPage()
     class EnterNetworkTopologyPage()
+    class EnterDeviceListPage()
     class ShowErrorMsgDialog(var msg: String, var requestCtxName: String)
     class ShowToast(var msg: String, var requestCtxName: String)
     class GetCloudInfo()

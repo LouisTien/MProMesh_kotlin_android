@@ -139,7 +139,7 @@ class WiFiSettingsEditFragment : Fragment() {
         if (!randomPasswordDialogResponse.isDisposed) randomPasswordDialogResponse.dispose()
 
         if (keyboardListenersAttached)
-            view?.viewTreeObserver?.removeGlobalOnLayoutListener(keyboardLayoutListener)
+            view?.viewTreeObserver?.removeOnGlobalLayoutListener(keyboardLayoutListener)
     }
 
     private val keyboardLayoutListener = object : ViewTreeObserver.OnGlobalLayoutListener {

@@ -78,7 +78,7 @@ class SetupSNLoginFragment : Fragment()
         super.onDestroyView()
 
         if(keyboardListenersAttached)
-            view?.viewTreeObserver?.removeGlobalOnLayoutListener(keyboardLayoutListener)
+            view?.viewTreeObserver?.removeOnGlobalLayoutListener(keyboardLayoutListener)
     }
 
     private val keyboardLayoutListener = object: ViewTreeObserver.OnGlobalLayoutListener

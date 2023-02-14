@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/layout_size_300dp_in_1080"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/mesh_topology_rssi_link_rate_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:text="@string/mesh_topology_rssi_link_rate_title"
+        android:textColor="@color/color_000000"
+        android:textSize="@dimen/text_size_20sp_in_1080"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/mesh_topology_rssi_link_rate_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/layout_size_20dp_in_1080"
+        android:layout_toEndOf="@+id/mesh_topology_rssi_link_rate_title"
+        android:text="122Mbps"
+        android:textColor="@color/color_000000"
+        android:textSize="@dimen/text_size_20sp_in_1080"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mesh_topology_rssi_link_rate_title"
+        app:layout_constraintTop_toTopOf="@+id/mesh_topology_rssi_link_rate_title" />
+
+
+    <TextView
+        android:id="@+id/mesh_topology_rssi_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:text="@string/mesh_topology_rssi_title"
+        android:textColor="@color/color_000000"
+        android:textSize="@dimen/text_size_20sp_in_1080"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mesh_topology_rssi_link_rate_title" />
+
+    <TextView
+        android:id="@+id/mesh_topology_rssi_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/layout_size_40dp_in_1080"
+        android:text="-55"
+        android:textColor="@color/color_000000"
+        android:textSize="@dimen/text_size_20sp_in_1080"
+        app:layout_constraintStart_toStartOf="@+id/mesh_topology_rssi_link_rate_text"
+        app:layout_constraintTop_toTopOf="@+id/mesh_topology_rssi_title" />
+
+    <TextView
+        android:id="@+id/msg_alert_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/layout_size_10dp_in_1080"
+        android:ellipsize="end"
+        android:maxWidth="@dimen/layout_size_150dp_in_1080"
+        android:padding="@dimen/layout_size_15dp_in_1080"
+        android:singleLine="true"
+        android:text="Close"
+        android:textColor="@color/color_575757"
+        android:textSize="@dimen/text_size_16sp_in_1080"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mesh_topology_rssi_text" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

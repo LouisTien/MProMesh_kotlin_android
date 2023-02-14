@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:paddingHorizontal="@dimen/layout_size_30dp_in_1080"
         android:gravity="center_vertical"
         android:src="@drawable/straight_wired_good"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,6 +35,7 @@
         app:layout_constraintTop_toBottomOf="@+id/mesh_topology_line_image">
 
         <FrameLayout
+            android:id="@+id/mesh_topology_connected_count_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top"
@@ -46,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="8"
+                android:text="0"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_16sp_in_1080" />
         </FrameLayout>
@@ -58,10 +60,20 @@
             android:gravity="center_vertical"
             android:padding="@dimen/layout_size_15dp_in_1080"
             android:src="@drawable/wx3100_t0" />
+
+        <ImageView
+            android:id="@+id/mesh_topology_device_status_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="0dp"
+            android:layout_marginEnd="0dp"
+            android:padding="@dimen/layout_size_15dp_in_1080"
+            android:src="@drawable/icon_no_connection" />
     </FrameLayout>
 
     <TextView
-        android:id="@+id/mesh_topology_device_model"
+        android:id="@+id/mesh_topology_device_hostname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -85,6 +97,6 @@
         android:textSize="@dimen/text_size_13sp_in_1080"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mesh_topology_device_model" />
+        app:layout_constraintTop_toBottomOf="@+id/mesh_topology_device_hostname" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,41 +5,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.adapter_mesh_topology_device_center.view.*
-import kotlinx.android.synthetic.main.adapter_mesh_topology_device_center.view.mesh_topology_device_image
-import kotlinx.android.synthetic.main.adapter_mesh_topology_device_center.view.mesh_topology_device_model
-import kotlinx.android.synthetic.main.adapter_mesh_topology_device_center.view.mesh_topology_line_image
-import kotlinx.android.synthetic.main.adapter_mesh_topology_device_center.view.mesh_topology_device_role
-import kotlinx.android.synthetic.main.adapter_mesh_topology_device_left.view.*
 import kotlinx.android.synthetic.main.fragment_mesh_topology.*
 import org.jetbrains.anko.imageResource
-import org.jetbrains.anko.support.v4.dip
-import org.jetbrains.anko.support.v4.runOnUiThread
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.TreeNode
 import zyxel.com.multyproneo.adapter.MeshTopologyPageAdapter
-import zyxel.com.multyproneo.adapter.cloud.CloudZYXELEndDeviceItemAdapter
-import zyxel.com.multyproneo.api.ApiHandler
-import zyxel.com.multyproneo.event.ApiEvent
+import zyxel.com.multyproneo.dialog.MeshTopologyDeviceStatusDialog
 import zyxel.com.multyproneo.event.GlobalBus
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.model.DevicesInfoObject
-import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.FeatureConfig
+import zyxel.com.multyproneo.tool.CommonTool
+import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
-import java.util.*
-import kotlin.concurrent.schedule
-
 
 class MeshTopologyFragment : Fragment() {
 
     private val TAG = "MeshTopologyFragment"
+    private lateinit var inflator: LayoutInflater
+    private var isGateway = false
+    private var RootNodeDeviceInfo = DevicesInfoObject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,11 +39,256 @@ class MeshTopologyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var pageAdapter = MeshTopologyPageAdapter(this)
+
+        with(arguments)
+        {
+            this?.getSerializable("RootNodeDeviceInfo")?.let {
+                RootNodeDeviceInfo = it as DevicesInfoObject
+            }
+            this?.getBoolean("isGateway")?.let {
+                isGateway = it
+            }
+        }
+
+        inflator =
+            requireActivity().applicationContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+        GlobalData.ZYXELEndDeviceListTreeNode = processEndDeviceList()
+
+        val chunkLayer2DeviceList = if (isGateway) {
+            val layer2EndDeviceList = GlobalData.ZYXELEndDeviceListTreeNode.filter { it.depth == 1 }
+            layer2EndDeviceList.chunked(3)
+        } else {
+            val layer2EndDeviceList = GlobalData.ZYXELEndDeviceListTreeNode.filter {
+                it.parent?.data?.PhysAddress == RootNodeDeviceInfo.PhysAddress
+            }
+            layer2EndDeviceList.chunked(3)
+        }
+
+        val fragmentList = mutableListOf<Fragment>()
+        for (item in chunkLayer2DeviceList) {
+            if (isGateway)
+                fragmentList.add(
+                    MeshTopologyPageFragment(
+                        item as MutableList<TreeNode<DevicesInfoObject>>,
+                        GlobalData.getCurrentGatewayInfo().MAC
+                    )
+                )
+            else
+                fragmentList.add(
+                    MeshTopologyPageFragment(
+                        item as MutableList<TreeNode<DevicesInfoObject>>,
+                        RootNodeDeviceInfo.PhysAddress
+                    )
+                )
+        }
+
+        val pageAdapter = MeshTopologyPageAdapter(fragmentList, this)
         mesh_topology_viewpager.adapter = pageAdapter
-        TabLayoutMediator(into_tab_layout, mesh_topology_viewpager)
-        { tab, position -> }.attach()
+        TabLayoutMediator(
+            into_tab_layout,
+            mesh_topology_viewpager
+        ) { tab, position ->
+            LogUtil.d("ddddd", "my position: $position,tab: $tab")
+        }.attach()
+
+        settingL1TopologyView(isGateway)
         setClickListener()
+    }
+
+    private fun processEndDeviceList(): MutableList<TreeNode<DevicesInfoObject>> {
+        GlobalData.layer2EndDeviceList.clear()
+
+        //layer 1
+        val rootNode = TreeNode(
+            DevicesInfoObject(
+                HostName = GlobalData.getCurrentGatewayInfo().getName(),
+                PhysAddress = GlobalData.getCurrentGatewayInfo().MAC
+            )
+        )
+
+        val deviceNode = mutableListOf<TreeNode<DevicesInfoObject>>()
+        deviceNode.add(rootNode)
+
+        //layer 2
+        for (item in GlobalData.ZYXELEndDeviceList) {
+            with(item.X_ZYXEL_Neighbor)
+            {
+                when {
+                    equals("gateway", ignoreCase = true) ||
+                            equals("unknown", ignoreCase = true) ||
+                            equals("NULL", ignoreCase = true) ||
+                            equals("N/A", ignoreCase = true) ||
+                            equals("", ignoreCase = true) ||
+                            equals(
+                                GlobalData.getCurrentGatewayInfo().MAC,
+                                ignoreCase = true
+                            ) ||
+                            isEmpty() -> {
+                        GlobalData.layer2EndDeviceList.add(
+                            TreeNode<DevicesInfoObject>(
+                                item,
+                                rootNode
+                            )
+                        )
+                    }
+                    else -> {}
+                }
+            }
+        }
+
+        deviceNode.addAll(GlobalData.layer2EndDeviceList)
+        var depth = 1;
+        while ((deviceNode.size - 1) < GlobalData.ZYXELEndDeviceList.size) {
+            val tempDeviceList = mutableListOf<TreeNode<DevicesInfoObject>>()
+            for (item in GlobalData.ZYXELEndDeviceList) {
+                for (node in deviceNode) {
+                    if (node.depth == depth) {
+                        if (CommonTool.checkIsTheSameDeviceMac(
+                                item.X_ZYXEL_Neighbor,
+                                node.data.PhysAddress
+                            )
+                        ) {
+                            tempDeviceList.add(TreeNode<DevicesInfoObject>(item, node))
+                        }
+                    }
+                }
+            }
+            depth++
+            deviceNode.addAll(tempDeviceList)
+        }
+        return deviceNode
+    }
+
+    private fun settingL1TopologyView(isGateway: Boolean) {
+
+        mesh_topology_root_device_include.mesh_topology_line_image.visibility = View.GONE
+        if (isGateway) {
+            mesh_topology_root_device_include.mesh_topology_device_image.imageResource =
+                R.drawable.ex5601_t0
+            mesh_topology_root_device_include.mesh_topology_device_role.text = GlobalData.Controller
+            mesh_topology_root_device_include.mesh_topology_device_status_image.imageResource =
+                if (GlobalData.gatewayWanInfo.Object.Status == "Enable") R.drawable.icon_connected else R.drawable.icon_no_connection
+            mesh_topology_root_device_include.mesh_topology_device_hostname.text =
+                SpecialCharacterHandler.checkEmptyTextValue(GlobalData.getCurrentGatewayInfo().UserDefineName)
+
+            var connectedDeviceCount = 0
+
+            for (item in GlobalData.homeEndDeviceList) {
+                if (item.Active) {
+                    with(item.X_ZYXEL_Neighbor) {
+                        when {
+                            equals("gateway", ignoreCase = true) ||
+                                    equals("unknown", ignoreCase = true) ||
+                                    equals("NULL", ignoreCase = true) ||
+                                    equals("N/A", ignoreCase = true) ||
+                                    equals("", ignoreCase = true) ||
+                                    equals(
+                                        GlobalData.getCurrentGatewayInfo().MAC,
+                                        ignoreCase = true
+                                    ) ||
+                                    isEmpty() -> {
+                                connectedDeviceCount++
+
+                            }
+                            else -> {}
+                        }
+                    }
+                }
+            }
+            for (item in GlobalData.guestEndDeviceList) {
+                if (item.Active) {
+                    with(item.X_ZYXEL_Neighbor) {
+                        when {
+                            equals("gateway", ignoreCase = true) ||
+                                    equals("unknown", ignoreCase = true) ||
+                                    equals("NULL", ignoreCase = true) ||
+                                    equals("N/A", ignoreCase = true) ||
+                                    equals("", ignoreCase = true) ||
+                                    equals(
+                                        GlobalData.getCurrentGatewayInfo().MAC,
+                                        ignoreCase = true
+                                    ) ||
+                                    isEmpty() -> {
+                                connectedDeviceCount++
+
+                            }
+                            else -> {}
+                        }
+                    }
+                }
+            }
+
+            mesh_topology_root_device_include.mesh_topology_device_image.setOnClickListener(View.OnClickListener {
+
+                LogUtil.d(
+                    TAG,
+                    "setOnClickListener GlobalData.getCurrentGatewayInfo().MAC:${GlobalData.getCurrentGatewayInfo().MAC}"
+                )
+
+                if (connectedDeviceCount > 0) {
+                    val bundle = Bundle().apply {
+                        putString("ExtenderMAC", GlobalData.getCurrentGatewayInfo().MAC)
+                        putString("RootNodeMAC", GlobalData.getCurrentGatewayInfo().MAC)
+                    }
+
+                    GlobalBus.publish(MainEvent.SwitchToFrag(DevicesListFragment().apply {
+                        arguments = bundle
+                    }))
+                }
+            })
+            mesh_topology_root_device_include.mesh_topology_connected_count.text =
+                connectedDeviceCount.toString()
+
+
+        } else {
+            mesh_topology_root_device_include.mesh_topology_device_image.imageResource =
+                R.drawable.wx3100_t0
+            mesh_topology_root_device_include.mesh_topology_device_role.text = GlobalData.Satellite
+            mesh_topology_root_device_include.mesh_topology_device_status_image.visibility =
+                View.GONE
+            mesh_topology_root_device_include.mesh_topology_device_hostname.text =
+                SpecialCharacterHandler.checkEmptyTextValue(RootNodeDeviceInfo.getName())
+            var connectedDeviceCount = 0
+            val deviceList = mutableListOf<DevicesInfoObject>()
+            for (item in GlobalData.homeEndDeviceList) {
+                if (item.X_ZYXEL_Neighbor == SpecialCharacterHandler.checkEmptyTextValue(
+                        RootNodeDeviceInfo.PhysAddress
+                    ) &&
+                    item.Active
+                ) {
+                    deviceList.add(item)
+                    connectedDeviceCount++
+                }
+            }
+            for (item in GlobalData.guestEndDeviceList) {
+                if (item.X_ZYXEL_Neighbor == SpecialCharacterHandler.checkEmptyTextValue(
+                        RootNodeDeviceInfo.PhysAddress
+                    ) &&
+                    item.Active
+                ) {
+                    deviceList.add(item)
+                    connectedDeviceCount++
+                }
+            }
+
+            mesh_topology_root_device_include.mesh_topology_connected_count.text =
+                connectedDeviceCount.toString()
+
+            mesh_topology_root_device_include.mesh_topology_device_image.setOnClickListener(View.OnClickListener {
+                if (connectedDeviceCount > 0) {
+                    val bundle = Bundle().apply {
+                        putString("ExtenderMAC", RootNodeDeviceInfo.PhysAddress)
+                        putString("RootNodeMAC", RootNodeDeviceInfo.PhysAddress)
+                    }
+
+                    GlobalBus.publish(MainEvent.SwitchToFrag(DevicesListFragment().apply {
+                        arguments = bundle
+                    }))
+                }
+            })
+        }
+        mesh_topology_root_area.visibility = View.VISIBLE
     }
 
     override fun onResume() {
@@ -77,9 +310,29 @@ class MeshTopologyFragment : Fragment() {
 
     private val clickListener = View.OnClickListener { view ->
         when (view) {
-            mesh_topology_back_image -> GlobalBus.publish(MainEvent.SwitchToFrag(HomeFragment()))
+            mesh_topology_back_image -> {
+                if (isGateway) {
+                    GlobalBus.publish(MainEvent.SwitchToFrag(HomeFragment()))
+                } else {
+                    val temp =
+                        GlobalData.ZYXELEndDeviceListTreeNode.filter { it.data.PhysAddress == RootNodeDeviceInfo.PhysAddress }
+                    if (temp.isNotEmpty()) {
+                        val bundle = Bundle().apply {
+                            putSerializable("RootNodeDeviceInfo", temp[0].parent?.data)
+                            temp[0].parent?.isRootNode?.let { putBoolean("isGateway", it) }
+                        }
 
-            mesh_topology_note_image -> GlobalBus.publish(MainEvent.SwitchToFrag(HomeFragment()))
+                        GlobalBus.publish(MainEvent.SwitchToFrag(MeshTopologyFragment().apply {
+                            arguments = bundle
+                        }))
+                    } else {
+                        GlobalBus.publish(MainEvent.EnterNetworkTopologyPage())
+                    }
+                }
+            }
+            mesh_topology_note_image -> {
+                MeshTopologyDeviceStatusDialog(requireActivity()).show()
+            }
         }
     }
 }

@@ -44,9 +44,30 @@
 
     </RelativeLayout>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mesh_topology_root_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/mesh_topology_root_device_include"
+            layout="@layout/adapter_mesh_topology_device_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_centerInParent="true" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -66,23 +87,23 @@
             app:tabIndicatorHeight="0dp" />
     </FrameLayout>
     <!--Root Example Start-->
-    <RelativeLayout
-        android:id="@+id/mesh_topology_l1_device_area_linear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
-        android:gravity="center_vertical"
-        android:visibility="gone">
+    <!--    <RelativeLayout-->
+    <!--        android:id="@+id/mesh_topology_l1_device_area_linear"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center_horizontal"-->
+    <!--        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"-->
+    <!--        android:gravity="center_vertical"-->
+    <!--        android:visibility="gone">-->
 
-        <include
-            android:id="@+id/mesh_topology_l1_device_include"
-            layout="@layout/adapter_mesh_topology_device_center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+    <!--        <include-->
+    <!--            android:id="@+id/mesh_topology_l1_device_include"-->
+    <!--            layout="@layout/adapter_mesh_topology_device_center"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_centerInParent="true" />-->
 
-    </RelativeLayout>
+    <!--    </RelativeLayout>-->
     <!--Root Example End-->
 
     <!--Layer 2 Example Start-->

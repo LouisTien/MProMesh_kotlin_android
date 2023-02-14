@@ -396,5 +396,18 @@
     <string name="random_password_guest_description">Guest Password:</string>
     <string name="password_copied">Password Copied</string>
     <string name="mesh_topology_title">Mesh Topology</string>
+    <string name="mesh_topology_status_title">Internet Status</string>
+    <string name="mesh_topology_status_connect">Connected</string>
+    <string name="mesh_topology_status_disconnect">No connection</string>
+    <string name="mesh_topology_mesh_status_title">Mesh Devices Connection and Placement Status</string>
+    <string name="mesh_topology_status_wired">Wired</string>
+    <string name="mesh_topology_status_wireless">Wireless</string>
+    <string name="mesh_topology_status_good_to_go">Good to go</string>
+    <string name="mesh_topology_status_too_close">Too close to the WiFi Router</string>
+    <string name="mesh_topology_status_weak">Weak WiFi</string>
+    <string name="mesh_topology_status_no_connection">No Connection</string>
+    <string name="mesh_topology_rssi_link_rate_title">Link Rate:</string>
+    <string name="mesh_topology_rssi_title">RSSI:</string>
+    <string name="device_list_title">Device List</string>
 
 </resources>

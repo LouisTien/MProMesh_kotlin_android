@@ -98,7 +98,7 @@ class LoginFragment : Fragment()
         super.onDestroyView()
 
         if(keyboardListenersAttached)
-            view?.viewTreeObserver?.removeGlobalOnLayoutListener(keyboardLayoutListener)
+            view?.viewTreeObserver?.removeOnGlobalLayoutListener(keyboardLayoutListener)
     }
 
     private val keyboardLayoutListener = object: ViewTreeObserver.OnGlobalLayoutListener
@@ -107,16 +107,15 @@ class LoginFragment : Fragment()
         {
             val rect = Rect()
             view?.getWindowVisibleDisplayFrame(rect)
-            val heightDiff = view?.rootView?.height!! - (rect.bottom - rect.top)
-            if(heightDiff > 500)
-            {
-                login_title_text.visibility = View.GONE
-                login_description_text.visibility = View.GONE
-            }
-            else
-            {
-                login_title_text.visibility = View.VISIBLE
-                login_description_text.visibility = View.VISIBLE
+            val heightDiff = view?.rootView?.height?.minus((rect.bottom - rect.top))
+            if (heightDiff != null) {
+                if(heightDiff > 500) {
+                    login_title_text.visibility = View.GONE
+                    login_description_text.visibility = View.GONE
+                } else {
+                    login_title_text.visibility = View.VISIBLE
+                    login_description_text.visibility = View.VISIBLE
+                }
             }
         }
     }

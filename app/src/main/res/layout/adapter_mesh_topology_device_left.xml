@@ -34,6 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/mesh_topology_line_image">
 
         <FrameLayout
+            android:id="@+id/mesh_topology_connected_count_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top"
@@ -46,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="8"
+                android:text="0"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_size_16sp_in_1080" />
         </FrameLayout>
@@ -61,7 +62,7 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/mesh_topology_device_model"
+        android:id="@+id/mesh_topology_device_hostname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/mesh_topology_device_frame"
@@ -79,7 +80,7 @@
         android:id="@+id/mesh_topology_device_role"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/mesh_topology_device_model"
+        android:layout_below="@+id/mesh_topology_device_hostname"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/layout_size_3dp_in_1080"
         android:text="Controller"
@@ -87,6 +88,6 @@
         android:textSize="@dimen/text_size_13sp_in_1080"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mesh_topology_device_model" />
+        app:layout_constraintTop_toBottomOf="@+id/mesh_topology_device_hostname" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

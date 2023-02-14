@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private lateinit var enterCloudSettingsPageDisposable: Disposable
     private lateinit var enterSearchGatewayPageDisposable: Disposable
     private lateinit var enterNetWorkTopologyPageDisposable: Disposable
+    private lateinit var enterDeviceListPageDisposable: Disposable
     private lateinit var msgDialogResponseDisposable: Disposable
     private lateinit var showErrorMsgDialogDisposable: Disposable
     private lateinit var showToastDisposable: Disposable
@@ -463,6 +464,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
         enterNetWorkTopologyPageDisposable = GlobalBus.listen(MainEvent.EnterNetworkTopologyPage::class.java).subscribe{ gotoNetworkTopologyFragment() }
 
+        enterDeviceListPageDisposable = GlobalBus.listen(MainEvent.EnterDeviceListPage::class.java).subscribe{ gotoDeviceListFragment() }
+
         startGetWPSStatusTaskDisposable = GlobalBus.listen(MainEvent.StartGetWPSStatusTask::class.java).subscribe{
             getWPSStatusTimer = Timer()
             getWPSStatusTimer.schedule(0, (AppConfig.WPSStatusUpdateTime * 1000).toLong()){ getWPSStatusInfoTask() }
@@ -707,6 +710,11 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
     private fun gotoNetworkTopologyFragment()
     {
         switchToFragContainer(MeshTopologyFragment())
+    }
+
+    private fun gotoDeviceListFragment()
+    {
+        switchToFragContainer(DevicesListFragment())
     }
 
     private fun ShowLoadingOnlyGrayBG()

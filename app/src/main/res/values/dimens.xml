@@ -118,6 +118,7 @@
     <dimen name="layout_size_400dp_in_1080">400dp</dimen>
     <dimen name="layout_size_430dp_in_1080">430dp</dimen>
     <dimen name="layout_size_450dp_in_1080">450dp</dimen>
+    <dimen name="layout_size_500dp_in_1080">500dp</dimen>
 
     <dimen name="layout_size_main_bottom_toolbar_in_1080">65dp</dimen>
 

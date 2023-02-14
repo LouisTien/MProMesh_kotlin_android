@@ -152,7 +152,15 @@ class HomeFragment : Fragment()
                 executeRegularApi()
             }
 
-            home_site_topology_image -> GlobalBus.publish(MainEvent.EnterNetworkTopologyPage())
+            home_site_topology_image -> {
+                val bundle = Bundle().apply {
+                    putBoolean("isGateway", true)
+                }
+
+                GlobalBus.publish(MainEvent.SwitchToFrag(MeshTopologyFragment().apply {
+                    arguments = bundle
+                }))
+            }
 
             cloud_home_connect_device_frame -> GlobalBus.publish(MainEvent.EnterDevicesPage())
 

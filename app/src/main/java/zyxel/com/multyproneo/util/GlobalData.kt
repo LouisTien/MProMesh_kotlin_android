@@ -20,8 +20,7 @@ object GlobalData
     var guestEndDeviceList = mutableListOf<DevicesInfoObject>()
     var homeEndDeviceList = mutableListOf<DevicesInfoObject>()
     var layer2EndDeviceList = mutableListOf<TreeNode<DevicesInfoObject>>()
-    var layer3EndDeviceList = mutableListOf<TreeNode<DevicesInfoObject>>()
-    var layer4EndDeviceList = mutableListOf<TreeNode<DevicesInfoObject>>()
+    var ZYXELEndDeviceListTreeNode = mutableListOf<TreeNode<DevicesInfoObject>>()
     var changeIconNameList = mutableListOf<ChangeIconNameInfoObject>()
     var parentalControlInfoProfileList = mutableListOf<ParentalControlInfoProfile>()
     var parentalControlSelectedDeviceList = mutableListOf<DevicesInfoObject>()
@@ -79,6 +78,8 @@ object GlobalData
     var WAP6807 = "WAP6807"
     var WX3100_T0 = "WX3100-T0"
     var WX5600_T0 = "WX5600-T0"
+    var Satellite = "Satellite"
+    var Controller = "Controller"
 
 
     fun getCurrentGatewayInfo(): GatewayInfo = gatewayList[currentGatewayIndex]

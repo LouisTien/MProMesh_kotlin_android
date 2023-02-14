@@ -265,7 +265,7 @@ class ParentalControlEditProfileFragment : Fragment()
         if(!msgDialogResponse.isDisposed) msgDialogResponse.dispose()
 
         if(keyboardListenersAttached)
-            view?.viewTreeObserver?.removeGlobalOnLayoutListener(keyboardLayoutListener)
+            view?.viewTreeObserver?.removeOnGlobalLayoutListener(keyboardLayoutListener)
     }
 
     private val keyboardLayoutListener = object: ViewTreeObserver.OnGlobalLayoutListener

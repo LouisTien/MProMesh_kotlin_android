@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/mesh_topology_status_close_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+        android:src="@drawable/icon_close"/>
+
+    <TextView
+        android:id="@+id/mesh_topology_status_title_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
+        android:layout_below="@+id/mesh_topology_status_close_image"
+        android:text="@string/mesh_topology_status_title"
+        android:textStyle="bold"
+        android:textColor="@color/color_000000"
+        android:textSize="@dimen/text_size_18sp_in_1080" />
+
+    <RelativeLayout
+        android:id="@+id/mesh_topology_status_connect_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
+        android:layout_below="@+id/mesh_topology_status_title_text">
+
+        <ImageView
+            android:id="@+id/mesh_topology_status_connect_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:src="@drawable/icon_connected"/>
+
+        <TextView
+            android:id="@+id/mesh_topology_status_connect_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toEndOf="@+id/mesh_topology_status_connect_image"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:text="@string/mesh_topology_status_connect"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mesh_topology_status_disconnect_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
+        android:layout_below="@+id/mesh_topology_status_connect_relative">
+
+        <ImageView
+            android:id="@+id/mesh_topology_status_disconnect_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:src="@drawable/icon_no_connection"/>
+
+        <TextView
+            android:id="@+id/mesh_topology_status_disconnect_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toEndOf="@+id/mesh_topology_status_disconnect_image"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:text="@string/mesh_topology_status_disconnect"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/mesh_topology_mesh_status_title_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
+        android:layout_below="@+id/mesh_topology_status_disconnect_relative"
+        android:text="@string/mesh_topology_mesh_status_title"
+        android:textStyle="bold"
+        android:textColor="@color/color_000000"
+        android:textSize="@dimen/text_size_18sp_in_1080" />
+
+    <RelativeLayout
+        android:id="@+id/mesh_topology_status_wired_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
+        android:layout_below="@+id/mesh_topology_mesh_status_title_text">
+
+        <ImageView
+            android:id="@+id/mesh_topology_status_wired_image"
+            android:layout_width="@dimen/layout_size_20dp_in_1080"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:src="@drawable/mesh_topology_device_status_wired"/>
+
+        <TextView
+            android:id="@+id/mesh_topology_status_wired_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toEndOf="@+id/mesh_topology_status_wired_image"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:text="@string/mesh_topology_status_wired"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mesh_topology_status_wireless_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
+        android:layout_below="@+id/mesh_topology_status_wired_relative">
+
+        <ImageView
+            android:id="@+id/mesh_topology_status_wireless_image"
+            android:layout_width="@dimen/layout_size_20dp_in_1080"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:src="@drawable/mesh_topology_device_status_wireless"/>
+
+        <TextView
+            android:id="@+id/mesh_topology_status_wireless_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toEndOf="@+id/mesh_topology_status_wireless_image"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:text="@string/mesh_topology_status_wireless"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mesh_topology_status_good_to_go_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
+        android:layout_below="@+id/mesh_topology_status_wireless_relative">
+
+        <ImageView
+            android:id="@+id/mesh_topology_status_good_to_go_image"
+            android:layout_width="@dimen/layout_size_20dp_in_1080"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:src="@drawable/mesh_topology_device_status_good_to_go"/>
+
+        <TextView
+            android:id="@+id/mesh_topology_status_good_to_go_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toEndOf="@+id/mesh_topology_status_good_to_go_image"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:text="@string/mesh_topology_status_good_to_go"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mesh_topology_status_too_close_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
+        android:layout_below="@+id/mesh_topology_status_good_to_go_relative">
+
+        <ImageView
+            android:id="@+id/mesh_topology_status_too_close_image"
+            android:layout_width="@dimen/layout_size_20dp_in_1080"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:src="@drawable/mesh_topology_device_status_too_close"/>
+
+        <TextView
+            android:id="@+id/mesh_topology_status_too_close_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toEndOf="@+id/mesh_topology_status_too_close_image"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:text="@string/mesh_topology_status_too_close"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mesh_topology_status_weak_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
+        android:layout_below="@+id/mesh_topology_status_too_close_relative">
+
+        <ImageView
+            android:id="@+id/mesh_topology_status_weak_image"
+            android:layout_width="@dimen/layout_size_20dp_in_1080"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:src="@drawable/mesh_topology_device_status_weak"/>
+
+        <TextView
+            android:id="@+id/mesh_topology_status_weak_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toEndOf="@+id/mesh_topology_status_weak_image"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:text="@string/mesh_topology_status_weak"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/mesh_topology_status_no_connection_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginEnd="@dimen/layout_size_15dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_25dp_in_1080"
+        android:layout_marginBottom="@dimen/layout_size_40dp_in_1080"
+        android:layout_below="@+id/mesh_topology_status_weak_relative">
+
+        <ImageView
+            android:id="@+id/mesh_topology_status_no_connection_image"
+            android:layout_width="@dimen/layout_size_20dp_in_1080"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
+            android:src="@drawable/mesh_topology_device_status_no_connection"/>
+
+        <TextView
+            android:id="@+id/mesh_topology_status_no_connection_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/layout_size_10dp_in_1080"
+            android:layout_toEndOf="@+id/mesh_topology_status_no_connection_image"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_size_18sp_in_1080"
+            android:text="@string/mesh_topology_status_no_connection"/>
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -28,6 +28,7 @@ import org.jetbrains.anko.support.v4.alert
 import org.jetbrains.anko.uiThread
 import zyxel.com.multyproneo.database.room.DatabaseClientListEntity
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
+import zyxel.com.multyproneo.fragment.DevicesListFragment
 import zyxel.com.multyproneo.tool.CommonTool
 
 
@@ -57,6 +58,8 @@ class CloudEndDeviceDetailFragment : Fragment()
     private var manufacturer = "N/A"
     private var searchStr = ""
     private var editDeviceName = "N/A"
+    private var isFromTopology = false
+    private var extenderMAC = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -76,6 +79,8 @@ class CloudEndDeviceDetailFragment : Fragment()
             this?.getSerializable("DevicesInfo")?.let{ endDeviceInfo = it as DevicesInfoObject }
             this?.getString("Search")?.let{ searchStr = it }
             this?.getBoolean("FromSearch")?.let{ isFromSearch = it }
+            this?.getBoolean("FromMeshTopology")?.let{ isFromTopology = it }
+            this?.getString("ExtenderMAC")?.let{ extenderMAC = it }
         }
 
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -128,7 +133,34 @@ class CloudEndDeviceDetailFragment : Fragment()
                                 GlobalBus.publish(MainEvent.SwitchToFrag(CloudSearchDevicesFragment().apply{ arguments = bundle }))
                             }
 
-                            false -> GlobalBus.publish(MainEvent.EnterCloudDevicesPage())
+                            false ->
+                                when(isFromTopology)
+                                {
+                                    true ->{
+                                        val temp =
+                                            GlobalData.ZYXELEndDeviceListTreeNode.filter { it.data.PhysAddress == extenderMAC }
+
+                                        if(temp.isNotEmpty()) {
+                                            val bundle = Bundle().apply {
+                                                putString("ExtenderMAC", extenderMAC)
+                                                putString("RootNodeMAC",
+                                                    temp[0].parent?.data?.PhysAddress
+                                                )
+                                            }
+
+                                            GlobalBus.publish(
+                                                MainEvent.SwitchToFrag(
+                                                    DevicesListFragment().apply {
+                                                        arguments = bundle
+                                                    })
+                                            )
+                                        }else{
+                                            GlobalBus.publish(MainEvent.EnterNetworkTopologyPage())
+                                        }
+                                    }
+                                    false ->{
+                                        GlobalBus.publish(MainEvent.EnterCloudDevicesPage())}
+                                }
                         }
                     }
                 }

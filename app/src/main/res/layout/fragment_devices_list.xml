@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/device_list_title_area_relative"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_size_60dp_in_1080"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/actionbar_detail_bg">
+
+        <ImageView
+            android:id="@+id/device_list_back_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            android:id="@+id/device_list_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/layout_size_105dp_in_1080"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/device_list_title"
+            android:textColor="@color/color_575757"
+            android:textSize="@dimen/text_size_20sp_in_1080" />
+
+    </RelativeLayout>
+
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/device_list_devices_list_swipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/device_list_title_area_relative"
+        >
+
+        <ListView
+            android:id="@+id/device_list_devices_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:listSelector="@android:color/transparent">
+
+        </ListView>
+
+    </com.baoyz.widget.PullRefreshLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

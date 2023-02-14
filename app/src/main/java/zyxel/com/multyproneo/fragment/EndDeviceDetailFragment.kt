@@ -54,6 +54,8 @@ class EndDeviceDetailFragment : Fragment()
     private var manufacturer = "N/A"
     private var searchStr = ""
     private var editDeviceName = "N/A"
+    private var isFromTopology = false
+    private var extenderMAC = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -71,6 +73,8 @@ class EndDeviceDetailFragment : Fragment()
             this?.getSerializable("DevicesInfo")?.let{ endDeviceInfo = it as DevicesInfoObject }
             this?.getString("Search")?.let{ searchStr = it }
             this?.getBoolean("FromSearch")?.let{ isFromSearch = it }
+            this?.getBoolean("FromMeshTopology")?.let{ isFromTopology = it }
+            this?.getString("ExtenderMAC")?.let{ extenderMAC = it }
         }
 
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -157,10 +161,39 @@ class EndDeviceDetailFragment : Fragment()
                                 GlobalBus.publish(MainEvent.SwitchToFrag(SearchDevicesFragment().apply{ arguments = bundle }))
                             }
 
-                            false -> GlobalBus.publish(MainEvent.EnterDevicesPage())
+                            false -> {
+                                when(isFromTopology)
+                                {
+                                    true ->{
+                                        val temp =
+                                            GlobalData.ZYXELEndDeviceListTreeNode.filter { it.data.PhysAddress == extenderMAC }
+
+                                        if(temp.isNotEmpty()) {
+                                            val bundle = Bundle().apply {
+                                                putString("ExtenderMAC", extenderMAC)
+                                                putString("RootNodeMAC",
+                                                    temp[0].parent?.data?.PhysAddress
+                                                )
+                                            }
+
+                                            GlobalBus.publish(
+                                                MainEvent.SwitchToFrag(
+                                                    DevicesListFragment().apply {
+                                                        arguments = bundle
+                                                    })
+                                            )
+                                        }else{
+                                            GlobalBus.publish(MainEvent.EnterNetworkTopologyPage())
+                                        }
+                                    }
+                                    false ->{
+                                        GlobalBus.publish(MainEvent.EnterDevicesPage())}
+                                }
+                            }
                         }
                     }
                 }
+
             }
 
             end_device_detail_confirm_image -> setDeviceInfoTask()
@@ -186,7 +219,7 @@ class EndDeviceDetailFragment : Fragment()
                 if(!isEditMode)
                 {
                     MessageDialog(
-                            activity!!,
+                            requireActivity(),
                             "",
                             getString(R.string.device_detail_f_secure_msg),
                             arrayOf(getString(R.string.message_dialog_ok)),
@@ -200,7 +233,7 @@ class EndDeviceDetailFragment : Fragment()
                 if(!isEditMode)
                 {
                     MessageDialog(
-                            activity!!,
+                            requireActivity(),
                             "",
                             getString(R.string.devices_user_tips),
                             arrayOf(getString(R.string.message_dialog_ok)),
@@ -279,13 +312,13 @@ class EndDeviceDetailFragment : Fragment()
 
         ip = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.IPAddress)
         mac = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.PhysAddress)
-        manufacturer = SpecialCharacterHandler.checkEmptyTextValue(OUIUtil.getOUI(activity!!, endDeviceInfo.PhysAddress))
+        manufacturer = SpecialCharacterHandler.checkEmptyTextValue(OUIUtil.getOUI(requireActivity(), endDeviceInfo.PhysAddress))
         dhcpTime = SpecialCharacterHandler.checkEmptyTextValue(endDeviceInfo.X_ZYXEL_DHCPLeaseTime.toString())
 
         if(FeatureConfig.hostNameReplaceStatus)
         {
             if(modelName.equals("unknown", ignoreCase = true) || modelName.equals("<unknown>", ignoreCase = true))
-                modelName = OUIUtil.getOUI(activity!!, endDeviceInfo.PhysAddress)
+                modelName = OUIUtil.getOUI(requireActivity(), endDeviceInfo.PhysAddress)
         }
 
         if(connectType == getString(R.string.device_detail_wireless))
