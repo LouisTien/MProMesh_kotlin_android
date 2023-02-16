@@ -6,23 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.fragment_devices.*
 import kotlinx.android.synthetic.main.fragment_devices_list.*
-import org.jetbrains.anko.support.v4.runOnUiThread
 import zyxel.com.multyproneo.R
 import zyxel.com.multyproneo.adapter.cloud.CloudHomeGuestEndDeviceItemAdapter
-import zyxel.com.multyproneo.api.ApiHandler
 import zyxel.com.multyproneo.dialog.MeshDeviceStatusDialog
 import zyxel.com.multyproneo.dialog.MessageDialog
 import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.tool.SpecialCharacterHandler
 import zyxel.com.multyproneo.util.AppConfig
-import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.LogUtil
-import java.util.*
-import kotlin.concurrent.schedule
 
 /**
  * Created by LinaLi on 2023/2/10.
@@ -31,7 +25,7 @@ class DevicesListFragment : Fragment() {
     private val TAG = "DevicesListFragment"
     private lateinit var meshDevicePlacementStatusDisposable: Disposable
     private lateinit var showTipsDisposable: Disposable
-    private var extenderMAC: String = ""
+    private var selectedNodeMAC: String = ""
     private var rootNodeMAC: String = ""
 
     override fun onCreateView(
@@ -49,11 +43,11 @@ class DevicesListFragment : Fragment() {
 
         with(arguments)
         {
-            this?.getString("ExtenderMAC")?.let { extenderMAC = it }
-            this?.getString("RootNodeMAC")?.let { rootNodeMAC = it }
+            this?.getString(GlobalData.SelectedNodeMAC)?.let { selectedNodeMAC = it }
+            this?.getString(GlobalData.RootNodeMAC)?.let { rootNodeMAC = it }
         }
 
-        getDeviceListInfo(extenderMAC)
+        getDeviceListInfo(selectedNodeMAC)
 
         meshDevicePlacementStatusDisposable =
             GlobalBus.listen(DevicesEvent.MeshDevicePlacementStatus::class.java).subscribe {
@@ -73,12 +67,11 @@ class DevicesListFragment : Fragment() {
         setClickListener()
     }
 
-    private fun getDeviceListInfo(extenderMAC: String) {
+    private fun getDeviceListInfo(selectedNodeMAC: String) {
         var connectedDeviceCount = 0
-        LogUtil.d(TAG, "data.PhysAddress:$extenderMAC")
         val deviceList = mutableListOf<DevicesInfoObject>()
 
-        if (extenderMAC == GlobalData.getCurrentGatewayInfo().MAC) {
+        if (selectedNodeMAC == GlobalData.getCurrentGatewayInfo().MAC) {
             for (item in GlobalData.homeEndDeviceList) {
                 if (item.Active) {
                     with(item.X_ZYXEL_Neighbor) {
@@ -125,7 +118,7 @@ class DevicesListFragment : Fragment() {
             }
         } else {
             for (item in GlobalData.homeEndDeviceList) {
-                if (item.X_ZYXEL_Neighbor == SpecialCharacterHandler.checkEmptyTextValue(extenderMAC) &&
+                if (item.X_ZYXEL_Neighbor == SpecialCharacterHandler.checkEmptyTextValue(selectedNodeMAC) &&
                     item.Active
                 ) {
                     deviceList.add(item)
@@ -133,7 +126,7 @@ class DevicesListFragment : Fragment() {
                 }
             }
             for (item in GlobalData.guestEndDeviceList) {
-                if (item.X_ZYXEL_Neighbor == SpecialCharacterHandler.checkEmptyTextValue(extenderMAC) &&
+                if (item.X_ZYXEL_Neighbor == SpecialCharacterHandler.checkEmptyTextValue(selectedNodeMAC) &&
                     item.Active
                 ) {
                     deviceList.add(item)
@@ -153,7 +146,7 @@ class DevicesListFragment : Fragment() {
                     false,
                     false,
                     true,
-                    extenderMAC
+                    selectedNodeMAC
                 )
     }
 
@@ -182,6 +175,7 @@ class DevicesListFragment : Fragment() {
                     val bundle = Bundle().apply {
                         putSerializable("RootNodeDeviceInfo", temp[0].data)
                         putBoolean("isGateway", temp[0].isRootNode)
+                        putString(GlobalData.SelectedNodeMAC, selectedNodeMAC)
                     }
 
                     GlobalBus.publish(MainEvent.SwitchToFrag(MeshTopologyFragment().apply {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.adapter_mesh_topology_device_center.view.*
 import kotlinx.android.synthetic.main.fragment_mesh_topology.*
@@ -26,8 +27,11 @@ class MeshTopologyFragment : Fragment() {
 
     private val TAG = "MeshTopologyFragment"
     private lateinit var inflator: LayoutInflater
+    private var chunkLayer2DeviceList = listOf<List<TreeNode<DevicesInfoObject>>>()
     private var isGateway = false
-    private var RootNodeDeviceInfo = DevicesInfoObject()
+    private var tabPosition = 0
+    private var selectedNodeMAC = ""
+    private var rootNodeDeviceInfo = DevicesInfoObject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,10 +47,13 @@ class MeshTopologyFragment : Fragment() {
         with(arguments)
         {
             this?.getSerializable("RootNodeDeviceInfo")?.let {
-                RootNodeDeviceInfo = it as DevicesInfoObject
+                rootNodeDeviceInfo = it as DevicesInfoObject
             }
             this?.getBoolean("isGateway")?.let {
                 isGateway = it
+            }
+            this?.getString(GlobalData.SelectedNodeMAC)?.let {
+                selectedNodeMAC = it
             }
         }
 
@@ -55,12 +62,12 @@ class MeshTopologyFragment : Fragment() {
 
         GlobalData.ZYXELEndDeviceListTreeNode = processEndDeviceList()
 
-        val chunkLayer2DeviceList = if (isGateway) {
+        chunkLayer2DeviceList = if (isGateway) {
             val layer2EndDeviceList = GlobalData.ZYXELEndDeviceListTreeNode.filter { it.depth == 1 }
             layer2EndDeviceList.chunked(3)
         } else {
             val layer2EndDeviceList = GlobalData.ZYXELEndDeviceListTreeNode.filter {
-                it.parent?.data?.PhysAddress == RootNodeDeviceInfo.PhysAddress
+                it.parent?.data?.PhysAddress == rootNodeDeviceInfo.PhysAddress
             }
             layer2EndDeviceList.chunked(3)
         }
@@ -78,7 +85,7 @@ class MeshTopologyFragment : Fragment() {
                 fragmentList.add(
                     MeshTopologyPageFragment(
                         item as MutableList<TreeNode<DevicesInfoObject>>,
-                        RootNodeDeviceInfo.PhysAddress
+                        rootNodeDeviceInfo.PhysAddress
                     )
                 )
         }
@@ -89,8 +96,19 @@ class MeshTopologyFragment : Fragment() {
             into_tab_layout,
             mesh_topology_viewpager
         ) { tab, position ->
-            LogUtil.d("ddddd", "my position: $position,tab: $tab")
         }.attach()
+
+        into_tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                LogUtil.d("dddd", "onTabSelected tab.position: ${tab.position}")
+                tabPosition = tab.position
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+
+
 
         settingL1TopologyView(isGateway)
         setClickListener()
@@ -228,8 +246,8 @@ class MeshTopologyFragment : Fragment() {
 
                 if (connectedDeviceCount > 0) {
                     val bundle = Bundle().apply {
-                        putString("ExtenderMAC", GlobalData.getCurrentGatewayInfo().MAC)
-                        putString("RootNodeMAC", GlobalData.getCurrentGatewayInfo().MAC)
+                        putString(GlobalData.SelectedNodeMAC, GlobalData.getCurrentGatewayInfo().MAC)
+                        putString(GlobalData.RootNodeMAC, GlobalData.getCurrentGatewayInfo().MAC)
                     }
 
                     GlobalBus.publish(MainEvent.SwitchToFrag(DevicesListFragment().apply {
@@ -248,12 +266,12 @@ class MeshTopologyFragment : Fragment() {
             mesh_topology_root_device_include.mesh_topology_device_status_image.visibility =
                 View.GONE
             mesh_topology_root_device_include.mesh_topology_device_hostname.text =
-                SpecialCharacterHandler.checkEmptyTextValue(RootNodeDeviceInfo.getName())
+                SpecialCharacterHandler.checkEmptyTextValue(rootNodeDeviceInfo.getName())
             var connectedDeviceCount = 0
             val deviceList = mutableListOf<DevicesInfoObject>()
             for (item in GlobalData.homeEndDeviceList) {
                 if (item.X_ZYXEL_Neighbor == SpecialCharacterHandler.checkEmptyTextValue(
-                        RootNodeDeviceInfo.PhysAddress
+                        rootNodeDeviceInfo.PhysAddress
                     ) &&
                     item.Active
                 ) {
@@ -263,7 +281,7 @@ class MeshTopologyFragment : Fragment() {
             }
             for (item in GlobalData.guestEndDeviceList) {
                 if (item.X_ZYXEL_Neighbor == SpecialCharacterHandler.checkEmptyTextValue(
-                        RootNodeDeviceInfo.PhysAddress
+                        rootNodeDeviceInfo.PhysAddress
                     ) &&
                     item.Active
                 ) {
@@ -278,8 +296,8 @@ class MeshTopologyFragment : Fragment() {
             mesh_topology_root_device_include.mesh_topology_device_image.setOnClickListener(View.OnClickListener {
                 if (connectedDeviceCount > 0) {
                     val bundle = Bundle().apply {
-                        putString("ExtenderMAC", RootNodeDeviceInfo.PhysAddress)
-                        putString("RootNodeMAC", RootNodeDeviceInfo.PhysAddress)
+                        putString(GlobalData.SelectedNodeMAC, rootNodeDeviceInfo.PhysAddress)
+                        putString(GlobalData.RootNodeMAC, rootNodeDeviceInfo.PhysAddress)
                     }
 
                     GlobalBus.publish(MainEvent.SwitchToFrag(DevicesListFragment().apply {
@@ -289,14 +307,30 @@ class MeshTopologyFragment : Fragment() {
             })
         }
         mesh_topology_root_area.visibility = View.VISIBLE
+
+    }
+
+    fun updateUI() {
+        for ((count, item) in chunkLayer2DeviceList.withIndex()) {
+            for (item2 in item) {
+                if (item2.data.PhysAddress == selectedNodeMAC) {
+                    into_tab_layout.getTabAt(count)?.select()
+                    mesh_topology_viewpager.currentItem = count
+                    break
+                }
+            }
+        }
+        mesh_topology_viewpager.visibility = View.VISIBLE
     }
 
     override fun onResume() {
         super.onResume()
+        updateUI()
     }
 
     override fun onPause() {
         super.onPause()
+
     }
 
     override fun onDestroyView() {
@@ -315,11 +349,12 @@ class MeshTopologyFragment : Fragment() {
                     GlobalBus.publish(MainEvent.SwitchToFrag(HomeFragment()))
                 } else {
                     val temp =
-                        GlobalData.ZYXELEndDeviceListTreeNode.filter { it.data.PhysAddress == RootNodeDeviceInfo.PhysAddress }
+                        GlobalData.ZYXELEndDeviceListTreeNode.filter { it.data.PhysAddress == rootNodeDeviceInfo.PhysAddress }
                     if (temp.isNotEmpty()) {
                         val bundle = Bundle().apply {
                             putSerializable("RootNodeDeviceInfo", temp[0].parent?.data)
                             temp[0].parent?.isRootNode?.let { putBoolean("isGateway", it) }
+                            putString(GlobalData.SelectedNodeMAC, temp[0].data.PhysAddress)
                         }
 
                         GlobalBus.publish(MainEvent.SwitchToFrag(MeshTopologyFragment().apply {

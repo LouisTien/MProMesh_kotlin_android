@@ -15,6 +15,7 @@ import zyxel.com.multyproneo.fragment.EndDeviceDetailFragment
 import zyxel.com.multyproneo.fragment.cloud.CloudEndDeviceDetailFragment
 import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.util.FeatureConfig
+import zyxel.com.multyproneo.util.GlobalData
 import zyxel.com.multyproneo.util.OUIUtil
 
 class CloudHomeGuestEndDeviceItemAdapter
@@ -24,7 +25,7 @@ class CloudHomeGuestEndDeviceItemAdapter
     private var isCloud: Boolean,
     private var showUserTip: Boolean = false,
     private var isFromMeshTopology: Boolean = false,
-    private var extenderMAC: String = ""
+    private var selectedNodeMAC: String = ""
 ) : BaseAdapter() {
 
 
@@ -129,7 +130,7 @@ class CloudHomeGuestEndDeviceItemAdapter
                     putString("Search", "")
                     putBoolean("FromSearch", false)
                     putBoolean("FromMeshTopology", isFromMeshTopology)
-                    putString("ExtenderMAC", extenderMAC)
+                    putString(GlobalData.SelectedNodeMAC, selectedNodeMAC)
                 }
 
                 if (isCloud)

@@ -75,6 +75,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/mesh_topology_viewpager"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="match_parent" />
 
         <com.google.android.material.tabs.TabLayout

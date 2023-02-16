@@ -80,6 +80,8 @@ object GlobalData
     var WX5600_T0 = "WX5600-T0"
     var Satellite = "Satellite"
     var Controller = "Controller"
+    var SelectedNodeMAC ="SelectedNodeMAC"
+    var RootNodeMAC ="RootNodeMAC"
 
 
     fun getCurrentGatewayInfo(): GatewayInfo = gatewayList[currentGatewayIndex]

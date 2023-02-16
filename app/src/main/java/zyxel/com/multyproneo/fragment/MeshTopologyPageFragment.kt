@@ -315,6 +315,7 @@ class MeshTopologyPageFragment(
                         val bundle = Bundle().apply {
                             putSerializable("RootNodeDeviceInfo", data[0].parent?.data)
                             putBoolean("isGateway", false)
+                            putString(GlobalData.SelectedNodeMAC, data[0].data.PhysAddress)
                         }
 
                         GlobalBus.publish(MainEvent.SwitchToFrag(MeshTopologyFragment().apply {
@@ -323,8 +324,8 @@ class MeshTopologyPageFragment(
                     } else {
                         if (connectedDeviceCount > 0) {
                             val bundle = Bundle().apply {
-                                putString("ExtenderMAC", data[0].data.PhysAddress)
-                                putString("RootNodeMAC", rootNodeMAC)
+                                putString(GlobalData.SelectedNodeMAC, data[0].data.PhysAddress)
+                                putString(GlobalData.RootNodeMAC, rootNodeMAC)
                             }
 
                             GlobalBus.publish(MainEvent.SwitchToFrag(DevicesListFragment().apply {
@@ -343,6 +344,7 @@ class MeshTopologyPageFragment(
                     val bundle = Bundle().apply {
                         putSerializable("RootNodeDeviceInfo", data[0].parent?.data)
                         putBoolean("isGateway", false)
+                        putString(GlobalData.SelectedNodeMAC, data[0].data.PhysAddress)
                     }
 
                     GlobalBus.publish(MainEvent.SwitchToFrag(MeshTopologyFragment().apply {
@@ -386,8 +388,8 @@ class MeshTopologyPageFragment(
 
             if (connectedDeviceCount > 0) {
                 val bundle = Bundle().apply {
-                    putString("ExtenderMAC", data.PhysAddress)
-                    putString("RootNodeMAC", rootNodeMAC)
+                    putString(GlobalData.SelectedNodeMAC, data.PhysAddress)
+                    putString(GlobalData.RootNodeMAC, rootNodeMAC)
                 }
 
                 GlobalBus.publish(MainEvent.SwitchToFrag(DevicesListFragment().apply {

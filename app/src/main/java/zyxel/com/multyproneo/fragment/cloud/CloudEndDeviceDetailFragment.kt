@@ -59,7 +59,7 @@ class CloudEndDeviceDetailFragment : Fragment()
     private var searchStr = ""
     private var editDeviceName = "N/A"
     private var isFromTopology = false
-    private var extenderMAC = ""
+    private var selectedNodeMAC = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -80,7 +80,7 @@ class CloudEndDeviceDetailFragment : Fragment()
             this?.getString("Search")?.let{ searchStr = it }
             this?.getBoolean("FromSearch")?.let{ isFromSearch = it }
             this?.getBoolean("FromMeshTopology")?.let{ isFromTopology = it }
-            this?.getString("ExtenderMAC")?.let{ extenderMAC = it }
+            this?.getString(GlobalData.SelectedNodeMAC)?.let{ selectedNodeMAC = it }
         }
 
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -138,12 +138,12 @@ class CloudEndDeviceDetailFragment : Fragment()
                                 {
                                     true ->{
                                         val temp =
-                                            GlobalData.ZYXELEndDeviceListTreeNode.filter { it.data.PhysAddress == extenderMAC }
+                                            GlobalData.ZYXELEndDeviceListTreeNode.filter { it.data.PhysAddress == selectedNodeMAC }
 
                                         if(temp.isNotEmpty()) {
                                             val bundle = Bundle().apply {
-                                                putString("ExtenderMAC", extenderMAC)
-                                                putString("RootNodeMAC",
+                                                putString(GlobalData.SelectedNodeMAC, selectedNodeMAC)
+                                                putString(GlobalData.RootNodeMAC,
                                                     temp[0].parent?.data?.PhysAddress
                                                 )
                                             }
