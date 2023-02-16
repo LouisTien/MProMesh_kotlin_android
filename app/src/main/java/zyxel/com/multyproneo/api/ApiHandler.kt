@@ -135,6 +135,8 @@ class ApiHandler
                                                 X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion
                                         )
                                 )*/
+
+                                /* Test Date Start
                                 //layer 2
                                 newZYXELEndDeviceList.add(
                                     DevicesInfoObject
@@ -239,7 +241,7 @@ class ApiHandler
                                         X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
                                         X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
                                         X_ZYXEL_Neighbor = "f0:87:56:8c:f8:76",
-                                        X_ZYXEL_RSSI_STAT = "No",
+                                        X_ZYXEL_RSSI_STAT = "Good",
                                         X_ZYXEL_RSSI = -58,
                                         X_ZYXEL_PhyRate = 128
                                     )
@@ -257,7 +259,7 @@ class ApiHandler
                                         X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
                                         X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
                                         X_ZYXEL_Neighbor = "f0:87:56:8c:f8:76",
-                                        X_ZYXEL_RSSI_STAT = "No",
+                                        X_ZYXEL_RSSI_STAT = "Good",
                                         X_ZYXEL_RSSI = -57,
                                         X_ZYXEL_PhyRate = 127
 
@@ -296,7 +298,24 @@ class ApiHandler
                                         X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
                                         X_ZYXEL_Neighbor = "f0:87:56:8c:50:00",
                                         X_ZYXEL_RSSI_STAT = "TooClose",
-                                        X_ZYXEL_RSSI = -52,
+                                        X_ZYXEL_RSSI = -88,
+                                        X_ZYXEL_PhyRate = 121
+                                    )
+                                )
+                                newZYXELEndDeviceList.add(
+                                    DevicesInfoObject
+                                        (
+                                        Active = true,
+                                        HostName = "Layer05-01",
+                                        IPAddress = "192.168.1.42",
+                                        PhysAddress = "f0:87:56:8c:43:00",
+                                        X_ZYXEL_CapabilityType = "L2Device",
+                                        X_ZYXEL_ConnectionType = "Ethernet",
+                                        X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
+                                        X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
+                                        X_ZYXEL_Neighbor = "f0:87:56:8c:43:00",
+                                        X_ZYXEL_RSSI_STAT = "Weak",
+                                        X_ZYXEL_RSSI = -90,
                                         X_ZYXEL_PhyRate = 121
                                     )
                                 )
@@ -460,6 +479,7 @@ class ApiHandler
                                         X_ZYXEL_RSSI_STAT = "No"
                                     )
                                 )
+                                Test Data End */
 
                                 var index = 1
                                 for(item in devicesInfo.Object)

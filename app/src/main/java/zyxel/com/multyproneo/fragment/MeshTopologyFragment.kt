@@ -307,7 +307,6 @@ class MeshTopologyFragment : Fragment() {
             })
         }
         mesh_topology_root_area.visibility = View.VISIBLE
-
     }
 
     fun updateUI() {

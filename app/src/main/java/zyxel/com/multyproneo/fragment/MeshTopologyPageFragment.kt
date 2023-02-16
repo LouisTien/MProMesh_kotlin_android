@@ -297,14 +297,17 @@ class MeshTopologyPageFragment(
                         position
                     )
 
-                viewLayer3.mesh_topology_line_image.setOnClickListener(View.OnClickListener {
-                    MeshTopologyRssiStatusDialog(
-                        requireActivity(),
-                        SpecialCharacterHandler.checkEmptyTextValue(data[0].data.X_ZYXEL_PhyRate.toString()),
-                        SpecialCharacterHandler.checkEmptyTextValue(data[0].data.X_ZYXEL_RSSI.toString())
-                    ).show()
-                })
-
+                if (data[0].data.X_ZYXEL_ConnectionType.contains("WiFi", ignoreCase = true)
+                    || data[0].data.X_ZYXEL_ConnectionType.contains("Wi-Fi", ignoreCase = true)
+                ) {
+                    viewLayer3.mesh_topology_line_image.setOnClickListener(View.OnClickListener {
+                        MeshTopologyRssiStatusDialog(
+                            requireActivity(),
+                            SpecialCharacterHandler.checkEmptyTextValue(data[0].data.X_ZYXEL_PhyRate.toString()),
+                            SpecialCharacterHandler.checkEmptyTextValue(data[0].data.X_ZYXEL_RSSI.toString())
+                        ).show()
+                    })
+                }
                 val (connectedDeviceCount, deviceList) = calculateConnectedDeviceCount(
                     SpecialCharacterHandler.checkEmptyTextValue(data[0].data.PhysAddress)
                 )
@@ -337,7 +340,8 @@ class MeshTopologyPageFragment(
             }
             else -> {
                 viewLayer3.mesh_topology_device_hostname.text = "${data.size} Mesh Devices"
-                viewLayer3.mesh_topology_device_frame.backgroundResource = R.drawable.mesh_topology_multi_device_bg
+                viewLayer3.mesh_topology_device_frame.backgroundResource =
+                    R.drawable.mesh_topology_multi_device_bg
                 viewLayer3.mesh_topology_connected_count_frame.visibility = View.GONE
                 viewLayer3.mesh_topology_line_image.imageResource = R.drawable.straight_double
                 viewLayer3.mesh_topology_device_image.setOnClickListener(View.OnClickListener {
@@ -363,15 +367,17 @@ class MeshTopologyPageFragment(
                 SpecialCharacterHandler.checkEmptyTextValue(data.X_ZYXEL_ConnectionType),
                 position
             )
-
-        view.mesh_topology_line_image.setOnClickListener(View.OnClickListener {
-            MeshTopologyRssiStatusDialog(
-                requireActivity(),
-                SpecialCharacterHandler.checkEmptyTextValue(data.X_ZYXEL_PhyRate.toString()),
-                SpecialCharacterHandler.checkEmptyTextValue(data.X_ZYXEL_RSSI.toString())
-            ).show()
-        })
-
+        if (data.X_ZYXEL_ConnectionType.contains("WiFi", ignoreCase = true)
+            || data.X_ZYXEL_ConnectionType.contains("Wi-Fi", ignoreCase = true)
+        ) {
+            view.mesh_topology_line_image.setOnClickListener(View.OnClickListener {
+                MeshTopologyRssiStatusDialog(
+                    requireActivity(),
+                    SpecialCharacterHandler.checkEmptyTextValue(data.X_ZYXEL_PhyRate.toString()),
+                    SpecialCharacterHandler.checkEmptyTextValue(data.X_ZYXEL_RSSI.toString())
+                ).show()
+            })
+        }
         view.mesh_topology_device_hostname.text =
             SpecialCharacterHandler.checkEmptyTextValue(data.getName())
         view.mesh_topology_device_role.text = GlobalData.Satellite
