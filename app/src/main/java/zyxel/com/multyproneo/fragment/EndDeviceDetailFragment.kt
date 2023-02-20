@@ -183,7 +183,13 @@ class EndDeviceDetailFragment : Fragment()
                                                     })
                                             )
                                         }else{
-                                            GlobalBus.publish(MainEvent.EnterNetworkTopologyPage())
+                                            val bundle = Bundle().apply {
+                                                putBoolean("isGateway", true)
+                                            }
+
+                                            GlobalBus.publish(MainEvent.SwitchToFrag(MeshTopologyFragment().apply {
+                                                arguments = bundle
+                                            }))
                                         }
                                     }
                                     false ->{

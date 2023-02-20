@@ -29,6 +29,7 @@ import org.jetbrains.anko.uiThread
 import zyxel.com.multyproneo.database.room.DatabaseClientListEntity
 import zyxel.com.multyproneo.database.room.DatabaseSiteInfoEntity
 import zyxel.com.multyproneo.fragment.DevicesListFragment
+import zyxel.com.multyproneo.fragment.MeshTopologyFragment
 import zyxel.com.multyproneo.tool.CommonTool
 
 
@@ -58,7 +59,7 @@ class CloudEndDeviceDetailFragment : Fragment()
     private var manufacturer = "N/A"
     private var searchStr = ""
     private var editDeviceName = "N/A"
-    private var isFromTopology = false
+    private var isFromMeshTopology = false
     private var selectedNodeMAC = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -79,10 +80,10 @@ class CloudEndDeviceDetailFragment : Fragment()
             this?.getSerializable("DevicesInfo")?.let{ endDeviceInfo = it as DevicesInfoObject }
             this?.getString("Search")?.let{ searchStr = it }
             this?.getBoolean("FromSearch")?.let{ isFromSearch = it }
-            this?.getBoolean("FromMeshTopology")?.let{ isFromTopology = it }
+            this?.getBoolean("FromMeshTopology")?.let{ isFromMeshTopology = it }
             this?.getString(GlobalData.SelectedNodeMAC)?.let{ selectedNodeMAC = it }
         }
-
+        
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
         end_device_detail_fsecure_text.text = Html.fromHtml("<u>"+"F-Secure"+"</u>")
@@ -108,6 +109,7 @@ class CloudEndDeviceDetailFragment : Fragment()
     }
 
     private val clickListener = View.OnClickListener{ view ->
+
         when(view)
         {
             end_device_detail_back_image ->
@@ -134,7 +136,7 @@ class CloudEndDeviceDetailFragment : Fragment()
                             }
 
                             false ->
-                                when(isFromTopology)
+                                when(isFromMeshTopology)
                                 {
                                     true ->{
                                         val temp =
@@ -155,7 +157,14 @@ class CloudEndDeviceDetailFragment : Fragment()
                                                     })
                                             )
                                         }else{
-                                            GlobalBus.publish(MainEvent.EnterNetworkTopologyPage())
+                                            val bundle = Bundle().apply {
+                                                putBoolean("isGateway", true)
+                                            }
+
+                                            GlobalBus.publish(MainEvent.SwitchToFrag(
+                                                MeshTopologyFragment().apply {
+                                                arguments = bundle
+                                            }))
                                         }
                                     }
                                     false ->{

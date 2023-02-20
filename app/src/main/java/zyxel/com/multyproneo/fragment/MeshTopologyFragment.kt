@@ -28,7 +28,7 @@ class MeshTopologyFragment : Fragment() {
     private val TAG = "MeshTopologyFragment"
     private lateinit var inflator: LayoutInflater
     private var chunkLayer2DeviceList = listOf<List<TreeNode<DevicesInfoObject>>>()
-    private var isGateway = false
+    private var isGateway = true
     private var tabPosition = 0
     private var selectedNodeMAC = ""
     private var rootNodeDeviceInfo = DevicesInfoObject()
@@ -359,7 +359,13 @@ class MeshTopologyFragment : Fragment() {
                             arguments = bundle
                         }))
                     } else {
-                        GlobalBus.publish(MainEvent.EnterNetworkTopologyPage())
+                        val bundle = Bundle().apply {
+                            putBoolean("isGateway", true)
+                        }
+
+                        GlobalBus.publish(MainEvent.SwitchToFrag(MeshTopologyFragment().apply {
+                            arguments = bundle
+                        }))
                     }
                 }
             }

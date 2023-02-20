@@ -21,6 +21,7 @@ import zyxel.com.multyproneo.event.HomeEvent
 import zyxel.com.multyproneo.event.MainEvent
 import zyxel.com.multyproneo.event.P2PApiEvent
 import zyxel.com.multyproneo.fragment.LoadingTransitionProgressFragment
+import zyxel.com.multyproneo.fragment.MeshTopologyFragment
 import zyxel.com.multyproneo.model.*
 import zyxel.com.multyproneo.model.cloud.TUTKAllDeviceInfo
 import zyxel.com.multyproneo.util.AppConfig
@@ -154,7 +155,15 @@ class CloudHomeFragment : Fragment()
                 startGetCloudDeviceInfo()
             }
 
-            cloud_home_site_topology_image -> GlobalBus.publish(MainEvent.EnterNetworkTopologyPage())
+            cloud_home_site_topology_image -> {
+                val bundle = Bundle().apply {
+                    putBoolean("isGateway", true)
+                }
+
+                GlobalBus.publish(MainEvent.SwitchToFrag(MeshTopologyFragment().apply {
+                    arguments = bundle
+                }))
+            }
         }
     }
 

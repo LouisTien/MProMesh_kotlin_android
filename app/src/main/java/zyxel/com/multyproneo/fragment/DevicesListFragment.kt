@@ -63,7 +63,7 @@ class DevicesListFragment : Fragment() {
         getInfoCompleteDisposable =
             GlobalBus.listen(ApiEvent.ApiExecuteComplete::class.java).subscribe {
                 when (it.event) {
-                    ApiHandler.API_RES_EVENT.API_RES_EVENT_DEVICES_API_REGULAR -> getDeviceListInfo()
+                    ApiHandler.API_RES_EVENT.API_RES_EVENT_DEVICES_API_REGULAR -> updateUI()
                     else -> {}
                 }
             }
@@ -111,7 +111,6 @@ class DevicesListFragment : Fragment() {
             device_list_back_image -> {
                 val temp =
                     GlobalData.ZYXELEndDeviceListTreeNode.filter { it.data.PhysAddress == rootNodeMAC }
-
                 if (temp.isNotEmpty()) {
                     val bundle = Bundle().apply {
                         putSerializable("RootNodeDeviceInfo", temp[0].data)
@@ -123,7 +122,13 @@ class DevicesListFragment : Fragment() {
                         arguments = bundle
                     }))
                 } else {
-                    GlobalBus.publish(MainEvent.EnterNetworkTopologyPage())
+                    val bundle = Bundle().apply {
+                        putBoolean("isGateway", true)
+                    }
+
+                    GlobalBus.publish(MainEvent.SwitchToFrag(MeshTopologyFragment().apply {
+                        arguments = bundle
+                    }))
                 }
             }
         }
@@ -133,8 +138,22 @@ class DevicesListFragment : Fragment() {
         device_list_back_image.setOnClickListener(clickListener)
     }
 
-    private fun getDeviceListInfo() {
-        var connectedDeviceCount = 0
+    private fun updateUI() {
+
+        runOnUiThread {
+            device_list_devices_list.adapter =
+                CloudHomeGuestEndDeviceItemAdapter(
+                    requireActivity(),
+                    getSelectNodeEndDeviceList(),
+                    false,
+                    false,
+                    true,
+                    selectedNodeMAC
+                )
+        }
+    }
+
+    private fun getSelectNodeEndDeviceList(): MutableList<DevicesInfoObject> {
         val deviceList = mutableListOf<DevicesInfoObject>()
 
         if (selectedNodeMAC == GlobalData.getCurrentGatewayInfo().MAC) {
@@ -152,7 +171,6 @@ class DevicesListFragment : Fragment() {
                                         ignoreCase = true
                                     ) ||
                                     isEmpty() -> {
-                                connectedDeviceCount++
                                 deviceList.add(item)
                             }
                             else -> {}
@@ -174,7 +192,6 @@ class DevicesListFragment : Fragment() {
                                         ignoreCase = true
                                     ) ||
                                     isEmpty() -> {
-                                connectedDeviceCount++
                                 deviceList.add(item)
                             }
                             else -> {}
@@ -190,7 +207,6 @@ class DevicesListFragment : Fragment() {
                     item.Active
                 ) {
                     deviceList.add(item)
-                    connectedDeviceCount++
                 }
             }
             for (item in GlobalData.guestEndDeviceList) {
@@ -200,27 +216,10 @@ class DevicesListFragment : Fragment() {
                     item.Active
                 ) {
                     deviceList.add(item)
-                    connectedDeviceCount++
                 }
             }
         }
-
-        LogUtil.d(TAG, "connectedDeviceCount:${connectedDeviceCount}")
-        LogUtil.d(TAG, "deviceList:${deviceList.size}")
-
-        runOnUiThread {
-            if (deviceList.isNotEmpty()) {
-                device_list_devices_list.adapter =
-                    CloudHomeGuestEndDeviceItemAdapter(
-                        requireActivity(),
-                        deviceList,
-                        false,
-                        false,
-                        true,
-                        selectedNodeMAC
-                    )
-            }
-        }
+        return deviceList
     }
 
     private fun startGetDeviceInfo() {
