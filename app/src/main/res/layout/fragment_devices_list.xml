@@ -35,25 +35,29 @@
 
     </RelativeLayout>
 
-    <com.baoyz.widget.PullRefreshLayout
-        android:id="@+id/device_list_devices_list_swipe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
-        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/device_list_title_area_relative"
-        >
+<!--    <com.baoyz.widget.PullRefreshLayout-->
+<!--        android:id="@+id/device_list_devices_list_swipe"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"-->
+<!--        android:layout_marginStart="@dimen/layout_size_20dp_in_1080"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/device_list_title_area_relative"-->
+<!--        >-->
 
         <ListView
             android:id="@+id/device_list_devices_list"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:listSelector="@android:color/transparent">
+            android:listSelector="@android:color/transparent"
+            android:layout_marginEnd="@dimen/layout_size_20dp_in_1080"
+            android:layout_marginStart="@dimen/layout_size_20dp_in_1080"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/device_list_title_area_relative" />
 
-        </ListView>
 
-    </com.baoyz.widget.PullRefreshLayout>
+<!--    </com.baoyz.widget.PullRefreshLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

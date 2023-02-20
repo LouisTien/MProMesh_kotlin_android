@@ -136,7 +136,7 @@ class ApiHandler
                                         )
                                 )*/
 
-                                /* Test Date Start
+                               /* Test Date Start
                                 //layer 2
                                 newZYXELEndDeviceList.add(
                                     DevicesInfoObject
@@ -332,7 +332,7 @@ class ApiHandler
                                         X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
                                         X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
                                         X_ZYXEL_Neighbor = "f0:87:56:8c:f8:76",
-                                        X_ZYXEL_RSSI_STAT = "No"
+                                        X_ZYXEL_RSSI_STAT = "Weak"
                                     )
                                 )
 
@@ -348,7 +348,7 @@ class ApiHandler
                                         X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
                                         X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
                                         X_ZYXEL_Neighbor = "f0:87:56:8c:f8:76",
-                                        X_ZYXEL_RSSI_STAT = "No"
+                                        X_ZYXEL_RSSI_STAT = "Weak"
                                     )
                                 )
 
@@ -364,7 +364,7 @@ class ApiHandler
                                         X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
                                         X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
                                         X_ZYXEL_Neighbor = "f0:87:56:8c:20:00",
-                                        X_ZYXEL_RSSI_STAT = "No"
+                                        X_ZYXEL_RSSI_STAT = "Good"
                                     )
                                 )
 
@@ -380,7 +380,7 @@ class ApiHandler
                                         X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
                                         X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
                                         X_ZYXEL_Neighbor = "f0:87:56:8c:20:00",
-                                        X_ZYXEL_RSSI_STAT = "No"
+                                        X_ZYXEL_RSSI_STAT = "Good"
                                     )
                                 )
 
@@ -390,13 +390,13 @@ class ApiHandler
                                         Active = true,
                                         HostName = "Home-End-05",
                                         IPAddress = "192.168.2.02",
-                                        PhysAddress = "f0:87:56:8c:92:00",
+                                        PhysAddress = "f0:87:56:8c:92:01",
                                         X_ZYXEL_CapabilityType = "",
                                         X_ZYXEL_ConnectionType = "WiFi",
                                         X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
                                         X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
                                         X_ZYXEL_Neighbor = "f0:87:56:8c:60:00",
-                                        X_ZYXEL_RSSI_STAT = "No"
+                                        X_ZYXEL_RSSI_STAT = "TooClose"
                                     )
                                 )
 
@@ -406,13 +406,13 @@ class ApiHandler
                                         Active = true,
                                         HostName = "Home-End-06",
                                         IPAddress = "192.168.2.02",
-                                        PhysAddress = "f0:87:56:8c:92:00",
+                                        PhysAddress = "f0:87:56:8c:92:02",
                                         X_ZYXEL_CapabilityType = "",
                                         X_ZYXEL_ConnectionType = "WiFi",
                                         X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
                                         X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
                                         X_ZYXEL_Neighbor = "f0:87:56:8c:70:00",
-                                        X_ZYXEL_RSSI_STAT = "No"
+                                        X_ZYXEL_RSSI_STAT = "TooClose"
                                     )
                                 )
 
@@ -422,13 +422,13 @@ class ApiHandler
                                         Active = true,
                                         HostName = "Home-End-07",
                                         IPAddress = "192.168.2.02",
-                                        PhysAddress = "f0:87:56:8c:92:00",
+                                        PhysAddress = "f0:87:56:8c:92:03",
                                         X_ZYXEL_CapabilityType = "",
                                         X_ZYXEL_ConnectionType = "WiFi",
                                         X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
                                         X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
                                         X_ZYXEL_Neighbor = "f0:87:56:8c:40:00",
-                                        X_ZYXEL_RSSI_STAT = "No"
+                                        X_ZYXEL_RSSI_STAT = "TooClose"
                                     )
                                 )
 
@@ -438,13 +438,13 @@ class ApiHandler
                                         Active = true,
                                         HostName = "Home-End-08",
                                         IPAddress = "192.168.2.02",
-                                        PhysAddress = "f0:87:56:8c:92:00",
+                                        PhysAddress = "f0:87:56:8c:92:04",
                                         X_ZYXEL_CapabilityType = "",
                                         X_ZYXEL_ConnectionType = "WiFi",
                                         X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
                                         X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
                                         X_ZYXEL_Neighbor = "f0:87:56:8c:50:00",
-                                        X_ZYXEL_RSSI_STAT = "No"
+                                        X_ZYXEL_RSSI_STAT = "Good"
                                     )
                                 )
 
@@ -454,13 +454,13 @@ class ApiHandler
                                         Active = true,
                                         HostName = "Home-End-09",
                                         IPAddress = "192.168.2.02",
-                                        PhysAddress = "f0:87:56:8c:92:00",
+                                        PhysAddress = "f0:87:56:8c:92:05",
                                         X_ZYXEL_CapabilityType = "",
                                         X_ZYXEL_ConnectionType = "WiFi",
                                         X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
                                         X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
                                         X_ZYXEL_Neighbor = "f0:87:56:8c:10:00",
-                                        X_ZYXEL_RSSI_STAT = "No"
+                                        X_ZYXEL_RSSI_STAT = "Good"
                                     )
                                 )
 
@@ -470,13 +470,13 @@ class ApiHandler
                                         Active = true,
                                         HostName = "Home-End-10",
                                         IPAddress = "192.168.2.02",
-                                        PhysAddress = "f0:87:56:8c:92:00",
+                                        PhysAddress = "f0:87:56:8c:92:06",
                                         X_ZYXEL_CapabilityType = "",
                                         X_ZYXEL_ConnectionType = "WiFi",
                                         X_ZYXEL_HostType = GlobalData.getCurrentGatewayInfo().DeviceMode,
                                         X_ZYXEL_SoftwareVersion = GlobalData.getCurrentGatewayInfo().SoftwareVersion,
                                         X_ZYXEL_Neighbor = "f0:87:56:8c:10:00",
-                                        X_ZYXEL_RSSI_STAT = "No"
+                                        X_ZYXEL_RSSI_STAT = "Good"
                                     )
                                 )
                                 Test Data End */

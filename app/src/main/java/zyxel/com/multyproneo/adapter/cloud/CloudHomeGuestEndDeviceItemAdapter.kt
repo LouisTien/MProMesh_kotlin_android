@@ -16,6 +16,7 @@ import zyxel.com.multyproneo.fragment.cloud.CloudEndDeviceDetailFragment
 import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.util.FeatureConfig
 import zyxel.com.multyproneo.util.GlobalData
+import zyxel.com.multyproneo.util.LogUtil
 import zyxel.com.multyproneo.util.OUIUtil
 
 class CloudHomeGuestEndDeviceItemAdapter

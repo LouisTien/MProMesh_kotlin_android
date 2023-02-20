@@ -100,7 +100,6 @@ class MeshTopologyFragment : Fragment() {
 
         into_tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                LogUtil.d("dddd", "onTabSelected tab.position: ${tab.position}")
                 tabPosition = tab.position
             }
 
