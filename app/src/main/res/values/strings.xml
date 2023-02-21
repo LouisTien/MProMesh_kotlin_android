@@ -310,11 +310,12 @@
     <string name="message_dialog_restart">RESTART</string>
     <string name="message_dialog_turn_off">Turn off</string>
     <string name="message_dialog_ok_got_it">OK</string>
+    <string name="message_dialog_close">Close</string>
     <string name="message_dialog_not_connect">Cannot Connect</string>
     <string name="message_dialog_not_connect_try_again">Please check your WiFi connection and try again later.</string>
     <string name="message_dialog_reboot_reminder_title">Would you like to restart your device?</string>
     <string name="message_dialog_reboot_reminder">It will take a few minutes to reconnect to your Device.</string>
-    <string name="message_dialog_check_lougot">Are you sure you want to log out of this app?</string>
+    <string name="message_dialog_check_logout">Are you sure you want to log out of this app?</string>
 
     <string name="remove_site_dialog_title">Remove \'%s\' from the Cloud</string>
     <string name="remove_site_dialog_description">You will need to set up the WiFi Router again to bind it back to the cloud.</string>

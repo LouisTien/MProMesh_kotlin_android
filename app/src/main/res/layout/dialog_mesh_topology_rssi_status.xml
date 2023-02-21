@@ -65,7 +65,7 @@
         android:maxWidth="@dimen/layout_size_150dp_in_1080"
         android:padding="@dimen/layout_size_15dp_in_1080"
         android:singleLine="true"
-        android:text="Close"
+        android:text="@string/message_dialog_close"
         android:textColor="@color/color_575757"
         android:textSize="@dimen/text_size_16sp_in_1080"
         android:textStyle="bold"

@@ -86,7 +86,7 @@ class CloudEndDeviceDetailFragment : Fragment()
         
         inputMethodManager = activity?.applicationContext?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
-        end_device_detail_fsecure_text.text = Html.fromHtml("<u>"+"F-Secure"+"</u>")
+//        end_device_detail_fsecure_text.text = Html.fromHtml("<u>"+"F-Secure"+"</u>")
 
         setClickListener()
     }
@@ -206,19 +206,19 @@ class CloudEndDeviceDetailFragment : Fragment()
                 }
             }
 
-            end_device_detail_fsecure_text ->
-            {
-                if(!isEditMode)
-                {
-                    MessageDialog(
-                            activity!!,
-                            "",
-                            getString(R.string.device_detail_f_secure_msg),
-                            arrayOf(getString(R.string.message_dialog_ok)),
-                            AppConfig.DialogAction.ACT_NONE
-                    ).show()
-                }
-            }
+//            end_device_detail_fsecure_text ->
+//            {
+//                if(!isEditMode)
+//                {
+//                    MessageDialog(
+//                            activity!!,
+//                            "",
+//                            getString(R.string.device_detail_f_secure_msg),
+//                            arrayOf(getString(R.string.message_dialog_ok)),
+//                            AppConfig.DialogAction.ACT_NONE
+//                    ).show()
+//                }
+//            }
         }
     }
 
@@ -228,7 +228,7 @@ class CloudEndDeviceDetailFragment : Fragment()
         end_device_detail_confirm_image.setOnClickListener(clickListener)
         end_device_detail_edit_image.setOnClickListener(clickListener)
         end_device_detail_internet_blocking_image.setOnClickListener(clickListener)
-        end_device_detail_fsecure_text.setOnClickListener(clickListener)
+//        end_device_detail_fsecure_text.setOnClickListener(clickListener)
     }
 
     private fun updateUI()

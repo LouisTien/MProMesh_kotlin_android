@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -494,6 +495,8 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
                 AppConfig.DialogAction.ACT_GPS_PERMISSION -> startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
 
+                AppConfig.DialogAction.ACT_REDIRECT_URL -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.fsecure.sensesdk")))
+
                 else -> {}
             }
         }
@@ -622,15 +625,30 @@ class MainActivity : AppCompatActivity(), WiFiChannelChartListener
 
     private fun gotoParentalControlFragment()
     {
-        disSelectToolBarIcons()
+        if(GlobalData.currentFrag != "ParentalControlFragment"){
+            when(FeatureConfig.FSecureStatus) {
+                true -> {
+                    MessageDialog(
+                        this,
+                        "Please Use Secure",
+                        "You have installed F Secure.\nPlease use F Secure App instead.",
+                        arrayOf(getString(R.string.message_dialog_close)),
+                        AppConfig.DialogAction.ACT_REDIRECT_URL
+                    ).show()
 
-        runOnUiThread{
-            parental_control_image.isSelected = true
-            parental_control_text.isSelected = true
+                }
+                false -> {
+                    disSelectToolBarIcons()
+
+                    runOnUiThread{
+                        parental_control_image.isSelected = true
+                        parental_control_text.isSelected = true
+                    }
+
+                    switchToFragContainer(ParentalControlFragment())
+                }
+            }
         }
-
-        if(GlobalData.currentFrag != "ParentalControlFragment")
-            switchToFragContainer(ParentalControlFragment())
     }
 
     private fun gotoAccountFragment()

@@ -89,7 +89,7 @@ class AccountFragment : Fragment()
                 MessageDialog(
                         activity!!,
                         getString(R.string.account_logout),
-                        getString(R.string.message_dialog_check_lougot),
+                        getString(R.string.message_dialog_check_logout),
                         arrayOf(getString(R.string.message_dialog_yes), getString(R.string.message_dialog_no)),
                         AppConfig.DialogAction.ACT_LOGOUT
                 ).show()

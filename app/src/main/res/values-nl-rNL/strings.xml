@@ -476,7 +476,7 @@
     <!---It will take a few minutes to reconnect to your Device.-->
     <string name="message_dialog_reboot_reminder">Het duurt enkele minuten om jouw apparaat opnieuw te verbinden.</string>
     <!---Are you sure you want to log out of this app?-->
-    <string name="message_dialog_check_lougot">Weet u zeker dat u wilt afmelden bij deze app?</string>
+    <string name="message_dialog_check_logout">Weet u zeker dat u wilt afmelden bij deze app?</string>
     <!---Remove \'%s\' from the Cloud-->
     <string name="remove_site_dialog_title">Verwijder \'%s\' uit de Cloud</string>
     <!---You will need to set up the WiFi Router again to bind it back to the cloud.-->

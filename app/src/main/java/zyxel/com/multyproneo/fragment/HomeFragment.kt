@@ -1,5 +1,7 @@
 package zyxel.com.multyproneo.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +20,7 @@ import zyxel.com.multyproneo.api.Commander
 import zyxel.com.multyproneo.api.WiFiSettingApi
 import zyxel.com.multyproneo.dialog.GatewayStatusDialog
 import zyxel.com.multyproneo.dialog.MeshDeviceStatusDialog
-import zyxel.com.multyproneo.event.ApiEvent
-import zyxel.com.multyproneo.event.GlobalBus
-import zyxel.com.multyproneo.event.HomeEvent
-import zyxel.com.multyproneo.event.MainEvent
+import zyxel.com.multyproneo.event.*
 import zyxel.com.multyproneo.model.DevicesInfoObject
 import zyxel.com.multyproneo.util.AppConfig
 import zyxel.com.multyproneo.util.FeatureConfig

@@ -191,7 +191,8 @@ object AppConfig
         ACT_PC_DEVICE_DELETE,
         ACT_PC_PROFILE_DELETE,
         ACT_PC_BLOCK_DEVICE,
-        ACT_PC_DISACRD_CHANGE
+        ACT_PC_DISACRD_CHANGE,
+        ACT_REDIRECT_URL
     }
 
     enum class HTTPErrorAction
