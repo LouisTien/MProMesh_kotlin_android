@@ -216,15 +216,19 @@
                         <FrameLayout
                             android:id="@+id/wifi_edit_wifi_24g_random_password_frame"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/button_style_small_yellow_bg">
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/layout_size_15dp_in_1080"
+                                android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                                android:src="@drawable/button_style_small_yellow_bg" />
 
                             <TextView
                                 android:id="@+id/wifi_edit_24g_random_password_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
-                                android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
                                 android:ellipsize="end"
                                 android:maxWidth="@dimen/layout_size_205dp_in_1080"
                                 android:singleLine="true"
@@ -232,6 +236,7 @@
                                 android:textColor="@color/color_000000"
                                 android:textStyle="bold"
                                 android:textSize="@dimen/text_size_20sp_in_1080" />
+
 
                         </FrameLayout>
 
@@ -391,15 +396,19 @@
                         <FrameLayout
                             android:id="@+id/wifi_edit_wifi_5g_random_password_frame"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/button_style_small_yellow_bg">
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/layout_size_15dp_in_1080"
+                                android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                                android:src="@drawable/button_style_small_yellow_bg" />
 
                             <TextView
                                 android:id="@+id/wifi_edit_5g_random_password_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
-                                android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
                                 android:ellipsize="end"
                                 android:maxWidth="@dimen/layout_size_205dp_in_1080"
                                 android:singleLine="true"
@@ -564,15 +573,19 @@
                         <FrameLayout
                             android:id="@+id/wifi_edit_wifi_guest_random_password_frame"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/button_style_small_yellow_bg">
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/layout_size_15dp_in_1080"
+                                android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                                android:src="@drawable/button_style_small_yellow_bg" />
 
                             <TextView
                                 android:id="@+id/wifi_edit_guest_random_password_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/layout_size_5dp_in_1080"
-                                android:layout_marginEnd="@dimen/layout_size_10dp_in_1080"
                                 android:ellipsize="end"
                                 android:maxWidth="@dimen/layout_size_205dp_in_1080"
                                 android:singleLine="true"

@@ -364,12 +364,31 @@ class CloudEndDeviceDetailFragment : Fragment()
                     false -> end_device_detail_ib_pt_area_relative.visibility = View.GONE
                 }
 
+                when(FeatureConfig.FeatureInfo.APPUICustomList.Parental_Control)
+                {
+                    true ->
+                    {
+                        if(endDeviceInfo.InParentalControlProfileName != "N/A"){
+                            end_device_detail_profile_area_linear.visibility = View.VISIBLE
+                            end_device_detail_profile_name_text.text = endDeviceInfo.InParentalControlProfileName
+                        }else{
+                            end_device_detail_profile_area_linear.visibility = View.GONE
+                        }
+                    }
+
+                    false ->
+                    {
+                        end_device_detail_profile_area_linear.visibility = View.GONE
+                    }
+                }
+
                 when(FeatureConfig.FSecureStatus)
                 {
                     true ->
                     {
                         end_device_detail_internet_blocking_area_linear.visibility = View.GONE
                         end_device_detail_internet_blocking_line_image.visibility = View.GONE
+                        end_device_detail_profile_area_linear.visibility = View.GONE
                         end_device_detail_parental_control_area_linear.visibility = View.VISIBLE
                         end_device_detail_parental_control_line_image.visibility = View.VISIBLE
                     }

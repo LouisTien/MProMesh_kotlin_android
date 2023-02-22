@@ -290,11 +290,40 @@
                         android:visibility="gone"
                         tools:text="Device is blocked due to the schedule in profile “Luke”." />
 
+                    <LinearLayout
+                        android:id="@+id/end_device_detail_profile_area_linear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
+                        android:layout_below="@+id/end_device_detail_block_msg_text"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/end_device_detail_profile_title_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:text="@string/device_detail_profile"
+                            android:textColor="@color/color_888888"
+                            android:textSize="@dimen/text_size_18sp_in_1080" />
+
+                        <TextView
+                            android:id="@+id/end_device_detail_profile_name_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Luke"
+                            android:textColor="@color/color_575757"
+                            android:textSize="@dimen/text_size_18sp_in_1080" />
+
+                    </LinearLayout>
+
                     <ImageView
                         android:id="@+id/end_device_detail_internet_blocking_line_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/end_device_detail_block_msg_text"
+                        android:layout_below="@+id/end_device_detail_profile_area_linear"
                         android:layout_marginTop="@dimen/layout_size_10dp_in_1080"
                         android:src="@drawable/bar1" />
 

@@ -631,7 +631,9 @@ class ParentalControlEditProfileFragment : Fragment()
             pickImageFromGallery()
         else
         {
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_MEDIA_IMAGES), AppConfig.PERMISSION_READ_STORAGE_REQUESTCODE)
+            else
                 requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), AppConfig.PERMISSION_READ_STORAGE_REQUESTCODE)
         }
     }

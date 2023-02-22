@@ -168,6 +168,7 @@
     <string name="device_detail_ap_title">Access Point Detail</string>
     <string name="device_detail_rp_title">Repeater Detail</string>
     <string name="device_detail_router_title">WiFi Router Detail</string>
+    <string name="device_detail_profile">Profile</string>
 
     <string name="devices_activated">active</string>
     <string name="devices_total">total</string>

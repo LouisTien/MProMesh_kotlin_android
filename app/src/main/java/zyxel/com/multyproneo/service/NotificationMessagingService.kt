@@ -27,6 +27,9 @@ class NotificationMessagingService : FirebaseMessagingService()
     private var dev_name: String = ""
     private var mac: String = ""
     private var uid: String = ""
+    private val notificationManager: NotificationManager by lazy {
+        getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    }
 
     /*override fun handleIntent(intent: Intent?)
     {
@@ -107,6 +110,15 @@ class NotificationMessagingService : FirebaseMessagingService()
         var notificationToken by SharedPreferencesUtil(this, AppConfig.SHAREDPREF_NOTIFICATION_TOKEN, "")
         notificationToken = token
         LogUtil.d(TAG, "Notification Refreshed token : $notificationToken")
+
+        // Since android Oreo notification channel is needed.
+        val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID, "NOTIFICATION_CHANNEL_NAME", NotificationManager.IMPORTANCE_DEFAULT)
+        channel.enableLights(true)
+        channel.enableVibration(true)
+        channel.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
+        notificationManager.createNotificationChannel(channel)
+        LogUtil.d(TAG, "createNotificationChannel")
+
     }
 
     private fun sendNotification(title: String, messageBody: String)
@@ -129,18 +141,6 @@ class NotificationMessagingService : FirebaseMessagingService()
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent)
-
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        // Since android Oreo notification channel is needed.
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        {
-            val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID, "NOTIFICATION_CHANNEL_NAME", NotificationManager.IMPORTANCE_DEFAULT)
-            channel.enableLights(true)
-            channel.enableVibration(true)
-            channel.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
-            notificationManager.createNotificationChannel(channel)
-        }
 
         notificationManager.notify(System.currentTimeMillis().toInt() /* ID of notification */, notificationBuilder.build())
     }
